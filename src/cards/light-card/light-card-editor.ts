@@ -1,4 +1,5 @@
 import {
+  computeDomain,
   domainIcon,
   fireEvent,
   HomeAssistant,
@@ -12,7 +13,10 @@ import {
   baseLovelaceCardConfig,
   configElementStyle,
   EditorTarget,
-} from "../../shared/editor-utils";
+} from "../../utils/editor-utils";
+import { LIGHT_CARD_EDITOR_NAME } from "./const";
+
+const DOMAINS = ["light"];
 
 const cardConfigStruct = assign(
   baseLovelaceCardConfig,
@@ -23,7 +27,7 @@ const cardConfigStruct = assign(
   })
 );
 
-@customElement("mui-light-card-editor")
+@customElement(LIGHT_CARD_EDITOR_NAME)
 export class LightCardEditor extends LitElement implements LovelaceCardEditor {
   @property({ attribute: false }) public hass?: HomeAssistant;
 
@@ -52,7 +56,7 @@ export class LightCardEditor extends LitElement implements LovelaceCardEditor {
     }
 
     const entityState = this.hass.states[this._entity];
-    
+
     return html`
       <div class="card-config">
         <ha-entity-picker
@@ -63,7 +67,7 @@ export class LightCardEditor extends LitElement implements LovelaceCardEditor {
           .value=${this._entity}
           .configValue=${"entity"}
           @value-changed=${this._valueChanged}
-          .includeDomains=${["light"]}
+          .includeDomains=${DOMAINS}
           allow-custom-entity
         ></ha-entity-picker>
         <div class="side-by-side">
@@ -84,7 +88,9 @@ export class LightCardEditor extends LitElement implements LovelaceCardEditor {
               "ui.panel.lovelace.editor.card.config.optional"
             )})"
             .value=${this._icon}
-            .placeholder=${this._icon || entityState?.attributes.icon || domainIcon("light")}
+            .placeholder=${this._icon ||
+            entityState?.attributes.icon ||
+            domainIcon(computeDomain(this._entity))}
             .configValue=${"icon"}
             @value-changed=${this._valueChanged}
           ></ha-icon-picker>

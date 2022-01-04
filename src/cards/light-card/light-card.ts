@@ -8,7 +8,8 @@ import {
 } from "custom-card-helpers";
 import "../../shared/state-item";
 import "./light-card-editor";
-import { registerCard } from "../../shared/editor-utils";
+import { registerCustomCard } from "../../utils/custom-cards";
+import { LIGHT_CARD_EDITOR_NAME, LIGHT_CARD_NAME } from "./const";
 
 export interface LightCardConfig extends LovelaceCardConfig {
   entity: string;
@@ -16,18 +17,16 @@ export interface LightCardConfig extends LovelaceCardConfig {
   name?: string;
 }
 
-registerCard({
-  type: "mui-light-card",
+registerCustomCard({
+  type: LIGHT_CARD_NAME,
   name: "Minimalist Light Card",
   description: "Card for light entity",
 });
 
-@customElement("mui-light-card")
+@customElement(LIGHT_CARD_NAME)
 export class LightCard extends LitElement implements LovelaceCard {
   public static async getConfigElement(): Promise<LovelaceCardEditor> {
-    return document.createElement(
-      "mui-light-card-editor"
-    ) as LovelaceCardEditor;
+    return document.createElement(LIGHT_CARD_EDITOR_NAME) as LovelaceCardEditor;
   }
 
   public static async getStubConfig(
@@ -38,7 +37,7 @@ export class LightCard extends LitElement implements LovelaceCard {
       (e) => e.substr(0, e.indexOf(".")) === "light"
     );
     return {
-      type: "custom:mui-light-card",
+      type: `custom:${LIGHT_CARD_NAME}`,
       entity: lights[0],
     };
   }

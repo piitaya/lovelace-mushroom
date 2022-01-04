@@ -8,7 +8,8 @@ import {
 } from "custom-card-helpers";
 import "../../shared/state-item";
 import "./switch-card-editor";
-import { registerCard } from "../../shared/editor-utils";
+import { registerCustomCard } from "../../utils/custom-cards";
+import { SWITCH_CARD_EDITOR_NAME, SWITCH_CARD_NAME } from "./const";
 
 export interface SwitchCardConfig extends LovelaceCardConfig {
   entity: string;
@@ -16,17 +17,17 @@ export interface SwitchCardConfig extends LovelaceCardConfig {
   name?: string;
 }
 
-registerCard({
-  type: "mui-switch-card",
+registerCustomCard({
+  type: SWITCH_CARD_NAME,
   name: "Minimalist Switch Card",
   description: "Card for switch entity",
 });
 
-@customElement("mui-switch-card")
+@customElement(SWITCH_CARD_NAME)
 export class SwitchCard extends LitElement implements LovelaceCard {
   public static async getConfigElement(): Promise<LovelaceCardEditor> {
     return document.createElement(
-      "mui-switch-card-editor"
+      SWITCH_CARD_EDITOR_NAME
     ) as LovelaceCardEditor;
   }
 
@@ -38,7 +39,7 @@ export class SwitchCard extends LitElement implements LovelaceCard {
       (e) => e.substr(0, e.indexOf(".")) === "switch"
     );
     return {
-      type: "custom:mui-switch-card",
+      type: `custom:${SWITCH_CARD_NAME}`,
       entity: lights[0],
     };
   }

@@ -1,4 +1,5 @@
 import {
+  computeDomain,
   domainIcon,
   fireEvent,
   HomeAssistant,
@@ -11,8 +12,11 @@ import {
   baseLovelaceCardConfig,
   configElementStyle,
   EditorTarget,
-} from "../../shared/editor-utils";
+} from "../../utils/editor-utils";
+import { SWITCH_CARD_EDITOR_NAME } from "./const";
 import { SwitchCardConfig } from "./switch-card";
+
+const DOMAINS = ["switch"];
 
 const cardConfigStruct = assign(
   baseLovelaceCardConfig,
@@ -23,7 +27,7 @@ const cardConfigStruct = assign(
   })
 );
 
-@customElement("mui-switch-card-editor")
+@customElement(SWITCH_CARD_EDITOR_NAME)
 export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
   @property({ attribute: false }) public hass?: HomeAssistant;
 
@@ -63,7 +67,7 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
           .value=${this._entity}
           .configValue=${"entity"}
           @value-changed=${this._valueChanged}
-          .includeDomains=${["switch"]}
+          .includeDomains=${DOMAINS}
           allow-custom-entity
         ></ha-entity-picker>
         <div class="side-by-side">
@@ -86,7 +90,7 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
             .value=${this._icon}
             .placeholder=${this._icon ||
             entityState?.attributes.icon ||
-            domainIcon("switch")}
+            domainIcon(computeDomain(this._entity))}
             .configValue=${"icon"}
             @value-changed=${this._valueChanged}
           ></ha-icon-picker>
