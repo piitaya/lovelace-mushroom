@@ -19,7 +19,7 @@ export interface SwitchCardConfig extends LovelaceCardConfig {
 
 registerCustomCard({
   type: SWITCH_CARD_NAME,
-  name: "Minimalist Switch Card",
+  name: "Mushroom Switch Card",
   description: "Card for switch entity",
 });
 

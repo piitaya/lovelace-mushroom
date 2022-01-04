@@ -19,7 +19,7 @@ export interface LightCardConfig extends LovelaceCardConfig {
 
 registerCustomCard({
   type: LIGHT_CARD_NAME,
-  name: "Minimalist Light Card",
+  name: "Mushroom Light Card",
   description: "Card for light entity",
 });
 

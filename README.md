@@ -1,4 +1,4 @@
-# Minimalist Cards
+# Mushroom Cards
 
 ## Dev
 

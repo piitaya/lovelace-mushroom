@@ -12,7 +12,7 @@ import {
   baseLovelaceCardConfig,
   configElementStyle,
   EditorTarget,
-} from "../../utils/editor-utils";
+} from "../../utils/editor";
 import { SWITCH_CARD_EDITOR_NAME } from "./const";
 import { SwitchCardConfig } from "./switch-card";
 

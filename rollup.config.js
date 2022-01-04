@@ -37,7 +37,7 @@ export default [
     {
         input: 'src/index.ts',
         output: {
-            file: "dist/minimalist.js",
+            file: "dist/mushroom.js",
             format: 'es',
         },
         plugins,

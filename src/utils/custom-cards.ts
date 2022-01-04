@@ -1,8 +1,8 @@
-type RegisterCardParams = {
+interface RegisterCardParams {
   type: string;
   name: string;
   description: string;
-};
+}
 export function registerCustomCard(params: RegisterCardParams) {
   const windowWithCards = window as unknown as Window & {
     customCards: unknown[];

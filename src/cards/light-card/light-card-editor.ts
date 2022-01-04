@@ -13,7 +13,7 @@ import {
   baseLovelaceCardConfig,
   configElementStyle,
   EditorTarget,
-} from "../../utils/editor-utils";
+} from "../../utils/editor";
 import { LIGHT_CARD_EDITOR_NAME } from "./const";
 
 const DOMAINS = ["light"];
