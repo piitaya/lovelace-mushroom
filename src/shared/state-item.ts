@@ -72,6 +72,7 @@ export class StateItem extends LitElement {
         color: rgba(var(--color-active), 1);
       }
       .info-container {
+        min-width: 0;
         flex: 1;
         display: flex;
         flex-direction: column;
@@ -80,11 +81,17 @@ export class StateItem extends LitElement {
         font-weight: bold;
         font-size: 14px;
         color: rgba(var(--color-text), 1);
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
       }
       .info-value {
         font-weight: bolder;
         font-size: 12px;
         color: rgba(var(--color-text), 0.4);
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
       }
     `;
   }
