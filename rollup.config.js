@@ -41,5 +41,14 @@ export default [
             format: 'es',
         },
         plugins,
-    },
+        moduleContext: (id) => {
+            const thisAsWindowForModules = [
+                'node_modules/@formatjs/intl-utils/lib/src/diff.js',
+                'node_modules/@formatjs/intl-utils/lib/src/resolve-locale.js'
+            ];
+            if (thisAsWindowForModules.some(id_ => id.trimRight().endsWith(id_))) {
+                return 'window';
+            }
+        },
+    }
 ];

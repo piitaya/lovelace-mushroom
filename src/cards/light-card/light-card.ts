@@ -4,8 +4,11 @@ import {
   HomeAssistant,
   LovelaceCard,
   LovelaceCardConfig,
+  LovelaceCardEditor,
 } from "custom-card-helpers";
-import "../shared/state-item";
+import "../../shared/state-item";
+import "./light-card-editor";
+import { registerCard } from "../../shared/editor-utils";
 
 export interface LightCardConfig extends LovelaceCardConfig {
   entity: string;
@@ -13,8 +16,33 @@ export interface LightCardConfig extends LovelaceCardConfig {
   name?: string;
 }
 
+registerCard({
+  type: "mui-light-card",
+  name: "Minimalist Light Card",
+  description: "Card for light entity",
+});
+
 @customElement("mui-light-card")
 export class LightCard extends LitElement implements LovelaceCard {
+  public static async getConfigElement(): Promise<LovelaceCardEditor> {
+    return document.createElement(
+      "mui-light-card-editor"
+    ) as LovelaceCardEditor;
+  }
+
+  public static async getStubConfig(
+    hass: HomeAssistant
+  ): Promise<LightCardConfig> {
+    const entities = Object.keys(hass.states);
+    const lights = entities.filter(
+      (e) => e.substr(0, e.indexOf(".")) === "light"
+    );
+    return {
+      type: "custom:mui-light-card",
+      entity: lights[0],
+    };
+  }
+
   @property({ attribute: false }) public hass!: HomeAssistant;
 
   @state() private _config?: LightCardConfig;
