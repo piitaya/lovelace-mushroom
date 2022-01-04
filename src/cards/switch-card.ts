@@ -13,8 +13,8 @@ export interface LightCardConfig extends LovelaceCardConfig {
   name?: string;
 }
 
-@customElement("mui-light-card")
-export class LightCard extends LitElement implements LovelaceCard {
+@customElement("mui-switch-card")
+export class SwitchCard extends LitElement implements LovelaceCard {
   @property({ attribute: false }) public hass!: HomeAssistant;
 
   @state() private _config?: LightCardConfig;
@@ -28,7 +28,7 @@ export class LightCard extends LitElement implements LovelaceCard {
   }
 
   clickHandler(): void {
-    this.hass.callService("light", "toggle", {
+    this.hass.callService("switch", "toggle", {
       entity_id: this._config?.entity,
     });
   }
@@ -42,20 +42,15 @@ export class LightCard extends LitElement implements LovelaceCard {
     const entity_state = this.hass.states[entity];
 
     const icon =
-      this._config.icon ?? entity_state.attributes.icon ?? "mdi:lightbulb";
+      this._config.icon ?? entity_state.attributes.icon ?? "mdi:power-plug";
     const name = this._config.name ?? entity_state.attributes.friendly_name;
     const state = entity_state.state;
-
-    const brightness =
-      entity_state.attributes.brightness != null
-        ? Math.round((entity_state.attributes.brightness * 100) / 255)
-        : undefined;
 
     return html`<ha-card @click=${this.clickHandler}>
       <mui-state-item
         .icon=${icon}
         .name=${name}
-        .value=${brightness ? `${brightness}%` : state}
+        .value=${state}
         .active=${state === "on"}
       ></mui-state-item>
     </ha-card>`;
@@ -67,7 +62,7 @@ export class LightCard extends LitElement implements LovelaceCard {
         cursor: pointer;
       }
       mui-state-item {
-        --color-active: 255, 145, 1;
+        --color-active: 0, 0, 255;
       }
     `;
   }
