@@ -109,7 +109,6 @@ export class SliderItem extends LitElement {
         width: 100%;
         background-color: var(--color-default);
         opacity: 0.2;
-        transition: background-color 280ms ease-in-out;
       }
       .active .slider .slider-track {
         background-color: var(--color-active);
@@ -124,8 +123,6 @@ export class SliderItem extends LitElement {
         transform-origin: left;
         background-color: var(--color-default);
         opacity: 0.5;
-        transition: background-color 280ms ease-in-out,
-          opacity 280ms ease-in-out;
       }
       .active .slider .slider-track-active {
         background-color: var(--color-active);
