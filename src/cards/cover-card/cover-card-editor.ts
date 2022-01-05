@@ -1,20 +1,19 @@
 import {
-  computeDomain,
-  domainIcon,
   fireEvent,
   HomeAssistant,
   LovelaceCardEditor,
+  stateIcon,
 } from "custom-card-helpers";
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { assert, assign, object, optional, string } from "superstruct";
-import { CoverCardConfig } from "./cover-card";
 import {
   baseLovelaceCardConfig,
   configElementStyle,
   EditorTarget,
 } from "../../utils/editor";
 import { COVER_CARD_EDITOR_NAME } from "./const";
+import { CoverCardConfig } from "./cover-card";
 
 const DOMAINS = ["cover"];
 
@@ -88,9 +87,7 @@ export class CoverCardEditor extends LitElement implements LovelaceCardEditor {
               "ui.panel.lovelace.editor.card.config.optional"
             )})"
             .value=${this._icon}
-            .placeholder=${this._icon ||
-            entityState?.attributes.icon ||
-            domainIcon(computeDomain(this._entity))}
+            .placeholder=${this._icon || stateIcon(entityState)}
             .configValue=${"icon"}
             @value-changed=${this._valueChanged}
           ></ha-icon-picker>

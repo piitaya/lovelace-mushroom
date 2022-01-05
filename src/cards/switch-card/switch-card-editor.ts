@@ -1,9 +1,8 @@
 import {
-  computeDomain,
-  domainIcon,
   fireEvent,
   HomeAssistant,
   LovelaceCardEditor,
+  stateIcon,
 } from "custom-card-helpers";
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
@@ -88,9 +87,7 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
               "ui.panel.lovelace.editor.card.config.optional"
             )})"
             .value=${this._icon}
-            .placeholder=${this._icon ||
-            entityState?.attributes.icon ||
-            domainIcon(computeDomain(this._entity))}
+            .placeholder=${this._icon || stateIcon(entityState)}
             .configValue=${"icon"}
             @value-changed=${this._valueChanged}
           ></ha-icon-picker>
