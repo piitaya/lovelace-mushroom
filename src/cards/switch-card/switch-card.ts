@@ -8,9 +8,9 @@ import {
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import "../../shared/state-item";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { SWITCH_CARD_EDITOR_NAME, SWITCH_CARD_NAME } from "./const";
-import "../../shared/state-item";
 import "./switch-card-editor";
 
 export interface SwitchCardConfig extends LovelaceCardConfig {
@@ -74,7 +74,7 @@ export class SwitchCard extends LitElement implements LovelaceCard {
 
     const name = this._config.name ?? entity_state.attributes.friendly_name;
     const icon = this._config.icon ?? stateIcon(entity_state);
-    
+
     const state = entity_state.state;
 
     const stateDisplay = computeStateDisplay(
@@ -99,7 +99,7 @@ export class SwitchCard extends LitElement implements LovelaceCard {
         cursor: pointer;
       }
       mui-state-item {
-        --color-active: 0, 0, 255;
+        --color-active: #3D5AFE;
       }
     `;
   }

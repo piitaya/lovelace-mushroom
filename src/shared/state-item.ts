@@ -16,9 +16,8 @@ export class StateItem extends LitElement {
     return html`
       <div class=${classMap({ container: true, active: this.active })}>
         <div class="icon-container">
-          <div class="icon-circle">
-            <ha-icon class="icon" .icon=${this.icon} />
-          </div>
+          <div class="icon-circle"></div>
+          <ha-icon class="icon" .icon=${this.icon} />
         </div>
         <div class="info-container">
           <span class="info-name">${this.name}</span>
@@ -33,9 +32,8 @@ export class StateItem extends LitElement {
   static get styles(): CSSResultGroup {
     return css`
       :host {
-        --color-theme: 51, 51, 51;
-        --color-active: 51, 51, 51;
-        --color-text: 33, 33, 33;
+        --color-icon: var(--disabled-text-color);
+        --color-active: var(--primary-color);
       }
       .container {
         display: flex;
@@ -46,30 +44,40 @@ export class StateItem extends LitElement {
         margin-right: 12px;
       }
       .icon-container {
+        position: relative;
         width: 42px;
         height: 42px;
         flex: none;
+        display: flex;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
       .icon-circle {
         width: 100%;
         height: 100%;
         border-radius: 50%;
-        background-color: rgba(var(--color-theme), 0.05);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: background-color 280ms ease-in-out;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: var(--color-icon);
+        opacity: 0.2;
+        transition-property: background-color;
+        transition-duration: 280ms;
+        transition-timing-function: ease-in-out;
       }
       .active .icon-circle {
-        background-color: rgba(var(--color-active), 0.2);
+        background-color: var(--color-active);
       }
       .icon {
-        color: rgba(var(--color-theme), 0.2);
         --mdc-icon-size: 20px;
-        transition: color 280ms ease-in-out;
+        color: var(--color-icon);
+        transition-property: color;
+        transition-duration: 280ms;
+        transition-timing-function: ease-in-out;
       }
       .active .icon {
-        color: rgba(var(--color-active), 1);
+        color: var(--color-active);
       }
       .info-container {
         min-width: 0;
@@ -80,7 +88,7 @@ export class StateItem extends LitElement {
       .info-name {
         font-weight: bold;
         font-size: 14px;
-        color: rgba(var(--color-text), 1);
+        color: var(--primary-text-color);
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
@@ -88,7 +96,7 @@ export class StateItem extends LitElement {
       .info-value {
         font-weight: bolder;
         font-size: 12px;
-        color: rgba(var(--color-text), 0.4);
+        color: var(--secondary-text-color);
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;

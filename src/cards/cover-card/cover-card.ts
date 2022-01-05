@@ -8,9 +8,9 @@ import {
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import "../../shared/state-item";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { COVER_CARD_EDITOR_NAME, COVER_CARD_NAME } from "./const";
-import "../../shared/state-item";
 import "./cover-card-editor";
 
 export interface CoverCardConfig extends LovelaceCardConfig {
@@ -93,7 +93,7 @@ export class CoverCard extends LitElement implements LovelaceCard {
         cursor: pointer;
       }
       mui-state-item {
-        --color-active: 0, 0, 255;
+        --color-active: #3D5AFE;
       }
     `;
   }
