@@ -78,12 +78,12 @@ export class CoverCard extends LitElement implements LovelaceCard {
     );
 
     return html`<ha-card @click=${this.clickHandler}>
-      <mui-state-item
+      <mushroom-state-item
         .icon=${icon}
         .name=${name}
         .value=${stateDisplay}
         .active=${state === "open" || state === "opening"}
-      ></mui-state-item>
+      ></mushroom-state-item>
     </ha-card>`;
   }
 
@@ -91,9 +91,12 @@ export class CoverCard extends LitElement implements LovelaceCard {
     return css`
       ha-card {
         cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        padding: 12px;
       }
       mui-state-item {
-        --color-active: #3D5AFE;
+        --color-active: #3d5afe;
       }
     `;
   }

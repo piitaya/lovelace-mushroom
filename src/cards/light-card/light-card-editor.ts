@@ -1,4 +1,5 @@
 import {
+  computeRTLDirection,
   fireEvent,
   HomeAssistant,
   LovelaceCardEditor,
@@ -6,7 +7,7 @@ import {
 } from "custom-card-helpers";
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { assert, assign, object, optional, string } from "superstruct";
+import { assert, assign, boolean, object, optional, string } from "superstruct";
 import {
   baseLovelaceCardConfig,
   configElementStyle,
@@ -23,6 +24,7 @@ const cardConfigStruct = assign(
     entity: string(),
     icon: optional(string()),
     name: optional(string()),
+    show_brightness_control: optional(boolean()),
   })
 );
 
@@ -49,11 +51,16 @@ export class LightCardEditor extends LitElement implements LovelaceCardEditor {
     return this._config!.icon || "";
   }
 
+  get _showBrightnessControl(): boolean {
+    return this._config!.show_brightness_control ?? false;
+  }
+
   protected render(): TemplateResult {
     if (!this.hass || !this._config) {
       return html``;
     }
 
+    const dir = computeRTLDirection(this.hass);
     const entityState = this.hass.states[this._entity];
 
     return html`
@@ -91,6 +98,15 @@ export class LightCardEditor extends LitElement implements LovelaceCardEditor {
             .configValue=${"icon"}
             @value-changed=${this._valueChanged}
           ></ha-icon-picker>
+        </div>
+        <div class="side-by-side">
+          <ha-formfield label="Show brightness control ?" .dir=${dir}>
+            <ha-switch
+              .checked=${this._showBrightnessControl != false}
+              .configValue=${"show_brightness_control"}
+              @change=${this._valueChanged}
+            ></ha-switch>
+          </ha-formfield>
         </div>
       </div>
     `;

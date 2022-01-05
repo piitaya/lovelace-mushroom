@@ -9,6 +9,7 @@ import {
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import "../../shared/state-item";
+import "../../shared/slider-item";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { LIGHT_CARD_EDITOR_NAME, LIGHT_CARD_NAME } from "./const";
 import "./light-card-editor";
@@ -17,6 +18,7 @@ export interface LightCardConfig extends LovelaceCardConfig {
   entity: string;
   icon?: string;
   name?: string;
+  show_brightness_control?: boolean;
 }
 
 registerCustomCard({
@@ -62,6 +64,14 @@ export class LightCard extends LitElement implements LovelaceCard {
     });
   }
 
+  sliderChangeHandler(e): void {
+    const value = e.detail.value;
+    this.hass.callService("light", "turn_on", {
+      entity_id: this._config?.entity,
+      brightness_pct: value,
+    });
+  }
+
   protected render(): TemplateResult {
     if (!this._config || !this.hass) {
       return html``;
@@ -87,12 +97,20 @@ export class LightCard extends LitElement implements LovelaceCard {
         : undefined;
 
     return html`<ha-card @click=${this.clickHandler}>
-      <mui-state-item
+      <mushroom-state-item
         .icon=${icon}
         .name=${name}
         .value=${brightness != null ? `${brightness}%` : stateDisplay}
         .active=${state === "on"}
-      ></mui-state-item>
+      ></mushroom-state-item>
+      ${this._config?.show_brightness_control
+        ? html`<mushroom-slider-item
+            .value=${brightness}
+            .active=${state === "on"}
+            @change=${this.sliderChangeHandler}
+          >
+          </mushroom-slider-item>`
+        : null}
     </ha-card>`;
   }
 
@@ -100,9 +118,18 @@ export class LightCard extends LitElement implements LovelaceCard {
     return css`
       ha-card {
         cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        padding: 12px;
       }
-      mui-state-item {
-        --color-active: #FF9101;
+      ha-card > *:not(:last-child) {
+        margin-bottom: 12px;
+      }
+      mushroom-state-item {
+        --color-active: #ff9101;
+      }
+      mushroom-slider-item {
+        --color-active: #ff9101;
       }
     `;
   }

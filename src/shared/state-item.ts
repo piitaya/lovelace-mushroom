@@ -2,7 +2,7 @@ import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { property, customElement } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 
-@customElement("mui-state-item")
+@customElement("mushroom-state-item")
 export class StateItem extends LitElement {
   @property() public icon: string = "";
 
@@ -32,13 +32,12 @@ export class StateItem extends LitElement {
   static get styles(): CSSResultGroup {
     return css`
       :host {
-        --color-icon: var(--disabled-text-color);
+        --color-default: var(--disabled-text-color);
         --color-active: var(--primary-color);
       }
       .container {
         display: flex;
         flex-direction: row;
-        padding: 12px;
       }
       .container > *:not(:last-child) {
         margin-right: 12px;
@@ -60,7 +59,7 @@ export class StateItem extends LitElement {
         position: absolute;
         top: 0;
         left: 0;
-        background-color: var(--color-icon);
+        background-color: var(--color-default);
         opacity: 0.2;
         transition-property: background-color;
         transition-duration: 280ms;
@@ -71,7 +70,7 @@ export class StateItem extends LitElement {
       }
       .icon {
         --mdc-icon-size: 20px;
-        color: var(--color-icon);
+        color: var(--color-default);
         transition-property: color;
         transition-duration: 280ms;
         transition-timing-function: ease-in-out;
