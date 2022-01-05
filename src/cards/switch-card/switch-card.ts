@@ -1,15 +1,17 @@
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { property, customElement, state } from "lit/decorators.js";
 import {
+  computeStateDisplay,
   HomeAssistant,
   LovelaceCard,
   LovelaceCardConfig,
   LovelaceCardEditor,
+  stateIcon,
 } from "custom-card-helpers";
-import "../../shared/state-item";
-import "./switch-card-editor";
+import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { customElement, property, state } from "lit/decorators.js";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { SWITCH_CARD_EDITOR_NAME, SWITCH_CARD_NAME } from "./const";
+import "../../shared/state-item";
+import "./switch-card-editor";
 
 export interface SwitchCardConfig extends LovelaceCardConfig {
   entity: string;
@@ -70,16 +72,22 @@ export class SwitchCard extends LitElement implements LovelaceCard {
     const entity = this._config.entity;
     const entity_state = this.hass.states[entity];
 
-    const icon =
-      this._config.icon ?? entity_state.attributes.icon ?? "mdi:power-plug";
     const name = this._config.name ?? entity_state.attributes.friendly_name;
+    const icon = this._config.icon ?? stateIcon(entity_state);
+    
     const state = entity_state.state;
+
+    const stateDisplay = computeStateDisplay(
+      this.hass.localize,
+      entity_state,
+      this.hass.locale
+    );
 
     return html`<ha-card @click=${this.clickHandler}>
       <mui-state-item
         .icon=${icon}
         .name=${name}
-        .value=${state}
+        .value=${stateDisplay}
         .active=${state === "on"}
       ></mui-state-item>
     </ha-card>`;

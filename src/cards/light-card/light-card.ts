@@ -1,15 +1,17 @@
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { property, customElement, state } from "lit/decorators.js";
 import {
+  computeStateDisplay,
   HomeAssistant,
   LovelaceCard,
   LovelaceCardConfig,
   LovelaceCardEditor,
+  stateIcon,
 } from "custom-card-helpers";
-import "../../shared/state-item";
-import "./light-card-editor";
+import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { customElement, property, state } from "lit/decorators.js";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { LIGHT_CARD_EDITOR_NAME, LIGHT_CARD_NAME } from "./const";
+import "../../shared/state-item";
+import "./light-card-editor";
 
 export interface LightCardConfig extends LovelaceCardConfig {
   entity: string;
@@ -68,10 +70,16 @@ export class LightCard extends LitElement implements LovelaceCard {
     const entity = this._config.entity;
     const entity_state = this.hass.states[entity];
 
-    const icon =
-      this._config.icon ?? entity_state.attributes.icon ?? "mdi:lightbulb";
     const name = this._config.name ?? entity_state.attributes.friendly_name;
+    const icon = this._config.icon ?? stateIcon(entity_state);
+
     const state = entity_state.state;
+
+    const stateDisplay = computeStateDisplay(
+      this.hass.localize,
+      entity_state,
+      this.hass.locale
+    );
 
     const brightness =
       entity_state.attributes.brightness != null
@@ -82,7 +90,7 @@ export class LightCard extends LitElement implements LovelaceCard {
       <mui-state-item
         .icon=${icon}
         .name=${name}
-        .value=${brightness ? `${brightness}%` : state}
+        .value=${brightness != null ? `${brightness}%` : stateDisplay}
         .active=${state === "on"}
       ></mui-state-item>
     </ha-card>`;
