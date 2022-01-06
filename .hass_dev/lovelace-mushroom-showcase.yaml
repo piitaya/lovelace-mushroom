@@ -1,0 +1,50 @@
+title: Mushroom
+views:
+  - title: Showcase
+    cards:
+      - type: grid
+        title: Lights
+        cards:
+          - type: custom:mushroom-light-card
+            entity: light.bed_light
+          - type: custom:mushroom-light-card
+            entity: light.bed_light
+            show_brightness_control: true
+          - type: custom:mushroom-light-card
+            entity: light.bed_light
+            name: Custom name and icon
+            icon: mdi:robot-outline
+            show_brightness_control: true
+        columns: 1
+        square: false
+      - type: grid
+        title: Switchs
+        cards:
+          - type: custom:mushroom-switch-card
+            entity: switch.decorative_lights
+          - type: custom:mushroom-switch-card
+            entity: switch.decorative_lights
+            name: Custom name and icon
+            icon: mdi:chef-hat
+        columns: 1
+        square: false
+      - type: grid
+        title: Person
+        cards:
+          - type: custom:mushroom-person-card
+            entity: person.mushroom
+          - type: custom:mushroom-person-card
+            entity: person.mushroom
+            name: Custom name and icon
+            icon: mdi:face-woman
+          - type: custom:mushroom-person-card
+            entity: person.mushroom
+            name: Use entity picture
+            use_entity_picture: true
+          - type: custom:mushroom-person-card
+            entity: person.mushroom
+            name: No tap action
+            tap_action:
+              action: none
+        columns: 1
+        square: false
