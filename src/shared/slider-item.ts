@@ -11,8 +11,6 @@ export class SliderItem extends LitElement {
   public value?: number;
 
   cursorEventHandler = (touch: boolean) => (event: TouchEvent | MouseEvent) => {
-    event.preventDefault();
-    event.stopPropagation();
     const [endEvent, moveEvent] = touch
       ? ["touchend", "touchmove"]
       : ["mouseup", "mousemove"];
@@ -31,8 +29,6 @@ export class SliderItem extends LitElement {
     };
 
     const onEnd = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
       const value = getValue(e);
       this.value = value;
       let changeEvent = new CustomEvent("change", {
@@ -46,8 +42,6 @@ export class SliderItem extends LitElement {
     };
 
     const onMove = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
       const value = getValue(e);
       this.value = value;
     };
@@ -62,7 +56,6 @@ export class SliderItem extends LitElement {
           class="slider"
           @touchstart=${this.cursorEventHandler(true)}
           @mousedown=${this.cursorEventHandler(false)}
-          @click=${(e) => e.stopPropagation()}
           style=${styleMap({
             "--value": `${(this.value ?? 0) / 100}`,
           })}
@@ -97,6 +90,7 @@ export class SliderItem extends LitElement {
         border-radius: 12px;
         transform: translateZ(0);
         overflow: hidden;
+        cursor: pointer;
       }
       .slider * {
         pointer-events: none;

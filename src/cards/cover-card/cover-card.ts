@@ -77,12 +77,13 @@ export class CoverCard extends LitElement implements LovelaceCard {
       this.hass.locale
     );
 
-    return html`<ha-card @click=${this.clickHandler}>
+    return html`<ha-card>
       <mushroom-state-item
         .icon=${icon}
         .name=${name}
         .value=${stateDisplay}
         .active=${state === "open" || state === "opening"}
+        @click=${this.clickHandler}
       ></mushroom-state-item>
     </ha-card>`;
   }
@@ -93,12 +94,12 @@ export class CoverCard extends LitElement implements LovelaceCard {
         --rgb-color: 61, 90, 254;
       }
       ha-card {
-        cursor: pointer;
         display: flex;
         flex-direction: column;
         padding: 12px;
       }
       mushroom-state-item {
+        cursor: pointer;
         --icon-main-color: rgba(var(--rgb-color), 1);
         --icon-shape-color: rgba(var(--rgb-color), 0.2);
       }

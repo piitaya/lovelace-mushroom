@@ -96,12 +96,13 @@ export class LightCard extends LitElement implements LovelaceCard {
         ? Math.round((entity_state.attributes.brightness * 100) / 255)
         : undefined;
 
-    return html`<ha-card @click=${this.clickHandler}>
+    return html`<ha-card>
       <mushroom-state-item
         .icon=${icon}
         .name=${name}
         .value=${brightness != null ? `${brightness}%` : stateDisplay}
         .active=${state === "on"}
+        @click=${this.clickHandler}
       ></mushroom-state-item>
       ${this._config?.show_brightness_control
         ? html`<mushroom-slider-item
@@ -120,7 +121,6 @@ export class LightCard extends LitElement implements LovelaceCard {
         --rgb-color: 255, 145, 1;
       }
       ha-card {
-        cursor: pointer;
         display: flex;
         flex-direction: column;
         padding: 12px;
@@ -129,6 +129,7 @@ export class LightCard extends LitElement implements LovelaceCard {
         margin-bottom: 12px;
       }
       mushroom-state-item {
+        cursor: pointer;
         --icon-main-color: rgba(var(--rgb-color), 1);
         --icon-shape-color: rgba(var(--rgb-color), 0.2);
       }
