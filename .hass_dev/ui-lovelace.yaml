@@ -1,0 +1,8 @@
+  mode: storage
+  dashboards:
+    lovelace-mushroom-showcase:
+      mode: yaml
+      title: Showcase
+      icon: mdi:mushroom
+      show_in_sidebar: true
+      filename: lovelace-mushroom-showcase.yaml
