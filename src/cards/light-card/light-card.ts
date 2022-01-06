@@ -106,7 +106,7 @@ export class LightCard extends LitElement implements LovelaceCard {
       ${this._config?.show_brightness_control
         ? html`<mushroom-slider-item
             .value=${brightness}
-            .active=${state === "on"}
+            .disabled=${state !== "on"}
             @change=${this.sliderChangeHandler}
           >
           </mushroom-slider-item>`
@@ -116,6 +116,9 @@ export class LightCard extends LitElement implements LovelaceCard {
 
   static get styles(): CSSResultGroup {
     return css`
+      :host {
+        --rgb-color: 255, 145, 1;
+      }
       ha-card {
         cursor: pointer;
         display: flex;
@@ -126,10 +129,12 @@ export class LightCard extends LitElement implements LovelaceCard {
         margin-bottom: 12px;
       }
       mushroom-state-item {
-        --color-active: #ff9101;
+        --icon-main-color: rgba(var(--rgb-color), 1);
+        --icon-shape-color: rgba(var(--rgb-color), 0.2);
       }
       mushroom-slider-item {
-        --color-active: #ff9101;
+        --main-color: rgba(var(--rgb-color), 1);
+        --bg-color: rgba(var(--rgb-color), 0.2);
       }
     `;
   }

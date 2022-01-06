@@ -95,6 +95,9 @@ export class SwitchCard extends LitElement implements LovelaceCard {
 
   static get styles(): CSSResultGroup {
     return css`
+      :host {
+        --rgb-color: 61, 90, 254;
+      }
       ha-card {
         cursor: pointer;
         display: flex;
@@ -102,7 +105,8 @@ export class SwitchCard extends LitElement implements LovelaceCard {
         padding: 12px;
       }
       mushroom-state-item {
-        --color-active: #3d5afe;
+        --icon-main-color: rgba(var(--rgb-color), 1);
+        --icon-shape-color: rgba(var(--rgb-color), 0.2);
       }
     `;
   }

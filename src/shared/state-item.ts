@@ -1,6 +1,7 @@
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { property, customElement } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
+import "./shape-icon";
 
 @customElement("mushroom-state-item")
 export class StateItem extends LitElement {
@@ -15,10 +16,10 @@ export class StateItem extends LitElement {
   protected render(): TemplateResult {
     return html`
       <div class=${classMap({ container: true, active: this.active })}>
-        <div class="icon-container">
-          <div class="icon-circle"></div>
-          <ha-icon class="icon" .icon=${this.icon} />
-        </div>
+        <mushroom-shape-icon
+          .disabled=${!this.active}
+          .icon=${this.icon}
+        ></mushroom-shape-icon>
         <div class="info-container">
           <span class="info-name">${this.name}</span>
           ${this.value
@@ -31,9 +32,9 @@ export class StateItem extends LitElement {
 
   static get styles(): CSSResultGroup {
     return css`
-      :host {
-        --color-default: var(--disabled-text-color);
-        --color-active: var(--primary-color);
+      mushroom-shape-icon {
+        --main-color: var(--icon-main-color);
+        --shape-color: var(--icon-shape-color);
       }
       .container {
         display: flex;
@@ -41,42 +42,6 @@ export class StateItem extends LitElement {
       }
       .container > *:not(:last-child) {
         margin-right: 12px;
-      }
-      .icon-container {
-        position: relative;
-        width: 42px;
-        height: 42px;
-        flex: none;
-        display: flex;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .icon-circle {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background-color: var(--color-default);
-        opacity: 0.2;
-        transition-property: background-color;
-        transition-duration: 280ms;
-        transition-timing-function: ease-in-out;
-      }
-      .active .icon-circle {
-        background-color: var(--color-active);
-      }
-      .icon {
-        --mdc-icon-size: 20px;
-        color: var(--color-default);
-        transition-property: color;
-        transition-duration: 280ms;
-        transition-timing-function: ease-in-out;
-      }
-      .active .icon {
-        color: var(--color-active);
       }
       .info-container {
         min-width: 0;

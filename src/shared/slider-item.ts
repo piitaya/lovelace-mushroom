@@ -5,7 +5,7 @@ import { styleMap } from "lit/directives/style-map.js";
 
 @customElement("mushroom-slider-item")
 export class SliderItem extends LitElement {
-  @property() public active: boolean = false;
+  @property() public disabled: boolean = false;
 
   @property({ attribute: false, type: Number, reflect: true })
   public value?: number;
@@ -57,14 +57,14 @@ export class SliderItem extends LitElement {
 
   protected render(): TemplateResult {
     return html`
-      <div class=${classMap({ container: true, active: this.active })}>
+      <div class=${classMap({ container: true, disabled: this.disabled })}>
         <div
           class="slider"
           @touchstart=${this.cursorEventHandler(true)}
           @mousedown=${this.cursorEventHandler(false)}
           @click=${(e) => e.stopPropagation()}
           style=${styleMap({
-            "--slider-value": `${(this.value ?? 0) / 100}`,
+            "--value": `${(this.value ?? 0) / 100}`,
           })}
         >
           <div class="slider-track"></div>
@@ -77,8 +77,10 @@ export class SliderItem extends LitElement {
   static get styles(): CSSResultGroup {
     return css`
       :host {
-        --color-default: var(--disabled-text-color);
-        --color-active: var(--primary-color);
+        --main-color: rgba(var(--rgb-primary-color), 1);
+        --main-color-disabled: var(--disabled-text-color);
+        --bg-color: rgba(var(--rgb-primary-color), 0.2);
+        --bg-color-disabled: rgba(var(--rgb-primary-text-color), 0.05);
       }
       .container {
         display: flex;
@@ -107,11 +109,7 @@ export class SliderItem extends LitElement {
         left: 0;
         height: 100%;
         width: 100%;
-        background-color: var(--color-default);
-        opacity: 0.2;
-      }
-      .active .slider .slider-track {
-        background-color: var(--color-active);
+        background-color: var(--bg-color);
       }
       .slider .slider-track-active {
         position: absolute;
@@ -119,14 +117,15 @@ export class SliderItem extends LitElement {
         left: 0;
         height: 100%;
         width: 100%;
-        transform: scale3d(var(--slider-value, 0), 1, 1);
+        transform: scale3d(var(--value, 0), 1, 1);
         transform-origin: left;
-        background-color: var(--color-default);
-        opacity: 0.5;
+        background-color: var(--main-color);
       }
-      .active .slider .slider-track-active {
-        background-color: var(--color-active);
-        opacity: 1;
+      .disabled .slider .slider-track {
+        background-color: var(--bg-color-disabled);
+      }
+      .disabled .slider .slider-track-active {
+        background-color: var(--main-color-disabled);
       }
     `;
   }
