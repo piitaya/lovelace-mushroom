@@ -10,9 +10,8 @@ export class ShapeIcon extends LitElement {
 
   protected render(): TemplateResult {
     return html`
-      <div class=${classMap({ container: true, disabled: this.disabled })}>
-        <div class="icon-shape"></div>
-        <ha-icon class="icon" .icon=${this.icon} />
+      <div class=${classMap({ shape: true, disabled: this.disabled })}>
+        <ha-icon .icon=${this.icon} />
       </div>
     `;
   }
@@ -26,34 +25,27 @@ export class ShapeIcon extends LitElement {
         --shape-color-disabled: rgba(var(--rgb-primary-text-color), 0.05);
         flex: none;
       }
-      .container {
+      .shape {
         position: relative;
         width: 42px;
         height: 42px;
+        border-radius: 50%;
         flex: none;
         display: flex;
         align-items: center;
         justify-content: center;
-      }
-      .icon-shape {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        position: absolute;
-        top: 0;
-        left: 0;
         background-color: var(--shape-color);
         transition: background-color 280ms ease-in-out;
       }
-      .icon {
+      .shape ha-icon {
         --mdc-icon-size: 20px;
         color: var(--main-color);
         transition: color 280ms ease-in-out;
       }
-      .disabled .icon-shape {
+      .shape.disabled  {
         background-color: var(--shape-color-disabled);
       }
-      .disabled .icon {
+      .shape.disabled ha-icon {
         color: var(--main-color-disabled);
       }
     `;
