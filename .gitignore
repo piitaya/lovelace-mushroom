@@ -1,2 +1,6 @@
 node_modules
 dist
+.hass_dev/*
+!.hass_dev/configuration.yaml
+!.hass_dev/ui-lovelace.yaml
+!.hass_dev/lovelace-mushroom-demo.yaml

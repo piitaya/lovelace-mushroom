@@ -1,0 +1,27 @@
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+climate:
+  - platform: demo
+
+light:
+  - platform: demo
+
+switch:
+  - platform: demo
+
+cover:
+  - platform: demo
+
+media_player:
+  - platform: demo
+
+lovelace: !include ui-lovelace.yaml
+
+frontend:
+  themes: !include_dir_merge_named themes
+#   development_repo: /workspaces/home-assistant-frontend
