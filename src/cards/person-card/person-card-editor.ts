@@ -15,7 +15,7 @@ import {
   import { PERSON_CARD_EDITOR_NAME } from "./const";
   import { PersonCardConfig } from "./person-card";
   
-  const DOMAINS = ["switch"];
+  const DOMAINS = ["person"];
   
   const cardConfigStruct = assign(
     baseLovelaceCardConfig,

@@ -1,9 +1,12 @@
 import {
+    ActionConfig,
     computeStateDisplay,
     HomeAssistant,
     LovelaceCard,
     LovelaceCardConfig,
-    LovelaceCardEditor
+    LovelaceCardEditor,
+    handleAction,
+    ActionHandlerEvent
   } from "custom-card-helpers";
   import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
   import { customElement, property, state } from "lit/decorators.js";
@@ -21,12 +24,13 @@ import {
     entity: string;
     icon?: string;
     use_entity_picture?: boolean;
+    tap_action?: ActionConfig
   }
   
   registerCustomCard({
     type: PERSON_CARD_NAME,
     name: "Mushroom Person Card",
-    description: "Card for person entity",
+    description: "Card for person entity"
   });
   
   @customElement(PERSON_CARD_NAME)
@@ -59,15 +63,24 @@ import {
     }
   
     setConfig(config: PersonCardConfig): void {
-      this._config = config;
+      this._config = {
+        tap_action: {
+            action: "more-info"
+          },
+          ...config
+      };
     }
-  
-    clickHandler(): void {
-      this.hass.callService("switch", "toggle", {
-        entity_id: this._config?.entity,
-      });
+
+    _isClickable(): boolean {
+        return this._config?.tap_action?.action !== "none";
     }
-  
+
+    clickHandler(ev: ActionHandlerEvent): void {
+        if (this._isClickable()) {
+            handleAction(this, this.hass!, this._config!, ev.detail.action!);
+        }
+    }
+
     protected render(): TemplateResult {
       if (!this._config || !this.hass) {
         return html``;
@@ -99,8 +112,10 @@ import {
         entity_state,
         this.hass.locale
       );
+
+
   
-      return html`<ha-card @click=${this.clickHandler}>
+      return html`<ha-card @click=${this.clickHandler} class=${classMap({ clickable: this._isClickable()})}>
         <div class=${classMap({ container: true})}>
             <div class="image-container">
                 ${!picture ? html`<mushroom-shape-icon
@@ -126,10 +141,12 @@ import {
           --rgb-color: 61, 90, 254;
         }
         ha-card {
-          cursor: pointer;
           display: flex;
           flex-direction: column;
           padding: 12px;
+        }
+        ha-card.clickable {
+          cursor: pointer;
         }
         .container {
           display: flex;
