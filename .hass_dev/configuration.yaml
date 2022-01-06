@@ -1,6 +1,11 @@
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
 
+homeassistant:
+  customize:
+    person.mushroom:
+      entity_picture: "/local/mushrooms.jpeg"
+
 # Text to speech
 tts:
   - platform: google_translate
@@ -19,6 +24,10 @@ cover:
 
 media_player:
   - platform: demo
+
+person:
+  - name: Mushroom
+    id: mush1234
 
 lovelace: !include ui-lovelace.yaml
 
