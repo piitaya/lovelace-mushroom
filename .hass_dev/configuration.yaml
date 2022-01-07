@@ -3,7 +3,7 @@ default_config:
 
 homeassistant:
   customize:
-    person.mushroom:
+    person.anne_therese:
       entity_picture: "/local/mushrooms.jpeg"
 
 # Text to speech
@@ -25,9 +25,14 @@ cover:
 media_player:
   - platform: demo
 
+device_tracker:
+  - platform: demo
+
 person:
-  - name: Mushroom
-    id: mush1234
+  - name: Anne Therese
+    id: anne_therese
+    device_trackers:
+      - device_tracker.demo_anne_therese
 
 lovelace: !include ui-lovelace.yaml
 

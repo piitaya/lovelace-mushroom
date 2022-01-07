@@ -170,8 +170,8 @@ import {
             width: 16px;
             height: 16px;
             border-radius: 50%;
-            background: var(--state-unknown-color);
-            transition: background 280ms ease-in-out;
+            background-color: var(--state-unknown-color);
+            transition: background-color 280ms ease-in-out;
         }
         .state-icon {
             --mdc-icon-size: 12px;
