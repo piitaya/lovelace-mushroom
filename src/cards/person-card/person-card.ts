@@ -73,12 +73,12 @@ export class PersonCard extends LitElement implements LovelaceCard {
     };
   }
 
-  _isClickable(): boolean {
+  get _isClickable(): boolean {
     return this._config?.tap_action?.action !== "none";
   }
 
   clickHandler(ev: ActionHandlerEvent): void {
-    if (this._isClickable()) {
+    if (this._isClickable) {
       handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
   }
@@ -120,9 +120,9 @@ export class PersonCard extends LitElement implements LovelaceCard {
 
     return html`<ha-card
       @click=${this.clickHandler}
-      class=${classMap({ clickable: this._isClickable() })}
+      class=${classMap({ clickable: this._isClickable })}
     >
-      <div class=${classMap({ container: true })}>
+      <div class="container">
         <div class="image-container">
           ${picture
             ? html`<mushroom-shape-avatar
