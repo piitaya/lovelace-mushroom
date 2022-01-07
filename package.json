@@ -6,6 +6,7 @@
   "scripts": {
     "start": "rollup -c --watch",
     "build": "rollup -c",
+    "format": "prettier --write .",
     "start:hass": "docker run --rm -p8123:8123 -v ${PWD}/.hass_dev:/config homeassistant/home-assistant:beta"
   },
   "author": "",
