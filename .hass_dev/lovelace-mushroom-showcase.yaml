@@ -18,7 +18,22 @@ views:
         columns: 1
         square: false
       - type: grid
-        title: Switchs
+        title: Covers
+        cards:
+          - type: custom:mushroom-cover-card
+            entity: cover.living_room_window
+          - type: custom:mushroom-cover-card
+            entity: cover.living_room_window
+            show_buttons_control: true
+          - type: custom:mushroom-cover-card
+            entity: cover.living_room_window
+            name: Custom name and icon
+            show_buttons_control: true
+            icon: mdi:window-closed-variant
+        columns: 1
+        square: false
+      - type: grid
+        title: Switch
         cards:
           - type: custom:mushroom-switch-card
             entity: switch.decorative_lights
