@@ -34,6 +34,19 @@ person:
     device_trackers:
       - device_tracker.demo_anne_therese
 
+alarm_control_panel:
+  - platform: manual
+    name: Alarm panel 1
+  - platform: manual
+    name: Alarm panel 2
+
+group:
+  alarm_group:
+    name: Alarm control panel group
+    entities:
+      - alarm_control_panel.alarm_panel_1
+      - alarm_control_panel.alarm_panel_2
+
 lovelace: !include ui-lovelace.yaml
 
 frontend:
