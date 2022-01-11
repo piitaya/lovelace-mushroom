@@ -12,10 +12,10 @@ import {
     configElementStyle,
     EditorTarget,
 } from "../../utils/editor";
-import { ALARM_CONTROl_PANEL_GROUP_CARD_EDITOR_NAME } from "./const";
-import { AlarmControlPanelGroupCardConfig } from "./alarm-control-panel-group-card";
+import { ALARM_CONTROl_PANEL_CARD_EDITOR_NAME } from "./const";
+import { AlarmControlPanelCardConfig } from "./alarm-control-panel-card";
 
-const DOMAINS = ["group"];
+const DOMAINS = ["group", "alarm_control_panel"];
 
 const cardConfigStruct = assign(
     baseLovelaceCardConfig,
@@ -25,13 +25,13 @@ const cardConfigStruct = assign(
     })
 );
 
-@customElement(ALARM_CONTROl_PANEL_GROUP_CARD_EDITOR_NAME)
+@customElement(ALARM_CONTROl_PANEL_CARD_EDITOR_NAME)
 export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
     @property({ attribute: false }) public hass?: HomeAssistant;
 
-    @state() private _config?: AlarmControlPanelGroupCardConfig;
+    @state() private _config?: AlarmControlPanelCardConfig;
 
-    public setConfig(config: AlarmControlPanelGroupCardConfig): void {
+    public setConfig(config: AlarmControlPanelCardConfig): void {
         assert(config, cardConfigStruct);
         this._config = config;
     }
