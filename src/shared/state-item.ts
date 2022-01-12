@@ -16,6 +16,8 @@ export class StateItem extends LitElement {
 
     @property() public badge_icon?: string;
 
+    @property() public shape_pulse?: boolean;
+
     protected render(): TemplateResult {
         return html`
             <div class=${classMap({ container: true, active: this.active })}>
@@ -23,6 +25,7 @@ export class StateItem extends LitElement {
                     <mushroom-shape-icon
                         .disabled=${!this.active}
                         .icon=${this.icon}
+                        .pulse=${!!this.shape_pulse}
                     >
                     </mushroom-shape-icon>
                     ${this.badge_icon ? html`<mushroom-badge-icon

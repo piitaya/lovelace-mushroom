@@ -28,10 +28,17 @@ registerCustomCard({
 });
 
 /*
- * TODO: add controls and customize controls
- * TODO: fix pulse on arming and triggering
- * TODO: customize icon from for modes (advanced YAML configuration)
+ * TODO: customize controls
+ * TODO: customize icon for modes (advanced YAML configuration)
+ * TODO: handle text code
+ * TODO: handle number code
  */
+
+type ActionButtonType = {
+    icon: string,
+    action: string,
+    disabled?: boolean
+};
 
 @customElement(ALARM_CONTROl_PANEL_CARD_NAME)
 export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
@@ -75,6 +82,14 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
         };
     }
 
+
+    private _onTap(e: MouseEvent, service: string): void {
+        e.stopPropagation();
+        this.hass.callService("alarm_control_panel", service, {
+            entity_id: this._config?.entity,
+        });
+    }
+
     clickHandler(ev: ActionHandlerEvent): void {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
@@ -95,21 +110,36 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
         const entity_state = this.hass.states[entity];
         const panel_state = this.hass.states[ref_panel]
 
-        let has_alert = false;
+        let has_alert = panel_state.state.startsWith("partially_");
         panels.forEach(element => {
             has_alert = has_alert || this.hass.states[element].state !== panel_state.state;
         });
 
         const name = this._config.name ?? entity_state.attributes.friendly_name;
         const icon = ALARM_CONTROL_PANEL_CARD_STATE_ICON[panel_state.state] || "mdi:shield-lock-outline";
-        let color = "var(--label-badge-yellow)";
+        let state_color = {
+            disarmed: "var(--rgb-alarm-state-color-disarmed)",
+            armed: "var(--rgb-alarm-state-color-armed)",
+            triggered: "var(--rgb-alarm-state-color-triggered)",
+            unavailable: "var(--rgb-alarm-state-color-warning)"
+        };
+        const color = state_color[panel_state.state.split("_")[0]] || "var(--rgb-alarm-state-color-default)";
+        const shape_pulse = ["arming", "triggered", "pending", "unavailable"].indexOf(panel_state.state) >= 0;
+        let buttons: ActionButtonType[] = [{ icon: ALARM_CONTROL_PANEL_CARD_STATE_ICON.disarmed, action: "alarm_disarm" }];
         if (panel_state.state === "disarmed") {
-            color = "var(--label-badge-green)";
-        } else if (panel_state.state.startsWith("armed_")) {
-            color = "var(--label-badge-blue)";
-        } else if (panel_state.state == "triggered") {
-            color = "var(--label-badge-red)";
+            buttons = [
+                { icon: ALARM_CONTROL_PANEL_CARD_STATE_ICON.armed_away, action: "alarm_arm_away" },
+                { icon: ALARM_CONTROL_PANEL_CARD_STATE_ICON.armed_home, action: "alarm_arm_home" },
+                { icon: ALARM_CONTROL_PANEL_CARD_STATE_ICON.armed_night, action: "alarm_arm_night" },
+                { icon: ALARM_CONTROL_PANEL_CARD_STATE_ICON.armed_vacation, action: "alarm_arm_vacation" },
+            ]
         }
+        if (["pending", "unavailable"].indexOf(panel_state.state) >= 0) {
+            buttons.forEach(b => {
+                b.disabled = true;
+            })
+        }
+
 
         const stateDisplay = computeStateDisplay(
             this.hass.localize,
@@ -120,29 +150,56 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
         return html`<ha-card @click=${this.clickHandler}>
             <mushroom-state-item class="${panel_state.state}"
                 style=${styleMap({
-            "--icon-main-color": color,
-            "--icon-shape-color": "rgba(rgb(var(--label-badge-green)), 0.9)",
+            "--icon-main-color": `rgb(${color})`,
+            "--icon-shape-color": `rgba(${color}, 0.2)`,
             "--badge-main-color": "var(--warning-color)"
         })}
-                .icon=${icon}
-                .name=${name}
-                .value=${stateDisplay}
-                .active=${true}
-                .badge_icon=${has_alert ? "mdi:exclamation" : undefined}
-            >
+                        .icon=${icon}
+                        .name=${name}
+                        .value=${stateDisplay}
+                        .active=${true}
+                        .shape_pulse=${shape_pulse}
+                        .badge_icon=${has_alert ? "mdi:exclamation" : undefined}
+                    ></mushroom-state-item>
+                <div class="actions">
+                    ${buttons.map(b => html`<mushroom-button
+                        icon=${b.icon}
+                        @click=${(e) => this._onTap(e, b.action)}
+                        .disabled=${!!b.disabled}
+                    ></mushroom-button>`)}
+                </div>
         </ha-card>`;
     }
 
     static get styles(): CSSResultGroup {
+        // Defalt colors are RGB values of HASS --label-badge-*
         return css`
-        mushroom-state-item.triggered mushroom-shape-icon, mushroom-state-item.arming mushroom-shape-icon {
-                animation: 1s ease 0s infinite normal none running pulse; !important
+            :host {
+                --rgb-alarm-state-color-default: var(--rgb-primary-text-color);
+                --rgb-alarm-state-color-warning: 240,180,0;
+                --rgb-alarm-state-color-disarmed: 3,155,229;
+                --rgb-alarm-state-color-armed: 13,160,53;
+                --rgb-alarm-state-color-triggered: 223,76,30;
             }
             ha-card {
                 cursor: pointer;
                 display: flex;
                 flex-direction: column;
                 padding: 12px;
+            }
+            ha-card > *:not(:last-child) {
+                margin-bottom: 12px;
+            }
+            .actions {
+                display: flex;
+                flex-direction: row;
+                align-items: flex-start;
+            }
+            .actions *:not(:last-child) {
+                margin-right: 12px;
+            }
+            .actions mushroom-button {
+                flex: 1;
             }
         `;
     }
