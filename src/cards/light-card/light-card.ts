@@ -9,10 +9,12 @@ import {
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import "../../shared/state-item";
-import "../../shared/slider-item";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { LIGHT_CARD_EDITOR_NAME, LIGHT_CARD_NAME } from "./const";
+import "./controls/light-brightness-controls";
+import "./controls/light-color-temp-controls";
 import "./light-card-editor";
+import { getBrightness } from "./utils";
 
 export interface LightCardConfig extends LovelaceCardConfig {
     entity: string;
@@ -66,55 +68,56 @@ export class LightCard extends LitElement implements LovelaceCard {
         });
     }
 
-    sliderChangeHandler(e): void {
-        const value = e.detail.value;
-        this.hass.callService("light", "turn_on", {
-            entity_id: this._config?.entity,
-            brightness_pct: value,
-        });
-    }
-
     protected render(): TemplateResult {
         if (!this._config || !this.hass) {
             return html``;
         }
 
-        const entity = this._config.entity;
-        const entity_state = this.hass.states[entity];
+        const entity_id = this._config.entity;
+        const entity = this.hass.states[entity_id];
 
-        const name = this._config.name ?? entity_state.attributes.friendly_name;
-        const icon = this._config.icon ?? stateIcon(entity_state);
+        const name = this._config.name ?? entity.attributes.friendly_name;
+        const icon = this._config.icon ?? stateIcon(entity);
 
-        const state = entity_state.state;
+        const state = entity.state;
 
         const stateDisplay = computeStateDisplay(
             this.hass.localize,
-            entity_state,
+            entity,
             this.hass.locale
         );
 
-        const brightness =
-            entity_state.attributes.brightness != null
-                ? Math.round((entity_state.attributes.brightness * 100) / 255)
-                : undefined;
+        const brightness = getBrightness(entity);
 
-        return html`<ha-card>
-            <mushroom-state-item
-                .icon=${icon}
-                .name=${name}
-                .value=${brightness != null ? `${brightness}%` : stateDisplay}
-                .active=${state === "on"}
-                @click=${this.clickHandler}
-            ></mushroom-state-item>
-            ${this._config?.show_brightness_control
-                ? html`<mushroom-slider-item
-                      .value=${brightness}
-                      .disabled=${state !== "on"}
-                      @change=${this.sliderChangeHandler}
-                  >
-                  </mushroom-slider-item>`
-                : null}
-        </ha-card>`;
+        return html`
+            <ha-card>
+                <mushroom-state-item
+                    .icon=${icon}
+                    .name=${name}
+                    .value=${brightness != null
+                        ? `${brightness}%`
+                        : stateDisplay}
+                    .active=${state === "on"}
+                    @click=${this.clickHandler}
+                ></mushroom-state-item>
+                ${this._config?.show_brightness_control
+                    ? html`
+                          <mushroom-light-brightness-controls
+                              .hass=${this.hass}
+                              .entity=${entity}
+                          ></mushroom-light-brightness-controls>
+                      `
+                    : null}
+                ${this._config?.show_brightness_control
+                    ? html`
+                          <mushroom-light-color-temp-controls
+                              .hass=${this.hass}
+                              .entity=${entity}
+                          ></mushroom-light-color-temp-controls>
+                      `
+                    : null}
+            </ha-card>
+        `;
     }
 
     static get styles(): CSSResultGroup {
@@ -135,9 +138,13 @@ export class LightCard extends LitElement implements LovelaceCard {
                 --icon-main-color: rgba(var(--rgb-color), 1);
                 --icon-shape-color: rgba(var(--rgb-color), 0.2);
             }
-            mushroom-slider-item {
-                --main-color: rgba(var(--rgb-color), 1);
-                --bg-color: rgba(var(--rgb-color), 0.2);
+            .actions {
+                display: flex;
+                flex-direction: row;
+                align-items: flex-start;
+            }
+            .actions *:not(:last-child) {
+                margin-right: 12px;
             }
         `;
     }
