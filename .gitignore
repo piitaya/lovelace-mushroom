@@ -4,4 +4,5 @@ dist
 !.hass_dev/configuration.yaml
 !.hass_dev/ui-lovelace.yaml
 !.hass_dev/lovelace-mushroom-showcase.yaml
+!.hass_dev/views
 !.hass_dev/www

@@ -1,0 +1,32 @@
+title: Light
+icon: mdi:lightbulb
+cards:
+  - type: grid
+    title: Simple
+    cards:
+      - type: custom:mushroom-light-card
+        entity: light.bed_light
+      - type: custom:mushroom-light-card
+        entity: light.bed_light
+        name: Custom name and icon
+        icon: mdi:robot-outline
+    columns: 2
+    square: false
+  - type: grid
+    title: Controls
+    cards:
+      - type: custom:mushroom-light-card
+        entity: light.bed_light
+        name: Brightness
+        show_brightness_controls: true
+      - type: custom:mushroom-light-card
+        entity: light.bed_light
+        name: Color temperature
+        show_color_temp_controls: true
+      - type: custom:mushroom-light-card
+        entity: light.bed_light
+        name: Multiple controls
+        show_brightness_controls: true
+        show_color_temp_controls: true
+    columns: 2
+    square: false
