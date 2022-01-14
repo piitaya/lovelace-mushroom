@@ -3,10 +3,10 @@ import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import "../../../shared/slider";
-import { getBrightness } from "../utils";
+import { getColorTemp } from "../utils";
 
-@customElement("mushroom-light-brightness-controls")
-export class LightBrighnessControls extends LitElement {
+@customElement("mushroom-light-color-temp-control")
+export class LightColorTempControl extends LitElement {
     @property({ attribute: false }) public hass!: HomeAssistant;
 
     @property({ attribute: false }) public entity!: HassEntity;
@@ -17,20 +17,22 @@ export class LightBrighnessControls extends LitElement {
 
         this.hass.callService("light", "turn_on", {
             entity_id: this.entity.entity_id,
-            brightness_pct: value,
+            color_temp: value,
         });
     }
 
     protected render(): TemplateResult {
         const state = this.entity.state;
 
-        const brightness = getBrightness(this.entity);
+        const colorTemp = getColorTemp(this.entity);
 
         return html`
             <mushroom-slider
-                .value=${brightness}
+                .value=${colorTemp}
                 .disabled=${state !== "on"}
-                .showActive=${true}
+                .min=${this.entity.attributes.min_mireds ?? 0}
+                .max=${this.entity.attributes.max_mireds ?? 100}
+                .showIndicator=${true}
                 @change=${this.onChange}
             />
         `;
@@ -38,12 +40,13 @@ export class LightBrighnessControls extends LitElement {
 
     static get styles(): CSSResultGroup {
         return css`
-            :host {
-                --rgb-color: 255, 145, 1;
-            }
             mushroom-slider {
-                --main-color: rgba(var(--rgb-color), 1);
-                --bg-color: rgba(var(--rgb-color), 0.2);
+                --gradient: -webkit-linear-gradient(
+                    right,
+                    rgb(255, 160, 0) 0%,
+                    white 50%,
+                    rgb(166, 209, 255) 100%
+                );
             }
         `;
     }

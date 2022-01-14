@@ -3,10 +3,10 @@ import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import "../../../shared/slider";
-import { getColorTemp } from "../utils";
+import { getBrightness } from "../utils";
 
-@customElement("mushroom-light-color-temp-controls")
-export class LightColorTempControls extends LitElement {
+@customElement("mushroom-light-brightness-control")
+export class LightBrighnessControl extends LitElement {
     @property({ attribute: false }) public hass!: HomeAssistant;
 
     @property({ attribute: false }) public entity!: HassEntity;
@@ -17,22 +17,20 @@ export class LightColorTempControls extends LitElement {
 
         this.hass.callService("light", "turn_on", {
             entity_id: this.entity.entity_id,
-            color_temp: value,
+            brightness_pct: value,
         });
     }
 
     protected render(): TemplateResult {
         const state = this.entity.state;
 
-        const colorTemp = getColorTemp(this.entity);
+        const brightness = getBrightness(this.entity);
 
         return html`
             <mushroom-slider
-                .value=${colorTemp}
+                .value=${brightness}
                 .disabled=${state !== "on"}
-                .min=${this.entity.attributes.min_mireds ?? 0}
-                .max=${this.entity.attributes.max_mireds ?? 100}
-                .showIndicator=${true}
+                .showActive=${true}
                 @change=${this.onChange}
             />
         `;
@@ -40,13 +38,12 @@ export class LightColorTempControls extends LitElement {
 
     static get styles(): CSSResultGroup {
         return css`
+            :host {
+                --rgb-color: 255, 145, 1;
+            }
             mushroom-slider {
-                --gradient: -webkit-linear-gradient(
-                    right,
-                    rgb(255, 160, 0) 0%,
-                    white 50%,
-                    rgb(166, 209, 255) 100%
-                );
+                --main-color: rgba(var(--rgb-color), 1);
+                --bg-color: rgba(var(--rgb-color), 0.2);
             }
         `;
     }
