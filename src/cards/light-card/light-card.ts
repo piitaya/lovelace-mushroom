@@ -6,6 +6,7 @@ import {
     LovelaceCardEditor,
     stateIcon,
 } from "custom-card-helpers";
+import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import "../../shared/state-item";
@@ -16,11 +17,19 @@ import "./controls/light-color-temp-controls";
 import "./light-card-editor";
 import { getBrightness } from "./utils";
 
+type LightCardControl = "brightness_control" | "color_temp_control";
+
+const CONTROLS: Record<LightCardControl, string> = {
+    brightness_control: "mdi:brightness-4",
+    color_temp_control: "mdi:thermometer",
+};
+
 export interface LightCardConfig extends LovelaceCardConfig {
     entity: string;
     icon?: string;
     name?: string;
-    show_brightness_control?: boolean;
+    show_brightness_controls?: boolean;
+    show_color_temp_controls?: boolean;
 }
 
 registerCustomCard({
@@ -54,12 +63,41 @@ export class LightCard extends LitElement implements LovelaceCard {
 
     @state() private _config?: LightCardConfig;
 
+    @state() private _activeControl?: LightCardControl;
+
+    @state() private _controls: LightCardControl[] = [];
+
+    get _nextControl(): LightCardControl | undefined {
+        if (this._activeControl) {
+            return (
+                this._controls[
+                    this._controls.indexOf(this._activeControl) + 1
+                ] ?? this._controls[0]
+            );
+        }
+        return undefined;
+    }
+
+    _onNextControlTap(e): void {
+        e.stopPropagation();
+        this._activeControl = this._nextControl;
+    }
+
     getCardSize(): number | Promise<number> {
         return 1;
     }
 
     setConfig(config: LightCardConfig): void {
         this._config = config;
+        const controls: LightCardControl[] = [];
+        if (this._config?.show_brightness_controls) {
+            controls.push("brightness_control");
+        }
+        if (this._config?.show_color_temp_controls) {
+            controls.push("color_temp_control");
+        }
+        this._controls = controls;
+        this._activeControl = controls[0];
     }
 
     clickHandler(): void {
@@ -100,24 +138,45 @@ export class LightCard extends LitElement implements LovelaceCard {
                     .active=${state === "on"}
                     @click=${this.clickHandler}
                 ></mushroom-state-item>
-                ${this._config?.show_brightness_control
+                ${this._controls.length > 0
                     ? html`
-                          <mushroom-light-brightness-controls
-                              .hass=${this.hass}
-                              .entity=${entity}
-                          ></mushroom-light-brightness-controls>
-                      `
-                    : null}
-                ${this._config?.show_brightness_control
-                    ? html`
-                          <mushroom-light-color-temp-controls
-                              .hass=${this.hass}
-                              .entity=${entity}
-                          ></mushroom-light-color-temp-controls>
+                          <div class="actions">
+                              ${this.renderActiveControl(entity)}
+                              ${this._nextControl &&
+                              this._nextControl != this._activeControl
+                                  ? html`
+                                        <mushroom-button
+                                            .disabled=${state !== "on"}
+                                            .icon=${CONTROLS[this._nextControl]}
+                                            @click=${this._onNextControlTap}
+                                        />
+                                    `
+                                  : null}
+                          </div>
                       `
                     : null}
             </ha-card>
         `;
+    }
+    private renderActiveControl(entity: HassEntity): TemplateResult | null {
+        switch (this._activeControl) {
+            case "brightness_control":
+                return html`
+                    <mushroom-light-brightness-controls
+                        .hass=${this.hass}
+                        .entity=${entity}
+                    />
+                `;
+            case "color_temp_control":
+                return html`
+                    <mushroom-light-color-temp-controls
+                        .hass=${this.hass}
+                        .entity=${entity}
+                    />
+                `;
+            default:
+                return null;
+        }
     }
 
     static get styles(): CSSResultGroup {
@@ -137,6 +196,10 @@ export class LightCard extends LitElement implements LovelaceCard {
                 cursor: pointer;
                 --icon-main-color: rgba(var(--rgb-color), 1);
                 --icon-shape-color: rgba(var(--rgb-color), 0.2);
+            }
+            mushroom-light-brightness-controls,
+            mushroom-light-color-temp-controls {
+                flex: 1;
             }
             .actions {
                 display: flex;

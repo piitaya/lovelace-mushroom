@@ -78,8 +78,14 @@ export class SliderItem extends LitElement {
             >
                 <div
                     class="slider"
-                    @touchstart=${this.onEvent(true)}
-                    @mousedown=${this.onEvent(false)}
+                    @touchstart=${{
+                        handleEvent: this.onEvent(true),
+                        passive: true,
+                    }}
+                    @mousedown=${{
+                        handleEvent: this.onEvent(false),
+                        passive: true,
+                    }}
                     style=${styleMap({
                         "--value": `${this.valueToPercentage(this.value ?? 0)}`,
                     })}
