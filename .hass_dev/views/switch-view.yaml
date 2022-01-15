@@ -1,0 +1,14 @@
+title: Switch
+icon: mdi:power-plug
+cards:
+  - type: grid
+    title: Simple
+    cards:
+      - type: custom:mushroom-switch-card
+        entity: switch.decorative_lights
+      - type: custom:mushroom-switch-card
+        entity: switch.decorative_lights
+        name: Custom name and icon
+        icon: mdi:chef-hat
+    columns: 2
+    square: false

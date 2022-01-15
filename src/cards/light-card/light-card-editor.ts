@@ -25,6 +25,7 @@ const cardConfigStruct = assign(
         icon: optional(string()),
         name: optional(string()),
         show_brightness_control: optional(boolean()),
+        show_color_temp_control: optional(boolean()),
     })
 );
 
@@ -53,6 +54,10 @@ export class LightCardEditor extends LitElement implements LovelaceCardEditor {
 
     get _showBrightnessControl(): boolean {
         return this._config!.show_brightness_control ?? false;
+    }
+
+    get _showColorTempControl(): boolean {
+        return this._config!.show_color_temp_control ?? false;
     }
 
     protected render(): TemplateResult {
@@ -104,6 +109,13 @@ export class LightCardEditor extends LitElement implements LovelaceCardEditor {
                         <ha-switch
                             .checked=${this._showBrightnessControl != false}
                             .configValue=${"show_brightness_control"}
+                            @change=${this._valueChanged}
+                        ></ha-switch>
+                    </ha-formfield>
+                    <ha-formfield label="Show color temp control ?" .dir=${dir}>
+                        <ha-switch
+                            .checked=${this._showColorTempControl != false}
+                            .configValue=${"show_color_temp_control"}
                             @change=${this._valueChanged}
                         ></ha-switch>
                     </ha-formfield>
