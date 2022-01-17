@@ -8,17 +8,20 @@ import {
     LovelaceCardEditor,
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { classMap } from "lit/directives/class-map.js";
+import { styleMap } from "lit/directives/style-map.js";
+import { customElement, property, state, query } from "lit/decorators.js";
 import "../../shared/state-item";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { ALARM_CONTROl_PANEL_CARD_EDITOR_NAME, ALARM_CONTROl_PANEL_CARD_NAME, ALARM_CONTROL_PANEL_CARD_STATE_ICON } from "./const";
+import { ALARM_CONTROl_PANEL_CARD_EDITOR_NAME, ALARM_CONTROl_PANEL_CARD_NAME, ALARM_CONTROL_PANEL_CARD_STATE_ICON, ALARM_CONTROL_PANEL_CARD_STATE_SERVICE } from "./const";
 import "./alarm-control-panel-card-editor";
-import { styleMap } from "lit/directives/style-map.js";
+import type { PaperInputElement } from "@polymer/paper-input/paper-input";
 
 export interface AlarmControlPanelCardConfig extends LovelaceCardConfig {
     entity: string;
     icon?: string;
     name?: string;
+    states?: string[];
 }
 
 registerCustomCard({
@@ -27,18 +30,17 @@ registerCustomCard({
     description: "Card for alarm control panel",
 });
 
-/*
- * TODO: customize controls
- * TODO: customize icon for modes (advanced YAML configuration)
- * TODO: handle text code
- * TODO: handle number code
- */
-
 type ActionButtonType = {
-    icon: string,
-    action: string,
+    state: string,
     disabled?: boolean
 };
+
+const BUTTONS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "", "0", "clear"];
+
+/*
+ * Ref: https://github.com/home-assistant/frontend/blob/dev/src/panels/lovelace/cards/hui-alarm-panel-card.ts
+ * TODO: customize icon for modes (advanced YAML configuration)
+ */
 
 @customElement(ALARM_CONTROl_PANEL_CARD_NAME)
 export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
@@ -62,12 +64,15 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
         return {
             type: `custom:${ALARM_CONTROl_PANEL_CARD_NAME}`,
             entity: panels[0],
+            states: ["armed_home", "armed_away"]
         };
     }
 
     @property({ attribute: false }) public hass!: HomeAssistant;
 
     @state() private _config?: AlarmControlPanelCardConfig;
+
+    @query("#alarmCode") private _input?: PaperInputElement;
 
     getCardSize(): number | Promise<number> {
         return 1;
@@ -84,14 +89,21 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
 
 
     private _onTap(e: MouseEvent, service: string): void {
-        e.stopPropagation();
+        const code = this._input?.value || undefined;
         this.hass.callService("alarm_control_panel", service, {
             entity_id: this._config?.entity,
+            code
         });
+        this._input!.value = "";
     }
 
     clickHandler(ev: ActionHandlerEvent): void {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
+    }
+
+    private _handlePadClick(e: MouseEvent): void {
+        const val = (e.currentTarget! as any).value;
+        this._input!.value = (val === "clear") ? "" : this._input!.value + val;
     }
 
     private get _isGroup() {
@@ -108,7 +120,7 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
         const [ref_panel] = panels;
 
         const entity_state = this.hass.states[entity];
-        const panel_state = this.hass.states[ref_panel]
+        const panel_state = this.hass.states[ref_panel];
 
         let has_alert = panel_state.state.startsWith("partially_");
         panels.forEach(element => {
@@ -125,14 +137,9 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
         };
         const color = state_color[panel_state.state.split("_")[0]] || "var(--rgb-alarm-state-color-default)";
         const shape_pulse = ["arming", "triggered", "pending", "unavailable"].indexOf(panel_state.state) >= 0;
-        let buttons: ActionButtonType[] = [{ icon: ALARM_CONTROL_PANEL_CARD_STATE_ICON.disarmed, action: "alarm_disarm" }];
+        let buttons: ActionButtonType[] = [{ state: "disarmed" }];
         if (panel_state.state === "disarmed") {
-            buttons = [
-                { icon: ALARM_CONTROL_PANEL_CARD_STATE_ICON.armed_away, action: "alarm_arm_away" },
-                { icon: ALARM_CONTROL_PANEL_CARD_STATE_ICON.armed_home, action: "alarm_arm_home" },
-                { icon: ALARM_CONTROL_PANEL_CARD_STATE_ICON.armed_night, action: "alarm_arm_night" },
-                { icon: ALARM_CONTROL_PANEL_CARD_STATE_ICON.armed_vacation, action: "alarm_arm_vacation" },
-            ]
+            buttons = this._config.states?.map(state => ({ state })) || [];
         }
         if (["pending", "unavailable"].indexOf(panel_state.state) >= 0) {
             buttons.forEach(b => {
@@ -140,15 +147,16 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
             })
         }
 
-
         const stateDisplay = computeStateDisplay(
             this.hass.localize,
             panel_state,
             this.hass.locale
         );
 
-        return html`<ha-card @click=${this.clickHandler}>
-            <mushroom-state-item class="${panel_state.state}"
+        return html`<ha-card>
+            <mushroom-state-item 
+                @click=${this.clickHandler}
+                class="${panel_state.state}"
                 style=${styleMap({
             "--icon-main-color": `rgb(${color})`,
             "--icon-shape-color": `rgba(${color}, 0.2)`,
@@ -163,11 +171,40 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                     ></mushroom-state-item>
                 <div class="actions">
                     ${buttons.map(b => html`<mushroom-button
-                        icon=${b.icon}
-                        @click=${(e) => this._onTap(e, b.action)}
+                        icon=${ALARM_CONTROL_PANEL_CARD_STATE_ICON[b.state]}
+                        @click=${(e) => this._onTap(e, ALARM_CONTROL_PANEL_CARD_STATE_SERVICE[b.state])}
                         .disabled=${!!b.disabled}
                     ></mushroom-button>`)}
                 </div>
+                    ${!panel_state.attributes.code_format ? html``
+                : html`<paper-input id="alarmCode"
+                              .label=${this.hass.localize("ui.card.alarm_control_panel.code")}
+                              type="password"
+                              .inputmode=${panel_state.attributes.code_format === "number" ? "numeric" : "text"}
+                            ></paper-input>`}
+                      ${panel_state.attributes.code_format !== "number" ? html`` : html`<div id="keypad">
+                              ${BUTTONS.map((value) =>
+                    value === ""
+                        ? html` <mwc-button disabled></mwc-button> `
+                        : html`
+                                      <mwc-button
+                                        .value=${value}
+                                        @click=${this._handlePadClick}
+                                        outlined
+                                        class=${classMap({
+                            numberkey: value !== "clear",
+                        })}
+                                      >
+                                        ${value === "clear"
+                                ? this.hass!.localize(
+                                    `ui.card.alarm_control_panel.clear_code`
+                                )
+                                : value}
+                                      </mwc-button>
+                                    `
+                )}
+                            </div>
+                          `}
         </ha-card>`;
     }
 
@@ -200,6 +237,24 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
             }
             .actions mushroom-button {
                 flex: 1;
+            }
+            paper-input {
+                margin: 0 auto 8px;
+                max-width: 150px;
+                text-align: center;
+            }
+            #keypad {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                margin: auto;
+                width: 100%;
+                max-width: 300px;
+            }
+            #keypad mwc-button {
+                padding: 8px;
+                width: 30%;
+                box-sizing: border-box;
             }
         `;
     }

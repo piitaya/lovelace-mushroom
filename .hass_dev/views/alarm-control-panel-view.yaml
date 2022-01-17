@@ -1,0 +1,42 @@
+title: Alarm control panel
+icon: mdi:shield
+cards:
+  - type: custom:mushroom-alarm-control-panel-card
+    entity: alarm_control_panel.alarm_panel_1
+    states:
+      - armed_home
+      - armed_away
+  - type: custom:mushroom-alarm-control-panel-card
+    entity: alarm_control_panel.alarm_panel_2
+    states:
+      - armed_home
+      - armed_away
+      - armed_night
+      - armed_vacation
+      - armed_custom_bypass
+    name: Alarm panel 2, custom name
+  - type: custom:mushroom-alarm-control-panel-card
+    entity: group.alarm_group
+    states:
+      - armed_home
+      - armed_away
+      - armed_night
+    name: Group
+  - type: custom:mushroom-alarm-control-panel-card
+    entity: alarm_control_panel.alarm_panel_no_code
+    states:
+      - armed_home
+      - armed_away
+    name: Alarm panel template
+  - type: custom:mushroom-alarm-control-panel-card
+    entity: alarm_control_panel.alarm_panel
+    states:
+      - armed_home
+      - armed_away
+    name: Template, number code (1234)
+  - type: custom:mushroom-alarm-control-panel-card
+    entity: alarm_control_panel.alarm_panel_text_code
+    states:
+      - armed_home
+      - armed_away
+    name: Template, text code (azerty)

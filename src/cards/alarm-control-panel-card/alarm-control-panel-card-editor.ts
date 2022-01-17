@@ -1,12 +1,12 @@
+import { mdiClose } from "@mdi/js";
 import {
     fireEvent,
     HomeAssistant,
     LovelaceCardEditor,
-    stateIcon,
 } from "custom-card-helpers";
-import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { assert, assign, object, optional, string } from "superstruct";
+import { array, assert, assign, object, optional, string } from "superstruct";
 import {
     baseLovelaceCardConfig,
     configElementStyle,
@@ -22,8 +22,13 @@ const cardConfigStruct = assign(
     object({
         entity: string(),
         name: optional(string()),
+        states: optional(array()),
     })
 );
+
+/*
+ * Ref: https://github.com/home-assistant/frontend/blob/dev/src/panels/lovelace/editor/config-elements/hui-alarm-panel-card-editor.ts
+ */
 
 @customElement(ALARM_CONTROl_PANEL_CARD_EDITOR_NAME)
 export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
@@ -44,10 +49,23 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
         return this._config!.name || "";
     }
 
+
+    get _states(): string[] {
+        return this._config!.states || [];
+    }
+
     protected render(): TemplateResult {
         if (!this.hass || !this._config) {
             return html``;
         }
+
+        const states = [
+            "armed_home",
+            "armed_away",
+            "armed_night",
+            "armed_vacation",
+            "armed_custom_bypass",
+        ];
 
         const entityState = this.hass.states[this._entity];
 
@@ -75,6 +93,32 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                         .configValue=${"name"}
                         @value-changed=${this._valueChanged}
                     ></paper-input>
+                </div>
+                <div class="side-by-side">
+                    <div>
+                    <span>Used States</span> ${this._states.map(
+            (entityState, index) => html`
+                          <div class="states">
+                            <paper-item>${entityState}</paper-item>
+                            <ha-svg-icon
+                              class="deleteState"
+                              .value=${index}
+                              .path=${mdiClose}
+                              @click=${this._stateRemoved}
+                            ></ha-svg-icon>
+                          </div>
+                        `
+        )}
+                      <paper-dropdown-menu
+                        .label=${this.hass.localize(
+            "ui.panel.lovelace.editor.card.alarm-panel.available_states"
+        )}
+                        @value-changed=${this._stateAdded}>
+                        <paper-listbox slot="dropdown-content">
+                            ${states.map((entityState) => html` <paper-item>${entityState}</paper-item>`)}
+                        </paper-listbox>
+                        </paper-dropdown-menu>
+                    </div>
                 </div>
             </div>
         `;
@@ -107,7 +151,64 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
         fireEvent(this, "config-changed", { config: newConfig });
     }
 
+
+
+    private _stateRemoved(ev: CustomEvent): void {
+        if (!this._config || !this._states || !this.hass) {
+            return;
+        }
+
+        const target = ev.target! as EditorTarget;
+        const index = Number(target.value);
+        if (index > -1) {
+            const newStates = [...this._states];
+            newStates.splice(index, 1);
+            fireEvent(this, "config-changed", {
+                config: {
+                    ...this._config,
+                    states: newStates,
+                },
+            });
+        }
+    }
+
+    private _stateAdded(ev: CustomEvent): void {
+        if (!this._config || !this.hass) {
+            return;
+        }
+        const target = ev.target! as EditorTarget;
+        if (!target.value || this._states.indexOf(target.value) !== -1) {
+            return;
+        }
+        const newStates = [...this._states];
+        newStates.push(target.value);
+        target.value = "";
+        fireEvent(this, "config-changed", {
+            config: {
+                ...this._config,
+                states: newStates,
+            },
+        });
+    }
+
     static get styles(): CSSResultGroup {
-        return configElementStyle;
+        return [
+            configElementStyle,
+            css`
+            .states {
+              display: flex;
+              flex-direction: row;
+            }
+            .deleteState {
+              visibility: hidden;
+            }
+            .states:hover > .deleteState {
+              visibility: visible;
+            }
+            ha-svg-icon {
+              padding-top: 12px;
+            }
+          `,
+        ];
     }
 }
