@@ -23,20 +23,14 @@ cards:
       - armed_night
     name: Group
   - type: custom:mushroom-alarm-control-panel-card
-    entity: alarm_control_panel.alarm_panel_no_code
+    entity: alarm_control_panel.alarm_panel_code
     states:
       - armed_home
       - armed_away
-    name: Alarm panel template
-  - type: custom:mushroom-alarm-control-panel-card
-    entity: alarm_control_panel.alarm_panel
-    states:
-      - armed_home
-      - armed_away
-    name: Template, number code (1234)
+    name: Number code (1234)
   - type: custom:mushroom-alarm-control-panel-card
     entity: alarm_control_panel.alarm_panel_text_code
     states:
       - armed_home
       - armed_away
-    name: Template, text code (azerty)
+    name: Text code (azerty)
