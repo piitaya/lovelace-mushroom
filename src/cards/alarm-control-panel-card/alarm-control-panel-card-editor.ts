@@ -1,4 +1,3 @@
-import { mdiClose } from "@mdi/js";
 import {
     fireEvent,
     HomeAssistant,
