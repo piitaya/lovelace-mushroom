@@ -12,36 +12,25 @@ import "../../shared/state-item";
 import "../../shared/button";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { COVER_CARD_EDITOR_NAME, COVER_CARD_NAME } from "./const";
+import "./controls/cover-buttons-control";
+import "./controls/cover-position-control";
 import "./cover-card-editor";
 import { HassEntity } from "home-assistant-js-websocket";
+import { isActive } from "./utils";
 
-function isFullyOpen(stateObj: HassEntity) {
-    if (stateObj.attributes.current_position !== undefined) {
-        return stateObj.attributes.current_position === 100;
-    }
-    return stateObj.state === "open";
-}
+type CoverCardControl = "buttons_control" | "position_control";
 
-function isFullyClosed(stateObj: HassEntity) {
-    if (stateObj.attributes.current_position !== undefined) {
-        return stateObj.attributes.current_position === 0;
-    }
-    return stateObj.state === "closed";
-}
-
-function isOpening(stateObj: HassEntity) {
-    return stateObj.state === "opening";
-}
-
-function isClosing(stateObj: HassEntity) {
-    return stateObj.state === "closing";
-}
+const CONTROLS_ICONS: Record<CoverCardControl, string> = {
+    buttons_control: "mdi:gesture-tap-button",
+    position_control: "mdi:gesture-swipe-horizontal",
+};
 
 export interface CoverCardConfig extends LovelaceCardConfig {
     entity: string;
     icon?: string;
     name?: string;
     show_buttons_control?: false;
+    show_position_control?: false;
 }
 
 registerCustomCard({
@@ -75,33 +64,41 @@ export class CoverCard extends LitElement implements LovelaceCard {
 
     @state() private _config?: CoverCardConfig;
 
+    @state() private _activeControl?: CoverCardControl;
+
+    @state() private _controls: CoverCardControl[] = [];
+
+    get _nextControl(): CoverCardControl | undefined {
+        if (this._activeControl) {
+            return (
+                this._controls[
+                    this._controls.indexOf(this._activeControl) + 1
+                ] ?? this._controls[0]
+            );
+        }
+        return undefined;
+    }
+
+    private _onNextControlTap(e): void {
+        e.stopPropagation();
+        this._activeControl = this._nextControl;
+    }
+
     getCardSize(): number | Promise<number> {
         return 1;
     }
 
     setConfig(config: CoverCardConfig): void {
         this._config = config;
-    }
-
-    private _onOpenTap(e: MouseEvent): void {
-        e.stopPropagation();
-        this.hass.callService("cover", "open_cover", {
-            entity_id: this._config?.entity,
-        });
-    }
-
-    private _onCloseTap(e: MouseEvent): void {
-        e.stopPropagation();
-        this.hass.callService("cover", "close_cover", {
-            entity_id: this._config?.entity,
-        });
-    }
-
-    private _onStopTap(e: MouseEvent): void {
-        e.stopPropagation();
-        this.hass.callService("cover", "stop_cover", {
-            entity_id: this._config?.entity,
-        });
+        const controls: CoverCardControl[] = [];
+        if (this._config?.show_buttons_control) {
+            controls.push("buttons_control");
+        }
+        if (this._config?.show_position_control) {
+            controls.push("position_control");
+        }
+        this._controls = controls;
+        this._activeControl = controls[0];
     }
 
     protected render(): TemplateResult {
@@ -109,48 +106,69 @@ export class CoverCard extends LitElement implements LovelaceCard {
             return html``;
         }
 
-        const entity = this._config.entity;
-        const stateObj = this.hass.states[entity];
+        const entity_id = this._config.entity;
+        const entity = this.hass.states[entity_id];
 
-        const name = this._config.name ?? stateObj.attributes.friendly_name;
-        const icon = this._config.icon ?? stateIcon(stateObj);
-
-        const state = stateObj.state;
+        const name = this._config.name ?? entity.attributes.friendly_name;
+        const icon = this._config.icon ?? stateIcon(entity);
 
         const stateDisplay = computeStateDisplay(
             this.hass.localize,
-            stateObj,
+            entity,
             this.hass.locale
         );
 
-        return html`<ha-card>
-            <mushroom-state-item
-                .icon=${icon}
-                .name=${name}
-                .value=${stateDisplay}
-                .active=${state === "open" || state === "opening"}
-            ></mushroom-state-item>
-            ${this._config?.show_buttons_control
-                ? html`<div class="actions">
-                      <mushroom-button
-                          icon="mdi:arrow-down"
-                          .disabled=${isFullyClosed(stateObj) ||
-                    isClosing(stateObj)}
-                          @click=${this._onCloseTap}
-                      ></mushroom-button>
-                      <mushroom-button
-                          icon="mdi:pause"
-                          @click=${this._onStopTap}
-                      ></mushroom-button>
-                      <mushroom-button
-                          icon="mdi:arrow-up"
-                          .disabled=${isFullyOpen(stateObj) ||
-                    isOpening(stateObj)}
-                          @click=${this._onOpenTap}
-                      ></mushroom-button>
-                  </div>`
-                : null}
-        </ha-card>`;
+        return html`
+            <ha-card>
+                <mushroom-state-item
+                    .icon=${icon}
+                    .name=${name}
+                    .value=${stateDisplay}
+                    .active=${isActive(entity)}
+                ></mushroom-state-item>
+                ${this._controls.length > 0
+                    ? html`
+                          <div class="actions">
+                              ${this.renderActiveControl(entity)}
+                              ${this.renderNextControlButton()}
+                          </div>
+                      `
+                    : null}
+            </ha-card>
+        `;
+    }
+
+    private renderNextControlButton(): TemplateResult | null {
+        if (!this._nextControl || this._nextControl == this._activeControl)
+            return null;
+
+        return html`
+            <mushroom-button
+                .icon=${CONTROLS_ICONS[this._nextControl]}
+                @click=${this._onNextControlTap}
+            />
+        `;
+    }
+
+    private renderActiveControl(entity: HassEntity): TemplateResult | null {
+        switch (this._activeControl) {
+            case "buttons_control":
+                return html`
+                    <mushroom-cover-buttons-control
+                        .hass=${this.hass}
+                        .entity=${entity}
+                    />
+                `;
+            case "position_control":
+                return html`
+                    <mushroom-cover-position-control
+                        .hass=${this.hass}
+                        .entity=${entity}
+                    />
+                `;
+            default:
+                return null;
+        }
     }
 
     static get styles(): CSSResultGroup {
@@ -170,16 +188,18 @@ export class CoverCard extends LitElement implements LovelaceCard {
                 --icon-main-color: rgba(var(--rgb-color), 1);
                 --icon-shape-color: rgba(var(--rgb-color), 0.2);
             }
+            mushroom-cover-buttons-control,
+            mushroom-cover-position-control {
+                flex: 1;
+            }
             .actions {
                 display: flex;
                 flex-direction: row;
                 align-items: flex-start;
+                overflow-y: auto;
             }
             .actions *:not(:last-child) {
                 margin-right: 12px;
-            }
-            .actions mushroom-button {
-                flex: 1;
             }
         `;
     }
