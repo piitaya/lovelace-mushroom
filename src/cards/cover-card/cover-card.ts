@@ -16,7 +16,7 @@ import "./controls/cover-buttons-control";
 import "./controls/cover-position-control";
 import "./cover-card-editor";
 import { HassEntity } from "home-assistant-js-websocket";
-import { isActive } from "./utils";
+import { getPosition, isActive } from "./utils";
 
 type CoverCardControl = "buttons_control" | "position_control";
 
@@ -118,12 +118,19 @@ export class CoverCard extends LitElement implements LovelaceCard {
             this.hass.locale
         );
 
+        const position = getPosition(entity);
+
+        let stateValue = `${stateDisplay}`;
+        if (position) {
+            stateValue += ` - ${position}%`;
+        }
+
         return html`
             <ha-card>
                 <mushroom-state-item
                     .icon=${icon}
                     .name=${name}
-                    .value=${stateDisplay}
+                    .value=${stateValue}
                     .active=${isActive(entity)}
                 ></mushroom-state-item>
                 ${this._controls.length > 0

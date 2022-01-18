@@ -2,7 +2,7 @@ import { HassEntity } from "home-assistant-js-websocket";
 
 export function getPosition(entity: HassEntity) {
     return entity.attributes.current_position != null
-        ? entity.attributes.current_position
+        ? (entity.attributes.current_position as number)
         : undefined;
 }
 
