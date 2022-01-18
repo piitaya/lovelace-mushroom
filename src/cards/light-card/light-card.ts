@@ -10,6 +10,7 @@ import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import "../../shared/state-item";
+import "../../shared/button";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { LIGHT_CARD_EDITOR_NAME, LIGHT_CARD_NAME } from "./const";
 import "./controls/light-brightness-control";
@@ -142,22 +143,24 @@ export class LightCard extends LitElement implements LovelaceCard {
                     ? html`
                           <div class="actions">
                               ${this.renderActiveControl(entity)}
-                              ${this._nextControl &&
-                              this._nextControl != this._activeControl
-                                  ? html`
-                                        <mushroom-button
-                                            .disabled=${state !== "on"}
-                                            .icon=${CONTROLS_ICONS[
-                                                this._nextControl
-                                            ]}
-                                            @click=${this._onNextControlTap}
-                                        />
-                                    `
-                                  : null}
+                              ${this.renderNextControlButton()}
                           </div>
                       `
                     : null}
             </ha-card>
+        `;
+    }
+
+    private renderNextControlButton(): TemplateResult | null {
+        if (!this._nextControl || this._nextControl == this._activeControl) {
+            return null;
+        }
+
+        return html`
+            <mushroom-button
+                .icon=${CONTROLS_ICONS[this._nextControl]}
+                @click=${this._onNextControlTap}
+            />
         `;
     }
 
@@ -208,6 +211,7 @@ export class LightCard extends LitElement implements LovelaceCard {
                 display: flex;
                 flex-direction: row;
                 align-items: flex-start;
+                overflow-y: auto;
             }
             .actions *:not(:last-child) {
                 margin-right: 12px;

@@ -25,6 +25,7 @@ const cardConfigStruct = assign(
         icon: optional(string()),
         name: optional(string()),
         show_buttons_control: optional(boolean()),
+        show_position_control: optional(boolean()),
     })
 );
 
@@ -53,6 +54,10 @@ export class CoverCardEditor extends LitElement implements LovelaceCardEditor {
 
     get _showButtonsControl(): boolean {
         return this._config!.show_buttons_control ?? false;
+    }
+
+    get _showPositionControl(): boolean {
+        return this._config!.show_position_control ?? false;
     }
 
     protected render(): TemplateResult {
@@ -104,6 +109,13 @@ export class CoverCardEditor extends LitElement implements LovelaceCardEditor {
                         <ha-switch
                             .checked=${this._showButtonsControl != false}
                             .configValue=${"show_buttons_control"}
+                            @change=${this._valueChanged}
+                        ></ha-switch>
+                    </ha-formfield>
+                    <ha-formfield label="Show position control ?" .dir=${dir}>
+                        <ha-switch
+                            .checked=${this._showPositionControl != false}
+                            .configValue=${"show_position_control"}
                             @change=${this._valueChanged}
                         ></ha-switch>
                     </ha-formfield>
