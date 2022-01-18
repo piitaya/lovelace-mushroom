@@ -34,6 +34,102 @@ person:
     device_trackers:
       - device_tracker.demo_anne_therese
 
+alarm_control_panel:
+  - platform: manual
+    name: Alarm panel 1
+  - platform: manual
+    name: Alarm panel 2
+  - platform: template
+    panels:
+      alarm_panel_no_code:
+        value_template: "{{ states('alarm_control_panel.alarm_panel_1') }}"
+        code_arm_required: false
+        code_format: no_code
+        arm_away:
+          service: alarm_control_panel.alarm_arm_away
+          target:
+            entity_id:
+              - alarm_control_panel.alarm_panel_1
+              - alarm_control_panel.alarm_panel_2
+        arm_home:
+          service: alarm_control_panel.alarm_arm_home
+          target:
+            entity_id:
+              - alarm_control_panel.alarm_panel_1
+              - alarm_control_panel.alarm_panel_2
+        disarm:
+          service: alarm_control_panel.alarm_disarm
+          target:
+            entity_id:
+              - alarm_control_panel.alarm_panel_1
+              - alarm_control_panel.alarm_panel_2
+        arm_away:
+          service: alarm_control_panel.alarm_arm_away
+          target:
+            entity_id:
+              - alarm_control_panel.alarm_panel_1
+              - alarm_control_panel.alarm_panel_2
+      alarm_panel:
+        value_template: "{{ states('alarm_control_panel.alarm_panel_1') }}"
+        arm_home:
+          service: alarm_control_panel.alarm_arm_home
+          target:
+            entity_id:
+              - alarm_control_panel.alarm_panel_1
+              - alarm_control_panel.alarm_panel_2
+          data:
+            code: 1234
+        arm_away:
+          service: alarm_control_panel.alarm_arm_away
+          target:
+            entity_id:
+              - alarm_control_panel.alarm_panel_1
+              - alarm_control_panel.alarm_panel_2
+          data:
+            code: 1234
+        disarm:
+          service: alarm_control_panel.alarm_disarm
+          target:
+            entity_id:
+              - alarm_control_panel.alarm_panel_1
+              - alarm_control_panel.alarm_panel_2
+          data:
+            code: 1234
+      alarm_panel_text_code:
+        value_template: "{{ states('alarm_control_panel.alarm_panel_1') }}"
+        code_format: text
+        arm_home:
+          service: alarm_control_panel.alarm_arm_home
+          target:
+            entity_id:
+              - alarm_control_panel.alarm_panel_1
+              - alarm_control_panel.alarm_panel_2
+          data:
+            code: "azerty"
+        arm_away:
+          service: alarm_control_panel.alarm_arm_away
+          target:
+            entity_id:
+              - alarm_control_panel.alarm_panel_1
+              - alarm_control_panel.alarm_panel_2
+          data:
+            code: "azerty"
+        disarm:
+          service: alarm_control_panel.alarm_disarm
+          target:
+            entity_id:
+              - alarm_control_panel.alarm_panel_1
+              - alarm_control_panel.alarm_panel_2
+          data:
+            code: "azerty"
+
+group:
+  alarm_group:
+    name: Alarm control panel group
+    entities:
+      - alarm_control_panel.alarm_panel_1
+      - alarm_control_panel.alarm_panel_2
+
 lovelace: !include ui-lovelace.yaml
 
 frontend:

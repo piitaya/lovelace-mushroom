@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@polymer/paper-input": "^3.2.1",
     "custom-card-helpers": "^1.8.0",
     "home-assistant-js-websocket": "^6.0.1",
     "lit": "^2.0.2",

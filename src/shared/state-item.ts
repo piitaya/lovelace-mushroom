@@ -1,6 +1,7 @@
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { property, customElement } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
+import { styleMap } from "lit/directives/style-map.js";
 import "./shape-icon";
 
 @customElement("mushroom-state-item")
@@ -13,18 +14,29 @@ export class StateItem extends LitElement {
 
     @property() public active: boolean = false;
 
+    @property() public badge_icon?: string;
+
+    @property() public shape_pulse?: boolean;
+
     protected render(): TemplateResult {
         return html`
             <div class=${classMap({ container: true, active: this.active })}>
-                <mushroom-shape-icon
-                    .disabled=${!this.active}
-                    .icon=${this.icon}
-                ></mushroom-shape-icon>
+                <div class="icon-container">
+                    <mushroom-shape-icon
+                        .disabled=${!this.active}
+                        .icon=${this.icon}
+                        .pulse=${!!this.shape_pulse}
+                    >
+                    </mushroom-shape-icon>
+                    ${this.badge_icon ? html`<mushroom-badge-icon
+                    .icon=${this.badge_icon}
+                ></mushroom-badge-icon>` : ""}
+                </div>
                 <div class="info-container">
                     <span class="info-name">${this.name}</span>
                     ${this.value
-                        ? html`<span class="info-value">${this.value}</span>`
-                        : null}
+                ? html`<span class="info-value">${this.value}</span>`
+                : null}
                 </div>
             </div>
         `;
@@ -36,12 +48,24 @@ export class StateItem extends LitElement {
                 --main-color: var(--icon-main-color);
                 --shape-color: var(--icon-shape-color);
             }
+            mushroom-badge-icon {
+                --main-color: var(--badge-main-color);
+                --shape-color: var(--badge-shape-color)
+            }
             .container {
                 display: flex;
                 flex-direction: row;
             }
             .container > *:not(:last-child) {
                 margin-right: 12px;
+            }
+            .icon-container {
+                position: relative;
+            }
+            mushroom-badge-icon {
+                position: absolute;
+                top: -3px;
+                right: -3px;
             }
             .info-container {
                 min-width: 0;

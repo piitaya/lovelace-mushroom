@@ -135,7 +135,7 @@ export class CoverCard extends LitElement implements LovelaceCard {
                       <mushroom-button
                           icon="mdi:arrow-down"
                           .disabled=${isFullyClosed(stateObj) ||
-                          isClosing(stateObj)}
+                    isClosing(stateObj)}
                           @click=${this._onCloseTap}
                       ></mushroom-button>
                       <mushroom-button
@@ -145,7 +145,7 @@ export class CoverCard extends LitElement implements LovelaceCard {
                       <mushroom-button
                           icon="mdi:arrow-up"
                           .disabled=${isFullyOpen(stateObj) ||
-                          isOpening(stateObj)}
+                    isOpening(stateObj)}
                           @click=${this._onOpenTap}
                       ></mushroom-button>
                   </div>`

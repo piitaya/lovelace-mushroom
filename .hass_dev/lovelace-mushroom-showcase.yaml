@@ -4,3 +4,4 @@ views:
   - !include views/cover-view.yaml
   - !include views/switch-view.yaml
   - !include views/person-view.yaml
+  - !include views/alarm-control-panel-view.yaml
