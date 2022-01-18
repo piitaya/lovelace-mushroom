@@ -28,6 +28,15 @@ media_player:
 device_tracker:
   - platform: demo
 
+sensor:
+  - platform: demo
+
+binary_sensor:
+  - platform: demo
+
+weather:
+  - platform: demo
+
 person:
   - name: Anne Therese
     id: anne_therese
