@@ -99,12 +99,12 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
             (entityState, index) => html`
                           <div class="states">
                             <paper-item>${entityState}</paper-item>
-                            <ha-svg-icon
+                            <ha-icon
                               class="deleteState"
                               .value=${index}
-                              .path=${mdiClose}
+                              icon="mdi:close"
                               @click=${this._stateRemoved}
-                            ></ha-svg-icon>
+                            />
                           </div>
                         `
         )}
