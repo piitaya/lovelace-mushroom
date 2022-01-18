@@ -22,7 +22,7 @@ export const ALARM_CONTROL_PANEL_CARD_STATE_SERVICE = {
     armed_home: "alarm_arm_home",
     armed_night: "alarm_arm_night",
     armed_vacation: "alarm_arm_vacation",
-    armed_custom_bypass: "alarm_arm_custom_bypass"
+    armed_custom_bypass: "alarm_arm_custom_bypass",
 };
 
 /*

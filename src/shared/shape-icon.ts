@@ -12,7 +12,13 @@ export class ShapeIcon extends LitElement {
 
     protected render(): TemplateResult {
         return html`
-            <div class=${classMap({ shape: true, disabled: this.disabled, pulse: this.pulse })}>
+            <div
+                class=${classMap({
+                    shape: true,
+                    disabled: this.disabled,
+                    pulse: this.pulse,
+                })}
+            >
                 <ha-icon .icon=${this.icon} />
             </div>
         `;
@@ -56,9 +62,15 @@ export class ShapeIcon extends LitElement {
                 animation: 1s ease 0s infinite normal none running pulse;
             }
             @keyframes pulse {
-                0% { opacity: 1; }
-                50% { opacity: 0; }
-                100% { opacity: 1; }
+                0% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0;
+                }
+                100% {
+                    opacity: 1;
+                }
             }
         `;
     }

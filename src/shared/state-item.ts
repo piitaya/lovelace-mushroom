@@ -28,15 +28,17 @@ export class StateItem extends LitElement {
                         .pulse=${!!this.shape_pulse}
                     >
                     </mushroom-shape-icon>
-                    ${this.badge_icon ? html`<mushroom-badge-icon
-                    .icon=${this.badge_icon}
-                ></mushroom-badge-icon>` : ""}
+                    ${this.badge_icon
+                        ? html`<mushroom-badge-icon
+                              .icon=${this.badge_icon}
+                          ></mushroom-badge-icon>`
+                        : ""}
                 </div>
                 <div class="info-container">
                     <span class="info-name">${this.name}</span>
                     ${this.value
-                ? html`<span class="info-value">${this.value}</span>`
-                : null}
+                        ? html`<span class="info-value">${this.value}</span>`
+                        : null}
                 </div>
             </div>
         `;
@@ -50,7 +52,7 @@ export class StateItem extends LitElement {
             }
             mushroom-badge-icon {
                 --main-color: var(--badge-main-color);
-                --shape-color: var(--badge-shape-color)
+                --shape-color: var(--badge-shape-color);
             }
             .container {
                 display: flex;

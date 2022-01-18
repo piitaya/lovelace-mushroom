@@ -48,7 +48,6 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
         return this._config!.name || "";
     }
 
-
     get _states(): string[] {
         return this._config!.states || [];
     }
@@ -72,8 +71,8 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
             <div class="card-config">
                 <ha-entity-picker
                     .label="${this.hass.localize(
-            "ui.panel.lovelace.editor.card.generic.entity"
-        )}"
+                        "ui.panel.lovelace.editor.card.generic.entity"
+                    )}"
                     .hass=${this.hass}
                     .value=${this._entity}
                     .configValue=${"entity"}
@@ -84,10 +83,10 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                 <div class="side-by-side">
                     <paper-input
                         .label="${this.hass.localize(
-            "ui.panel.lovelace.editor.card.generic.name"
-        )} (${this.hass.localize(
-            "ui.panel.lovelace.editor.card.config.optional"
-        )})"
+                            "ui.panel.lovelace.editor.card.generic.name"
+                        )} (${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.config.optional"
+                        )})"
                         .value=${this._name}
                         .configValue=${"name"}
                         @value-changed=${this._valueChanged}
@@ -95,27 +94,33 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                 </div>
                 <div class="side-by-side">
                     <div>
-                    <span>Used States</span> ${this._states.map(
-            (entityState, index) => html`
-                          <div class="states">
-                            <paper-item>${entityState}</paper-item>
-                            <ha-icon
-                              class="deleteState"
-                              .value=${index}
-                              icon="mdi:close"
-                              @click=${this._stateRemoved}
-                            />
-                          </div>
-                        `
-        )}
-                      <paper-dropdown-menu
-                        .label=${this.hass.localize(
-            "ui.panel.lovelace.editor.card.alarm-panel.available_states"
-        )}
-                        @value-changed=${this._stateAdded}>
-                        <paper-listbox slot="dropdown-content">
-                            ${states.map((entityState) => html` <paper-item>${entityState}</paper-item>`)}
-                        </paper-listbox>
+                        <span>Used States</span> ${this._states.map(
+                            (entityState, index) => html`
+                                <div class="states">
+                                    <paper-item>${entityState}</paper-item>
+                                    <ha-icon
+                                        class="deleteState"
+                                        .value=${index}
+                                        icon="mdi:close"
+                                        @click=${this._stateRemoved}
+                                    />
+                                </div>
+                            `
+                        )}
+                        <paper-dropdown-menu
+                            .label=${this.hass.localize(
+                                "ui.panel.lovelace.editor.card.alarm-panel.available_states"
+                            )}
+                            @value-changed=${this._stateAdded}
+                        >
+                            <paper-listbox slot="dropdown-content">
+                                ${states.map(
+                                    (entityState) =>
+                                        html` <paper-item
+                                            >${entityState}</paper-item
+                                        >`
+                                )}
+                            </paper-listbox>
                         </paper-dropdown-menu>
                     </div>
                 </div>
@@ -149,8 +154,6 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
         }
         fireEvent(this, "config-changed", { config: newConfig });
     }
-
-
 
     private _stateRemoved(ev: CustomEvent): void {
         if (!this._config || !this._states || !this.hass) {
@@ -194,20 +197,20 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
         return [
             configElementStyle,
             css`
-            .states {
-              display: flex;
-              flex-direction: row;
-            }
-            .deleteState {
-              visibility: hidden;
-            }
-            .states:hover > .deleteState {
-              visibility: visible;
-            }
-            ha-icon {
-              padding-top: 12px;
-            }
-          `,
+                .states {
+                    display: flex;
+                    flex-direction: row;
+                }
+                .deleteState {
+                    visibility: hidden;
+                }
+                .states:hover > .deleteState {
+                    visibility: visible;
+                }
+                ha-icon {
+                    padding-top: 12px;
+                }
+            `,
         ];
     }
 }
