@@ -204,7 +204,7 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
             .states:hover > .deleteState {
               visibility: visible;
             }
-            ha-svg-icon {
+            ha-icon {
               padding-top: 12px;
             }
           `,
