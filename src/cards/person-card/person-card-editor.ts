@@ -23,6 +23,8 @@ const cardConfigStruct = assign(
         entity: string(),
         icon: optional(string()),
         name: optional(string()),
+        vertical: optional(boolean()),
+        hide_state: optional(boolean()),
         use_entity_picture: optional(boolean()),
     })
 );
@@ -50,6 +52,14 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
         return this._config!.icon || "";
     }
 
+    get _vertical(): boolean {
+        return !!this._config!.vertical;
+    }
+
+    get _hide_state(): boolean {
+        return !!this._config!.hide_state;
+    }
+
     get _use_entity_picture(): boolean {
         return !!this._config!.use_entity_picture;
     }
@@ -65,8 +75,8 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
             <div class="card-config">
                 <ha-entity-picker
                     .label="${this.hass.localize(
-                        "ui.panel.lovelace.editor.card.generic.entity"
-                    )}"
+            "ui.panel.lovelace.editor.card.generic.entity"
+        )}"
                     .hass=${this.hass}
                     .value=${this._entity}
                     .configValue=${"entity"}
@@ -77,20 +87,20 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                 <div class="side-by-side">
                     <paper-input
                         .label="${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.generic.name"
-                        )} (${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.config.optional"
-                        )})"
+            "ui.panel.lovelace.editor.card.generic.name"
+        )} (${this.hass.localize(
+            "ui.panel.lovelace.editor.card.config.optional"
+        )})"
                         .value=${this._name}
                         .configValue=${"name"}
                         @value-changed=${this._valueChanged}
                     ></paper-input>
                     <ha-icon-picker
                         .label="${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.generic.icon"
-                        )} (${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.config.optional"
-                        )})"
+            "ui.panel.lovelace.editor.card.generic.icon"
+        )} (${this.hass.localize(
+            "ui.panel.lovelace.editor.card.config.optional"
+        )})"
                         .value=${this._icon}
                         .placeholder=${this._icon || "mdi:face-man"}
                         .configValue=${"icon"}
@@ -98,6 +108,20 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                     ></ha-icon-picker>
                 </div>
                 <div class="side-by-side">
+                    <ha-formfield label="Vertical?" .dir=${dir}>
+                        <ha-switch
+                            .checked=${this._vertical != false}
+                            .configValue=${"vertical"}
+                            @change=${this._valueChanged}
+                        ></ha-switch>
+                    </ha-formfield>
+                    <ha-formfield label="Hide state?" .dir=${dir}>
+                        <ha-switch
+                            .checked=${this._hide_state != false}
+                            .configValue=${"hide_state"}
+                            @change=${this._valueChanged}
+                        ></ha-switch>
+                    </ha-formfield>
                     <ha-formfield label="Use entity picture?" .dir=${dir}>
                         <ha-switch
                             .checked=${this._use_entity_picture != false}

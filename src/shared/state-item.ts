@@ -8,37 +8,48 @@ import "./shape-icon";
 export class StateItem extends LitElement {
     @property() public icon: string = "";
 
+    @property() public picture_url?: string | null;
+
     @property() public name: string = "";
 
     @property() public value?: string;
 
     @property() public active: boolean = false;
 
+    @property() public vertical: boolean = false;
+
+    @property() public hide_value: boolean = false;
+
     @property() public badge_icon?: string;
 
     @property() public shape_pulse?: boolean;
 
+    private get shape_is_picture(): boolean {
+        return !!(this.picture_url && this.picture_url.length > 0);
+    }
+
     protected render(): TemplateResult {
         return html`
-            <div class=${classMap({ container: true, active: this.active })}>
+            <div class=${classMap({ container: true, active: this.active, vertical: this.vertical })}>
                 <div class="icon-container">
-                    <mushroom-shape-icon
+                    ${this.shape_is_picture ? html`<mushroom-shape-avatar
+                        .picture_url=${this.picture_url}
+                    ></mushroom-shape-avatar>` : html`<mushroom-shape-icon
                         .disabled=${!this.active}
                         .icon=${this.icon}
                         .pulse=${!!this.shape_pulse}
-                    >
-                    </mushroom-shape-icon>
+                    ></mushroom-shape-icon>`}
                     ${this.badge_icon
-                        ? html`<mushroom-badge-icon
+                ? html`<mushroom-badge-icon
                               .icon=${this.badge_icon}
                           ></mushroom-badge-icon>`
-                        : ""}
+                : ""}
                 </div>
                 <div class="info-container">
                     <span class="info-name">${this.name}</span>
-                    ${this.value
-                        ? html`<span class="info-value">${this.value}</span>`
-                        : null}
+                    ${this.value && !this.hide_value
+                ? html`<span class="info-value">${this.value}</span>`
+                : null}
                 </div>
             </div>
         `;
@@ -57,8 +68,9 @@ export class StateItem extends LitElement {
             .container {
                 display: flex;
                 flex-direction: row;
+                align-items: center;
             }
-            .container > *:not(:last-child) {
+            .container:not(.vertical) > *:not(:last-child) {
                 margin-right: 12px;
             }
             .icon-container {
@@ -90,6 +102,15 @@ export class StateItem extends LitElement {
                 text-overflow: ellipsis;
                 overflow: hidden;
                 white-space: nowrap;
+            }
+            .container.vertical {
+                flex-direction: column;
+            }
+            .container.vertical > *:not(:last-child) {
+                margin-bottom: 12px;
+            }
+            .container.vertical .info-container {
+                text-align: center;
             }
         `;
     }

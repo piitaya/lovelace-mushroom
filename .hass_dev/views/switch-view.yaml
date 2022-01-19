@@ -10,5 +10,22 @@ cards:
         entity: switch.decorative_lights
         name: Custom name and icon
         icon: mdi:chef-hat
+      - type: custom:mushroom-switch-card
+        entity: switch.decorative_lights
+        name: Hide state
+        hide_state: true
+    columns: 2
+    square: false
+  - type: grid
+    title: Vertical
+    cards:
+      - type: custom:mushroom-switch-card
+        entity: switch.decorative_lights
+        vertical: true
+      - type: custom:mushroom-switch-card
+        entity: switch.decorative_lights
+        name: Hide state
+        vertical: true
+        hide_state: true
     columns: 2
     square: false

@@ -1,4 +1,5 @@
 import {
+    computeRTLDirection,
     fireEvent,
     HomeAssistant,
     LovelaceCardEditor,
@@ -6,7 +7,7 @@ import {
 } from "custom-card-helpers";
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { assert, assign, object, optional, string } from "superstruct";
+import { assert, assign, boolean, object, optional, string } from "superstruct";
 import {
     baseLovelaceCardConfig,
     configElementStyle,
@@ -23,6 +24,8 @@ const cardConfigStruct = assign(
         entity: string(),
         icon: optional(string()),
         name: optional(string()),
+        vertical: optional(boolean()),
+        hide_state: optional(boolean()),
     })
 );
 
@@ -49,10 +52,19 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
         return this._config!.icon || "";
     }
 
+    get _vertical(): boolean {
+        return !!this._config!.vertical;
+    }
+
+    get _hide_state(): boolean {
+        return !!this._config!.hide_state;
+    }
+
     protected render(): TemplateResult {
         if (!this.hass || !this._config) {
             return html``;
         }
+        const dir = computeRTLDirection(this.hass);
 
         const entityState = this.hass.states[this._entity];
 
@@ -60,8 +72,8 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
             <div class="card-config">
                 <ha-entity-picker
                     .label="${this.hass.localize(
-                        "ui.panel.lovelace.editor.card.generic.entity"
-                    )}"
+            "ui.panel.lovelace.editor.card.generic.entity"
+        )}"
                     .hass=${this.hass}
                     .value=${this._entity}
                     .configValue=${"entity"}
@@ -72,25 +84,41 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                 <div class="side-by-side">
                     <paper-input
                         .label="${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.generic.name"
-                        )} (${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.config.optional"
-                        )})"
+            "ui.panel.lovelace.editor.card.generic.name"
+        )} (${this.hass.localize(
+            "ui.panel.lovelace.editor.card.config.optional"
+        )})"
                         .value=${this._name}
                         .configValue=${"name"}
                         @value-changed=${this._valueChanged}
                     ></paper-input>
                     <ha-icon-picker
                         .label="${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.generic.icon"
-                        )} (${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.config.optional"
-                        )})"
+            "ui.panel.lovelace.editor.card.generic.icon"
+        )} (${this.hass.localize(
+            "ui.panel.lovelace.editor.card.config.optional"
+        )})"
                         .value=${this._icon}
                         .placeholder=${this._icon || stateIcon(entityState)}
                         .configValue=${"icon"}
                         @value-changed=${this._valueChanged}
                     ></ha-icon-picker>
+                </div>
+                <div class="side-by-side">
+                    <ha-formfield label="Vertical?" .dir=${dir}>
+                        <ha-switch
+                            .checked=${this._vertical != false}
+                            .configValue=${"vertical"}
+                            @change=${this._valueChanged}
+                        ></ha-switch>
+                    </ha-formfield>
+                    <ha-formfield label="Hide state?" .dir=${dir}>
+                        <ha-switch
+                            .checked=${this._hide_state != false}
+                            .configValue=${"hide_state"}
+                            @change=${this._valueChanged}
+                        ></ha-switch>
+                    </ha-formfield>
                 </div>
             </div>
         `;
