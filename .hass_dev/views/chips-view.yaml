@@ -1,0 +1,48 @@
+
+
+title: Chips
+icon: mdi:information
+cards:
+  - type: vertical-stack
+    title: Weather chips
+    cards:
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: weather
+            entity: weather.demo_weather_north
+          - type: weather
+            entity: weather.demo_weather_north
+            show_temperature: true
+          - type: weather
+            entity: weather.demo_weather_north
+            show_conditions: true
+          - type: weather
+            entity: weather.demo_weather_north
+            show_conditions: true
+            show_temperature: true
+  - type: vertical-stack
+    title: Entity chips
+    cards:
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: entity
+            entity: sensor.outside_temperature
+          - type: entity
+            entity: light.bed_light
+          - type: entity
+            entity: cover.garage_door
+          - type: entity
+            entity: alarm_control_panel.alarm_panel_1
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: entity
+            entity: sensor.outside_temperature
+            icon_color: red
+          - type: entity
+            entity: sensor.outside_temperature
+            icon_color: var(--state-climate-heat-color)
+          - type: entity
+            entity: sensor.outside_temperature
+            icon: mdi:home-thermometer
+            icon_color: var(--state-climate-heat-color)
+            

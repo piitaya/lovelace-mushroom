@@ -12,7 +12,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@polymer/paper-input": "^3.2.1",
     "custom-card-helpers": "^1.9.0",
     "home-assistant-js-websocket": "^6.0.1",
     "lit": "^2.0.2",
@@ -21,6 +20,8 @@
   "devDependencies": {
     "@babel/core": "^7.16.7",
     "@babel/preset-typescript": "^7.16.7",
+    "@material/mwc-ripple": "^0.25.3",
+    "@polymer/paper-input": "^3.2.1",
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-json": "^4.1.0",
