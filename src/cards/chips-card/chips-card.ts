@@ -58,6 +58,9 @@ export class ChipsCard extends LitElement implements LovelaceCard {
 
     private renderChip(chipConfig: ChipConfig): TemplateResult {
         const element = createChipElement(chipConfig);
+        if (!element) {
+            return html``;
+        }
         if (this.hass) {
             element.hass = this.hass;
         }

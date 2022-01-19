@@ -1,19 +1,23 @@
 import { HomeAssistant } from "custom-card-helpers";
-import { PREFIX_NAME } from "../../../const";
-import { GenericChipConfig } from "./generic-chip";
+import { computeChipComponentName } from "../utils";
 import { EntityChipConfig } from "./entity-chip";
+import { WeatherChipConfig } from "./weather-chip";
 
-export const createChipElement = (config: ChipConfig): LovelaceChip => {
-    // @ts-ignore
-    const element = document.createElement(
-        `${PREFIX_NAME}-${config.type}-chip`,
-        config
-    ) as LovelaceChip;
-    element.setConfig(config);
-    return element;
+export const createChipElement = (
+    config: ChipConfig
+): LovelaceChip | undefined => {
+    try {
+        // @ts-ignore
+        const element = document.createElement(
+            computeChipComponentName(config.type),
+            config
+        ) as LovelaceChip;
+        element.setConfig(config);
+        return element;
+    } catch (err) {
+        return undefined;
+    }
 };
-
-export type ChipConfig = GenericChipConfig | EntityChipConfig;
 
 export interface LovelaceChip extends HTMLElement {
     hass?: HomeAssistant;
@@ -21,5 +25,7 @@ export interface LovelaceChip extends HTMLElement {
     setConfig(config: ChipConfig);
 }
 
-export { GenericChip } from "./generic-chip";
+export type ChipConfig = EntityChipConfig | WeatherChipConfig;
+
 export { EntityChip } from "./entity-chip";
+export { WeatherChip } from "./weather-chip";

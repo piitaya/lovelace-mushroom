@@ -6,31 +6,32 @@ import {
     ActionHandlerEvent,
     ActionConfig,
     hasAction,
+    formatNumber,
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { styleMap } from "lit/directives/style-map.js";
 import { LovelaceChip } from ".";
 import { actionHandler } from "../../../utils/directives/action-handler-directive";
+import { getWeatherStateSVG, weatherSVGStyles } from "../../../utils/weather";
 import { computeChipComponentName } from "../utils";
 
-export type EntityChipConfig = {
-    type: "entity";
+export type WeatherChipConfig = {
+    type: "weather";
     entity: string;
-    icon?: string;
-    icon_color?: string;
     hold_action?: ActionConfig;
     tap_action?: ActionConfig;
     double_tap_action?: ActionConfig;
+    show_temperature?: boolean;
+    show_conditions?: boolean;
 };
 
-@customElement(computeChipComponentName("entity"))
-export class EntityChip extends LitElement implements LovelaceChip {
+@customElement(computeChipComponentName("weather"))
+export class WeatherChip extends LitElement implements LovelaceChip {
     @property({ attribute: false }) public hass?: HomeAssistant;
 
-    @state() private _config?: EntityChipConfig;
+    @state() private _config?: WeatherChipConfig;
 
-    public setConfig(config: EntityChipConfig): void {
+    public setConfig(config: WeatherChipConfig): void {
         this._config = config;
     }
 
@@ -46,18 +47,25 @@ export class EntityChip extends LitElement implements LovelaceChip {
         const entity_id = this._config.entity;
         const entity = this.hass.states[entity_id];
 
-        const icon = this._config.icon ?? stateIcon(entity);
+        const weatherIcon = getWeatherStateSVG(entity.state, true);
 
-        const stateDisplay = computeStateDisplay(
-            this.hass.localize,
-            entity,
-            this.hass.locale
-        );
+        const displayLabels: string[] = [];
 
-        const iconStyle: { [name: string]: string } = {};
+        if (this._config.show_conditions) {
+            const stateDisplay = computeStateDisplay(
+                this.hass.localize,
+                entity,
+                this.hass.locale
+            );
+            displayLabels.push(stateDisplay);
+        }
 
-        if (this._config.icon_color) {
-            iconStyle.color = this._config.icon_color;
+        if (this._config.show_temperature) {
+            const temperatureDisplay = `${formatNumber(
+                entity.attributes.temperature,
+                this.hass.locale
+            )} ${this.hass.config.unit_system.temperature}`;
+            displayLabels.push(temperatureDisplay);
         }
 
         return html`
@@ -68,17 +76,22 @@ export class EntityChip extends LitElement implements LovelaceChip {
                     hasDoubleClick: hasAction(this._config.double_tap_action),
                 })}
             >
-                <ha-icon .icon=${icon} style=${styleMap(iconStyle)}></ha-icon>
-                <span>${stateDisplay}</span>
+                ${weatherIcon}
+                ${displayLabels.length > 0
+                    ? html`<span>${displayLabels.join(" / ")}</span>`
+                    : null}
             </mushroom-chip>
         `;
     }
 
     static get styles(): CSSResultGroup {
-        return css`
-            mushroom-chip {
-                cursor: pointer;
-            }
-        `;
+        return [
+            weatherSVGStyles,
+            css`
+                mushroom-chip {
+                    cursor: pointer;
+                }
+            `,
+        ];
     }
 }

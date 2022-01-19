@@ -10,18 +10,17 @@ export class BadgeIcon extends LitElement {
     protected render(): TemplateResult {
         return html`
             <ha-card class="chip">
-                ${
-                    this.icon
-                        ? html`<ha-icon .icon=${this.icon}></ha-icon>`
-                        : null
-                }
-                ${this.label ? html`<span>${this.label}</span>` : null}
+                <slot></slot>
             </button>
         `;
     }
 
     static get styles(): CSSResultGroup {
         return css`
+            :host {
+                --icon-color: var(--primary-text-color);
+                --text-color: var(--primary-text-color);
+            }
             .chip {
                 height: 36px;
                 width: auto;
@@ -32,16 +31,23 @@ export class BadgeIcon extends LitElement {
                 align-items: center;
                 justify-content: center;
             }
-            ha-icon {
+            ::slotted(ha-icon) {
                 display: flex;
                 --mdc-icon-size: 16px;
+                color: var(--icon-color);
             }
-            span {
+            ::slotted(svg) {
+                width: 16px;
+                height: 16px;
+                display: flex;
+            }
+            ::slotted(span) {
                 font-weight: bold;
                 font-size: 12px;
                 line-height: 1;
+                color: var(--text-color);
             }
-            .chip *:not(:last-child) {
+            ::slotted(*:not(:last-child)) {
                 margin-right: 4px;
             }
         `;
