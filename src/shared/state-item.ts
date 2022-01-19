@@ -8,6 +8,8 @@ import "./shape-icon";
 export class StateItem extends LitElement {
     @property() public icon: string = "";
 
+    @property() public picture_url?: string | null;
+
     @property() public name: string = "";
 
     @property() public value?: string;
@@ -22,16 +24,21 @@ export class StateItem extends LitElement {
 
     @property() public shape_pulse?: boolean;
 
+    private get shape_is_picture(): boolean {
+        return !!(this.picture_url && this.picture_url.length > 0);
+    }
+
     protected render(): TemplateResult {
         return html`
             <div class=${classMap({ container: true, active: this.active, vertical: this.vertical })}>
                 <div class="icon-container">
-                    <mushroom-shape-icon
+                    ${this.shape_is_picture ? html`<mushroom-shape-avatar
+                        .picture_url=${this.picture_url}
+                    ></mushroom-shape-avatar>` : html`<mushroom-shape-icon
                         .disabled=${!this.active}
                         .icon=${this.icon}
                         .pulse=${!!this.shape_pulse}
-                    >
-                    </mushroom-shape-icon>
+                    ></mushroom-shape-icon>`}
                     ${this.badge_icon
                 ? html`<mushroom-badge-icon
                               .icon=${this.badge_icon}

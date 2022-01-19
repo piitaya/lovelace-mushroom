@@ -25,6 +25,8 @@ import { styleMap } from "lit/directives/style-map.js";
 export interface PersonCardConfig extends LovelaceCardConfig {
     entity: string;
     icon?: string;
+    vertical?: boolean;
+    hide_state?: boolean;
     use_entity_picture?: boolean;
     tap_action?: ActionConfig;
 }
@@ -100,6 +102,8 @@ export class PersonCard extends LitElement implements LovelaceCard {
         ) {
             picture = entity_state.attributes.entity_picture;
         }
+        const vertical = !!this._config.vertical;
+        const hide_state = !!this._config.hide_state;
 
         const state = entity_state.state;
         let state_icon = "mdi:pine-tree";
@@ -122,27 +126,19 @@ export class PersonCard extends LitElement implements LovelaceCard {
             @click=${this.clickHandler}
             class=${classMap({ clickable: this._isClickable })}
         >
-            <div class="container">
-                <div class="image-container">
-                    ${picture
-                        ? html`<mushroom-shape-avatar
-                              .picture_url=${picture}
-                          ></mushroom-shape-avatar>`
-                        : html`<mushroom-shape-icon
-                              .icon=${icon}
-                          ></mushroom-shape-icon>`}
-                    <mushroom-badge-icon
-                        style=${styleMap({
-                            "--main-color": state_color,
-                        })}
-                        .icon=${state_icon}
-                    ></mushroom-badge-icon>
-                </div>
-                <div class="info-container">
-                    <span class="info-name">${name}</span>
-                    <span class="info-value">${stateDisplay}</span>
-                </div>
-            </div>
+            <mushroom-state-item
+                style=${styleMap({
+            "--badge-main-color": state_color,
+        })}
+                .icon=${icon}
+                .badge_icon=${state_icon}
+                .name=${name}
+                .value=${stateDisplay}
+                .active=${state === "on"}
+                .picture_url=${picture}
+                .vertical=${vertical}
+                .hide_value=${hide_state}
+            ></mushroom-state-item>
         </ha-card>`;
     }
 
@@ -155,44 +151,6 @@ export class PersonCard extends LitElement implements LovelaceCard {
             }
             ha-card.clickable {
                 cursor: pointer;
-            }
-            .container {
-                display: flex;
-                flex-direction: row;
-                position: relative;
-            }
-            .container > *:not(:last-child) {
-                margin-right: 12px;
-            }
-            .image-container {
-                position: relative;
-            }
-            mushroom-badge-icon {
-                position: absolute;
-                top: -3px;
-                right: -3px;
-            }
-            .info-container {
-                min-width: 0;
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-            }
-            .info-name {
-                font-weight: bold;
-                font-size: 14px;
-                color: var(--primary-text-color);
-                text-overflow: ellipsis;
-                overflow: hidden;
-                white-space: nowrap;
-            }
-            .info-value {
-                font-weight: bolder;
-                font-size: 12px;
-                color: var(--secondary-text-color);
-                text-overflow: ellipsis;
-                overflow: hidden;
-                white-space: nowrap;
             }
         `;
     }

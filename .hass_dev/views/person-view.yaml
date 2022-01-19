@@ -27,6 +27,25 @@ cards:
     columns: 2
     square: false
   - type: grid
+    title: Vertical
+    cards:
+      - type: custom:mushroom-person-card
+        entity: person.anne_therese
+        vertical: true
+      - type: custom:mushroom-person-card
+        entity: person.anne_therese
+        name: Hide state
+        icon: mdi:face-woman
+        hide_state: true
+        vertical: true
+      - type: custom:mushroom-person-card
+        entity: person.anne_therese
+        name: Use entity picture
+        use_entity_picture: true
+        vertical: true
+    columns: 3
+    square: false
+  - type: grid
     title: Demo controls
     cards:
       - type: button
