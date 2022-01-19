@@ -17,6 +17,8 @@ export interface SwitchCardConfig extends LovelaceCardConfig {
     entity: string;
     icon?: string;
     name?: string;
+    vertical?: boolean;
+    hide_state?: boolean;
 }
 
 registerCustomCard({
@@ -74,6 +76,8 @@ export class SwitchCard extends LitElement implements LovelaceCard {
 
         const name = this._config.name ?? entity_state.attributes.friendly_name;
         const icon = this._config.icon ?? stateIcon(entity_state);
+        const vertical = !!this._config.vertical;
+        const hide_state = !!this._config.hide_state;
 
         const state = entity_state.state;
 
@@ -89,6 +93,8 @@ export class SwitchCard extends LitElement implements LovelaceCard {
                 .name=${name}
                 .value=${stateDisplay}
                 .active=${state === "on"}
+                .vertical=${vertical}
+                .hide_value=${hide_state}
             ></mushroom-state-item>
         </ha-card>`;
     }
