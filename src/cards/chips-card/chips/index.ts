@@ -1,6 +1,9 @@
 import { HomeAssistant } from "custom-card-helpers";
 import { computeChipComponentName } from "../utils";
+import { ActionChipConfig } from "./action-chip";
+import { BackChipConfig } from "./back-chip";
 import { EntityChipConfig } from "./entity-chip";
+import { MenuChipConfig } from "./menu-chip";
 import { WeatherChipConfig } from "./weather-chip";
 
 export const createChipElement = (
@@ -25,7 +28,15 @@ export interface LovelaceChip extends HTMLElement {
     setConfig(config: ChipConfig);
 }
 
-export type ChipConfig = EntityChipConfig | WeatherChipConfig;
+export type ChipConfig =
+    | EntityChipConfig
+    | WeatherChipConfig
+    | BackChipConfig
+    | ActionChipConfig
+    | MenuChipConfig;
 
 export { EntityChip } from "./entity-chip";
 export { WeatherChip } from "./weather-chip";
+export { BackChip } from "./back-chip";
+export { ActionChip } from "./action-chip";
+export { MenuChip } from "./menu-chip";

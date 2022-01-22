@@ -45,4 +45,49 @@ cards:
             entity: sensor.outside_temperature
             icon: mdi:home-thermometer
             icon_color: var(--state-climate-heat-color)
-            
+  - type: vertical-stack
+    title: Back chips
+    cards:
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: back
+          - type: back
+            icon: mdi:home
+            icon_color: var(--info-color)
+  - type: vertical-stack
+    title: Menu chips
+    cards:
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: menu
+          - type: menu
+            icon: mdi:home
+            icon_color: var(--info-color)
+  - type: vertical-stack
+    title: Action chip
+    cards:
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: action
+            icon: mdi:cog
+            tap_action: 
+              action: navigate
+              navigation_path: /config/dashboard
+          - type: action
+            icon: mdi:cog
+            icon_color: var(--info-color)
+            tap_action: 
+              action: navigate
+              navigation_path: /config/dashboard
+          - type: action
+            icon: mdi:bell
+            tap_action: 
+              action: call-service
+              service: notify.persistent_notification
+              service_data:
+                message: This is notification from mushroom dashboard
+          - type: action
+            icon: mdi:github
+            tap_action: 
+              action: url
+              url_path: https://github.com/piitaya/mushroom-cards
