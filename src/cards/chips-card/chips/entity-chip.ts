@@ -76,7 +76,6 @@ export class EntityChip extends LitElement implements LovelaceChip {
                 @action=${this._handleAction}
                 .actionHandler=${actionHandler({
                     hasHold: hasAction(this._config.hold_action),
-                    hasDoubleClick: hasAction(this._config.double_tap_action),
                 })}
             >
                 <ha-icon .icon=${icon} style=${styleMap(iconStyle)}></ha-icon>

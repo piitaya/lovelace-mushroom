@@ -1,4 +1,5 @@
 import {
+    ActionConfig,
     computeRTLDirection,
     fireEvent,
     HomeAssistant,
@@ -12,6 +13,8 @@ import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { computeChipEditorComponentName } from "../utils";
 
 const DOMAINS = ["weather"];
+
+const actions = ["more-info", "navigate", "url", "call-service", "none"];
 
 @customElement(computeChipEditorComponentName("weather"))
 export class WeatherChipEditor
@@ -38,6 +41,14 @@ export class WeatherChipEditor
         return this._config!.show_temperature ?? false;
     }
 
+    get _tap_action(): ActionConfig | undefined {
+        return this._config!.tap_action;
+    }
+
+    get _hold_action(): ActionConfig | undefined {
+        return this._config!.hold_action;
+    }
+
     protected render(): TemplateResult {
         if (!this.hass || !this._config) {
             return html``;
@@ -59,13 +70,6 @@ export class WeatherChipEditor
                     allow-custom-entity
                 ></ha-entity-picker>
                 <div class="side-by-side">
-                    <ha-formfield label="Show temperature ?" .dir=${dir}>
-                        <ha-switch
-                            .checked=${this._showTemperature != false}
-                            .configValue=${"show_temperature"}
-                            @change=${this._valueChanged}
-                        ></ha-switch>
-                    </ha-formfield>
                     <ha-formfield label="Show conditions ?" .dir=${dir}>
                         <ha-switch
                             .checked=${this._showConditions != false}
@@ -73,6 +77,45 @@ export class WeatherChipEditor
                             @change=${this._valueChanged}
                         ></ha-switch>
                     </ha-formfield>
+                    <ha-formfield label="Show temperature ?" .dir=${dir}>
+                        <ha-switch
+                            .checked=${this._showTemperature != false}
+                            .configValue=${"show_temperature"}
+                            @change=${this._valueChanged}
+                        ></ha-switch>
+                    </ha-formfield>
+                </div>
+                <div class="side-by-side">
+                    <hui-action-editor
+                        .label="${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.generic.tap_action"
+                        )} (${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.config.optional"
+                        )})"
+                        .hass=${this.hass}
+                        .config=${this._tap_action}
+                        .actions=${actions}
+                        .configValue=${"tap_action"}
+                        .tooltipText=${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.button.default_action_help"
+                        )}
+                        @value-changed=${this._valueChanged}
+                    ></hui-action-editor>
+                    <hui-action-editor
+                        .label="${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.generic.hold_action"
+                        )} (${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.config.optional"
+                        )})"
+                        .hass=${this.hass}
+                        .config=${this._hold_action}
+                        .actions=${actions}
+                        .configValue=${"hold_action"}
+                        .tooltipText=${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.button.default_action_help"
+                        )}
+                        @value-changed=${this._valueChanged}
+                    ></hui-action-editor>
                 </div>
             </div>
         `;

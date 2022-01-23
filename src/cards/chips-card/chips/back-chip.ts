@@ -5,10 +5,21 @@ import { styleMap } from "lit/directives/style-map.js";
 import { LovelaceChip } from ".";
 import { actionHandler } from "../../../utils/directives/action-handler-directive";
 import { BackChipConfig } from "../../../utils/lovelace/chip/types";
-import { computeChipComponentName } from "../utils";
+import { LovelaceChipEditor } from "../../../utils/lovelace/types";
+import {
+    computeChipComponentName,
+    computeChipEditorComponentName,
+} from "../utils";
+import "./back-chip-editor";
 
 @customElement(computeChipComponentName("back"))
 export class BackChip extends LitElement implements LovelaceChip {
+    public static async getConfigElement(): Promise<LovelaceChipEditor> {
+        return document.createElement(
+            computeChipEditorComponentName("back")
+        ) as LovelaceChipEditor;
+    }
+
     public static async getStubConfig(
         _hass: HomeAssistant
     ): Promise<BackChipConfig> {

@@ -5,10 +5,21 @@ import { styleMap } from "lit/directives/style-map.js";
 import { LovelaceChip } from ".";
 import { actionHandler } from "../../../utils/directives/action-handler-directive";
 import { MenuChipConfig } from "../../../utils/lovelace/chip/types";
-import { computeChipComponentName } from "../utils";
+import { LovelaceChipEditor } from "../../../utils/lovelace/types";
+import {
+    computeChipComponentName,
+    computeChipEditorComponentName,
+} from "../utils";
+import "./menu-chip-editor";
 
 @customElement(computeChipComponentName("menu"))
 export class MenuChip extends LitElement implements LovelaceChip {
+    public static async getConfigElement(): Promise<LovelaceChipEditor> {
+        return document.createElement(
+            computeChipEditorComponentName("menu")
+        ) as LovelaceChipEditor;
+    }
+
     public static async getStubConfig(
         _hass: HomeAssistant
     ): Promise<MenuChipConfig> {

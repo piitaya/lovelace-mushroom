@@ -86,7 +86,6 @@ export class WeatherChip extends LitElement implements LovelaceChip {
                 @action=${this._handleAction}
                 .actionHandler=${actionHandler({
                     hasHold: hasAction(this._config.hold_action),
-                    hasDoubleClick: hasAction(this._config.double_tap_action),
                 })}
             >
                 ${weatherIcon}

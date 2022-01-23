@@ -6,7 +6,6 @@ export type ActionChipConfig = {
     icon_color?: string;
     hold_action?: ActionConfig;
     tap_action?: ActionConfig;
-    double_tap_action?: ActionConfig;
 };
 
 export type BackChipConfig = {
@@ -22,7 +21,6 @@ export type EntityChipConfig = {
     icon_color?: string;
     hold_action?: ActionConfig;
     tap_action?: ActionConfig;
-    double_tap_action?: ActionConfig;
 };
 
 export type MenuChipConfig = {
@@ -36,7 +34,6 @@ export type WeatherChipConfig = {
     entity: string;
     hold_action?: ActionConfig;
     tap_action?: ActionConfig;
-    double_tap_action?: ActionConfig;
     show_temperature?: boolean;
     show_conditions?: boolean;
 };

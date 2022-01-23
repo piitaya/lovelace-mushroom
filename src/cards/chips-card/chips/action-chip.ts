@@ -11,10 +11,21 @@ import { styleMap } from "lit/directives/style-map.js";
 import { LovelaceChip } from ".";
 import { actionHandler } from "../../../utils/directives/action-handler-directive";
 import { ActionChipConfig } from "../../../utils/lovelace/chip/types";
-import { computeChipComponentName } from "../utils";
+import { LovelaceChipEditor } from "../../../utils/lovelace/types";
+import {
+    computeChipComponentName,
+    computeChipEditorComponentName,
+} from "../utils";
+import "./action-chip-editor";
 
 @customElement(computeChipComponentName("action"))
 export class ActionChip extends LitElement implements LovelaceChip {
+    public static async getConfigElement(): Promise<LovelaceChipEditor> {
+        return document.createElement(
+            computeChipEditorComponentName("action")
+        ) as LovelaceChipEditor;
+    }
+
     public static async getStubConfig(
         _hass: HomeAssistant
     ): Promise<ActionChipConfig> {
@@ -52,7 +63,6 @@ export class ActionChip extends LitElement implements LovelaceChip {
                 @action=${this._handleAction}
                 .actionHandler=${actionHandler({
                     hasHold: hasAction(this._config.hold_action),
-                    hasDoubleClick: hasAction(this._config.double_tap_action),
                 })}
             >
                 <ha-icon .icon=${icon} style=${styleMap(iconStyle)}></ha-icon>
