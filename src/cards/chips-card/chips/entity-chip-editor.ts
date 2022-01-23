@@ -56,16 +56,18 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
 
         return html`
             <div class="card-config">
-                <ha-entity-picker
-                    .label="${this.hass.localize(
-                        "ui.panel.lovelace.editor.card.generic.entity"
-                    )}"
-                    .hass=${this.hass}
-                    .value=${this._entity}
-                    .configValue=${"entity"}
-                    @value-changed=${this._valueChanged}
-                    allow-custom-entity
-                ></ha-entity-picker>
+                <div class="side-by-side">
+                    <ha-entity-picker
+                        .label="${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.generic.entity"
+                        )}"
+                        .hass=${this.hass}
+                        .value=${this._entity}
+                        .configValue=${"entity"}
+                        @value-changed=${this._valueChanged}
+                        allow-custom-entity
+                    ></ha-entity-picker>
+                </div>
                 <div class="side-by-side">
                     <ha-icon-picker
                         .label="${this.hass.localize(

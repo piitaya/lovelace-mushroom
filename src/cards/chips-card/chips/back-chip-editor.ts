@@ -21,6 +21,10 @@ export class BackChipEditor extends LitElement implements LovelaceChipEditor {
         return this._config!.icon || "";
     }
 
+    get _icon_color(): string {
+        return this._config!.icon_color || "";
+    }
+
     protected render(): TemplateResult {
         if (!this.hass || !this._config) {
             return html``;
@@ -40,6 +44,14 @@ export class BackChipEditor extends LitElement implements LovelaceChipEditor {
                         .configValue=${"icon"}
                         @value-changed=${this._valueChanged}
                     ></ha-icon-picker>
+                    <paper-input
+                        .label="Icon color (${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.config.optional"
+                        )})"
+                        .value=${this._icon_color}
+                        .configValue=${"icon_color"}
+                        @value-changed=${this._valueChanged}
+                    ></paper-input>
                 </div>
             </div>
         `;
