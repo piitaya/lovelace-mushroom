@@ -12,10 +12,21 @@ import { styleMap } from "lit/directives/style-map.js";
 import { LovelaceChip } from ".";
 import { actionHandler } from "../../../utils/directives/action-handler-directive";
 import { EntityChipConfig } from "../../../utils/lovelace/chip/types";
-import { computeChipComponentName } from "../utils";
+import { LovelaceChipEditor } from "../../../utils/lovelace/types";
+import {
+    computeChipComponentName,
+    computeChipEditorComponentName,
+} from "../utils";
+import "./entity-chip-editor";
 
 @customElement(computeChipComponentName("entity"))
 export class EntityChip extends LitElement implements LovelaceChip {
+    public static async getConfigElement(): Promise<LovelaceChipEditor> {
+        return document.createElement(
+            computeChipEditorComponentName("entity")
+        ) as LovelaceChipEditor;
+    }
+
     public static async getStubConfig(
         hass: HomeAssistant
     ): Promise<EntityChipConfig> {
