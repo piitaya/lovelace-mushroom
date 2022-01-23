@@ -11,11 +11,22 @@ import { customElement, property, state } from "lit/decorators.js";
 import { LovelaceChip } from ".";
 import { actionHandler } from "../../../utils/directives/action-handler-directive";
 import { WeatherChipConfig } from "../../../utils/lovelace/chip/types";
+import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { getWeatherStateSVG, weatherSVGStyles } from "../../../utils/weather";
-import { computeChipComponentName } from "../utils";
+import {
+    computeChipComponentName,
+    computeChipEditorComponentName,
+} from "../utils";
+import "./weather-chip-editor";
 
 @customElement(computeChipComponentName("weather"))
 export class WeatherChip extends LitElement implements LovelaceChip {
+    public static async getConfigElement(): Promise<LovelaceChipEditor> {
+        return document.createElement(
+            computeChipEditorComponentName("weather")
+        ) as LovelaceChipEditor;
+    }
+
     public static async getStubConfig(
         hass: HomeAssistant
     ): Promise<WeatherChipConfig> {
