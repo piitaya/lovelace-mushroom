@@ -11,8 +11,8 @@ import { assert, assign, boolean, object, optional, string } from "superstruct";
 import {
     baseLovelaceCardConfig,
     configElementStyle,
-    EditorTarget,
-} from "../../utils/editor";
+} from "../../utils/editor-styles";
+import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { LIGHT_CARD_EDITOR_NAME } from "./const";
 import { LightCardConfig } from "./light-card";
 

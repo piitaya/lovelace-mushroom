@@ -2,17 +2,20 @@ import {
     HomeAssistant,
     LovelaceCard,
     LovelaceCardConfig,
+    LovelaceCardEditor,
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { CHIPS_CARD_NAME } from "./const";
+import { CHIPS_CARD_EDITOR_NAME, CHIPS_CARD_NAME } from "./const";
 import "../../shared/chip";
-import { ChipConfig, createChipElement } from "./chips";
+import { createChipElement } from "./chips";
 import "./chips";
+import "./chips-card-editor";
+import { LovelaceChipConfig } from "../../utils/lovelace/chip/types";
 
 export interface ChipsCardConfig extends LovelaceCardConfig {
-    chips: ChipConfig[];
+    chips: LovelaceChipConfig[];
 }
 
 registerCustomCard({
@@ -23,6 +26,12 @@ registerCustomCard({
 
 @customElement(CHIPS_CARD_NAME)
 export class ChipsCard extends LitElement implements LovelaceCard {
+    public static async getConfigElement(): Promise<LovelaceCardEditor> {
+        return document.createElement(
+            CHIPS_CARD_EDITOR_NAME
+        ) as LovelaceCardEditor;
+    }
+
     public static async getStubConfig(
         _hass: HomeAssistant
     ): Promise<ChipsCardConfig> {
@@ -56,7 +65,7 @@ export class ChipsCard extends LitElement implements LovelaceCard {
         `;
     }
 
-    private renderChip(chipConfig: ChipConfig): TemplateResult {
+    private renderChip(chipConfig: LovelaceChipConfig): TemplateResult {
         const element = createChipElement(chipConfig);
         if (!element) {
             return html``;

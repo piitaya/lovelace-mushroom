@@ -40,6 +40,7 @@ export default [
             format: "es",
         },
         plugins,
+        inlineDynamicImports: true,
         moduleContext: (id) => {
             const thisAsWindowForModules = [
                 "node_modules/@formatjs/intl-utils/lib/src/diff.js",
