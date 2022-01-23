@@ -4,16 +4,19 @@ import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { LovelaceChip } from ".";
 import { actionHandler } from "../../../utils/directives/action-handler-directive";
+import { BackChipConfig } from "../../../utils/lovelace/chip/types";
 import { computeChipComponentName } from "../utils";
-
-export type BackChipConfig = {
-    type: "back";
-    icon?: string;
-    icon_color?: string;
-};
 
 @customElement(computeChipComponentName("back"))
 export class BackChip extends LitElement implements LovelaceChip {
+    public static async getStubConfig(
+        _hass: HomeAssistant
+    ): Promise<BackChipConfig> {
+        return {
+            type: `back`,
+        };
+    }
+
     @property({ attribute: false }) public hass?: HomeAssistant;
 
     @state() private _config?: BackChipConfig;

@@ -10,8 +10,8 @@ import { assert, assign, boolean, object, optional, string } from "superstruct";
 import {
     baseLovelaceCardConfig,
     configElementStyle,
-    EditorTarget,
-} from "../../utils/editor";
+} from "../../utils/editor-styles";
+import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { PERSON_CARD_EDITOR_NAME } from "./const";
 import { PersonCardConfig } from "./person-card";
 
@@ -75,8 +75,8 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
             <div class="card-config">
                 <ha-entity-picker
                     .label="${this.hass.localize(
-            "ui.panel.lovelace.editor.card.generic.entity"
-        )}"
+                        "ui.panel.lovelace.editor.card.generic.entity"
+                    )}"
                     .hass=${this.hass}
                     .value=${this._entity}
                     .configValue=${"entity"}
@@ -87,20 +87,20 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                 <div class="side-by-side">
                     <paper-input
                         .label="${this.hass.localize(
-            "ui.panel.lovelace.editor.card.generic.name"
-        )} (${this.hass.localize(
-            "ui.panel.lovelace.editor.card.config.optional"
-        )})"
+                            "ui.panel.lovelace.editor.card.generic.name"
+                        )} (${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.config.optional"
+                        )})"
                         .value=${this._name}
                         .configValue=${"name"}
                         @value-changed=${this._valueChanged}
                     ></paper-input>
                     <ha-icon-picker
                         .label="${this.hass.localize(
-            "ui.panel.lovelace.editor.card.generic.icon"
-        )} (${this.hass.localize(
-            "ui.panel.lovelace.editor.card.config.optional"
-        )})"
+                            "ui.panel.lovelace.editor.card.generic.icon"
+                        )} (${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.config.optional"
+                        )})"
                         .value=${this._icon}
                         .placeholder=${this._icon || "mdi:face-man"}
                         .configValue=${"icon"}

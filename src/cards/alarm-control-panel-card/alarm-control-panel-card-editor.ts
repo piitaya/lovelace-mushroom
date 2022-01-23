@@ -9,10 +9,10 @@ import { array, assert, assign, object, optional, string } from "superstruct";
 import {
     baseLovelaceCardConfig,
     configElementStyle,
-    EditorTarget,
-} from "../../utils/editor";
+} from "../../utils/editor-styles";
 import { ALARM_CONTROl_PANEL_CARD_EDITOR_NAME } from "./const";
 import { AlarmControlPanelCardConfig } from "./alarm-control-panel-card";
+import { EditorTarget } from "../../utils/lovelace/editor/types";
 
 const DOMAINS = ["group", "alarm_control_panel"];
 

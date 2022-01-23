@@ -1,31 +1,31 @@
 import {
+    ActionHandlerEvent,
     computeStateDisplay,
+    handleAction,
+    hasAction,
     HomeAssistant,
     stateIcon,
-    handleAction,
-    ActionHandlerEvent,
-    ActionConfig,
-    hasAction,
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { LovelaceChip } from ".";
 import { actionHandler } from "../../../utils/directives/action-handler-directive";
+import { EntityChipConfig } from "../../../utils/lovelace/chip/types";
 import { computeChipComponentName } from "../utils";
-
-export type EntityChipConfig = {
-    type: "entity";
-    entity: string;
-    icon?: string;
-    icon_color?: string;
-    hold_action?: ActionConfig;
-    tap_action?: ActionConfig;
-    double_tap_action?: ActionConfig;
-};
 
 @customElement(computeChipComponentName("entity"))
 export class EntityChip extends LitElement implements LovelaceChip {
+    public static async getStubConfig(
+        hass: HomeAssistant
+    ): Promise<EntityChipConfig> {
+        const entities = Object.keys(hass.states);
+        return {
+            type: `entity`,
+            entity: entities[0],
+        };
+    }
+
     @property({ attribute: false }) public hass?: HomeAssistant;
 
     @state() private _config?: EntityChipConfig;

@@ -1,4 +1,3 @@
-import { ActionConfig } from "custom-card-helpers";
 import { css } from "lit";
 import { any, object, string } from "superstruct";
 
@@ -27,12 +26,3 @@ export const baseLovelaceCardConfig = object({
     type: string(),
     view_layout: any(),
 });
-
-export interface EditorTarget extends EventTarget {
-    value?: string;
-    index?: number;
-    checked?: boolean;
-    configValue?: string;
-    type?: HTMLInputElement["type"];
-    config: ActionConfig;
-}

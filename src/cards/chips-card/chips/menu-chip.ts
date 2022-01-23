@@ -4,16 +4,19 @@ import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { LovelaceChip } from ".";
 import { actionHandler } from "../../../utils/directives/action-handler-directive";
+import { MenuChipConfig } from "../../../utils/lovelace/chip/types";
 import { computeChipComponentName } from "../utils";
-
-export type MenuChipConfig = {
-    type: "menu";
-    icon?: string;
-    icon_color?: string;
-};
 
 @customElement(computeChipComponentName("menu"))
 export class MenuChip extends LitElement implements LovelaceChip {
+    public static async getStubConfig(
+        _hass: HomeAssistant
+    ): Promise<MenuChipConfig> {
+        return {
+            type: `menu`,
+        };
+    }
+
     @property({ attribute: false }) public hass?: HomeAssistant;
 
     @state() private _config?: MenuChipConfig;

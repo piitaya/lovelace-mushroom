@@ -10,19 +10,19 @@ import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { LovelaceChip } from ".";
 import { actionHandler } from "../../../utils/directives/action-handler-directive";
+import { ActionChipConfig } from "../../../utils/lovelace/chip/types";
 import { computeChipComponentName } from "../utils";
-
-export type ActionChipConfig = {
-    type: "action";
-    icon?: string;
-    icon_color?: string;
-    hold_action?: ActionConfig;
-    tap_action?: ActionConfig;
-    double_tap_action?: ActionConfig;
-};
 
 @customElement(computeChipComponentName("action"))
 export class ActionChip extends LitElement implements LovelaceChip {
+    public static async getStubConfig(
+        _hass: HomeAssistant
+    ): Promise<ActionChipConfig> {
+        return {
+            type: `action`,
+        };
+    }
+
     @property({ attribute: false }) public hass?: HomeAssistant;
 
     @state() private _config?: ActionChipConfig;
@@ -32,7 +32,6 @@ export class ActionChip extends LitElement implements LovelaceChip {
     }
 
     private _handleAction(ev: ActionHandlerEvent) {
-        console.log(ev, this._config?.tap_action);
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
