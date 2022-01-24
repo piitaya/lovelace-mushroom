@@ -1,5 +1,9 @@
 import {
+    ActionConfig,
+    ActionHandlerEvent,
     computeStateDisplay,
+    handleAction,
+    hasAction,
     HomeAssistant,
     LovelaceCard,
     LovelaceCardConfig,
@@ -17,6 +21,7 @@ import "./controls/cover-position-control";
 import "./cover-card-editor";
 import { HassEntity } from "home-assistant-js-websocket";
 import { getPosition, isActive } from "./utils";
+import { actionHandler } from "../../utils/directives/action-handler-directive";
 
 type CoverCardControl = "buttons_control" | "position_control";
 
@@ -31,6 +36,8 @@ export interface CoverCardConfig extends LovelaceCardConfig {
     name?: string;
     show_buttons_control?: false;
     show_position_control?: false;
+    tap_action?: ActionConfig;
+    hold_action?: ActionConfig;
 }
 
 registerCustomCard({
@@ -89,7 +96,15 @@ export class CoverCard extends LitElement implements LovelaceCard {
     }
 
     setConfig(config: CoverCardConfig): void {
-        this._config = config;
+        this._config = {
+            tap_action: {
+                action: "toggle",
+            },
+            hold_action: {
+                action: "more-info",
+            },
+            ...config,
+        };
         const controls: CoverCardControl[] = [];
         if (this._config?.show_buttons_control) {
             controls.push("buttons_control");
@@ -99,6 +114,10 @@ export class CoverCard extends LitElement implements LovelaceCard {
         }
         this._controls = controls;
         this._activeControl = controls[0];
+    }
+
+    private _handleAction(ev: ActionHandlerEvent) {
+        handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
     protected render(): TemplateResult {
@@ -132,6 +151,10 @@ export class CoverCard extends LitElement implements LovelaceCard {
                     .name=${name}
                     .value=${stateValue}
                     .active=${isActive(entity)}
+                    @action=${this._handleAction}
+                    .actionHandler=${actionHandler({
+                        hasHold: hasAction(this._config.hold_action),
+                    })}
                 ></mushroom-state-item>
                 ${this._controls.length > 0
                     ? html`
@@ -192,6 +215,7 @@ export class CoverCard extends LitElement implements LovelaceCard {
                 margin-bottom: 12px;
             }
             mushroom-state-item {
+                cursor: pointer;
                 --icon-main-color: rgba(var(--rgb-color), 1);
                 --icon-shape-color: rgba(var(--rgb-color), 0.2);
             }

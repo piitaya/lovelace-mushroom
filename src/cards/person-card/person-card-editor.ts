@@ -1,4 +1,5 @@
 import {
+    ActionConfig,
     computeRTLDirection,
     fireEvent,
     HomeAssistant,
@@ -7,6 +8,7 @@ import {
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { assert, assign, boolean, object, optional, string } from "superstruct";
+import { actionConfigStruct } from "../../utils/action-struct";
 import {
     baseLovelaceCardConfig,
     configElementStyle,
@@ -26,8 +28,12 @@ const cardConfigStruct = assign(
         vertical: optional(boolean()),
         hide_state: optional(boolean()),
         use_entity_picture: optional(boolean()),
+        tap_action: optional(actionConfigStruct),
+        hold_action: optional(actionConfigStruct),
     })
 );
+
+const actions = ["more-info", "navigate", "url", "call-service", "none"];
 
 @customElement(PERSON_CARD_EDITOR_NAME)
 export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
@@ -62,6 +68,14 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
 
     get _use_entity_picture(): boolean {
         return !!this._config!.use_entity_picture;
+    }
+
+    get _tap_action(): ActionConfig | undefined {
+        return this._config!.tap_action;
+    }
+
+    get _hold_action(): ActionConfig | undefined {
+        return this._config!.hold_action;
     }
 
     protected render(): TemplateResult {
@@ -129,6 +143,38 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                             @change=${this._valueChanged}
                         ></ha-switch>
                     </ha-formfield>
+                </div>
+                <div class="side-by-side">
+                    <hui-action-editor
+                        .label="${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.generic.tap_action"
+                        )} (${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.config.optional"
+                        )})"
+                        .hass=${this.hass}
+                        .config=${this._tap_action}
+                        .actions=${actions}
+                        .configValue=${"tap_action"}
+                        .tooltipText=${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.button.default_action_help"
+                        )}
+                        @value-changed=${this._valueChanged}
+                    ></hui-action-editor>
+                    <hui-action-editor
+                        .label="${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.generic.hold_action"
+                        )} (${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.config.optional"
+                        )})"
+                        .hass=${this.hass}
+                        .config=${this._hold_action}
+                        .actions=${actions}
+                        .configValue=${"hold_action"}
+                        .tooltipText=${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.button.default_action_help"
+                        )}
+                        @value-changed=${this._valueChanged}
+                    ></hui-action-editor>
                 </div>
             </div>
         `;
