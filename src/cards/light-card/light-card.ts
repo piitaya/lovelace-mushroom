@@ -1,5 +1,9 @@
 import {
+    ActionConfig,
+    ActionHandlerEvent,
     computeStateDisplay,
+    handleAction,
+    hasAction,
     HomeAssistant,
     LovelaceCard,
     LovelaceCardConfig,
@@ -17,6 +21,7 @@ import "./controls/light-brightness-control";
 import "./controls/light-color-temp-control";
 import "./light-card-editor";
 import { getBrightness } from "./utils";
+import { actionHandler } from "../../utils/directives/action-handler-directive";
 
 type LightCardControl = "brightness_control" | "color_temp_control";
 
@@ -31,6 +36,8 @@ export interface LightCardConfig extends LovelaceCardConfig {
     name?: string;
     show_brightness_control?: boolean;
     show_color_temp_control?: boolean;
+    tap_action?: ActionConfig;
+    hold_action?: ActionConfig;
 }
 
 registerCustomCard({
@@ -89,7 +96,15 @@ export class LightCard extends LitElement implements LovelaceCard {
     }
 
     setConfig(config: LightCardConfig): void {
-        this._config = config;
+        this._config = {
+            tap_action: {
+                action: "toggle",
+            },
+            hold_action: {
+                action: "more-info",
+            },
+            ...config,
+        };
         const controls: LightCardControl[] = [];
         if (this._config?.show_brightness_control) {
             controls.push("brightness_control");
@@ -101,10 +116,8 @@ export class LightCard extends LitElement implements LovelaceCard {
         this._activeControl = controls[0];
     }
 
-    clickHandler(): void {
-        this.hass.callService("light", "toggle", {
-            entity_id: this._config?.entity,
-        });
+    private _handleAction(ev: ActionHandlerEvent) {
+        handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
     protected render(): TemplateResult {
@@ -137,7 +150,10 @@ export class LightCard extends LitElement implements LovelaceCard {
                         ? `${brightness}%`
                         : stateDisplay}
                     .active=${state === "on"}
-                    @click=${this.clickHandler}
+                    @action=${this._handleAction}
+                    .actionHandler=${actionHandler({
+                        hasHold: hasAction(this._config.hold_action),
+                    })}
                 ></mushroom-state-item>
                 ${this._controls.length > 0
                     ? html`

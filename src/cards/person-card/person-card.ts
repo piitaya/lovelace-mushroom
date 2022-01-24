@@ -7,6 +7,7 @@ import {
     LovelaceCardEditor,
     handleAction,
     ActionHandlerEvent,
+    hasAction,
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
@@ -18,6 +19,7 @@ import { PERSON_CARD_EDITOR_NAME, PERSON_CARD_NAME } from "./const";
 import "./person-card-editor";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
+import { actionHandler } from "../../utils/directives/action-handler-directive";
 
 /*
  * TODO: make configurable icons, icons according to zone, show state indicator
@@ -29,6 +31,7 @@ export interface PersonCardConfig extends LovelaceCardConfig {
     hide_state?: boolean;
     use_entity_picture?: boolean;
     tap_action?: ActionConfig;
+    hold_action?: ActionConfig;
 }
 
 registerCustomCard({
@@ -49,12 +52,12 @@ export class PersonCard extends LitElement implements LovelaceCard {
         hass: HomeAssistant
     ): Promise<PersonCardConfig> {
         const entities = Object.keys(hass.states);
-        const persons = entities.filter(
+        const people = entities.filter(
             (e) => e.substr(0, e.indexOf(".")) === "person"
         );
         return {
             type: `custom:${PERSON_CARD_NAME}`,
-            entity: persons[0],
+            entity: people[0],
         };
     }
 
@@ -71,18 +74,15 @@ export class PersonCard extends LitElement implements LovelaceCard {
             tap_action: {
                 action: "more-info",
             },
+            hold_action: {
+                action: "more-info",
+            },
             ...config,
         };
     }
 
-    get _isClickable(): boolean {
-        return this._config?.tap_action?.action !== "none";
-    }
-
-    clickHandler(ev: ActionHandlerEvent): void {
-        if (this._isClickable) {
-            handleAction(this, this.hass!, this._config!, ev.detail.action!);
-        }
+    private _handleAction(ev: ActionHandlerEvent) {
+        handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
     protected render(): TemplateResult {
@@ -122,14 +122,11 @@ export class PersonCard extends LitElement implements LovelaceCard {
             this.hass.locale
         );
 
-        return html`<ha-card
-            @click=${this.clickHandler}
-            class=${classMap({ clickable: this._isClickable })}
-        >
+        return html`<ha-card>
             <mushroom-state-item
                 style=${styleMap({
-            "--badge-main-color": state_color,
-        })}
+                    "--badge-main-color": state_color,
+                })}
                 .icon=${icon}
                 .badge_icon=${state_icon}
                 .name=${name}
@@ -138,6 +135,10 @@ export class PersonCard extends LitElement implements LovelaceCard {
                 .picture_url=${picture}
                 .vertical=${vertical}
                 .hide_value=${hide_state}
+                @action=${this._handleAction}
+                .actionHandler=${actionHandler({
+                    hasHold: hasAction(this._config.hold_action),
+                })}
             ></mushroom-state-item>
         </ha-card>`;
     }
@@ -149,7 +150,7 @@ export class PersonCard extends LitElement implements LovelaceCard {
                 flex-direction: column;
                 padding: 12px;
             }
-            ha-card.clickable {
+            mushroom-state-item {
                 cursor: pointer;
             }
         `;

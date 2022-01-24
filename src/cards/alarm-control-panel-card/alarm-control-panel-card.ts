@@ -1,7 +1,9 @@
 import {
+    ActionConfig,
     ActionHandlerEvent,
     computeStateDisplay,
     handleAction,
+    hasAction,
     HomeAssistant,
     LovelaceCard,
     LovelaceCardConfig,
@@ -21,12 +23,15 @@ import {
 } from "./const";
 import "./alarm-control-panel-card-editor";
 import type { PaperInputElement } from "@polymer/paper-input/paper-input";
+import { actionHandler } from "../../utils/directives/action-handler-directive";
 
 export interface AlarmControlPanelCardConfig extends LovelaceCardConfig {
     entity: string;
     icon?: string;
     name?: string;
     states?: string[];
+    tap_action?: ActionConfig;
+    hold_action?: ActionConfig;
 }
 
 registerCustomCard({
@@ -88,6 +93,9 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
             tap_action: {
                 action: "more-info",
             },
+            hold_action: {
+                action: "more-info",
+            },
             ...config,
         };
     }
@@ -102,10 +110,6 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
         this._input!.value = "";
     }
 
-    clickHandler(ev: ActionHandlerEvent): void {
-        handleAction(this, this.hass!, this._config!, ev.detail.action!);
-    }
-
     private _handlePadClick(e: MouseEvent): void {
         const val = (e.currentTarget! as any).value;
         this._input!.value = val === "clear" ? "" : this._input!.value + val;
@@ -113,6 +117,10 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
 
     private get _isGroup() {
         return !!this._config?.entity.startsWith("group.");
+    }
+
+    private _handleAction(ev: ActionHandlerEvent) {
+        handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
     protected render(): TemplateResult {
@@ -171,7 +179,6 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
 
         return html`<ha-card>
             <mushroom-state-item
-                @click=${this.clickHandler}
                 class="${panel_state.state}"
                 style=${styleMap({
                     "--icon-main-color": `rgb(${color})`,
@@ -184,6 +191,10 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                 .active=${true}
                 .shape_pulse=${shape_pulse}
                 .badge_icon=${has_alert ? "mdi:exclamation" : undefined}
+                @action=${this._handleAction}
+                .actionHandler=${actionHandler({
+                    hasHold: hasAction(this._config.hold_action),
+                })}
             ></mushroom-state-item>
             <div class="actions">
                 ${buttons.map(
@@ -249,10 +260,12 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                 --rgb-alarm-state-color-triggered: 223, 76, 30;
             }
             ha-card {
-                cursor: pointer;
                 display: flex;
                 flex-direction: column;
                 padding: 12px;
+            }
+            mushroom-state-item {
+                cursor: pointer;
             }
             ha-card > *:not(:last-child) {
                 margin-bottom: 12px;

@@ -1,5 +1,9 @@
 import {
+    ActionConfig,
+    ActionHandlerEvent,
     computeStateDisplay,
+    handleAction,
+    hasAction,
     HomeAssistant,
     LovelaceCard,
     LovelaceCardConfig,
@@ -10,6 +14,7 @@ import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import "../../shared/state-item";
 import { registerCustomCard } from "../../utils/custom-cards";
+import { actionHandler } from "../../utils/directives/action-handler-directive";
 import { SWITCH_CARD_EDITOR_NAME, SWITCH_CARD_NAME } from "./const";
 import "./switch-card-editor";
 
@@ -19,6 +24,8 @@ export interface SwitchCardConfig extends LovelaceCardConfig {
     name?: string;
     vertical?: boolean;
     hide_state?: boolean;
+    tap_action?: ActionConfig;
+    hold_action?: ActionConfig;
 }
 
 registerCustomCard({
@@ -39,12 +46,12 @@ export class SwitchCard extends LitElement implements LovelaceCard {
         hass: HomeAssistant
     ): Promise<SwitchCardConfig> {
         const entities = Object.keys(hass.states);
-        const lights = entities.filter(
+        const switches = entities.filter(
             (e) => e.substr(0, e.indexOf(".")) === "switch"
         );
         return {
             type: `custom:${SWITCH_CARD_NAME}`,
-            entity: lights[0],
+            entity: switches[0],
         };
     }
 
@@ -57,13 +64,19 @@ export class SwitchCard extends LitElement implements LovelaceCard {
     }
 
     setConfig(config: SwitchCardConfig): void {
-        this._config = config;
+        this._config = {
+            tap_action: {
+                action: "toggle",
+            },
+            hold_action: {
+                action: "more-info",
+            },
+            ...config,
+        };
     }
 
-    clickHandler(): void {
-        this.hass.callService("switch", "toggle", {
-            entity_id: this._config?.entity,
-        });
+    private _handleAction(ev: ActionHandlerEvent) {
+        handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
     protected render(): TemplateResult {
@@ -87,7 +100,7 @@ export class SwitchCard extends LitElement implements LovelaceCard {
             this.hass.locale
         );
 
-        return html`<ha-card @click=${this.clickHandler}>
+        return html`<ha-card>
             <mushroom-state-item
                 .icon=${icon}
                 .name=${name}
@@ -95,6 +108,10 @@ export class SwitchCard extends LitElement implements LovelaceCard {
                 .active=${state === "on"}
                 .vertical=${vertical}
                 .hide_value=${hide_state}
+                @action=${this._handleAction}
+                .actionHandler=${actionHandler({
+                    hasHold: hasAction(this._config.hold_action),
+                })}
             ></mushroom-state-item>
         </ha-card>`;
     }
@@ -105,12 +122,12 @@ export class SwitchCard extends LitElement implements LovelaceCard {
                 --rgb-color: 61, 90, 254;
             }
             ha-card {
-                cursor: pointer;
                 display: flex;
                 flex-direction: column;
                 padding: 12px;
             }
             mushroom-state-item {
+                cursor: pointer;
                 --icon-main-color: rgba(var(--rgb-color), 1);
                 --icon-shape-color: rgba(var(--rgb-color), 0.2);
             }

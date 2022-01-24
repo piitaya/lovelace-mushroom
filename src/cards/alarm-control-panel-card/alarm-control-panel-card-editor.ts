@@ -1,4 +1,5 @@
 import {
+    ActionConfig,
     fireEvent,
     HomeAssistant,
     LovelaceCardEditor,
@@ -13,6 +14,7 @@ import {
 import { ALARM_CONTROl_PANEL_CARD_EDITOR_NAME } from "./const";
 import { AlarmControlPanelCardConfig } from "./alarm-control-panel-card";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
+import { actionConfigStruct } from "../../utils/action-struct";
 
 const DOMAINS = ["group", "alarm_control_panel"];
 
@@ -22,8 +24,12 @@ const cardConfigStruct = assign(
         entity: string(),
         name: optional(string()),
         states: optional(array()),
+        tap_action: optional(actionConfigStruct),
+        hold_action: optional(actionConfigStruct),
     })
 );
+
+const actions = ["more-info", "navigate", "url", "call-service", "none"];
 
 /*
  * Ref: https://github.com/home-assistant/frontend/blob/dev/src/panels/lovelace/editor/config-elements/hui-alarm-panel-card-editor.ts
@@ -50,6 +56,14 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
 
     get _states(): string[] {
         return this._config!.states || [];
+    }
+
+    get _tap_action(): ActionConfig | undefined {
+        return this._config!.tap_action;
+    }
+
+    get _hold_action(): ActionConfig | undefined {
+        return this._config!.hold_action;
     }
 
     protected render(): TemplateResult {
@@ -123,6 +137,38 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                             </paper-listbox>
                         </paper-dropdown-menu>
                     </div>
+                </div>
+                <div class="side-by-side">
+                    <hui-action-editor
+                        .label="${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.generic.tap_action"
+                        )} (${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.config.optional"
+                        )})"
+                        .hass=${this.hass}
+                        .config=${this._tap_action}
+                        .actions=${actions}
+                        .configValue=${"tap_action"}
+                        .tooltipText=${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.button.default_action_help"
+                        )}
+                        @value-changed=${this._valueChanged}
+                    ></hui-action-editor>
+                    <hui-action-editor
+                        .label="${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.generic.hold_action"
+                        )} (${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.config.optional"
+                        )})"
+                        .hass=${this.hass}
+                        .config=${this._hold_action}
+                        .actions=${actions}
+                        .configValue=${"hold_action"}
+                        .tooltipText=${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.button.default_action_help"
+                        )}
+                        @value-changed=${this._valueChanged}
+                    ></hui-action-editor>
                 </div>
             </div>
         `;
