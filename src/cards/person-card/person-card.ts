@@ -21,7 +21,6 @@ import {
     PERSON_ENTITY_DOMAINS,
 } from "./const";
 import "./person-card-editor";
-import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
 

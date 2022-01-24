@@ -17,8 +17,6 @@ import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { PERSON_CARD_EDITOR_NAME, PERSON_ENTITY_DOMAINS } from "./const";
 import { PersonCardConfig } from "./person-card";
 
-const DOMAINS = [...PERSON_ENTITY_DOMAINS, "group"];
-
 const cardConfigStruct = assign(
     baseLovelaceCardConfig,
     object({
@@ -95,7 +93,7 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                     .value=${this._entity}
                     .configValue=${"entity"}
                     @value-changed=${this._valueChanged}
-                    .includeDomains=${DOMAINS}
+                    .includeDomains=${PERSON_ENTITY_DOMAINS}
                     allow-custom-entity
                 ></ha-entity-picker>
                 <div class="side-by-side">
