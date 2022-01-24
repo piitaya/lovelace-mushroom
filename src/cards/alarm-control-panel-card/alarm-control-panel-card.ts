@@ -1,3 +1,4 @@
+import type { PaperInputElement } from "@polymer/paper-input/paper-input";
 import {
     ActionConfig,
     ActionHandlerEvent,
@@ -10,21 +11,27 @@ import {
     LovelaceCardEditor,
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { customElement, property, query, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
-import { customElement, property, state, query } from "lit/decorators.js";
 import "../../shared/state-item";
 import { registerCustomCard } from "../../utils/custom-cards";
+import { actionHandler } from "../../utils/directives/action-handler-directive";
+import "./alarm-control-panel-card-editor";
 import {
     ALARM_CONTROl_PANEL_CARD_EDITOR_NAME,
     ALARM_CONTROl_PANEL_CARD_NAME,
-    ALARM_CONTROL_PANEL_CARD_STATE_ICON,
-    ALARM_CONTROL_PANEL_CARD_STATE_SERVICE,
     ALARM_CONTROl_PANEL_ENTITY_DOMAINS,
 } from "./const";
-import "./alarm-control-panel-card-editor";
-import type { PaperInputElement } from "@polymer/paper-input/paper-input";
-import { actionHandler } from "../../utils/directives/action-handler-directive";
+import {
+    getGroupMainEntity,
+    getStateColor,
+    getStateIcon,
+    getStateService,
+    hasGroupInconsistentState,
+    isActionsAvailable,
+    isDisarmed,
+} from "./utils";
 
 export interface AlarmControlPanelCardConfig extends LovelaceCardConfig {
     entity: string;
@@ -97,23 +104,29 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
         };
     }
 
-    private _onTap(e: MouseEvent, service: string): void {
+    private _onTap(e: MouseEvent, state: string): void {
+        const service = getStateService(state);
+        if (!service) return;
         e.stopPropagation();
         const code = this._input?.value || undefined;
         this.hass.callService("alarm_control_panel", service, {
             entity_id: this._config?.entity,
             code,
         });
-        this._input!.value = "";
+        if (this._input) {
+            this._input.value = "";
+        }
     }
 
     private _handlePadClick(e: MouseEvent): void {
         const val = (e.currentTarget! as any).value;
-        this._input!.value = val === "clear" ? "" : this._input!.value + val;
+        if (this._input) {
+            this._input.value = val === "clear" ? "" : this._input!.value + val;
+        }
     }
 
     private get _isGroup() {
-        return !!this._config?.entity.startsWith("group.");
+        return Boolean(this._config?.entity.startsWith("group."));
     }
 
     private _handleAction(ev: ActionHandlerEvent) {
@@ -125,58 +138,40 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
             return html``;
         }
 
-        const entity = this._config.entity;
-        const panels = this._isGroup
-            ? this.hass.states[entity].attributes.entity_id
-            : [entity];
-        const [ref_panel] = panels;
+        const entity_id = this._config.entity;
 
-        const entity_state = this.hass.states[entity];
-        const panel_state = this.hass.states[ref_panel];
+        const entity = this.hass.states[entity_id];
+        const mainEntity = getGroupMainEntity(entity, this.hass);
 
-        let has_alert = panel_state.state.startsWith("partially_");
-        panels.forEach((element) => {
-            has_alert =
-                has_alert ||
-                this.hass.states[element].state !== panel_state.state;
-        });
+        const hasAlert =
+            mainEntity.state.startsWith("partially_") ||
+            hasGroupInconsistentState(entity, this.hass);
 
-        const name = this._config.name ?? entity_state.attributes.friendly_name;
-        const icon =
-            ALARM_CONTROL_PANEL_CARD_STATE_ICON[panel_state.state] ||
-            "mdi:shield-lock-outline";
-        let state_color = {
-            disarmed: "var(--rgb-alarm-state-color-disarmed)",
-            armed: "var(--rgb-alarm-state-color-armed)",
-            triggered: "var(--rgb-alarm-state-color-triggered)",
-            unavailable: "var(--rgb-alarm-state-color-warning)",
-        };
-        const color =
-            state_color[panel_state.state.split("_")[0]] ||
-            "var(--rgb-alarm-state-color-default)";
-        const shape_pulse =
+        const name = this._config.name ?? entity.attributes.friendly_name;
+
+        const icon = getStateIcon(mainEntity.state);
+        const color = getStateColor(mainEntity.state);
+
+        const shapePulse =
             ["arming", "triggered", "pending", "unavailable"].indexOf(
-                panel_state.state
+                mainEntity.state
             ) >= 0;
-        let buttons: ActionButtonType[] = [{ state: "disarmed" }];
-        if (panel_state.state === "disarmed") {
-            buttons = this._config.states?.map((state) => ({ state })) || [];
-        }
-        if (["pending", "unavailable"].indexOf(panel_state.state) >= 0) {
-            buttons.forEach((b) => {
-                b.disabled = true;
-            });
-        }
+
+        const actions: ActionButtonType[] = isDisarmed(mainEntity)
+            ? this._config.states?.map((state) => ({ state })) || []
+            : [{ state: "disarmed" }];
+
+        const isActionEnabled = isActionsAvailable(mainEntity);
 
         const stateDisplay = computeStateDisplay(
             this.hass.localize,
-            panel_state,
+            mainEntity,
             this.hass.locale
         );
 
         return html`<ha-card>
             <mushroom-state-item
-                class="${panel_state.state}"
+                class="${mainEntity.state}"
                 style=${styleMap({
                     "--icon-main-color": `rgb(${color})`,
                     "--icon-shape-color": `rgba(${color}, 0.2)`,
@@ -186,63 +181,67 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                 .name=${name}
                 .value=${stateDisplay}
                 .active=${true}
-                .shape_pulse=${shape_pulse}
-                .badge_icon=${has_alert ? "mdi:exclamation" : undefined}
+                .shape_pulse=${shapePulse}
+                .badge_icon=${hasAlert ? "mdi:exclamation" : undefined}
                 @action=${this._handleAction}
                 .actionHandler=${actionHandler({
                     hasHold: hasAction(this._config.hold_action),
                 })}
             ></mushroom-state-item>
-            <div class="actions">
-                ${buttons.map(
-                    (b) => html`<mushroom-button
-                        icon=${ALARM_CONTROL_PANEL_CARD_STATE_ICON[b.state]}
-                        @click=${(e) =>
-                            this._onTap(
-                                e,
-                                ALARM_CONTROL_PANEL_CARD_STATE_SERVICE[b.state]
-                            )}
-                        .disabled=${!!b.disabled}
-                    ></mushroom-button>`
-                )}
-            </div>
-            ${!panel_state.attributes.code_format
-                ? html``
-                : html`<paper-input
-                      id="alarmCode"
-                      .label=${this.hass.localize(
-                          "ui.card.alarm_control_panel.code"
+            ${actions.length > 0
+                ? html`<div class="actions">
+                      ${actions.map(
+                          (action) => html`
+                              <mushroom-button
+                                  icon=${getStateIcon(action.state)}
+                                  @click=${(e) => this._onTap(e, action.state)}
+                                  .disabled=${!isActionEnabled}
+                              ></mushroom-button>
+                          `
                       )}
-                      type="password"
-                      .inputmode=${panel_state.attributes.code_format ===
-                      "number"
-                          ? "numeric"
-                          : "text"}
-                  ></paper-input>`}
-            ${panel_state.attributes.code_format !== "number"
+                  </div>`
+                : null}
+            ${!mainEntity.attributes.code_format
                 ? html``
-                : html`<div id="keypad">
-                      ${BUTTONS.map((value) =>
-                          value === ""
-                              ? html` <mwc-button disabled></mwc-button> `
-                              : html`
-                                    <mwc-button
-                                        .value=${value}
-                                        @click=${this._handlePadClick}
-                                        outlined
-                                        class=${classMap({
-                                            numberkey: value !== "clear",
-                                        })}
-                                    >
-                                        ${value === "clear"
-                                            ? this.hass!.localize(
-                                                  `ui.card.alarm_control_panel.clear_code`
-                                              )
-                                            : value}
-                                    </mwc-button>
-                                `
-                      )}
-                  </div> `}
+                : html`
+                      <paper-input
+                          id="alarmCode"
+                          .label=${this.hass.localize(
+                              "ui.card.alarm_control_panel.code"
+                          )}
+                          type="password"
+                          .inputmode=${mainEntity.attributes.code_format ===
+                          "number"
+                              ? "numeric"
+                              : "text"}
+                      ></paper-input>
+                  `}
+            ${mainEntity.attributes.code_format !== "number"
+                ? html``
+                : html`
+                      <div id="keypad">
+                          ${BUTTONS.map((value) =>
+                              value === ""
+                                  ? html` <mwc-button disabled></mwc-button> `
+                                  : html`
+                                        <mwc-button
+                                            .value=${value}
+                                            @click=${this._handlePadClick}
+                                            outlined
+                                            class=${classMap({
+                                                numberkey: value !== "clear",
+                                            })}
+                                        >
+                                            ${value === "clear"
+                                                ? this.hass!.localize(
+                                                      `ui.card.alarm_control_panel.clear_code`
+                                                  )
+                                                : value}
+                                        </mwc-button>
+                                    `
+                          )}
+                      </div>
+                  `}
         </ha-card>`;
     }
 
