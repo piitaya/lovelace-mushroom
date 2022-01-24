@@ -20,6 +20,7 @@ import {
     ALARM_CONTROl_PANEL_CARD_NAME,
     ALARM_CONTROL_PANEL_CARD_STATE_ICON,
     ALARM_CONTROL_PANEL_CARD_STATE_SERVICE,
+    ALARM_CONTROl_PANEL_ENTITY_DOMAINS,
 } from "./const";
 import "./alarm-control-panel-card-editor";
 import type { PaperInputElement } from "@polymer/paper-input/paper-input";
@@ -64,13 +65,9 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
         hass: HomeAssistant
     ): Promise<AlarmControlPanelCardConfig> {
         const entities = Object.keys(hass.states);
-        const panels = entities.filter((e) => {
-            if (e.startsWith("group.")) {
-                let first_group_entity = hass.states[e].attributes.entity_id[0];
-                return first_group_entity.startsWith("alarm_control_panel.");
-            }
-            return e.startsWith("alarm_control_panel.");
-        });
+        const panels = entities.filter((e) =>
+            ALARM_CONTROl_PANEL_ENTITY_DOMAINS.includes(e.split(".")[0])
+        );
         return {
             type: `custom:${ALARM_CONTROl_PANEL_CARD_NAME}`,
             entity: panels[0],

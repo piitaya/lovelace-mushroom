@@ -16,7 +16,11 @@ import { customElement, property, state } from "lit/decorators.js";
 import "../../shared/state-item";
 import "../../shared/button";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { LIGHT_CARD_EDITOR_NAME, LIGHT_CARD_NAME } from "./const";
+import {
+    LIGHT_CARD_EDITOR_NAME,
+    LIGHT_CARD_NAME,
+    LIGHT_ENTITY_DOMAINS,
+} from "./const";
 import "./controls/light-brightness-control";
 import "./controls/light-color-temp-control";
 import "./light-card-editor";
@@ -58,8 +62,8 @@ export class LightCard extends LitElement implements LovelaceCard {
         hass: HomeAssistant
     ): Promise<LightCardConfig> {
         const entities = Object.keys(hass.states);
-        const lights = entities.filter(
-            (e) => e.substr(0, e.indexOf(".")) === "light"
+        const lights = entities.filter((e) =>
+            LIGHT_ENTITY_DOMAINS.includes(e.split(".")[0])
         );
         return {
             type: `custom:${LIGHT_CARD_NAME}`,
