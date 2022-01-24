@@ -15,10 +15,10 @@ import {
     configElementStyle,
 } from "../../utils/editor-styles";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
-import { LIGHT_CARD_EDITOR_NAME } from "./const";
+import { LIGHT_CARD_EDITOR_NAME, LIGHT_ENTITY_DOMAINS } from "./const";
 import { LightCardConfig } from "./light-card";
 
-const DOMAINS = ["light"];
+const DOMAINS = [...LIGHT_ENTITY_DOMAINS, "group"];
 
 const cardConfigStruct = assign(
     baseLovelaceCardConfig,

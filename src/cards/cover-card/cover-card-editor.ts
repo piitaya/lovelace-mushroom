@@ -15,10 +15,10 @@ import {
     configElementStyle,
 } from "../../utils/editor-styles";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
-import { COVER_CARD_EDITOR_NAME } from "./const";
+import { COVER_CARD_EDITOR_NAME, COVER_ENTITY_DOMAINS } from "./const";
 import { CoverCardConfig } from "./cover-card";
 
-const DOMAINS = ["cover"];
+const DOMAINS = [...COVER_ENTITY_DOMAINS, "group"];
 
 const cardConfigStruct = assign(
     baseLovelaceCardConfig,

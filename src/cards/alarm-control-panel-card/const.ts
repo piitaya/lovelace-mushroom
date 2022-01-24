@@ -2,6 +2,7 @@ import { PREFIX_NAME } from "../../const";
 
 export const ALARM_CONTROl_PANEL_CARD_NAME = `${PREFIX_NAME}-alarm-control-panel-card`;
 export const ALARM_CONTROl_PANEL_CARD_EDITOR_NAME = `${ALARM_CONTROl_PANEL_CARD_NAME}-editor`;
+export const ALARM_CONTROl_PANEL_ENTITY_DOMAINS = ["alarm_control_panel"];
 
 export const ALARM_CONTROL_PANEL_CARD_STATE_ICON = {
     disarmed: "mdi:shield-off-outline",

@@ -15,7 +15,11 @@ import "../../shared/shape-icon";
 import "../../shared/shape-avatar";
 import "../../shared/badge-icon";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { PERSON_CARD_EDITOR_NAME, PERSON_CARD_NAME } from "./const";
+import {
+    PERSON_CARD_EDITOR_NAME,
+    PERSON_CARD_NAME,
+    PERSON_ENTITY_DOMAINS,
+} from "./const";
 import "./person-card-editor";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -52,8 +56,8 @@ export class PersonCard extends LitElement implements LovelaceCard {
         hass: HomeAssistant
     ): Promise<PersonCardConfig> {
         const entities = Object.keys(hass.states);
-        const people = entities.filter(
-            (e) => e.substr(0, e.indexOf(".")) === "person"
+        const people = entities.filter((e) =>
+            PERSON_ENTITY_DOMAINS.includes(e.split(".")[0])
         );
         return {
             type: `custom:${PERSON_CARD_NAME}`,

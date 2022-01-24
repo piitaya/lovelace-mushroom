@@ -14,10 +14,10 @@ import {
     configElementStyle,
 } from "../../utils/editor-styles";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
-import { PERSON_CARD_EDITOR_NAME } from "./const";
+import { PERSON_CARD_EDITOR_NAME, PERSON_ENTITY_DOMAINS } from "./const";
 import { PersonCardConfig } from "./person-card";
 
-const DOMAINS = ["person"];
+const DOMAINS = [...PERSON_ENTITY_DOMAINS, "group"];
 
 const cardConfigStruct = assign(
     baseLovelaceCardConfig,

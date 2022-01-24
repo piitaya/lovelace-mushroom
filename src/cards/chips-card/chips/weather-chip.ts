@@ -31,9 +31,7 @@ export class WeatherChip extends LitElement implements LovelaceChip {
         hass: HomeAssistant
     ): Promise<WeatherChipConfig> {
         const entities = Object.keys(hass.states);
-        const weathers = entities.filter(
-            (e) => e.substr(0, e.indexOf(".")) === "weather"
-        );
+        const weathers = entities.filter((e) => e.split(".")[0] === "weather");
         return {
             type: `weather`,
             entity: weathers[0],

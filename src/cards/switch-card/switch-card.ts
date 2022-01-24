@@ -15,7 +15,11 @@ import { customElement, property, state } from "lit/decorators.js";
 import "../../shared/state-item";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
-import { SWITCH_CARD_EDITOR_NAME, SWITCH_CARD_NAME } from "./const";
+import {
+    SWITCH_CARD_EDITOR_NAME,
+    SWITCH_CARD_NAME,
+    SWITCH_ENTITY_DOMAINS,
+} from "./const";
 import "./switch-card-editor";
 
 export interface SwitchCardConfig extends LovelaceCardConfig {
@@ -46,8 +50,8 @@ export class SwitchCard extends LitElement implements LovelaceCard {
         hass: HomeAssistant
     ): Promise<SwitchCardConfig> {
         const entities = Object.keys(hass.states);
-        const switches = entities.filter(
-            (e) => e.substr(0, e.indexOf(".")) === "switch"
+        const switches = entities.filter((e) =>
+            SWITCH_ENTITY_DOMAINS.includes(e.split(".")[0])
         );
         return {
             type: `custom:${SWITCH_CARD_NAME}`,

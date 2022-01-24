@@ -11,12 +11,15 @@ import {
     baseLovelaceCardConfig,
     configElementStyle,
 } from "../../utils/editor-styles";
-import { ALARM_CONTROl_PANEL_CARD_EDITOR_NAME } from "./const";
+import {
+    ALARM_CONTROl_PANEL_CARD_EDITOR_NAME,
+    ALARM_CONTROl_PANEL_ENTITY_DOMAINS,
+} from "./const";
 import { AlarmControlPanelCardConfig } from "./alarm-control-panel-card";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { actionConfigStruct } from "../../utils/action-struct";
 
-const DOMAINS = ["group", "alarm_control_panel"];
+const DOMAINS = [...ALARM_CONTROl_PANEL_ENTITY_DOMAINS, "group"];
 
 const cardConfigStruct = assign(
     baseLovelaceCardConfig,
@@ -78,8 +81,6 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
             "armed_vacation",
             "armed_custom_bypass",
         ];
-
-        const entityState = this.hass.states[this._entity];
 
         return html`
             <div class="card-config">

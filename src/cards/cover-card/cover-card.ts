@@ -15,7 +15,11 @@ import { customElement, property, state } from "lit/decorators.js";
 import "../../shared/state-item";
 import "../../shared/button";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { COVER_CARD_EDITOR_NAME, COVER_CARD_NAME } from "./const";
+import {
+    COVER_CARD_EDITOR_NAME,
+    COVER_CARD_NAME,
+    COVER_ENTITY_DOMAINS,
+} from "./const";
 import "./controls/cover-buttons-control";
 import "./controls/cover-position-control";
 import "./cover-card-editor";
@@ -58,8 +62,8 @@ export class CoverCard extends LitElement implements LovelaceCard {
         hass: HomeAssistant
     ): Promise<CoverCardConfig> {
         const entities = Object.keys(hass.states);
-        const covers = entities.filter(
-            (e) => e.substr(0, e.indexOf(".")) === "cover"
+        const covers = entities.filter((e) =>
+            COVER_ENTITY_DOMAINS.includes(e.split(".")[0])
         );
         return {
             type: `custom:${COVER_CARD_NAME}`,
