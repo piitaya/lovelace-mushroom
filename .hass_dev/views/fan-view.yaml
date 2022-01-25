@@ -13,7 +13,7 @@ cards:
       - type: custom:mushroom-fan-card
         entity: fan.living_room_fan
         name: Icon spin
-        icon_spin: true
+        icon_animation: true
     columns: 2
     square: false
   - type: grid
@@ -23,5 +23,10 @@ cards:
         entity: fan.living_room_fan
         name: Percentage control
         show_percentage_control: true
+      - type: custom:mushroom-fan-card
+        entity: fan.living_room_fan
+        name: Multiple controls
+        show_percentage_control: true
+        show_oscillate_control: true
     columns: 2
     square: false

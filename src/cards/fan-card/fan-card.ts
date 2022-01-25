@@ -22,6 +22,7 @@ import {
 } from "./const";
 import "./fan-card-editor";
 import "./controls/fan-percentage-control";
+import "./controls/fan-oscillate-control";
 import { getPercentage } from "./utils";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
 
@@ -29,8 +30,9 @@ export interface FanCardConfig extends LovelaceCardConfig {
     entity: string;
     name?: string;
     icon?: string;
-    icon_spin?: boolean;
+    icon_animation?: boolean;
     show_percentage_control?: boolean;
+    show_oscillate_control?: boolean;
     tap_action?: ActionConfig;
     hold_action?: ActionConfig;
 }
@@ -121,7 +123,7 @@ export class FanCard extends LitElement implements LovelaceCard {
                     .name=${name}
                     .value=${stateValue}
                     .active=${state === "on"}
-                    .icon_spin=${state === "on" && this._config.icon_spin}
+                    .icon_spin=${state === "on" && this._config.icon_animation}
                     .icon_spin_animation_duration=${`${1 / speed}s`}
                     @action=${this._handleAction}
                     .actionHandler=${actionHandler({
@@ -130,13 +132,28 @@ export class FanCard extends LitElement implements LovelaceCard {
                 >
                 </mushroom-state-item>
                ${
-                   this._config.show_percentage_control
-                       ? html`<div class="actions">
-                             <mushroom-fan-percentage-control
-                                 .hass=${this.hass}
-                                 .entity=${entity}
-                             />
-                         </div>`
+                   this._config.show_percentage_control ||
+                   this._config.show_oscillate_control
+                       ? html`
+                             <div class="actions">
+                                 ${this._config.show_percentage_control
+                                     ? html`
+                                           <mushroom-fan-percentage-control
+                                               .hass=${this.hass}
+                                               .entity=${entity}
+                                           ></mushroom-fan-percentage-control>
+                                       `
+                                     : null}
+                                 ${this._config.show_oscillate_control
+                                     ? html`
+                                           <mushroom-fan-oscillate-control
+                                               .hass=${this.hass}
+                                               .entity=${entity}
+                                           ></mushroom-fan-oscillate-control>
+                                       `
+                                     : null}
+                             </div>
+                         `
                        : null
                }
                 </div>

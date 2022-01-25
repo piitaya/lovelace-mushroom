@@ -24,8 +24,9 @@ const cardConfigStruct = assign(
         entity: string(),
         name: optional(string()),
         icon: optional(string()),
-        icon_spin: optional(boolean()),
+        icon_animation: optional(boolean()),
         show_percentage_control: optional(boolean()),
+        show_oscillate_control: optional(boolean()),
         tap_action: optional(actionConfigStruct),
         hold_action: optional(actionConfigStruct),
     })
@@ -63,12 +64,16 @@ export class FanCardEditor extends LitElement implements LovelaceCardEditor {
         return this._config!.icon || "";
     }
 
-    get _icon_spin(): boolean {
-        return this._config!.icon_spin ?? false;
+    get _icon_animation(): boolean {
+        return this._config!.icon_animation ?? false;
     }
 
     get _showPercentageControl(): boolean {
         return this._config!.show_percentage_control ?? false;
+    }
+
+    get _showOscillateControl(): boolean {
+        return this._config!.show_oscillate_control ?? false;
     }
 
     get _tap_action(): ActionConfig | undefined {
@@ -124,10 +129,13 @@ export class FanCardEditor extends LitElement implements LovelaceCardEditor {
                     ></ha-icon-picker>
                 </div>
                 <div class="side-by-side">
-                    <ha-formfield label="Spin icon when active ?" .dir=${dir}>
+                    <ha-formfield
+                        label="Animate icon when active ?"
+                        .dir=${dir}
+                    >
                         <ha-switch
-                            .checked=${this._icon_spin != false}
-                            .configValue=${"icon_spin"}
+                            .checked=${this._icon_animation != false}
+                            .configValue=${"icon_animation"}
                             @change=${this._valueChanged}
                         ></ha-switch>
                     </ha-formfield>
@@ -137,6 +145,13 @@ export class FanCardEditor extends LitElement implements LovelaceCardEditor {
                         <ha-switch
                             .checked=${this._showPercentageControl != false}
                             .configValue=${"show_percentage_control"}
+                            @change=${this._valueChanged}
+                        ></ha-switch>
+                    </ha-formfield>
+                    <ha-formfield label="Show oscillate control ?" .dir=${dir}>
+                        <ha-switch
+                            .checked=${this._showOscillateControl != false}
+                            .configValue=${"show_oscillate_control"}
                             @change=${this._valueChanged}
                         ></ha-switch>
                     </ha-formfield>
