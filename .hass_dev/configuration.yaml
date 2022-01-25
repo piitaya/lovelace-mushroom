@@ -37,6 +37,9 @@ binary_sensor:
 weather:
   - platform: demo
 
+fan:
+  - platform: demo
+
 person:
   - name: Anne Therese
     id: anne_therese

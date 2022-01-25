@@ -5,4 +5,5 @@ views:
   - !include views/switch-view.yaml
   - !include views/person-view.yaml
   - !include views/alarm-control-panel-view.yaml
+  - !include views/fan-view.yaml
   - !include views/chips-view.yaml

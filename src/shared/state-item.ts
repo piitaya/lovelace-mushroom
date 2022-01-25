@@ -22,7 +22,11 @@ export class StateItem extends LitElement {
 
     @property() public badge_icon?: string;
 
-    @property() public shape_pulse?: boolean;
+    @property() public shape_pulse: boolean = false;
+
+    @property() public icon_spin?: boolean;
+
+    @property() public icon_spin_animation_duration?: string;
 
     private get shape_is_picture(): boolean {
         return !!(this.picture_url && this.picture_url.length > 0);
@@ -30,26 +34,43 @@ export class StateItem extends LitElement {
 
     protected render(): TemplateResult {
         return html`
-            <div class=${classMap({ container: true, active: this.active, vertical: this.vertical })}>
+            <div
+                class=${classMap({
+                    container: true,
+                    active: this.active,
+                    vertical: this.vertical,
+                })}
+            >
                 <div class="icon-container">
-                    ${this.shape_is_picture ? html`<mushroom-shape-avatar
-                        .picture_url=${this.picture_url}
-                    ></mushroom-shape-avatar>` : html`<mushroom-shape-icon
-                        .disabled=${!this.active}
-                        .icon=${this.icon}
-                        .pulse=${!!this.shape_pulse}
-                    ></mushroom-shape-icon>`}
+                    ${this.shape_is_picture
+                        ? html`
+                              <mushroom-shape-avatar
+                                  .picture_url=${this.picture_url}
+                              ></mushroom-shape-avatar>
+                          `
+                        : html`
+                              <mushroom-shape-icon
+                                  .disabled=${!this.active}
+                                  .icon=${this.icon}
+                                  .pulse=${!!this.shape_pulse}
+                                  .spin=${!!this.icon_spin}
+                                  .spin_animation_duration=${this
+                                      .icon_spin_animation_duration}
+                              ></mushroom-shape-icon>
+                          `}
                     ${this.badge_icon
-                ? html`<mushroom-badge-icon
-                              .icon=${this.badge_icon}
-                          ></mushroom-badge-icon>`
-                : ""}
+                        ? html`
+                              <mushroom-badge-icon
+                                  .icon=${this.badge_icon}
+                              ></mushroom-badge-icon>
+                          `
+                        : ""}
                 </div>
                 <div class="info-container">
                     <span class="info-name">${this.name}</span>
                     ${this.value && !this.hide_value
-                ? html`<span class="info-value">${this.value}</span>`
-                : null}
+                        ? html`<span class="info-value">${this.value}</span>`
+                        : null}
                 </div>
             </div>
         `;

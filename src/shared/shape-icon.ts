@@ -1,6 +1,7 @@
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { property, customElement } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
+import { styleMap } from "lit/directives/style-map.js";
 
 @customElement("mushroom-shape-icon")
 export class ShapeIcon extends LitElement {
@@ -10,6 +11,10 @@ export class ShapeIcon extends LitElement {
 
     @property() public pulse: boolean = false;
 
+    @property() public spin: boolean = false;
+
+    @property() public spin_animation_duration?: string;
+
     protected render(): TemplateResult {
         return html`
             <div
@@ -17,6 +22,10 @@ export class ShapeIcon extends LitElement {
                     shape: true,
                     disabled: this.disabled,
                     pulse: this.pulse,
+                    spin: this.spin,
+                })}
+                style=${styleMap({
+                    "--spin_animation_duration": this.spin_animation_duration,
                 })}
             >
                 <ha-icon .icon=${this.icon} />
@@ -34,6 +43,7 @@ export class ShapeIcon extends LitElement {
                     var(--rgb-primary-text-color),
                     0.05
                 );
+                --spin_animation_duration: 1s;
                 flex: none;
             }
             .shape {
@@ -48,6 +58,7 @@ export class ShapeIcon extends LitElement {
                 transition: background-color 280ms ease-in-out;
             }
             .shape ha-icon {
+                display: flex;
                 --mdc-icon-size: 20px;
                 color: var(--main-color);
                 transition: color 280ms ease-in-out;
@@ -61,6 +72,12 @@ export class ShapeIcon extends LitElement {
             .shape.pulse {
                 animation: 1s ease 0s infinite normal none running pulse;
             }
+            .shape.spin ha-icon {
+                animation-duration: var(--spin_animation_duration);
+                animation-name: spin;
+                animation-iteration-count: infinite;
+                animation-timing-function: linear;
+            }
             @keyframes pulse {
                 0% {
                     opacity: 1;
@@ -70,6 +87,14 @@ export class ShapeIcon extends LitElement {
                 }
                 100% {
                     opacity: 1;
+                }
+            }
+            @keyframes spin {
+                from {
+                    transform: rotate(0deg);
+                }
+                to {
+                    transform: rotate(360deg);
                 }
             }
         `;
