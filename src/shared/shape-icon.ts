@@ -1,7 +1,6 @@
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { property, customElement } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
-import { styleMap } from "lit/directives/style-map.js";
 
 @customElement("mushroom-shape-icon")
 export class ShapeIcon extends LitElement {
@@ -9,23 +8,12 @@ export class ShapeIcon extends LitElement {
 
     @property() public disabled: boolean = false;
 
-    @property() public pulse: boolean = false;
-
-    @property() public spin: boolean = false;
-
-    @property() public spin_animation_duration?: string;
-
     protected render(): TemplateResult {
         return html`
             <div
                 class=${classMap({
                     shape: true,
                     disabled: this.disabled,
-                    pulse: this.pulse,
-                    spin: this.spin,
-                })}
-                style=${styleMap({
-                    "--spin_animation_duration": this.spin_animation_duration,
                 })}
             >
                 <ha-icon .icon=${this.icon} />
@@ -36,14 +24,15 @@ export class ShapeIcon extends LitElement {
     static get styles(): CSSResultGroup {
         return css`
             :host {
-                --main-color: var(--primary-text-color);
-                --main-color-disabled: var(--disabled-text-color);
+                --icon-color: var(--primary-text-color);
+                --icon-color-disabled: var(--disabled-text-color);
+                --icon-animation: none;
                 --shape-color: rgba(var(--rgb-primary-text-color), 0.05);
                 --shape-color-disabled: rgba(
                     var(--rgb-primary-text-color),
                     0.05
                 );
-                --spin_animation_duration: 1s;
+                --shape-animation: none;
                 flex: none;
             }
             .shape {
@@ -56,27 +45,20 @@ export class ShapeIcon extends LitElement {
                 justify-content: center;
                 background-color: var(--shape-color);
                 transition: background-color 280ms ease-in-out;
+                animation: var(--shape-animation);
             }
             .shape ha-icon {
                 display: flex;
                 --mdc-icon-size: 20px;
-                color: var(--main-color);
+                color: var(--icon-color);
                 transition: color 280ms ease-in-out;
+                animation: var(--icon-animation);
             }
             .shape.disabled {
                 background-color: var(--shape-color-disabled);
             }
             .shape.disabled ha-icon {
-                color: var(--main-color-disabled);
-            }
-            .shape.pulse {
-                animation: 1s ease 0s infinite normal none running pulse;
-            }
-            .shape.spin ha-icon {
-                animation-duration: var(--spin_animation_duration);
-                animation-name: spin;
-                animation-iteration-count: infinite;
-                animation-timing-function: linear;
+                color: var(--icon-color-disabled);
             }
             @keyframes pulse {
                 0% {

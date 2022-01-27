@@ -14,6 +14,8 @@ import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import "../../shared/state-item";
+import "../../shared/shape-icon";
+import "../../shared/state-info";
 import "../../shared/button";
 import { registerCustomCard } from "../../utils/custom-cards";
 import {
@@ -145,20 +147,26 @@ export class LightCard extends LitElement implements LovelaceCard {
 
         const brightness = getBrightness(entity);
 
+        const stateValue = brightness != null ? `${brightness}%` : stateDisplay;
         return html`
             <ha-card>
                 <mushroom-state-item
-                    .icon=${icon}
-                    .name=${name}
-                    .value=${brightness != null
-                        ? `${brightness}%`
-                        : stateDisplay}
-                    .active=${state === "on"}
                     @action=${this._handleAction}
                     .actionHandler=${actionHandler({
                         hasHold: hasAction(this._config.hold_action),
                     })}
-                ></mushroom-state-item>
+                >
+                    <mushroom-shape-icon
+                        slot="icon"
+                        .disabled=${state !== "on"}
+                        .icon=${icon}
+                    ></mushroom-shape-icon>
+                    <mushroom-state-info
+                        slot="info"
+                        .label=${name}
+                        .value=${stateValue}
+                    ></mushroom-state-info>
+                </mushroom-state-item>
                 ${this._controls.length > 0
                     ? html`
                           <div class="actions">
@@ -220,8 +228,10 @@ export class LightCard extends LitElement implements LovelaceCard {
             }
             mushroom-state-item {
                 cursor: pointer;
-                --icon-main-color: rgba(var(--rgb-color), 1);
-                --icon-shape-color: rgba(var(--rgb-color), 0.2);
+            }
+            mushroom-shape-icon {
+                --icon-color: rgba(var(--rgb-color), 1);
+                --shape-color: rgba(var(--rgb-color), 0.2);
             }
             mushroom-light-brightness-control,
             mushroom-light-color-temp-control {

@@ -13,6 +13,8 @@ import {
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import "../../shared/state-item";
+import "../../shared/shape-icon";
+import "../../shared/state-info";
 import "../../shared/button";
 import { registerCustomCard } from "../../utils/custom-cards";
 import {
@@ -23,8 +25,10 @@ import {
 import "./fan-card-editor";
 import "./controls/fan-percentage-control";
 import "./controls/fan-oscillate-control";
-import { getPercentage } from "./utils";
+import { getPercentage, isActive } from "./utils";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
+import { classMap } from "lit/directives/class-map.js";
+import { styleMap } from "lit/directives/style-map.js";
 
 export interface FanCardConfig extends LovelaceCardConfig {
     entity: string;
@@ -116,47 +120,56 @@ export class FanCard extends LitElement implements LovelaceCard {
 
         const speed = 1.5 * ((percentage ?? 0) / 100) ** 0.5;
 
+        const active = isActive(entity);
+
         return html`
             <ha-card>
                 <mushroom-state-item
-                    .icon=${icon}
-                    .name=${name}
-                    .value=${stateValue}
-                    .active=${state === "on"}
-                    .icon_spin=${state === "on" && this._config.icon_animation}
-                    .icon_spin_animation_duration=${`${1 / speed}s`}
                     @action=${this._handleAction}
                     .actionHandler=${actionHandler({
                         hasHold: hasAction(this._config.hold_action),
                     })}
                 >
+                    <mushroom-shape-icon
+                        slot="icon"
+                        class=${classMap({
+                            spin: active && !!this._config.icon_animation,
+                        })}
+                        style=${styleMap({
+                            "--animation-duration": `${1 / speed}s`,
+                        })}
+                        .disabled=${!isActive(entity)}
+                        .icon=${icon}
+                    ></mushroom-shape-icon>
+                    <mushroom-state-info
+                        slot="info"
+                        .label=${name}
+                        .value=${stateValue}
+                    ></mushroom-state-info>
                 </mushroom-state-item>
-               ${
-                   this._config.show_percentage_control ||
-                   this._config.show_oscillate_control
-                       ? html`
-                             <div class="actions">
-                                 ${this._config.show_percentage_control
-                                     ? html`
-                                           <mushroom-fan-percentage-control
-                                               .hass=${this.hass}
-                                               .entity=${entity}
-                                           ></mushroom-fan-percentage-control>
-                                       `
-                                     : null}
-                                 ${this._config.show_oscillate_control
-                                     ? html`
-                                           <mushroom-fan-oscillate-control
-                                               .hass=${this.hass}
-                                               .entity=${entity}
-                                           ></mushroom-fan-oscillate-control>
-                                       `
-                                     : null}
-                             </div>
-                         `
-                       : null
-               }
-                </div>
+                ${this._config.show_percentage_control ||
+                this._config.show_oscillate_control
+                    ? html`
+                          <div class="actions">
+                              ${this._config.show_percentage_control
+                                  ? html`
+                                        <mushroom-fan-percentage-control
+                                            .hass=${this.hass}
+                                            .entity=${entity}
+                                        ></mushroom-fan-percentage-control>
+                                    `
+                                  : null}
+                              ${this._config.show_oscillate_control
+                                  ? html`
+                                        <mushroom-fan-oscillate-control
+                                            .hass=${this.hass}
+                                            .entity=${entity}
+                                        ></mushroom-fan-oscillate-control>
+                                    `
+                                  : null}
+                          </div>
+                      `
+                    : null}
             </ha-card>
         `;
     }
@@ -176,8 +189,16 @@ export class FanCard extends LitElement implements LovelaceCard {
             }
             mushroom-state-item {
                 cursor: pointer;
-                --icon-main-color: rgba(var(--rgb-color), 1);
-                --icon-shape-color: rgba(var(--rgb-color), 0.2);
+            }
+            mushroom-shape-icon {
+                --icon-color: rgba(var(--rgb-color), 1);
+                --shape-color: rgba(var(--rgb-color), 0.2);
+            }
+            mushroom-shape-icon.spin {
+                --icon-animation: var(--animation-duration) infinite linear spin;
+            }
+            mushroom-shape-icon ha-icon {
+                color: red !important;
             }
             mushroom-fan-percentage-control {
                 flex: 1;

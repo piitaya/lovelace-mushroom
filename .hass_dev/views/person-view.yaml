@@ -19,11 +19,6 @@ cards:
         name: No tap action
         tap_action:
           action: none
-      - type: custom:mushroom-person-card
-        entity: person.anne_therese
-        name: No tap action
-        tap_action:
-          action: none
     columns: 2
     square: false
   - type: grid
@@ -75,5 +70,14 @@ cards:
           service_data:
             dev_id: demo_anne_therese
             location_name: unknown
+      - type: button
+        name: Office
+        icon: mdi:office-building
+        tap_action:
+          action: call-service
+          service: device_tracker.see
+          service_data:
+            dev_id: demo_anne_therese
+            gps: [52.37451608362128, 4.888106097860146]
     columns: 3
     square: false

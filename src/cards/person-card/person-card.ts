@@ -1,28 +1,30 @@
 import {
     ActionConfig,
+    ActionHandlerEvent,
     computeStateDisplay,
+    handleAction,
+    hasAction,
     HomeAssistant,
     LovelaceCard,
     LovelaceCardConfig,
     LovelaceCardEditor,
-    handleAction,
-    ActionHandlerEvent,
-    hasAction,
+    stateIcon as stateIconHelper,
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import "../../shared/shape-icon";
-import "../../shared/shape-avatar";
+import { styleMap } from "lit/directives/style-map.js";
 import "../../shared/badge-icon";
+import "../../shared/shape-avatar";
+import "../../shared/shape-icon";
 import { registerCustomCard } from "../../utils/custom-cards";
+import { actionHandler } from "../../utils/directives/action-handler-directive";
 import {
     PERSON_CARD_EDITOR_NAME,
     PERSON_CARD_NAME,
     PERSON_ENTITY_DOMAINS,
 } from "./const";
 import "./person-card-editor";
-import { styleMap } from "lit/directives/style-map.js";
-import { actionHandler } from "../../utils/directives/action-handler-directive";
+import { getStateColor, getStateIcon, isActive } from "./utils";
 
 /*
  * TODO: make configurable icons, icons according to zone, show state indicator
@@ -93,56 +95,64 @@ export class PersonCard extends LitElement implements LovelaceCard {
             return html``;
         }
 
-        const entity = this._config.entity;
-        const entity_state = this.hass.states[entity];
+        const entity_id = this._config.entity;
+        const entity = this.hass.states[entity_id];
 
-        const name = this._config.name ?? entity_state.attributes.friendly_name;
-        let icon = this._config.icon ?? "mdi:face-man";
-        let picture: string | null = null;
-        if (
-            this._config.use_entity_picture &&
-            entity_state.attributes.entity_picture
-        ) {
-            picture = entity_state.attributes.entity_picture;
-        }
+        const name = this._config.name ?? entity.attributes.friendly_name;
+        const icon = this._config.icon ?? stateIconHelper(entity);
+
+        const picture = this._config.use_entity_picture
+            ? entity.attributes.entity_picture
+            : undefined;
+
         const vertical = !!this._config.vertical;
         const hide_state = !!this._config.hide_state;
 
-        const state = entity_state.state;
-        let state_icon = "mdi:pine-tree";
-        let state_color = "var(--state-not_home-color)";
-        if (state === "unknown") {
-            state_icon = "mdi:map-marker-alert";
-            state_color = "var(--state-unknown-color)";
-        } else if (state === "home") {
-            state_icon = "mdi:home";
-            state_color = "var(--state-home-color)";
-        }
+        const stateIcon = getStateIcon(entity);
+        const stateColor = getStateColor(entity);
 
         const stateDisplay = computeStateDisplay(
             this.hass.localize,
-            entity_state,
+            entity,
             this.hass.locale
         );
 
         return html`<ha-card>
             <mushroom-state-item
-                style=${styleMap({
-                    "--badge-main-color": state_color,
-                })}
-                .icon=${icon}
-                .badge_icon=${state_icon}
-                .name=${name}
-                .value=${stateDisplay}
-                .active=${state === "on"}
-                .picture_url=${picture}
                 .vertical=${vertical}
-                .hide_value=${hide_state}
                 @action=${this._handleAction}
                 .actionHandler=${actionHandler({
                     hasHold: hasAction(this._config.hold_action),
                 })}
-            ></mushroom-state-item>
+            >
+                ${picture
+                    ? html`
+                          <mushroom-shape-avatar
+                              slot="icon"
+                              .picture_url=${picture}
+                          ></mushroom-shape-avatar>
+                      `
+                    : html`
+                          <mushroom-shape-icon
+                              slot="icon"
+                              .icon=${icon}
+                              .disabled=${!isActive(entity)}
+                          ></mushroom-shape-icon>
+                      `}
+                <mushroom-badge-icon
+                    slot="badge"
+                    .icon=${stateIcon}
+                    style=${styleMap({
+                        "--main-color": stateColor,
+                    })}
+                ></mushroom-badge-icon>
+                <mushroom-state-info
+                    slot="info"
+                    .label=${name}
+                    .value=${stateDisplay}
+                    .hide_value=${hide_state}
+                ></mushroom-state-info>
+            </mushroom-state-item>
         </ha-card>`;
     }
 

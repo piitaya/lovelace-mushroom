@@ -13,6 +13,8 @@ import {
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import "../../shared/state-item";
+import "../../shared/state-info";
+import "../../shared/shape-icon";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
 import {
@@ -106,17 +108,24 @@ export class SwitchCard extends LitElement implements LovelaceCard {
 
         return html`<ha-card>
             <mushroom-state-item
-                .icon=${icon}
-                .name=${name}
-                .value=${stateDisplay}
-                .active=${state === "on"}
                 .vertical=${vertical}
-                .hide_value=${hide_state}
                 @action=${this._handleAction}
                 .actionHandler=${actionHandler({
                     hasHold: hasAction(this._config.hold_action),
                 })}
-            ></mushroom-state-item>
+            >
+                <mushroom-shape-icon
+                    slot="icon"
+                    .disabled=${state !== "on"}
+                    .icon=${icon}
+                ></mushroom-shape-icon>
+                <mushroom-state-info
+                    slot="info"
+                    .label=${name}
+                    .value=${stateDisplay}
+                    .hide_value=${hide_state}
+                ></mushroom-state-info>
+            </mushroom-state-item>
         </ha-card>`;
     }
 
@@ -132,8 +141,10 @@ export class SwitchCard extends LitElement implements LovelaceCard {
             }
             mushroom-state-item {
                 cursor: pointer;
-                --icon-main-color: rgba(var(--rgb-color), 1);
-                --icon-shape-color: rgba(var(--rgb-color), 0.2);
+            }
+            mushroom-shape-icon {
+                --icon-color: rgba(var(--rgb-color), 1);
+                --shape-color: rgba(var(--rgb-color), 0.2);
             }
         `;
     }
