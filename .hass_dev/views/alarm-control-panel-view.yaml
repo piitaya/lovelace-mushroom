@@ -34,3 +34,18 @@ cards:
       - armed_home
       - armed_away
     name: Text code (azerty)
+  - type: grid
+    title: Layouts
+    cards:
+      - type: custom:mushroom-alarm-control-panel-card
+        entity: alarm_control_panel.alarm_panel_1
+        vertical: true
+      - type: custom:mushroom-alarm-control-panel-card
+        entity: alarm_control_panel.alarm_panel_1
+        hide_state: true
+      - type: custom:mushroom-alarm-control-panel-card
+        entity: alarm_control_panel.alarm_panel_1
+        vertical: true
+        hide_state: true
+    columns: 2
+    square: false
