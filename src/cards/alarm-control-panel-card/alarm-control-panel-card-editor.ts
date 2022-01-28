@@ -1,35 +1,22 @@
 import {
-    ActionConfig,
     computeRTLDirection,
     fireEvent,
     HomeAssistant,
     LovelaceCardEditor,
-    stateIcon,
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import {
-    array,
-    assert,
-    assign,
-    boolean,
-    object,
-    optional,
-    string,
-} from "superstruct";
-import {
-    baseLovelaceCardConfig,
-    configElementStyle,
-} from "../../utils/editor-styles";
-import {
-    ALARM_CONTROl_PANEL_CARD_EDITOR_NAME,
-    ALARM_CONTROl_PANEL_ENTITY_DOMAINS,
-} from "./const";
+import { assert } from "superstruct";
+import { configElementStyle } from "../../utils/editor-styles";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
 import {
     alarmControlPanelCardCardConfigStruct,
     AlarmControlPanelCardConfig,
 } from "./alarm-control-panel-card-config";
+import {
+    ALARM_CONTROl_PANEL_CARD_EDITOR_NAME,
+    ALARM_CONTROl_PANEL_ENTITY_DOMAINS,
+} from "./const";
 import { getStateIcon } from "./utils";
 
 const DOMAINS = [...ALARM_CONTROl_PANEL_ENTITY_DOMAINS, "group"];

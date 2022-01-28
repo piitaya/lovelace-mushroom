@@ -1,12 +1,10 @@
 import {
-    ActionConfig,
     ActionHandlerEvent,
     computeStateDisplay,
     handleAction,
     hasAction,
     HomeAssistant,
     LovelaceCard,
-    LovelaceCardConfig,
     LovelaceCardEditor,
     stateIcon as stateIconHelper,
 } from "custom-card-helpers";
