@@ -1,25 +1,24 @@
 import type { PaperInputElement } from "@polymer/paper-input/paper-input";
 import {
-    ActionConfig,
     ActionHandlerEvent,
     computeStateDisplay,
     handleAction,
     hasAction,
     HomeAssistant,
     LovelaceCard,
-    LovelaceCardConfig,
     LovelaceCardEditor,
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
-import "../../shared/state-item";
-import "../../shared/shape-icon";
 import "../../shared/badge-icon";
+import "../../shared/shape-icon";
 import "../../shared/state-info";
+import "../../shared/state-item";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
+import { AlarmControlPanelCardConfig } from "./alarm-control-panel-card-config";
 import "./alarm-control-panel-card-editor";
 import {
     ALARM_CONTROl_PANEL_CARD_EDITOR_NAME,
@@ -35,15 +34,6 @@ import {
     isActionsAvailable,
     isDisarmed,
 } from "./utils";
-
-export interface AlarmControlPanelCardConfig extends LovelaceCardConfig {
-    entity: string;
-    icon?: string;
-    name?: string;
-    states?: string[];
-    tap_action?: ActionConfig;
-    hold_action?: ActionConfig;
-}
 
 registerCustomCard({
     type: ALARM_CONTROl_PANEL_CARD_NAME,
@@ -128,10 +118,6 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
         }
     }
 
-    private get _isGroup() {
-        return Boolean(this._config?.entity.startsWith("group."));
-    }
-
     private _handleAction(ev: ActionHandlerEvent) {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
@@ -151,9 +137,10 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
             hasGroupInconsistentState(entity, this.hass);
 
         const name = this._config.name ?? entity.attributes.friendly_name;
-
-        const icon = getStateIcon(mainEntity.state);
+        const icon = this._config.icon ?? getStateIcon(mainEntity.state);
         const color = getStateColor(mainEntity.state);
+        const vertical = this._config.vertical;
+        const hideState = this._config.hide_state;
 
         const shapePulse =
             ["arming", "triggered", "pending", "unavailable"].indexOf(
@@ -175,6 +162,7 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
         return html`
             <ha-card>
                 <mushroom-state-item
+                    .vertical=${vertical}
                     @action=${this._handleAction}
                     .actionHandler=${actionHandler({
                         hasHold: hasAction(this._config.hold_action),
@@ -203,6 +191,7 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                         slot="info"
                         .label=${name}
                         .value=${stateDisplay}
+                        .hide_value=${hideState}
                     ></mushroom-state-info>
                 </mushroom-state-item>
                 ${actions.length > 0

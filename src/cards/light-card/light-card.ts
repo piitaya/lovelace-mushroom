@@ -1,23 +1,22 @@
 import {
-    ActionConfig,
     ActionHandlerEvent,
     computeStateDisplay,
     handleAction,
     hasAction,
     HomeAssistant,
     LovelaceCard,
-    LovelaceCardConfig,
     LovelaceCardEditor,
     stateIcon,
 } from "custom-card-helpers";
 import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import "../../shared/state-item";
+import "../../shared/button";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
-import "../../shared/button";
+import "../../shared/state-item";
 import { registerCustomCard } from "../../utils/custom-cards";
+import { actionHandler } from "../../utils/directives/action-handler-directive";
 import {
     LIGHT_CARD_EDITOR_NAME,
     LIGHT_CARD_NAME,
@@ -25,9 +24,9 @@ import {
 } from "./const";
 import "./controls/light-brightness-control";
 import "./controls/light-color-temp-control";
+import { LightCardConfig } from "./light-card-config";
 import "./light-card-editor";
-import { getBrightness } from "./utils";
-import { actionHandler } from "../../utils/directives/action-handler-directive";
+import { getBrightness, isActive } from "./utils";
 
 type LightCardControl = "brightness_control" | "color_temp_control";
 
@@ -35,16 +34,6 @@ const CONTROLS_ICONS: Record<LightCardControl, string> = {
     brightness_control: "mdi:brightness-4",
     color_temp_control: "mdi:thermometer",
 };
-
-export interface LightCardConfig extends LovelaceCardConfig {
-    entity: string;
-    icon?: string;
-    name?: string;
-    show_brightness_control?: boolean;
-    show_color_temp_control?: boolean;
-    tap_action?: ActionConfig;
-    hold_action?: ActionConfig;
-}
 
 registerCustomCard({
     type: LIGHT_CARD_NAME,
@@ -137,7 +126,10 @@ export class LightCard extends LitElement implements LovelaceCard {
         const name = this._config.name ?? entity.attributes.friendly_name;
         const icon = this._config.icon ?? stateIcon(entity);
 
-        const state = entity.state;
+        const vertical = !!this._config.vertical;
+        const hideState = !!this._config.hide_state;
+
+        const active = isActive(entity);
 
         const stateDisplay = computeStateDisplay(
             this.hass.localize,
@@ -151,6 +143,7 @@ export class LightCard extends LitElement implements LovelaceCard {
         return html`
             <ha-card>
                 <mushroom-state-item
+                    .vertical=${vertical}
                     @action=${this._handleAction}
                     .actionHandler=${actionHandler({
                         hasHold: hasAction(this._config.hold_action),
@@ -158,13 +151,14 @@ export class LightCard extends LitElement implements LovelaceCard {
                 >
                     <mushroom-shape-icon
                         slot="icon"
-                        .disabled=${state !== "on"}
+                        .disabled=${!active}
                         .icon=${icon}
                     ></mushroom-shape-icon>
                     <mushroom-state-info
                         slot="info"
                         .label=${name}
                         .value=${stateValue}
+                        .hide_value=${hideState}
                     ></mushroom-state-info>
                 </mushroom-state-item>
                 ${this._controls.length > 0

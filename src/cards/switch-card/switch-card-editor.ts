@@ -1,5 +1,4 @@
 import {
-    ActionConfig,
     computeRTLDirection,
     fireEvent,
     HomeAssistant,
@@ -8,28 +7,11 @@ import {
 } from "custom-card-helpers";
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { assert, assign, boolean, object, optional, string } from "superstruct";
-import { actionConfigStruct } from "../../utils/action-struct";
-import {
-    baseLovelaceCardConfig,
-    configElementStyle,
-} from "../../utils/editor-styles";
+import { assert } from "superstruct";
+import { configElementStyle } from "../../utils/editor-styles";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { SWITCH_CARD_EDITOR_NAME, SWITCH_ENTITY_DOMAINS } from "./const";
-import { SwitchCardConfig } from "./switch-card";
-
-const cardConfigStruct = assign(
-    baseLovelaceCardConfig,
-    object({
-        entity: string(),
-        icon: optional(string()),
-        name: optional(string()),
-        vertical: optional(boolean()),
-        hide_state: optional(boolean()),
-        tap_action: optional(actionConfigStruct),
-        hold_action: optional(actionConfigStruct),
-    })
-);
+import { SwitchCardConfig, switchCardConfigStruct } from "./switch-card-config";
 
 const actions = [
     "toggle",
@@ -47,45 +29,18 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
     @state() private _config?: SwitchCardConfig;
 
     public setConfig(config: SwitchCardConfig): void {
-        assert(config, cardConfigStruct);
+        assert(config, switchCardConfigStruct);
         this._config = config;
-    }
-
-    get _entity(): string {
-        return this._config!.entity || "";
-    }
-
-    get _name(): string {
-        return this._config!.name || "";
-    }
-
-    get _icon(): string {
-        return this._config!.icon || "";
-    }
-
-    get _vertical(): boolean {
-        return !!this._config!.vertical;
-    }
-
-    get _hide_state(): boolean {
-        return !!this._config!.hide_state;
-    }
-
-    get _tap_action(): ActionConfig | undefined {
-        return this._config!.tap_action;
-    }
-
-    get _hold_action(): ActionConfig | undefined {
-        return this._config!.hold_action;
     }
 
     protected render(): TemplateResult {
         if (!this.hass || !this._config) {
             return html``;
         }
-        const dir = computeRTLDirection(this.hass);
 
-        const entityState = this.hass.states[this._entity];
+        const dir = computeRTLDirection(this.hass);
+        const entityState = this.hass.states[this._config.entity];
+        const entityIcon = stateIcon(entityState);
 
         return html`
             <div class="card-config">
@@ -94,7 +49,7 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                         "ui.panel.lovelace.editor.card.generic.entity"
                     )}"
                     .hass=${this.hass}
-                    .value=${this._entity}
+                    .value=${this._config.entity}
                     .configValue=${"entity"}
                     @value-changed=${this._valueChanged}
                     .includeDomains=${SWITCH_ENTITY_DOMAINS}
@@ -107,7 +62,7 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                         )} (${this.hass.localize(
                             "ui.panel.lovelace.editor.card.config.optional"
                         )})"
-                        .value=${this._name}
+                        .value=${this._config.name}
                         .configValue=${"name"}
                         @value-changed=${this._valueChanged}
                     ></paper-input>
@@ -117,8 +72,8 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                         )} (${this.hass.localize(
                             "ui.panel.lovelace.editor.card.config.optional"
                         )})"
-                        .value=${this._icon}
-                        .placeholder=${this._icon || stateIcon(entityState)}
+                        .value=${this._config.icon}
+                        .placeholder=${this._config.icon || entityIcon}
                         .configValue=${"icon"}
                         @value-changed=${this._valueChanged}
                     ></ha-icon-picker>
@@ -126,14 +81,14 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                 <div class="side-by-side">
                     <ha-formfield label="Vertical?" .dir=${dir}>
                         <ha-switch
-                            .checked=${this._vertical != false}
+                            .checked=${!!this._config.vertical}
                             .configValue=${"vertical"}
                             @change=${this._valueChanged}
                         ></ha-switch>
                     </ha-formfield>
                     <ha-formfield label="Hide state?" .dir=${dir}>
                         <ha-switch
-                            .checked=${this._hide_state != false}
+                            .checked=${!!this._config.hide_state}
                             .configValue=${"hide_state"}
                             @change=${this._valueChanged}
                         ></ha-switch>
@@ -147,7 +102,7 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                             "ui.panel.lovelace.editor.card.config.optional"
                         )})"
                         .hass=${this.hass}
-                        .config=${this._tap_action}
+                        .config=${this._config.tap_action}
                         .actions=${actions}
                         .configValue=${"tap_action"}
                         .tooltipText=${this.hass.localize(
@@ -162,7 +117,7 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                             "ui.panel.lovelace.editor.card.config.optional"
                         )})"
                         .hass=${this.hass}
-                        .config=${this._hold_action}
+                        .config=${this._config.hold_action}
                         .actions=${actions}
                         .configValue=${"hold_action"}
                         .tooltipText=${this.hass.localize(

@@ -23,16 +23,7 @@ import {
     SWITCH_ENTITY_DOMAINS,
 } from "./const";
 import "./switch-card-editor";
-
-export interface SwitchCardConfig extends LovelaceCardConfig {
-    entity: string;
-    icon?: string;
-    name?: string;
-    vertical?: boolean;
-    hide_state?: boolean;
-    tap_action?: ActionConfig;
-    hold_action?: ActionConfig;
-}
+import { SwitchCardConfig } from "./switch-card-config";
 
 registerCustomCard({
     type: SWITCH_CARD_NAME,
@@ -95,7 +86,7 @@ export class SwitchCard extends LitElement implements LovelaceCard {
 
         const name = this._config.name ?? entity_state.attributes.friendly_name;
         const icon = this._config.icon ?? stateIcon(entity_state);
-        const vertical = !!this._config.vertical;
+        const vertical = this._config.vertical;
         const hide_state = !!this._config.hide_state;
 
         const state = entity_state.state;
