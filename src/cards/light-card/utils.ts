@@ -11,3 +11,7 @@ export function getColorTemp(entity: HassEntity) {
         ? Math.round(entity.attributes.color_temp)
         : undefined;
 }
+
+export function isActive(entity: HassEntity) {
+    return entity.state === "on";
+}

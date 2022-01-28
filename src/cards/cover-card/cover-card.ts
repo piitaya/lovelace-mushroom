@@ -28,6 +28,7 @@ import "./cover-card-editor";
 import { HassEntity } from "home-assistant-js-websocket";
 import { getPosition, isActive } from "./utils";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
+import { CoverCardConfig } from "./cover-card-config";
 
 type CoverCardControl = "buttons_control" | "position_control";
 
@@ -35,16 +36,6 @@ const CONTROLS_ICONS: Record<CoverCardControl, string> = {
     buttons_control: "mdi:gesture-tap-button",
     position_control: "mdi:gesture-swipe-horizontal",
 };
-
-export interface CoverCardConfig extends LovelaceCardConfig {
-    entity: string;
-    icon?: string;
-    name?: string;
-    show_buttons_control?: false;
-    show_position_control?: false;
-    tap_action?: ActionConfig;
-    hold_action?: ActionConfig;
-}
 
 registerCustomCard({
     type: COVER_CARD_NAME,
@@ -136,6 +127,8 @@ export class CoverCard extends LitElement implements LovelaceCard {
 
         const name = this._config.name ?? entity.attributes.friendly_name;
         const icon = this._config.icon ?? stateIcon(entity);
+        const vertical = this._config.vertical;
+        const hideState = this._config.hide_state;
 
         const stateDisplay = computeStateDisplay(
             this.hass.localize,
@@ -153,6 +146,7 @@ export class CoverCard extends LitElement implements LovelaceCard {
         return html`
             <ha-card>
                 <mushroom-state-item
+                    .vertical=${vertical}
                     @action=${this._handleAction}
                     .actionHandler=${actionHandler({
                         hasHold: hasAction(this._config.hold_action),
@@ -167,6 +161,7 @@ export class CoverCard extends LitElement implements LovelaceCard {
                         slot="info"
                         .label=${name}
                         .value=${stateValue}
+                        .hide_value=${hideState}
                     ></mushroom-state-info>
                 </mushroom-state-item>
                 ${this._controls.length > 0

@@ -1,12 +1,10 @@
 import {
-    ActionConfig,
     ActionHandlerEvent,
     computeStateDisplay,
     handleAction,
     hasAction,
     HomeAssistant,
     LovelaceCard,
-    LovelaceCardConfig,
     LovelaceCardEditor,
     stateIcon as stateIconHelper,
 } from "custom-card-helpers";
@@ -23,21 +21,9 @@ import {
     PERSON_CARD_NAME,
     PERSON_ENTITY_DOMAINS,
 } from "./const";
+import { PersonCardConfig } from "./person-card-config";
 import "./person-card-editor";
 import { getStateColor, getStateIcon, isActive } from "./utils";
-
-/*
- * TODO: make configurable icons, icons according to zone, show state indicator
- */
-export interface PersonCardConfig extends LovelaceCardConfig {
-    entity: string;
-    icon?: string;
-    vertical?: boolean;
-    hide_state?: boolean;
-    use_entity_picture?: boolean;
-    tap_action?: ActionConfig;
-    hold_action?: ActionConfig;
-}
 
 registerCustomCard({
     type: PERSON_CARD_NAME,
@@ -106,7 +92,7 @@ export class PersonCard extends LitElement implements LovelaceCard {
             : undefined;
 
         const vertical = !!this._config.vertical;
-        const hide_state = !!this._config.hide_state;
+        const hideState = !!this._config.hide_state;
 
         const stateIcon = getStateIcon(entity);
         const stateColor = getStateColor(entity);
@@ -150,7 +136,7 @@ export class PersonCard extends LitElement implements LovelaceCard {
                     slot="info"
                     .label=${name}
                     .value=${stateDisplay}
-                    .hide_value=${hide_state}
+                    .hide_value=${hideState}
                 ></mushroom-state-info>
             </mushroom-state-item>
         </ha-card>`;
