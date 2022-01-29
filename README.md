@@ -42,7 +42,7 @@ All the Mushroom cards can be configured using Lovelace UI editor.
 3. Click Plus button to add a new card.
 4. Find one of the _Custom: Mushroom_ card in the list.
 
-## Development
+## Development server
 
 ### Home assistant demo
 
