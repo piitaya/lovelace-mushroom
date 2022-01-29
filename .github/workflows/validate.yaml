@@ -1,0 +1,14 @@
+name: HACS validation
+on:
+    pull_request:
+jobs:
+    validate:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: HACS validation
+              uses: "hacs/action@main"
+              with:
+                  category: "plugin"
+                  ignore: ["hacs"]

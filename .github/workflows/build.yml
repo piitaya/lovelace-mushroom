@@ -1,8 +1,8 @@
 name: Build
-on: pull_request
+on:
+    pull_request:
 jobs:
     build:
-        name: Build
         runs-on: ubuntu-latest
         steps:
             - name: Checkout

@@ -15,7 +15,7 @@
         "resolveJsonModule": true,
         "experimentalDecorators": true,
         "outDir": "dist",
-        "rootDir": "src"
+        "rootDir": "."
     },
     "include": ["**/*.ts"],
     "exclude": ["node_modules"]

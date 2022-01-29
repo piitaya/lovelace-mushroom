@@ -10,7 +10,6 @@ export class StateItem extends LitElement {
     @property() public hide_value: boolean = false;
 
     protected render(): TemplateResult {
-        console.log(this.label, this.value);
         return html`
             <div class="container">
                 <span class="label">${this.label}</span>
