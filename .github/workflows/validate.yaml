@@ -11,4 +11,3 @@ jobs:
               uses: "hacs/action@main"
               with:
                   category: "plugin"
-                  ignore: ["hacs"]
