@@ -74,7 +74,7 @@ Once both Home Assistant and mushroom are running, you have to add a resource to
 -   Then go to Lovelace resources
 -   Add the ressource `http://localhost:5000/mushroom.js`:
 
-    _Configuration_ → _Lovelace Dashboards_ → _Resources Tab_ → Click Plus button → Set _Url_ as `/http://localhost:5000/mushroom.js` → Set _Resource type_ as `JavaScript Module`.
+    _Configuration_ → _Lovelace Dashboards_ → _Resources Tab_ → Click Plus button → Set _Url_ as `http://localhost:5000/mushroom.js` → Set _Resource type_ as `JavaScript Module`.
 
 ### Build
 
