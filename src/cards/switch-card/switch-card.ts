@@ -24,6 +24,7 @@ import {
 } from "./const";
 import "./switch-card-editor";
 import { SwitchCardConfig } from "./switch-card-config";
+import { cardStyle } from "../../utils/card-styles";
 
 registerCustomCard({
     type: SWITCH_CARD_NAME,
@@ -98,45 +99,45 @@ export class SwitchCard extends LitElement implements LovelaceCard {
         );
 
         return html`<ha-card>
-            <mushroom-state-item
-                .vertical=${vertical}
-                @action=${this._handleAction}
-                .actionHandler=${actionHandler({
-                    hasHold: hasAction(this._config.hold_action),
-                })}
-            >
-                <mushroom-shape-icon
-                    slot="icon"
-                    .disabled=${state !== "on"}
-                    .icon=${icon}
-                ></mushroom-shape-icon>
-                <mushroom-state-info
-                    slot="info"
-                    .label=${name}
-                    .value=${stateDisplay}
-                    .hide_value=${hide_state}
-                ></mushroom-state-info>
-            </mushroom-state-item>
+            <div class="container">
+                <mushroom-state-item
+                    .vertical=${vertical}
+                    @action=${this._handleAction}
+                    .actionHandler=${actionHandler({
+                        hasHold: hasAction(this._config.hold_action),
+                    })}
+                >
+                    <mushroom-shape-icon
+                        slot="icon"
+                        .disabled=${state !== "on"}
+                        .icon=${icon}
+                    ></mushroom-shape-icon>
+                    <mushroom-state-info
+                        slot="info"
+                        .label=${name}
+                        .value=${stateDisplay}
+                        .hide_value=${hide_state}
+                    ></mushroom-state-info>
+                </mushroom-state-item>
+            </div>
         </ha-card>`;
     }
 
     static get styles(): CSSResultGroup {
-        return css`
-            :host {
-                --rgb-color: 61, 90, 254;
-            }
-            ha-card {
-                display: flex;
-                flex-direction: column;
-                padding: 12px;
-            }
-            mushroom-state-item {
-                cursor: pointer;
-            }
-            mushroom-shape-icon {
-                --icon-color: rgba(var(--rgb-color), 1);
-                --shape-color: rgba(var(--rgb-color), 0.2);
-            }
-        `;
+        return [
+            cardStyle,
+            css`
+                :host {
+                    --rgb-color: 61, 90, 254;
+                }
+                mushroom-state-item {
+                    cursor: pointer;
+                }
+                mushroom-shape-icon {
+                    --icon-color: rgba(var(--rgb-color), 1);
+                    --shape-color: rgba(var(--rgb-color), 0.2);
+                }
+            `,
+        ];
     }
 }

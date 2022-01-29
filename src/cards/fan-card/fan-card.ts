@@ -16,6 +16,7 @@ import "../../shared/button";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
+import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
 import {
@@ -112,96 +113,85 @@ export class FanCard extends LitElement implements LovelaceCard {
 
         return html`
             <ha-card>
-                <mushroom-state-item
-                    .vertical=${vertical}
-                    @action=${this._handleAction}
-                    .actionHandler=${actionHandler({
-                        hasHold: hasAction(this._config.hold_action),
-                    })}
-                >
-                    <mushroom-shape-icon
-                        slot="icon"
-                        class=${classMap({
-                            spin: active && !!this._config.icon_animation,
+                <div class="container">
+                    <mushroom-state-item
+                        .vertical=${vertical}
+                        @action=${this._handleAction}
+                        .actionHandler=${actionHandler({
+                            hasHold: hasAction(this._config.hold_action),
                         })}
-                        style=${styleMap({
-                            "--animation-duration": `${1 / speed}s`,
-                        })}
-                        .disabled=${!isActive(entity)}
-                        .icon=${icon}
-                    ></mushroom-shape-icon>
-                    <mushroom-state-info
-                        slot="info"
-                        .label=${name}
-                        .value=${stateValue}
-                        .hide_value=${hideState}
-                    ></mushroom-state-info>
-                </mushroom-state-item>
-                ${this._config.show_percentage_control ||
-                this._config.show_oscillate_control
-                    ? html`
-                          <div class="actions">
-                              ${this._config.show_percentage_control
-                                  ? html`
-                                        <mushroom-fan-percentage-control
-                                            .hass=${this.hass}
-                                            .entity=${entity}
-                                        ></mushroom-fan-percentage-control>
-                                    `
-                                  : null}
-                              ${this._config.show_oscillate_control
-                                  ? html`
-                                        <mushroom-fan-oscillate-control
-                                            .hass=${this.hass}
-                                            .entity=${entity}
-                                        ></mushroom-fan-oscillate-control>
-                                    `
-                                  : null}
-                          </div>
-                      `
-                    : null}
+                    >
+                        <mushroom-shape-icon
+                            slot="icon"
+                            class=${classMap({
+                                spin: active && !!this._config.icon_animation,
+                            })}
+                            style=${styleMap({
+                                "--animation-duration": `${1 / speed}s`,
+                            })}
+                            .disabled=${!isActive(entity)}
+                            .icon=${icon}
+                        ></mushroom-shape-icon>
+                        <mushroom-state-info
+                            slot="info"
+                            .label=${name}
+                            .value=${stateValue}
+                            .hide_value=${hideState}
+                        ></mushroom-state-info>
+                    </mushroom-state-item>
+                    ${this._config.show_percentage_control ||
+                    this._config.show_oscillate_control
+                        ? html`
+                              <div class="actions">
+                                  ${this._config.show_percentage_control
+                                      ? html`
+                                            <mushroom-fan-percentage-control
+                                                .hass=${this.hass}
+                                                .entity=${entity}
+                                            ></mushroom-fan-percentage-control>
+                                        `
+                                      : null}
+                                  ${this._config.show_oscillate_control
+                                      ? html`
+                                            <mushroom-fan-oscillate-control
+                                                .hass=${this.hass}
+                                                .entity=${entity}
+                                            ></mushroom-fan-oscillate-control>
+                                        `
+                                      : null}
+                              </div>
+                          `
+                        : null}
+                </div>
             </ha-card>
         `;
     }
 
     static get styles(): CSSResultGroup {
-        return css`
-            :host {
-                --rgb-color: 61, 90, 254;
-            }
-            ha-card {
-                display: flex;
-                flex-direction: column;
-                padding: 12px;
-            }
-            ha-card > *:not(:last-child) {
-                margin-bottom: 12px;
-            }
-            mushroom-state-item {
-                cursor: pointer;
-            }
-            mushroom-shape-icon {
-                --icon-color: rgba(var(--rgb-color), 1);
-                --shape-color: rgba(var(--rgb-color), 0.2);
-            }
-            mushroom-shape-icon.spin {
-                --icon-animation: var(--animation-duration) infinite linear spin;
-            }
-            mushroom-shape-icon ha-icon {
-                color: red !important;
-            }
-            mushroom-fan-percentage-control {
-                flex: 1;
-            }
-            .actions {
-                display: flex;
-                flex-direction: row;
-                align-items: flex-start;
-                overflow-y: auto;
-            }
-            .actions *:not(:last-child) {
-                margin-right: 12px;
-            }
-        `;
+        return [
+            cardStyle,
+            css`
+                :host {
+                    --rgb-color: 61, 90, 254;
+                }
+                mushroom-state-item {
+                    cursor: pointer;
+                }
+                mushroom-shape-icon {
+                    --icon-color: rgba(var(--rgb-color), 1);
+                    --shape-color: rgba(var(--rgb-color), 0.2);
+                }
+                mushroom-shape-icon.spin {
+                    --icon-animation: var(--animation-duration) infinite linear
+                        spin;
+                }
+                mushroom-shape-icon ha-icon {
+                    color: red !important;
+                }
+                mushroom-fan-percentage-control {
+                    flex: 1;
+                }
+            `,
+        ];
     }
 }

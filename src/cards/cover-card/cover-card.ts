@@ -29,6 +29,7 @@ import { HassEntity } from "home-assistant-js-websocket";
 import { getPosition, isActive } from "./utils";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
 import { CoverCardConfig } from "./cover-card-config";
+import { cardStyle } from "../../utils/card-styles";
 
 type CoverCardControl = "buttons_control" | "position_control";
 
@@ -145,33 +146,35 @@ export class CoverCard extends LitElement implements LovelaceCard {
 
         return html`
             <ha-card>
-                <mushroom-state-item
-                    .vertical=${vertical}
-                    @action=${this._handleAction}
-                    .actionHandler=${actionHandler({
-                        hasHold: hasAction(this._config.hold_action),
-                    })}
-                >
-                    <mushroom-shape-icon
-                        slot="icon"
-                        .disabled=${!isActive(entity)}
-                        .icon=${icon}
-                    ></mushroom-shape-icon>
-                    <mushroom-state-info
-                        slot="info"
-                        .label=${name}
-                        .value=${stateValue}
-                        .hide_value=${hideState}
-                    ></mushroom-state-info>
-                </mushroom-state-item>
-                ${this._controls.length > 0
-                    ? html`
-                          <div class="actions">
-                              ${this.renderActiveControl(entity)}
-                              ${this.renderNextControlButton()}
-                          </div>
-                      `
-                    : null}
+                <div class="container">
+                    <mushroom-state-item
+                        .vertical=${vertical}
+                        @action=${this._handleAction}
+                        .actionHandler=${actionHandler({
+                            hasHold: hasAction(this._config.hold_action),
+                        })}
+                    >
+                        <mushroom-shape-icon
+                            slot="icon"
+                            .disabled=${!isActive(entity)}
+                            .icon=${icon}
+                        ></mushroom-shape-icon>
+                        <mushroom-state-info
+                            slot="info"
+                            .label=${name}
+                            .value=${stateValue}
+                            .hide_value=${hideState}
+                        ></mushroom-state-info>
+                    </mushroom-state-item>
+                    ${this._controls.length > 0
+                        ? html`
+                              <div class="actions">
+                                  ${this.renderActiveControl(entity)}
+                                  ${this.renderNextControlButton()}
+                              </div>
+                          `
+                        : null}
+                </div>
             </ha-card>
         `;
     }
@@ -210,38 +213,24 @@ export class CoverCard extends LitElement implements LovelaceCard {
     }
 
     static get styles(): CSSResultGroup {
-        return css`
-            :host {
-                --rgb-color: 61, 90, 254;
-            }
-            ha-card {
-                display: flex;
-                flex-direction: column;
-                padding: 12px;
-            }
-            ha-card > *:not(:last-child) {
-                margin-bottom: 12px;
-            }
-            mushroom-state-item {
-                cursor: pointer;
-            }
-            mushroom-shape-icon {
-                --icon-color: rgba(var(--rgb-color), 1);
-                --shape-color: rgba(var(--rgb-color), 0.2);
-            }
-            mushroom-cover-buttons-control,
-            mushroom-cover-position-control {
-                flex: 1;
-            }
-            .actions {
-                display: flex;
-                flex-direction: row;
-                align-items: flex-start;
-                overflow-y: auto;
-            }
-            .actions *:not(:last-child) {
-                margin-right: 12px;
-            }
-        `;
+        return [
+            cardStyle,
+            css`
+                :host {
+                    --rgb-color: 61, 90, 254;
+                }
+                mushroom-state-item {
+                    cursor: pointer;
+                }
+                mushroom-shape-icon {
+                    --icon-color: rgba(var(--rgb-color), 1);
+                    --shape-color: rgba(var(--rgb-color), 0.2);
+                }
+                mushroom-cover-buttons-control,
+                mushroom-cover-position-control {
+                    flex: 1;
+                }
+            `,
+        ];
     }
 }

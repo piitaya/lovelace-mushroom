@@ -14,6 +14,7 @@ import { styleMap } from "lit/directives/style-map.js";
 import "../../shared/badge-icon";
 import "../../shared/shape-avatar";
 import "../../shared/shape-icon";
+import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
 import {
@@ -104,54 +105,59 @@ export class PersonCard extends LitElement implements LovelaceCard {
         );
 
         return html`<ha-card>
-            <mushroom-state-item
-                .vertical=${vertical}
-                @action=${this._handleAction}
-                .actionHandler=${actionHandler({
-                    hasHold: hasAction(this._config.hold_action),
-                })}
-            >
-                ${picture
-                    ? html`
-                          <mushroom-shape-avatar
-                              slot="icon"
-                              .picture_url=${picture}
-                          ></mushroom-shape-avatar>
-                      `
-                    : html`
-                          <mushroom-shape-icon
-                              slot="icon"
-                              .icon=${icon}
-                              .disabled=${!isActive(entity)}
-                          ></mushroom-shape-icon>
-                      `}
-                <mushroom-badge-icon
-                    slot="badge"
-                    .icon=${stateIcon}
-                    style=${styleMap({
-                        "--main-color": stateColor,
+            <div class="container">
+                <mushroom-state-item
+                    .vertical=${vertical}
+                    @action=${this._handleAction}
+                    .actionHandler=${actionHandler({
+                        hasHold: hasAction(this._config.hold_action),
                     })}
-                ></mushroom-badge-icon>
-                <mushroom-state-info
-                    slot="info"
-                    .label=${name}
-                    .value=${stateDisplay}
-                    .hide_value=${hideState}
-                ></mushroom-state-info>
-            </mushroom-state-item>
+                >
+                    ${picture
+                        ? html`
+                              <mushroom-shape-avatar
+                                  slot="icon"
+                                  .picture_url=${picture}
+                              ></mushroom-shape-avatar>
+                          `
+                        : html`
+                              <mushroom-shape-icon
+                                  slot="icon"
+                                  .icon=${icon}
+                                  .disabled=${!isActive(entity)}
+                              ></mushroom-shape-icon>
+                          `}
+                    <mushroom-badge-icon
+                        slot="badge"
+                        .icon=${stateIcon}
+                        style=${styleMap({
+                            "--main-color": stateColor,
+                        })}
+                    ></mushroom-badge-icon>
+                    <mushroom-state-info
+                        slot="info"
+                        .label=${name}
+                        .value=${stateDisplay}
+                        .hide_value=${hideState}
+                    ></mushroom-state-info>
+                </mushroom-state-item>
+            </div>
         </ha-card>`;
     }
 
     static get styles(): CSSResultGroup {
-        return css`
-            ha-card {
-                display: flex;
-                flex-direction: column;
-                padding: 12px;
-            }
-            mushroom-state-item {
-                cursor: pointer;
-            }
-        `;
+        return [
+            cardStyle,
+            css`
+                .container {
+                    display: flex;
+                    flex-direction: column;
+                    padding: 12px;
+                }
+                mushroom-state-item {
+                    cursor: pointer;
+                }
+            `,
+        ];
     }
 }
