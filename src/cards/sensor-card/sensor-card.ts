@@ -10,6 +10,7 @@ import {
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import "../../shared/badge-icon";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
@@ -17,52 +18,53 @@ import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
 import {
-    SWITCH_CARD_EDITOR_NAME,
-    SWITCH_CARD_NAME,
-    SWITCH_ENTITY_DOMAINS,
+    SENSOR_CARD_EDITOR_NAME,
+    SENSOR_CARD_NAME,
+    SENSOR_ENTITY_DOMAINS,
 } from "./const";
-import { SwitchCardConfig } from "./switch-card-config";
-import "./switch-card-editor";
+import { SensorCardConfig } from "./sensor-card-config";
+import "./sensor-card-editor";
+import { isActive } from "./utils";
 
 registerCustomCard({
-    type: SWITCH_CARD_NAME,
-    name: "Mushroom Switch Card",
-    description: "Card for switch entity",
+    type: SENSOR_CARD_NAME,
+    name: "Mushroom Sensor Card",
+    description: "Card for sensor and binary sensor entity",
 });
 
-@customElement(SWITCH_CARD_NAME)
-export class SwitchCard extends LitElement implements LovelaceCard {
+@customElement(SENSOR_CARD_NAME)
+export class SensorCard extends LitElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         return document.createElement(
-            SWITCH_CARD_EDITOR_NAME
+            SENSOR_CARD_EDITOR_NAME
         ) as LovelaceCardEditor;
     }
 
     public static async getStubConfig(
         hass: HomeAssistant
-    ): Promise<SwitchCardConfig> {
+    ): Promise<SensorCardConfig> {
         const entities = Object.keys(hass.states);
         const switches = entities.filter((e) =>
-            SWITCH_ENTITY_DOMAINS.includes(e.split(".")[0])
+            SENSOR_ENTITY_DOMAINS.includes(e.split(".")[0])
         );
         return {
-            type: `custom:${SWITCH_CARD_NAME}`,
+            type: `custom:${SENSOR_CARD_NAME}`,
             entity: switches[0],
         };
     }
 
     @property({ attribute: false }) public hass!: HomeAssistant;
 
-    @state() private _config?: SwitchCardConfig;
+    @state() private _config?: SensorCardConfig;
 
     getCardSize(): number | Promise<number> {
         return 1;
     }
 
-    setConfig(config: SwitchCardConfig): void {
+    setConfig(config: SensorCardConfig): void {
         this._config = {
             tap_action: {
-                action: "toggle",
+                action: "more-info",
             },
             hold_action: {
                 action: "more-info",
@@ -80,19 +82,17 @@ export class SwitchCard extends LitElement implements LovelaceCard {
             return html``;
         }
 
-        const entity = this._config.entity;
-        const entity_state = this.hass.states[entity];
+        const entityId = this._config.entity;
+        const entity = this.hass.states[entityId];
 
-        const name = this._config.name ?? entity_state.attributes.friendly_name;
-        const icon = this._config.icon ?? stateIcon(entity_state);
+        const name = this._config.name ?? entity.attributes.friendly_name;
+        const icon = this._config.icon ?? stateIcon(entity);
         const vertical = this._config.vertical;
         const hide_state = !!this._config.hide_state;
 
-        const state = entity_state.state;
-
         const stateDisplay = computeStateDisplay(
             this.hass.localize,
-            entity_state,
+            entity,
             this.hass.locale
         );
 
@@ -107,9 +107,16 @@ export class SwitchCard extends LitElement implements LovelaceCard {
                 >
                     <mushroom-shape-icon
                         slot="icon"
-                        .disabled=${state !== "on"}
+                        .disabled=${!isActive(entity)}
                         .icon=${icon}
                     ></mushroom-shape-icon>
+                    ${entity.state === "unavailable"
+                        ? html` <mushroom-badge-icon
+                              class="unavailable"
+                              slot="badge"
+                              icon="mdi:help"
+                          ></mushroom-badge-icon>`
+                        : null}
                     <mushroom-state-info
                         slot="info"
                         .label=${name}

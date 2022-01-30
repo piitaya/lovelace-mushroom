@@ -1,12 +1,13 @@
 import { version } from "../package.json";
 
-export { LightCard } from "./cards/light-card/light-card";
-export { SwitchCard } from "./cards/switch-card/switch-card";
-export { CoverCard } from "./cards/cover-card/cover-card";
-export { PersonCard } from "./cards/person-card/person-card";
 export { AlarmControlPanelCard } from "./cards/alarm-control-panel-card/alarm-control-panel-card";
 export { ChipsCard } from "./cards/chips-card/chips-card";
+export { CoverCard } from "./cards/cover-card/cover-card";
 export { FanCard } from "./cards/fan-card/fan-card";
+export { LightCard } from "./cards/light-card/light-card";
+export { PersonCard } from "./cards/person-card/person-card";
+export { SensorCard } from "./cards/sensor-card/sensor-card";
+export { SwitchCard } from "./cards/switch-card/switch-card";
 
 console.info(
     `%c🍄 Mushroom 🍄 - ${version}`,
