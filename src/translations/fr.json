@@ -3,7 +3,8 @@
         "card": {
             "generic": {
                 "vertical": "Vertical ?",
-                "hide_state": "Cacher l'état ?"
+                "hide_state": "Cacher l'état ?",
+                "state": "État"
             },
             "light": {
                 "show_brightness_control": "Contrôle de luminosité ?",
@@ -33,12 +34,15 @@
                 "edit": "Modifier",
                 "clear": "Effacer"
             },
+            "generic": {
+                "icon_color": "Couleur de l'icône"
+            },
             "weather": {
                 "show_conditons": "Conditions ?",
                 "show_temperature": "Température ?"
             },
-            "generic": {
-                "icon_color": "Couleur de l'icône"
+            "template": {
+                "content": "Contenu"
             }
         }
     }

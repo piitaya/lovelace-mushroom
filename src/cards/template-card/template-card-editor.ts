@@ -38,6 +38,8 @@ export class TemplateCardEditor
             return html``;
         }
 
+        const customlocalize = setupCustomlocalize(this.hass);
+
         return html`
             <div class="card-config">
                 <paper-textarea
@@ -55,7 +57,9 @@ export class TemplateCardEditor
                     spellcheck="false"
                 ></paper-textarea>
                 <paper-textarea
-                    .label="State (${this.hass.localize(
+                    .label="${customlocalize(
+                        "editor.card.generic.state"
+                    )} (${this.hass.localize(
                         "ui.panel.lovelace.editor.card.config.optional"
                     )})"
                     .value=${this._config.state}
@@ -67,7 +71,9 @@ export class TemplateCardEditor
                     spellcheck="false"
                 ></paper-textarea>
                 <paper-textarea
-                    .label="Icon (${this.hass.localize(
+                    .label="${this.hass.localize(
+                        "ui.panel.lovelace.editor.card.generic.icon"
+                    )} (${this.hass.localize(
                         "ui.panel.lovelace.editor.card.config.optional"
                     )})"
                     .value=${this._config.icon}

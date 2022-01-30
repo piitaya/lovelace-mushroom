@@ -25,11 +25,13 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
             return html``;
         }
 
+        const customlocalize = setupCustomlocalize(this.hass);
+
         return html`
             <div class="card-config">
                 <paper-textarea
-                    .label="${this.hass.localize(
-                        "ui.panel.lovelace.editor.card.markdown.content"
+                    .label="${customlocalize(
+                        "editor.chip.template.content"
                     )} (${this.hass.localize(
                         "ui.panel.lovelace.editor.card.config.optional"
                     )})"
