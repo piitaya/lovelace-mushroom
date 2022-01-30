@@ -1,22 +1,24 @@
 import {
-    ActionConfig,
     ActionHandlerEvent,
     computeStateDisplay,
     handleAction,
     hasAction,
     HomeAssistant,
     LovelaceCard,
-    LovelaceCardConfig,
     LovelaceCardEditor,
     stateIcon,
 } from "custom-card-helpers";
+import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import "../../shared/state-item";
-import "../../shared/state-info";
-import "../../shared/shape-icon";
+import "../../shared/badge-icon";
 import "../../shared/button";
+import "../../shared/shape-icon";
+import "../../shared/state-info";
+import "../../shared/state-item";
+import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
+import { actionHandler } from "../../utils/directives/action-handler-directive";
 import {
     COVER_CARD_EDITOR_NAME,
     COVER_CARD_NAME,
@@ -24,12 +26,9 @@ import {
 } from "./const";
 import "./controls/cover-buttons-control";
 import "./controls/cover-position-control";
-import "./cover-card-editor";
-import { HassEntity } from "home-assistant-js-websocket";
-import { getPosition, isActive } from "./utils";
-import { actionHandler } from "../../utils/directives/action-handler-directive";
 import { CoverCardConfig } from "./cover-card-config";
-import { cardStyle } from "../../utils/card-styles";
+import "./cover-card-editor";
+import { getPosition, isActive } from "./utils";
 
 type CoverCardControl = "buttons_control" | "position_control";
 
@@ -159,6 +158,13 @@ export class CoverCard extends LitElement implements LovelaceCard {
                             .disabled=${!isActive(entity)}
                             .icon=${icon}
                         ></mushroom-shape-icon>
+                        ${entity.state === "unavailable"
+                            ? html` <mushroom-badge-icon
+                                  class="unavailable"
+                                  slot="badge"
+                                  icon="mdi:help"
+                              ></mushroom-badge-icon>`
+                            : null}
                         <mushroom-state-info
                             slot="info"
                             .label=${name}

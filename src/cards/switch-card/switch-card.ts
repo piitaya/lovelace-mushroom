@@ -10,6 +10,7 @@ import {
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import "../../shared/badge-icon";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
@@ -80,19 +81,19 @@ export class SwitchCard extends LitElement implements LovelaceCard {
             return html``;
         }
 
-        const entity = this._config.entity;
-        const entity_state = this.hass.states[entity];
+        const entity_id = this._config.entity;
+        const entity = this.hass.states[entity_id];
 
-        const name = this._config.name ?? entity_state.attributes.friendly_name;
-        const icon = this._config.icon ?? stateIcon(entity_state);
+        const name = this._config.name ?? entity.attributes.friendly_name;
+        const icon = this._config.icon ?? stateIcon(entity);
         const vertical = this._config.vertical;
         const hide_state = !!this._config.hide_state;
 
-        const state = entity_state.state;
+        const state = entity.state;
 
         const stateDisplay = computeStateDisplay(
             this.hass.localize,
-            entity_state,
+            entity,
             this.hass.locale
         );
 
@@ -110,6 +111,13 @@ export class SwitchCard extends LitElement implements LovelaceCard {
                         .disabled=${state !== "on"}
                         .icon=${icon}
                     ></mushroom-shape-icon>
+                    ${entity.state === "unavailable"
+                        ? html` <mushroom-badge-icon
+                              class="unavailable"
+                              slot="badge"
+                              icon="mdi:help"
+                          ></mushroom-badge-icon>`
+                        : null}
                     <mushroom-state-info
                         slot="info"
                         .label=${name}

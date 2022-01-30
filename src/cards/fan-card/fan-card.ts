@@ -12,6 +12,7 @@ import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
+import "../../shared/badge-icon";
 import "../../shared/button";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
@@ -132,6 +133,13 @@ export class FanCard extends LitElement implements LovelaceCard {
                             .disabled=${!isActive(entity)}
                             .icon=${icon}
                         ></mushroom-shape-icon>
+                        ${entity.state === "unavailable"
+                            ? html` <mushroom-badge-icon
+                                  class="unavailable"
+                                  slot="badge"
+                                  icon="mdi:help"
+                              ></mushroom-badge-icon>`
+                            : null}
                         <mushroom-state-info
                             slot="info"
                             .label=${name}
