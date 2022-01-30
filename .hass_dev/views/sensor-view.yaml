@@ -1,0 +1,48 @@
+title: Sensor
+icon: mdi:motion-sensor
+cards:
+  - type: grid
+    title: Simple
+    cards:
+      - type: custom:mushroom-sensor-card
+        entity: sensor.power_consumption
+      - type: custom:mushroom-sensor-card
+        entity: sensor.power_consumption
+        name: Custom name and icon
+        icon: mdi:transmission-tower
+    columns: 2
+    square: false
+  - type: grid
+    title: Sensors
+    cards:
+      - type: custom:mushroom-sensor-card
+        entity: sensor.power_consumption
+      - type: custom:mushroom-sensor-card
+        entity: binary_sensor.updater
+      - type: custom:mushroom-sensor-card
+        entity: sensor.outside_temperature
+      - type: custom:mushroom-sensor-card
+        entity: sensor.outside_humidity
+    columns: 2
+    square: false
+  - type: grid
+    title: Binary sensors
+    cards:
+      - type: custom:mushroom-sensor-card
+        entity: binary_sensor.basement_floor_wet
+      - type: custom:mushroom-sensor-card
+        entity: binary_sensor.movement_backyard
+    columns: 2
+    square: false
+  - type: grid
+    title: Vertical
+    cards:
+      - type: custom:mushroom-sensor-card
+        entity: sensor.power_consumption
+        vertical: true
+      - type: custom:mushroom-sensor-card
+        entity: sensor.power_consumption
+        vertical: true
+        hide_state: true
+    columns: 2
+    square: false
