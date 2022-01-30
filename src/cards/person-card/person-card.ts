@@ -104,45 +104,58 @@ export class PersonCard extends LitElement implements LovelaceCard {
             this.hass.locale
         );
 
-        return html`<ha-card>
-            <div class="container">
-                <mushroom-state-item
-                    .vertical=${vertical}
-                    @action=${this._handleAction}
-                    .actionHandler=${actionHandler({
-                        hasHold: hasAction(this._config.hold_action),
-                    })}
-                >
-                    ${picture
-                        ? html`
-                              <mushroom-shape-avatar
-                                  slot="icon"
-                                  .picture_url=${picture}
-                              ></mushroom-shape-avatar>
-                          `
-                        : html`
-                              <mushroom-shape-icon
-                                  slot="icon"
-                                  .icon=${icon}
-                                  .disabled=${!isActive(entity)}
-                              ></mushroom-shape-icon>
-                          `}
-                    <mushroom-badge-icon
-                        slot="badge"
-                        .icon=${stateIcon}
-                        style=${styleMap({
-                            "--main-color": stateColor,
+        return html`
+            <ha-card>
+                <div class="container">
+                    <mushroom-state-item
+                        .vertical=${vertical}
+                        @action=${this._handleAction}
+                        .actionHandler=${actionHandler({
+                            hasHold: hasAction(this._config.hold_action),
                         })}
-                    ></mushroom-badge-icon>
-                    <mushroom-state-info
-                        slot="info"
-                        .label=${name}
-                        .value=${stateDisplay}
-                        .hide_value=${hideState}
-                    ></mushroom-state-info>
-                </mushroom-state-item>
-            </div>
-        </ha-card>`;
+                    >
+                        ${picture
+                            ? html`
+                                  <mushroom-shape-avatar
+                                      slot="icon"
+                                      .picture_url=${picture}
+                                  ></mushroom-shape-avatar>
+                              `
+                            : html`
+                                  <mushroom-shape-icon
+                                      slot="icon"
+                                      .icon=${icon}
+                                      .disabled=${!isActive(entity)}
+                                  ></mushroom-shape-icon>
+                              `}
+                        ${entity.state === "unavailable"
+                            ? html`
+                                  <mushroom-badge-icon
+                                      class="unavailable"
+                                      slot="badge"
+                                      icon="mdi:help"
+                                  ></mushroom-badge-icon>
+                              `
+                            : //
+                              html`
+                                  <mushroom-badge-icon
+                                      slot="badge"
+                                      .icon=${stateIcon}
+                                      style=${styleMap({
+                                          "--main-color": stateColor,
+                                      })}
+                                  ></mushroom-badge-icon>
+                              `}
+                        <mushroom-state-info
+                            slot="info"
+                            .label=${name}
+                            .value=${stateDisplay}
+                            .hide_value=${hideState}
+                        ></mushroom-state-info>
+                    </mushroom-state-item>
+                </div>
+            </ha-card>
+        `;
     }
 
     static get styles(): CSSResultGroup {

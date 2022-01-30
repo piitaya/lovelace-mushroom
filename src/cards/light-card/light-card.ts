@@ -11,6 +11,7 @@ import {
 import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import "../../shared/badge-icon";
 import "../../shared/button";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
@@ -156,6 +157,13 @@ export class LightCard extends LitElement implements LovelaceCard {
                             .disabled=${!active}
                             .icon=${icon}
                         ></mushroom-shape-icon>
+                        ${entity.state === "unavailable"
+                            ? html` <mushroom-badge-icon
+                                  class="unavailable"
+                                  slot="badge"
+                                  icon="mdi:help"
+                              ></mushroom-badge-icon>`
+                            : null}
                         <mushroom-state-info
                             slot="info"
                             .label=${name}

@@ -181,9 +181,16 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                             })}
                             .icon=${icon}
                         ></mushroom-shape-icon>
-                        ${hasAlert
+                        ${entity.state === "unavailable"
+                            ? html` <mushroom-badge-icon
+                                  class="unavailable"
+                                  slot="badge"
+                                  icon="mdi:help"
+                              ></mushroom-badge-icon>`
+                            : hasAlert
                             ? html`
                                   <mushroom-badge-icon
+                                      class="alert"
                                       slot="badge"
                                       icon="mdi:exclamation"
                                   ></mushroom-badge-icon>
@@ -279,7 +286,7 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                 mushroom-state-item {
                     cursor: pointer;
                 }
-                mushroom-badge-icon {
+                .alert {
                     --main-color: var(--warning-color);
                 }
                 mushroom-shape-icon.pulse {
