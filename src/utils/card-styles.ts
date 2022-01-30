@@ -25,4 +25,7 @@ export const cardStyle = css`
     .actions *:not(:last-child) {
         margin-right: 12px;
     }
+    .unavailable {
+        --main-color: var(--warning-color);
+    }
 `;

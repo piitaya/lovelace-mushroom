@@ -10,13 +10,13 @@ import {
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import "../../shared/badge-icon";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
-import { isActive } from "./utils";
 import {
     SENSOR_CARD_EDITOR_NAME,
     SENSOR_CARD_NAME,
@@ -24,6 +24,7 @@ import {
 } from "./const";
 import { SensorCardConfig } from "./sensor-card-config";
 import "./sensor-card-editor";
+import { isActive } from "./utils";
 
 registerCustomCard({
     type: SENSOR_CARD_NAME,
@@ -109,6 +110,13 @@ export class SensorCard extends LitElement implements LovelaceCard {
                         .disabled=${!isActive(entity)}
                         .icon=${icon}
                     ></mushroom-shape-icon>
+                    ${entity.state === "unavailable"
+                        ? html` <mushroom-badge-icon
+                              class="unavailable"
+                              slot="badge"
+                              icon="mdi:help"
+                          ></mushroom-badge-icon>`
+                        : null}
                     <mushroom-state-info
                         slot="info"
                         .label=${name}
