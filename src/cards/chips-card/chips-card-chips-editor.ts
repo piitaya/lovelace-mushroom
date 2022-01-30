@@ -10,6 +10,7 @@ import {
 import { customElement, property, state } from "lit/decorators.js";
 import { guard } from "lit/directives/guard.js";
 import type { SortableEvent } from "sortablejs";
+import setupCustomlocalize from "../../localize";
 import { LovelaceChipConfig } from "../../utils/lovelace/chip/types";
 import { sortableStyles } from "../../utils/sortable-styles";
 import { computeChipComponentName } from "./utils";
@@ -53,10 +54,14 @@ export class ChipsCardEditorChips extends LitElement {
             return html``;
         }
 
+        const customLocalize = setupCustomlocalize(this.hass);
+
         return html`
             <h3>
                 ${this.label ||
-                `Chips (${this.hass!.localize(
+                `${customLocalize(
+                    "editor.chip.chip-picker.chips"
+                )} (${this.hass!.localize(
                     "ui.panel.lovelace.editor.card.config.required"
                 )})`}
             </h3>
@@ -80,16 +85,16 @@ export class ChipsCardEditorChips extends LitElement {
                                                       )}
                                                   </span>
                                                   <span class="secondary"
-                                                      >${this.hass!.localize(
-                                                          "ui.panel.lovelace.editor.card.entities.edit_special_row"
+                                                      >${customLocalize(
+                                                          "editor.chip.chip-picker.details"
                                                       )}</span
                                                   >
                                               </div>
                                           </div>
                                       `}
                                       <ha-icon-button
-                                          .label=${this.hass!.localize(
-                                              "ui.components.entity.entity-picker.clear"
+                                          .label=${customLocalize(
+                                              "editor.chip.chip-picker.clear"
                                           )}
                                           class="remove-icon"
                                           .index=${index}
@@ -98,8 +103,8 @@ export class ChipsCardEditorChips extends LitElement {
                                           <ha-icon icon="mdi:close"></ha-icon
                                       ></ha-icon-button>
                                       <ha-icon-button
-                                          .label=${this.hass!.localize(
-                                              "ui.components.entity.entity-picker.edit"
+                                          .label=${customLocalize(
+                                              "editor.chip.chip-picker.edit"
                                           )}
                                           class="edit-icon"
                                           .index=${index}
@@ -113,7 +118,7 @@ export class ChipsCardEditorChips extends LitElement {
                 )}
             </div>
             <paper-dropdown-menu
-                placeholder="Chip"
+                .placeholder=${customLocalize("editor.chip.chip-picker.add")}
                 @iron-select=${this._addChips}
             >
                 <paper-listbox

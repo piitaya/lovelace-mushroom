@@ -31,14 +31,11 @@ cards:
     columns: 2
     square: false
   - type: grid
-    title: Layouts
+    title: Vertical
     cards:
       - type: custom:mushroom-fan-card
         entity: fan.living_room_fan
         vertical: true
-      - type: custom:mushroom-fan-card
-        entity: fan.living_room_fan
-        hide_state: true
       - type: custom:mushroom-fan-card
         entity: fan.living_room_fan
         vertical: true

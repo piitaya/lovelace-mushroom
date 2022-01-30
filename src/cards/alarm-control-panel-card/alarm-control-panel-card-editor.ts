@@ -7,6 +7,7 @@ import {
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { assert } from "superstruct";
+import setupCustomlocalize from "../../localize";
 import { configElementStyle } from "../../utils/editor-styles";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
 import {
@@ -58,6 +59,8 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
             "armed_custom_bypass",
         ];
 
+        const customLocalize = setupCustomlocalize(this.hass);
+
         return html`
             <div class="card-config">
                 <ha-entity-picker
@@ -95,14 +98,22 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                     ></ha-icon-picker>
                 </div>
                 <div class="side-by-side">
-                    <ha-formfield label="Vertical?" .dir=${dir}>
+                    <ha-formfield
+                        .label=${customLocalize("editor.card.generic.vertical")}
+                        .dir=${dir}
+                    >
                         <ha-switch
                             .checked=${!!this._config.vertical}
                             .configValue=${"vertical"}
                             @change=${this._valueChanged}
                         ></ha-switch>
                     </ha-formfield>
-                    <ha-formfield label="Hide state?" .dir=${dir}>
+                    <ha-formfield
+                        .label=${customLocalize(
+                            "editor.card.generic.hide_state"
+                        )}
+                        .dir=${dir}
+                    >
                         <ha-switch
                             .checked=${!!this._config.hide_state}
                             .configValue=${"hide_state"}
@@ -112,7 +123,12 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                 </div>
                 <div class="side-by-side">
                     <div>
-                        <span>Used States</span> ${this._states.map(
+                        <span
+                            >${customLocalize(
+                                "editor.card.alarm_control_panel.displayed_states"
+                            )}</span
+                        >
+                        ${this._states.map(
                             (entityState, index) => html`
                                 <div class="states">
                                     <paper-item>${entityState}</paper-item>

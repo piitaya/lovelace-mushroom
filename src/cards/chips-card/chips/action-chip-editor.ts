@@ -1,11 +1,7 @@
-import {
-    ActionConfig,
-    fireEvent,
-    HomeAssistant,
-    stateIcon,
-} from "custom-card-helpers";
+import { fireEvent, HomeAssistant } from "custom-card-helpers";
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import setupCustomlocalize from "../../../localize";
 import { configElementStyle } from "../../../utils/editor-styles";
 import { ActionChipConfig } from "../../../utils/lovelace/chip/types";
 import { EditorTarget } from "../../../utils/lovelace/editor/types";
@@ -24,26 +20,12 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
         this._config = config;
     }
 
-    get _icon(): string {
-        return this._config!.icon || "";
-    }
-
-    get _icon_color(): string {
-        return this._config!.icon_color || "";
-    }
-
-    get _tap_action(): ActionConfig | undefined {
-        return this._config!.tap_action;
-    }
-
-    get _hold_action(): ActionConfig | undefined {
-        return this._config!.hold_action;
-    }
-
     protected render(): TemplateResult {
         if (!this.hass || !this._config) {
             return html``;
         }
+
+        const customlocalize = setupCustomlocalize(this.hass);
 
         return html`
             <div class="card-config">
@@ -54,16 +36,18 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
                         )} (${this.hass.localize(
                             "ui.panel.lovelace.editor.card.config.optional"
                         )})"
-                        .value=${this._icon}
-                        .placeholder=${this._icon || "mdi:flash"}
+                        .value=${this._config.icon}
+                        .placeholder=${this._config.icon || "mdi:flash"}
                         .configValue=${"icon"}
                         @value-changed=${this._valueChanged}
                     ></ha-icon-picker>
                     <paper-input
-                        .label="Icon color (${this.hass.localize(
+                        .label="${customlocalize(
+                            "editor.chip.generic.icon_color"
+                        )} (${this.hass.localize(
                             "ui.panel.lovelace.editor.card.config.optional"
                         )})"
-                        .value=${this._icon_color}
+                        .value=${this._config.icon_color}
                         .configValue=${"icon_color"}
                         @value-changed=${this._valueChanged}
                     ></paper-input>
@@ -76,7 +60,7 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
                             "ui.panel.lovelace.editor.card.config.optional"
                         )})"
                         .hass=${this.hass}
-                        .config=${this._tap_action}
+                        .config=${this._config.tap_action}
                         .actions=${actions}
                         .configValue=${"tap_action"}
                         .tooltipText=${this.hass.localize(
@@ -91,7 +75,7 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
                             "ui.panel.lovelace.editor.card.config.optional"
                         )})"
                         .hass=${this.hass}
-                        .config=${this._hold_action}
+                        .config=${this._config.hold_action}
                         .actions=${actions}
                         .configValue=${"hold_action"}
                         .tooltipText=${this.hass.localize(

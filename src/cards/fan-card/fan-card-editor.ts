@@ -8,6 +8,7 @@ import {
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { assert } from "superstruct";
+import setupCustomlocalize from "../../localize";
 import { configElementStyle } from "../../utils/editor-styles";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { FAN_CARD_EDITOR_NAME, FAN_ENTITY_DOMAINS } from "./const";
@@ -41,6 +42,8 @@ export class FanCardEditor extends LitElement implements LovelaceCardEditor {
         const dir = computeRTLDirection(this.hass);
         const entityState = this.hass.states[this._config.entity];
         const entityIcon = stateIcon(entityState);
+
+        const customLocalize = setupCustomlocalize(this.hass);
 
         return html`
             <div class="card-config">
@@ -80,7 +83,9 @@ export class FanCardEditor extends LitElement implements LovelaceCardEditor {
                 </div>
                 <div class="side-by-side">
                     <ha-formfield
-                        label="Animate icon when active ?"
+                        .label=${customLocalize(
+                            "editor.card.fan.animate_icon_active"
+                        )}
                         .dir=${dir}
                     >
                         <ha-switch
@@ -91,14 +96,22 @@ export class FanCardEditor extends LitElement implements LovelaceCardEditor {
                     </ha-formfield>
                 </div>
                 <div class="side-by-side">
-                    <ha-formfield label="Vertical?" .dir=${dir}>
+                    <ha-formfield
+                        .label=${customLocalize("editor.card.generic.vertical")}
+                        .dir=${dir}
+                    >
                         <ha-switch
                             .checked=${!!this._config.vertical}
                             .configValue=${"vertical"}
                             @change=${this._valueChanged}
                         ></ha-switch>
                     </ha-formfield>
-                    <ha-formfield label="Hide state?" .dir=${dir}>
+                    <ha-formfield
+                        .label=${customLocalize(
+                            "editor.card.generic.hide_state"
+                        )}
+                        .dir=${dir}
+                    >
                         <ha-switch
                             .checked=${!!this._config.hide_state}
                             .configValue=${"hide_state"}
@@ -107,14 +120,24 @@ export class FanCardEditor extends LitElement implements LovelaceCardEditor {
                     </ha-formfield>
                 </div>
                 <div class="side-by-side">
-                    <ha-formfield label="Show percentage control ?" .dir=${dir}>
+                    <ha-formfield
+                        .label=${customLocalize(
+                            "editor.card.fan.show_percentage_control"
+                        )}
+                        .dir=${dir}
+                    >
                         <ha-switch
                             .checked=${!!this._config.show_percentage_control}
                             .configValue=${"show_percentage_control"}
                             @change=${this._valueChanged}
                         ></ha-switch>
                     </ha-formfield>
-                    <ha-formfield label="Show oscillate control ?" .dir=${dir}>
+                    <ha-formfield
+                        .label=${customLocalize(
+                            "editor.card.fan.show_oscillate_control"
+                        )}
+                        .dir=${dir}
+                    >
                         <ha-switch
                             .checked=${!!this._config.show_oscillate_control}
                             .configValue=${"show_oscillate_control"}

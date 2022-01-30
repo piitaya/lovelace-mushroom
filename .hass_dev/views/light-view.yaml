@@ -31,14 +31,11 @@ cards:
     show_brightness_control: true
     show_color_temp_control: true
   - type: grid
-    title: Layouts
+    title: Vertical
     cards:
       - type: custom:mushroom-light-card
         entity: light.bed_light
         vertical: true
-      - type: custom:mushroom-light-card
-        entity: light.bed_light
-        hide_state: true
       - type: custom:mushroom-light-card
         entity: light.bed_light
         vertical: true

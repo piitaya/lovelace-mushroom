@@ -1,0 +1,45 @@
+{
+    "editor": {
+        "card": {
+            "generic": {
+                "vertical": "Vertical?",
+                "hide_state": "Hide state?"
+            },
+            "light": {
+                "show_brightness_control": "Brightness control?",
+                "show_color_temp_control": "Temperature color control?"
+            },
+            "fan": {
+                "animate_icon_active": "Animate icon when active?",
+                "show_percentage_control": "Percentage control?",
+                "show_oscillate_control": "Oscillate control?"
+            },
+            "cover": {
+                "show_buttons_control": "Buttons control?",
+                "show_position_control": "Position control?"
+            },
+            "person": {
+                "use_entity_picture": "Use entity picture?"
+            },
+            "alarm_control_panel": {
+                "displayed_states": "Displayed states"
+            }
+        },
+        "chip": {
+            "chip-picker": {
+                "chips": "Chips",
+                "details": "Show details by clicking the edit button",
+                "add": "Add chip",
+                "edit": "Edit",
+                "clear": "Clear"
+            },
+            "weather": {
+                "show_conditions": "Conditions?",
+                "show_temperature": "Temperature?"
+            },
+            "generic": {
+                "icon_color": "Icon color"
+            }
+        }
+    }
+}

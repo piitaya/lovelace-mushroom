@@ -1,0 +1,45 @@
+{
+    "editor": {
+        "card": {
+            "generic": {
+                "vertical": "Vertical ?",
+                "hide_state": "Cacher l'état ?"
+            },
+            "light": {
+                "show_brightness_control": "Contrôle de luminosité ?",
+                "show_color_temp_control": "Contrôle de la température ?"
+            },
+            "fan": {
+                "animate_icon_active": "Animation de l'icône ?",
+                "show_percentage_control": "Contrôle de la vitesse ?",
+                "show_oscillate_control": "Contrôle de l'oscillation ?"
+            },
+            "cover": {
+                "show_buttons_control": "Contrôle avec boutons ?",
+                "show_position_control": "Contrôle de la position ?"
+            },
+            "person": {
+                "use_entity_picture": "Utiliser l'image de l'entité ?"
+            },
+            "alarm_control_panel": {
+                "displayed_states": "États affichés"
+            }
+        },
+        "chip": {
+            "chip-picker": {
+                "chips": "\"Chips\"",
+                "details": "Affichez les détails en cliquant sur le bouton Modifier",
+                "add": "Ajouter une \"chip\"",
+                "edit": "Modifier",
+                "clear": "Effacer"
+            },
+            "weather": {
+                "show_conditons": "Conditions ?",
+                "show_temperature": "Température ?"
+            },
+            "generic": {
+                "icon_color": "Couleur de l'icône"
+            }
+        }
+    }
+}
