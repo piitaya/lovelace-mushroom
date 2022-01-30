@@ -6,5 +6,6 @@ views:
   - !include views/person-view.yaml
   - !include views/alarm-control-panel-view.yaml
   - !include views/fan-view.yaml
-  - !include views/chips-view.yaml
+  - !include views/template-view.yaml
   - !include views/sensor-view.yaml
+  - !include views/chips-view.yaml

@@ -1,9 +1,13 @@
 import {
     ActionHandlerEvent,
+    computeStateDisplay,
     handleAction,
+    hasAction,
     HomeAssistant,
+    LovelaceCard,
+    LovelaceCardEditor,
+    stateIcon,
 } from "custom-card-helpers";
-import { UnsubscribeFunc } from "home-assistant-js-websocket";
 import {
     css,
     CSSResultGroup,
@@ -13,43 +17,52 @@ import {
     TemplateResult,
 } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { LovelaceChip } from ".";
-import { actionHandler } from "../../../utils/directives/action-handler-directive";
-import { TemplateChipConfig } from "../../../utils/lovelace/chip/types";
-import { LovelaceChipEditor } from "../../../utils/lovelace/types";
+import "../../shared/shape-icon";
+import "../../shared/state-info";
+import "../../shared/state-item";
+import { cardStyle } from "../../utils/card-styles";
+import { registerCustomCard } from "../../utils/custom-cards";
+import { actionHandler } from "../../utils/directives/action-handler-directive";
+import { TEMPLATE_CARD_EDITOR_NAME, TEMPLATE_CARD_NAME } from "./const";
+import { TemplateCardConfig } from "./template-card-config";
+import "./template-card-editor";
 import {
     RenderTemplateResult,
     subscribeRenderTemplate,
-} from "../../../utils/ws-templates";
-import {
-    computeChipComponentName,
-    computeChipEditorComponentName,
-} from "../utils";
-import "./menu-chip-editor";
-import "./template-chip-editor";
+} from "../../utils/ws-templates";
+import { UnsubscribeFunc } from "home-assistant-js-websocket";
 
-const TEMPLATE_KEYS = ["content", "icon"] as const;
+registerCustomCard({
+    type: TEMPLATE_CARD_NAME,
+    name: "Mushroom Template Card",
+    description: "Card for custom rendering with templates",
+});
+
+const TEMPLATE_KEYS = ["state", "icon", "name"] as const;
 type TemplateKey = typeof TEMPLATE_KEYS[number];
 
-@customElement(computeChipComponentName("template"))
-export class TemplateChip extends LitElement implements LovelaceChip {
-    public static async getConfigElement(): Promise<LovelaceChipEditor> {
+@customElement(TEMPLATE_CARD_NAME)
+export class TemplateCard extends LitElement implements LovelaceCard {
+    public static async getConfigElement(): Promise<LovelaceCardEditor> {
         return document.createElement(
-            computeChipEditorComponentName("template")
-        ) as LovelaceChipEditor;
+            TEMPLATE_CARD_EDITOR_NAME
+        ) as LovelaceCardEditor;
     }
 
     public static async getStubConfig(
         _hass: HomeAssistant
-    ): Promise<TemplateChipConfig> {
+    ): Promise<TemplateCardConfig> {
         return {
-            type: `template`,
+            type: `custom:${TEMPLATE_CARD_NAME}`,
+            name: "Hello, {{user}}",
+            state: "How are you?",
+            icon: "mdi:home",
         };
     }
 
-    @property({ attribute: false }) public hass?: HomeAssistant;
+    @property({ attribute: false }) public hass!: HomeAssistant;
 
-    @state() private _config?: TemplateChipConfig;
+    @state() private _config?: TemplateCardConfig;
 
     @state() private _templateResults: Partial<
         Record<TemplateKey, RenderTemplateResult | undefined>
@@ -60,13 +73,25 @@ export class TemplateChip extends LitElement implements LovelaceChip {
         Promise<UnsubscribeFunc>
     > = new Map();
 
-    public setConfig(config: TemplateChipConfig): void {
+    getCardSize(): number | Promise<number> {
+        return 1;
+    }
+
+    setConfig(config: TemplateCardConfig): void {
         TEMPLATE_KEYS.forEach((key) => {
             if (this._config?.[key] !== config[key]) {
                 this._tryDisconnectKey(key);
             }
         });
-        this._config = config;
+        this._config = {
+            tap_action: {
+                action: "toggle",
+            },
+            hold_action: {
+                action: "more-info",
+            },
+            ...config,
+        };
     }
 
     public connectedCallback() {
@@ -83,22 +108,38 @@ export class TemplateChip extends LitElement implements LovelaceChip {
     }
 
     protected render(): TemplateResult {
-        if (!this.hass || !this._config) {
+        if (!this._config || !this.hass) {
             return html``;
         }
 
+        const name = this._templateResults.name?.result;
         const icon = this._templateResults.icon?.result;
-        const content = this._templateResults.content?.result;
+        const state = this._templateResults.state?.result;
 
-        return html`
-            <mushroom-chip
-                @action=${this._handleAction}
-                .actionHandler=${actionHandler()}
-            >
-                ${icon ? html`<ha-icon .icon=${icon}></ha-icon>` : null}
-                ${content ? html`<span>${content}</span>` : null}
-            </mushroom-chip>
-        `;
+        const vertical = this._config.vertical;
+
+        return html`<ha-card>
+            <div class="container">
+                <mushroom-state-item
+                    .vertical=${vertical}
+                    @action=${this._handleAction}
+                    .actionHandler=${actionHandler({
+                        hasHold: hasAction(this._config.hold_action),
+                    })}
+                >
+                    <mushroom-shape-icon
+                        slot="icon"
+                        .icon=${icon}
+                    ></mushroom-shape-icon>
+                    <mushroom-state-info
+                        slot="info"
+                        .label=${name}
+                        .value=${state}
+                        hide_state=${!state}
+                    ></mushroom-state-info>
+                </mushroom-state-item>
+            </div>
+        </ha-card>`;
     }
 
     protected updated(changedProps: PropertyValues): void {
@@ -189,10 +230,20 @@ export class TemplateChip extends LitElement implements LovelaceChip {
     }
 
     static get styles(): CSSResultGroup {
-        return css`
-            mushroom-chip {
-                cursor: pointer;
-            }
-        `;
+        return [
+            cardStyle,
+            css`
+                :host {
+                    --rgb-color: 61, 90, 254;
+                }
+                mushroom-state-item {
+                    cursor: pointer;
+                }
+                mushroom-shape-icon {
+                    --icon-color: rgba(var(--rgb-color), 1);
+                    --shape-color: rgba(var(--rgb-color), 0.2);
+                }
+            `,
+        ];
     }
 }
