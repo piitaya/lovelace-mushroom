@@ -130,6 +130,7 @@ export class ChipsCardEditorChips extends LitElement {
                     <paper-item data-type="entity">Entity</paper-item>
                     <paper-item data-type="weather">Weather</paper-item>
                     <paper-item data-type="action">Action</paper-item>
+                    <paper-item data-type="template">Template</paper-item>
                 </paper-listbox>
             </paper-dropdown-menu>
         `;

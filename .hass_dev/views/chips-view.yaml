@@ -91,3 +91,26 @@ cards:
             tap_action: 
               action: url
               url_path: https://github.com/piitaya/mushroom-cards
+  - type: vertical-stack
+    title: Template chip
+    cards:
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: template
+            content: |
+              {% if is_state('light.bed_light', 'on') %}
+                The bedroom light is on !
+              {% else %}
+                The bedroom light is not on !
+              {% endif %}
+            icon: |
+              {% if is_state('light.bed_light', 'on') %}
+                mdi:ceiling-light
+              {% else %}
+                mdi:ceiling-light-outline
+              {% endif %}
+            tap_action:
+              action: call-service
+              service: light.toggle
+              target:
+                entity_id: light.bed_light
