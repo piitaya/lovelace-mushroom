@@ -8,7 +8,6 @@ import {
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { styleMap } from "lit/directives/style-map.js";
 import { LovelaceChip } from ".";
 import { actionHandler } from "../../../utils/directives/action-handler-directive";
 import { EntityChipConfig } from "../../../utils/lovelace/chip/types";
@@ -65,12 +64,6 @@ export class EntityChip extends LitElement implements LovelaceChip {
             this.hass.locale
         );
 
-        const iconStyle: { [name: string]: string } = {};
-
-        if (this._config.icon_color) {
-            iconStyle.color = this._config.icon_color;
-        }
-
         return html`
             <mushroom-chip
                 @action=${this._handleAction}
@@ -78,7 +71,7 @@ export class EntityChip extends LitElement implements LovelaceChip {
                     hasHold: hasAction(this._config.hold_action),
                 })}
             >
-                <ha-icon .icon=${icon} style=${styleMap(iconStyle)}></ha-icon>
+                <ha-icon .icon=${icon}></ha-icon>
                 <span>${stateDisplay}</span>
             </mushroom-chip>
         `;

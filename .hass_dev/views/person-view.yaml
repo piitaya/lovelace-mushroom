@@ -17,14 +17,11 @@ cards:
     columns: 2
     square: false
   - type: grid
-    title: Layouts
+    title: Vertical
     cards:
       - type: custom:mushroom-person-card
         entity: person.anne_therese
         vertical: true
-      - type: custom:mushroom-person-card
-        entity: person.anne_therese
-        hide_state: true
       - type: custom:mushroom-person-card
         entity: person.anne_therese
         vertical: true

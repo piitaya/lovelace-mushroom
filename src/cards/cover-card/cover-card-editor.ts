@@ -8,6 +8,7 @@ import {
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { assert } from "superstruct";
+import setupCustomlocalize from "../../localize";
 import { configElementStyle } from "../../utils/editor-styles";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { COVER_CARD_EDITOR_NAME, COVER_ENTITY_DOMAINS } from "./const";
@@ -41,6 +42,8 @@ export class CoverCardEditor extends LitElement implements LovelaceCardEditor {
         const dir = computeRTLDirection(this.hass);
         const entityState = this.hass.states[this._config.entity];
         const entityIcon = stateIcon(entityState);
+
+        const customLocalize = setupCustomlocalize(this.hass);
 
         return html`
             <div class="card-config">
@@ -79,14 +82,22 @@ export class CoverCardEditor extends LitElement implements LovelaceCardEditor {
                     ></ha-icon-picker>
                 </div>
                 <div class="side-by-side">
-                    <ha-formfield label="Vertical?" .dir=${dir}>
+                    <ha-formfield
+                        .label=${customLocalize("editor.card.generic.vertical")}
+                        .dir=${dir}
+                    >
                         <ha-switch
                             .checked=${this._config.vertical != false}
                             .configValue=${"vertical"}
                             @change=${this._valueChanged}
                         ></ha-switch>
                     </ha-formfield>
-                    <ha-formfield label="Hide state?" .dir=${dir}>
+                    <ha-formfield
+                        .label=${customLocalize(
+                            "editor.card.generic.hide_state"
+                        )}
+                        .dir=${dir}
+                    >
                         <ha-switch
                             .checked=${!!this._config.hide_state}
                             .configValue=${"hide_state"}
@@ -95,14 +106,24 @@ export class CoverCardEditor extends LitElement implements LovelaceCardEditor {
                     </ha-formfield>
                 </div>
                 <div class="side-by-side">
-                    <ha-formfield label="Show buttons control ?" .dir=${dir}>
+                    <ha-formfield
+                        .label=${customLocalize(
+                            "editor.card.cover.show_buttons_control"
+                        )}
+                        .dir=${dir}
+                    >
                         <ha-switch
                             .checked=${!!this._config.show_buttons_control}
                             .configValue=${"show_buttons_control"}
                             @change=${this._valueChanged}
                         ></ha-switch>
                     </ha-formfield>
-                    <ha-formfield label="Show position control ?" .dir=${dir}>
+                    <ha-formfield
+                        .label=${customLocalize(
+                            "editor.card.cover.show_position_control"
+                        )}
+                        .dir=${dir}
+                    >
                         <ha-switch
                             .checked=${!!this._config.show_position_control}
                             .configValue=${"show_position_control"}

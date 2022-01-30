@@ -1,6 +1,7 @@
 import { fireEvent, HomeAssistant } from "custom-card-helpers";
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import setupCustomlocalize from "../../../localize";
 import { configElementStyle } from "../../../utils/editor-styles";
 import { EntityChipConfig } from "../../../utils/lovelace/chip/types";
 import { EditorTarget } from "../../../utils/lovelace/editor/types";
@@ -17,18 +18,12 @@ export class MenuChipEditor extends LitElement implements LovelaceChipEditor {
         this._config = config;
     }
 
-    get _icon(): string {
-        return this._config!.icon || "";
-    }
-
-    get _icon_color(): string {
-        return this._config!.icon_color || "";
-    }
-
     protected render(): TemplateResult {
         if (!this.hass || !this._config) {
             return html``;
         }
+
+        const customlocalize = setupCustomlocalize(this.hass);
 
         return html`
             <div class="card-config">
@@ -39,16 +34,18 @@ export class MenuChipEditor extends LitElement implements LovelaceChipEditor {
                         )} (${this.hass.localize(
                             "ui.panel.lovelace.editor.card.config.optional"
                         )})"
-                        .value=${this._icon}
-                        .placeholder=${this._icon || "mdi:menu"}
+                        .value=${this._config.icon}
+                        .placeholder=${this._config.icon || "mdi:menu"}
                         .configValue=${"icon"}
                         @value-changed=${this._valueChanged}
                     ></ha-icon-picker>
                     <paper-input
-                        .label="Icon color (${this.hass.localize(
+                        .label="${customlocalize(
+                            "editor.chip.generic.icon_color"
+                        )} (${this.hass.localize(
                             "ui.panel.lovelace.editor.card.config.optional"
                         )})"
-                        .value=${this._icon_color}
+                        .value=${this._config.icon_color}
                         .configValue=${"icon_color"}
                         @value-changed=${this._valueChanged}
                     ></paper-input>

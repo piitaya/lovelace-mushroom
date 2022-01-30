@@ -37,7 +37,7 @@ export class MushroomSubElementEditor extends LitElement {
                     </ha-icon-button>
                     <span slot="title"
                         >${this.hass.localize(
-                            `ui.panel.lovelace.editor.sub-element-editor.types.${this.config?.type}`
+                            `ui.panel.lovelace.editor.sub-element-editor.types.row`
                         )}</span
                     >
                 </div>
@@ -96,6 +96,11 @@ export class MushroomSubElementEditor extends LitElement {
                 display: flex;
                 align-items: center;
                 font-size: 18px;
+            }
+            ha-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
         `;
     }
