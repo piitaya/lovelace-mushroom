@@ -114,3 +114,7 @@ cards:
               service: light.toggle
               target:
                 entity_id: light.bed_light
+          - type: template
+            content: |
+              {{ states | count }} entities
+            icon: mdi:format-list-bulleted
