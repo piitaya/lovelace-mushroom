@@ -1,0 +1,35 @@
+
+
+title: Switch
+icon: mdi:card-text
+cards:
+  - type: grid
+    title: Simple
+    cards:
+      - type: custom:mushroom-template-card
+        name: Hello, {{user}}
+        state: How are you?
+        icon: mdi:home
+      - type: custom:mushroom-template-card
+        name: Number of entities
+        state: |
+          {{ states | count }} entities
+        icon: mdi:format-list-bulleted
+    columns: 2
+    square: false
+  - type: grid
+    title: Vertical
+    cards:
+      - type: custom:mushroom-template-card
+        name: Hello, {{user}}
+        state: How are you?
+        icon: mdi:home
+        vertical: true
+      - type: custom:mushroom-template-card
+        name: Number of entities
+        state: |
+          {{ states | count }} entities
+        icon: mdi:format-list-bulleted
+        vertical: true
+    columns: 2
+    square: false

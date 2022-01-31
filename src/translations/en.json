@@ -3,7 +3,8 @@
         "card": {
             "generic": {
                 "vertical": "Vertical?",
-                "hide_state": "Hide state?"
+                "hide_state": "Hide state?",
+                "state": "State"
             },
             "light": {
                 "show_brightness_control": "Brightness control?",
@@ -33,12 +34,15 @@
                 "edit": "Edit",
                 "clear": "Clear"
             },
+            "generic": {
+                "icon_color": "Icon color"
+            },
             "weather": {
                 "show_conditions": "Conditions?",
                 "show_temperature": "Temperature?"
             },
-            "generic": {
-                "icon_color": "Icon color"
+            "template": {
+                "content": "Content"
             }
         }
     }

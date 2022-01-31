@@ -38,9 +38,19 @@ export type WeatherChipConfig = {
     show_conditions?: boolean;
 };
 
+export type TemplateChipConfig = {
+    type: "template";
+    hold_action?: ActionConfig;
+    tap_action?: ActionConfig;
+    content?: string;
+    icon?: string;
+    entity_id?: string | string[];
+};
+
 export type LovelaceChipConfig =
     | ActionChipConfig
     | BackChipConfig
     | EntityChipConfig
     | MenuChipConfig
-    | WeatherChipConfig;
+    | WeatherChipConfig
+    | TemplateChipConfig;

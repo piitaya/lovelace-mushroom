@@ -9,7 +9,13 @@ import { customElement, property, state } from "lit/decorators.js";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { CHIPS_CARD_EDITOR_NAME, CHIPS_CARD_NAME } from "./const";
 import "../../shared/chip";
-import { BackChip, createChipElement, EntityChip, WeatherChip } from "./chips";
+import {
+    BackChip,
+    createChipElement,
+    EntityChip,
+    LovelaceChip,
+    WeatherChip,
+} from "./chips";
 import "./chips";
 import "./chips-card-editor";
 import { LovelaceChipConfig } from "../../utils/lovelace/chip/types";
@@ -45,9 +51,18 @@ export class ChipsCard extends LitElement implements LovelaceCard {
         };
     }
 
-    @property({ attribute: false }) public hass!: HomeAssistant;
-
     @state() private _config?: ChipsCardConfig;
+
+    private _hass?: HomeAssistant;
+
+    set hass(hass: HomeAssistant) {
+        this._hass = hass;
+        this.shadowRoot
+            ?.querySelectorAll("div > *")
+            .forEach((element: unknown) => {
+                (element as LovelaceChip).hass = hass;
+            });
+    }
 
     getCardSize(): number | Promise<number> {
         return 1;
@@ -58,7 +73,7 @@ export class ChipsCard extends LitElement implements LovelaceCard {
     }
 
     protected render(): TemplateResult {
-        if (!this._config || !this.hass) {
+        if (!this._config || !this._hass) {
             return html``;
         }
 
@@ -74,10 +89,10 @@ export class ChipsCard extends LitElement implements LovelaceCard {
         if (!element) {
             return html``;
         }
-        if (this.hass) {
-            element.hass = this.hass;
+        if (this._hass) {
+            element.hass = this._hass;
         }
-        return html`${element}`;
+        return html`<div>${element}</div>`;
     }
 
     static get styles(): CSSResultGroup {
