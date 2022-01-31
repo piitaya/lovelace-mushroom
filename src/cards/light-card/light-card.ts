@@ -222,7 +222,7 @@ export class LightCard extends LitElement implements LovelaceCard {
             cardStyle,
             css`
                 :host {
-                    --rgb-color: 255, 145, 1;
+                    --rgb-color: var(--rgb-orange);
                 }
                 mushroom-state-item {
                     cursor: pointer;

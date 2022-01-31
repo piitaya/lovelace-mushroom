@@ -7,8 +7,10 @@ import {
 } from "custom-card-helpers";
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import { styleMap } from "lit/directives/style-map.js";
 import { assert } from "superstruct";
 import setupCustomlocalize from "../../localize";
+import { COLORS, computeColorName, computeRgbColor } from "../../utils/colors";
 import { configElementStyle } from "../../utils/editor-styles";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { SENSOR_CARD_EDITOR_NAME, SENSOR_ENTITY_DOMAINS } from "./const";
@@ -18,7 +20,6 @@ import {
     SensorCardConfig,
     sensorCardConfigStruct,
 } from "./sensor-card-config";
-
 const actions = ["more-info", "navigate", "url", "call-service", "none"];
 
 @customElement(SENSOR_CARD_EDITOR_NAME)
@@ -81,6 +82,53 @@ export class SensorCardEditor extends LitElement implements LovelaceCardEditor {
                 </div>
                 <div class="side-by-side">
                     <paper-dropdown-menu
+                        .label="${customLocalize(
+                            "editor.card.generic.icon_color"
+                        )} (${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.config.optional"
+                        )})"
+                    >
+                        <paper-listbox
+                            slot="dropdown-content"
+                            attr-for-selected="value"
+                            .selected=${this._config.icon_color ?? ""}
+                            .configValue=${"icon_color"}
+                            @iron-select=${this._valueChanged}
+                        >
+                            <paper-item value=""
+                                >${customLocalize(
+                                    "editor.card.generic.color_values.default"
+                                )}</paper-item
+                            >
+                            ${COLORS.map((color) => {
+                                const style = styleMap({
+                                    "--main-color": computeRgbColor(color),
+                                });
+                                return html`
+                                    <paper-item .value=${color}>
+                                        <span
+                                            class="circle-color"
+                                            style=/${style}
+                                        ></span>
+                                        ${computeColorName(color)}
+                                    </paper-item>
+                                `;
+                            })}
+                        </paper-listbox>
+                    </paper-dropdown-menu>
+                    <ha-formfield
+                        .label=${customLocalize("editor.card.generic.vertical")}
+                        .dir=${dir}
+                    >
+                        <ha-switch
+                            .checked=${!!this._config.vertical}
+                            .configValue=${"vertical"}
+                            @change=${this._valueChanged}
+                        ></ha-switch>
+                    </ha-formfield>
+                </div>
+                <div class="side-by-side">
+                    <paper-dropdown-menu
                         .label=${customLocalize(
                             "editor.card.sensor.primary_info"
                         )}
@@ -136,18 +184,6 @@ export class SensorCardEditor extends LitElement implements LovelaceCardEditor {
                             })}
                         </paper-listbox>
                     </paper-dropdown-menu>
-                </div>
-                <div class="side-by-side">
-                    <ha-formfield
-                        .label=${customLocalize("editor.card.generic.vertical")}
-                        .dir=${dir}
-                    >
-                        <ha-switch
-                            .checked=${!!this._config.vertical}
-                            .configValue=${"vertical"}
-                            @change=${this._valueChanged}
-                        ></ha-switch>
-                    </ha-formfield>
                 </div>
                 <div class="side-by-side">
                     <hui-action-editor

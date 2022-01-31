@@ -141,7 +141,7 @@ export class PersonCard extends LitElement implements LovelaceCard {
                                   <mushroom-badge-icon
                                       slot="badge"
                                       .icon=${stateIcon}
-                                      style=${styleMap({
+                                      style=/${styleMap({
                                           "--main-color": stateColor,
                                       })}
                                   ></mushroom-badge-icon>

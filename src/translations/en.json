@@ -4,7 +4,11 @@
             "generic": {
                 "vertical": "Vertical?",
                 "hide_state": "Hide state?",
-                "state": "State"
+                "state": "State",
+                "icon_color": "Icon color",
+                "color_values": {
+                    "default": "Default color"
+                }
             },
             "light": {
                 "show_brightness_control": "Brightness control?",

@@ -55,8 +55,22 @@ export class TemplateCardEditor
                     autocapitalize="none"
                     autocomplete="off"
                     spellcheck="false"
-                ></paper-textarea
-                ><paper-textarea
+                ></paper-textarea>
+                <paper-textarea
+                    .label="${customlocalize(
+                        "editor.card.generic.icon_color"
+                    )} (${this.hass.localize(
+                        "ui.panel.lovelace.editor.card.config.optional"
+                    )})"
+                    .value=${this._config.icon_color}
+                    .configValue=${"icon_color"}
+                    @keydown=${this._ignoreKeydown}
+                    @value-changed=${this._valueChanged}
+                    autocapitalize="none"
+                    autocomplete="off"
+                    spellcheck="false"
+                ></paper-textarea>
+                <paper-textarea
                     .label="${customlocalize(
                         "editor.card.template.primary"
                     )} (${this.hass.localize(

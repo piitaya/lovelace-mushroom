@@ -31,6 +31,8 @@ import {
     subscribeRenderTemplate,
 } from "../../utils/ws-templates";
 import { UnsubscribeFunc } from "home-assistant-js-websocket";
+import { styleMap } from "lit/directives/style-map.js";
+import { computeRgbColor } from "../../utils/colors";
 
 registerCustomCard({
     type: TEMPLATE_CARD_NAME,
@@ -38,7 +40,7 @@ registerCustomCard({
     description: "Card for custom rendering with templates",
 });
 
-const TEMPLATE_KEYS = ["icon", "primary", "secondary"] as const;
+const TEMPLATE_KEYS = ["icon", "icon_color", "primary", "secondary"] as const;
 type TemplateKey = typeof TEMPLATE_KEYS[number];
 
 @customElement(TEMPLATE_CARD_NAME)
@@ -113,10 +115,19 @@ export class TemplateCard extends LitElement implements LovelaceCard {
         }
 
         const icon = this._templateResults.icon?.result;
+        const iconColor = this._templateResults.icon_color?.result;
         const primary = this._templateResults.primary?.result;
         const secondary = this._templateResults.secondary?.result;
 
         const vertical = this._config.vertical;
+
+        const style = iconColor
+            ? styleMap({
+                  "--rgb-color": computeRgbColor(iconColor),
+                  "--icon-color": "rgb(var(--rgb-color))",
+                  "--shape-color": "rgba(var(--rgb-color), 0.2)",
+              })
+            : undefined;
 
         return html`<ha-card>
             <div class="container">
@@ -128,6 +139,7 @@ export class TemplateCard extends LitElement implements LovelaceCard {
                     })}
                 >
                     <mushroom-shape-icon
+                        style=${style}
                         slot="icon"
                         .icon=${icon}
                     ></mushroom-shape-icon>
@@ -232,15 +244,8 @@ export class TemplateCard extends LitElement implements LovelaceCard {
         return [
             cardStyle,
             css`
-                :host {
-                    --rgb-color: 61, 90, 254;
-                }
                 mushroom-state-item {
                     cursor: pointer;
-                }
-                mushroom-shape-icon {
-                    --icon-color: rgba(var(--rgb-color), 1);
-                    --shape-color: rgba(var(--rgb-color), 0.2);
                 }
             `,
         ];
