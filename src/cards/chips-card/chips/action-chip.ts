@@ -9,6 +9,7 @@ import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { LovelaceChip } from ".";
+import { computeRgbColor } from "../../../utils/colors";
 import { actionHandler } from "../../../utils/directives/action-handler-directive";
 import { ActionChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
@@ -52,11 +53,13 @@ export class ActionChip extends LitElement implements LovelaceChip {
         }
 
         const icon = this._config.icon ?? "mdi:flash";
+        const iconColor = this._config.icon_color;
 
-        const iconStyle: { [name: string]: string } = {};
-        if (this._config.icon_color) {
-            iconStyle.color = this._config.icon_color;
-        }
+        const iconStyle = iconColor
+            ? styleMap({
+                  "--color": computeRgbColor(iconColor),
+              })
+            : undefined;
 
         return html`
             <mushroom-chip
@@ -65,7 +68,7 @@ export class ActionChip extends LitElement implements LovelaceChip {
                     hasHold: hasAction(this._config.hold_action),
                 })}
             >
-                <ha-icon .icon=${icon} style=${styleMap(iconStyle)}></ha-icon>
+                <ha-icon .icon=${icon} style=${iconStyle}></ha-icon>
             </mushroom-chip>
         `;
     }
@@ -74,6 +77,9 @@ export class ActionChip extends LitElement implements LovelaceChip {
         return css`
             mushroom-chip {
                 cursor: pointer;
+            }
+            ha-icon {
+                color: rgb(var(--color));
             }
         `;
     }

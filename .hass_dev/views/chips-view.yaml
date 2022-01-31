@@ -40,11 +40,8 @@ cards:
             icon_color: red
           - type: entity
             entity: sensor.outside_temperature
-            icon_color: var(--state-climate-heat-color)
-          - type: entity
-            entity: sensor.outside_temperature
-            icon: mdi:home-thermometer
-            icon_color: var(--state-climate-heat-color)
+            icon: mdi:tree
+            icon_color: green
   - type: vertical-stack
     title: Back chips
     cards:
@@ -52,8 +49,7 @@ cards:
         chips:
           - type: back
           - type: back
-            icon: mdi:home
-            icon_color: var(--info-color)
+            icon: mdi:chevron-left
   - type: vertical-stack
     title: Menu chips
     cards:
@@ -62,7 +58,6 @@ cards:
           - type: menu
           - type: menu
             icon: mdi:home
-            icon_color: var(--info-color)
   - type: vertical-stack
     title: Action chip
     cards:
@@ -108,6 +103,12 @@ cards:
                 mdi:ceiling-light
               {% else %}
                 mdi:ceiling-light-outline
+              {% endif %}
+            icon_color: |
+              {% if is_state('light.bed_light', 'on') %}
+                orange
+              {% else %}
+                grey
               {% endif %}
             tap_action:
               action: call-service

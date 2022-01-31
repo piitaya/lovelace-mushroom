@@ -13,7 +13,9 @@ import {
     TemplateResult,
 } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import { styleMap } from "lit/directives/style-map.js";
 import { LovelaceChip } from ".";
+import { colorCss, computeRgbColor } from "../../../utils/colors";
 import { actionHandler } from "../../../utils/directives/action-handler-directive";
 import { TemplateChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
@@ -28,7 +30,7 @@ import {
 import "./menu-chip-editor";
 import "./template-chip-editor";
 
-const TEMPLATE_KEYS = ["content", "icon"] as const;
+const TEMPLATE_KEYS = ["content", "icon", "icon_color"] as const;
 type TemplateKey = typeof TEMPLATE_KEYS[number];
 
 @customElement(computeChipComponentName("template"))
@@ -88,14 +90,23 @@ export class TemplateChip extends LitElement implements LovelaceChip {
         }
 
         const icon = this._templateResults.icon?.result;
+        const iconColor = this._templateResults.icon_color?.result;
         const content = this._templateResults.content?.result;
+
+        const iconStyle = iconColor
+            ? styleMap({
+                  "--color": computeRgbColor(iconColor),
+              })
+            : undefined;
 
         return html`
             <mushroom-chip
                 @action=${this._handleAction}
                 .actionHandler=${actionHandler()}
             >
-                ${icon ? html`<ha-icon .icon=${icon}></ha-icon>` : null}
+                ${icon
+                    ? html`<ha-icon .icon=${icon} style=${iconStyle}></ha-icon>`
+                    : null}
                 ${content ? html`<span>${content}</span>` : null}
             </mushroom-chip>
         `;
@@ -192,6 +203,9 @@ export class TemplateChip extends LitElement implements LovelaceChip {
         return css`
             mushroom-chip {
                 cursor: pointer;
+            }
+            ha-icon {
+                color: rgb(var(--color));
             }
         `;
     }

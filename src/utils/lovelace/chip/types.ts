@@ -11,7 +11,6 @@ export type ActionChipConfig = {
 export type BackChipConfig = {
     type: "back";
     icon?: string;
-    icon_color?: string;
 };
 
 export type EntityChipConfig = {
@@ -26,7 +25,6 @@ export type EntityChipConfig = {
 export type MenuChipConfig = {
     type: "menu";
     icon?: string;
-    icon_color?: string;
 };
 
 export type WeatherChipConfig = {
@@ -44,6 +42,7 @@ export type TemplateChipConfig = {
     tap_action?: ActionConfig;
     content?: string;
     icon?: string;
+    icon_color?: string;
     entity_id?: string | string[];
 };
 

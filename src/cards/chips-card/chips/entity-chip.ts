@@ -8,7 +8,10 @@ import {
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import { classMap } from "lit/directives/class-map.js";
+import { styleMap } from "lit/directives/style-map.js";
 import { LovelaceChip } from ".";
+import { computeRgbColor } from "../../../utils/colors";
 import { actionHandler } from "../../../utils/directives/action-handler-directive";
 import { EntityChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
@@ -57,6 +60,13 @@ export class EntityChip extends LitElement implements LovelaceChip {
         const entity = this.hass.states[entity_id];
 
         const icon = this._config.icon ?? stateIcon(entity);
+        const iconColor = this._config.icon_color;
+
+        const iconStyle = iconColor
+            ? styleMap({
+                  "--color": computeRgbColor(iconColor),
+              })
+            : undefined;
 
         const stateDisplay = computeStateDisplay(
             this.hass.localize,
@@ -71,7 +81,7 @@ export class EntityChip extends LitElement implements LovelaceChip {
                     hasHold: hasAction(this._config.hold_action),
                 })}
             >
-                <ha-icon .icon=${icon}></ha-icon>
+                <ha-icon .icon=${icon} style=${iconStyle}></ha-icon>
                 <span>${stateDisplay}</span>
             </mushroom-chip>
         `;
@@ -81,6 +91,9 @@ export class EntityChip extends LitElement implements LovelaceChip {
         return css`
             mushroom-chip {
                 cursor: pointer;
+            }
+            ha-icon {
+                color: rgb(var(--color));
             }
         `;
     }

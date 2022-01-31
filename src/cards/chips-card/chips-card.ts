@@ -19,6 +19,7 @@ import {
 import "./chips";
 import "./chips-card-editor";
 import { LovelaceChipConfig } from "../../utils/lovelace/chip/types";
+import { cardStyle } from "../../utils/card-styles";
 
 export interface ChipsCardConfig extends LovelaceCardConfig {
     chips: LovelaceChipConfig[];
@@ -96,21 +97,24 @@ export class ChipsCard extends LitElement implements LovelaceCard {
     }
 
     static get styles(): CSSResultGroup {
-        return css`
-            .container {
-                display: flex;
-                flex-direction: row;
-                align-items: flex-start;
-                justify-content: flex-start;
-                flex-wrap: wrap;
-                margin-top: -8px;
-            }
-            .container * {
-                margin-top: 8px;
-            }
-            .container *:not(:last-child) {
-                margin-right: 8px;
-            }
-        `;
+        return [
+            cardStyle,
+            css`
+                .container {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: flex-start;
+                    justify-content: flex-start;
+                    flex-wrap: wrap;
+                    margin-top: -8px;
+                }
+                .container * {
+                    margin-top: 8px;
+                }
+                .container *:not(:last-child) {
+                    margin-right: 8px;
+                }
+            `,
+        ];
     }
 }

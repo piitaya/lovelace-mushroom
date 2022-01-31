@@ -1,6 +1,6 @@
 import { css } from "lit";
 import { any, object, string } from "superstruct";
-import { colorCss } from "./card-styles";
+import { colorCss } from "./colors";
 
 export const configElementStyle = css`
     :host {

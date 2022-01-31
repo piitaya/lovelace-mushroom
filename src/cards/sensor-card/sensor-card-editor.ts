@@ -108,7 +108,7 @@ export class SensorCardEditor extends LitElement implements LovelaceCardEditor {
                                     <paper-item .value=${color}>
                                         <span
                                             class="circle-color"
-                                            style=/${style}
+                                            style=${style}
                                         ></span>
                                         ${computeColorName(color)}
                                     </paper-item>
