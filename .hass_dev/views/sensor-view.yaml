@@ -13,6 +13,48 @@ cards:
     columns: 2
     square: false
   - type: grid
+    title: Primary and secondary info
+    cards:
+      - type: custom:mushroom-sensor-card
+        entity: sensor.power_consumption
+        secondary_info: name
+        primary_info: state
+      - type: custom:mushroom-sensor-card
+        entity: sensor.power_consumption
+        secondary_info: none
+      - type: custom:mushroom-sensor-card
+        entity: sensor.power_consumption
+        secondary_info: last-updated
+      - type: custom:mushroom-sensor-card
+        entity: sensor.power_consumption
+        secondary_info: last-changed
+      - type: custom:mushroom-sensor-card
+        entity: sensor.power_consumption
+        primary_info: state
+        secondary_info: none
+      - type: custom:mushroom-sensor-card
+        entity: sensor.power_consumption
+        primary_info: state
+        secondary_info: last-updated
+      - type: custom:mushroom-sensor-card
+        entity: sensor.power_consumption
+        primary_info: state
+        secondary_info: last-changed
+    columns: 2
+    square: false
+  - type: grid
+    title: Vertical
+    cards:
+      - type: custom:mushroom-sensor-card
+        entity: sensor.power_consumption
+        vertical: true
+      - type: custom:mushroom-sensor-card
+        entity: sensor.power_consumption
+        vertical: true
+        secondary_info: none
+    columns: 2
+    square: false
+  - type: grid
     title: Sensors
     cards:
       - type: custom:mushroom-sensor-card
@@ -32,17 +74,5 @@ cards:
         entity: binary_sensor.basement_floor_wet
       - type: custom:mushroom-sensor-card
         entity: binary_sensor.movement_backyard
-    columns: 2
-    square: false
-  - type: grid
-    title: Vertical
-    cards:
-      - type: custom:mushroom-sensor-card
-        entity: sensor.power_consumption
-        vertical: true
-      - type: custom:mushroom-sensor-card
-        entity: sensor.power_consumption
-        vertical: true
-        hide_state: true
     columns: 2
     square: false

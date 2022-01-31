@@ -167,9 +167,8 @@ export class CoverCard extends LitElement implements LovelaceCard {
                             : null}
                         <mushroom-state-info
                             slot="info"
-                            .label=${name}
-                            .value=${stateValue}
-                            .hide_value=${hideState}
+                            .primary=${name}
+                            .secondary=${!hideState && stateValue}
                         ></mushroom-state-info>
                     </mushroom-state-item>
                     ${this._controls.length > 0

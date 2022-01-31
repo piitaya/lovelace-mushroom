@@ -154,25 +154,23 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
         }
         const target = ev.target! as EditorTarget;
         const value =
-            target.checked !== undefined ? target.checked : ev.detail.value;
+            target.checked ?? ev.detail.value ?? ev.detail.item?.value;
 
-        if (this[`_${target.configValue}`] === value) {
+        if (!target.configValue || this._config[target.configValue] === value) {
             return;
         }
-
-        let newConfig;
         if (target.configValue) {
             if (!value) {
-                newConfig = { ...this._config };
-                delete newConfig[target.configValue!];
+                this._config = { ...this._config };
+                delete this._config[target.configValue!];
             } else {
-                newConfig = {
+                this._config = {
                     ...this._config,
                     [target.configValue!]: value,
                 };
             }
         }
-        fireEvent(this, "config-changed", { config: newConfig });
+        fireEvent(this, "config-changed", { config: this._config });
     }
 
     static get styles(): CSSResultGroup {

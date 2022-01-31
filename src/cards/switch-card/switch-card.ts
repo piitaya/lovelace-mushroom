@@ -87,7 +87,7 @@ export class SwitchCard extends LitElement implements LovelaceCard {
         const name = this._config.name ?? entity.attributes.friendly_name;
         const icon = this._config.icon ?? stateIcon(entity);
         const vertical = this._config.vertical;
-        const hide_state = !!this._config.hide_state;
+        const hideState = !!this._config.hide_state;
 
         const state = entity.state;
 
@@ -120,9 +120,8 @@ export class SwitchCard extends LitElement implements LovelaceCard {
                         : null}
                     <mushroom-state-info
                         slot="info"
-                        .label=${name}
-                        .value=${stateDisplay}
-                        .hide_value=${hide_state}
+                        .primary=${name}
+                        .secondary=${!hideState && stateDisplay}
                     ></mushroom-state-info>
                 </mushroom-state-item>
             </div>

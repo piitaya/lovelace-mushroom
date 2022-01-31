@@ -7,12 +7,12 @@ cards:
     title: Simple
     cards:
       - type: custom:mushroom-template-card
-        name: Hello, {{user}}
-        state: How are you?
+        primary: Hello, {{user}}
+        secondary: How are you?
         icon: mdi:home
       - type: custom:mushroom-template-card
-        name: Number of entities
-        state: |
+        primary: Number of entities
+        secondary: |
           {{ states | count }} entities
         icon: mdi:format-list-bulleted
     columns: 2
@@ -21,13 +21,13 @@ cards:
     title: Vertical
     cards:
       - type: custom:mushroom-template-card
-        name: Hello, {{user}}
-        state: How are you?
+        primary: Hello, {{user}}
+        secondary: How are you?
         icon: mdi:home
         vertical: true
       - type: custom:mushroom-template-card
-        name: Number of entities
-        state: |
+        primary: Number of entities
+        secondary: |
           {{ states | count }} entities
         icon: mdi:format-list-bulleted
         vertical: true

@@ -38,7 +38,7 @@ registerCustomCard({
     description: "Card for custom rendering with templates",
 });
 
-const TEMPLATE_KEYS = ["state", "icon", "name"] as const;
+const TEMPLATE_KEYS = ["icon", "primary", "secondary"] as const;
 type TemplateKey = typeof TEMPLATE_KEYS[number];
 
 @customElement(TEMPLATE_CARD_NAME)
@@ -54,8 +54,8 @@ export class TemplateCard extends LitElement implements LovelaceCard {
     ): Promise<TemplateCardConfig> {
         return {
             type: `custom:${TEMPLATE_CARD_NAME}`,
-            name: "Hello, {{user}}",
-            state: "How are you?",
+            primary: "Hello, {{user}}",
+            secondary: "How are you?",
             icon: "mdi:home",
         };
     }
@@ -112,9 +112,9 @@ export class TemplateCard extends LitElement implements LovelaceCard {
             return html``;
         }
 
-        const name = this._templateResults.name?.result;
         const icon = this._templateResults.icon?.result;
-        const state = this._templateResults.state?.result;
+        const primary = this._templateResults.primary?.result;
+        const secondary = this._templateResults.secondary?.result;
 
         const vertical = this._config.vertical;
 
@@ -133,9 +133,8 @@ export class TemplateCard extends LitElement implements LovelaceCard {
                     ></mushroom-shape-icon>
                     <mushroom-state-info
                         slot="info"
-                        .label=${name}
-                        .value=${state}
-                        hide_state=${!state}
+                        .primary=${primary}
+                        .secondary=${secondary}
                     ></mushroom-state-info>
                 </mushroom-state-item>
             </div>
