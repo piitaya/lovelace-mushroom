@@ -34,8 +34,12 @@
                     "state": "État",
                     "last-changed": "Dernière modification",
                     "last-updated": "Dernière mise à jour",
-                    "none": "Aucun"
+                    "none": "Aucune"
                 }
+            },
+            "template": {
+                "primary": "Information principale",
+                "secondary": "Information secondaire"
             }
         },
         "chip": {

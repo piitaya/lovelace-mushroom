@@ -135,8 +135,8 @@ export class SensorCard extends LitElement implements LovelaceCard {
                         : null}
                     <mushroom-state-info
                         slot="info"
-                        .label=${primary}
-                        .value=${secondary}
+                        .primary=${primary}
+                        .secondary=${secondary}
                     ></mushroom-state-info>
                 </mushroom-state-item>
             </div>

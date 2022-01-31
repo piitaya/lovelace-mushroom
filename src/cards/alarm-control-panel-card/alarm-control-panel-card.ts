@@ -198,9 +198,8 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                             : null}
                         <mushroom-state-info
                             slot="info"
-                            .label=${name}
-                            .value=${stateDisplay}
-                            .hide_value=${hideState}
+                            .primary=${name}
+                            .secondary=${!hideState && stateDisplay}
                         ></mushroom-state-info>
                     </mushroom-state-item>
                     ${actions.length > 0

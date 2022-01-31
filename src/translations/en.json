@@ -36,6 +36,10 @@
                     "last-updated": "Last Updated",
                     "none": "None"
                 }
+            },
+            "template": {
+                "primary": "Primary information",
+                "secondary": "Secondary information"
             }
         },
         "chip": {
