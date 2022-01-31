@@ -12,7 +12,12 @@ import setupCustomlocalize from "../../localize";
 import { configElementStyle } from "../../utils/editor-styles";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { SENSOR_CARD_EDITOR_NAME, SENSOR_ENTITY_DOMAINS } from "./const";
-import { SensorCardConfig, sensorCardConfigStruct } from "./sensor-card-config";
+import {
+    PRIMARY_INFOS,
+    SECONDARY_INFOS,
+    SensorCardConfig,
+    sensorCardConfigStruct,
+} from "./sensor-card-config";
 
 const actions = ["more-info", "navigate", "url", "call-service", "none"];
 
@@ -75,6 +80,64 @@ export class SensorCardEditor extends LitElement implements LovelaceCardEditor {
                     ></ha-icon-picker>
                 </div>
                 <div class="side-by-side">
+                    <paper-dropdown-menu
+                        .label=${customLocalize(
+                            "editor.card.sensor.primary_info"
+                        )}
+                    >
+                        <paper-listbox
+                            slot="dropdown-content"
+                            attr-for-selected="value"
+                            .selected=${this._config.primary_info ?? ""}
+                            .configValue=${"primary_info"}
+                            @iron-select=${this._valueChanged}
+                        >
+                            <paper-item value="">
+                                ${customLocalize(
+                                    "editor.card.sensor.info_values.default"
+                                )}
+                            </paper-item>
+                            ${PRIMARY_INFOS.map((info) => {
+                                return html`
+                                    <paper-item .value=${info}>
+                                        ${customLocalize(
+                                            `editor.card.sensor.info_values.${info}`
+                                        )}
+                                    </paper-item>
+                                `;
+                            })}
+                        </paper-listbox>
+                    </paper-dropdown-menu>
+                    <paper-dropdown-menu
+                        .label=${customLocalize(
+                            "editor.card.sensor.secondary_info"
+                        )}
+                    >
+                        <paper-listbox
+                            slot="dropdown-content"
+                            attr-for-selected="value"
+                            .selected=${this._config.secondary_info ?? ""}
+                            .configValue=${"secondary_info"}
+                            @iron-select=${this._valueChanged}
+                        >
+                            <paper-item value="">
+                                ${customLocalize(
+                                    "editor.card.sensor.info_values.default"
+                                )}
+                            </paper-item>
+                            ${SECONDARY_INFOS.map((info) => {
+                                return html`
+                                    <paper-item .value=${info}>
+                                        ${customLocalize(
+                                            `editor.card.sensor.info_values.${info}`
+                                        )}
+                                    </paper-item>
+                                `;
+                            })}
+                        </paper-listbox>
+                    </paper-dropdown-menu>
+                </div>
+                <div class="side-by-side">
                     <ha-formfield
                         .label=${customLocalize("editor.card.generic.vertical")}
                         .dir=${dir}
@@ -82,18 +145,6 @@ export class SensorCardEditor extends LitElement implements LovelaceCardEditor {
                         <ha-switch
                             .checked=${!!this._config.vertical}
                             .configValue=${"vertical"}
-                            @change=${this._valueChanged}
-                        ></ha-switch>
-                    </ha-formfield>
-                    <ha-formfield
-                        .label=${customLocalize(
-                            "editor.card.generic.hide_state"
-                        )}
-                        .dir=${dir}
-                    >
-                        <ha-switch
-                            .checked=${!!this._config.hide_state}
-                            .configValue=${"hide_state"}
                             @change=${this._valueChanged}
                         ></ha-switch>
                     </ha-formfield>
@@ -140,25 +191,23 @@ export class SensorCardEditor extends LitElement implements LovelaceCardEditor {
         }
         const target = ev.target! as EditorTarget;
         const value =
-            target.checked !== undefined ? target.checked : ev.detail.value;
+            target.checked ?? ev.detail.value ?? ev.detail.item?.value;
 
-        if (this[`_${target.configValue}`] === value) {
+        if (!target.configValue || this._config[target.configValue] === value) {
             return;
         }
-
-        let newConfig;
         if (target.configValue) {
             if (!value) {
-                newConfig = { ...this._config };
-                delete newConfig[target.configValue!];
+                this._config = { ...this._config };
+                delete this._config[target.configValue!];
             } else {
-                newConfig = {
+                this._config = {
                     ...this._config,
                     [target.configValue!]: value,
                 };
             }
         }
-        fireEvent(this, "config-changed", { config: newConfig });
+        fireEvent(this, "config-changed", { config: this._config });
     }
 
     static get styles(): CSSResultGroup {

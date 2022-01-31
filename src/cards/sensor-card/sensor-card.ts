@@ -24,7 +24,7 @@ import {
 } from "./const";
 import { SensorCardConfig } from "./sensor-card-config";
 import "./sensor-card-editor";
-import { isActive } from "./utils";
+import { getInfo, isActive } from "./utils";
 
 registerCustomCard({
     type: SENSOR_CARD_NAME,
@@ -85,15 +85,29 @@ export class SensorCard extends LitElement implements LovelaceCard {
         const entityId = this._config.entity;
         const entity = this.hass.states[entityId];
 
-        const name = this._config.name ?? entity.attributes.friendly_name;
+        const name = this._config.name ?? entity.attributes.friendly_name ?? "";
         const icon = this._config.icon ?? stateIcon(entity);
         const vertical = this._config.vertical;
-        const hide_state = !!this._config.hide_state;
 
         const stateDisplay = computeStateDisplay(
             this.hass.localize,
             entity,
             this.hass.locale
+        );
+
+        const primary = getInfo(
+            this._config.primary_info ?? "name",
+            name,
+            stateDisplay,
+            entity,
+            this.hass
+        );
+        const secondary = getInfo(
+            this._config.secondary_info ?? "state",
+            name,
+            stateDisplay,
+            entity,
+            this.hass
         );
 
         return html`<ha-card>
@@ -111,17 +125,18 @@ export class SensorCard extends LitElement implements LovelaceCard {
                         .icon=${icon}
                     ></mushroom-shape-icon>
                     ${entity.state === "unavailable"
-                        ? html` <mushroom-badge-icon
-                              class="unavailable"
-                              slot="badge"
-                              icon="mdi:help"
-                          ></mushroom-badge-icon>`
+                        ? html`
+                              <mushroom-badge-icon
+                                  class="unavailable"
+                                  slot="badge"
+                                  icon="mdi:help"
+                              ></mushroom-badge-icon>
+                          `
                         : null}
                     <mushroom-state-info
                         slot="info"
-                        .label=${name}
-                        .value=${stateDisplay}
-                        .hide_value=${hide_state}
+                        .label=${primary}
+                        .value=${secondary}
                     ></mushroom-state-info>
                 </mushroom-state-item>
             </div>

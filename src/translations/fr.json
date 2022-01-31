@@ -24,6 +24,18 @@
             },
             "alarm_control_panel": {
                 "displayed_states": "États affichés"
+            },
+            "sensor": {
+                "primary_info": "Information principale",
+                "secondary_info": "Information secondaire",
+                "info_values": {
+                    "default": "Information par défaut",
+                    "name": "Nom",
+                    "state": "État",
+                    "last-changed": "Dernière modification",
+                    "last-updated": "Dernière mise à jour",
+                    "none": "Aucun"
+                }
             }
         },
         "chip": {
