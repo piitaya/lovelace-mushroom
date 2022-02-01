@@ -55,7 +55,10 @@
                 "clear": "Clear"
             },
             "generic": {
-                "icon_color": "Icon color"
+                "icon_color": "Icon color",
+                "color_values": {
+                    "default": "Default color"
+                }
             },
             "weather": {
                 "show_conditions": "Conditions?",
