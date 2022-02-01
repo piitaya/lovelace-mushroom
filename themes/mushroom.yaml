@@ -1,0 +1,28 @@
+Mushroom:
+    ha-card-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.16)
+    ha-card-border-radius: 12px
+    mush-spacing: 12px
+    mush-rgb-red: 244, 67, 54
+    mush-rgb-pink: 233, 30, 99
+    mush-rgb-purple: 156, 39, 176
+    mush-rgb-deep-purple: 103, 58, 183
+    mush-rgb-indigo: 63, 81, 181
+    mush-rgb-blue: 33, 150, 243
+    mush-rgb-light-blue: 3, 169, 244
+    mush-rgb-cyan: 0, 188, 212
+    mush-rgb-teal: 0, 150, 136
+    mush-rgb-green: 76, 175, 80
+    mush-rgb-light-green: 139, 195, 74
+    mush-rgb-lime: 205, 220, 57
+    mush-rgb-yellow: 255, 235, 59
+    mush-rgb-amber: 255, 193, 7
+    mush-rgb-orange: 255, 152, 0
+    mush-rgb-deep-orange: 76, 175, 80
+    mush-rgb-brown: 121, 85, 72
+    mush-rgb-grey: 158, 158, 158
+    mush-rgb-blue-grey: 96, 125, 139
+    mush-rgb-black: 0, 0, 0
+    mush-rgb-white: 255, 255, 255
+    modes:
+        light: {}
+        dark: {}

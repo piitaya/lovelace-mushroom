@@ -1,5 +1,5 @@
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { property, customElement } from "lit/decorators.js";
+import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 
@@ -117,7 +117,7 @@ export class SliderItem extends LitElement {
                 height: 42px;
             }
             .container > *:not(:last-child) {
-                margin-right: 12px;
+                margin-right: var(--spacing);
             }
             .slider {
                 position: relative;

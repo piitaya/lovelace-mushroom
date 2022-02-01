@@ -18,6 +18,24 @@ cards:
     columns: 2
     square: false
   - type: grid
+    title: Icon colors
+    cards:
+      - type: custom:mushroom-template-card
+        primary: Number of entities
+        secondary: |
+          {{ states | count }} entities
+        icon: mdi:format-list-bulleted
+        icon_color: blue
+      - type: custom:mushroom-template-card
+        primary: Number of entities
+        secondary: |
+          {{ states | count }} entities
+        icon: mdi:format-list-bulleted
+        icon_color: |
+          {{ "green" if states | count > 50 else "red" }}  
+    columns: 2
+    square: false
+  - type: grid
     title: Vertical
     cards:
       - type: custom:mushroom-template-card

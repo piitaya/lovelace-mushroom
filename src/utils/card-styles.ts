@@ -1,6 +1,11 @@
 import { css } from "lit";
+import { colorCss } from "./colors";
 
 export const cardStyle = css`
+    :host {
+        ${colorCss}
+        --spacing: var(--mush-spacing, 12px)
+    }
     ha-card {
         height: 100%;
         box-sizing: border-box;
@@ -11,10 +16,10 @@ export const cardStyle = css`
         justify-content: center;
         display: flex;
         flex-direction: column;
-        padding: 12px;
+        padding: var(--spacing);
     }
     .container > *:not(:last-child) {
-        margin-bottom: 12px;
+        margin-bottom: var(--spacing);
     }
     .actions {
         display: flex;
@@ -23,7 +28,7 @@ export const cardStyle = css`
         overflow-y: auto;
     }
     .actions *:not(:last-child) {
-        margin-right: 12px;
+        margin-right: var(--spacing);
     }
     .unavailable {
         --main-color: var(--warning-color);

@@ -221,15 +221,12 @@ export class LightCard extends LitElement implements LovelaceCard {
         return [
             cardStyle,
             css`
-                :host {
-                    --rgb-color: 255, 145, 1;
-                }
                 mushroom-state-item {
                     cursor: pointer;
                 }
                 mushroom-shape-icon {
-                    --icon-color: rgba(var(--rgb-color), 1);
-                    --shape-color: rgba(var(--rgb-color), 0.2);
+                    --icon-color: rgba(var(--rgb-state-light), 1);
+                    --shape-color: rgba(var(--rgb-state-light), 0.2);
                 }
                 mushroom-light-brightness-control,
                 mushroom-light-color-temp-control {

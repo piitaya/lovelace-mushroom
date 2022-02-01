@@ -1,7 +1,13 @@
 import { fireEvent, HomeAssistant } from "custom-card-helpers";
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import { styleMap } from "lit/directives/style-map.js";
 import setupCustomlocalize from "../../../localize";
+import {
+    COLORS,
+    computeColorName,
+    computeRgbColor,
+} from "../../../utils/colors";
 import { configElementStyle } from "../../../utils/editor-styles";
 import { ActionChipConfig } from "../../../utils/lovelace/chip/types";
 import { EditorTarget } from "../../../utils/lovelace/editor/types";
@@ -25,7 +31,7 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
             return html``;
         }
 
-        const customlocalize = setupCustomlocalize(this.hass);
+        const customLocalize = setupCustomlocalize(this.hass);
 
         return html`
             <div class="card-config">
@@ -41,16 +47,35 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
                         .configValue=${"icon"}
                         @value-changed=${this._valueChanged}
                     ></ha-icon-picker>
-                    <paper-input
-                        .label="${customlocalize(
+                    <paper-dropdown-menu
+                        .label="${customLocalize(
                             "editor.chip.generic.icon_color"
                         )} (${this.hass.localize(
                             "ui.panel.lovelace.editor.card.config.optional"
                         )})"
-                        .value=${this._config.icon_color}
-                        .configValue=${"icon_color"}
-                        @value-changed=${this._valueChanged}
-                    ></paper-input>
+                    >
+                        <paper-listbox
+                            slot="dropdown-content"
+                            attr-for-selected="value"
+                            .selected=${this._config.icon_color ?? ""}
+                            .configValue=${"icon_color"}
+                            @iron-select=${this._valueChanged}
+                        >
+                            <paper-item value=""
+                                >${customLocalize(
+                                    "editor.chip.generic.color_values.default"
+                                )}</paper-item
+                            >
+                            ${COLORS.map(
+                                (color) => html`
+                                    <paper-item .value=${color}>
+                                        ${this.renderColorCircle(color)}
+                                        ${computeColorName(color)}
+                                    </paper-item>
+                                `
+                            )}
+                        </paper-listbox>
+                    </paper-dropdown-menu>
                 </div>
                 <div class="side-by-side">
                     <hui-action-editor
@@ -88,31 +113,38 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
         `;
     }
 
+    private renderColorCircle(color: string) {
+        return html` <span
+            class="circle-color"
+            style=${styleMap({
+                "--main-color": computeRgbColor(color),
+            })}
+        ></span>`;
+    }
+
     private _valueChanged(ev: CustomEvent): void {
         if (!this._config || !this.hass) {
             return;
         }
         const target = ev.target! as EditorTarget;
         const value =
-            target.checked !== undefined ? target.checked : ev.detail.value;
+            target.checked ?? ev.detail.value ?? ev.detail.item?.value;
 
-        if (this[`_${target.configValue}`] === value) {
+        if (!target.configValue || this._config[target.configValue] === value) {
             return;
         }
-
-        let newConfig;
         if (target.configValue) {
             if (!value) {
-                newConfig = { ...this._config };
-                delete newConfig[target.configValue!];
+                this._config = { ...this._config };
+                delete this._config[target.configValue!];
             } else {
-                newConfig = {
+                this._config = {
                     ...this._config,
                     [target.configValue!]: value,
                 };
             }
         }
-        fireEvent(this, "config-changed", { config: newConfig });
+        fireEvent(this, "config-changed", { config: this._config });
     }
 
     static get styles(): CSSResultGroup {

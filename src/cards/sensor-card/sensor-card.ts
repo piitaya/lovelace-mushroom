@@ -10,11 +10,13 @@ import {
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import { styleMap } from "lit/directives/style-map.js";
 import "../../shared/badge-icon";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
 import { cardStyle } from "../../utils/card-styles";
+import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
 import {
@@ -110,6 +112,14 @@ export class SensorCard extends LitElement implements LovelaceCard {
             this.hass
         );
 
+        const iconColor = this._config.icon_color;
+        const iconStyle = {};
+        if (iconColor) {
+            const iconRgbColor = computeRgbColor(iconColor);
+            iconStyle["--icon-color"] = `rgb(${iconRgbColor})`;
+            iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
+        }
+
         return html`<ha-card>
             <div class="container">
                 <mushroom-state-item
@@ -123,6 +133,7 @@ export class SensorCard extends LitElement implements LovelaceCard {
                         slot="icon"
                         .disabled=${!isActive(entity)}
                         .icon=${icon}
+                        style=${styleMap(iconStyle)}
                     ></mushroom-shape-icon>
                     ${entity.state === "unavailable"
                         ? html`
@@ -147,15 +158,12 @@ export class SensorCard extends LitElement implements LovelaceCard {
         return [
             cardStyle,
             css`
-                :host {
-                    --rgb-color: 61, 90, 254;
-                }
                 mushroom-state-item {
                     cursor: pointer;
                 }
                 mushroom-shape-icon {
-                    --icon-color: rgba(var(--rgb-color), 1);
-                    --shape-color: rgba(var(--rgb-color), 0.2);
+                    --icon-color: rgb(var(--rgb-state-sensor));
+                    --shape-color: rgba(var(--rgb-state-sensor), 0.2);
                 }
             `,
         ];

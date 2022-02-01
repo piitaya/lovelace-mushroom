@@ -4,7 +4,11 @@
             "generic": {
                 "vertical": "Vertical ?",
                 "hide_state": "Cacher l'état ?",
-                "state": "État"
+                "state": "État",
+                "icon_color": "Couleur de l'icône",
+                "color_values": {
+                    "default": "Couleur par défaut"
+                }
             },
             "light": {
                 "show_brightness_control": "Contrôle de luminosité ?",
@@ -51,7 +55,10 @@
                 "clear": "Effacer"
             },
             "generic": {
-                "icon_color": "Couleur de l'icône"
+                "icon_color": "Couleur de l'icône",
+                "color_values": {
+                    "default": "Couleur par défaut"
+                }
             },
             "weather": {
                 "show_conditons": "Conditions ?",

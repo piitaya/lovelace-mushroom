@@ -21,6 +21,7 @@ export interface SensorCardConfig extends LovelaceCardConfig {
     entity: string;
     icon?: string;
     name?: string;
+    icon_color?: string;
     vertical?: boolean;
     primary_info?: PrimaryInfo;
     secondary_info?: SecondaryInfo;
@@ -34,6 +35,7 @@ export const sensorCardConfigStruct = assign(
         entity: string(),
         icon: optional(string()),
         name: optional(string()),
+        icon_color: optional(string()),
         vertical: optional(boolean()),
         primary_info: optional(enums(PRIMARY_INFOS)),
         secondary_info: optional(enums(SECONDARY_INFOS)),

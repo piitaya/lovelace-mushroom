@@ -23,8 +23,6 @@ export class MenuChipEditor extends LitElement implements LovelaceChipEditor {
             return html``;
         }
 
-        const customlocalize = setupCustomlocalize(this.hass);
-
         return html`
             <div class="card-config">
                 <div class="side-by-side">
@@ -39,16 +37,6 @@ export class MenuChipEditor extends LitElement implements LovelaceChipEditor {
                         .configValue=${"icon"}
                         @value-changed=${this._valueChanged}
                     ></ha-icon-picker>
-                    <paper-input
-                        .label="${customlocalize(
-                            "editor.chip.generic.icon_color"
-                        )} (${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.config.optional"
-                        )})"
-                        .value=${this._config.icon_color}
-                        .configValue=${"icon_color"}
-                        @value-changed=${this._valueChanged}
-                    ></paper-input>
                 </div>
             </div>
         `;
@@ -60,25 +48,23 @@ export class MenuChipEditor extends LitElement implements LovelaceChipEditor {
         }
         const target = ev.target! as EditorTarget;
         const value =
-            target.checked !== undefined ? target.checked : ev.detail.value;
+            target.checked ?? ev.detail.value ?? ev.detail.item?.value;
 
-        if (this[`_${target.configValue}`] === value) {
+        if (!target.configValue || this._config[target.configValue] === value) {
             return;
         }
-
-        let newConfig;
         if (target.configValue) {
             if (!value) {
-                newConfig = { ...this._config };
-                delete newConfig[target.configValue!];
+                this._config = { ...this._config };
+                delete this._config[target.configValue!];
             } else {
-                newConfig = {
+                this._config = {
                     ...this._config,
                     [target.configValue!]: value,
                 };
             }
         }
-        fireEvent(this, "config-changed", { config: newConfig });
+        fireEvent(this, "config-changed", { config: this._config });
     }
 
     static get styles(): CSSResultGroup {

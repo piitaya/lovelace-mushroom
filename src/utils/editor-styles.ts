@@ -1,7 +1,11 @@
 import { css } from "lit";
 import { any, object, string } from "superstruct";
+import { colorCss } from "./colors";
 
 export const configElementStyle = css`
+    :host {
+        ${colorCss}
+    }
     ha-switch {
         padding: 16px 6px;
     }
@@ -19,6 +23,13 @@ export const configElementStyle = css`
     }
     .suffix {
         margin: 0 8px;
+    }
+    .circle-color {
+        background-color: rgb(var(--main-color));
+        border-radius: 10px;
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
     }
 `;
 

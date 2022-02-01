@@ -38,12 +38,9 @@ export class LightBrighnessControl extends LitElement {
 
     static get styles(): CSSResultGroup {
         return css`
-            :host {
-                --rgb-color: 255, 145, 1;
-            }
             mushroom-slider {
-                --main-color: rgba(var(--rgb-color), 1);
-                --bg-color: rgba(var(--rgb-color), 0.2);
+                --main-color: rgba(var(--rgb-state-light), 1);
+                --bg-color: rgba(var(--rgb-state-light), 0.2);
             }
         `;
     }

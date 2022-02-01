@@ -60,7 +60,7 @@ export class CoverButtonsControl extends LitElement {
                 width: 100%;
             }
             :host *:not(:last-child) {
-                margin-right: 12px;
+                margin-right: var(--spacing);
             }
             mushroom-button {
                 flex: 1;

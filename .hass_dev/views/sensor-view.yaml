@@ -43,6 +43,17 @@ cards:
     columns: 2
     square: false
   - type: grid
+    title: Icon colors
+    cards:
+      - type: custom:mushroom-sensor-card
+        entity: sensor.power_consumption
+        icon_color: red
+      - type: custom:mushroom-sensor-card
+        entity: sensor.power_consumption
+        icon_color: green
+    columns: 2
+    square: false
+  - type: grid
     title: Vertical
     cards:
       - type: custom:mushroom-sensor-card

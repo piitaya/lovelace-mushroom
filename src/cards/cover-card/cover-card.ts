@@ -221,15 +221,12 @@ export class CoverCard extends LitElement implements LovelaceCard {
         return [
             cardStyle,
             css`
-                :host {
-                    --rgb-color: 61, 90, 254;
-                }
                 mushroom-state-item {
                     cursor: pointer;
                 }
                 mushroom-shape-icon {
-                    --icon-color: rgba(var(--rgb-color), 1);
-                    --shape-color: rgba(var(--rgb-color), 0.2);
+                    --icon-color: rgb(var(--rgb-state-cover));
+                    --shape-color: rgba(var(--rgb-state-cover), 0.2);
                 }
                 mushroom-cover-buttons-control,
                 mushroom-cover-position-control {
