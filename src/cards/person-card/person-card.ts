@@ -171,11 +171,6 @@ export class PersonCard extends LitElement implements LovelaceCard {
         return [
             cardStyle,
             css`
-                .container {
-                    display: flex;
-                    flex-direction: column;
-                    padding: 12px;
-                }
                 mushroom-state-item {
                     cursor: pointer;
                 }

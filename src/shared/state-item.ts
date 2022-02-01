@@ -34,7 +34,7 @@ export class StateItem extends LitElement {
                 align-items: center;
             }
             .container > *:not(:last-child) {
-                margin-right: 12px;
+                margin-right: var(--spacing);
             }
             .icon {
                 position: relative;
@@ -54,7 +54,7 @@ export class StateItem extends LitElement {
                 flex-direction: column;
             }
             .container.vertical > *:not(:last-child) {
-                margin-bottom: 12px;
+                margin-bottom: var(--spacing);
                 margin-right: 0;
             }
             .container.vertical .info {

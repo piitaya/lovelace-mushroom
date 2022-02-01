@@ -117,7 +117,7 @@ export class SliderItem extends LitElement {
                 height: 42px;
             }
             .container > *:not(:last-child) {
-                margin-right: 12px;
+                margin-right: var(--spacing);
             }
             .slider {
                 position: relative;
