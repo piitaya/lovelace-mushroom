@@ -75,7 +75,7 @@ export class CoverCardEditor extends LitElement implements LovelaceCardEditor {
                         )} (${this.hass.localize(
                             "ui.panel.lovelace.editor.card.config.optional"
                         )})"
-                        .value=${this._config.name}
+                        .value=${this._config.icon}
                         .placeholder=${this._config.icon || entityIcon}
                         .configValue=${"icon"}
                         @value-changed=${this._valueChanged}
@@ -87,7 +87,7 @@ export class CoverCardEditor extends LitElement implements LovelaceCardEditor {
                         .dir=${dir}
                     >
                         <ha-switch
-                            .checked=${this._config.vertical != false}
+                            .checked=${!!this._config.vertical}
                             .configValue=${"vertical"}
                             @change=${this._valueChanged}
                         ></ha-switch>
