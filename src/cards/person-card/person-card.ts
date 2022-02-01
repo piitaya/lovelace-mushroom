@@ -145,7 +145,6 @@ export class PersonCard extends LitElement implements LovelaceCard {
     }
 
     renderStateBadge(icon: string, color: string) {
-        console.log(color);
         return html`
             <mushroom-badge-icon
                 slot="badge"
