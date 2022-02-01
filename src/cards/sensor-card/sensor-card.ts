@@ -112,13 +112,15 @@ export class SensorCard extends LitElement implements LovelaceCard {
             this.hass
         );
 
-        const style = styleMap({
-            "--rgb-sensor-color": this._config.icon_color
-                ? computeRgbColor(this._config.icon_color)
-                : undefined,
-        });
+        const iconColor = this._config.icon_color;
+        const iconStyle = {};
+        if (iconColor) {
+            const iconRgbColor = computeRgbColor(iconColor);
+            iconStyle["--icon-color"] = `rgb(${iconRgbColor})`;
+            iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
+        }
 
-        return html`<ha-card style=${style}>
+        return html`<ha-card>
             <div class="container">
                 <mushroom-state-item
                     .vertical=${vertical}
@@ -131,6 +133,7 @@ export class SensorCard extends LitElement implements LovelaceCard {
                         slot="icon"
                         .disabled=${!isActive(entity)}
                         .icon=${icon}
+                        style=${styleMap(iconStyle)}
                     ></mushroom-shape-icon>
                     ${entity.state === "unavailable"
                         ? html`

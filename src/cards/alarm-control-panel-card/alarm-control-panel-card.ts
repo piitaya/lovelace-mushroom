@@ -160,6 +160,11 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
             this.hass.locale
         );
 
+        const iconStyle = {
+            "--icon-color": `rgb(${color})`,
+            "--shape-color": `rgba(${color}, 0.2)`,
+        };
+
         return html`
             <ha-card>
                 <div class="container">
@@ -172,10 +177,7 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                     >
                         <mushroom-shape-icon
                             slot="icon"
-                            style=${styleMap({
-                                "--icon-color": `rgb(${color})`,
-                                "--shape-color": `rgba(${color}, 0.2)`,
-                            })}
+                            style=${styleMap(iconStyle)}
                             class=${classMap({
                                 pulse: shapePulse,
                             })}

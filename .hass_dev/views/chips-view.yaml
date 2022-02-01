@@ -70,7 +70,7 @@ cards:
               navigation_path: /config/dashboard
           - type: action
             icon: mdi:cog
-            icon_color: var(--info-color)
+            icon_color: blue
             tap_action: 
               action: navigate
               navigation_path: /config/dashboard

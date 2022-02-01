@@ -66,20 +66,14 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
                                     "editor.card.generic.color_values.default"
                                 )}</paper-item
                             >
-                            ${COLORS.map((color) => {
-                                const style = styleMap({
-                                    "--main-color": computeRgbColor(color),
-                                });
-                                return html`
+                            ${COLORS.map(
+                                (color) => html`
                                     <paper-item .value=${color}>
-                                        <span
-                                            class="circle-color"
-                                            style=${style}
-                                        ></span>
+                                        ${this.renderColorCircle(color)}
                                         ${computeColorName(color)}
                                     </paper-item>
-                                `;
-                            })}
+                                `
+                            )}
                         </paper-listbox>
                     </paper-dropdown-menu>
                 </div>
@@ -117,6 +111,15 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
                 </div>
             </div>
         `;
+    }
+
+    private renderColorCircle(color: string) {
+        return html` <span
+            class="circle-color"
+            style=${styleMap({
+                "--main-color": computeRgbColor(color),
+            })}
+        ></span>`;
     }
 
     private _valueChanged(ev: CustomEvent): void {

@@ -104,6 +104,8 @@ export class PersonCard extends LitElement implements LovelaceCard {
             this.hass.locale
         );
 
+        const isAvailable = entity.state !== "unavailable";
+
         return html`
             <ha-card>
                 <div class="container">
@@ -128,24 +130,9 @@ export class PersonCard extends LitElement implements LovelaceCard {
                                       .disabled=${!isActive(entity)}
                                   ></mushroom-shape-icon>
                               `}
-                        ${entity.state === "unavailable"
-                            ? html`
-                                  <mushroom-badge-icon
-                                      class="unavailable"
-                                      slot="badge"
-                                      icon="mdi:help"
-                                  ></mushroom-badge-icon>
-                              `
-                            : //
-                              html`
-                                  <mushroom-badge-icon
-                                      slot="badge"
-                                      .icon=${stateIcon}
-                                      style=${styleMap({
-                                          "--main-color": stateColor,
-                                      })}
-                                  ></mushroom-badge-icon>
-                              `}
+                        ${isAvailable
+                            ? this.renderStateBadge(stateIcon, stateColor)
+                            : this.renderUnvailableBadge()}
                         <mushroom-state-info
                             slot="info"
                             .primary=${name}
@@ -154,6 +141,28 @@ export class PersonCard extends LitElement implements LovelaceCard {
                     </mushroom-state-item>
                 </div>
             </ha-card>
+        `;
+    }
+
+    renderStateBadge(icon: string, color: string) {
+        return html`
+            <mushroom-badge-icon
+                slot="badge"
+                .icon=${icon}
+                style=${styleMap({
+                    "--main-color": color,
+                })}
+            ></mushroom-badge-icon>
+        `;
+    }
+
+    renderUnvailableBadge() {
+        return html`
+            <mushroom-badge-icon
+                class="unavailable"
+                slot="badge"
+                icon="mdi:help"
+            ></mushroom-badge-icon>
         `;
     }
 

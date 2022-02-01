@@ -15,7 +15,7 @@ import {
 import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { LovelaceChip } from ".";
-import { colorCss, computeRgbColor } from "../../../utils/colors";
+import { computeRgbColor } from "../../../utils/colors";
 import { actionHandler } from "../../../utils/directives/action-handler-directive";
 import { TemplateChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
@@ -104,12 +104,27 @@ export class TemplateChip extends LitElement implements LovelaceChip {
                 @action=${this._handleAction}
                 .actionHandler=${actionHandler()}
             >
-                ${icon
-                    ? html`<ha-icon .icon=${icon} style=${iconStyle}></ha-icon>`
-                    : null}
-                ${content ? html`<span>${content}</span>` : null}
+                ${icon ? this.renderIcon(icon, iconColor) : null}
+                ${content ? this.renderContent(content) : null}
             </mushroom-chip>
         `;
+    }
+
+    protected renderIcon(icon: string, iconColor?: string): TemplateResult {
+        const iconStyle = {};
+        if (iconColor) {
+            const iconRgbColor = computeRgbColor(iconColor);
+            iconStyle["--color"] = `rgb(${iconRgbColor})`;
+        }
+        console.log(iconStyle);
+        return html`<ha-icon
+            .icon=${icon}
+            style=${styleMap(iconStyle)}
+        ></ha-icon>`;
+    }
+
+    protected renderContent(content: string): TemplateResult {
+        return html`<span>${content}</span>`;
     }
 
     protected updated(changedProps: PropertyValues): void {
@@ -205,7 +220,7 @@ export class TemplateChip extends LitElement implements LovelaceChip {
                 cursor: pointer;
             }
             ha-icon {
-                color: rgb(var(--color));
+                color: var(--color);
             }
         `;
     }

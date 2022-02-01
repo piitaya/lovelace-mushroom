@@ -1,13 +1,12 @@
 import {
     ActionHandlerEvent,
-    computeStateDisplay,
     handleAction,
     hasAction,
     HomeAssistant,
     LovelaceCard,
     LovelaceCardEditor,
-    stateIcon,
 } from "custom-card-helpers";
+import { UnsubscribeFunc } from "home-assistant-js-websocket";
 import {
     css,
     CSSResultGroup,
@@ -17,22 +16,21 @@ import {
     TemplateResult,
 } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import { styleMap } from "lit/directives/style-map.js";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
 import { cardStyle } from "../../utils/card-styles";
+import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
-import { TEMPLATE_CARD_EDITOR_NAME, TEMPLATE_CARD_NAME } from "./const";
-import { TemplateCardConfig } from "./template-card-config";
-import "./template-card-editor";
 import {
     RenderTemplateResult,
     subscribeRenderTemplate,
 } from "../../utils/ws-templates";
-import { UnsubscribeFunc } from "home-assistant-js-websocket";
-import { styleMap } from "lit/directives/style-map.js";
-import { computeRgbColor } from "../../utils/colors";
+import { TEMPLATE_CARD_EDITOR_NAME, TEMPLATE_CARD_NAME } from "./const";
+import { TemplateCardConfig } from "./template-card-config";
+import "./template-card-editor";
 
 registerCustomCard({
     type: TEMPLATE_CARD_NAME,
@@ -121,13 +119,12 @@ export class TemplateCard extends LitElement implements LovelaceCard {
 
         const vertical = this._config.vertical;
 
-        const style = iconColor
-            ? styleMap({
-                  "--rgb-color": computeRgbColor(iconColor),
-                  "--icon-color": "rgb(var(--rgb-color))",
-                  "--shape-color": "rgba(var(--rgb-color), 0.2)",
-              })
-            : undefined;
+        const iconStyle = {};
+        if (iconColor) {
+            const iconRgbColor = computeRgbColor(iconColor);
+            iconStyle["--icon-color"] = `rgb(${iconRgbColor})`;
+            iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
+        }
 
         return html`<ha-card>
             <div class="container">
@@ -139,7 +136,7 @@ export class TemplateCard extends LitElement implements LovelaceCard {
                     })}
                 >
                     <mushroom-shape-icon
-                        style=${style}
+                        style=${styleMap(iconStyle)}
                         slot="icon"
                         .icon=${icon}
                     ></mushroom-shape-icon>
