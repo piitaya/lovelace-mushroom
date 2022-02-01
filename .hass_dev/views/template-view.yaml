@@ -18,7 +18,7 @@ cards:
     columns: 2
     square: false
   - type: grid
-    title: Colors
+    title: Icon colors
     cards:
       - type: custom:mushroom-template-card
         primary: Number of entities
