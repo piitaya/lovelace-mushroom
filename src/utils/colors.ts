@@ -69,53 +69,66 @@ export const colorCss = css`
 
     /* RGB */
     /* Standard colors */
-    --rgb-red: var(--mush-theme-red, var(--default-red));
-    --rgb-pink: var(--mush-theme-pink, var(--default-pink));
-    --rgb-purple: var(--mush-theme-purple, var(--default-purple));
-    --rgb-deep-purple: var(
-        --mush-theme-deep-purple,
-        var(--default-deep-purple)
-    );
-    --rgb-indigo: var(--mush-theme-indigo, var(--default-indigo));
-    --rgb-blue: var(--mush-theme-blue, var(--default-blue));
-    --rgb-light-blue: var(--mush-theme-light-blue, var(--default-light-blue));
-    --rgb-cyan: var(--mush-theme-cyan, var(--default-cyan));
-    --rgb-teal: var(--mush-theme-teal, var(--default-teal));
-    --rgb-green: var(--mush-theme-green, var(--default-green));
-    --rgb-light-green: var(
-        --mush-theme-light-green,
-        var(--default-light-green)
-    );
-    --rgb-lime: var(--mush-theme-lime, var(--default-lime));
-    --rgb-yellow: var(--mush-theme-yellow, var(--default-yellow));
-    --rgb-amber: var(--mush-theme-amber, var(--default-amber));
-    --rgb-orange: var(--mush-theme-orange, var(--default-orange));
-    --rgb-deep-orange: var(
-        --mush-theme-deep-orange,
-        var(--default-deep-orange)
-    );
-    --rgb-brown: var(--mush-theme-brown, var(--default-brown));
-    --rgb-grey: var(--mush-theme-grey, var(--default-grey));
-    --rgb-blue-grey: var(--mush-theme-blue-grey, var(--default-blue-grey));
-    --rgb-black: var(--mush-theme-black, var(--default-black));
-    --rgb-white: var(--mush-theme-white, var(--default-white));
+    --rgb-red: var(--mush-rgb-red, var(--default-red));
+    --rgb-pink: var(--mush-rgb-pink, var(--default-pink));
+    --rgb-purple: var(--mush-rgb-purple, var(--default-purple));
+    --rgb-deep-purple: var(--mush-rgb-deep-purple, var(--default-deep-purple));
+    --rgb-indigo: var(--mush-rgb-indigo, var(--default-indigo));
+    --rgb-blue: var(--mush-rgb-blue, var(--default-blue));
+    --rgb-light-blue: var(--mush-rgb-light-blue, var(--default-light-blue));
+    --rgb-cyan: var(--mush-rgb-cyan, var(--default-cyan));
+    --rgb-teal: var(--mush-rgb-teal, var(--default-teal));
+    --rgb-green: var(--mush-rgb-green, var(--default-green));
+    --rgb-light-green: var(--mush-rgb-light-green, var(--default-light-green));
+    --rgb-lime: var(--mush-rgb-lime, var(--default-lime));
+    --rgb-yellow: var(--mush-rgb-yellow, var(--default-yellow));
+    --rgb-amber: var(--mush-rgb-amber, var(--default-amber));
+    --rgb-orange: var(--mush-rgb-orange, var(--default-orange));
+    --rgb-deep-orange: var(--mush-rgb-deep-orange, var(--default-deep-orange));
+    --rgb-brown: var(--mush-rgb-brown, var(--default-brown));
+    --rgb-grey: var(--mush-rgb-grey, var(--default-grey));
+    --rgb-blue-grey: var(--mush-rgb-blue-grey, var(--default-blue-grey));
+    --rgb-black: var(--mush-rgb-black, var(--default-black));
+    --rgb-white: var(--mush-rgb-white, var(--default-white));
 
     /* Action colors */
-    --rgb-success: var(--rgb-green);
-    --rgb-warning: var(--rgb-orange);
-    --rgb-danger: var(--rgb-red);
-    --rgb-info: var(--rgb-blue);
+    --rgb-info: var(--mush-rgb-info, var(--rgb-blue));
+    --rgb-success: var(--mush-rgb-success, var(--rgb-green));
+    --rgb-warning: var(--mush-rgb-warning, var(--rgb-orange));
+    --rgb-danger: var(--mush-rgb-danger, var(--rgb-red));
 
     /* State colors */
-    --rgb-state-cover: var(--rgb-blue);
-    --rgb-state-fan: var(--rgb-green);
-    --rgb-state-light: var(--rgb-orange);
-    --rgb-state-sensor: var(--rgb-blue);
-    --rgb-state-switch: var(--rgb-blue);
-    --rgb-state-person-home: var(--rgb-success);
-    --rgb-state-person-not-home: var(--rgb-danger);
-    --rgb-state-person-unknown: var(--rgb-grey);
-    --rgb-state-alarm-disarmed: var(--rgb-info);
-    --rgb-state-alarm-armed: var(--rgb-success);
-    --rgb-state-alarm-triggered: var(--rgb-danger);
+    --rgb-state-cover: var(--mush-rgb-state-cover, var(--rgb-blue));
+    --rgb-state-fan: var(--mush-rgb-state-fan, var(--rgb-green));
+    --rgb-state-light: var(--mush-rgb-state-light, var(--rgb-orange));
+    --rgb-state-sensor: var(--mush-rgb-state-sensor, var(--rgb-blue));
+    --rgb-state-switch: var(--mush-rgb-state-switch, var(--rgb-blue));
+
+    /* State alarm colors */
+    --rgb-state-alarm-disarmed: var(
+        --mush-rgb-state-alarm-disarmed,
+        var(--rgb-info)
+    );
+    --rgb-state-alarm-armed: var(
+        --mush-rgb-state-alarm-armed,
+        var(--rgb-success)
+    );
+    --rgb-state-alarm-triggered: var(
+        --mush-rgb-state-alarm-triggered,
+        var(--rgb-danger)
+    );
+
+    /* State person colors */
+    --rgb-state-person-home: var(
+        --mush-rgb-state-person-home,
+        var(--rgb-success)
+    );
+    --rgb-state-person-not-home: var(
+        --mush-rgb-state-person-not-home,
+        var(--rgb-danger)
+    );
+    --rgb-state-person-unknown: var(
+        --mush-rgb-state-person-unknown,
+        var(--rgb-grey)
+    );
 `;

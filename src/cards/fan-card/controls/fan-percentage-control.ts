@@ -37,8 +37,8 @@ export class FanPercentageControl extends LitElement {
     static get styles(): CSSResultGroup {
         return css`
             mushroom-slider {
-                --main-color: rgb(var(--rgb-fan));
-                --bg-color: rgba(var(--rgb-fan), 0.2);
+                --main-color: rgb(var(--rgb-state-fan));
+                --bg-color: rgba(var(--rgb-state-fan), 0.2);
             }
         `;
     }
