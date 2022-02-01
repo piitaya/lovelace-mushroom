@@ -136,8 +136,8 @@ export class SwitchCard extends LitElement implements LovelaceCard {
                     cursor: pointer;
                 }
                 mushroom-shape-icon {
-                    --icon-color: rgb(var(--rgb-switch-color));
-                    --shape-color: rgba(var(--rgb-switch-color), 0.2);
+                    --icon-color: rgb(var(--rgb-state-switch));
+                    --shape-color: rgba(var(--rgb-state-switch), 0.2);
                 }
             `,
         ];

@@ -162,8 +162,8 @@ export class SensorCard extends LitElement implements LovelaceCard {
                     cursor: pointer;
                 }
                 mushroom-shape-icon {
-                    --icon-color: rgb(var(--rgb-sensor-color));
-                    --shape-color: rgba(var(--rgb-sensor-color), 0.2);
+                    --icon-color: rgb(var(--rgb-state-sensor));
+                    --shape-color: rgba(var(--rgb-state-sensor), 0.2);
                 }
             `,
         ];

@@ -275,15 +275,6 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
         return [
             cardStyle,
             css`
-                :host {
-                    --rgb-alarm-state-color-default: var(
-                        --rgb-primary-text-color
-                    );
-                    --rgb-alarm-state-color-warning: 240, 180, 0;
-                    --rgb-alarm-state-color-disarmed: 3, 155, 229;
-                    --rgb-alarm-state-color-armed: 13, 160, 53;
-                    --rgb-alarm-state-color-triggered: 223, 76, 30;
-                }
                 mushroom-state-item {
                     cursor: pointer;
                 }

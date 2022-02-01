@@ -44,7 +44,7 @@ function capitalizeFirstLetter(string) {
 }
 
 export const colorCss = css`
-    /* Palette colors */
+    /* DEFAULT */
     --default-red: 244, 67, 54;
     --default-pink: 233, 30, 99;
     --default-purple: 156, 39, 176;
@@ -66,6 +66,9 @@ export const colorCss = css`
     --default-blue-grey: 96, 125, 139;
     --default-black: 0, 0, 0;
     --default-white: 255, 255, 255;
+
+    /* RGB */
+    /* Standard colors */
     --rgb-red: var(--mush-theme-red, var(--default-red));
     --rgb-pink: var(--mush-theme-pink, var(--default-pink));
     --rgb-purple: var(--mush-theme-purple, var(--default-purple));
@@ -97,11 +100,22 @@ export const colorCss = css`
     --rgb-black: var(--mush-theme-black, var(--default-black));
     --rgb-white: var(--mush-theme-white, var(--default-white));
 
-    /* Card colors */
-    --rgb-cover-color: var(--rgb-blue);
-    --rgb-fan-color: var(--rgb-blue);
-    --rgb-light-color: var(--rgb-orange);
-    --rgb-sensor-color: var(--rgb-blue);
-    --rgb-switch-color: var(--rgb-blue);
-    --rgb-template-color: var(--rgb-blue);
+    /* Action colors */
+    --rgb-success: var(--rgb-green);
+    --rgb-warning: var(--rgb-orange);
+    --rgb-danger: var(--rgb-red);
+    --rgb-info: var(--rgb-blue);
+
+    /* State colors */
+    --rgb-state-cover: var(--rgb-blue);
+    --rgb-state-fan: var(--rgb-green);
+    --rgb-state-light: var(--rgb-orange);
+    --rgb-state-sensor: var(--rgb-blue);
+    --rgb-state-switch: var(--rgb-blue);
+    --rgb-state-person-home: var(--rgb-success);
+    --rgb-state-person-not-home: var(--rgb-danger);
+    --rgb-state-person-unknown: var(--rgb-grey);
+    --rgb-state-alarm-disarmed: var(--rgb-info);
+    --rgb-state-alarm-armed: var(--rgb-success);
+    --rgb-state-alarm-triggered: var(--rgb-danger);
 `;

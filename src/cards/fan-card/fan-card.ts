@@ -182,8 +182,8 @@ export class FanCard extends LitElement implements LovelaceCard {
                     cursor: pointer;
                 }
                 mushroom-shape-icon {
-                    --icon-color: rgb(var(--rgb-fan-color));
-                    --shape-color: rgba(var(--rgb-fan-color), 0.2);
+                    --icon-color: rgb(var(--rgb-state-fan));
+                    --shape-color: rgba(var(--rgb-state-fan), 0.2);
                 }
                 mushroom-shape-icon.spin {
                     --icon-animation: var(--animation-duration) infinite linear

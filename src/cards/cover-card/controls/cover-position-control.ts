@@ -37,8 +37,8 @@ export class CoverPositionControl extends LitElement {
     static get styles(): CSSResultGroup {
         return css`
             mushroom-slider {
-                --main-color: rgb(var(--rgb-cover-color));
-                --bg-color: rgba(var(--rgb-cover-color), 0.2);
+                --main-color: rgb(var(--rgb-state-cover));
+                --bg-color: rgba(var(--rgb-state-cover), 0.2);
             }
         `;
     }
