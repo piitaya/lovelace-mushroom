@@ -1,7 +1,7 @@
 # Cover card
 
-![Cover light](../images/fan-light.png)
-![Cover dark](../images/fan-dark.png)
+![Cover light](../images/cover-light.png)
+![Cover dark](../images/cover-dark.png)
 
 ## Description
 
@@ -21,4 +21,4 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `show_buttons_control`  | boolean | `false`     | Show buttons to open, close and stop cover     |
 | `show_position_control` | boolean | `false`     | Show a slider to control position of the cover |
 | `tap_action`            | action  | `toggle`    | Home assistant action to perform on tap        |
-| `hold_action`           | action  | `more-icon` | Home assistant action to perform on hold       |
+| `hold_action`           | action  | `more-info` | Home assistant action to perform on hold       |
