@@ -18,7 +18,7 @@ export interface LightCardConfig extends LovelaceCardConfig {
 export const lightCardConfigStruct = assign(
     baseLovelaceCardConfig,
     object({
-        entity: string(),
+        entity: optional(string()),
         icon: optional(string()),
         name: optional(string()),
         vertical: optional(boolean()),

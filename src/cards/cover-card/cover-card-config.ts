@@ -18,7 +18,7 @@ export interface CoverCardConfig extends LovelaceCardConfig {
 export const coverCardConfigStruct = assign(
     baseLovelaceCardConfig,
     object({
-        entity: string(),
+        entity: optional(string()),
         icon: optional(string()),
         name: optional(string()),
         vertical: optional(boolean()),

@@ -32,7 +32,7 @@ export interface SensorCardConfig extends LovelaceCardConfig {
 export const sensorCardConfigStruct = assign(
     baseLovelaceCardConfig,
     object({
-        entity: string(),
+        entity: optional(string()),
         icon: optional(string()),
         name: optional(string()),
         icon_color: optional(string()),

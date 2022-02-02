@@ -17,7 +17,7 @@ export interface AlarmControlPanelCardConfig extends LovelaceCardConfig {
 export const alarmControlPanelCardCardConfigStruct = assign(
     baseLovelaceCardConfig,
     object({
-        entity: string(),
+        entity: optional(string()),
         name: optional(string()),
         icon: optional(string()),
         states: optional(array()),

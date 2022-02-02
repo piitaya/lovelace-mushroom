@@ -19,7 +19,7 @@ export interface FanCardConfig extends LovelaceCardConfig {
 export const fanCardConfigStruct = assign(
     baseLovelaceCardConfig,
     object({
-        entity: string(),
+        entity: optional(string()),
         name: optional(string()),
         icon: optional(string()),
         icon_animation: optional(boolean()),

@@ -20,7 +20,7 @@ export interface PersonCardConfig extends LovelaceCardConfig {
 export const personCardConfigStruct = assign(
     baseLovelaceCardConfig,
     object({
-        entity: string(),
+        entity: optional(string()),
         icon: optional(string()),
         name: optional(string()),
         use_entity_picture: optional(boolean()),
