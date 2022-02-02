@@ -42,6 +42,24 @@ All the Mushroom cards can be configured using Lovelace UI editor.
 3. Click Plus button to add a new card.
 4. Find one of the _Custom: Mushroom_ card in the list.
 
+### Available cards
+
+Different cards are available for differents entities :
+
+-   [Alarm card](docs/cards/alarm.md)
+-   [Cover card](docs/cards/cover.md)
+-   [Fan card](docs/cards/fan.md)
+-   [Light card](docs/cards/light.md)
+-   [Person card](docs/cards/person.md)
+-   [Sensor card](docs/cards/sensor.md)
+-   [Template card](docs/cards/template.md)
+
+Some card are on the todo list :
+
+-   Climate card
+-   Media card
+-   Vacuum card
+
 ## Development server
 
 ### Home assistant demo
