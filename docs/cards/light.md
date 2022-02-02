@@ -5,11 +5,11 @@
 
 ## Description
 
-A control card allow you to control a light entity.
+A light card allow you to control a light entity.
 
 ## Configuration variables
 
-All the options are available to the lovelace editor but you can use `yaml` if you want.
+All the options are available in the lovelace editor but you can use `yaml` if you want.
 
 | Name                      | Type    | Default     | Description                                |
 | :------------------------ | :------ | :---------- | :----------------------------------------- |
