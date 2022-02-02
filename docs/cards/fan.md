@@ -13,7 +13,7 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 
 | Name                      | Type    | Default     | Description                              |
 | :------------------------ | :------ | :---------- | :--------------------------------------- |
-| `entity`                  | string  | Required    | Light entity                             |
+| `entity`                  | string  | Required    | Fan entity                               |
 | `icon`                    | string  | Optional    | Custom icon                              |
 | `name`                    | string  | Optional    | Custom name                              |
 | `vertical`                | boolean | `false`     | Vertical layout                          |
