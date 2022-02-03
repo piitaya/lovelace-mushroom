@@ -46,19 +46,19 @@ All the Mushroom cards can be configured using Lovelace UI editor.
 
 Different cards are available for differents entities :
 
--   [Alarm card](docs/cards/alarm.md)
--   [Cover card](docs/cards/cover.md)
--   [Fan card](docs/cards/fan.md)
--   [Light card](docs/cards/light.md)
--   [Person card](docs/cards/person.md)
--   [Sensor card](docs/cards/sensor.md)
--   [Template card](docs/cards/template.md)
+-   🚨 [Alarm card](docs/cards/alarm.md)
+-   🪟 [Cover card](docs/cards/cover.md)
+-   💨 [Fan card](docs/cards/fan.md)
+-   💡 [Light card](docs/cards/light.md)
+-   🙋 [Person card](docs/cards/person.md)
+-   📏 [Sensor card](docs/cards/sensor.md)
+-   ⚙️ [Template card](docs/cards/template.md)
 
 Some card are on the todo list :
 
--   Climate card
--   Media card
--   Vacuum card
+-   🌡 Climate card
+-   📺 Media card
+-   🧹 Vacuum card
 
 ## Development server
 
