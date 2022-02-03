@@ -66,10 +66,10 @@ Different cards are available for differents entities :
 
 -   🚨 [Alarm card](docs/cards/alarm.md)
 -   🪟 [Cover card](docs/cards/cover.md)
+-   🪄 [Entity card](docs/cards/entity.md)
 -   💨 [Fan card](docs/cards/fan.md)
 -   💡 [Light card](docs/cards/light.md)
 -   🙋 [Person card](docs/cards/person.md)
--   📏 [Sensor card](docs/cards/sensor.md)
 -   🛠 [Template card](docs/cards/template.md)
 -   🔔 [Chips card](docs/cards/chips.md)
 

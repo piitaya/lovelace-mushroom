@@ -19,51 +19,44 @@ import { cardStyle } from "../../utils/card-styles";
 import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
-import {
-    SENSOR_CARD_EDITOR_NAME,
-    SENSOR_CARD_NAME,
-    SENSOR_ENTITY_DOMAINS,
-} from "./const";
-import { SensorCardConfig } from "./sensor-card-config";
-import "./sensor-card-editor";
-import { getInfo, isActive } from "./utils";
+import { ENTITY_CARD_EDITOR_NAME, ENTITY_CARD_NAME } from "./const";
+import { EntityCardConfig } from "./entity-card-config";
+import "./entity-card-editor";
+import { getInfo, isActive, isAvailable } from "./utils";
 
 registerCustomCard({
-    type: SENSOR_CARD_NAME,
-    name: "Mushroom Sensor Card",
-    description: "Card for sensor and binary sensor entity",
+    type: ENTITY_CARD_NAME,
+    name: "Mushroom Entity Card",
+    description: "Card for all entities",
 });
 
-@customElement(SENSOR_CARD_NAME)
-export class SensorCard extends LitElement implements LovelaceCard {
+@customElement(ENTITY_CARD_NAME)
+export class EntityCard extends LitElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         return document.createElement(
-            SENSOR_CARD_EDITOR_NAME
+            ENTITY_CARD_EDITOR_NAME
         ) as LovelaceCardEditor;
     }
 
     public static async getStubConfig(
         hass: HomeAssistant
-    ): Promise<SensorCardConfig> {
+    ): Promise<EntityCardConfig> {
         const entities = Object.keys(hass.states);
-        const switches = entities.filter((e) =>
-            SENSOR_ENTITY_DOMAINS.includes(e.split(".")[0])
-        );
         return {
-            type: `custom:${SENSOR_CARD_NAME}`,
-            entity: switches[0],
+            type: `custom:${ENTITY_CARD_NAME}`,
+            entity: entities[0],
         };
     }
 
     @property({ attribute: false }) public hass!: HomeAssistant;
 
-    @state() private _config?: SensorCardConfig;
+    @state() private _config?: EntityCardConfig;
 
     getCardSize(): number | Promise<number> {
         return 1;
     }
 
-    setConfig(config: SensorCardConfig): void {
+    setConfig(config: EntityCardConfig): void {
         this._config = {
             tap_action: {
                 action: "more-info",
@@ -128,6 +121,7 @@ export class SensorCard extends LitElement implements LovelaceCard {
                     .actionHandler=${actionHandler({
                         hasHold: hasAction(this._config.hold_action),
                     })}
+                    .hide_info=${primary == null && secondary == null}
                 >
                     <mushroom-shape-icon
                         slot="icon"
@@ -135,7 +129,7 @@ export class SensorCard extends LitElement implements LovelaceCard {
                         .icon=${icon}
                         style=${styleMap(iconStyle)}
                     ></mushroom-shape-icon>
-                    ${entity.state === "unavailable"
+                    ${!isAvailable(entity)
                         ? html`
                               <mushroom-badge-icon
                                   class="unavailable"
@@ -162,8 +156,8 @@ export class SensorCard extends LitElement implements LovelaceCard {
                     cursor: pointer;
                 }
                 mushroom-shape-icon {
-                    --icon-color: rgb(var(--rgb-state-sensor));
-                    --shape-color: rgba(var(--rgb-state-sensor), 0.2);
+                    --icon-color: rgb(var(--rgb-state-entity));
+                    --shape-color: rgba(var(--rgb-state-entity), 0.2);
                 }
             `,
         ];

@@ -3,12 +3,11 @@ import {
     fireEvent,
     HomeAssistant,
     LovelaceCardEditor,
-    stateIcon,
 } from "custom-card-helpers";
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { assert } from "superstruct";
-import setupCustomlocalize from "../../localize";
+import setupcustomLocalize from "../../localize";
 import { configElementStyle } from "../../utils/editor-styles";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { TEMPLATE_CARD_EDITOR_NAME } from "./const";
@@ -38,7 +37,8 @@ export class TemplateCardEditor
             return html``;
         }
 
-        const customlocalize = setupCustomlocalize(this.hass);
+        const dir = computeRTLDirection(this.hass);
+        const customLocalize = setupcustomLocalize(this.hass);
 
         return html`
             <div class="card-config">
@@ -57,7 +57,7 @@ export class TemplateCardEditor
                     spellcheck="false"
                 ></paper-textarea>
                 <paper-textarea
-                    .label="${customlocalize(
+                    .label="${customLocalize(
                         "editor.card.generic.icon_color"
                     )} (${this.hass.localize(
                         "ui.panel.lovelace.editor.card.config.optional"
@@ -71,7 +71,7 @@ export class TemplateCardEditor
                     spellcheck="false"
                 ></paper-textarea>
                 <paper-textarea
-                    .label="${customlocalize(
+                    .label="${customLocalize(
                         "editor.card.template.primary"
                     )} (${this.hass.localize(
                         "ui.panel.lovelace.editor.card.config.optional"
@@ -85,7 +85,7 @@ export class TemplateCardEditor
                     spellcheck="false"
                 ></paper-textarea>
                 <paper-textarea
-                    .label="${customlocalize(
+                    .label="${customLocalize(
                         "editor.card.template.secondary"
                     )} (${this.hass.localize(
                         "ui.panel.lovelace.editor.card.config.optional"
@@ -98,6 +98,18 @@ export class TemplateCardEditor
                     autocomplete="off"
                     spellcheck="false"
                 ></paper-textarea>
+                <div class="side-by-side">
+                    <ha-formfield
+                        .label=${customLocalize("editor.card.generic.vertical")}
+                        .dir=${dir}
+                    >
+                        <ha-switch
+                            .checked=${!!this._config.vertical}
+                            .configValue=${"vertical"}
+                            @change=${this._valueChanged}
+                        ></ha-switch>
+                    </ha-formfield>
+                </div>
                 <div class="side-by-side">
                     <hui-action-editor
                         .label="${this.hass.localize(

@@ -3,9 +3,7 @@ import { assign, boolean, enums, object, optional, string } from "superstruct";
 import { actionConfigStruct } from "../../utils/action-struct";
 import { baseLovelaceCardConfig } from "../../utils/editor-styles";
 
-export const PRIMARY_INFOS = ["name", "state"] as const;
-
-export const SECONDARY_INFOS = [
+export const INFOS = [
     "name",
     "state",
     "last-changed",
@@ -13,23 +11,21 @@ export const SECONDARY_INFOS = [
     "none",
 ] as const;
 
-export type PrimaryInfo = typeof PRIMARY_INFOS[number];
-export type SecondaryInfo = typeof SECONDARY_INFOS[number];
-export type Info = PrimaryInfo | SecondaryInfo;
+export type Info = typeof INFOS[number];
 
-export interface SensorCardConfig extends LovelaceCardConfig {
+export interface EntityCardConfig extends LovelaceCardConfig {
     entity: string;
     icon?: string;
     name?: string;
     icon_color?: string;
     vertical?: boolean;
-    primary_info?: PrimaryInfo;
-    secondary_info?: SecondaryInfo;
+    primary_info?: Info;
+    secondary_info?: Info;
     tap_action?: ActionConfig;
     hold_action?: ActionConfig;
 }
 
-export const sensorCardConfigStruct = assign(
+export const entityCardConfigStruct = assign(
     baseLovelaceCardConfig,
     object({
         entity: optional(string()),
@@ -37,8 +33,8 @@ export const sensorCardConfigStruct = assign(
         name: optional(string()),
         icon_color: optional(string()),
         vertical: optional(boolean()),
-        primary_info: optional(enums(PRIMARY_INFOS)),
-        secondary_info: optional(enums(SECONDARY_INFOS)),
+        primary_info: optional(enums(INFOS)),
+        secondary_info: optional(enums(INFOS)),
         tap_action: optional(actionConfigStruct),
         hold_action: optional(actionConfigStruct),
     })

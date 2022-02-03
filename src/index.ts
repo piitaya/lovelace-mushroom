@@ -6,9 +6,9 @@ export { CoverCard } from "./cards/cover-card/cover-card";
 export { FanCard } from "./cards/fan-card/fan-card";
 export { LightCard } from "./cards/light-card/light-card";
 export { PersonCard } from "./cards/person-card/person-card";
-export { SensorCard } from "./cards/sensor-card/sensor-card";
 export { SwitchCard } from "./cards/switch-card/switch-card";
 export { TemplateCard } from "./cards/template-card/template-card";
+export { EntityCard } from "./cards/entity-card/entity-card";
 
 console.info(
     `%c🍄 Mushroom 🍄 - ${version}`,

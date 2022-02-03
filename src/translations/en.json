@@ -29,7 +29,7 @@
             "alarm_control_panel": {
                 "displayed_states": "Displayed states"
             },
-            "sensor": {
+            "entity": {
                 "primary_info": "Primary information",
                 "secondary_info": "Secondary information",
                 "info_values": {
@@ -53,12 +53,6 @@
                 "add": "Add chip",
                 "edit": "Edit",
                 "clear": "Clear"
-            },
-            "generic": {
-                "icon_color": "Icon color",
-                "color_values": {
-                    "default": "Default color"
-                }
             },
             "weather": {
                 "show_conditions": "Conditions?",
