@@ -14,12 +14,12 @@ Mushroom mission is to propose easy to use components to build your [Home Assist
 
 ### Features
 
--   ⚙️ Card editor for **all cards** and and **all options**
--   🎨 No theme needed
+-   🛠 Editor for **all cards** and and **all options**
 -   🚀 0 dependencies : no need to install another card.
--   📝 No `yaml` edition needed
+-   📝 No `yaml` edition needed (but you can!)
 -   🌈 Based on Material UI colors
 -   🌓 Light and dark theme support
+-   Optional theme customization
 
 The goal of Mushroom is not to provide custom card for deep customization. You can use the excellent [UI-Lovelace-Minimalist][ui-lovelace-minimalist] and [Button-card][button-card] plugins for this.
 
