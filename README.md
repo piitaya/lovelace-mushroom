@@ -2,9 +2,24 @@
 
 [![hacs][hacs-image]][hacs-url]
 
-Mushroom is a collection of cards for [Home Assistant][home-assistant] Lovelace UI
-
 > Mushroom is currently in `beta` and not released yet. There can be some breaking changes.
+
+## What is mushroom ?
+
+Mushroom is a collection of cards for [Home Assistant][home-assistant] Lovelace UI.
+
+Mushroom mission is to propose easy to use components to build your [Home Assistant][home-assistant] dashboard.
+
+### Features
+
+-   ⚙️ Card editor for **all cards** and and **all options**
+-   🎨 No theme needed
+-   🚀 0 dependencies : no need to install another card.
+-   📝 No `yaml` edition needed
+-   🌈 Based on Material UI colors
+-   🌓 Light and dark theme support
+
+The goal of Mushroom is not to provide custom card for deep customization. You can use the excellent [UI-Lovelace-Minimalist][ui-lovelace-minimalist] and [Button-card][button-card] plugins for this.
 
 ## Installation
 
@@ -60,6 +75,45 @@ Some card are on the todo list :
 -   📺 Media card
 -   🧹 Vacuum card
 
+### Theme customization
+
+Mushroom works without theme but you can add a theme for better experience by copiing the theme file [themes/mushroom.yaml](themes/mushroom.yaml) in your theme folder.
+If you want more information about themes, check out the official [Home Assistant documentation about themes][home-assitant-theme-docs].
+
+```yaml
+Mushroom:
+    # HA variables
+    ha-card-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.16)
+    ha-card-border-radius: 12px
+    # Mushroom custom variables
+    mush-spacing: 12px
+    mush-rgb-red: 244, 67, 54
+    mush-rgb-pink: 233, 30, 99
+    mush-rgb-purple: 156, 39, 176
+    mush-rgb-deep-purple: 103, 58, 183
+    mush-rgb-indigo: 63, 81, 181
+    mush-rgb-blue: 33, 150, 243
+    mush-rgb-light-blue: 3, 169, 244
+    mush-rgb-cyan: 0, 188, 212
+    mush-rgb-teal: 0, 150, 136
+    mush-rgb-green: 76, 175, 80
+    mush-rgb-light-green: 139, 195, 74
+    mush-rgb-lime: 205, 220, 57
+    mush-rgb-yellow: 255, 235, 59
+    mush-rgb-amber: 255, 193, 7
+    mush-rgb-orange: 255, 152, 0
+    mush-rgb-deep-orange: 255, 87, 34
+    mush-rgb-brown: 121, 85, 72
+    mush-rgb-grey: 158, 158, 158
+    mush-rgb-blue-grey: 96, 125, 139
+    mush-rgb-black: 0, 0, 0
+    mush-rgb-white: 255, 255, 255
+    # You must keep this to support light/dark theme
+    modes:
+        light: {}
+        dark: {}
+```
+
 ## Development server
 
 ### Home assistant demo
@@ -110,4 +164,7 @@ npm run build
 <!-- References -->
 
 [home-assistant]: https://www.home-assistant.io/
+[home-assitant-theme-docs]: https://www.home-assistant.io/integrations/frontend/#defining-themes
 [hacs]: https://hacs.xyz
+[ui-lovelace-minimalist]: https://ui-lovelace-minimalist.github.io/UI/
+[button-card]: https://github.com/custom-cards/button-card
