@@ -1,6 +1,7 @@
 # 🍄 Mushroom
 
 [![hacs][hacs-image]][hacs-url]
+<!-- ![release][release-image] -->
 
 > Mushroom is currently in `beta` and not released yet. There can be some breaking changes.
 
@@ -168,6 +169,7 @@ The design is inspired by [7ahang’s work][7ahang] on Behance and [Ui Lovelace 
 
 [hacs-url]: https://github.com/custom-components/hacs
 [hacs-image]: https://img.shields.io/badge/hacs-custom-orange.svg?style=flat-square
+[release-image]: https://img.shields.io/github/downloads/piitaya/lovelace-mushroom/total?style=flat-square
 
 <!-- References -->
 
