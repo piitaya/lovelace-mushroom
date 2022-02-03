@@ -49,7 +49,7 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
                     ></ha-icon-picker>
                     <paper-dropdown-menu
                         .label="${customLocalize(
-                            "editor.chip.generic.icon_color"
+                            "editor.card.generic.icon_color"
                         )} (${this.hass.localize(
                             "ui.panel.lovelace.editor.card.config.optional"
                         )})"
@@ -63,7 +63,7 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
                         >
                             <paper-item value=""
                                 >${customLocalize(
-                                    "editor.chip.generic.color_values.default"
+                                    "editor.card.generic.color_values.default"
                                 )}</paper-item
                             >
                             ${COLORS.map(

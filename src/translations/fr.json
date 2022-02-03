@@ -54,12 +54,6 @@
                 "edit": "Modifier",
                 "clear": "Effacer"
             },
-            "generic": {
-                "icon_color": "Couleur de l'icône",
-                "color_values": {
-                    "default": "Couleur par défaut"
-                }
-            },
             "weather": {
                 "show_conditons": "Conditions ?",
                 "show_temperature": "Température ?"

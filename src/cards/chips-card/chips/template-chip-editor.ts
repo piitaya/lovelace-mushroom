@@ -1,7 +1,7 @@
 import { fireEvent, HomeAssistant } from "custom-card-helpers";
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import setupCustomlocalize from "../../../localize";
+import setupCustomLocalize from "../../../localize";
 import { configElementStyle } from "../../../utils/editor-styles";
 import { TemplateChipConfig } from "../../../utils/lovelace/chip/types";
 import { EditorTarget } from "../../../utils/lovelace/editor/types";
@@ -25,12 +25,12 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
             return html``;
         }
 
-        const customlocalize = setupCustomlocalize(this.hass);
+        const customLocalize = setupCustomLocalize(this.hass);
 
         return html`
             <div class="card-config">
                 <paper-textarea
-                    .label="${customlocalize(
+                    .label="${customLocalize(
                         "editor.chip.template.content"
                     )} (${this.hass.localize(
                         "ui.panel.lovelace.editor.card.config.optional"
@@ -51,6 +51,20 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
                     )})"
                     .value=${this._config.icon}
                     .configValue=${"icon"}
+                    @keydown=${this._ignoreKeydown}
+                    @value-changed=${this._valueChanged}
+                    autocapitalize="none"
+                    autocomplete="off"
+                    spellcheck="false"
+                ></paper-textarea>
+                <paper-textarea
+                    .label="${customLocalize(
+                        "editor.card.generic.icon_color"
+                    )} (${this.hass.localize(
+                        "ui.panel.lovelace.editor.card.config.optional"
+                    )})"
+                    .value=${this._config.icon_color}
+                    .configValue=${"icon_color"}
                     @keydown=${this._ignoreKeydown}
                     @value-changed=${this._valueChanged}
                     autocapitalize="none"
