@@ -4,7 +4,7 @@ import { actionConfigStruct } from "../../utils/action-struct";
 import { baseLovelaceCardConfig } from "../../utils/editor-styles";
 
 export interface AlarmControlPanelCardConfig extends LovelaceCardConfig {
-    entity: string;
+    entity?: string;
     icon?: string;
     name?: string;
     states?: string[];

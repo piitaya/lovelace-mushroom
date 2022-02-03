@@ -15,7 +15,7 @@ export type BackChipConfig = {
 
 export type EntityChipConfig = {
     type: "entity";
-    entity: string;
+    entity?: string;
     icon?: string;
     icon_color?: string;
     hold_action?: ActionConfig;
@@ -29,7 +29,7 @@ export type MenuChipConfig = {
 
 export type WeatherChipConfig = {
     type: "weather";
-    entity: string;
+    entity?: string;
     hold_action?: ActionConfig;
     tap_action?: ActionConfig;
     show_temperature?: boolean;

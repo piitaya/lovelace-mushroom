@@ -51,7 +51,7 @@ export class WeatherChip extends LitElement implements LovelaceChip {
     }
 
     protected render(): TemplateResult {
-        if (!this.hass || !this._config) {
+        if (!this.hass || !this._config || !this._config.entity) {
             return html``;
         }
 

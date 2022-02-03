@@ -14,7 +14,7 @@ export const INFOS = [
 export type Info = typeof INFOS[number];
 
 export interface EntityCardConfig extends LovelaceCardConfig {
-    entity: string;
+    entity?: string;
     icon?: string;
     name?: string;
     icon_color?: string;

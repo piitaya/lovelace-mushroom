@@ -4,7 +4,7 @@ import { actionConfigStruct } from "../../utils/action-struct";
 import { baseLovelaceCardConfig } from "../../utils/editor-styles";
 
 export interface CoverCardConfig extends LovelaceCardConfig {
-    entity: string;
+    entity?: string;
     icon?: string;
     name?: string;
     vertical?: boolean;

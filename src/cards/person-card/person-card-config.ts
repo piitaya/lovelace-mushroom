@@ -7,7 +7,7 @@ import { baseLovelaceCardConfig } from "../../utils/editor-styles";
  * TODO: make configurable icons, icons according to zone, show state indicator
  */
 export interface PersonCardConfig extends LovelaceCardConfig {
-    entity: string;
+    entity?: string;
     name?: string;
     icon?: string;
     use_entity_picture?: boolean;

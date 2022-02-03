@@ -2,7 +2,6 @@ title: Mushroom Showcase
 views:
   - !include views/light-view.yaml
   - !include views/cover-view.yaml
-  - !include views/switch-view.yaml
   - !include views/person-view.yaml
   - !include views/alarm-control-panel-view.yaml
   - !include views/fan-view.yaml

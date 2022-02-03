@@ -124,7 +124,7 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
     }
 
     protected render(): TemplateResult {
-        if (!this._config || !this.hass) {
+        if (!this.hass || !this._config || !this._config.entity) {
             return html``;
         }
 
