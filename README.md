@@ -21,7 +21,7 @@ Mushroom mission is to propose easy to use components to build your [Home Assist
 -   🌓 Light and dark theme support
 -   Optional theme customization
 
-The goal of Mushroom is not to provide custom card for deep customization. You can use the excellent [UI-Lovelace-Minimalist][ui-lovelace-minimalist] and [Button-card][button-card] plugins for this.
+The goal of Mushroom is not to provide custom card for deep customization. You can use the excellent [UI Lovelace Minimalist][ui-lovelace-minimalist] and [Button card][button-card] plugins for this.
 
 ## Installation
 
@@ -161,7 +161,7 @@ npm run build
 
 ### Credits
 
-The design is inspired by [7ahang’s work][7ahang] on Behance and [Ui Lovelace Minimalis][ui-lovelace-minimalistt].
+The design is inspired by [7ahang’s work][7ahang] on Behance and [Ui Lovelace Minimalist][ui-lovelace-minimalist].
 
 <!-- Badges -->
 
