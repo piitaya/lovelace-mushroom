@@ -48,8 +48,12 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
         }
 
         const dir = computeRTLDirection(this.hass);
-        const entityState = this.hass.states[this._config.entity];
-        const entityIcon = getStateIcon(entityState.state);
+        const entityState = this._config.entity
+            ? this.hass.states[this._config.entity]
+            : undefined;
+        const entityIcon = entityState
+            ? getStateIcon(entityState.state)
+            : undefined;
 
         const states = [
             "armed_home",

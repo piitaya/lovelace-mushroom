@@ -38,7 +38,10 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
             return html``;
         }
 
-        const entityState = this.hass.states[this._config.entity];
+        const entityState = this._config.entity
+            ? this.hass.states[this._config.entity]
+            : undefined;
+        const entityIcon = entityState ? stateIcon(entityState) : undefined;
 
         const customLocalize = setupCustomlocalize(this.hass);
 
@@ -64,8 +67,7 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
                             "ui.panel.lovelace.editor.card.config.optional"
                         )})"
                         .value=${this._config.icon}
-                        .placeholder=${this._config.icon ||
-                        stateIcon(entityState)}
+                        .placeholder=${this._config.icon || entityIcon}
                         .configValue=${"icon"}
                         @value-changed=${this._valueChanged}
                     ></ha-icon-picker>

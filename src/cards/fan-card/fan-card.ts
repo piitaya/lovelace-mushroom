@@ -83,7 +83,7 @@ export class FanCard extends LitElement implements LovelaceCard {
     }
 
     protected render(): TemplateResult {
-        if (!this._config || !this.hass) {
+        if (!this._config || !this.hass || !this._config.entity) {
             return html``;
         }
 

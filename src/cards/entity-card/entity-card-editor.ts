@@ -38,8 +38,10 @@ export class EntityCardEditor extends LitElement implements LovelaceCardEditor {
         }
 
         const dir = computeRTLDirection(this.hass);
-        const entityState = this.hass.states[this._config.entity];
-        const entityIcon = stateIcon(entityState);
+        const entityState = this._config.entity
+            ? this.hass.states[this._config.entity]
+            : undefined;
+        const entityIcon = entityState ? stateIcon(entityState) : undefined;
 
         const customLocalize = setupCustomlocalize(this.hass);
 
