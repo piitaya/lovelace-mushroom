@@ -57,7 +57,7 @@ All the Mushroom cards can be configured using Lovelace UI editor.
 3. Click Plus button to add a new card.
 4. Find one of the _Custom: Mushroom_ card in the list.
 
-### Available cards
+### Cards
 
 Different cards are available for differents entities :
 
@@ -67,9 +67,10 @@ Different cards are available for differents entities :
 -   💡 [Light card](docs/cards/light.md)
 -   🙋 [Person card](docs/cards/person.md)
 -   📏 [Sensor card](docs/cards/sensor.md)
--   ⚙️ [Template card](docs/cards/template.md)
+-   🛠 [Template card](docs/cards/template.md)
+-   🔔 [Chips card](docs/cards/chips.md)
 
-Some card are on the todo list :
+Some cards are on the todo list :
 
 -   🌡 Climate card
 -   📺 Media card
