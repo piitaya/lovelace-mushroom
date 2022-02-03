@@ -4,6 +4,8 @@
 
 > Mushroom is currently in `beta` and not released yet. There can be some breaking changes.
 
+![Overview](https://user-images.githubusercontent.com/5878303/152330296-87ac466a-ce48-4683-99ce-af06cd0911ea.png)
+
 ## What is mushroom ?
 
 Mushroom is a collection of cards for [Home Assistant][home-assistant] Lovelace UI.
