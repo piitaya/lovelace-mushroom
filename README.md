@@ -159,6 +159,10 @@ You can build the `mushroom.js` file in `dist` folder by running the build comma
 npm run build
 ```
 
+### Credits
+
+The design is inspired by [7ahang’s work][7ahang] on Behance and [Ui Lovelace Minimalis][ui-lovelace-minimalistt].
+
 <!-- Badges -->
 
 [hacs-url]: https://github.com/custom-components/hacs
@@ -171,3 +175,5 @@ npm run build
 [hacs]: https://hacs.xyz
 [ui-lovelace-minimalist]: https://ui-lovelace-minimalist.github.io/UI/
 [button-card]: https://github.com/custom-cards/button-card
+[7ahang]: https://www.behance.net/gallery/88433905/Redesign-Smart-Home
+
