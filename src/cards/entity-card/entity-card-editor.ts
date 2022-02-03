@@ -15,9 +15,9 @@ import { configElementStyle } from "../../utils/editor-styles";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { ENTITY_CARD_EDITOR_NAME } from "./const";
 import {
-    INFOS,
     EntityCardConfig,
     entityCardConfigStruct,
+    INFOS,
 } from "./entity-card-config";
 const actions = ["more-info", "navigate", "url", "call-service", "none"];
 

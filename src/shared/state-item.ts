@@ -7,6 +7,10 @@ import "./shape-icon";
 export class StateItem extends LitElement {
     @property() public vertical: boolean = false;
 
+    @property() public hide_icon: boolean = false;
+
+    @property() public hide_info: boolean = false;
+
     protected render(): TemplateResult {
         return html`
             <div
@@ -15,13 +19,17 @@ export class StateItem extends LitElement {
                     vertical: this.vertical,
                 })}
             >
-                <div class="icon">
-                    <slot name="icon"></slot>
-                    <slot name="badge"></slot>
-                </div>
-                <div class="info">
-                    <slot name="info"></slot>
-                </div>
+                ${!this.hide_icon
+                    ? html`<div class="icon">
+                          <slot name="icon"></slot>
+                          <slot name="badge"></slot>
+                      </div>`
+                    : null}
+                ${!this.hide_info
+                    ? html`<div class="info">
+                          <slot name="info" class="info"></slot>
+                      </div>`
+                    : null}
             </div>
         `;
     }
@@ -32,6 +40,7 @@ export class StateItem extends LitElement {
                 display: flex;
                 flex-direction: row;
                 align-items: center;
+                justify-content: flex-start;
             }
             .container > *:not(:last-child) {
                 margin-right: var(--spacing);
