@@ -15,9 +15,10 @@ Mushroom mission is to propose easy to use components to build your [Home Assist
 
 ### Features
 
--   🛠 Editor for **all cards** and and **all options**
+-   🛠 Editor for **all cards** and and **all options** (no need to edit `yaml`)
+-   😍 Icon picker
+-   🖌 Color picker
 -   🚀 0 dependencies : no need to install another card.
--   📝 No `yaml` edition needed (but you can!)
 -   🌈 Based on Material UI colors
 -   🌓 Light and dark theme support
 -   🎨 Optional theme customization
