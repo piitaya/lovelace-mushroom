@@ -29,7 +29,7 @@
             "alarm_control_panel": {
                 "displayed_states": "États affichés"
             },
-            "sensor": {
+            "entity": {
                 "primary_info": "Information principale",
                 "secondary_info": "Information secondaire",
                 "info_values": {

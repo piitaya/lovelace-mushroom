@@ -46,6 +46,9 @@ person:
     device_trackers:
       - device_tracker.demo_anne_therese
 
+vacuum:
+  - platform: demo
+
 alarm_control_panel:
   - platform: manual
     name: Alarm panel 1

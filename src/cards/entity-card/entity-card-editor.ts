@@ -13,23 +13,22 @@ import setupCustomlocalize from "../../localize";
 import { COLORS, computeColorName, computeRgbColor } from "../../utils/colors";
 import { configElementStyle } from "../../utils/editor-styles";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
-import { SENSOR_CARD_EDITOR_NAME, SENSOR_ENTITY_DOMAINS } from "./const";
+import { ENTITY_CARD_EDITOR_NAME } from "./const";
 import {
-    PRIMARY_INFOS,
-    SECONDARY_INFOS,
-    SensorCardConfig,
-    sensorCardConfigStruct,
-} from "./sensor-card-config";
+    INFOS,
+    EntityCardConfig,
+    entityCardConfigStruct,
+} from "./entity-card-config";
 const actions = ["more-info", "navigate", "url", "call-service", "none"];
 
-@customElement(SENSOR_CARD_EDITOR_NAME)
-export class SensorCardEditor extends LitElement implements LovelaceCardEditor {
+@customElement(ENTITY_CARD_EDITOR_NAME)
+export class EntityCardEditor extends LitElement implements LovelaceCardEditor {
     @property({ attribute: false }) public hass?: HomeAssistant;
 
-    @state() private _config?: SensorCardConfig;
+    @state() private _config?: EntityCardConfig;
 
-    public setConfig(config: SensorCardConfig): void {
-        assert(config, sensorCardConfigStruct);
+    public setConfig(config: EntityCardConfig): void {
+        assert(config, entityCardConfigStruct);
         this._config = config;
     }
 
@@ -54,7 +53,6 @@ export class SensorCardEditor extends LitElement implements LovelaceCardEditor {
                     .value=${this._config.entity}
                     .configValue=${"entity"}
                     @value-changed=${this._valueChanged}
-                    .includeDomains=${SENSOR_ENTITY_DOMAINS}
                     allow-custom-entity
                 ></ha-entity-picker>
                 <div class="side-by-side">
@@ -124,7 +122,7 @@ export class SensorCardEditor extends LitElement implements LovelaceCardEditor {
                 <div class="side-by-side">
                     <paper-dropdown-menu
                         .label=${customLocalize(
-                            "editor.card.sensor.primary_info"
+                            "editor.card.entity.primary_info"
                         )}
                     >
                         <paper-listbox
@@ -136,14 +134,14 @@ export class SensorCardEditor extends LitElement implements LovelaceCardEditor {
                         >
                             <paper-item value="">
                                 ${customLocalize(
-                                    "editor.card.sensor.info_values.default"
+                                    "editor.card.entity.info_values.default"
                                 )}
                             </paper-item>
-                            ${PRIMARY_INFOS.map((info) => {
+                            ${INFOS.map((info) => {
                                 return html`
                                     <paper-item .value=${info}>
                                         ${customLocalize(
-                                            `editor.card.sensor.info_values.${info}`
+                                            `editor.card.entity.info_values.${info}`
                                         )}
                                     </paper-item>
                                 `;
@@ -152,7 +150,7 @@ export class SensorCardEditor extends LitElement implements LovelaceCardEditor {
                     </paper-dropdown-menu>
                     <paper-dropdown-menu
                         .label=${customLocalize(
-                            "editor.card.sensor.secondary_info"
+                            "editor.card.entity.secondary_info"
                         )}
                     >
                         <paper-listbox
@@ -164,14 +162,14 @@ export class SensorCardEditor extends LitElement implements LovelaceCardEditor {
                         >
                             <paper-item value="">
                                 ${customLocalize(
-                                    "editor.card.sensor.info_values.default"
+                                    "editor.card.entity.info_values.default"
                                 )}
                             </paper-item>
-                            ${SECONDARY_INFOS.map((info) => {
+                            ${INFOS.map((info) => {
                                 return html`
                                     <paper-item .value=${info}>
                                         ${customLocalize(
-                                            `editor.card.sensor.info_values.${info}`
+                                            `editor.card.entity.info_values.${info}`
                                         )}
                                     </paper-item>
                                 `;
