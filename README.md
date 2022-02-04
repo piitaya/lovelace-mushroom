@@ -30,14 +30,12 @@ The goal of Mushroom is not to provide custom card for deep customization. You c
 
 ### HACS
 
-Mushroom is not available yet in [HACS][hacs] (Home Assistant Community Store) but you can add it as a custom repository.
+Mushroom is available in [HACS][hacs] (Home Assistant Community Store).
 
-1. Go to any of the sections (integrations, frontend, automation).
-2. Click on the 3 dots in the top right corner.
-3. Select "Custom repositories"
-4. Add the URL to the repository https://github.com/piitaya/lovelace-mushroom
-5. Select the `Lovelace` category.
-6. Click the `ADD` button.
+1. Open HACS
+2. Go to "Frontend" section
+3. Click button with "+" icon
+4. Search for "Mushroom"
 
 ### Manual
 
@@ -169,7 +167,7 @@ The design is inspired by [7ahang’s work][7ahang] on Behance and [Ui Lovelace 
 <!-- Badges -->
 
 [hacs-url]: https://github.com/custom-components/hacs
-[hacs-image]: https://img.shields.io/badge/hacs-custom-orange.svg?style=flat-square
+[hacs-image]: https://img.shields.io/badge/hacs-default-orange.svg?style=flat-square
 [release-image]: https://img.shields.io/github/downloads/piitaya/lovelace-mushroom/total?style=flat-square
 
 <!-- References -->
