@@ -1,4 +1,4 @@
-# Light card
+# Fan card
 
 ![Fan light](../images/fan-light.png)
 ![Fan dark](../images/fan-dark.png)
