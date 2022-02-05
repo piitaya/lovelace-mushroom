@@ -16,7 +16,7 @@ import {
     templateCardConfigStruct,
 } from "./template-card-config";
 
-const actions = ["more-info", "navigate", "url", "call-service", "none"];
+const actions = ["navigate", "url", "call-service", "none"];
 
 @customElement(TEMPLATE_CARD_EDITOR_NAME)
 export class TemplateCardEditor

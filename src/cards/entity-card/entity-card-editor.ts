@@ -19,7 +19,15 @@ import {
     entityCardConfigStruct,
     INFOS,
 } from "./entity-card-config";
-const actions = ["more-info", "navigate", "url", "call-service", "none"];
+
+const actions = [
+    "toggle",
+    "more-info",
+    "navigate",
+    "url",
+    "call-service",
+    "none",
+];
 
 @customElement(ENTITY_CARD_EDITOR_NAME)
 export class EntityCardEditor extends LitElement implements LovelaceCardEditor {
