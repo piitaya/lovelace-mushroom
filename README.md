@@ -1,7 +1,9 @@
 # 🍄 Mushroom
 
-[![hacs][hacs-image]][hacs-url]
-<!-- ![release][release-image] -->
+[![hacs][hacs-badge]][hacs-url]
+[![release][release-badge]][release-url]
+![downloads][downloads-badge]
+![build][build-badge]
 
 > Mushroom is currently in `beta` and not released yet. There can be some breaking changes.
 
@@ -167,8 +169,10 @@ The design is inspired by [7ahang’s work][7ahang] on Behance and [Ui Lovelace 
 <!-- Badges -->
 
 [hacs-url]: https://github.com/custom-components/hacs
-[hacs-image]: https://img.shields.io/badge/hacs-default-orange.svg?style=flat-square
-[release-image]: https://img.shields.io/github/downloads/piitaya/lovelace-mushroom/total?style=flat-square
+[hacs-badge]: https://img.shields.io/badge/hacs-default-orange.svg?style=flat-square
+[release-badge]: https://img.shields.io/github/v/release/piitaya/lovelace-mushroom?style=flat-square
+[downloads-badge]: https://img.shields.io/github/downloads/piitaya/lovelace-mushroom/total?style=flat-square
+[build-badge]: https://img.shields.io/github/workflow/status/piitaya/lovelace-mushroom/Build?style=flat-square
 
 <!-- References -->
 
@@ -178,4 +182,5 @@ The design is inspired by [7ahang’s work][7ahang] on Behance and [Ui Lovelace 
 [ui-lovelace-minimalist]: https://ui-lovelace-minimalist.github.io/UI/
 [button-card]: https://github.com/custom-cards/button-card
 [7ahang]: https://www.behance.net/gallery/88433905/Redesign-Smart-Home
+[release-url]: https://github.com/piitaya/lovelace-mushroom/releases
 
