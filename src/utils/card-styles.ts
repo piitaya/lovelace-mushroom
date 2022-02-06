@@ -8,11 +8,11 @@ export const cardStyle = css`
         --title-padding: var(--mush-title-padding, 12px);
         --title-spacing: var(--mush-title-spacing, 12px);
         --title-font-size: var(--mush-title-font-size, 24px);
-        --title-font-weight: var(--mush-title-font-size, normal);
-        --title-line-height: var(---mush-title-line-height, 1.2);
+        --title-font-weight: var(--mush-title-font-weight, normal);
+        --title-line-height: var(--mush-title-line-height, 1.2);
         --subtitle-font-size: var(--mush-subtitle-font-size, 16px);
         --subtitle-font-weight: var(--mush-subtitle-font-weight, normal);
-        --subtitle-line-height: var(---mush-subtitle-line-height, 1.2);
+        --subtitle-line-height: var(--mush-subtitle-line-height, 1.2);
     }
     ha-card {
         height: 100%;
