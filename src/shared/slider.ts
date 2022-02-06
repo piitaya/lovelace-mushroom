@@ -123,7 +123,7 @@ export class SliderItem extends LitElement {
                 position: relative;
                 height: 100%;
                 width: 100%;
-                border-radius: 12px;
+                border-radius: var(--control-border-radius);
                 transform: translateZ(0);
                 overflow: hidden;
                 cursor: pointer;

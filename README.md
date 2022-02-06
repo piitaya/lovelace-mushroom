@@ -84,52 +84,7 @@ Some cards are on the todo list :
 
 ### Theme customization
 
-Mushroom works without theme but you can add a theme for better experience by copiing the theme file [themes/mushroom.yaml](themes/mushroom.yaml) in your theme folder.
-If you want more information about themes, check out the official [Home Assistant documentation about themes][home-assitant-theme-docs].
-
-```yaml
-Mushroom:
-    # HA variables
-    ha-card-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.16)
-    ha-card-border-radius: 12px
-    # Mushroom layout
-    mush-spacing: 12px
-    # Mushroom title styles
-    mush-title-padding: 24px 16px 16px
-    mush-title-spacing: 12px
-    mush-title-font-size: 24px
-    mush-title-font-size: normal
-    mush-title-line-height: 1.2
-    mush-subtitle-font-size: 16px
-    mush-subtitle-font-weight: normal
-    mush-subtitle-line-height: 1.2
-    # Mushroom colors
-    mush-rgb-red: 244, 67, 54
-    mush-rgb-pink: 233, 30, 99
-    mush-rgb-purple: 156, 39, 176
-    mush-rgb-deep-purple: 103, 58, 183
-    mush-rgb-indigo: 63, 81, 181
-    mush-rgb-blue: 33, 150, 243
-    mush-rgb-light-blue: 3, 169, 244
-    mush-rgb-cyan: 0, 188, 212
-    mush-rgb-teal: 0, 150, 136
-    mush-rgb-green: 76, 175, 80
-    mush-rgb-light-green: 139, 195, 74
-    mush-rgb-lime: 205, 220, 57
-    mush-rgb-yellow: 255, 235, 59
-    mush-rgb-amber: 255, 193, 7
-    mush-rgb-orange: 255, 152, 0
-    mush-rgb-deep-orange: 255, 87, 34
-    mush-rgb-brown: 121, 85, 72
-    mush-rgb-grey: 158, 158, 158
-    mush-rgb-blue-grey: 96, 125, 139
-    mush-rgb-black: 0, 0, 0
-    mush-rgb-white: 255, 255, 255
-    # You must keep this to support light/dark theme
-    modes:
-        light: {}
-        dark: {}
-```
+Mushroom works without theme but you can add a theme for better experience by installing the [Mushroom Themes](https://github.com/piitaya/lovelace-mushroom-themes). If you want more information about themes, check out the official [Home Assistant documentation about themes][home-assitant-theme-docs].
 
 ## Development server
 

@@ -79,7 +79,7 @@ export class ChipsCard extends LitElement implements LovelaceCard {
         }
 
         return html`
-            <div class="container">
+            <div class="chip-container">
                 ${this._config.chips.map((chip) => this.renderChip(chip))}
             </div>
         `;
@@ -100,19 +100,19 @@ export class ChipsCard extends LitElement implements LovelaceCard {
         return [
             cardStyle,
             css`
-                .container {
+                .chip-container {
                     display: flex;
                     flex-direction: row;
                     align-items: flex-start;
                     justify-content: flex-start;
                     flex-wrap: wrap;
-                    margin-top: -8px;
+                    margin-bottom: calc(-1 * var(--chip-spacing));
                 }
-                .container * {
-                    margin-top: 8px;
+                .chip-container * {
+                    margin-bottom: var(--chip-spacing);
                 }
-                .container *:not(:last-child) {
-                    margin-right: 8px;
+                .chip-container *:not(:last-child) {
+                    margin-right: var(--chip-spacing);
                 }
             `,
         ];
