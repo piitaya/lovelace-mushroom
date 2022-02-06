@@ -7,7 +7,7 @@ import {
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { assert } from "superstruct";
-import setupcustomLocalize from "../../localize";
+import setupCustomlocalize from "../../localize";
 import { configElementStyle } from "../../utils/editor-styles";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { TEMPLATE_CARD_EDITOR_NAME } from "./const";
@@ -38,7 +38,7 @@ export class TemplateCardEditor
         }
 
         const dir = computeRTLDirection(this.hass);
-        const customLocalize = setupcustomLocalize(this.hass);
+        const customLocalize = setupCustomlocalize(this.hass);
 
         return html`
             <div class="card-config">

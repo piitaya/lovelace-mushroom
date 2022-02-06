@@ -1,0 +1,17 @@
+title: Title
+icon: mdi:card-text
+cards:
+  - type: vertical-stack
+    cards:
+      - type: custom:mushroom-title-card
+        title: Hello, {{user}}
+        subtitle: How are you?
+      - type: custom:mushroom-title-card
+        title: Number of entities
+        subtitle: |
+          {{ states | count }} entities
+      - type: custom:mushroom-title-card
+        title: Title only
+      - type: custom:mushroom-title-card
+        subtitle: Subtitle only
+          

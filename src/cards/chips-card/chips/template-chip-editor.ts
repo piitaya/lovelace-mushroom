@@ -1,7 +1,7 @@
 import { fireEvent, HomeAssistant } from "custom-card-helpers";
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import setupCustomLocalize from "../../../localize";
+import setupCustomlocalize from "../../../localize";
 import { configElementStyle } from "../../../utils/editor-styles";
 import { TemplateChipConfig } from "../../../utils/lovelace/chip/types";
 import { EditorTarget } from "../../../utils/lovelace/editor/types";
@@ -25,7 +25,7 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
             return html``;
         }
 
-        const customLocalize = setupCustomLocalize(this.hass);
+        const customLocalize = setupCustomlocalize(this.hass);
 
         return html`
             <div class="card-config">
