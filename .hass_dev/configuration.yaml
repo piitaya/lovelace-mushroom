@@ -40,6 +40,9 @@ weather:
 fan:
   - platform: demo
 
+lock:
+  - platform: demo
+  
 person:
   - name: Anne Therese
     id: anne_therese
