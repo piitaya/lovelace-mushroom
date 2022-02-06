@@ -148,9 +148,12 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                 mainEntity.state
             ) >= 0;
 
-        const actions: ActionButtonType[] = isDisarmed(mainEntity)
-            ? this._config.states?.map((state) => ({ state })) || []
-            : [{ state: "disarmed" }];
+        const actions: ActionButtonType[] =
+            this._config.states && this._config.states.length > 0
+                ? isDisarmed(mainEntity)
+                    ? this._config.states.map((state) => ({ state }))
+                    : [{ state: "disarmed" }]
+                : [];
 
         const isActionEnabled = isActionsAvailable(mainEntity);
 
