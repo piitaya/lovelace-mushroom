@@ -5,7 +5,7 @@ export const cardStyle = css`
     :host {
         ${colorCss}
         --spacing: var(--mush-spacing, 12px);
-        --title-padding: var(--mush-title-padding, 12px);
+        --title-padding: var(--mush-title-padding, 24px 12px 16px);
         --title-spacing: var(--mush-title-spacing, 12px);
         --title-font-size: var(--mush-title-font-size, 24px);
         --title-font-weight: var(--mush-title-font-weight, normal);

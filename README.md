@@ -95,7 +95,7 @@ Mushroom:
     # Mushroom layout
     mush-spacing: 12px
     # Mushroom title styles
-    mush-title-padding: 12px
+    mush-title-padding: 24px 16px 16px
     mush-title-spacing: 12px
     mush-title-font-size: 24px
     mush-title-font-size: normal
