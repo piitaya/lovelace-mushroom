@@ -34,7 +34,7 @@ export class TitleCardEditor extends LitElement implements LovelaceCardEditor {
             <div class="card-config">
                 <paper-textarea
                     .label="${customLocalize(
-                        "editor.card.generic.title"
+                        "editor.card.title.title"
                     )} (${this.hass.localize(
                         "ui.panel.lovelace.editor.card.config.optional"
                     )})"
@@ -48,7 +48,7 @@ export class TitleCardEditor extends LitElement implements LovelaceCardEditor {
                 ></paper-textarea>
                 <paper-textarea
                     .label="${customLocalize(
-                        "editor.card.generic.subtitle"
+                        "editor.card.title.subtitle"
                     )} (${this.hass.localize(
                         "ui.panel.lovelace.editor.card.config.optional"
                     )})"

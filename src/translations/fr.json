@@ -44,6 +44,10 @@
             "template": {
                 "primary": "Information principale",
                 "secondary": "Information secondaire"
+            },
+            "title": {
+                "title": "Titre",
+                "subtitle": "Sous-titre"
             }
         },
         "chip": {

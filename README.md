@@ -24,7 +24,7 @@ Mushroom mission is to propose easy to use components to build your [Home Assist
 -   🌈 Based on Material UI colors
 -   🌓 Light and dark theme support
 -   🎨 Optional theme customization
--   🌎 Internationalization 
+-   🌎 Internationalization
 
 The goal of Mushroom is not to provide custom card for deep customization. You can use the excellent [UI Lovelace Minimalist][ui-lovelace-minimalist] and [Button card][button-card] plugins for this.
 
@@ -74,6 +74,7 @@ Different cards are available for differents entities :
 -   🙋 [Person card](docs/cards/person.md)
 -   🛠 [Template card](docs/cards/template.md)
 -   🔔 [Chips card](docs/cards/chips.md)
+-   ✏️ [Title card](docs/cards/title.md)
 
 Some cards are on the todo list :
 
@@ -91,8 +92,18 @@ Mushroom:
     # HA variables
     ha-card-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.16)
     ha-card-border-radius: 12px
-    # Mushroom custom variables
+    # Mushroom layout
     mush-spacing: 12px
+    # Mushroom title styles
+    mush-title-padding: 12px
+    mush-title-spacing: 12px
+    mush-title-font-size: 24px
+    mush-title-font-size: normal
+    mush-title-line-height: 1.2
+    mush-subtitle-font-size: 16px
+    mush-subtitle-font-weight: normal
+    mush-subtitle-line-height: 1.2
+    # Mushroom colors
     mush-rgb-red: 244, 67, 54
     mush-rgb-pink: 233, 30, 99
     mush-rgb-purple: 156, 39, 176
@@ -183,4 +194,3 @@ The design is inspired by [7ahang’s work][7ahang] on Behance and [Ui Lovelace 
 [button-card]: https://github.com/custom-cards/button-card
 [7ahang]: https://www.behance.net/gallery/88433905/Redesign-Smart-Home
 [release-url]: https://github.com/piitaya/lovelace-mushroom/releases
-

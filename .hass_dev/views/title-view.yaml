@@ -1,5 +1,5 @@
 title: Title
-icon: mdi:card-text
+icon: mdi:format-title
 cards:
   - type: vertical-stack
     cards:

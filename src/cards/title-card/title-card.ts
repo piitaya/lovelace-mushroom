@@ -48,6 +48,7 @@ export class TitleCard extends LitElement implements LovelaceCard {
     ): Promise<TitleCardConfig> {
         return {
             type: `custom:${TITLE_CARD_NAME}`,
+            title: "Hello, {{ user }} !",
         };
     }
 
