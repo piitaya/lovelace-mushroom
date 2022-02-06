@@ -11,6 +11,8 @@ export function isActive(entity: HassEntity) {
 
     // Custom cases
     switch (domain) {
+        case "alarm_control_panel":
+            return state !== "disarmed";
         case "cover":
             return state === "open" || state === "opening";
         case "device_tracker":
