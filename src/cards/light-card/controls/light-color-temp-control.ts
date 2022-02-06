@@ -44,8 +44,7 @@ export class LightColorTempControl extends LitElement {
                 --gradient: -webkit-linear-gradient(
                     right,
                     rgb(255, 160, 0) 0%,
-                    white 50%,
-                    rgb(166, 209, 255) 100%
+                    white 100%
                 );
             }
         `;

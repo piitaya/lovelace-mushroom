@@ -12,6 +12,12 @@ export function getColorTemp(entity: HassEntity) {
         : undefined;
 }
 
+export function getRGBColor(entity: HassEntity) {
+    return entity.attributes.rgb_color != null
+        ? entity.attributes.rgb_color.join(',')
+        : undefined;
+}
+
 export function isActive(entity: HassEntity) {
     return entity.state === "on";
 }

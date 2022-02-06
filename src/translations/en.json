@@ -13,7 +13,8 @@
             },
             "light": {
                 "show_brightness_control": "Brightness control?",
-                "show_color_temp_control": "Temperature color control?"
+                "show_color_temp_control": "Temperature color control?",
+                "show_color_control": "Color control?"
             },
             "fan": {
                 "animate_icon_active": "Animate icon when active?",
