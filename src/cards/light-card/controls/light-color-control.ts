@@ -3,6 +3,7 @@ import { HassEntity } from "home-assistant-js-websocket";
 import { css, unsafeCSS, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import "../../../shared/slider";
+import Color from "color";
 
 const GRADIENT = [
     [0, "#f00"],
@@ -14,8 +15,6 @@ const GRADIENT = [
     [1, "#f00"]
 ];
 
-const CANVAS_WIDTH = 1000;
-
 @customElement("mushroom-light-color-control")
 export class LightColorControl extends LitElement {
     @property({ attribute: false }) public hass!: HomeAssistant;
@@ -24,45 +23,14 @@ export class LightColorControl extends LitElement {
 
     _percent = 0;
 
-    _createRGBCanvas():HTMLCanvasElement {
-        const canvas = document.createElement("canvas");
-        canvas.setAttribute("width", ""+CANVAS_WIDTH);
-        canvas.setAttribute("height", "2");
-        var ctx = canvas.getContext("2d");
-        if (ctx) {
-            var grd = ctx.createLinearGradient(0, 0, CANVAS_WIDTH, 0);
-            GRADIENT.forEach(([stop, color]) => {
-                grd.addColorStop(stop as number, color as string);
-            });
-
-            ctx.fillStyle = grd;
-            ctx.fillRect(0, 0, CANVAS_WIDTH, 2);
-        }
-        return canvas;
+    _percentToRGB(percent: number): number[] {
+        const color = Color.hsv(360 * percent, 100, 100);
+        return color.rgb().array();
     }
 
-    _percentToRGB(percent:number):number[] {
-        const canvas = this._createRGBCanvas();
-        var ctx = canvas.getContext("2d");
-        if (ctx) {
-            let [r,g,b] = ctx.getImageData(percent*CANVAS_WIDTH - 1, 1, 1, 1).data;
-            return [r,g,b];
-        }
-        return [];
-    }
-
-    _rgbToPercent(rgb:number):number {
-        const canvas = this._createRGBCanvas();
-        var ctx = canvas.getContext("2d");
-        if (ctx) {
-            for(let i = 0; i < CANVAS_WIDTH; i++) {
-                let [r,g,b] = ctx.getImageData(i, 1, 1, 1).data;
-                if(r === rgb[0] && g === rgb[1] && b === rgb[2]) {
-                    return (i/CANVAS_WIDTH) * 100;
-                }
-            }
-        }
-        return 0;
+    _rgbToPercent(rgb: number[]): number {
+        const color = Color.rgb(rgb);
+        return color.hsv().hue() / 360;
     }
 
     onChange(e: CustomEvent): void {
@@ -83,7 +51,7 @@ export class LightColorControl extends LitElement {
     protected render(): TemplateResult {
         const state = this.entity.state;
 
-        const colorPercent = this._percent || this._rgbToPercent(this.entity.attributes.rgb_color);
+        const colorPercent = this._percent || (this._rgbToPercent(this.entity.attributes.rgb_color)*100);
 
         return html`
             <mushroom-slider

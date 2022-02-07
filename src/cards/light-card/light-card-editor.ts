@@ -14,10 +14,6 @@ import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { LIGHT_CARD_EDITOR_NAME, LIGHT_ENTITY_DOMAINS } from "./const";
 import { LightCardConfig, lightCardConfigStruct } from "./light-card-config";
 
-/*
- * TODO: do not allow to set color and temp if bulb not compatible
- */
-
 const actions = [
     "toggle",
     "more-info",
@@ -121,6 +117,18 @@ export class LightCardEditor extends LitElement implements LovelaceCardEditor {
                         <ha-switch
                             .checked=${!!this._config.show_brightness_control}
                             .configValue=${"show_brightness_control"}
+                            @change=${this._valueChanged}
+                        ></ha-switch>
+                    </ha-formfield>
+                    <ha-formfield
+                        .label=${customLocalize(
+                            "editor.card.light.use_light_icon_color"
+                        )}
+                        .dir=${dir}
+                    >
+                        <ha-switch
+                            .checked=${!!this._config.use_light_icon_color}
+                            .configValue=${"use_light_icon_color"}
                             @change=${this._valueChanged}
                         ></ha-switch>
                     </ha-formfield>

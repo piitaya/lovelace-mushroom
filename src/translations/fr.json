@@ -13,6 +13,7 @@
             },
             "light": {
                 "show_brightness_control": "Contrôle de luminosité ?",
+                "use_light_icon_color": "Colorer l'icône",
                 "show_color_temp_control": "Contrôle de la température ?",
                 "show_color_control": "Contrôle de la couleur ?"
             },

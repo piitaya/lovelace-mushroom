@@ -19,6 +19,7 @@ import "../../shared/state-info";
 import "../../shared/state-item";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
+import { computeRgbColor } from "../../utils/colors";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
 import {
     LIGHT_CARD_EDITOR_NAME,
@@ -31,6 +32,7 @@ import "./controls/light-color-control";
 import { LightCardConfig } from "./light-card-config";
 import "./light-card-editor";
 import { getBrightness, getRGBColor, isActive } from "./utils";
+import Color from "color";
 
 type LightCardControl = "brightness_control" | "color_temp_control" | "color_control";
 
@@ -162,24 +164,22 @@ export class LightCard extends LitElement implements LovelaceCard {
 
         const iconRgbColor = getRGBColor(entity);
         const iconStyle = {};
-        if (iconRgbColor) {
-            const [r,g,b] = iconRgbColor.split(',').map(c => parseInt(""+c));
-            const hsp = Math.sqrt(
-                0.299 * (r * r) +
-                0.587 * (g * g) +
-                0.114 * (b * b)
-            );
-        
-            const isLight = hsp > 190;
-            let shapeColor = [r,g,b];
-            let shapeAlpha = 0.2;
-            if (isLight) {
-                shapeColor = [33,33,33];
-                shapeAlpha = 0.5;
+        if (iconRgbColor && this._config?.use_light_icon_color) {
+            // Only set if changing color_temp
+            if (!entity.attributes.color_temp) {
+                const [r,g,b] = iconRgbColor.split(',').map(c => parseInt(""+c));
+                const color = Color.rgb([r, g, b]);
+                const transformedColor = color
+                    .saturationl(100)
+                    .lightness(50)
+                    .fade(0.8)
+                    .rgb()
+                    .array();
+    
+                    iconStyle["--shape-color"] = `rgba(${transformedColor.join(',')})`;
             }
 
             iconStyle["--icon-color"] = `rgb(${iconRgbColor})`;
-            iconStyle["--shape-color"] = `rgba(${shapeColor.join(',')}, ${shapeAlpha})`;
         }
 
         return html`
@@ -272,8 +272,8 @@ export class LightCard extends LitElement implements LovelaceCard {
                     cursor: pointer;
                 }
                 mushroom-shape-icon {
-                    --icon-color: rgba(var(--rgb-state-light), 1);
-                    --shape-color: rgba(var(--rgb-grey), 0.25);
+                    --icon-color: rgb(var(--rgb-state-light));
+                    --shape-color: rgba(var(--rgb-state-light), 0.25);
                 }
                 mushroom-light-brightness-control,
                 mushroom-light-color-temp-control,
