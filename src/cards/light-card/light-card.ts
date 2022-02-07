@@ -190,8 +190,7 @@ export class LightCard extends LitElement implements LovelaceCard {
         const iconStyle = {};
         if (iconRgbColor && this._config?.use_light_icon_color) {
             if (entity.attributes.color_mode !== "color_temp") {
-                const [r,g,b] = iconRgbColor.split(',').map(c => parseInt(""+c));
-                const color = Color.rgb([r, g, b]);
+                const color = Color.rgb(iconRgbColor);
                 const transformedColor = color
                     .saturationl(100)
                     .lightness(50)
@@ -202,7 +201,7 @@ export class LightCard extends LitElement implements LovelaceCard {
                     iconStyle["--shape-color"] = `rgba(${transformedColor.join(',')})`;
             }
 
-            iconStyle["--icon-color"] = `rgb(${iconRgbColor})`;
+            iconStyle["--icon-color"] = `rgb(${iconRgbColor.join(',')})`;
         }
 
         return html`

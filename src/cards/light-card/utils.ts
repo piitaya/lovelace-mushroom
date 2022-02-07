@@ -14,7 +14,7 @@ export function getColorTemp(entity: HassEntity) {
 
 export function getRGBColor(entity: HassEntity) {
     return entity.attributes.rgb_color != null
-        ? entity.attributes.rgb_color.join(',')
+        ? entity.attributes.rgb_color
         : undefined;
 }
 
