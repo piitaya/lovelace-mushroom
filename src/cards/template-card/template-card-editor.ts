@@ -6,8 +6,10 @@ import {
 } from "custom-card-helpers";
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import { styleMap } from "lit/directives/style-map.js";
 import { assert } from "superstruct";
 import setupCustomlocalize from "../../localize";
+import { COLORS, computeColorName, computeRgbColor } from "../../utils/colors";
 import { configElementStyle } from "../../utils/editor-styles";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { TEMPLATE_CARD_EDITOR_NAME } from "./const";
@@ -42,34 +44,48 @@ export class TemplateCardEditor
 
         return html`
             <div class="card-config">
-                <paper-textarea
-                    .label="${this.hass.localize(
-                        "ui.panel.lovelace.editor.card.generic.icon"
-                    )} (${this.hass.localize(
-                        "ui.panel.lovelace.editor.card.config.optional"
-                    )})"
-                    .value=${this._config.icon}
-                    .configValue=${"icon"}
-                    @keydown=${this._ignoreKeydown}
-                    @value-changed=${this._valueChanged}
-                    autocapitalize="none"
-                    autocomplete="off"
-                    spellcheck="false"
-                ></paper-textarea>
-                <paper-textarea
-                    .label="${customLocalize(
-                        "editor.card.generic.icon_color"
-                    )} (${this.hass.localize(
-                        "ui.panel.lovelace.editor.card.config.optional"
-                    )})"
-                    .value=${this._config.icon_color}
-                    .configValue=${"icon_color"}
-                    @keydown=${this._ignoreKeydown}
-                    @value-changed=${this._valueChanged}
-                    autocapitalize="none"
-                    autocomplete="off"
-                    spellcheck="false"
-                ></paper-textarea>
+                <div class="side-by-side">
+                    <ha-icon-picker
+                        .label="${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.generic.icon"
+                        )} (${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.config.optional"
+                        )})"
+                        .value=${this._config.icon}
+                        .placeholder=${this._config.icon}
+                        .configValue=${"icon"}
+                        @value-changed=${this._valueChanged}
+                    ></ha-icon-picker>
+                    <paper-dropdown-menu
+                        .label="${customLocalize(
+                            "editor.card.generic.icon_color"
+                        )} (${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.config.optional"
+                        )})"
+                    >
+                        <paper-listbox
+                            slot="dropdown-content"
+                            attr-for-selected="value"
+                            .selected=${this._config.icon_color ?? ""}
+                            .configValue=${"icon_color"}
+                            @iron-select=${this._valueChanged}
+                        >
+                            <paper-item value=""
+                                >${customLocalize(
+                                    "editor.card.generic.color_values.default"
+                                )}</paper-item
+                            >
+                            ${COLORS.map(
+                                (color) => html`
+                                    <paper-item .value=${color}>
+                                        ${this.renderColorCircle(color)}
+                                        ${computeColorName(color)}
+                                    </paper-item>
+                                `
+                            )}
+                        </paper-listbox>
+                    </paper-dropdown-menu>
+                </div>
                 <paper-textarea
                     .label="${customLocalize(
                         "editor.card.template.primary"
@@ -156,6 +172,15 @@ export class TemplateCardEditor
         `;
     }
 
+    private renderColorCircle(color: string) {
+        return html` <span
+            class="circle-color"
+            style=${styleMap({
+                "--main-color": computeRgbColor(color),
+            })}
+        ></span>`;
+    }
+
     private _ignoreKeydown(ev: KeyboardEvent) {
         // Stop keyboard events from the paper-textarea from propagating to avoid accidentally closing the dialog when the user presses Enter.
         ev.stopPropagation();
@@ -167,25 +192,23 @@ export class TemplateCardEditor
         }
         const target = ev.target! as EditorTarget;
         const value =
-            target.checked !== undefined ? target.checked : ev.detail.value;
+            target.checked ?? ev.detail.value ?? ev.detail.item?.value;
 
-        if (this[`_${target.configValue}`] === value) {
+        if (!target.configValue || this._config[target.configValue] === value) {
             return;
         }
-
-        let newConfig;
         if (target.configValue) {
             if (!value) {
-                newConfig = { ...this._config };
-                delete newConfig[target.configValue!];
+                this._config = { ...this._config };
+                delete this._config[target.configValue!];
             } else {
-                newConfig = {
+                this._config = {
                     ...this._config,
                     [target.configValue!]: value,
                 };
             }
         }
-        fireEvent(this, "config-changed", { config: newConfig });
+        fireEvent(this, "config-changed", { config: this._config });
     }
 
     static get styles(): CSSResultGroup {
