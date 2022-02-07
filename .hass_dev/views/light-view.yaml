@@ -31,6 +31,7 @@ cards:
     show_brightness_control: true
     show_color_temp_control: true
     show_color_control: true
+    use_light_icon_color: true
   - type: grid
     title: Vertical
     cards:
