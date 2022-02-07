@@ -42,7 +42,16 @@ export function getInfo(
         case "name":
             return name;
         case "state":
-            return state;
+            if (entity.attributes.device_class === "timestamp" && isAvailable(entity) == true) {
+                return html`
+                <ha-relative-time
+                    .hass=${hass}
+                    .datetime=${entity.state}
+                    capitalize
+                ></ha-relative-time>`;
+            } else {
+                return state;
+            }
         case "last-changed":
             return html`
                 <ha-relative-time
