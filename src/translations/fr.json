@@ -3,7 +3,7 @@
         "card": {
             "generic": {
                 "vertical": "Vertical ?",
-                "multiline_secondary": "Secondaire multiligne?",
+                "multiline_secondary": "Information secondaire sur plusieurs lignes?",
                 "hide_state": "Cacher l'état ?",
                 "state": "État",
                 "icon_color": "Couleur de l'icône",
