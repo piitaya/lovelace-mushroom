@@ -189,8 +189,7 @@ export class LightCard extends LitElement implements LovelaceCard {
         const iconRgbColor = getRGBColor(entity);
         const iconStyle = {};
         if (iconRgbColor && this._config?.use_light_icon_color) {
-            // Only set if changing color_temp
-            if (!entity.attributes.color_temp) {
+            if (entity.attributes.color_mode !== "color_temp") {
                 const [r,g,b] = iconRgbColor.split(',').map(c => parseInt(""+c));
                 const color = Color.rgb([r, g, b]);
                 const transformedColor = color
