@@ -118,7 +118,7 @@ export class TemplateCard extends LitElement implements LovelaceCard {
         const secondary = this._templateResults.secondary?.result;
 
         const vertical = this._config.vertical;
-        const wrap_secondary = this._config.wrap_secondary;
+        const multiline_secondary = this._config.multiline_secondary;
 
         const iconStyle = {};
         if (iconColor) {
@@ -146,7 +146,7 @@ export class TemplateCard extends LitElement implements LovelaceCard {
                         slot="info"
                         .primary=${primary}
                         .secondary=${secondary}
-                        .wrap_secondary=${wrap_secondary}
+                        .multiline_secondary=${multiline_secondary}
                     ></mushroom-state-info>
                 </mushroom-state-item>
             </div>
