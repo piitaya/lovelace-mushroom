@@ -109,6 +109,16 @@ export class TemplateCardEditor
                             @change=${this._valueChanged}
                         ></ha-switch>
                     </ha-formfield>
+                    <ha-formfield
+                        .label=${customLocalize("editor.card.generic.wrap_text")}
+                        .dir=${dir}
+                    >
+                        <ha-switch
+                            .checked=${!!this._config.wrap_secondary}
+                            .configValue=${"wrap_secondary"}
+                            @change=${this._valueChanged}
+                        ></ha-switch>
+                    </ha-formfield>
                 </div>
                 <div class="side-by-side">
                     <hui-action-editor

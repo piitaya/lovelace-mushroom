@@ -3,6 +3,7 @@
         "card": {
             "generic": {
                 "vertical": "Vertical?",
+                "wrap_text": "Wrap text?",
                 "hide_state": "Hide state?",
                 "state": "State",
                 "icon_color": "Icon color",

@@ -7,12 +7,14 @@ export class StateItem extends LitElement {
 
     @property() public secondary?: string;
 
+    @property() public wrap_secondary?: boolean = false;
+
     protected render(): TemplateResult {
         return html`
             <div class="container">
                 <span class="primary">${this.primary}</span>
                 ${this.secondary
-                    ? html`<span class="secondary">${this.secondary}</span>`
+                    ? html`<span class="secondary${this.wrap_secondary ? ` wrap`: ``}">${this.secondary}</span>`
                     : null}
             </div>
         `;
@@ -41,6 +43,9 @@ export class StateItem extends LitElement {
                 text-overflow: ellipsis;
                 overflow: hidden;
                 white-space: nowrap;
+            }
+            .wrap {
+                white-space: normal;
             }
         `;
     }
