@@ -16,6 +16,7 @@ export interface TemplateCardConfig extends LovelaceCardConfig {
     icon_color?: string;
     primary?: string;
     secondary?: string;
+    multiline_secondary?: boolean;
     vertical?: boolean;
     tap_action?: ActionConfig;
     hold_action?: ActionConfig;
@@ -29,6 +30,7 @@ export const templateCardConfigStruct = assign(
         icon_color: optional(string()),
         primary: optional(string()),
         secondary: optional(string()),
+        multiline_secondary: optional(boolean()),
         vertical: optional(boolean()),
         tap_action: optional(actionConfigStruct),
         hold_action: optional(actionConfigStruct),
