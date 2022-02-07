@@ -19,7 +19,6 @@ import "../../shared/state-info";
 import "../../shared/state-item";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { computeRgbColor } from "../../utils/colors";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
 import {
     LIGHT_CARD_EDITOR_NAME,
@@ -109,15 +108,38 @@ export class LightCard extends LitElement implements LovelaceCard {
             },
             ...config,
         };
+    }
+
+    private get _hasColorTempControl(): boolean {
+        const entity_id = this._config?.entity;
+        if (this._config?.show_color_temp_control && entity_id) {
+            const entity = this.hass.states[entity_id];
+            return !!(entity.attributes.supported_color_modes.find(m => m === "color_temp"));
+        }
+        return false;
+    }
+
+    private get _hasColorControl(): boolean {
+        const entity_id = this._config?.entity;
+        if (this._config?.show_color_control && entity_id) {
+            const entity = this.hass.states[entity_id];
+            return !!(entity.attributes.supported_color_modes.find(m => ["hs", "rgbw", "rgbww"].indexOf(m) > -1));
+        }
+        return false;
+    }
+
+    private _setControls() {
         const controls: LightCardControl[][] = [];
         if (this._config?.show_brightness_control) {
             controls.push(["brightness_control"]);
         }
+
+
         const secondaryControls: LightCardControl[] = [];
-        if (this._config?.show_color_temp_control) {
+        if (this._hasColorTempControl) {
             secondaryControls.push("color_temp_control");
         }
-        if (this._config?.show_color_control) {
+        if (this._hasColorControl) {
             secondaryControls.push("color_control");
         }
 
@@ -129,7 +151,7 @@ export class LightCard extends LitElement implements LovelaceCard {
             }
         }
         this._controls = controls;
-        this._activeControl = controls.length ? controls[0][0] : undefined;
+        this._activeControl = this._activeControl || (controls.length ? controls[0][0] : undefined);
     }
 
     private _handleAction(ev: ActionHandlerEvent) {
@@ -143,6 +165,8 @@ export class LightCard extends LitElement implements LovelaceCard {
 
         const entity_id = this._config.entity;
         const entity = this.hass.states[entity_id];
+
+        this._setControls();
 
         const name = this._config.name ?? entity.attributes.friendly_name;
         const icon = this._config.icon ?? stateIcon(entity);
