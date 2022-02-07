@@ -17,6 +17,7 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `icon_color`  | string          | Optional | Icon color to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                        |
 | `primary`     | string          | Optional | Primary info to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                      |
 | `secondary`   | string          | Optional | Secondary info to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                    |
+| `multiline_secondary`    | boolean         | `false`  | Enables support for multiline text for the secondary info.
 | `vertical`    | boolean         | `false`  | Vertical layout                                                                                                                     |
 | `hide_state`  | boolean         | `false`  | Hide the entity state                                                                                                               |
 | `tap_action`  | action          | `none`   | Home assistant action to perform on tap                                                                                             |
