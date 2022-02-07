@@ -26,7 +26,13 @@ cards:
         entity: person.anne_therese
         vertical: true
         hide_state: true
-    columns: 2
+      - type: custom:mushroom-person-card
+        entity: person.anne_therese
+        vertical: true
+        hide_state: true
+        use_entity_picture: true
+        hide_name: true
+    columns: 3
     square: false
   - type: grid
     title: Demo controls

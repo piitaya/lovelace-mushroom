@@ -25,7 +25,8 @@
                 "show_position_control": "Contrôle de la position ?"
             },
             "person": {
-                "use_entity_picture": "Utiliser l'image de l'entité ?"
+                "use_entity_picture": "Utiliser l'image de l'entité ?",
+                "hide_name": "Cacher le nom ?"
             },
             "alarm_control_panel": {
                 "displayed_states": "États affichés"
