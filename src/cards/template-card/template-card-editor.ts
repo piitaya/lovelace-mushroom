@@ -110,12 +110,12 @@ export class TemplateCardEditor
                         ></ha-switch>
                     </ha-formfield>
                     <ha-formfield
-                        .label=${customLocalize("editor.card.generic.wrap_text")}
+                        .label=${customLocalize("editor.card.generic.multiline_secondary")}
                         .dir=${dir}
                     >
                         <ha-switch
-                            .checked=${!!this._config.wrap_secondary}
-                            .configValue=${"wrap_secondary"}
+                            .checked=${!!this._config.multiline_secondary}
+                            .configValue=${"multiline_secondary"}
                             @change=${this._valueChanged}
                         ></ha-switch>
                     </ha-formfield>
