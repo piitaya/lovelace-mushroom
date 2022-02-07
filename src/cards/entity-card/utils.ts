@@ -42,7 +42,7 @@ export function getInfo(
         case "name":
             return name;
         case "state":
-            if (entity.attributes.device_class === "timestamp") {
+            if (entity.attributes.device_class === "timestamp" && isAvailable(entity) == true) {
                 return html`
                 <ha-relative-time
                     .hass=${hass}
