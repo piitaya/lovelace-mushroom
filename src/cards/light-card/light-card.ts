@@ -9,7 +9,7 @@ import {
     stateIcon,
 } from "custom-card-helpers";
 import { HassEntity } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import "../../shared/badge-icon";
@@ -26,7 +26,15 @@ import "./controls/light-color-temp-control";
 import "./controls/light-color-control";
 import { LightCardConfig } from "./light-card-config";
 import "./light-card-editor";
-import { getBrightness, getRGBColor, isLight, isActive, isSuperLight } from "./utils";
+import {
+    getBrightness,
+    getRGBColor,
+    isLight,
+    isActive,
+    isSuperLight,
+    supportsColorTempControl,
+    supportsColorControl,
+} from "./utils";
 
 type LightCardControl = "brightness_control" | "color_temp_control" | "color_control";
 
@@ -63,24 +71,11 @@ export class LightCard extends LitElement implements LovelaceCard {
 
     @state() private _activeControl?: LightCardControl;
 
-    @state() private _controls: LightCardControl[][] = [];
-    @state() private _currentControlsIndex = 0;
-
-    get _nextControls(): LightCardControl[] | undefined {
-        if (this._activeControl) {
-            return this._controls[this._nextControlsIndex];
-        }
-        return undefined;
-    }
-
-    get _nextControlsIndex(): number {
-        return (this._currentControlsIndex + 1) % this._controls.length;
-    }
+    @state() private _controls: LightCardControl[] = [];
 
     _onControlTap(ctrl, e): void {
         e.stopPropagation();
         this._activeControl = ctrl;
-        this._currentControlsIndex = this._nextControlsIndex;
     }
 
     getCardSize(): number | Promise<number> {
@@ -97,49 +92,37 @@ export class LightCard extends LitElement implements LovelaceCard {
             },
             ...config,
         };
+        this.setControls();
     }
 
-    private get _hasColorTempControl(): boolean {
-        const entity_id = this._config?.entity;
-        if (this._config?.show_color_temp_control && entity_id) {
-            const entity = this.hass.states[entity_id];
-            return !!entity.attributes.supported_color_modes.find((m) => m === "color_temp");
+    protected updated(changedProperties: PropertyValues) {
+        super.updated(changedProperties);
+        if (this.hass && changedProperties.has("hass")) {
+            this.setControls();
         }
-        return false;
     }
 
-    private get _hasColorControl(): boolean {
-        const entity_id = this._config?.entity;
-        if (this._config?.show_color_control && entity_id) {
-            const entity = this.hass.states[entity_id];
-            return !!entity.attributes.supported_color_modes.find((m) => ["hs", "rgbw", "rgbww"].indexOf(m) > -1);
-        }
-        return false;
-    }
+    setControls() {
+        if (!this._config || !this.hass || !this._config.entity) return;
 
-    private _setControls() {
-        const controls: LightCardControl[][] = [];
-        if (this._config?.show_brightness_control) {
-            controls.push(["brightness_control"]);
-        }
+        const entity_id = this._config.entity;
+        const entity = this.hass.states[entity_id];
 
-        const secondaryControls: LightCardControl[] = [];
-        if (this._hasColorTempControl) {
-            secondaryControls.push("color_temp_control");
-        }
-        if (this._hasColorControl) {
-            secondaryControls.push("color_control");
-        }
+        if (!entity) return;
 
-        if (secondaryControls.length) {
-            if (controls.length) {
-                controls.push(secondaryControls);
-            } else {
-                secondaryControls.forEach((ctrl) => controls.push([ctrl]));
-            }
+        const controls: LightCardControl[] = [];
+        if (this._config.show_brightness_control) {
+            controls.push("brightness_control");
+        }
+        if (this._config.show_color_temp_control && supportsColorTempControl(entity)) {
+            controls.push("color_temp_control");
+        }
+        if (this._config.show_color_control && supportsColorControl(entity)) {
+            controls.push("color_control");
         }
         this._controls = controls;
-        this._activeControl = this._activeControl || (controls.length ? controls[0][0] : undefined);
+        const isActiveControlSupported = this._activeControl ? controls.includes(this._activeControl) : false;
+        this._activeControl = isActiveControlSupported ? this._activeControl : controls[0];
     }
 
     private _handleAction(ev: ActionHandlerEvent) {
@@ -153,8 +136,6 @@ export class LightCard extends LitElement implements LovelaceCard {
 
         const entity_id = this._config.entity;
         const entity = this.hass.states[entity_id];
-
-        this._setControls();
 
         const name = this._config.name ?? entity.attributes.friendly_name;
         const icon = this._config.icon ?? stateIcon(entity);
@@ -216,7 +197,7 @@ export class LightCard extends LitElement implements LovelaceCard {
                     ${this._controls.length > 0
                         ? html`
                               <div class="actions">
-                                  ${this.renderActiveControl(entity)} ${this.renderNextControlButtons()}
+                                  ${this.renderActiveControl(entity)} ${this.renderOtherControls()}
                               </div>
                           `
                         : null}
@@ -225,18 +206,16 @@ export class LightCard extends LitElement implements LovelaceCard {
         `;
     }
 
-    private renderNextControlButtons(): TemplateResult | null {
-        if (!this._nextControls || this._currentControlsIndex == this._nextControlsIndex) {
-            return null;
-        }
+    private renderOtherControls(): TemplateResult | null {
+        const otherControls = this._controls.filter((control) => control != this._activeControl);
 
-        let controls = this._nextControls.map(
-            (ctrl) => html`<mushroom-button
-                .icon=${CONTROLS_ICONS[ctrl]}
-                @click=${(e) => this._onControlTap(ctrl, e)}
-            />`
-        );
-        return html`${controls}`;
+        return html`
+            ${otherControls.map(
+                (ctrl) => html`
+                    <mushroom-button .icon=${CONTROLS_ICONS[ctrl]} @click=${(e) => this._onControlTap(ctrl, e)} />
+                `
+            )}
+        `;
     }
 
     private renderActiveControl(entity: HassEntity): TemplateResult | null {

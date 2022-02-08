@@ -1,5 +1,5 @@
 import { computeRTLDirection, fireEvent, HomeAssistant, LovelaceCardEditor, stateIcon } from "custom-card-helpers";
-import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { assert } from "superstruct";
 import setupCustomlocalize from "../../localize";
@@ -111,6 +111,9 @@ export class LightCardEditor extends LitElement implements LovelaceCardEditor {
                     </ha-formfield>
                 </div>
                 <div class="side-by-side">
+                    <p class="message">${customLocalize("editor.card.light.incompatible_controls")}</p>
+                </div>
+                <div class="side-by-side">
                     <hui-action-editor
                         .label="${this.hass.localize(
                             "ui.panel.lovelace.editor.card.generic.tap_action"
@@ -163,6 +166,13 @@ export class LightCardEditor extends LitElement implements LovelaceCardEditor {
     }
 
     static get styles(): CSSResultGroup {
-        return configElementStyle;
+        return [
+            configElementStyle,
+            css`
+                .message {
+                    font-size: 14px;
+                }
+            `,
+        ];
     }
 }
