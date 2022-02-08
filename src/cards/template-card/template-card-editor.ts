@@ -42,34 +42,36 @@ export class TemplateCardEditor
 
         return html`
             <div class="card-config">
-                <paper-textarea
-                    .label="${this.hass.localize(
-                        "ui.panel.lovelace.editor.card.generic.icon"
-                    )} (${this.hass.localize(
-                        "ui.panel.lovelace.editor.card.config.optional"
-                    )})"
-                    .value=${this._config.icon}
-                    .configValue=${"icon"}
-                    @keydown=${this._ignoreKeydown}
-                    @value-changed=${this._valueChanged}
-                    autocapitalize="none"
-                    autocomplete="off"
-                    spellcheck="false"
-                ></paper-textarea>
-                <paper-textarea
-                    .label="${customLocalize(
-                        "editor.card.generic.icon_color"
-                    )} (${this.hass.localize(
-                        "ui.panel.lovelace.editor.card.config.optional"
-                    )})"
-                    .value=${this._config.icon_color}
-                    .configValue=${"icon_color"}
-                    @keydown=${this._ignoreKeydown}
-                    @value-changed=${this._valueChanged}
-                    autocapitalize="none"
-                    autocomplete="off"
-                    spellcheck="false"
-                ></paper-textarea>
+                <div class="side-by-side">
+                    <paper-textarea
+                        .label="${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.generic.icon"
+                        )} (${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.config.optional"
+                        )})"
+                        .value=${this._config.icon}
+                        .configValue=${"icon"}
+                        @keydown=${this._ignoreKeydown}
+                        @value-changed=${this._valueChanged}
+                        autocapitalize="none"
+                        autocomplete="off"
+                        spellcheck="false"
+                    ></paper-textarea>
+                    <paper-textarea
+                        .label="${customLocalize(
+                            "editor.card.generic.icon_color"
+                        )} (${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.config.optional"
+                        )})"
+                        .value=${this._config.icon_color}
+                        .configValue=${"icon_color"}
+                        @keydown=${this._ignoreKeydown}
+                        @value-changed=${this._valueChanged}
+                        autocapitalize="none"
+                        autocomplete="off"
+                        spellcheck="false"
+                    ></paper-textarea>
+                </div>
                 <paper-textarea
                     .label="${customLocalize(
                         "editor.card.template.primary"

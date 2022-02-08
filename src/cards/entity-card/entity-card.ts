@@ -82,6 +82,7 @@ export class EntityCard extends LitElement implements LovelaceCard {
 
         const name = this._config.name ?? entity.attributes.friendly_name ?? "";
         const icon = this._config.icon ?? stateIcon(entity);
+        const hideIcon = !!this._config.hide_icon;
         const vertical = this._config.vertical;
 
         const stateDisplay = computeStateDisplay(
@@ -122,13 +123,14 @@ export class EntityCard extends LitElement implements LovelaceCard {
                         hasHold: hasAction(this._config.hold_action),
                     })}
                     .hide_info=${primary == null && secondary == null}
+                    .hide_icon=${hideIcon}
                 >
-                    <mushroom-shape-icon
+                    ${!hideIcon ? html`<mushroom-shape-icon
                         slot="icon"
                         .disabled=${!isActive(entity)}
                         .icon=${icon}
                         style=${styleMap(iconStyle)}
-                    ></mushroom-shape-icon>
+                    ></mushroom-shape-icon>` : undefined}
                     ${!isAvailable(entity)
                         ? html`
                               <mushroom-badge-icon
