@@ -57,31 +57,21 @@ export class TemplateCardEditor
                         autocomplete="off"
                         spellcheck="false"
                     ></paper-textarea>
-                    <ha-formfield
-                        .label=${customLocalize("editor.card.generic.hide_icon")}
-                        .dir=${dir}
-                    >
-                        <ha-switch
-                            .checked=${!!this._config.hide_icon}
-                            .configValue=${"hide_icon"}
-                            @change=${this._valueChanged}
-                        ></ha-switch>
-                    </ha-formfield>
+                    <paper-textarea
+                        .label="${customLocalize(
+                            "editor.card.generic.icon_color"
+                        )} (${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.config.optional"
+                        )})"
+                        .value=${this._config.icon_color}
+                        .configValue=${"icon_color"}
+                        @keydown=${this._ignoreKeydown}
+                        @value-changed=${this._valueChanged}
+                        autocapitalize="none"
+                        autocomplete="off"
+                        spellcheck="false"
+                    ></paper-textarea>
                 </div>
-                <paper-textarea
-                    .label="${customLocalize(
-                        "editor.card.generic.icon_color"
-                    )} (${this.hass.localize(
-                        "ui.panel.lovelace.editor.card.config.optional"
-                    )})"
-                    .value=${this._config.icon_color}
-                    .configValue=${"icon_color"}
-                    @keydown=${this._ignoreKeydown}
-                    @value-changed=${this._valueChanged}
-                    autocapitalize="none"
-                    autocomplete="off"
-                    spellcheck="false"
-                ></paper-textarea>
                 <paper-textarea
                     .label="${customLocalize(
                         "editor.card.template.primary"

@@ -17,7 +17,6 @@ cards:
         primary: Hide icon
         secondary: |
           {{ states | count }} entities
-        hide_icon: true
     columns: 2
     square: false
   - type: grid
@@ -56,7 +55,6 @@ cards:
         primary: Hide icon
         secondary: |
           {{ states | count }} entities
-        hide_icon: true
         vertical: true
     columns: 3
     square: false

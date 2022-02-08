@@ -114,7 +114,7 @@ export class TemplateCard extends LitElement implements LovelaceCard {
 
         const icon = this._templateResults.icon?.result;
         const iconColor = this._templateResults.icon_color?.result;
-        const hideIcon = !!this._config.hide_icon;
+        const hideIcon = !icon;
         const primary = this._templateResults.primary?.result;
         const secondary = this._templateResults.secondary?.result;
 
