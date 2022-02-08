@@ -33,6 +33,8 @@ export class ShapeIcon extends LitElement {
                     0.05
                 );
                 --shape-animation: none;
+                --shape-outline-color: transparent;
+                --shape-outline-size: 1px;
                 flex: none;
             }
             .shape {
@@ -44,8 +46,11 @@ export class ShapeIcon extends LitElement {
                 align-items: center;
                 justify-content: center;
                 background-color: var(--shape-color);
-                transition: background-color 280ms ease-in-out;
+                transition-property: background-color, outline;
+                transition-duration: 280ms;
+                transition-timing-function: ease-out;
                 animation: var(--shape-animation);
+                outline: var(--shape-outline-color) solid var(--shape-outline-size);
             }
             .shape ha-icon {
                 display: flex;

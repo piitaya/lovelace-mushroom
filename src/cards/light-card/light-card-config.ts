@@ -12,7 +12,7 @@ export interface LightCardConfig extends LovelaceCardConfig {
     show_brightness_control?: boolean;
     show_color_temp_control?: boolean;
     show_color_control?: boolean,
-    use_light_icon_color?: boolean,
+    use_light_color?: boolean,
     tap_action?: ActionConfig;
     hold_action?: ActionConfig;
 }
@@ -28,7 +28,7 @@ export const lightCardConfigStruct = assign(
         show_brightness_control: optional(boolean()),
         show_color_temp_control: optional(boolean()),
         show_color_control: optional(boolean()),
-        use_light_icon_color: optional(boolean()),
+        use_light_color: optional(boolean()),
         tap_action: optional(actionConfigStruct),
         hold_action: optional(actionConfigStruct),
     })

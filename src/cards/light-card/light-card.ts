@@ -30,8 +30,7 @@ import "./controls/light-color-temp-control";
 import "./controls/light-color-control";
 import { LightCardConfig } from "./light-card-config";
 import "./light-card-editor";
-import { getBrightness, getRGBColor, isActive } from "./utils";
-import Color from "color";
+import { getBrightness, getRGBColor, isLight, isActive } from "./utils";
 
 type LightCardControl = "brightness_control" | "color_temp_control" | "color_control";
 
@@ -186,22 +185,18 @@ export class LightCard extends LitElement implements LovelaceCard {
 
         const stateValue = brightness != null ? `${brightness}%` : stateDisplay;
 
-        const iconRgbColor = getRGBColor(entity);
+        const lightRgbColor = getRGBColor(entity);
         const iconStyle = {};
-        if (iconRgbColor && this._config?.use_light_icon_color) {
-            if (entity.attributes.color_mode !== "color_temp") {
-                const color = Color.rgb(iconRgbColor);
-                const transformedColor = color
-                    .saturationl(100)
-                    .lightness(50)
-                    .fade(0.8)
-                    .rgb()
-                    .array();
-    
-                    iconStyle["--shape-color"] = `rgba(${transformedColor.join(',')})`;
-            }
+        if (lightRgbColor && this._config?.use_light_color) {
+            isLight(lightRgbColor);
+            iconStyle["--shape-color"] = `rgb(${lightRgbColor.join(',')})`;
 
-            iconStyle["--icon-color"] = `rgb(${iconRgbColor.join(',')})`;
+            let iconColor = `var(--rgb-card-background-color), 0.95`;
+            if (isLight(lightRgbColor) && !(this.hass.themes as any).darkMode) {
+                iconColor = `var(--rgb-primary-text-color), 0.2`;
+                iconStyle["--shape-outline-color"] = `rgba(var(--rgb-primary-text-color), 0.05)`;
+            }
+            iconStyle["--icon-color"] = `rgba(${iconColor})`;
         }
 
         return html`
@@ -261,10 +256,19 @@ export class LightCard extends LitElement implements LovelaceCard {
     private renderActiveControl(entity: HassEntity): TemplateResult | null {
         switch (this._activeControl) {
             case "brightness_control":
+                const lightRgbColor = getRGBColor(entity);
+                const sliderStyle = {};
+                if (lightRgbColor && this._config?.use_light_color) {
+                    sliderStyle["--slider-color"] = `rgb(${lightRgbColor.join(',')})`;
+                    if (isLight(lightRgbColor) && !(this.hass.themes as any).darkMode) {
+                        sliderStyle["--slider-bg-color"] = `rgba(var(--rgb-primary-text-color), 0.2)`;
+                    }
+                }
                 return html`
                     <mushroom-light-brightness-control
                         .hass=${this.hass}
                         .entity=${entity}
+                        style=${styleMap(sliderStyle)}
                     />
                 `;
             case "color_temp_control":
