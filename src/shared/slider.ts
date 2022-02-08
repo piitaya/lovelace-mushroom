@@ -150,16 +150,6 @@ export class SliderItem extends LitElement {
                 transform-origin: left;
                 background-color: var(--main-color);
             }
-            .slider .slider-track-active {
-                position: absolute;
-                top: 0;
-                left: 0;
-                height: 100%;
-                width: 100%;
-                transform: scale3d(var(--value, 0), 1, 1);
-                transform-origin: left;
-                background-color: var(--main-color);
-            }
             .slider .slider-track-indicator {
                 position: absolute;
                 top: 0;

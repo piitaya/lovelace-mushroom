@@ -14,7 +14,10 @@
             },
             "light": {
                 "show_brightness_control": "Brightness control?",
-                "show_color_temp_control": "Temperature color control?"
+                "use_light_color": "Colorize icon and slider",
+                "show_color_temp_control": "Temperature color control?",
+                "show_color_control": "Color control?",
+                "incompatible_controls": "Some controls may not be displayed if your light does not support the feature."
             },
             "fan": {
                 "animate_icon_active": "Animate icon when active?",
