@@ -24,12 +24,13 @@ export class BadgeIcon extends LitElement {
             .chip {
                 height: 36px;
                 width: auto;
-                padding: 0 12px;
+                padding: 0 10px;
                 border-radius: 18px;
                 display: flex;
                 flex-direction: row;
                 align-items: center;
                 justify-content: center;
+                line-height: 12px;
             }
             ::slotted(ha-icon) {
                 display: flex;
