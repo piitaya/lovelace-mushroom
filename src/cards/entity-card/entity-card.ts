@@ -123,13 +123,14 @@ export class EntityCard extends LitElement implements LovelaceCard {
                         hasHold: hasAction(this._config.hold_action),
                     })}
                     .hide_info=${primary == null && secondary == null}
+                    .hide_icon=${hideIcon}
                 >
                     ${!hideIcon ? html`<mushroom-shape-icon
                         slot="icon"
                         .disabled=${!isActive(entity)}
                         .icon=${icon}
                         style=${styleMap(iconStyle)}
-                    ></mushroom-shape-icon>` : null}
+                    ></mushroom-shape-icon>` : undefined}
                     ${!isAvailable(entity)
                         ? html`
                               <mushroom-badge-icon

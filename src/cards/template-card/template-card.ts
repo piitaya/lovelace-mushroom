@@ -137,12 +137,13 @@ export class TemplateCard extends LitElement implements LovelaceCard {
                         hasHold: hasAction(this._config.hold_action),
                     })}
                     .hide_info=${!primary && !secondary}
+                    .hide_icon=${hideIcon}
                 >
                     ${!hideIcon ? html`<mushroom-shape-icon
                         style=${styleMap(iconStyle)}
                         slot="icon"
                         .icon=${icon}
-                    ></mushroom-shape-icon>` : null}
+                    ></mushroom-shape-icon>` : undefined}
                     <mushroom-state-info
                         slot="info"
                         .primary=${primary}
