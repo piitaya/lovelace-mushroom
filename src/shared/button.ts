@@ -32,7 +32,7 @@ export class BadgeIcon extends LitElement {
                 justify-content: center;
                 height: 100%;
                 width: 100%;
-                border-radius: 12px;
+                border-radius: var(--control-border-radius);
                 border: none;
                 background-color: var(--bg-color);
                 transition: background-color 280ms ease-in-out;

@@ -22,10 +22,10 @@ export class BadgeIcon extends LitElement {
                 --text-color: var(--primary-text-color);
             }
             .chip {
-                height: 36px;
+                height: var(--chip-height);
                 width: auto;
-                padding: 0 10px;
-                border-radius: 18px;
+                padding: var(--chip-padding);
+                border-radius: var(--chip-border-radius);
                 display: flex;
                 flex-direction: row;
                 align-items: center;

@@ -39,7 +39,7 @@ export class ShapeIcon extends LitElement {
                 position: relative;
                 width: 42px;
                 height: 42px;
-                border-radius: 50%;
+                border-radius: var(--icon-border-radius);
                 display: flex;
                 align-items: center;
                 justify-content: center;
