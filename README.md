@@ -7,8 +7,6 @@
 
 <a href="https://www.buymeacoffee.com/piitaya" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/white_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
 
-> Mushroom is currently in `beta` and not released yet. There can be some breaking changes.
-
 ![Overview](https://user-images.githubusercontent.com/5878303/152332130-760cf616-5c40-4825-a482-bb8f1f0f5251.png)
 
 ## What is mushroom ?
