@@ -7,7 +7,7 @@ export function getStateIcon(entity: HassEntity, zones:HassEntity[]) {
     } else if (state === "home") {
         return "mdi:home";
     }
-    const [zone] = zones.filter(z => state === z.attributes.friendly_name);
+    const zone = zones.find(z => state === z.attributes.friendly_name);
     if (zone) {
         return zone.attributes.icon;
     }
