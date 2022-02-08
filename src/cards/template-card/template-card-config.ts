@@ -14,6 +14,7 @@ import { baseLovelaceCardConfig } from "../../utils/editor-styles";
 export interface TemplateCardConfig extends LovelaceCardConfig {
     icon?: string;
     icon_color?: string;
+    hide_icon?: boolean;
     primary?: string;
     secondary?: string;
     multiline_secondary?: boolean;
@@ -28,6 +29,7 @@ export const templateCardConfigStruct = assign(
     object({
         icon: optional(string()),
         icon_color: optional(string()),
+        hide_icon: optional(boolean()),
         primary: optional(string()),
         secondary: optional(string()),
         multiline_secondary: optional(boolean()),

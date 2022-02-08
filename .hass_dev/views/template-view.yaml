@@ -13,6 +13,11 @@ cards:
         secondary: |
           {{ states | count }} entities
         icon: mdi:format-list-bulleted
+      - type: custom:mushroom-template-card
+        primary: Hide icon
+        secondary: |
+          {{ states | count }} entities
+        hide_icon: true
     columns: 2
     square: false
   - type: grid
@@ -47,5 +52,11 @@ cards:
           {{ states | count }} entities
         icon: mdi:format-list-bulleted
         vertical: true
-    columns: 2
+      - type: custom:mushroom-template-card
+        primary: Hide icon
+        secondary: |
+          {{ states | count }} entities
+        hide_icon: true
+        vertical: true
+    columns: 3
     square: false

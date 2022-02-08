@@ -10,6 +10,10 @@ cards:
         entity: sensor.power_consumption
         name: Custom name and icon
         icon: mdi:transmission-tower
+      - type: custom:mushroom-entity-card
+        entity: sensor.power_consumption
+        name: Hide icon
+        hide_icon: true
     columns: 2
     square: false
   - type: grid
@@ -63,7 +67,12 @@ cards:
         entity: sensor.power_consumption
         vertical: true
         secondary_info: none
-    columns: 2
+      - type: custom:mushroom-entity-card
+        entity: sensor.power_consumption
+        vertical: true
+        hide_icon: true
+        secondary_info: none
+    columns: 3
     square: false
   - type: grid
     title: Examples

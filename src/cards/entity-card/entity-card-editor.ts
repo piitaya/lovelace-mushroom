@@ -119,6 +119,18 @@ export class EntityCardEditor extends LitElement implements LovelaceCardEditor {
                         </paper-listbox>
                     </paper-dropdown-menu>
                     <ha-formfield
+                        .label=${customLocalize("editor.card.generic.hide_icon")}
+                        .dir=${dir}
+                    >
+                        <ha-switch
+                            .checked=${!!this._config.hide_icon}
+                            .configValue=${"hide_icon"}
+                            @change=${this._valueChanged}
+                        ></ha-switch>
+                    </ha-formfield>
+                </div>
+                <div class="side-by-side">
+                    <ha-formfield
                         .label=${customLocalize("editor.card.generic.vertical")}
                         .dir=${dir}
                     >
