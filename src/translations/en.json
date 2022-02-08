@@ -13,7 +13,7 @@
             },
             "light": {
                 "show_brightness_control": "Brightness control?",
-                "use_light_icon_color": "Colorize icon",
+                "use_light_color": "Colorize icon and slider",
                 "show_color_temp_control": "Temperature color control?",
                 "show_color_control": "Color control?"
             },

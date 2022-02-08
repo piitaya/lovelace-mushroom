@@ -11,8 +11,8 @@ export interface LightCardConfig extends LovelaceCardConfig {
     hide_state?: boolean;
     show_brightness_control?: boolean;
     show_color_temp_control?: boolean;
-    show_color_control?: boolean,
-    use_light_color?: boolean,
+    show_color_control?: boolean;
+    use_light_color?: boolean;
     tap_action?: ActionConfig;
     hold_action?: ActionConfig;
 }
