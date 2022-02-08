@@ -127,6 +127,7 @@ export const colorCss = css`
         --mush-rgb-state-person-not-home,
         var(--rgb-danger)
     );
+    --rgb-state-person-zone: var(--mush-rgb-state-person-zone, var(--rgb-info));
     --rgb-state-person-unknown: var(
         --mush-rgb-state-person-unknown,
         var(--rgb-grey)
