@@ -20,11 +20,7 @@ import "../../shared/state-item";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
-import {
-    LIGHT_CARD_EDITOR_NAME,
-    LIGHT_CARD_NAME,
-    LIGHT_ENTITY_DOMAINS,
-} from "./const";
+import { LIGHT_CARD_EDITOR_NAME, LIGHT_CARD_NAME, LIGHT_ENTITY_DOMAINS } from "./const";
 import "./controls/light-brightness-control";
 import "./controls/light-color-temp-control";
 import "./controls/light-color-control";
@@ -49,18 +45,12 @@ registerCustomCard({
 @customElement(LIGHT_CARD_NAME)
 export class LightCard extends LitElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
-        return document.createElement(
-            LIGHT_CARD_EDITOR_NAME
-        ) as LovelaceCardEditor;
+        return document.createElement(LIGHT_CARD_EDITOR_NAME) as LovelaceCardEditor;
     }
 
-    public static async getStubConfig(
-        hass: HomeAssistant
-    ): Promise<LightCardConfig> {
+    public static async getStubConfig(hass: HomeAssistant): Promise<LightCardConfig> {
         const entities = Object.keys(hass.states);
-        const lights = entities.filter((e) =>
-            LIGHT_ENTITY_DOMAINS.includes(e.split(".")[0])
-        );
+        const lights = entities.filter((e) => LIGHT_ENTITY_DOMAINS.includes(e.split(".")[0]));
         return {
             type: `custom:${LIGHT_CARD_NAME}`,
             entity: lights[0],
@@ -84,7 +74,7 @@ export class LightCard extends LitElement implements LovelaceCard {
     }
 
     get _nextControlsIndex(): number {
-        return (this._currentControlsIndex + 1)%this._controls.length;
+        return (this._currentControlsIndex + 1) % this._controls.length;
     }
 
     _onControlTap(ctrl, e): void {
@@ -113,7 +103,7 @@ export class LightCard extends LitElement implements LovelaceCard {
         const entity_id = this._config?.entity;
         if (this._config?.show_color_temp_control && entity_id) {
             const entity = this.hass.states[entity_id];
-            return !!(entity.attributes.supported_color_modes.find(m => m === "color_temp"));
+            return !!entity.attributes.supported_color_modes.find((m) => m === "color_temp");
         }
         return false;
     }
@@ -122,7 +112,7 @@ export class LightCard extends LitElement implements LovelaceCard {
         const entity_id = this._config?.entity;
         if (this._config?.show_color_control && entity_id) {
             const entity = this.hass.states[entity_id];
-            return !!(entity.attributes.supported_color_modes.find(m => ["hs", "rgbw", "rgbww"].indexOf(m) > -1));
+            return !!entity.attributes.supported_color_modes.find((m) => ["hs", "rgbw", "rgbww"].indexOf(m) > -1);
         }
         return false;
     }
@@ -132,7 +122,6 @@ export class LightCard extends LitElement implements LovelaceCard {
         if (this._config?.show_brightness_control) {
             controls.push(["brightness_control"]);
         }
-
 
         const secondaryControls: LightCardControl[] = [];
         if (this._hasColorTempControl) {
@@ -146,7 +135,7 @@ export class LightCard extends LitElement implements LovelaceCard {
             if (controls.length) {
                 controls.push(secondaryControls);
             } else {
-                secondaryControls.forEach(ctrl => controls.push([ctrl]));
+                secondaryControls.forEach((ctrl) => controls.push([ctrl]));
             }
         }
         this._controls = controls;
@@ -175,11 +164,7 @@ export class LightCard extends LitElement implements LovelaceCard {
 
         const active = isActive(entity);
 
-        const stateDisplay = computeStateDisplay(
-            this.hass.localize,
-            entity,
-            this.hass.locale
-        );
+        const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
         const brightness = getBrightness(entity);
 
@@ -188,10 +173,9 @@ export class LightCard extends LitElement implements LovelaceCard {
         const lightRgbColor = getRGBColor(entity);
         const iconStyle = {};
         if (lightRgbColor && this._config?.use_light_color) {
-            isLight(lightRgbColor);
-
-            iconStyle["--shape-color"] = `rgba(${lightRgbColor.join(',')}, 0.2)`;
-            iconStyle["--icon-color"] = `rgb(${lightRgbColor.join(',')})`
+            const color = lightRgbColor.join(",");
+            iconStyle["--icon-color"] = `rgb(${color})`;
+            iconStyle["--shape-color"] = `rgba(${color}, 0.25)`;
             if (isLight(lightRgbColor) && !(this.hass.themes as any).darkMode) {
                 iconStyle["--shape-outline-color"] = `rgba(var(--rgb-primary-text-color), 0.05)`;
                 if (isSuperLight(lightRgbColor)) {
@@ -232,8 +216,7 @@ export class LightCard extends LitElement implements LovelaceCard {
                     ${this._controls.length > 0
                         ? html`
                               <div class="actions">
-                                  ${this.renderActiveControl(entity)}
-                                  ${this.renderNextControlButtons()}
+                                  ${this.renderActiveControl(entity)} ${this.renderNextControlButtons()}
                               </div>
                           `
                         : null}
@@ -247,10 +230,12 @@ export class LightCard extends LitElement implements LovelaceCard {
             return null;
         }
 
-        let controls = this._nextControls.map(ctrl => html`<mushroom-button
+        let controls = this._nextControls.map(
+            (ctrl) => html`<mushroom-button
                 .icon=${CONTROLS_ICONS[ctrl]}
                 @click=${(e) => this._onControlTap(ctrl, e)}
-            />`);
+            />`
+        );
         return html`${controls}`;
     }
 
@@ -260,9 +245,12 @@ export class LightCard extends LitElement implements LovelaceCard {
                 const lightRgbColor = getRGBColor(entity);
                 const sliderStyle = {};
                 if (lightRgbColor && this._config?.use_light_color) {
-                    sliderStyle["--slider-color"] = `rgb(${lightRgbColor.join(',')})`;
+                    const color = lightRgbColor.join(",");
+                    sliderStyle["--slider-color"] = `rgb(${color})`;
+                    sliderStyle["--slider-bg-color"] = `rgba(${color}, 0.2)`;
                     if (isLight(lightRgbColor) && !(this.hass.themes as any).darkMode) {
-                        sliderStyle["--slider-bg-color"] = `rgba(var(--rgb-primary-text-color), 0.2)`;
+                        sliderStyle["--slider-bg-color"] = `rgba(var(--rgb-primary-text-color), 0.05)`;
+                        sliderStyle["--slider-color"] = `rgba(var(--rgb-primary-text-color), 0.15)`;
                     }
                 }
                 return html`
@@ -273,19 +261,9 @@ export class LightCard extends LitElement implements LovelaceCard {
                     />
                 `;
             case "color_temp_control":
-                return html`
-                    <mushroom-light-color-temp-control
-                        .hass=${this.hass}
-                        .entity=${entity}
-                    />
-                `;
+                return html` <mushroom-light-color-temp-control .hass=${this.hass} .entity=${entity} /> `;
             case "color_control":
-                return html`
-                    <mushroom-light-color-control
-                        .hass=${this.hass}
-                        .entity=${entity}
-                    />
-                `;
+                return html` <mushroom-light-color-control .hass=${this.hass} .entity=${entity} /> `;
             default:
                 return null;
         }
@@ -300,7 +278,7 @@ export class LightCard extends LitElement implements LovelaceCard {
                 }
                 mushroom-shape-icon {
                     --icon-color: rgb(var(--rgb-state-light));
-                    --shape-color: rgba(var(--rgb-state-light), 0.25);
+                    --shape-color: rgba(var(--rgb-state-light), 0.2);
                 }
                 mushroom-light-brightness-control,
                 mushroom-light-color-temp-control,
