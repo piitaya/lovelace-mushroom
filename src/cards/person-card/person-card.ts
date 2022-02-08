@@ -94,6 +94,7 @@ export class PersonCard extends LitElement implements LovelaceCard {
 
         const vertical = !!this._config.vertical;
         const hideState = !!this._config.hide_state;
+        const hideName = !!this._config.hide_name;
 
         const stateIcon = getStateIcon(entity);
         const stateColor = getStateColor(entity);
@@ -135,7 +136,7 @@ export class PersonCard extends LitElement implements LovelaceCard {
                             : this.renderUnvailableBadge()}
                         <mushroom-state-info
                             slot="info"
-                            .primary=${name}
+                            .primary=${!hideName ? name : undefined}
                             .secondary=${!hideState && stateDisplay}
                         ></mushroom-state-info>
                     </mushroom-state-item>

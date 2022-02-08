@@ -89,6 +89,20 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                     </ha-formfield>
                     <ha-formfield
                         .label=${customLocalize(
+                            "editor.card.person.use_entity_picture"
+                        )}
+                        .dir=${dir}
+                    >
+                        <ha-switch
+                            .checked=${!!this._config.use_entity_picture}
+                            .configValue=${"use_entity_picture"}
+                            @change=${this._valueChanged}
+                        ></ha-switch>
+                    </ha-formfield>
+                </div>
+                <div class="side-by-side">
+                    <ha-formfield
+                        .label=${customLocalize(
                             "editor.card.generic.hide_state"
                         )}
                         .dir=${dir}
@@ -99,17 +113,15 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                             @change=${this._valueChanged}
                         ></ha-switch>
                     </ha-formfield>
-                </div>
-                <div class="side-by-side">
                     <ha-formfield
                         .label=${customLocalize(
-                            "editor.card.person.use_entity_picture"
+                            "editor.card.person.hide_name"
                         )}
                         .dir=${dir}
                     >
                         <ha-switch
-                            .checked=${!!this._config.use_entity_picture}
-                            .configValue=${"use_entity_picture"}
+                            .checked=${!!this._config.hide_name}
+                            .configValue=${"hide_name"}
                             @change=${this._valueChanged}
                         ></ha-switch>
                     </ha-formfield>

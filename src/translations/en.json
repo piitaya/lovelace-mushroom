@@ -25,7 +25,8 @@
                 "show_position_control": "Position control?"
             },
             "person": {
-                "use_entity_picture": "Use entity picture?"
+                "use_entity_picture": "Use entity picture?",
+                "hide_name": "Hide name"
             },
             "alarm_control_panel": {
                 "displayed_states": "Displayed states"

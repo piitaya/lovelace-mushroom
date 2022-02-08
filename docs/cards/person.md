@@ -18,6 +18,7 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `name`               | string  | Optional    | Custom name                                          |
 | `vertical`           | boolean | `false`     | Vertical layout                                      |
 | `hide_state`         | boolean | `false`     | Hide the entity state                                |
+| `hide_name`          | boolean | `false`     | Hide the person name                                 |
 | `use_entity_picture` | boolean | `false`     | Use the picture of the person entity instead of icon |
 | `tap_action`         | action  | `more-info` | Home assistant action to perform on tap              |
 | `hold_action`        | action  | `more-info` | Home assistant action to perform on hold             |
