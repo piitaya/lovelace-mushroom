@@ -83,7 +83,6 @@ export class EntityCard extends LitElement implements LovelaceCard {
         const name = this._config.name ?? entity.attributes.friendly_name ?? "";
         const icon = this._config.icon ?? stateIcon(entity);
         const hideIcon = !!this._config.hide_icon;
-        console.log(hideIcon);
         const vertical = this._config.vertical;
 
         const stateDisplay = computeStateDisplay(
