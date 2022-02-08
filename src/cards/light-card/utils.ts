@@ -21,7 +21,7 @@ export function getRGBColor(entity: HassEntity):number[]|undefined {
 
 export function isLight(rgb:number[]):boolean {
     const color = Color.rgb(rgb);
-    return color.l() > 94;
+    return color.l() > 97;
 }
 
 export function isActive(entity: HassEntity) {
