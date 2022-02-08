@@ -96,7 +96,8 @@ export class PersonCard extends LitElement implements LovelaceCard {
         const hideState = !!this._config.hide_state;
         const hideName = !!this._config.hide_name;
 
-        const stateIcon = getStateIcon(entity);
+        const zones = Object.values(this.hass.states).filter(entity => entity.entity_id.startsWith("zone."));
+        const stateIcon = getStateIcon(entity, zones);
         const stateColor = getStateColor(entity);
 
         const stateDisplay = computeStateDisplay(
