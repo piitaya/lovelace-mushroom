@@ -21,6 +21,10 @@ export function getRGBColor(entity: HassEntity):number[]|undefined {
 
 export function isLight(rgb:number[]):boolean {
     const color = Color.rgb(rgb);
+    return color.l() > 96;
+}
+export function isSuperLight(rgb:number[]):boolean {
+    const color = Color.rgb(rgb);
     return color.l() > 97;
 }
 

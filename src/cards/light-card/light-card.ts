@@ -30,7 +30,7 @@ import "./controls/light-color-temp-control";
 import "./controls/light-color-control";
 import { LightCardConfig } from "./light-card-config";
 import "./light-card-editor";
-import { getBrightness, getRGBColor, isLight, isActive } from "./utils";
+import { getBrightness, getRGBColor, isLight, isActive, isSuperLight } from "./utils";
 
 type LightCardControl = "brightness_control" | "color_temp_control" | "color_control";
 
@@ -189,14 +189,15 @@ export class LightCard extends LitElement implements LovelaceCard {
         const iconStyle = {};
         if (lightRgbColor && this._config?.use_light_color) {
             isLight(lightRgbColor);
-            iconStyle["--shape-color"] = `rgb(${lightRgbColor.join(',')})`;
 
-            let iconColor = `var(--rgb-card-background-color), 0.95`;
+            iconStyle["--shape-color"] = `rgba(${lightRgbColor.join(',')}, 0.2)`;
+            iconStyle["--icon-color"] = `rgb(${lightRgbColor.join(',')})`
             if (isLight(lightRgbColor) && !(this.hass.themes as any).darkMode) {
-                iconColor = `var(--rgb-primary-text-color), 0.2`;
                 iconStyle["--shape-outline-color"] = `rgba(var(--rgb-primary-text-color), 0.05)`;
+                if (isSuperLight(lightRgbColor)) {
+                    iconStyle["--icon-color"] = `rgba(var(--rgb-primary-text-color), 0.2)`;
+                }
             }
-            iconStyle["--icon-color"] = `rgba(${iconColor})`;
         }
 
         return html`
