@@ -36,6 +36,20 @@ cards:
       - type: custom:mushroom-chips-card
         chips:
           - type: entity
+            entity: light.bed_light
+            content_info: state
+          - type: entity
+            entity: light.bed_light
+            content_info: name
+          - type: entity
+            entity: light.bed_light
+            content_info: last-changed
+          - type: entity
+            entity: light.bed_light
+            content_info: none
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: entity
             entity: sensor.outside_temperature
             icon_color: red
           - type: entity
