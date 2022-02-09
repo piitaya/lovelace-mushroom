@@ -17,10 +17,11 @@ import "../../shared/shape-icon";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
+import { isActive } from "../../utils/entity";
 import { PERSON_CARD_EDITOR_NAME, PERSON_CARD_NAME, PERSON_ENTITY_DOMAINS } from "./const";
 import { PersonCardConfig } from "./person-card-config";
 import "./person-card-editor";
-import { getStateColor, getStateIcon, isActive } from "./utils";
+import { getStateColor, getStateIcon } from "./utils";
 
 registerCustomCard({
     type: PERSON_CARD_NAME,

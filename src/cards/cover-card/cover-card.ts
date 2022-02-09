@@ -19,12 +19,13 @@ import "../../shared/state-item";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
+import { isActive } from "../../utils/entity";
 import { COVER_CARD_EDITOR_NAME, COVER_CARD_NAME, COVER_ENTITY_DOMAINS } from "./const";
 import "./controls/cover-buttons-control";
 import "./controls/cover-position-control";
 import { CoverCardConfig } from "./cover-card-config";
 import "./cover-card-editor";
-import { getPosition, isActive } from "./utils";
+import { getPosition } from "./utils";
 
 type CoverCardControl = "buttons_control" | "position_control";
 

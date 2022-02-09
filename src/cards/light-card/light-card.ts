@@ -30,11 +30,11 @@ import {
     getBrightness,
     getRGBColor,
     isLight,
-    isActive,
     isSuperLight,
     supportsColorTempControl,
     supportsColorControl,
 } from "./utils";
+import { isActive } from "../../utils/entity";
 
 type LightCardControl = "brightness_control" | "color_temp_control" | "color_control";
 
