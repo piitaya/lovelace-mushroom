@@ -27,7 +27,3 @@ export function getStateColor(entity: HassEntity, zones: HassEntity[]) {
     }
     return "var(--rgb-state-person-not-home)";
 }
-
-export function isActive(entity: HassEntity) {
-    return entity.state === "home";
-}

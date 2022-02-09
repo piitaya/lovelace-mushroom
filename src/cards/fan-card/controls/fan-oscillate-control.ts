@@ -4,7 +4,8 @@ import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import "../../../shared/slider";
-import { isActive, isOscillating } from "../utils";
+import { isActive } from "../../../utils/entity";
+import { isOscillating } from "../utils";
 
 @customElement("mushroom-fan-oscillate-control")
 export class FanPercentageControl extends LitElement {

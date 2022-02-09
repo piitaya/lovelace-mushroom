@@ -27,10 +27,6 @@ export function isSuperLight(rgb: number[]): boolean {
     return color.l() > 97;
 }
 
-export function isActive(entity: HassEntity) {
-    return entity.state === "on";
-}
-
 export function supportsColorTempControl(entity: HassEntity): boolean {
     return (entity.attributes.supported_color_modes ?? []).some((m) => ["color_temp"].includes(m));
 }

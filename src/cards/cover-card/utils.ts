@@ -27,7 +27,3 @@ export function isOpening(entity: HassEntity) {
 export function isClosing(entity: HassEntity) {
     return entity.state === "closing";
 }
-
-export function isActive(entity: HassEntity) {
-    return entity.state === "open" || entity.state === "opening";
-}

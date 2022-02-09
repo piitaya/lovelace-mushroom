@@ -20,12 +20,13 @@ import "../../shared/state-item";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
+import { isActive } from "../../utils/entity";
 import { FAN_CARD_EDITOR_NAME, FAN_CARD_NAME, FAN_ENTITY_DOMAINS } from "./const";
 import "./controls/fan-oscillate-control";
 import "./controls/fan-percentage-control";
 import { FanCardConfig } from "./fan-card-config";
 import "./fan-card-editor";
-import { getPercentage, isActive } from "./utils";
+import { getPercentage } from "./utils";
 
 registerCustomCard({
     type: FAN_CARD_NAME,
@@ -116,7 +117,7 @@ export class FanCard extends LitElement implements LovelaceCard {
                             style=${styleMap({
                                 "--animation-duration": `${1 / speed}s`,
                             })}
-                            .disabled=${!isActive(entity)}
+                            .disabled=${!active}
                             .icon=${icon}
                         ></mushroom-shape-icon>
                         ${entity.state === "unavailable"
