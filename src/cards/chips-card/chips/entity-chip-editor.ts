@@ -5,6 +5,7 @@ import { styleMap } from "lit/directives/style-map.js";
 import setupCustomlocalize from "../../../localize";
 import { COLORS, computeColorName, computeRgbColor } from "../../../utils/colors";
 import { configElementStyle } from "../../../utils/editor-styles";
+import { INFOS } from "../../../utils/info";
 import { EntityChipConfig } from "../../../utils/lovelace/chip/types";
 import { EditorTarget } from "../../../utils/lovelace/editor/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
@@ -45,6 +46,38 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
                         @value-changed=${this._valueChanged}
                         allow-custom-entity
                     ></ha-entity-picker>
+                </div>
+                <div class="side-by-side">
+                    <paper-input
+                        .label="${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.generic.name"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
+                        .value=${this._config.name}
+                        .configValue=${"name"}
+                        @value-changed=${this._valueChanged}
+                    ></paper-input>
+                    <paper-dropdown-menu
+                        .label=${customLocalize("editor.card.entity.primary_info")}
+                    >
+                        <paper-listbox
+                            slot="dropdown-content"
+                            attr-for-selected="value"
+                            .selected=${this._config.content_info ?? ""}
+                            .configValue=${"content_info"}
+                            @iron-select=${this._valueChanged}
+                        >
+                            <paper-item value="">
+                                ${customLocalize("editor.card.entity.info_values.default")}
+                            </paper-item>
+                            ${INFOS.map((info) => {
+                                return html`
+                                    <paper-item .value=${info}>
+                                        ${customLocalize(`editor.card.entity.info_values.${info}`)}
+                                    </paper-item>
+                                `;
+                            })}
+                        </paper-listbox>
+                    </paper-dropdown-menu>
                 </div>
                 <div class="side-by-side">
                     <ha-icon-picker

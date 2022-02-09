@@ -1,34 +1,11 @@
 import { HomeAssistant } from "custom-card-helpers";
 import { HassEntity } from "home-assistant-js-websocket";
 import { html } from "lit";
-import { Info } from "./entity-card-config";
+import { isAvailable } from "./entity";
 
-export function isActive(entity: HassEntity) {
-    const domain = entity.entity_id.split(".")[0];
-    const state = entity.state;
-    if (state === "unavailable" || state === "unknown" || state === "off") return false;
+export const INFOS = ["name", "state", "last-changed", "last-updated", "none"] as const;
 
-    // Custom cases
-    switch (domain) {
-        case "alarm_control_panel":
-            return state !== "disarmed";
-        case "lock":
-            return state !== "unlocked";
-        case "cover":
-            return state === "open" || state === "opening";
-        case "device_tracker":
-        case "person":
-            return state === "home";
-        case "vacuum":
-            return state !== "docked";
-        default:
-            return true;
-    }
-}
-
-export function isAvailable(entity: HassEntity) {
-    return entity.state !== "unavailable" && entity.state !== "unknown";
-}
+export type Info = typeof INFOS[number];
 
 export function getInfo(
     info: Info,

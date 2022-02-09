@@ -43,6 +43,8 @@ const backChipConfigStruct = object({
 const entityChipConfigStruct = object({
     type: literal("entity"),
     entity: optional(string()),
+    name: optional(string()),
+    content_info: optional(string()),
     icon: optional(string()),
     icon_color: optional(string()),
     tap_action: optional(actionConfigStruct),

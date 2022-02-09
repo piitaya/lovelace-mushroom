@@ -32,10 +32,7 @@ export class ChipsCard extends LitElement implements LovelaceCard {
     }
 
     public static async getStubConfig(_hass: HomeAssistant): Promise<ChipsCardConfig> {
-        const chips = await Promise.all([
-            BackChip.getStubConfig(_hass),
-            EntityChip.getStubConfig(_hass),
-        ]);
+        const chips = await Promise.all([EntityChip.getStubConfig(_hass)]);
         return {
             type: `custom:${CHIPS_CARD_NAME}`,
             chips,
