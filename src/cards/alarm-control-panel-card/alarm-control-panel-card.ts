@@ -27,11 +27,9 @@ import {
     ALARM_CONTROl_PANEL_ENTITY_DOMAINS,
 } from "./const";
 import {
-    getGroupMainEntity,
     getStateColor,
     getStateIcon,
     getStateService,
-    hasGroupInconsistentState,
     isActionsAvailable,
     isDisarmed,
 } from "./utils";
@@ -119,6 +117,15 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
+    private get _hasCode():boolean {
+        const entity_id = this._config?.entity;
+        if (entity_id) {
+            const entity = this.hass.states[entity_id];
+            return entity.attributes.code_format && entity.attributes.code_format !== 'no_code';
+        }
+        return false;
+    }
+
     protected render(): TemplateResult {
         if (!this.hass || !this._config || !this._config.entity) {
             return html``;
@@ -127,31 +134,26 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
         const entity_id = this._config.entity;
 
         const entity = this.hass.states[entity_id];
-        const mainEntity = getGroupMainEntity(entity, this.hass);
-
-        const hasAlert =
-            mainEntity.state.startsWith("partially_") ||
-            hasGroupInconsistentState(entity, this.hass);
 
         const name = this._config.name ?? entity.attributes.friendly_name;
-        const icon = this._config.icon ?? getStateIcon(mainEntity.state);
-        const color = getStateColor(mainEntity.state);
+        const icon = this._config.icon ?? getStateIcon(entity.state);
+        const color = getStateColor(entity.state);
         const vertical = this._config.vertical;
         const hideState = this._config.hide_state;
 
         const shapePulse =
-            ["arming", "triggered", "pending", "unavailable"].indexOf(mainEntity.state) >= 0;
+            ["arming", "triggered", "pending", "unavailable"].indexOf(entity.state) >= 0;
 
         const actions: ActionButtonType[] =
             this._config.states && this._config.states.length > 0
-                ? isDisarmed(mainEntity)
+                ? isDisarmed(entity)
                     ? this._config.states.map((state) => ({ state }))
                     : [{ state: "disarmed" }]
                 : [];
 
-        const isActionEnabled = isActionsAvailable(mainEntity);
+        const isActionEnabled = isActionsAvailable(entity);
 
-        const stateDisplay = computeStateDisplay(this.hass.localize, mainEntity, this.hass.locale);
+        const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
         const iconStyle = {
             "--icon-color": `rgb(${color})`,
@@ -182,14 +184,6 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                                   slot="badge"
                                   icon="mdi:help"
                               ></mushroom-badge-icon>`
-                            : hasAlert
-                            ? html`
-                                  <mushroom-badge-icon
-                                      class="alert"
-                                      slot="badge"
-                                      icon="mdi:exclamation"
-                                  ></mushroom-badge-icon>
-                              `
                             : null}
                         <mushroom-state-info
                             slot="info"
@@ -210,19 +204,19 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                               )}
                           </div>`
                         : null}
-                    ${!mainEntity.attributes.code_format
+                    ${!this._hasCode
                         ? html``
                         : html`
                               <paper-input
                                   id="alarmCode"
                                   .label=${this.hass.localize("ui.card.alarm_control_panel.code")}
                                   type="password"
-                                  .inputmode=${mainEntity.attributes.code_format === "number"
+                                  .inputmode=${entity.attributes.code_format === "number"
                                       ? "numeric"
                                       : "text"}
                               ></paper-input>
                           `}
-                    ${mainEntity.attributes.code_format !== "number"
+                    ${!(this._hasCode && entity.attributes.code_format === "number")
                         ? html``
                         : html`
                               <div id="keypad">
