@@ -1,8 +1,4 @@
-import {
-    fireEvent,
-    HomeAssistant,
-    LovelaceCardEditor,
-} from "custom-card-helpers";
+import { fireEvent, HomeAssistant, LovelaceCardEditor } from "custom-card-helpers";
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { assert } from "superstruct";
@@ -33,9 +29,7 @@ export class TitleCardEditor extends LitElement implements LovelaceCardEditor {
         return html`
             <div class="card-config">
                 <paper-textarea
-                    .label="${customLocalize(
-                        "editor.card.title.title"
-                    )} (${this.hass.localize(
+                    .label="${customLocalize("editor.card.title.title")} (${this.hass.localize(
                         "ui.panel.lovelace.editor.card.config.optional"
                     )})"
                     .value=${this._config.title}
@@ -47,9 +41,7 @@ export class TitleCardEditor extends LitElement implements LovelaceCardEditor {
                     spellcheck="false"
                 ></paper-textarea>
                 <paper-textarea
-                    .label="${customLocalize(
-                        "editor.card.title.subtitle"
-                    )} (${this.hass.localize(
+                    .label="${customLocalize("editor.card.title.subtitle")} (${this.hass.localize(
                         "ui.panel.lovelace.editor.card.config.optional"
                     )})"
                     .value=${this._config.subtitle}
@@ -74,8 +66,7 @@ export class TitleCardEditor extends LitElement implements LovelaceCardEditor {
             return;
         }
         const target = ev.target! as EditorTarget;
-        const value =
-            target.checked !== undefined ? target.checked : ev.detail.value;
+        const value = target.checked !== undefined ? target.checked : ev.detail.value;
 
         if (this[`_${target.configValue}`] === value) {
             return;

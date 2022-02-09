@@ -105,31 +105,13 @@ export const colorCss = css`
     --rgb-state-switch: var(--mush-rgb-state-switch, var(--rgb-blue));
 
     /* State alarm colors */
-    --rgb-state-alarm-disarmed: var(
-        --mush-rgb-state-alarm-disarmed,
-        var(--rgb-info)
-    );
-    --rgb-state-alarm-armed: var(
-        --mush-rgb-state-alarm-armed,
-        var(--rgb-success)
-    );
-    --rgb-state-alarm-triggered: var(
-        --mush-rgb-state-alarm-triggered,
-        var(--rgb-danger)
-    );
+    --rgb-state-alarm-disarmed: var(--mush-rgb-state-alarm-disarmed, var(--rgb-info));
+    --rgb-state-alarm-armed: var(--mush-rgb-state-alarm-armed, var(--rgb-success));
+    --rgb-state-alarm-triggered: var(--mush-rgb-state-alarm-triggered, var(--rgb-danger));
 
     /* State person colors */
-    --rgb-state-person-home: var(
-        --mush-rgb-state-person-home,
-        var(--rgb-success)
-    );
-    --rgb-state-person-not-home: var(
-        --mush-rgb-state-person-not-home,
-        var(--rgb-danger)
-    );
+    --rgb-state-person-home: var(--mush-rgb-state-person-home, var(--rgb-success));
+    --rgb-state-person-not-home: var(--mush-rgb-state-person-not-home, var(--rgb-danger));
     --rgb-state-person-zone: var(--mush-rgb-state-person-zone, var(--rgb-info));
-    --rgb-state-person-unknown: var(
-        --mush-rgb-state-person-unknown,
-        var(--rgb-grey)
-    );
+    --rgb-state-person-unknown: var(--mush-rgb-state-person-unknown, var(--rgb-grey));
 `;

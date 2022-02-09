@@ -1,8 +1,4 @@
-import {
-    computeRTLDirection,
-    fireEvent,
-    HomeAssistant,
-} from "custom-card-helpers";
+import { computeRTLDirection, fireEvent, HomeAssistant } from "custom-card-helpers";
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import setupCustomlocalize from "../../../localize";
@@ -17,10 +13,7 @@ const DOMAINS = ["weather"];
 const actions = ["more-info", "navigate", "url", "call-service", "none"];
 
 @customElement(computeChipEditorComponentName("weather"))
-export class WeatherChipEditor
-    extends LitElement
-    implements LovelaceChipEditor
-{
+export class WeatherChipEditor extends LitElement implements LovelaceChipEditor {
     @property({ attribute: false }) public hass?: HomeAssistant;
 
     @state() private _config?: WeatherChipConfig;
@@ -41,9 +34,7 @@ export class WeatherChipEditor
         return html`
             <div class="card-config">
                 <ha-entity-picker
-                    .label="${this.hass.localize(
-                        "ui.panel.lovelace.editor.card.generic.entity"
-                    )}"
+                    .label="${this.hass.localize("ui.panel.lovelace.editor.card.generic.entity")}"
                     .hass=${this.hass}
                     .value=${this._config.entity}
                     .configValue=${"entity"}
@@ -53,9 +44,7 @@ export class WeatherChipEditor
                 ></ha-entity-picker>
                 <div class="side-by-side">
                     <ha-formfield
-                        .label=${customlocalize(
-                            "editor.chip.weather.show_conditions"
-                        )}
+                        .label=${customlocalize("editor.chip.weather.show_conditions")}
                         .dir=${dir}
                     >
                         <ha-switch
@@ -65,9 +54,7 @@ export class WeatherChipEditor
                         ></ha-switch>
                     </ha-formfield>
                     <ha-formfield
-                        .label=${customlocalize(
-                            "editor.chip.weather.show_temperature"
-                        )}
+                        .label=${customlocalize("editor.chip.weather.show_temperature")}
                         .dir=${dir}
                     >
                         <ha-switch
@@ -81,9 +68,7 @@ export class WeatherChipEditor
                     <hui-action-editor
                         .label="${this.hass.localize(
                             "ui.panel.lovelace.editor.card.generic.tap_action"
-                        )} (${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.config.optional"
-                        )})"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
                         .hass=${this.hass}
                         .config=${this._config.tap_action}
                         .actions=${actions}
@@ -96,9 +81,7 @@ export class WeatherChipEditor
                     <hui-action-editor
                         .label="${this.hass.localize(
                             "ui.panel.lovelace.editor.card.generic.hold_action"
-                        )} (${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.config.optional"
-                        )})"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
                         .hass=${this.hass}
                         .config=${this._config.hold_action}
                         .actions=${actions}
@@ -118,8 +101,7 @@ export class WeatherChipEditor
             return;
         }
         const target = ev.target! as EditorTarget;
-        const value =
-            target.checked ?? ev.detail.value ?? ev.detail.item?.value;
+        const value = target.checked ?? ev.detail.value ?? ev.detail.item?.value;
 
         if (!target.configValue || this._config[target.configValue] === value) {
             return;

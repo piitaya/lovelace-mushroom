@@ -1,4 +1,5 @@
 import { ActionConfig } from "custom-card-helpers";
+import { Info } from "../../info";
 
 export type ActionChipConfig = {
     type: "action";
@@ -16,6 +17,8 @@ export type BackChipConfig = {
 export type EntityChipConfig = {
     type: "entity";
     entity?: string;
+    name?: string;
+    content_info?: Info;
     icon?: string;
     icon_color?: string;
     hold_action?: ActionConfig;

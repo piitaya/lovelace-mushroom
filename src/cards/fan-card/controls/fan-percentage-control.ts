@@ -3,7 +3,8 @@ import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import "../../../shared/slider";
-import { getPercentage, isActive } from "../utils";
+import { isActive } from "../../../utils/entity";
+import { getPercentage } from "../utils";
 
 @customElement("mushroom-fan-percentage-control")
 export class FanPercentageControl extends LitElement {

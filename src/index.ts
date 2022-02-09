@@ -10,7 +10,4 @@ export { TemplateCard } from "./cards/template-card/template-card";
 export { EntityCard } from "./cards/entity-card/entity-card";
 export { TitleCard } from "./cards/title-card/title-card";
 
-console.info(
-    `%c🍄 Mushroom 🍄 - ${version}`,
-    "color: #ef5350; font-weight: 700;"
-);
+console.info(`%c🍄 Mushroom 🍄 - ${version}`, "color: #ef5350; font-weight: 700;");

@@ -27,11 +27,9 @@ import {
     ALARM_CONTROl_PANEL_ENTITY_DOMAINS,
 } from "./const";
 import {
-    getGroupMainEntity,
     getStateColor,
     getStateIcon,
     getStateService,
-    hasGroupInconsistentState,
     isActionsAvailable,
     isDisarmed,
 } from "./utils";
@@ -57,14 +55,10 @@ const BUTTONS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "", "0", "clear"];
 @customElement(ALARM_CONTROl_PANEL_CARD_NAME)
 export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
-        return document.createElement(
-            ALARM_CONTROl_PANEL_CARD_EDITOR_NAME
-        ) as LovelaceCardEditor;
+        return document.createElement(ALARM_CONTROl_PANEL_CARD_EDITOR_NAME) as LovelaceCardEditor;
     }
 
-    public static async getStubConfig(
-        hass: HomeAssistant
-    ): Promise<AlarmControlPanelCardConfig> {
+    public static async getStubConfig(hass: HomeAssistant): Promise<AlarmControlPanelCardConfig> {
         const entities = Object.keys(hass.states);
         const panels = entities.filter((e) =>
             ALARM_CONTROl_PANEL_ENTITY_DOMAINS.includes(e.split(".")[0])
@@ -123,6 +117,15 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
+    private get _hasCode(): boolean {
+        const entity_id = this._config?.entity;
+        if (entity_id) {
+            const entity = this.hass.states[entity_id];
+            return entity.attributes.code_format && entity.attributes.code_format !== "no_code";
+        }
+        return false;
+    }
+
     protected render(): TemplateResult {
         if (!this.hass || !this._config || !this._config.entity) {
             return html``;
@@ -131,37 +134,26 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
         const entity_id = this._config.entity;
 
         const entity = this.hass.states[entity_id];
-        const mainEntity = getGroupMainEntity(entity, this.hass);
-
-        const hasAlert =
-            mainEntity.state.startsWith("partially_") ||
-            hasGroupInconsistentState(entity, this.hass);
 
         const name = this._config.name ?? entity.attributes.friendly_name;
-        const icon = this._config.icon ?? getStateIcon(mainEntity.state);
-        const color = getStateColor(mainEntity.state);
+        const icon = this._config.icon ?? getStateIcon(entity.state);
+        const color = getStateColor(entity.state);
         const vertical = this._config.vertical;
         const hideState = this._config.hide_state;
 
         const shapePulse =
-            ["arming", "triggered", "pending", "unavailable"].indexOf(
-                mainEntity.state
-            ) >= 0;
+            ["arming", "triggered", "pending", "unavailable"].indexOf(entity.state) >= 0;
 
         const actions: ActionButtonType[] =
             this._config.states && this._config.states.length > 0
-                ? isDisarmed(mainEntity)
+                ? isDisarmed(entity)
                     ? this._config.states.map((state) => ({ state }))
                     : [{ state: "disarmed" }]
                 : [];
 
-        const isActionEnabled = isActionsAvailable(mainEntity);
+        const isActionEnabled = isActionsAvailable(entity);
 
-        const stateDisplay = computeStateDisplay(
-            this.hass.localize,
-            mainEntity,
-            this.hass.locale
-        );
+        const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
         const iconStyle = {
             "--icon-color": `rgb(${color})`,
@@ -192,14 +184,6 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                                   slot="badge"
                                   icon="mdi:help"
                               ></mushroom-badge-icon>`
-                            : hasAlert
-                            ? html`
-                                  <mushroom-badge-icon
-                                      class="alert"
-                                      slot="badge"
-                                      icon="mdi:exclamation"
-                                  ></mushroom-badge-icon>
-                              `
                             : null}
                         <mushroom-state-info
                             slot="info"
@@ -213,49 +197,39 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                                   (action) => html`
                                       <mushroom-button
                                           icon=${getStateIcon(action.state)}
-                                          @click=${(e) =>
-                                              this._onTap(e, action.state)}
+                                          @click=${(e) => this._onTap(e, action.state)}
                                           .disabled=${!isActionEnabled}
                                       ></mushroom-button>
                                   `
                               )}
                           </div>`
                         : null}
-                    ${!mainEntity.attributes.code_format
+                    ${!this._hasCode
                         ? html``
                         : html`
                               <paper-input
                                   id="alarmCode"
-                                  .label=${this.hass.localize(
-                                      "ui.card.alarm_control_panel.code"
-                                  )}
+                                  .label=${this.hass.localize("ui.card.alarm_control_panel.code")}
                                   type="password"
-                                  .inputmode=${mainEntity.attributes
-                                      .code_format === "number"
+                                  .inputmode=${entity.attributes.code_format === "number"
                                       ? "numeric"
                                       : "text"}
                               ></paper-input>
                           `}
-                    ${mainEntity.attributes.code_format !== "number"
+                    ${!(this._hasCode && entity.attributes.code_format === "number")
                         ? html``
                         : html`
                               <div id="keypad">
                                   ${BUTTONS.map((value) =>
                                       value === ""
-                                          ? html`
-                                                <mwc-button
-                                                    disabled
-                                                ></mwc-button>
-                                            `
+                                          ? html` <mwc-button disabled></mwc-button> `
                                           : html`
                                                 <mwc-button
                                                     .value=${value}
-                                                    @click=${this
-                                                        ._handlePadClick}
+                                                    @click=${this._handlePadClick}
                                                     outlined
                                                     class=${classMap({
-                                                        numberkey:
-                                                            value !== "clear",
+                                                        numberkey: value !== "clear",
                                                     })}
                                                 >
                                                     ${value === "clear"
@@ -285,8 +259,7 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                     --main-color: var(--warning-color);
                 }
                 mushroom-shape-icon.pulse {
-                    --shape-animation: 1s ease 0s infinite normal none running
-                        pulse;
+                    --shape-animation: 1s ease 0s infinite normal none running pulse;
                 }
                 .actions mushroom-button {
                     flex: 1;

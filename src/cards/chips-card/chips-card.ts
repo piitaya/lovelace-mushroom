@@ -9,13 +9,7 @@ import { customElement, property, state } from "lit/decorators.js";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { CHIPS_CARD_EDITOR_NAME, CHIPS_CARD_NAME } from "./const";
 import "../../shared/chip";
-import {
-    BackChip,
-    createChipElement,
-    EntityChip,
-    LovelaceChip,
-    WeatherChip,
-} from "./chips";
+import { BackChip, createChipElement, EntityChip, LovelaceChip, WeatherChip } from "./chips";
 import "./chips";
 import "./chips-card-editor";
 import { LovelaceChipConfig } from "../../utils/lovelace/chip/types";
@@ -34,18 +28,11 @@ registerCustomCard({
 @customElement(CHIPS_CARD_NAME)
 export class ChipsCard extends LitElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
-        return document.createElement(
-            CHIPS_CARD_EDITOR_NAME
-        ) as LovelaceCardEditor;
+        return document.createElement(CHIPS_CARD_EDITOR_NAME) as LovelaceCardEditor;
     }
 
-    public static async getStubConfig(
-        _hass: HomeAssistant
-    ): Promise<ChipsCardConfig> {
-        const chips = await Promise.all([
-            BackChip.getStubConfig(_hass),
-            EntityChip.getStubConfig(_hass),
-        ]);
+    public static async getStubConfig(_hass: HomeAssistant): Promise<ChipsCardConfig> {
+        const chips = await Promise.all([EntityChip.getStubConfig(_hass)]);
         return {
             type: `custom:${CHIPS_CARD_NAME}`,
             chips,
@@ -58,11 +45,9 @@ export class ChipsCard extends LitElement implements LovelaceCard {
 
     set hass(hass: HomeAssistant) {
         this._hass = hass;
-        this.shadowRoot
-            ?.querySelectorAll("div > *")
-            .forEach((element: unknown) => {
-                (element as LovelaceChip).hass = hass;
-            });
+        this.shadowRoot?.querySelectorAll("div > *").forEach((element: unknown) => {
+            (element as LovelaceChip).hass = hass;
+        });
     }
 
     getCardSize(): number | Promise<number> {

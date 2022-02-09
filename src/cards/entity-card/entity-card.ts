@@ -19,10 +19,11 @@ import { cardStyle } from "../../utils/card-styles";
 import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
+import { isActive, isAvailable } from "../../utils/entity";
+import { getInfo } from "../../utils/info";
 import { ENTITY_CARD_EDITOR_NAME, ENTITY_CARD_NAME } from "./const";
 import { EntityCardConfig } from "./entity-card-config";
 import "./entity-card-editor";
-import { getInfo, isActive, isAvailable } from "./utils";
 
 registerCustomCard({
     type: ENTITY_CARD_NAME,
@@ -33,14 +34,10 @@ registerCustomCard({
 @customElement(ENTITY_CARD_NAME)
 export class EntityCard extends LitElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
-        return document.createElement(
-            ENTITY_CARD_EDITOR_NAME
-        ) as LovelaceCardEditor;
+        return document.createElement(ENTITY_CARD_EDITOR_NAME) as LovelaceCardEditor;
     }
 
-    public static async getStubConfig(
-        hass: HomeAssistant
-    ): Promise<EntityCardConfig> {
+    public static async getStubConfig(hass: HomeAssistant): Promise<EntityCardConfig> {
         const entities = Object.keys(hass.states);
         return {
             type: `custom:${ENTITY_CARD_NAME}`,
@@ -85,11 +82,7 @@ export class EntityCard extends LitElement implements LovelaceCard {
         const hideIcon = !!this._config.hide_icon;
         const vertical = this._config.vertical;
 
-        const stateDisplay = computeStateDisplay(
-            this.hass.localize,
-            entity,
-            this.hass.locale
-        );
+        const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
         const primary = getInfo(
             this._config.primary_info ?? "name",
@@ -125,12 +118,14 @@ export class EntityCard extends LitElement implements LovelaceCard {
                     .hide_info=${primary == null && secondary == null}
                     .hide_icon=${hideIcon}
                 >
-                    ${!hideIcon ? html`<mushroom-shape-icon
-                        slot="icon"
-                        .disabled=${!isActive(entity)}
-                        .icon=${icon}
-                        style=${styleMap(iconStyle)}
-                    ></mushroom-shape-icon>` : undefined}
+                    ${!hideIcon
+                        ? html`<mushroom-shape-icon
+                              slot="icon"
+                              .disabled=${!isActive(entity)}
+                              .icon=${icon}
+                              style=${styleMap(iconStyle)}
+                          ></mushroom-shape-icon>`
+                        : undefined}
                     ${!isAvailable(entity)
                         ? html`
                               <mushroom-badge-icon

@@ -16,8 +16,7 @@ export const ALARM_CONTROL_PANEL_CARD_STATE_ICON = {
     triggered: "mdi:bell-ring-outline",
     unavailable: "mdi:bell-remove-outline",
 };
-export const ALARM_CONTROL_PANEL_CARD_DEFAULT_STATE_ICON =
-    "mdi:shield-lock-outline";
+export const ALARM_CONTROL_PANEL_CARD_DEFAULT_STATE_ICON = "mdi:shield-lock-outline";
 
 export const ALARM_CONTROL_PANEL_CARD_STATE_COLOR = {
     disarmed: "var(--rgb-state-alarm-disarmed)",

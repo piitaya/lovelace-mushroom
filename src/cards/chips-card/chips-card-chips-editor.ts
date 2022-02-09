@@ -1,12 +1,5 @@
 import { fireEvent, HomeAssistant } from "custom-card-helpers";
-import {
-    css,
-    CSSResultGroup,
-    html,
-    LitElement,
-    PropertyValues,
-    TemplateResult,
-} from "lit";
+import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { guard } from "lit/directives/guard.js";
 import type { SortableEvent } from "sortablejs";
@@ -59,9 +52,7 @@ export class ChipsCardEditorChips extends LitElement {
         return html`
             <h3>
                 ${this.label ||
-                `${customLocalize(
-                    "editor.chip.chip-picker.chips"
-                )} (${this.hass!.localize(
+                `${customLocalize("editor.chip.chip-picker.chips")} (${this.hass!.localize(
                     "ui.panel.lovelace.editor.card.config.required"
                 )})`}
             </h3>
@@ -72,18 +63,11 @@ export class ChipsCardEditorChips extends LitElement {
                         : this.chips!.map(
                               (chipConf, index) => html`
                                   <div class="chip">
-                                      <ha-icon
-                                          class="handle"
-                                          icon="mdi:drag"
-                                      ></ha-icon>
+                                      <ha-icon class="handle" icon="mdi:drag"></ha-icon>
                                       ${html`
                                           <div class="special-row">
                                               <div>
-                                                  <span>
-                                                      ${renderChipLabel(
-                                                          chipConf
-                                                      )}
-                                                  </span>
+                                                  <span> ${renderChipLabel(chipConf)} </span>
                                                   <span class="secondary"
                                                       >${customLocalize(
                                                           "editor.chip.chip-picker.details"
@@ -93,9 +77,7 @@ export class ChipsCardEditorChips extends LitElement {
                                           </div>
                                       `}
                                       <ha-icon-button
-                                          .label=${customLocalize(
-                                              "editor.chip.chip-picker.clear"
-                                          )}
+                                          .label=${customLocalize("editor.chip.chip-picker.clear")}
                                           class="remove-icon"
                                           .index=${index}
                                           @click=${this._removeChip}
@@ -103,9 +85,7 @@ export class ChipsCardEditorChips extends LitElement {
                                           <ha-icon icon="mdi:close"></ha-icon
                                       ></ha-icon-button>
                                       <ha-icon-button
-                                          .label=${customLocalize(
-                                              "editor.chip.chip-picker.edit"
-                                          )}
+                                          .label=${customLocalize("editor.chip.chip-picker.edit")}
                                           class="edit-icon"
                                           .index=${index}
                                           @click=${this._editChip}
@@ -121,10 +101,7 @@ export class ChipsCardEditorChips extends LitElement {
                 .placeholder=${customLocalize("editor.chip.chip-picker.add")}
                 @iron-select=${this._addChips}
             >
-                <paper-listbox
-                    slot="dropdown-content"
-                    attr-for-selected="data-type"
-                >
+                <paper-listbox slot="dropdown-content" attr-for-selected="data-type">
                     <paper-item data-type="back">Back</paper-item>
                     <paper-item data-type="menu">Menu</paper-item>
                     <paper-item data-type="entity">Entity</paper-item>
@@ -175,24 +152,19 @@ export class ChipsCardEditorChips extends LitElement {
 
     private async _createSortable() {
         if (!Sortable) {
-            const sortableImport = await import(
-                "sortablejs/modular/sortable.core.esm"
-            );
+            const sortableImport = await import("sortablejs/modular/sortable.core.esm");
 
             Sortable = sortableImport.Sortable;
             Sortable.mount(sortableImport.OnSpill);
             Sortable.mount(sortableImport.AutoScroll());
         }
 
-        this._sortable = new Sortable(
-            this.shadowRoot!.querySelector(".chips"),
-            {
-                animation: 150,
-                fallbackClass: "sortable-fallback",
-                handle: ".handle",
-                onEnd: async (evt: SortableEvent) => this._chipMoved(evt),
-            }
-        );
+        this._sortable = new Sortable(this.shadowRoot!.querySelector(".chips"), {
+            animation: 150,
+            fallbackClass: "sortable-fallback",
+            handle: ".handle",
+            onEnd: async (evt: SortableEvent) => this._chipMoved(evt),
+        });
     }
 
     private async _addChips(ev: CustomEvent): Promise<void> {
@@ -209,9 +181,7 @@ export class ChipsCardEditorChips extends LitElement {
         const elClass = getChipElementClass(value) as any;
 
         if (elClass && elClass.getStubConfig) {
-            newChip = (await elClass.getStubConfig(
-                this.hass
-            )) as LovelaceChipConfig;
+            newChip = (await elClass.getStubConfig(this.hass)) as LovelaceChipConfig;
         } else {
             newChip = { type: value };
         }

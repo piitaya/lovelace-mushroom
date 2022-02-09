@@ -3,7 +3,8 @@ import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import "../../../shared/slider";
-import { getPosition, isActive } from "../utils";
+import { isActive } from "../../../utils/entity";
+import { getPosition } from "../utils";
 
 @customElement("mushroom-cover-position-control")
 export class CoverPositionControl extends LitElement {

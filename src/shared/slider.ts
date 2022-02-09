@@ -3,10 +3,7 @@ import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 
-const getPercentageFromEvent = (
-    e: TouchEvent | MouseEvent,
-    element: HTMLElement
-) => {
+const getPercentageFromEvent = (e: TouchEvent | MouseEvent, element: HTMLElement) => {
     const x = "changedTouches" in e ? e.changedTouches[0].clientX : e.clientX;
     const offset = element.getBoundingClientRect().left;
     const total = element.clientWidth;
@@ -73,9 +70,7 @@ export class SliderItem extends LitElement {
 
     protected render(): TemplateResult {
         return html`
-            <div
-                class=${classMap({ container: true, disabled: this.disabled })}
-            >
+            <div class=${classMap({ container: true, disabled: this.disabled })}>
                 <div
                     class="slider"
                     @touchstart=${{
@@ -91,12 +86,8 @@ export class SliderItem extends LitElement {
                     })}
                 >
                     <div class="slider-track-background"></div>
-                    ${this.showActive
-                        ? html`<div class="slider-track-active"></div>`
-                        : null}
-                    ${this.showIndicator
-                        ? html`<div class="slider-track-indicator"></div>`
-                        : null}
+                    ${this.showActive ? html`<div class="slider-track-active"></div>` : null}
+                    ${this.showIndicator ? html`<div class="slider-track-indicator"></div>` : null}
                 </div>
             </div>
         `;

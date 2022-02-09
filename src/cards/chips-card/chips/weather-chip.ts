@@ -13,10 +13,7 @@ import { actionHandler } from "../../../utils/directives/action-handler-directiv
 import { WeatherChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { getWeatherStateSVG, weatherSVGStyles } from "../../../utils/weather";
-import {
-    computeChipComponentName,
-    computeChipEditorComponentName,
-} from "../utils";
+import { computeChipComponentName, computeChipEditorComponentName } from "../utils";
 import "./weather-chip-editor";
 
 @customElement(computeChipComponentName("weather"))
@@ -27,9 +24,7 @@ export class WeatherChip extends LitElement implements LovelaceChip {
         ) as LovelaceChipEditor;
     }
 
-    public static async getStubConfig(
-        hass: HomeAssistant
-    ): Promise<WeatherChipConfig> {
+    public static async getStubConfig(hass: HomeAssistant): Promise<WeatherChipConfig> {
         const entities = Object.keys(hass.states);
         const weathers = entities.filter((e) => e.split(".")[0] === "weather");
         return {
@@ -63,11 +58,7 @@ export class WeatherChip extends LitElement implements LovelaceChip {
         const displayLabels: string[] = [];
 
         if (this._config.show_conditions) {
-            const stateDisplay = computeStateDisplay(
-                this.hass.localize,
-                entity,
-                this.hass.locale
-            );
+            const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
             displayLabels.push(stateDisplay);
         }
 
@@ -87,9 +78,7 @@ export class WeatherChip extends LitElement implements LovelaceChip {
                 })}
             >
                 ${weatherIcon}
-                ${displayLabels.length > 0
-                    ? html`<span>${displayLabels.join(" / ")}</span>`
-                    : null}
+                ${displayLabels.length > 0 ? html`<span>${displayLabels.join(" / ")}</span>` : null}
             </mushroom-chip>
         `;
     }

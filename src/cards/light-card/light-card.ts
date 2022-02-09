@@ -30,11 +30,11 @@ import {
     getBrightness,
     getRGBColor,
     isLight,
-    isActive,
     isSuperLight,
     supportsColorTempControl,
     supportsColorControl,
 } from "./utils";
+import { isActive } from "../../utils/entity";
 
 type LightCardControl = "brightness_control" | "color_temp_control" | "color_control";
 
@@ -121,7 +121,9 @@ export class LightCard extends LitElement implements LovelaceCard {
             controls.push("color_control");
         }
         this._controls = controls;
-        const isActiveControlSupported = this._activeControl ? controls.includes(this._activeControl) : false;
+        const isActiveControlSupported = this._activeControl
+            ? controls.includes(this._activeControl)
+            : false;
         this._activeControl = isActiveControlSupported ? this._activeControl : controls[0];
     }
 
@@ -212,7 +214,10 @@ export class LightCard extends LitElement implements LovelaceCard {
         return html`
             ${otherControls.map(
                 (ctrl) => html`
-                    <mushroom-button .icon=${CONTROLS_ICONS[ctrl]} @click=${(e) => this._onControlTap(ctrl, e)} />
+                    <mushroom-button
+                        .icon=${CONTROLS_ICONS[ctrl]}
+                        @click=${(e) => this._onControlTap(ctrl, e)}
+                    />
                 `
             )}
         `;
@@ -228,7 +233,9 @@ export class LightCard extends LitElement implements LovelaceCard {
                     sliderStyle["--slider-color"] = `rgb(${color})`;
                     sliderStyle["--slider-bg-color"] = `rgba(${color}, 0.2)`;
                     if (isLight(lightRgbColor) && !(this.hass.themes as any).darkMode) {
-                        sliderStyle["--slider-bg-color"] = `rgba(var(--rgb-primary-text-color), 0.05)`;
+                        sliderStyle[
+                            "--slider-bg-color"
+                        ] = `rgba(var(--rgb-primary-text-color), 0.05)`;
                         sliderStyle["--slider-color"] = `rgba(var(--rgb-primary-text-color), 0.15)`;
                     }
                 }
@@ -240,9 +247,13 @@ export class LightCard extends LitElement implements LovelaceCard {
                     />
                 `;
             case "color_temp_control":
-                return html` <mushroom-light-color-temp-control .hass=${this.hass} .entity=${entity} /> `;
+                return html`
+                    <mushroom-light-color-temp-control .hass=${this.hass} .entity=${entity} />
+                `;
             case "color_control":
-                return html` <mushroom-light-color-control .hass=${this.hass} .entity=${entity} /> `;
+                return html`
+                    <mushroom-light-color-control .hass=${this.hass} .entity=${entity} />
+                `;
             default:
                 return null;
         }

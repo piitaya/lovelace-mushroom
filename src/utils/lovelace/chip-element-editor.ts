@@ -10,12 +10,8 @@ export class MushroomChipElementEditor extends MushroomElementEditor<LovelaceChi
         return this.value?.type;
     }
 
-    protected async getConfigElement(): Promise<
-        LovelaceChipEditor | undefined
-    > {
-        const elClass = (await getChipElementClass(
-            this.configElementType!
-        )) as any;
+    protected async getConfigElement(): Promise<LovelaceChipEditor | undefined> {
+        const elClass = (await getChipElementClass(this.configElementType!)) as any;
 
         // Check if a GUI editor exists
         if (elClass && elClass.getConfigElement) {

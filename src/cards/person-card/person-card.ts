@@ -17,14 +17,11 @@ import "../../shared/shape-icon";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
-import {
-    PERSON_CARD_EDITOR_NAME,
-    PERSON_CARD_NAME,
-    PERSON_ENTITY_DOMAINS,
-} from "./const";
+import { isActive } from "../../utils/entity";
+import { PERSON_CARD_EDITOR_NAME, PERSON_CARD_NAME, PERSON_ENTITY_DOMAINS } from "./const";
 import { PersonCardConfig } from "./person-card-config";
 import "./person-card-editor";
-import { getStateColor, getStateIcon, isActive } from "./utils";
+import { getStateColor, getStateIcon } from "./utils";
 
 registerCustomCard({
     type: PERSON_CARD_NAME,
@@ -35,18 +32,12 @@ registerCustomCard({
 @customElement(PERSON_CARD_NAME)
 export class PersonCard extends LitElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
-        return document.createElement(
-            PERSON_CARD_EDITOR_NAME
-        ) as LovelaceCardEditor;
+        return document.createElement(PERSON_CARD_EDITOR_NAME) as LovelaceCardEditor;
     }
 
-    public static async getStubConfig(
-        hass: HomeAssistant
-    ): Promise<PersonCardConfig> {
+    public static async getStubConfig(hass: HomeAssistant): Promise<PersonCardConfig> {
         const entities = Object.keys(hass.states);
-        const people = entities.filter((e) =>
-            PERSON_ENTITY_DOMAINS.includes(e.split(".")[0])
-        );
+        const people = entities.filter((e) => PERSON_ENTITY_DOMAINS.includes(e.split(".")[0]));
         return {
             type: `custom:${PERSON_CARD_NAME}`,
             entity: people[0],
@@ -102,11 +93,7 @@ export class PersonCard extends LitElement implements LovelaceCard {
         const stateIcon = getStateIcon(entity, zones);
         const stateColor = getStateColor(entity, zones);
 
-        const stateDisplay = computeStateDisplay(
-            this.hass.localize,
-            entity,
-            this.hass.locale
-        );
+        const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
         const isAvailable = entity.state !== "unavailable";
 

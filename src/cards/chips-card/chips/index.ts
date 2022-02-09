@@ -2,9 +2,7 @@ import { HomeAssistant } from "custom-card-helpers";
 import { LovelaceChipConfig } from "../../../utils/lovelace/chip/types";
 import { computeChipComponentName } from "../utils";
 
-export const createChipElement = (
-    config: LovelaceChipConfig
-): LovelaceChip | undefined => {
+export const createChipElement = (config: LovelaceChipConfig): LovelaceChip | undefined => {
     try {
         // @ts-ignore
         const element = document.createElement(
