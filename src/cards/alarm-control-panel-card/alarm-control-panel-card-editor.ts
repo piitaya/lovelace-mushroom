@@ -17,7 +17,7 @@ import {
 import { ALARM_CONTROl_PANEL_CARD_EDITOR_NAME, ALARM_CONTROl_PANEL_ENTITY_DOMAINS } from "./const";
 import { getStateIcon } from "./utils";
 
-const DOMAINS = [...ALARM_CONTROl_PANEL_ENTITY_DOMAINS, "group"];
+const DOMAINS = [...ALARM_CONTROl_PANEL_ENTITY_DOMAINS];
 
 const actions = ["more-info", "navigate", "url", "call-service", "none"];
 

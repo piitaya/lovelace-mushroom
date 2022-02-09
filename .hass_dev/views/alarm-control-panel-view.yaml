@@ -16,12 +16,12 @@ cards:
       - armed_custom_bypass
     name: Alarm panel 2, custom name
   - type: custom:mushroom-alarm-control-panel-card
-    entity: group.alarm_group
+    entity: alarm_control_panel.templated_alarm_panel
     states:
       - armed_home
       - armed_away
       - armed_night
-    name: Group
+    name: Template
   - type: custom:mushroom-alarm-control-panel-card
     entity: alarm_control_panel.alarm_panel_code
     states:
