@@ -1,0 +1,22 @@
+name: Release
+on:
+    push:
+        tags:
+            - "v*.*.*"
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Install
+              run: npm ci
+            - name: Build
+              run: npm run build
+            - name: Release
+              uses: softprops/action-gh-release@v1
+              if: startsWith(github.ref, 'refs/tags/')
+              with:
+                  draft: true
+                  generate_release_notes: true
+                  files: dist/mushroom.js
