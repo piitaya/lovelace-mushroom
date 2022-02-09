@@ -117,11 +117,11 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
-    private get _hasCode():boolean {
+    private get _hasCode(): boolean {
         const entity_id = this._config?.entity;
         if (entity_id) {
             const entity = this.hass.states[entity_id];
-            return entity.attributes.code_format && entity.attributes.code_format !== 'no_code';
+            return entity.attributes.code_format && entity.attributes.code_format !== "no_code";
         }
         return false;
     }
