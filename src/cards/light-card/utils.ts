@@ -37,6 +37,6 @@ export function supportsColorTempControl(entity: HassEntity): boolean {
 
 export function supportsColorControl(entity: HassEntity): boolean {
     return (entity.attributes.supported_color_modes ?? []).some((m) =>
-        ["hs", "rgbw", "rgbww"].includes(m)
+        ["hs", "rgbw", "rgbww", "xy"].includes(m)
     );
 }
