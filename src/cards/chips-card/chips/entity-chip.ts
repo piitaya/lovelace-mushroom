@@ -12,6 +12,7 @@ import { styleMap } from "lit/directives/style-map.js";
 import { LovelaceChip } from ".";
 import { computeRgbColor } from "../../../utils/colors";
 import { actionHandler } from "../../../utils/directives/action-handler-directive";
+import { getInfo } from "../../../utils/info";
 import { EntityChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { computeChipComponentName, computeChipEditorComponentName } from "../utils";
@@ -53,6 +54,7 @@ export class EntityChip extends LitElement implements LovelaceChip {
         const entity_id = this._config.entity;
         const entity = this.hass.states[entity_id];
 
+        const name = this._config.name ?? entity.attributes.friendly_name ?? "";
         const icon = this._config.icon ?? stateIcon(entity);
         const iconColor = this._config.icon_color;
 
@@ -64,6 +66,14 @@ export class EntityChip extends LitElement implements LovelaceChip {
             iconStyle["--color"] = `rgb(${iconRgbColor})`;
         }
 
+        const content = getInfo(
+            this._config.content_info ?? "state",
+            name,
+            stateDisplay,
+            entity,
+            this.hass
+        );
+
         return html`
             <mushroom-chip
                 @action=${this._handleAction}
@@ -72,7 +82,7 @@ export class EntityChip extends LitElement implements LovelaceChip {
                 })}
             >
                 <ha-icon .icon=${icon} style=${styleMap(iconStyle)}></ha-icon>
-                <span>${stateDisplay}</span>
+                <span>${content}</span>
             </mushroom-chip>
         `;
     }

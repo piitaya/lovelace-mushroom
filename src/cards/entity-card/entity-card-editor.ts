@@ -12,9 +12,10 @@ import { assert } from "superstruct";
 import setupCustomlocalize from "../../localize";
 import { COLORS, computeColorName, computeRgbColor } from "../../utils/colors";
 import { configElementStyle } from "../../utils/editor-styles";
+import { INFOS } from "../../utils/info";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { ENTITY_CARD_EDITOR_NAME } from "./const";
-import { EntityCardConfig, entityCardConfigStruct, INFOS } from "./entity-card-config";
+import { EntityCardConfig, entityCardConfigStruct } from "./entity-card-config";
 
 const actions = ["toggle", "more-info", "navigate", "url", "call-service", "none"];
 

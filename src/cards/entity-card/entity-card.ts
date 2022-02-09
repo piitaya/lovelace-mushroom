@@ -19,10 +19,12 @@ import { cardStyle } from "../../utils/card-styles";
 import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
+import { isAvailable } from "../../utils/entity";
+import { getInfo } from "../../utils/info";
+import { isActive } from "../cover-card/utils";
 import { ENTITY_CARD_EDITOR_NAME, ENTITY_CARD_NAME } from "./const";
 import { EntityCardConfig } from "./entity-card-config";
 import "./entity-card-editor";
-import { getInfo, isActive, isAvailable } from "./utils";
 
 registerCustomCard({
     type: ENTITY_CARD_NAME,
