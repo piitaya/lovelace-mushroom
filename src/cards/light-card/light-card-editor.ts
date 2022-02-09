@@ -1,4 +1,10 @@
-import { computeRTLDirection, fireEvent, HomeAssistant, LovelaceCardEditor, stateIcon } from "custom-card-helpers";
+import {
+    computeRTLDirection,
+    fireEvent,
+    HomeAssistant,
+    LovelaceCardEditor,
+    stateIcon,
+} from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { assert } from "superstruct";
@@ -63,14 +69,20 @@ export class LightCardEditor extends LitElement implements LovelaceCardEditor {
                     ></ha-icon-picker>
                 </div>
                 <div class="side-by-side">
-                    <ha-formfield .label=${customLocalize("editor.card.generic.vertical")} .dir=${dir}>
+                    <ha-formfield
+                        .label=${customLocalize("editor.card.generic.vertical")}
+                        .dir=${dir}
+                    >
                         <ha-switch
                             .checked=${!!this._config.vertical}
                             .configValue=${"vertical"}
                             @change=${this._valueChanged}
                         ></ha-switch>
                     </ha-formfield>
-                    <ha-formfield .label=${customLocalize("editor.card.generic.hide_state")} .dir=${dir}>
+                    <ha-formfield
+                        .label=${customLocalize("editor.card.generic.hide_state")}
+                        .dir=${dir}
+                    >
                         <ha-switch
                             .checked=${!!this._config.hide_state}
                             .configValue=${"hide_state"}
@@ -79,14 +91,20 @@ export class LightCardEditor extends LitElement implements LovelaceCardEditor {
                     </ha-formfield>
                 </div>
                 <div class="side-by-side">
-                    <ha-formfield .label=${customLocalize("editor.card.light.show_brightness_control")} .dir=${dir}>
+                    <ha-formfield
+                        .label=${customLocalize("editor.card.light.show_brightness_control")}
+                        .dir=${dir}
+                    >
                         <ha-switch
                             .checked=${!!this._config.show_brightness_control}
                             .configValue=${"show_brightness_control"}
                             @change=${this._valueChanged}
                         ></ha-switch>
                     </ha-formfield>
-                    <ha-formfield .label=${customLocalize("editor.card.light.use_light_color")} .dir=${dir}>
+                    <ha-formfield
+                        .label=${customLocalize("editor.card.light.use_light_color")}
+                        .dir=${dir}
+                    >
                         <ha-switch
                             .checked=${!!this._config.use_light_color}
                             .configValue=${"use_light_color"}
@@ -95,14 +113,20 @@ export class LightCardEditor extends LitElement implements LovelaceCardEditor {
                     </ha-formfield>
                 </div>
                 <div class="side-by-side">
-                    <ha-formfield .label=${customLocalize("editor.card.light.show_color_temp_control")} .dir=${dir}>
+                    <ha-formfield
+                        .label=${customLocalize("editor.card.light.show_color_temp_control")}
+                        .dir=${dir}
+                    >
                         <ha-switch
                             .checked=${!!this._config.show_color_temp_control}
                             .configValue=${"show_color_temp_control"}
                             @change=${this._valueChanged}
                         ></ha-switch>
                     </ha-formfield>
-                    <ha-formfield .label=${customLocalize("editor.card.light.show_color_control")} .dir=${dir}>
+                    <ha-formfield
+                        .label=${customLocalize("editor.card.light.show_color_control")}
+                        .dir=${dir}
+                    >
                         <ha-switch
                             .checked=${!!this._config.show_color_control}
                             .configValue=${"show_color_control"}
@@ -111,7 +135,9 @@ export class LightCardEditor extends LitElement implements LovelaceCardEditor {
                     </ha-formfield>
                 </div>
                 <div class="side-by-side">
-                    <p class="message">${customLocalize("editor.card.light.incompatible_controls")}</p>
+                    <p class="message">
+                        ${customLocalize("editor.card.light.incompatible_controls")}
+                    </p>
                 </div>
                 <div class="side-by-side">
                     <hui-action-editor
@@ -122,7 +148,9 @@ export class LightCardEditor extends LitElement implements LovelaceCardEditor {
                         .config=${this._config.tap_action}
                         .actions=${actions}
                         .configValue=${"tap_action"}
-                        .tooltipText=${this.hass.localize("ui.panel.lovelace.editor.card.button.default_action_help")}
+                        .tooltipText=${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.button.default_action_help"
+                        )}
                         @value-changed=${this._valueChanged}
                     ></hui-action-editor>
                     <hui-action-editor
@@ -133,7 +161,9 @@ export class LightCardEditor extends LitElement implements LovelaceCardEditor {
                         .config=${this._config.hold_action}
                         .actions=${actions}
                         .configValue=${"hold_action"}
-                        .tooltipText=${this.hass.localize("ui.panel.lovelace.editor.card.button.default_action_help")}
+                        .tooltipText=${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.button.default_action_help"
+                        )}
                         @value-changed=${this._valueChanged}
                     ></hui-action-editor>
                 </div>

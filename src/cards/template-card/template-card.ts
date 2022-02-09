@@ -7,14 +7,7 @@ import {
     LovelaceCardEditor,
 } from "custom-card-helpers";
 import { UnsubscribeFunc } from "home-assistant-js-websocket";
-import {
-    css,
-    CSSResultGroup,
-    html,
-    LitElement,
-    PropertyValues,
-    TemplateResult,
-} from "lit";
+import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import "../../shared/shape-icon";
@@ -24,10 +17,7 @@ import { cardStyle } from "../../utils/card-styles";
 import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
-import {
-    RenderTemplateResult,
-    subscribeRenderTemplate,
-} from "../../utils/ws-templates";
+import { RenderTemplateResult, subscribeRenderTemplate } from "../../utils/ws-templates";
 import { TEMPLATE_CARD_EDITOR_NAME, TEMPLATE_CARD_NAME } from "./const";
 import { TemplateCardConfig } from "./template-card-config";
 import "./template-card-editor";
@@ -44,14 +34,10 @@ type TemplateKey = typeof TEMPLATE_KEYS[number];
 @customElement(TEMPLATE_CARD_NAME)
 export class TemplateCard extends LitElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
-        return document.createElement(
-            TEMPLATE_CARD_EDITOR_NAME
-        ) as LovelaceCardEditor;
+        return document.createElement(TEMPLATE_CARD_EDITOR_NAME) as LovelaceCardEditor;
     }
 
-    public static async getStubConfig(
-        _hass: HomeAssistant
-    ): Promise<TemplateCardConfig> {
+    public static async getStubConfig(_hass: HomeAssistant): Promise<TemplateCardConfig> {
         return {
             type: `custom:${TEMPLATE_CARD_NAME}`,
             primary: "Hello, {{user}}",
@@ -68,10 +54,7 @@ export class TemplateCard extends LitElement implements LovelaceCard {
         Record<TemplateKey, RenderTemplateResult | undefined>
     > = {};
 
-    @state() private _unsubRenderTemplates: Map<
-        TemplateKey,
-        Promise<UnsubscribeFunc>
-    > = new Map();
+    @state() private _unsubRenderTemplates: Map<TemplateKey, Promise<UnsubscribeFunc>> = new Map();
 
     getCardSize(): number | Promise<number> {
         return 1;
@@ -113,9 +96,7 @@ export class TemplateCard extends LitElement implements LovelaceCard {
     }
 
     private getValue(key: TemplateKey) {
-        return this.isTemplate(key)
-            ? this._templateResults[key]?.result
-            : this._config?.[key];
+        return this.isTemplate(key) ? this._templateResults[key]?.result : this._config?.[key];
     }
 
     protected render(): TemplateResult {
@@ -152,9 +133,7 @@ export class TemplateCard extends LitElement implements LovelaceCard {
                         .hide_info=${!primary && !secondary}
                         .hide_icon=${hideIcon}
                     >
-                        ${!hideIcon
-                            ? this.renderIcon(icon, iconColor)
-                            : undefined}
+                        ${!hideIcon ? this.renderIcon(icon, iconColor) : undefined}
                         <mushroom-state-info
                             slot="info"
                             .primary=${primary}

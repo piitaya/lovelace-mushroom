@@ -7,9 +7,7 @@ export function getPercentage(entity: HassEntity) {
 }
 
 export function isOscillating(entity: HassEntity) {
-    return entity.attributes.oscillating != null
-        ? Boolean(entity.attributes.oscillating)
-        : false;
+    return entity.attributes.oscillating != null ? Boolean(entity.attributes.oscillating) : false;
 }
 
 export function isActive(entity: HassEntity) {

@@ -6,8 +6,7 @@ import { Info } from "./entity-card-config";
 export function isActive(entity: HassEntity) {
     const domain = entity.entity_id.split(".")[0];
     const state = entity.state;
-    if (state === "unavailable" || state === "unknown" || state === "off")
-        return false;
+    if (state === "unavailable" || state === "unknown" || state === "off") return false;
 
     // Custom cases
     switch (domain) {
@@ -43,8 +42,7 @@ export function getInfo(
             return name;
         case "state":
             if (entity.attributes.device_class === "timestamp" && isAvailable(entity) == true) {
-                return html`
-                <ha-relative-time
+                return html` <ha-relative-time
                     .hass=${hass}
                     .datetime=${entity.state}
                     capitalize

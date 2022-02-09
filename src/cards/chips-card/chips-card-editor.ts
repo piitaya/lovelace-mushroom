@@ -1,9 +1,4 @@
-import {
-    fireEvent,
-    HASSDomEvent,
-    HomeAssistant,
-    LovelaceCardEditor,
-} from "custom-card-helpers";
+import { fireEvent, HASSDomEvent, HomeAssistant, LovelaceCardEditor } from "custom-card-helpers";
 import { html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import {
@@ -156,26 +151,20 @@ export class ChipsCardEditor extends LitElement implements LovelaceCardEditor {
         }
 
         const target = ev.target! as EditorTarget;
-        const configValue =
-            target.configValue || this._subElementEditorConfig?.type;
+        const configValue = target.configValue || this._subElementEditorConfig?.type;
         const value =
             target.checked !== undefined
                 ? target.checked
                 : target.value || ev.detail.config || ev.detail.value;
 
         if (configValue === "chip" || (ev.detail && ev.detail.chips)) {
-            const newConfigChips =
-                ev.detail.chips || this._config!.chips.concat();
+            const newConfigChips = ev.detail.chips || this._config!.chips.concat();
             if (configValue === "chip") {
                 if (!value) {
-                    newConfigChips.splice(
-                        this._subElementEditorConfig!.index!,
-                        1
-                    );
+                    newConfigChips.splice(this._subElementEditorConfig!.index!, 1);
                     this._goBack();
                 } else {
-                    newConfigChips[this._subElementEditorConfig!.index!] =
-                        value;
+                    newConfigChips[this._subElementEditorConfig!.index!] = value;
                 }
 
                 this._subElementEditorConfig!.elementConfig = value;

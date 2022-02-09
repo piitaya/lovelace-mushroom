@@ -11,18 +11,12 @@ import setupCustomlocalize from "../../localize";
 import { configElementStyle } from "../../utils/editor-styles";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { TEMPLATE_CARD_EDITOR_NAME } from "./const";
-import {
-    TemplateCardConfig,
-    templateCardConfigStruct,
-} from "./template-card-config";
+import { TemplateCardConfig, templateCardConfigStruct } from "./template-card-config";
 
 const actions = ["navigate", "url", "call-service", "none"];
 
 @customElement(TEMPLATE_CARD_EDITOR_NAME)
-export class TemplateCardEditor
-    extends LitElement
-    implements LovelaceCardEditor
-{
+export class TemplateCardEditor extends LitElement implements LovelaceCardEditor {
     @property({ attribute: false }) public hass?: HomeAssistant;
 
     @state() private _config?: TemplateCardConfig;
@@ -46,9 +40,7 @@ export class TemplateCardEditor
                     <paper-textarea
                         .label="${this.hass.localize(
                             "ui.panel.lovelace.editor.card.generic.icon"
-                        )} (${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.config.optional"
-                        )})"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
                         .value=${this._config.icon}
                         .configValue=${"icon"}
                         @keydown=${this._ignoreKeydown}
@@ -60,9 +52,7 @@ export class TemplateCardEditor
                     <paper-textarea
                         .label="${customLocalize(
                             "editor.card.generic.icon_color"
-                        )} (${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.config.optional"
-                        )})"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
                         .value=${this._config.icon_color}
                         .configValue=${"icon_color"}
                         @keydown=${this._ignoreKeydown}
@@ -73,9 +63,7 @@ export class TemplateCardEditor
                     ></paper-textarea>
                 </div>
                 <paper-textarea
-                    .label="${customLocalize(
-                        "editor.card.template.primary"
-                    )} (${this.hass.localize(
+                    .label="${customLocalize("editor.card.template.primary")} (${this.hass.localize(
                         "ui.panel.lovelace.editor.card.config.optional"
                     )})"
                     .value=${this._config.primary}
@@ -89,9 +77,7 @@ export class TemplateCardEditor
                 <paper-textarea
                     .label="${customLocalize(
                         "editor.card.template.secondary"
-                    )} (${this.hass.localize(
-                        "ui.panel.lovelace.editor.card.config.optional"
-                    )})"
+                    )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
                     .value=${this._config.secondary}
                     .configValue=${"secondary"}
                     @keydown=${this._ignoreKeydown}
@@ -126,9 +112,7 @@ export class TemplateCardEditor
                     <hui-action-editor
                         .label="${this.hass.localize(
                             "ui.panel.lovelace.editor.card.generic.tap_action"
-                        )} (${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.config.optional"
-                        )})"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
                         .hass=${this.hass}
                         .config=${this._config.tap_action}
                         .actions=${actions}
@@ -141,9 +125,7 @@ export class TemplateCardEditor
                     <hui-action-editor
                         .label="${this.hass.localize(
                             "ui.panel.lovelace.editor.card.generic.hold_action"
-                        )} (${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.config.optional"
-                        )})"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
                         .hass=${this.hass}
                         .config=${this._config.hold_action}
                         .actions=${actions}
@@ -168,8 +150,7 @@ export class TemplateCardEditor
             return;
         }
         const target = ev.target! as EditorTarget;
-        const value =
-            target.checked !== undefined ? target.checked : ev.detail.value;
+        const value = target.checked !== undefined ? target.checked : ev.detail.value;
 
         if (this[`_${target.configValue}`] === value) {
             return;

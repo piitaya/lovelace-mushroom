@@ -12,7 +12,7 @@ const GRADIENT = [
     [0.5, "#0ff"],
     [0.66, "#00f"],
     [0.83, "#f0f"],
-    [1, "#f00"]
+    [1, "#f00"],
 ];
 
 @customElement("mushroom-light-color-control")
@@ -38,9 +38,9 @@ export class LightColorControl extends LitElement {
         if (isNaN(value)) return;
         this._percent = value;
 
-        const rgb_color = this._percentToRGB(value/100);
+        const rgb_color = this._percentToRGB(value / 100);
 
-        if(rgb_color.length === 3) {
+        if (rgb_color.length === 3) {
             this.hass.callService("light", "turn_on", {
                 entity_id: this.entity.entity_id,
                 rgb_color,
@@ -51,7 +51,8 @@ export class LightColorControl extends LitElement {
     protected render(): TemplateResult {
         const state = this.entity.state;
 
-        const colorPercent = this._percent || (this._rgbToPercent(this.entity.attributes.rgb_color)*100);
+        const colorPercent =
+            this._percent || this._rgbToPercent(this.entity.attributes.rgb_color) * 100;
 
         return html`
             <mushroom-slider
@@ -66,12 +67,12 @@ export class LightColorControl extends LitElement {
     }
 
     static get styles(): CSSResultGroup {
-        const gradient = GRADIENT.map(([stop, color]) => `${color} ${stop as number*100}%`).join(', ');
+        const gradient = GRADIENT.map(
+            ([stop, color]) => `${color} ${(stop as number) * 100}%`
+        ).join(", ");
         return css`
             mushroom-slider {
-                --gradient: -webkit-linear-gradient(
-                    left, ${unsafeCSS(gradient)}
-                );
+                --gradient: -webkit-linear-gradient(left, ${unsafeCSS(gradient)});
             }
         `;
     }

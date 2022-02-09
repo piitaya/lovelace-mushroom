@@ -1,9 +1,4 @@
-import {
-    ActionHandlerEvent,
-    handleAction,
-    hasAction,
-    HomeAssistant,
-} from "custom-card-helpers";
+import { ActionHandlerEvent, handleAction, hasAction, HomeAssistant } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -12,10 +7,7 @@ import { computeRgbColor } from "../../../utils/colors";
 import { actionHandler } from "../../../utils/directives/action-handler-directive";
 import { ActionChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
-import {
-    computeChipComponentName,
-    computeChipEditorComponentName,
-} from "../utils";
+import { computeChipComponentName, computeChipEditorComponentName } from "../utils";
 import "./action-chip-editor";
 
 @customElement(computeChipComponentName("action"))
@@ -26,9 +18,7 @@ export class ActionChip extends LitElement implements LovelaceChip {
         ) as LovelaceChipEditor;
     }
 
-    public static async getStubConfig(
-        _hass: HomeAssistant
-    ): Promise<ActionChipConfig> {
+    public static async getStubConfig(_hass: HomeAssistant): Promise<ActionChipConfig> {
         return {
             type: `action`,
         };

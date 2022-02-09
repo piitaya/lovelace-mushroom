@@ -1,17 +1,6 @@
-import {
-    ActionHandlerEvent,
-    handleAction,
-    HomeAssistant,
-} from "custom-card-helpers";
+import { ActionHandlerEvent, handleAction, HomeAssistant } from "custom-card-helpers";
 import { UnsubscribeFunc } from "home-assistant-js-websocket";
-import {
-    css,
-    CSSResultGroup,
-    html,
-    LitElement,
-    PropertyValues,
-    TemplateResult,
-} from "lit";
+import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { LovelaceChip } from ".";
@@ -19,14 +8,8 @@ import { computeRgbColor } from "../../../utils/colors";
 import { actionHandler } from "../../../utils/directives/action-handler-directive";
 import { TemplateChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
-import {
-    RenderTemplateResult,
-    subscribeRenderTemplate,
-} from "../../../utils/ws-templates";
-import {
-    computeChipComponentName,
-    computeChipEditorComponentName,
-} from "../utils";
+import { RenderTemplateResult, subscribeRenderTemplate } from "../../../utils/ws-templates";
+import { computeChipComponentName, computeChipEditorComponentName } from "../utils";
 import "./menu-chip-editor";
 import "./template-chip-editor";
 
@@ -41,9 +24,7 @@ export class TemplateChip extends LitElement implements LovelaceChip {
         ) as LovelaceChipEditor;
     }
 
-    public static async getStubConfig(
-        _hass: HomeAssistant
-    ): Promise<TemplateChipConfig> {
+    public static async getStubConfig(_hass: HomeAssistant): Promise<TemplateChipConfig> {
         return {
             type: `template`,
         };
@@ -57,10 +38,7 @@ export class TemplateChip extends LitElement implements LovelaceChip {
         Record<TemplateKey, RenderTemplateResult | undefined>
     > = {};
 
-    @state() private _unsubRenderTemplates: Map<
-        TemplateKey,
-        Promise<UnsubscribeFunc>
-    > = new Map();
+    @state() private _unsubRenderTemplates: Map<TemplateKey, Promise<UnsubscribeFunc>> = new Map();
 
     public setConfig(config: TemplateChipConfig): void {
         TEMPLATE_KEYS.forEach((key) => {
@@ -90,9 +68,7 @@ export class TemplateChip extends LitElement implements LovelaceChip {
     }
 
     private getValue(key: TemplateKey) {
-        return this.isTemplate(key)
-            ? this._templateResults[key]?.result
-            : this._config?.[key];
+        return this.isTemplate(key) ? this._templateResults[key]?.result : this._config?.[key];
     }
 
     protected render(): TemplateResult {
@@ -105,10 +81,7 @@ export class TemplateChip extends LitElement implements LovelaceChip {
         const content = this.getValue("content");
 
         return html`
-            <mushroom-chip
-                @action=${this._handleAction}
-                .actionHandler=${actionHandler()}
-            >
+            <mushroom-chip @action=${this._handleAction} .actionHandler=${actionHandler()}>
                 ${icon ? this.renderIcon(icon, iconColor) : null}
                 ${content ? this.renderContent(content) : null}
             </mushroom-chip>
@@ -121,10 +94,7 @@ export class TemplateChip extends LitElement implements LovelaceChip {
             const iconRgbColor = computeRgbColor(iconColor);
             iconStyle["--color"] = `rgb(${iconRgbColor})`;
         }
-        return html`<ha-icon
-            .icon=${icon}
-            style=${styleMap(iconStyle)}
-        ></ha-icon>`;
+        return html`<ha-icon .icon=${icon} style=${styleMap(iconStyle)}></ha-icon>`;
     }
 
     protected renderContent(content: string): TemplateResult {

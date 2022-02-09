@@ -9,10 +9,7 @@ export class ShapePicture extends LitElement {
     protected render(): TemplateResult {
         return html`
             <div class=${classMap({ container: true })}>
-                <img
-                    class="picture"
-                    src=${this.picture_url.replace("512x512", "256x256")}
-                />
+                <img class="picture" src=${this.picture_url.replace("512x512", "256x256")} />
             </div>
         `;
     }
@@ -23,10 +20,7 @@ export class ShapePicture extends LitElement {
                 --main-color: var(--primary-text-color);
                 --main-color-disabled: var(--disabled-text-color);
                 --shape-color: rgba(var(--rgb-primary-text-color), 0.05);
-                --shape-color-disabled: rgba(
-                    var(--rgb-primary-text-color),
-                    0.05
-                );
+                --shape-color-disabled: rgba(var(--rgb-primary-text-color), 0.05);
                 flex: none;
             }
             .container {

@@ -19,11 +19,7 @@ import "../../shared/state-item";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
-import {
-    COVER_CARD_EDITOR_NAME,
-    COVER_CARD_NAME,
-    COVER_ENTITY_DOMAINS,
-} from "./const";
+import { COVER_CARD_EDITOR_NAME, COVER_CARD_NAME, COVER_ENTITY_DOMAINS } from "./const";
 import "./controls/cover-buttons-control";
 import "./controls/cover-position-control";
 import { CoverCardConfig } from "./cover-card-config";
@@ -46,18 +42,12 @@ registerCustomCard({
 @customElement(COVER_CARD_NAME)
 export class CoverCard extends LitElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
-        return document.createElement(
-            COVER_CARD_EDITOR_NAME
-        ) as LovelaceCardEditor;
+        return document.createElement(COVER_CARD_EDITOR_NAME) as LovelaceCardEditor;
     }
 
-    public static async getStubConfig(
-        hass: HomeAssistant
-    ): Promise<CoverCardConfig> {
+    public static async getStubConfig(hass: HomeAssistant): Promise<CoverCardConfig> {
         const entities = Object.keys(hass.states);
-        const covers = entities.filter((e) =>
-            COVER_ENTITY_DOMAINS.includes(e.split(".")[0])
-        );
+        const covers = entities.filter((e) => COVER_ENTITY_DOMAINS.includes(e.split(".")[0]));
         return {
             type: `custom:${COVER_CARD_NAME}`,
             entity: covers[0],
@@ -75,9 +65,7 @@ export class CoverCard extends LitElement implements LovelaceCard {
     get _nextControl(): CoverCardControl | undefined {
         if (this._activeControl) {
             return (
-                this._controls[
-                    this._controls.indexOf(this._activeControl) + 1
-                ] ?? this._controls[0]
+                this._controls[this._controls.indexOf(this._activeControl) + 1] ?? this._controls[0]
             );
         }
         return undefined;
@@ -130,11 +118,7 @@ export class CoverCard extends LitElement implements LovelaceCard {
         const vertical = this._config.vertical;
         const hideState = this._config.hide_state;
 
-        const stateDisplay = computeStateDisplay(
-            this.hass.localize,
-            entity,
-            this.hass.locale
-        );
+        const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
         const position = getPosition(entity);
 
@@ -185,8 +169,7 @@ export class CoverCard extends LitElement implements LovelaceCard {
     }
 
     private renderNextControlButton(): TemplateResult | null {
-        if (!this._nextControl || this._nextControl == this._activeControl)
-            return null;
+        if (!this._nextControl || this._nextControl == this._activeControl) return null;
 
         return html`
             <mushroom-button
@@ -200,17 +183,11 @@ export class CoverCard extends LitElement implements LovelaceCard {
         switch (this._activeControl) {
             case "buttons_control":
                 return html`
-                    <mushroom-cover-buttons-control
-                        .hass=${this.hass}
-                        .entity=${entity}
-                    />
+                    <mushroom-cover-buttons-control .hass=${this.hass} .entity=${entity} />
                 `;
             case "position_control":
                 return html`
-                    <mushroom-cover-position-control
-                        .hass=${this.hass}
-                        .entity=${entity}
-                    />
+                    <mushroom-cover-position-control .hass=${this.hass} .entity=${entity} />
                 `;
             default:
                 return null;

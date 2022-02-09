@@ -28,10 +28,7 @@ export class ShapeIcon extends LitElement {
                 --icon-color-disabled: var(--disabled-text-color);
                 --icon-animation: none;
                 --shape-color: rgba(var(--rgb-primary-text-color), 0.05);
-                --shape-color-disabled: rgba(
-                    var(--rgb-primary-text-color),
-                    0.05
-                );
+                --shape-color-disabled: rgba(var(--rgb-primary-text-color), 0.05);
                 --shape-animation: none;
                 --shape-outline-color: transparent;
                 --shape-outline-size: 1px;

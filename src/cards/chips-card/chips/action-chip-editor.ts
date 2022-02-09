@@ -3,11 +3,7 @@ import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import setupCustomlocalize from "../../../localize";
-import {
-    COLORS,
-    computeColorName,
-    computeRgbColor,
-} from "../../../utils/colors";
+import { COLORS, computeColorName, computeRgbColor } from "../../../utils/colors";
 import { configElementStyle } from "../../../utils/editor-styles";
 import { ActionChipConfig } from "../../../utils/lovelace/chip/types";
 import { EditorTarget } from "../../../utils/lovelace/editor/types";
@@ -39,9 +35,7 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
                     <ha-icon-picker
                         .label="${this.hass.localize(
                             "ui.panel.lovelace.editor.card.generic.icon"
-                        )} (${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.config.optional"
-                        )})"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
                         .value=${this._config.icon}
                         .placeholder=${this._config.icon || "mdi:flash"}
                         .configValue=${"icon"}
@@ -50,9 +44,7 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
                     <paper-dropdown-menu
                         .label="${customLocalize(
                             "editor.card.generic.icon_color"
-                        )} (${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.config.optional"
-                        )})"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
                     >
                         <paper-listbox
                             slot="dropdown-content"
@@ -69,8 +61,7 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
                             ${COLORS.map(
                                 (color) => html`
                                     <paper-item .value=${color}>
-                                        ${this.renderColorCircle(color)}
-                                        ${computeColorName(color)}
+                                        ${this.renderColorCircle(color)} ${computeColorName(color)}
                                     </paper-item>
                                 `
                             )}
@@ -81,9 +72,7 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
                     <hui-action-editor
                         .label="${this.hass.localize(
                             "ui.panel.lovelace.editor.card.generic.tap_action"
-                        )} (${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.config.optional"
-                        )})"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
                         .hass=${this.hass}
                         .config=${this._config.tap_action}
                         .actions=${actions}
@@ -96,9 +85,7 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
                     <hui-action-editor
                         .label="${this.hass.localize(
                             "ui.panel.lovelace.editor.card.generic.hold_action"
-                        )} (${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.config.optional"
-                        )})"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
                         .hass=${this.hass}
                         .config=${this._config.hold_action}
                         .actions=${actions}
@@ -127,8 +114,7 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
             return;
         }
         const target = ev.target! as EditorTarget;
-        const value =
-            target.checked ?? ev.detail.value ?? ev.detail.item?.value;
+        const value = target.checked ?? ev.detail.value ?? ev.detail.item?.value;
 
         if (!target.configValue || this._config[target.configValue] === value) {
             return;

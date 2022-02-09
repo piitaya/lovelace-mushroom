@@ -1,13 +1,5 @@
 import { ActionConfig, LovelaceCardConfig } from "custom-card-helpers";
-import {
-    array,
-    assign,
-    boolean,
-    object,
-    optional,
-    string,
-    union,
-} from "superstruct";
+import { array, assign, boolean, object, optional, string, union } from "superstruct";
 import { actionConfigStruct } from "../../utils/action-struct";
 import { baseLovelaceCardConfig } from "../../utils/editor-styles";
 

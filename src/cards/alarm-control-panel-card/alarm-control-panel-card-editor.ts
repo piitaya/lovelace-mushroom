@@ -14,10 +14,7 @@ import {
     alarmControlPanelCardCardConfigStruct,
     AlarmControlPanelCardConfig,
 } from "./alarm-control-panel-card-config";
-import {
-    ALARM_CONTROl_PANEL_CARD_EDITOR_NAME,
-    ALARM_CONTROl_PANEL_ENTITY_DOMAINS,
-} from "./const";
+import { ALARM_CONTROl_PANEL_CARD_EDITOR_NAME, ALARM_CONTROl_PANEL_ENTITY_DOMAINS } from "./const";
 import { getStateIcon } from "./utils";
 
 const DOMAINS = [...ALARM_CONTROl_PANEL_ENTITY_DOMAINS, "group"];
@@ -48,12 +45,8 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
         }
 
         const dir = computeRTLDirection(this.hass);
-        const entityState = this._config.entity
-            ? this.hass.states[this._config.entity]
-            : undefined;
-        const entityIcon = entityState
-            ? getStateIcon(entityState.state)
-            : undefined;
+        const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
+        const entityIcon = entityState ? getStateIcon(entityState.state) : undefined;
 
         const states = [
             "armed_home",
@@ -68,9 +61,7 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
         return html`
             <div class="card-config">
                 <ha-entity-picker
-                    .label="${this.hass.localize(
-                        "ui.panel.lovelace.editor.card.generic.entity"
-                    )}"
+                    .label="${this.hass.localize("ui.panel.lovelace.editor.card.generic.entity")}"
                     .hass=${this.hass}
                     .value=${this._config.entity}
                     .configValue=${"entity"}
@@ -82,9 +73,7 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                     <paper-input
                         .label="${this.hass.localize(
                             "ui.panel.lovelace.editor.card.generic.name"
-                        )} (${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.config.optional"
-                        )})"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
                         .value=${this._config.name}
                         .configValue=${"name"}
                         @value-changed=${this._valueChanged}
@@ -92,9 +81,7 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                     <ha-icon-picker
                         .label="${this.hass.localize(
                             "ui.panel.lovelace.editor.card.generic.icon"
-                        )} (${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.config.optional"
-                        )})"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
                         .value=${this._config.icon}
                         .placeholder=${this._config.icon || entityIcon}
                         .configValue=${"icon"}
@@ -113,9 +100,7 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                         ></ha-switch>
                     </ha-formfield>
                     <ha-formfield
-                        .label=${customLocalize(
-                            "editor.card.generic.hide_state"
-                        )}
+                        .label=${customLocalize("editor.card.generic.hide_state")}
                         .dir=${dir}
                     >
                         <ha-switch
@@ -153,10 +138,7 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                         >
                             <paper-listbox slot="dropdown-content">
                                 ${states.map(
-                                    (entityState) =>
-                                        html` <paper-item
-                                            >${entityState}</paper-item
-                                        >`
+                                    (entityState) => html` <paper-item>${entityState}</paper-item>`
                                 )}
                             </paper-listbox>
                         </paper-dropdown-menu>
@@ -166,9 +148,7 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                     <hui-action-editor
                         .label="${this.hass.localize(
                             "ui.panel.lovelace.editor.card.generic.tap_action"
-                        )} (${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.config.optional"
-                        )})"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
                         .hass=${this.hass}
                         .config=${this._config.tap_action}
                         .actions=${actions}
@@ -181,9 +161,7 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                     <hui-action-editor
                         .label="${this.hass.localize(
                             "ui.panel.lovelace.editor.card.generic.hold_action"
-                        )} (${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.config.optional"
-                        )})"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
                         .hass=${this.hass}
                         .config=${this._config.hold_action}
                         .actions=${actions}
@@ -203,8 +181,7 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
             return;
         }
         const target = ev.target! as EditorTarget;
-        const value =
-            target.checked ?? ev.detail.value ?? ev.detail.item?.value;
+        const value = target.checked ?? ev.detail.value ?? ev.detail.item?.value;
 
         if (!target.configValue || this._config[target.configValue] === value) {
             return;

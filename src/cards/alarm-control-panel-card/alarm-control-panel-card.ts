@@ -57,14 +57,10 @@ const BUTTONS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "", "0", "clear"];
 @customElement(ALARM_CONTROl_PANEL_CARD_NAME)
 export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
-        return document.createElement(
-            ALARM_CONTROl_PANEL_CARD_EDITOR_NAME
-        ) as LovelaceCardEditor;
+        return document.createElement(ALARM_CONTROl_PANEL_CARD_EDITOR_NAME) as LovelaceCardEditor;
     }
 
-    public static async getStubConfig(
-        hass: HomeAssistant
-    ): Promise<AlarmControlPanelCardConfig> {
+    public static async getStubConfig(hass: HomeAssistant): Promise<AlarmControlPanelCardConfig> {
         const entities = Object.keys(hass.states);
         const panels = entities.filter((e) =>
             ALARM_CONTROl_PANEL_ENTITY_DOMAINS.includes(e.split(".")[0])
@@ -144,9 +140,7 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
         const hideState = this._config.hide_state;
 
         const shapePulse =
-            ["arming", "triggered", "pending", "unavailable"].indexOf(
-                mainEntity.state
-            ) >= 0;
+            ["arming", "triggered", "pending", "unavailable"].indexOf(mainEntity.state) >= 0;
 
         const actions: ActionButtonType[] =
             this._config.states && this._config.states.length > 0
@@ -157,11 +151,7 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
 
         const isActionEnabled = isActionsAvailable(mainEntity);
 
-        const stateDisplay = computeStateDisplay(
-            this.hass.localize,
-            mainEntity,
-            this.hass.locale
-        );
+        const stateDisplay = computeStateDisplay(this.hass.localize, mainEntity, this.hass.locale);
 
         const iconStyle = {
             "--icon-color": `rgb(${color})`,
@@ -213,8 +203,7 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                                   (action) => html`
                                       <mushroom-button
                                           icon=${getStateIcon(action.state)}
-                                          @click=${(e) =>
-                                              this._onTap(e, action.state)}
+                                          @click=${(e) => this._onTap(e, action.state)}
                                           .disabled=${!isActionEnabled}
                                       ></mushroom-button>
                                   `
@@ -226,12 +215,9 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                         : html`
                               <paper-input
                                   id="alarmCode"
-                                  .label=${this.hass.localize(
-                                      "ui.card.alarm_control_panel.code"
-                                  )}
+                                  .label=${this.hass.localize("ui.card.alarm_control_panel.code")}
                                   type="password"
-                                  .inputmode=${mainEntity.attributes
-                                      .code_format === "number"
+                                  .inputmode=${mainEntity.attributes.code_format === "number"
                                       ? "numeric"
                                       : "text"}
                               ></paper-input>
@@ -242,20 +228,14 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                               <div id="keypad">
                                   ${BUTTONS.map((value) =>
                                       value === ""
-                                          ? html`
-                                                <mwc-button
-                                                    disabled
-                                                ></mwc-button>
-                                            `
+                                          ? html` <mwc-button disabled></mwc-button> `
                                           : html`
                                                 <mwc-button
                                                     .value=${value}
-                                                    @click=${this
-                                                        ._handlePadClick}
+                                                    @click=${this._handlePadClick}
                                                     outlined
                                                     class=${classMap({
-                                                        numberkey:
-                                                            value !== "clear",
+                                                        numberkey: value !== "clear",
                                                     })}
                                                 >
                                                     ${value === "clear"
@@ -285,8 +265,7 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                     --main-color: var(--warning-color);
                 }
                 mushroom-shape-icon.pulse {
-                    --shape-animation: 1s ease 0s infinite normal none running
-                        pulse;
+                    --shape-animation: 1s ease 0s infinite normal none running pulse;
                 }
                 .actions mushroom-button {
                     flex: 1;

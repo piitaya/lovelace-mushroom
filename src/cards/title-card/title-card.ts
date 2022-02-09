@@ -1,27 +1,13 @@
-import {
-    HomeAssistant,
-    LovelaceCard,
-    LovelaceCardEditor,
-} from "custom-card-helpers";
+import { HomeAssistant, LovelaceCard, LovelaceCardEditor } from "custom-card-helpers";
 import { UnsubscribeFunc } from "home-assistant-js-websocket";
-import {
-    css,
-    CSSResultGroup,
-    html,
-    LitElement,
-    PropertyValues,
-    TemplateResult,
-} from "lit";
+import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
-import {
-    RenderTemplateResult,
-    subscribeRenderTemplate,
-} from "../../utils/ws-templates";
+import { RenderTemplateResult, subscribeRenderTemplate } from "../../utils/ws-templates";
 import { TITLE_CARD_EDITOR_NAME, TITLE_CARD_NAME } from "./const";
 import "./title-card-editor";
 import { TitleCardConfig } from "./title-card-config";
@@ -38,14 +24,10 @@ type TemplateKey = typeof TEMPLATE_KEYS[number];
 @customElement(TITLE_CARD_NAME)
 export class TitleCard extends LitElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
-        return document.createElement(
-            TITLE_CARD_EDITOR_NAME
-        ) as LovelaceCardEditor;
+        return document.createElement(TITLE_CARD_EDITOR_NAME) as LovelaceCardEditor;
     }
 
-    public static async getStubConfig(
-        _hass: HomeAssistant
-    ): Promise<TitleCardConfig> {
+    public static async getStubConfig(_hass: HomeAssistant): Promise<TitleCardConfig> {
         return {
             type: `custom:${TITLE_CARD_NAME}`,
             title: "Hello, {{ user }} !",
@@ -60,10 +42,7 @@ export class TitleCard extends LitElement implements LovelaceCard {
         Record<TemplateKey, RenderTemplateResult | undefined>
     > = {};
 
-    @state() private _unsubRenderTemplates: Map<
-        TemplateKey,
-        Promise<UnsubscribeFunc>
-    > = new Map();
+    @state() private _unsubRenderTemplates: Map<TemplateKey, Promise<UnsubscribeFunc>> = new Map();
 
     getCardSize(): number | Promise<number> {
         return 1;
@@ -93,9 +72,7 @@ export class TitleCard extends LitElement implements LovelaceCard {
     }
 
     private getValue(key: TemplateKey) {
-        return this.isTemplate(key)
-            ? this._templateResults[key]?.result
-            : this._config?.[key];
+        return this.isTemplate(key) ? this._templateResults[key]?.result : this._config?.[key];
     }
 
     protected render(): TemplateResult {

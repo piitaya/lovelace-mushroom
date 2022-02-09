@@ -14,14 +14,7 @@ import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { FAN_CARD_EDITOR_NAME, FAN_ENTITY_DOMAINS } from "./const";
 import { FanCardConfig, fanCardConfigStruct } from "./fan-card-config";
 
-const actions = [
-    "toggle",
-    "more-info",
-    "navigate",
-    "url",
-    "call-service",
-    "none",
-];
+const actions = ["toggle", "more-info", "navigate", "url", "call-service", "none"];
 
 @customElement(FAN_CARD_EDITOR_NAME)
 export class FanCardEditor extends LitElement implements LovelaceCardEditor {
@@ -40,9 +33,7 @@ export class FanCardEditor extends LitElement implements LovelaceCardEditor {
         }
 
         const dir = computeRTLDirection(this.hass);
-        const entityState = this._config.entity
-            ? this.hass.states[this._config.entity]
-            : undefined;
+        const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
         const entityIcon = entityState ? stateIcon(entityState) : undefined;
 
         const customLocalize = setupCustomlocalize(this.hass);
@@ -50,9 +41,7 @@ export class FanCardEditor extends LitElement implements LovelaceCardEditor {
         return html`
             <div class="card-config">
                 <ha-entity-picker
-                    .label="${this.hass.localize(
-                        "ui.panel.lovelace.editor.card.generic.entity"
-                    )}"
+                    .label="${this.hass.localize("ui.panel.lovelace.editor.card.generic.entity")}"
                     .hass=${this.hass}
                     .value=${this._config.entity}
                     .configValue=${"entity"}
@@ -64,9 +53,7 @@ export class FanCardEditor extends LitElement implements LovelaceCardEditor {
                     <paper-input
                         .label="${this.hass.localize(
                             "ui.panel.lovelace.editor.card.generic.name"
-                        )} (${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.config.optional"
-                        )})"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
                         .value=${this._config.name}
                         .configValue=${"name"}
                         @value-changed=${this._valueChanged}
@@ -74,9 +61,7 @@ export class FanCardEditor extends LitElement implements LovelaceCardEditor {
                     <ha-icon-picker
                         .label="${this.hass.localize(
                             "ui.panel.lovelace.editor.card.generic.icon"
-                        )} (${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.config.optional"
-                        )})"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
                         .value=${this._config.icon}
                         .placeholder=${this._config.icon || entityIcon}
                         .configValue=${"icon"}
@@ -85,9 +70,7 @@ export class FanCardEditor extends LitElement implements LovelaceCardEditor {
                 </div>
                 <div class="side-by-side">
                     <ha-formfield
-                        .label=${customLocalize(
-                            "editor.card.fan.animate_icon_active"
-                        )}
+                        .label=${customLocalize("editor.card.fan.animate_icon_active")}
                         .dir=${dir}
                     >
                         <ha-switch
@@ -109,9 +92,7 @@ export class FanCardEditor extends LitElement implements LovelaceCardEditor {
                         ></ha-switch>
                     </ha-formfield>
                     <ha-formfield
-                        .label=${customLocalize(
-                            "editor.card.generic.hide_state"
-                        )}
+                        .label=${customLocalize("editor.card.generic.hide_state")}
                         .dir=${dir}
                     >
                         <ha-switch
@@ -123,9 +104,7 @@ export class FanCardEditor extends LitElement implements LovelaceCardEditor {
                 </div>
                 <div class="side-by-side">
                     <ha-formfield
-                        .label=${customLocalize(
-                            "editor.card.fan.show_percentage_control"
-                        )}
+                        .label=${customLocalize("editor.card.fan.show_percentage_control")}
                         .dir=${dir}
                     >
                         <ha-switch
@@ -135,9 +114,7 @@ export class FanCardEditor extends LitElement implements LovelaceCardEditor {
                         ></ha-switch>
                     </ha-formfield>
                     <ha-formfield
-                        .label=${customLocalize(
-                            "editor.card.fan.show_oscillate_control"
-                        )}
+                        .label=${customLocalize("editor.card.fan.show_oscillate_control")}
                         .dir=${dir}
                     >
                         <ha-switch
@@ -151,9 +128,7 @@ export class FanCardEditor extends LitElement implements LovelaceCardEditor {
                     <hui-action-editor
                         .label="${this.hass.localize(
                             "ui.panel.lovelace.editor.card.generic.tap_action"
-                        )} (${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.config.optional"
-                        )})"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
                         .hass=${this.hass}
                         .config=${this._config.tap_action}
                         .actions=${actions}
@@ -166,9 +141,7 @@ export class FanCardEditor extends LitElement implements LovelaceCardEditor {
                     <hui-action-editor
                         .label="${this.hass.localize(
                             "ui.panel.lovelace.editor.card.generic.hold_action"
-                        )} (${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.config.optional"
-                        )})"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
                         .hass=${this.hass}
                         .config=${this._config.hold_action}
                         .actions=${actions}
@@ -188,8 +161,7 @@ export class FanCardEditor extends LitElement implements LovelaceCardEditor {
             return;
         }
         const target = ev.target! as EditorTarget;
-        const value =
-            target.checked ?? ev.detail.value ?? ev.detail.item?.value;
+        const value = target.checked ?? ev.detail.value ?? ev.detail.item?.value;
 
         if (!target.configValue || this._config[target.configValue] === value) {
             return;

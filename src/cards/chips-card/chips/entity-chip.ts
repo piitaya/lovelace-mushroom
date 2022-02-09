@@ -14,10 +14,7 @@ import { computeRgbColor } from "../../../utils/colors";
 import { actionHandler } from "../../../utils/directives/action-handler-directive";
 import { EntityChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
-import {
-    computeChipComponentName,
-    computeChipEditorComponentName,
-} from "../utils";
+import { computeChipComponentName, computeChipEditorComponentName } from "../utils";
 import "./entity-chip-editor";
 
 @customElement(computeChipComponentName("entity"))
@@ -28,9 +25,7 @@ export class EntityChip extends LitElement implements LovelaceChip {
         ) as LovelaceChipEditor;
     }
 
-    public static async getStubConfig(
-        hass: HomeAssistant
-    ): Promise<EntityChipConfig> {
+    public static async getStubConfig(hass: HomeAssistant): Promise<EntityChipConfig> {
         const entities = Object.keys(hass.states);
         return {
             type: `entity`,
@@ -61,11 +56,7 @@ export class EntityChip extends LitElement implements LovelaceChip {
         const icon = this._config.icon ?? stateIcon(entity);
         const iconColor = this._config.icon_color;
 
-        const stateDisplay = computeStateDisplay(
-            this.hass.localize,
-            entity,
-            this.hass.locale
-        );
+        const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
         const iconStyle = {};
         if (iconColor) {

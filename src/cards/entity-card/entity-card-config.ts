@@ -3,13 +3,7 @@ import { assign, boolean, enums, object, optional, string } from "superstruct";
 import { actionConfigStruct } from "../../utils/action-struct";
 import { baseLovelaceCardConfig } from "../../utils/editor-styles";
 
-export const INFOS = [
-    "name",
-    "state",
-    "last-changed",
-    "last-updated",
-    "none",
-] as const;
+export const INFOS = ["name", "state", "last-changed", "last-updated", "none"] as const;
 
 export type Info = typeof INFOS[number];
 

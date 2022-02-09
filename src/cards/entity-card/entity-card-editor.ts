@@ -14,20 +14,9 @@ import { COLORS, computeColorName, computeRgbColor } from "../../utils/colors";
 import { configElementStyle } from "../../utils/editor-styles";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { ENTITY_CARD_EDITOR_NAME } from "./const";
-import {
-    EntityCardConfig,
-    entityCardConfigStruct,
-    INFOS,
-} from "./entity-card-config";
+import { EntityCardConfig, entityCardConfigStruct, INFOS } from "./entity-card-config";
 
-const actions = [
-    "toggle",
-    "more-info",
-    "navigate",
-    "url",
-    "call-service",
-    "none",
-];
+const actions = ["toggle", "more-info", "navigate", "url", "call-service", "none"];
 
 @customElement(ENTITY_CARD_EDITOR_NAME)
 export class EntityCardEditor extends LitElement implements LovelaceCardEditor {
@@ -46,9 +35,7 @@ export class EntityCardEditor extends LitElement implements LovelaceCardEditor {
         }
 
         const dir = computeRTLDirection(this.hass);
-        const entityState = this._config.entity
-            ? this.hass.states[this._config.entity]
-            : undefined;
+        const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
         const entityIcon = entityState ? stateIcon(entityState) : undefined;
 
         const customLocalize = setupCustomlocalize(this.hass);
@@ -56,9 +43,7 @@ export class EntityCardEditor extends LitElement implements LovelaceCardEditor {
         return html`
             <div class="card-config">
                 <ha-entity-picker
-                    .label="${this.hass.localize(
-                        "ui.panel.lovelace.editor.card.generic.entity"
-                    )}"
+                    .label="${this.hass.localize("ui.panel.lovelace.editor.card.generic.entity")}"
                     .hass=${this.hass}
                     .value=${this._config.entity}
                     .configValue=${"entity"}
@@ -69,9 +54,7 @@ export class EntityCardEditor extends LitElement implements LovelaceCardEditor {
                     <paper-input
                         .label="${this.hass.localize(
                             "ui.panel.lovelace.editor.card.generic.name"
-                        )} (${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.config.optional"
-                        )})"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
                         .value=${this._config.name}
                         .configValue=${"name"}
                         @value-changed=${this._valueChanged}
@@ -79,9 +62,7 @@ export class EntityCardEditor extends LitElement implements LovelaceCardEditor {
                     <ha-icon-picker
                         .label="${this.hass.localize(
                             "ui.panel.lovelace.editor.card.generic.icon"
-                        )} (${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.config.optional"
-                        )})"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
                         .value=${this._config.icon}
                         .placeholder=${this._config.icon || entityIcon}
                         .configValue=${"icon"}
@@ -92,9 +73,7 @@ export class EntityCardEditor extends LitElement implements LovelaceCardEditor {
                     <paper-dropdown-menu
                         .label="${customLocalize(
                             "editor.card.generic.icon_color"
-                        )} (${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.config.optional"
-                        )})"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
                     >
                         <paper-listbox
                             slot="dropdown-content"
@@ -111,8 +90,7 @@ export class EntityCardEditor extends LitElement implements LovelaceCardEditor {
                             ${COLORS.map(
                                 (color) => html`
                                     <paper-item .value=${color}>
-                                        ${this.renderColorCircle(color)}
-                                        ${computeColorName(color)}
+                                        ${this.renderColorCircle(color)} ${computeColorName(color)}
                                     </paper-item>
                                 `
                             )}
@@ -143,9 +121,7 @@ export class EntityCardEditor extends LitElement implements LovelaceCardEditor {
                 </div>
                 <div class="side-by-side">
                     <paper-dropdown-menu
-                        .label=${customLocalize(
-                            "editor.card.entity.primary_info"
-                        )}
+                        .label=${customLocalize("editor.card.entity.primary_info")}
                     >
                         <paper-listbox
                             slot="dropdown-content"
@@ -155,25 +131,19 @@ export class EntityCardEditor extends LitElement implements LovelaceCardEditor {
                             @iron-select=${this._valueChanged}
                         >
                             <paper-item value="">
-                                ${customLocalize(
-                                    "editor.card.entity.info_values.default"
-                                )}
+                                ${customLocalize("editor.card.entity.info_values.default")}
                             </paper-item>
                             ${INFOS.map((info) => {
                                 return html`
                                     <paper-item .value=${info}>
-                                        ${customLocalize(
-                                            `editor.card.entity.info_values.${info}`
-                                        )}
+                                        ${customLocalize(`editor.card.entity.info_values.${info}`)}
                                     </paper-item>
                                 `;
                             })}
                         </paper-listbox>
                     </paper-dropdown-menu>
                     <paper-dropdown-menu
-                        .label=${customLocalize(
-                            "editor.card.entity.secondary_info"
-                        )}
+                        .label=${customLocalize("editor.card.entity.secondary_info")}
                     >
                         <paper-listbox
                             slot="dropdown-content"
@@ -183,16 +153,12 @@ export class EntityCardEditor extends LitElement implements LovelaceCardEditor {
                             @iron-select=${this._valueChanged}
                         >
                             <paper-item value="">
-                                ${customLocalize(
-                                    "editor.card.entity.info_values.default"
-                                )}
+                                ${customLocalize("editor.card.entity.info_values.default")}
                             </paper-item>
                             ${INFOS.map((info) => {
                                 return html`
                                     <paper-item .value=${info}>
-                                        ${customLocalize(
-                                            `editor.card.entity.info_values.${info}`
-                                        )}
+                                        ${customLocalize(`editor.card.entity.info_values.${info}`)}
                                     </paper-item>
                                 `;
                             })}
@@ -203,9 +169,7 @@ export class EntityCardEditor extends LitElement implements LovelaceCardEditor {
                     <hui-action-editor
                         .label="${this.hass.localize(
                             "ui.panel.lovelace.editor.card.generic.tap_action"
-                        )} (${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.config.optional"
-                        )})"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
                         .hass=${this.hass}
                         .config=${this._config.tap_action}
                         .actions=${actions}
@@ -218,9 +182,7 @@ export class EntityCardEditor extends LitElement implements LovelaceCardEditor {
                     <hui-action-editor
                         .label="${this.hass.localize(
                             "ui.panel.lovelace.editor.card.generic.hold_action"
-                        )} (${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.config.optional"
-                        )})"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
                         .hass=${this.hass}
                         .config=${this._config.hold_action}
                         .actions=${actions}
@@ -249,8 +211,7 @@ export class EntityCardEditor extends LitElement implements LovelaceCardEditor {
             return;
         }
         const target = ev.target! as EditorTarget;
-        const value =
-            target.checked ?? ev.detail.value ?? ev.detail.item?.value;
+        const value = target.checked ?? ev.detail.value ?? ev.detail.item?.value;
 
         if (!target.configValue || this._config[target.configValue] === value) {
             return;

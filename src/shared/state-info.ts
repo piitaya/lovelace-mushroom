@@ -14,7 +14,10 @@ export class StateItem extends LitElement {
             <div class="container">
                 <span class="primary">${this.primary}</span>
                 ${this.secondary
-                    ? html`<span class="secondary${this.multiline_secondary ? ` multiline_secondary`: ``}">${this.secondary}</span>`
+                    ? html`<span
+                          class="secondary${this.multiline_secondary ? ` multiline_secondary` : ``}"
+                          >${this.secondary}</span
+                      >`
                     : null}
             </div>
         `;

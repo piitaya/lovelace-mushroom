@@ -20,11 +20,7 @@ import "../../shared/state-item";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
-import {
-    FAN_CARD_EDITOR_NAME,
-    FAN_CARD_NAME,
-    FAN_ENTITY_DOMAINS,
-} from "./const";
+import { FAN_CARD_EDITOR_NAME, FAN_CARD_NAME, FAN_ENTITY_DOMAINS } from "./const";
 import "./controls/fan-oscillate-control";
 import "./controls/fan-percentage-control";
 import { FanCardConfig } from "./fan-card-config";
@@ -40,18 +36,12 @@ registerCustomCard({
 @customElement(FAN_CARD_NAME)
 export class FanCard extends LitElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
-        return document.createElement(
-            FAN_CARD_EDITOR_NAME
-        ) as LovelaceCardEditor;
+        return document.createElement(FAN_CARD_EDITOR_NAME) as LovelaceCardEditor;
     }
 
-    public static async getStubConfig(
-        hass: HomeAssistant
-    ): Promise<FanCardConfig> {
+    public static async getStubConfig(hass: HomeAssistant): Promise<FanCardConfig> {
         const entities = Object.keys(hass.states);
-        const fans = entities.filter((e) =>
-            FAN_ENTITY_DOMAINS.includes(e.split(".")[0])
-        );
+        const fans = entities.filter((e) => FAN_ENTITY_DOMAINS.includes(e.split(".")[0]));
         return {
             type: `custom:${FAN_CARD_NAME}`,
             entity: fans[0],
@@ -95,11 +85,7 @@ export class FanCard extends LitElement implements LovelaceCard {
         const vertical = this._config.vertical;
         const hideState = this._config.hide_state;
 
-        const stateDisplay = computeStateDisplay(
-            this.hass.localize,
-            entity,
-            this.hass.locale
-        );
+        const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
         const percentage = getPercentage(entity);
 
@@ -146,8 +132,7 @@ export class FanCard extends LitElement implements LovelaceCard {
                             .secondary=${!hideState && stateValue}
                         ></mushroom-state-info>
                     </mushroom-state-item>
-                    ${this._config.show_percentage_control ||
-                    this._config.show_oscillate_control
+                    ${this._config.show_percentage_control || this._config.show_oscillate_control
                         ? html`
                               <div class="actions">
                                   ${this._config.show_percentage_control
@@ -186,8 +171,7 @@ export class FanCard extends LitElement implements LovelaceCard {
                     --shape-color: rgba(var(--rgb-state-fan), 0.2);
                 }
                 mushroom-shape-icon.spin {
-                    --icon-animation: var(--animation-duration) infinite linear
-                        spin;
+                    --icon-animation: var(--animation-duration) infinite linear spin;
                 }
                 mushroom-shape-icon ha-icon {
                     color: red !important;

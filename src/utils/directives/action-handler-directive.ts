@@ -1,16 +1,7 @@
 import type { Ripple } from "@material/mwc-ripple";
-import {
-    ActionHandlerDetail,
-    ActionHandlerOptions,
-    fireEvent,
-} from "custom-card-helpers";
+import { ActionHandlerDetail, ActionHandlerOptions, fireEvent } from "custom-card-helpers";
 import { noChange } from "lit";
-import {
-    AttributePart,
-    directive,
-    Directive,
-    DirectiveParameters,
-} from "lit/directive.js";
+import { AttributePart, directive, Directive, DirectiveParameters } from "lit/directive.js";
 import { deepEqual } from "../deep-equal";
 
 const isTouch =
@@ -96,38 +87,20 @@ class ActionHandler extends HTMLElement implements ActionHandler {
         });
     }
 
-    public bind(
-        element: ActionHandlerElement,
-        options: ActionHandlerOptions = {}
-    ) {
-        if (
-            element.actionHandler &&
-            deepEqual(options, element.actionHandler.options)
-        ) {
+    public bind(element: ActionHandlerElement, options: ActionHandlerOptions = {}) {
+        if (element.actionHandler && deepEqual(options, element.actionHandler.options)) {
             return;
         }
 
         if (element.actionHandler) {
-            element.removeEventListener(
-                "touchstart",
-                element.actionHandler.start!
-            );
+            element.removeEventListener("touchstart", element.actionHandler.start!);
             element.removeEventListener("touchend", element.actionHandler.end!);
-            element.removeEventListener(
-                "touchcancel",
-                element.actionHandler.end!
-            );
+            element.removeEventListener("touchcancel", element.actionHandler.end!);
 
-            element.removeEventListener(
-                "mousedown",
-                element.actionHandler.start!
-            );
+            element.removeEventListener("mousedown", element.actionHandler.start!);
             element.removeEventListener("click", element.actionHandler.end!);
 
-            element.removeEventListener(
-                "keyup",
-                element.actionHandler.handleEnter!
-            );
+            element.removeEventListener("keyup", element.actionHandler.handleEnter!);
         } else {
             element.addEventListener("contextmenu", (ev: Event) => {
                 const e = ev || window.event;
@@ -172,10 +145,7 @@ class ActionHandler extends HTMLElement implements ActionHandler {
 
         element.actionHandler.end = (ev: Event) => {
             // Don't respond when moved or scrolled while touch
-            if (
-                ["touchend", "touchcancel"].includes(ev.type) &&
-                this.cancelled
-            ) {
+            if (["touchend", "touchcancel"].includes(ev.type) && this.cancelled) {
                 return;
             }
             const target = ev.target as HTMLElement;

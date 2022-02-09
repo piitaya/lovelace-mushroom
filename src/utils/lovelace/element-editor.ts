@@ -1,12 +1,5 @@
 import { dump, load } from "js-yaml";
-import {
-    css,
-    CSSResultGroup,
-    html,
-    LitElement,
-    PropertyValues,
-    TemplateResult,
-} from "lit";
+import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
 import { property, state, query } from "lit/decorators.js";
 import { LovelaceGenericElementEditor } from "./types";
 import { deepEqual } from "../deep-equal";
@@ -115,11 +108,7 @@ export abstract class MushroomElementEditor<T> extends LitElement {
             config: this.value! as any,
             // @ts-ignore
             error: this._errors?.join(", "),
-            guiModeAvailable: !(
-                this.hasWarning ||
-                this.hasError ||
-                this._guiSupported === false
-            ),
+            guiModeAvailable: !(this.hasWarning || this.hasError || this._guiSupported === false),
         });
     }
 
@@ -139,11 +128,7 @@ export abstract class MushroomElementEditor<T> extends LitElement {
         this._guiMode = guiMode;
         fireEvent(this as HTMLElement, "GUImode-changed", {
             guiMode,
-            guiModeAvailable: !(
-                this.hasWarning ||
-                this.hasError ||
-                this._guiSupported === false
-            ),
+            guiModeAvailable: !(this.hasWarning || this.hasError || this._guiSupported === false),
         });
     }
 
@@ -161,9 +146,7 @@ export abstract class MushroomElementEditor<T> extends LitElement {
         this._yamlEditor.codemirror.focus();
     }
 
-    protected async getConfigElement(): Promise<
-        LovelaceGenericElementEditor | undefined
-    > {
+    protected async getConfigElement(): Promise<LovelaceGenericElementEditor | undefined> {
         return undefined;
     }
 
@@ -215,14 +198,10 @@ export abstract class MushroomElementEditor<T> extends LitElement {
                 ${this.hasError
                     ? html`
                           <div class="error">
-                              ${this.hass.localize(
-                                  "ui.errors.config.error_detected"
-                              )}:
+                              ${this.hass.localize("ui.errors.config.error_detected")}:
                               <br />
                               <ul>
-                                  ${this._errors!.map(
-                                      (error) => html`<li>${error}</li>`
-                                  )}
+                                  ${this._errors!.map((error) => html`<li>${error}</li>`)}
                               </ul>
                           </div>
                       `
@@ -235,18 +214,14 @@ export abstract class MushroomElementEditor<T> extends LitElement {
                                   "ui.errors.config.editor_not_supported"
                               )}:"
                           >
-                              ${this._warnings!.length > 0 &&
-                              this._warnings![0] !== undefined
+                              ${this._warnings!.length > 0 && this._warnings![0] !== undefined
                                   ? html` <ul>
                                         ${this._warnings!.map(
-                                            (warning) =>
-                                                html`<li>${warning}</li>`
+                                            (warning) => html`<li>${warning}</li>`
                                         )}
                                     </ul>`
                                   : ""}
-                              ${this.hass.localize(
-                                  "ui.errors.config.edit_in_yaml_supported"
-                              )}
+                              ${this.hass.localize("ui.errors.config.edit_in_yaml_supported")}
                           </ha-alert>
                       `
                     : ""}
@@ -300,9 +275,7 @@ export abstract class MushroomElementEditor<T> extends LitElement {
                 this._configElement = undefined;
 
                 if (!this.configElementType) {
-                    throw new Error(
-                        this.hass.localize("ui.errors.config.no_type_provided")
-                    );
+                    throw new Error(this.hass.localize("ui.errors.config.no_type_provided"));
                 }
 
                 this._configElementType = this.configElementType;

@@ -1,14 +1,4 @@
-import {
-    object,
-    string,
-    union,
-    boolean,
-    optional,
-    array,
-    literal,
-    enums,
-    type,
-} from "superstruct";
+import { object, string, union, boolean, optional, array, literal, enums, type } from "superstruct";
 
 const actionConfigStructUser = object({
     user: string(),
@@ -53,14 +43,7 @@ const actionConfigStructCustom = type({
 });
 
 export const actionConfigStructType = object({
-    action: enums([
-        "none",
-        "toggle",
-        "more-info",
-        "call-service",
-        "url",
-        "navigate",
-    ]),
+    action: enums(["none", "toggle", "more-info", "call-service", "url", "navigate"]),
     confirmation: optional(actionConfigStructConfirmation),
 });
 
