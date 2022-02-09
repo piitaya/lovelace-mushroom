@@ -78,8 +78,6 @@ export class EntityChip extends LitElement implements LovelaceChip {
             this.hass
         );
 
-        console.log(content);
-
         return html`
             <mushroom-chip
                 @action=${this._handleAction}
