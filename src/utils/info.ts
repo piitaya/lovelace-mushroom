@@ -19,7 +19,10 @@ export function getInfo(
             return name;
         case "state":
             const domain = entity.entity_id.split(".")[0];
-            if ((entity.attributes.device_class === "timestamp" || domain === "scene") && isAvailable(entity) == true) {
+            if (
+                (entity.attributes.device_class === "timestamp" || domain === "scene") &&
+                isAvailable(entity) == true
+            ) {
                 return html` <ha-relative-time
                     .hass=${hass}
                     .datetime=${entity.state}
