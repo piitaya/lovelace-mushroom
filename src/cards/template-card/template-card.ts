@@ -107,16 +107,28 @@ export class TemplateCard extends LitElement implements LovelaceCard {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
+    public isTemplate(key: TemplateKey) {
+        const value = this._config?.[key];
+        return value?.includes("{");
+    }
+
+    private getValue(key: TemplateKey) {
+        return this.isTemplate(key)
+            ? this._templateResults[key]?.result
+            : this._config?.[key];
+    }
+
     protected render(): TemplateResult {
         if (!this._config || !this.hass) {
             return html``;
         }
 
-        const icon = this._templateResults.icon?.result;
-        const iconColor = this._templateResults.icon_color?.result;
+        const icon = this.getValue("icon");
+        const iconColor = this.getValue("icon_color");
+        const primary = this.getValue("primary");
+        const secondary = this.getValue("secondary");
+
         const hideIcon = !icon;
-        const primary = this._templateResults.primary?.result;
-        const secondary = this._templateResults.secondary?.result;
 
         const vertical = this._config.vertical;
         const multiline_secondary = this._config.multiline_secondary;
@@ -128,31 +140,47 @@ export class TemplateCard extends LitElement implements LovelaceCard {
             iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
         }
 
-        return html`<ha-card>
-            <div class="container">
-                <mushroom-state-item
-                    .vertical=${vertical}
-                    @action=${this._handleAction}
-                    .actionHandler=${actionHandler({
-                        hasHold: hasAction(this._config.hold_action),
-                    })}
-                    .hide_info=${!primary && !secondary}
-                    .hide_icon=${hideIcon}
-                >
-                    ${!hideIcon ? html`<mushroom-shape-icon
-                        style=${styleMap(iconStyle)}
-                        slot="icon"
-                        .icon=${icon}
-                    ></mushroom-shape-icon>` : undefined}
-                    <mushroom-state-info
-                        slot="info"
-                        .primary=${primary}
-                        .secondary=${secondary}
-                        .multiline_secondary=${multiline_secondary}
-                    ></mushroom-state-info>
-                </mushroom-state-item>
-            </div>
-        </ha-card>`;
+        return html`
+            <ha-card>
+                <div class="container">
+                    <mushroom-state-item
+                        .vertical=${vertical}
+                        @action=${this._handleAction}
+                        .actionHandler=${actionHandler({
+                            hasHold: hasAction(this._config.hold_action),
+                        })}
+                        .hide_info=${!primary && !secondary}
+                        .hide_icon=${hideIcon}
+                    >
+                        ${!hideIcon
+                            ? this.renderIcon(icon, iconColor)
+                            : undefined}
+                        <mushroom-state-info
+                            slot="info"
+                            .primary=${primary}
+                            .secondary=${secondary}
+                            .multiline_secondary=${multiline_secondary}
+                        ></mushroom-state-info>
+                    </mushroom-state-item>
+                </div>
+            </ha-card>
+        `;
+    }
+
+    renderIcon(icon: string, iconColor?: string) {
+        const iconStyle = {};
+        if (iconColor) {
+            const iconRgbColor = computeRgbColor(iconColor);
+            iconStyle["--icon-color"] = `rgb(${iconRgbColor})`;
+            iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
+        }
+        return html`
+            <mushroom-shape-icon
+                style=${styleMap(iconStyle)}
+                slot="icon"
+                .icon=${icon}
+            ></mushroom-shape-icon>
+        `;
     }
 
     protected updated(changedProps: PropertyValues): void {
@@ -174,32 +202,32 @@ export class TemplateCard extends LitElement implements LovelaceCard {
         if (
             this._unsubRenderTemplates.get(key) !== undefined ||
             !this.hass ||
-            !this._config
+            !this._config ||
+            !this.isTemplate(key)
         ) {
             return;
         }
 
         try {
-            this._unsubRenderTemplates.set(
-                key,
-                subscribeRenderTemplate(
-                    this.hass.connection,
-                    (result) => {
-                        this._templateResults = {
-                            ...this._templateResults,
-                            [key]: result,
-                        };
+            const sub = subscribeRenderTemplate(
+                this.hass.connection,
+                (result) => {
+                    this._templateResults = {
+                        ...this._templateResults,
+                        [key]: result,
+                    };
+                },
+                {
+                    template: this._config[key] ?? "",
+                    entity_ids: this._config.entity_id,
+                    variables: {
+                        config: this._config,
+                        user: this.hass.user!.name,
                     },
-                    {
-                        template: this._config[key] ?? "",
-                        entity_ids: this._config.entity_id,
-                        variables: {
-                            config: this._config,
-                            user: this.hass.user!.name,
-                        },
-                    }
-                )
+                }
             );
+            this._unsubRenderTemplates.set(key, sub);
+            await sub;
         } catch (_err) {
             const result = {
                 result: this._config[key] ?? "",
@@ -234,7 +262,7 @@ export class TemplateCard extends LitElement implements LovelaceCard {
             unsub();
             this._unsubRenderTemplates.delete(key);
         } catch (err: any) {
-            if (err.code === "not_found") {
+            if (err.code === "not_found" || err.code === "template_error") {
                 // If we get here, the connection was probably already closed. Ignore.
             } else {
                 throw err;

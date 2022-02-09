@@ -87,13 +87,24 @@ export class TitleCard extends LitElement implements LovelaceCard {
         this._tryDisconnect();
     }
 
+    public isTemplate(key: TemplateKey) {
+        const value = this._config?.[key];
+        return value?.includes("{");
+    }
+
+    private getValue(key: TemplateKey) {
+        return this.isTemplate(key)
+            ? this._templateResults[key]?.result
+            : this._config?.[key];
+    }
+
     protected render(): TemplateResult {
         if (!this._config || !this.hass) {
             return html``;
         }
 
-        const title = this._templateResults.title?.result;
-        const subtitle = this._templateResults.subtitle?.result;
+        const title = this.getValue("title");
+        const subtitle = this.getValue("subtitle");
 
         return html`
             <div class="header">
@@ -122,32 +133,32 @@ export class TitleCard extends LitElement implements LovelaceCard {
         if (
             this._unsubRenderTemplates.get(key) !== undefined ||
             !this.hass ||
-            !this._config
+            !this._config ||
+            !this.isTemplate(key)
         ) {
             return;
         }
 
         try {
-            this._unsubRenderTemplates.set(
-                key,
-                subscribeRenderTemplate(
-                    this.hass.connection,
-                    (result) => {
-                        this._templateResults = {
-                            ...this._templateResults,
-                            [key]: result,
-                        };
+            const sub = subscribeRenderTemplate(
+                this.hass.connection,
+                (result) => {
+                    this._templateResults = {
+                        ...this._templateResults,
+                        [key]: result,
+                    };
+                },
+                {
+                    template: this._config[key] ?? "",
+                    entity_ids: this._config.entity_id,
+                    variables: {
+                        config: this._config,
+                        user: this.hass.user!.name,
                     },
-                    {
-                        template: this._config[key] ?? "",
-                        entity_ids: this._config.entity_id,
-                        variables: {
-                            config: this._config,
-                            user: this.hass.user!.name,
-                        },
-                    }
-                )
+                }
             );
+            this._unsubRenderTemplates.set(key, sub);
+            await sub;
         } catch (_err) {
             const result = {
                 result: this._config[key] ?? "",
@@ -182,7 +193,7 @@ export class TitleCard extends LitElement implements LovelaceCard {
             unsub();
             this._unsubRenderTemplates.delete(key);
         } catch (err: any) {
-            if (err.code === "not_found") {
+            if (err.code === "not_found" || err.code === "template_error") {
                 // If we get here, the connection was probably already closed. Ignore.
             } else {
                 throw err;

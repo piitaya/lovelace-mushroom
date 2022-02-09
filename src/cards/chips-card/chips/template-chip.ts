@@ -84,20 +84,25 @@ export class TemplateChip extends LitElement implements LovelaceChip {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
+    public isTemplate(key: TemplateKey) {
+        const value = this._config?.[key];
+        return value?.includes("{");
+    }
+
+    private getValue(key: TemplateKey) {
+        return this.isTemplate(key)
+            ? this._templateResults[key]?.result
+            : this._config?.[key];
+    }
+
     protected render(): TemplateResult {
         if (!this.hass || !this._config) {
             return html``;
         }
 
-        const icon = this._templateResults.icon?.result;
-        const iconColor = this._templateResults.icon_color?.result;
-        const content = this._templateResults.content?.result;
-
-        const iconStyle = iconColor
-            ? styleMap({
-                  "--color": computeRgbColor(iconColor),
-              })
-            : undefined;
+        const icon = this.getValue("icon");
+        const iconColor = this.getValue("icon_color");
+        const content = this.getValue("content");
 
         return html`
             <mushroom-chip
@@ -145,32 +150,32 @@ export class TemplateChip extends LitElement implements LovelaceChip {
         if (
             this._unsubRenderTemplates.get(key) !== undefined ||
             !this.hass ||
-            !this._config
+            !this._config ||
+            !this.isTemplate(key)
         ) {
             return;
         }
 
         try {
-            this._unsubRenderTemplates.set(
-                key,
-                subscribeRenderTemplate(
-                    this.hass.connection,
-                    (result) => {
-                        this._templateResults = {
-                            ...this._templateResults,
-                            [key]: result,
-                        };
+            const sub = subscribeRenderTemplate(
+                this.hass.connection,
+                (result) => {
+                    this._templateResults = {
+                        ...this._templateResults,
+                        [key]: result,
+                    };
+                },
+                {
+                    template: this._config[key] ?? "",
+                    entity_ids: this._config.entity_id,
+                    variables: {
+                        config: this._config,
+                        user: this.hass.user!.name,
                     },
-                    {
-                        template: this._config[key] ?? "",
-                        entity_ids: this._config.entity_id,
-                        variables: {
-                            config: this._config,
-                            user: this.hass.user!.name,
-                        },
-                    }
-                )
+                }
             );
+            this._unsubRenderTemplates.set(key, sub);
+            await sub;
         } catch (_err) {
             const result = {
                 result: this._config[key] ?? "",
@@ -205,7 +210,7 @@ export class TemplateChip extends LitElement implements LovelaceChip {
             unsub();
             this._unsubRenderTemplates.delete(key);
         } catch (err: any) {
-            if (err.code === "not_found") {
+            if (err.code === "not_found" || err.code === "template_error") {
                 // If we get here, the connection was probably already closed. Ignore.
             } else {
                 throw err;
