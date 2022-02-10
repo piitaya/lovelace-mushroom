@@ -1,12 +1,14 @@
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
+import "hammerjs";
+import { DIRECTION_LEFT, DIRECTION_RIGHT } from "hammerjs";
 
-const getPercentageFromEvent = (e: TouchEvent | MouseEvent, element: HTMLElement) => {
-    const x = "changedTouches" in e ? e.changedTouches[0].clientX : e.clientX;
-    const offset = element.getBoundingClientRect().left;
-    const total = element.clientWidth;
+const getPercentageFromEvent = (e: HammerInput) => {
+    const x = e.center.x;
+    const offset = e.target.getBoundingClientRect().left;
+    const total = e.target.clientWidth;
     return Math.max(Math.min(1, (x - offset) / total), 0);
 };
 
@@ -37,50 +39,54 @@ export class SliderItem extends LitElement {
         return (this.max - this.min) * value + this.min;
     }
 
-    onEvent = (touch: boolean) => (event: TouchEvent | MouseEvent) => {
-        const [endEvent, moveEvent] = touch
-            ? (["touchend", "touchmove"] as const)
-            : (["mouseup", "mousemove"] as const);
+    protected firstUpdated(changedProperties: PropertyValues): void {
+        super.firstUpdated(changedProperties);
+        this.setupListeners();
+    }
 
-        const element = event.currentTarget as HTMLDivElement;
+    setupListeners() {
+        const slider = this.shadowRoot?.getElementById("slider");
 
-        const onEnd = (e: TouchEvent | MouseEvent) => {
-            const percentage = getPercentageFromEvent(e, element);
-            this.value = this.percentageToValue(percentage);
-            this.dispatchEvent(
-                new CustomEvent("change", {
-                    detail: {
-                        value: Math.round(this.value),
-                    },
+        if (slider) {
+            const mc = new Hammer.Manager(slider, { touchAction: "pan-y" });
+            mc.add(
+                new Hammer.Pan({
+                    threshold: 10,
+                    direction: Hammer.DIRECTION_ALL,
+                    enable: true,
                 })
             );
-
-            document.removeEventListener(endEvent, onEnd);
-            document.removeEventListener(moveEvent, onMove);
-        };
-
-        const onMove = (e: TouchEvent | MouseEvent) => {
-            const percentage = getPercentageFromEvent(e, element);
-            this.value = this.percentageToValue(percentage);
-        };
-
-        document.addEventListener(endEvent, onEnd);
-        document.addEventListener(moveEvent, onMove);
-    };
+            let savedValue;
+            mc.on("panstart", () => {
+                savedValue = this.value;
+            });
+            mc.on("pancancel", () => {
+                this.value = savedValue;
+            });
+            mc.on("panmove", (e) => {
+                const percentage = getPercentageFromEvent(e);
+                this.value = this.percentageToValue(percentage);
+            });
+            mc.on("panend", (e) => {
+                const percentage = getPercentageFromEvent(e);
+                this.value = this.percentageToValue(percentage);
+                this.dispatchEvent(
+                    new CustomEvent("change", {
+                        detail: {
+                            value: Math.round(this.value),
+                        },
+                    })
+                );
+            });
+        }
+    }
 
     protected render(): TemplateResult {
         return html`
             <div class=${classMap({ container: true, disabled: this.disabled })}>
                 <div
+                    id="slider"
                     class="slider"
-                    @touchstart=${{
-                        handleEvent: this.onEvent(true),
-                        passive: true,
-                    }}
-                    @mousedown=${{
-                        handleEvent: this.onEvent(false),
-                        passive: true,
-                    }}
                     style=${styleMap({
                         "--value": `${this.valueToPercentage(this.value ?? 0)}`,
                     })}
