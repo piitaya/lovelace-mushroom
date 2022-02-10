@@ -14,6 +14,7 @@
   "dependencies": {
     "color": "^4.2.0",
     "custom-card-helpers": "^1.9.0",
+    "hammerjs": "^2.0.8",
     "home-assistant-js-websocket": "^6.0.1",
     "lit": "^2.0.2",
     "sortablejs": "^1.14.0",
@@ -31,7 +32,6 @@
     "@rollup/plugin-typescript": "^8.3.0",
     "@types/hammerjs": "^2.0.41",
     "eslint": "^8.6.0",
-    "hammerjs": "^2.0.8",
     "prettier": "^2.5.1",
     "rollup": "^2.62.0",
     "rollup-plugin-serve": "^1.1.0",
