@@ -1,6 +1,6 @@
 {
   "name": "mushroom-cards",
-  "version": "1.0.3-beta.0",
+  "version": "1.0.3",
   "description": "",
   "main": "index.js",
   "scripts": {
