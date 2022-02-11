@@ -133,3 +133,22 @@ cards:
             content: |
               {{ states | count }} entities
             icon: mdi:format-list-bulleted
+  - type: vertical-stack
+    title: Conditional chip
+    cards:
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: entity
+            entity: light.bed_light
+            tap_action:
+              action: toggle
+          - type: conditional
+            entity: light.bed_light
+            conditions: 
+              - entity: light.bed_light
+                state: "on"
+            chip: 
+              type: entity
+              entity: light.bed_light
+              tap_action:
+                action: toggle

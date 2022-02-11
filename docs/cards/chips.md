@@ -18,6 +18,10 @@ An action chip allow you to perform a Home Assistant action (navigate, call-serv
 
 An action chip allow you to perform a back action.
 
+### Conditional chip
+
+A conditional chip allow you to display another chip based on chip state.
+
 ### Entity chip
 
 ![Chip entity light](../images/chip-entity-light.png)

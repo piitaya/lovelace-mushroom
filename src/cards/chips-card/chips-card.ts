@@ -5,15 +5,16 @@ import {
     LovelaceCardEditor,
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { customElement, state } from "lit/decorators.js";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { CHIPS_CARD_EDITOR_NAME, CHIPS_CARD_NAME } from "./const";
 import "../../shared/chip";
-import { BackChip, createChipElement, EntityChip, LovelaceChip, WeatherChip } from "./chips";
+import { EntityChip } from "./chips";
 import "./chips";
 import "./chips-card-editor";
-import { LovelaceChipConfig } from "../../utils/lovelace/chip/types";
+import { LovelaceChip, LovelaceChipConfig } from "../../utils/lovelace/chip/types";
 import { cardStyle } from "../../utils/card-styles";
+import { createChipElement } from "../../utils/lovelace/chip/chip-element";
 
 export interface ChipsCardConfig extends LovelaceCardConfig {
     chips: LovelaceChipConfig[];
@@ -78,7 +79,7 @@ export class ChipsCard extends LitElement implements LovelaceCard {
         if (this._hass) {
             element.hass = this._hass;
         }
-        return html`<div>${element}</div>`;
+        return html`${element}`;
     }
 
     static get styles(): CSSResultGroup {

@@ -5,6 +5,7 @@ import { LovelaceChipConfig } from "./chip/types";
 import { GUIModeChangedEvent, SubElementEditorConfig } from "./editor/types";
 import type { MushroomElementEditor } from "./element-editor";
 import "./chip-element-editor";
+import setupCustomlocalize from "../../localize";
 
 declare global {
     interface HASSDomEvents {
@@ -26,6 +27,8 @@ export class MushroomSubElementEditor extends LitElement {
     private _editorElement?: MushroomElementEditor<LovelaceChipConfig>;
 
     protected render(): TemplateResult {
+        const customLocalize = setupCustomlocalize(this.hass);
+
         return html`
             <div class="header">
                 <div class="back-title">
@@ -36,9 +39,7 @@ export class MushroomSubElementEditor extends LitElement {
                         <ha-icon icon="mdi:arrow-left"></ha-icon>
                     </ha-icon-button>
                     <span slot="title"
-                        >${this.hass.localize(
-                            `ui.panel.lovelace.editor.sub-element-editor.types.row`
-                        )}</span
+                        >${customLocalize(`editor.chip.sub_element_editor.title`)}</span
                     >
                 </div>
                 <mwc-button

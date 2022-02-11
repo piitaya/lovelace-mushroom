@@ -4,9 +4,9 @@ import { customElement, property, state } from "lit/decorators.js";
 import { guard } from "lit/directives/guard.js";
 import type { SortableEvent } from "sortablejs";
 import setupCustomlocalize from "../../localize";
-import { LovelaceChipConfig } from "../../utils/lovelace/chip/types";
+import { getChipElementClass } from "../../utils/lovelace/chip-element-editor";
+import { CHIP_LIST, LovelaceChipConfig } from "../../utils/lovelace/chip/types";
 import { sortableStyles } from "../../utils/sortable-styles";
-import { computeChipComponentName } from "./utils";
 
 let Sortable;
 
@@ -102,12 +102,13 @@ export class ChipsCardEditorChips extends LitElement {
                 @iron-select=${this._addChips}
             >
                 <paper-listbox slot="dropdown-content" attr-for-selected="data-type">
-                    <paper-item data-type="back">Back</paper-item>
-                    <paper-item data-type="menu">Menu</paper-item>
-                    <paper-item data-type="entity">Entity</paper-item>
-                    <paper-item data-type="weather">Weather</paper-item>
-                    <paper-item data-type="action">Action</paper-item>
-                    <paper-item data-type="template">Template</paper-item>
+                    ${CHIP_LIST.map(
+                        (chip) => html`
+                            <paper-item data-type="${chip}" }
+                                >${capitalizeFirstLetter(chip)}</paper-item
+                            >
+                        `
+                    )}
                 </paper-listbox>
             </paper-dropdown-menu>
         `;
@@ -289,6 +290,3 @@ function renderChipLabel(chipConf: LovelaceChipConfig): string {
     }
     return label;
 }
-
-export const getChipElementClass = (type: string) =>
-    customElements.get(computeChipComponentName(type));

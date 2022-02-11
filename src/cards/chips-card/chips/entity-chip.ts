@@ -10,14 +10,16 @@ import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
-import { LovelaceChip } from ".";
 import { computeRgbColor } from "../../../utils/colors";
 import { actionHandler } from "../../../utils/directives/action-handler-directive";
 import { isActive } from "../../../utils/entity";
 import { getInfo } from "../../../utils/info";
-import { EntityChipConfig } from "../../../utils/lovelace/chip/types";
+import {
+    computeChipComponentName,
+    computeChipEditorComponentName,
+} from "../../../utils/lovelace/chip/chip-element";
+import { EntityChipConfig, LovelaceChip } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
-import { computeChipComponentName, computeChipEditorComponentName } from "../utils";
 import "./entity-chip-editor";
 
 @customElement(computeChipComponentName("entity"))
