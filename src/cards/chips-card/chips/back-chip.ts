@@ -1,11 +1,13 @@
 import { HomeAssistant } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { LovelaceChip } from ".";
 import { actionHandler } from "../../../utils/directives/action-handler-directive";
-import { BackChipConfig } from "../../../utils/lovelace/chip/types";
+import {
+    computeChipComponentName,
+    computeChipEditorComponentName,
+} from "../../../utils/lovelace/chip/chip-element";
+import { BackChipConfig, LovelaceChip } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
-import { computeChipComponentName, computeChipEditorComponentName } from "../utils";
 import "./back-chip-editor";
 
 @customElement(computeChipComponentName("back"))

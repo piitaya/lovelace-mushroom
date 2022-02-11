@@ -1,5 +1,5 @@
 import { customElement } from "lit/decorators.js";
-import { computeChipComponentName } from "../../cards/chips-card/utils";
+import { computeChipComponentName } from "./chip/chip-element";
 import { LovelaceChipConfig } from "./chip/types";
 import { MushroomElementEditor } from "./element-editor";
 import { LovelaceChipEditor } from "./types";

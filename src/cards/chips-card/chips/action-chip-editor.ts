@@ -5,10 +5,10 @@ import { styleMap } from "lit/directives/style-map.js";
 import setupCustomlocalize from "../../../localize";
 import { COLORS, computeColorName, computeRgbColor } from "../../../utils/colors";
 import { configElementStyle } from "../../../utils/editor-styles";
+import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
 import { ActionChipConfig } from "../../../utils/lovelace/chip/types";
 import { EditorTarget } from "../../../utils/lovelace/editor/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
-import { computeChipEditorComponentName } from "../utils";
 
 const actions = ["navigate", "url", "call-service", "none"];
 

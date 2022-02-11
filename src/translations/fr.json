@@ -57,12 +57,19 @@
             }
         },
         "chip": {
+            "sub_element_editor": {
+                "title": "Éditeur de \"chip\""
+            },
+            "conditional": {
+                "chip": "Chip"
+            },
             "chip-picker": {
                 "chips": "\"Chips\"",
                 "details": "Affichez les détails en cliquant sur le bouton Modifier",
                 "add": "Ajouter une \"chip\"",
                 "edit": "Modifier",
-                "clear": "Effacer"
+                "clear": "Effacer",
+                "select": "Sélectionner une \"chip\""
             },
             "weather": {
                 "show_conditons": "Conditions ?",

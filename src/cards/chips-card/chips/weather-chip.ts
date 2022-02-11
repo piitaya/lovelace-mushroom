@@ -8,12 +8,14 @@ import {
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { LovelaceChip } from ".";
 import { actionHandler } from "../../../utils/directives/action-handler-directive";
-import { WeatherChipConfig } from "../../../utils/lovelace/chip/types";
+import {
+    computeChipComponentName,
+    computeChipEditorComponentName,
+} from "../../../utils/lovelace/chip/chip-element";
+import { LovelaceChip, WeatherChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { getWeatherStateSVG, weatherSVGStyles } from "../../../utils/weather";
-import { computeChipComponentName, computeChipEditorComponentName } from "../utils";
 import "./weather-chip-editor";
 
 @customElement(computeChipComponentName("weather"))

@@ -2,6 +2,7 @@ import { fireEvent, HASSDomEvent, HomeAssistant, LovelaceCardEditor } from "cust
 import { html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import {
+    any,
     array,
     assert,
     assign,
@@ -68,6 +69,18 @@ const weatherChipConfigStruct = object({
     show_conditions: optional(boolean()),
 });
 
+const conditionStruct = object({
+    entity: string(),
+    state: optional(string()),
+    state_not: optional(string()),
+});
+
+const conditionChipConfigStruct = object({
+    type: literal("conditional"),
+    chip: optional(any()),
+    conditions: optional(array(conditionStruct)),
+});
+
 const chipsConfigStruct = dynamic<any>((value) => {
     if (value && typeof value === "object" && "type" in value) {
         switch ((value as LovelaceChipConfig).type!) {
@@ -85,6 +98,9 @@ const chipsConfigStruct = dynamic<any>((value) => {
             }
             case "weather": {
                 return weatherChipConfigStruct;
+            }
+            case "conditional": {
+                return conditionChipConfigStruct;
             }
         }
     }

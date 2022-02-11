@@ -3,10 +3,10 @@ import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import setupCustomlocalize from "../../../localize";
 import { configElementStyle } from "../../../utils/editor-styles";
+import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
 import { EntityChipConfig } from "../../../utils/lovelace/chip/types";
 import { EditorTarget } from "../../../utils/lovelace/editor/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
-import { computeChipEditorComponentName } from "../utils";
 
 @customElement(computeChipEditorComponentName("menu"))
 export class MenuChipEditor extends LitElement implements LovelaceChipEditor {

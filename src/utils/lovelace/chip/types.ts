@@ -1,5 +1,12 @@
-import { ActionConfig } from "custom-card-helpers";
+import { ActionConfig, HomeAssistant } from "custom-card-helpers";
+import { Condition } from "../../conditional/validate-condition";
 import { Info } from "../../info";
+
+export interface LovelaceChip extends HTMLElement {
+    hass?: HomeAssistant;
+    editMode?: boolean;
+    setConfig(config: LovelaceChipConfig);
+}
 
 export type ActionChipConfig = {
     type: "action";
@@ -49,10 +56,27 @@ export type TemplateChipConfig = {
     entity_id?: string | string[];
 };
 
+export interface ConditionalChipConfig {
+    type: "conditional";
+    chip?: LovelaceChipConfig;
+    conditions: Condition[];
+}
+
 export type LovelaceChipConfig =
     | ActionChipConfig
     | BackChipConfig
     | EntityChipConfig
     | MenuChipConfig
     | WeatherChipConfig
-    | TemplateChipConfig;
+    | TemplateChipConfig
+    | ConditionalChipConfig;
+
+export const CHIP_LIST: LovelaceChipConfig["type"][] = [
+    "action",
+    "back",
+    "conditional",
+    "entity",
+    "menu",
+    "template",
+    "weather",
+];

@@ -2,12 +2,14 @@ import { ActionHandlerEvent, handleAction, hasAction, HomeAssistant } from "cust
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
-import { LovelaceChip } from ".";
 import { computeRgbColor } from "../../../utils/colors";
 import { actionHandler } from "../../../utils/directives/action-handler-directive";
-import { ActionChipConfig } from "../../../utils/lovelace/chip/types";
+import {
+    computeChipComponentName,
+    computeChipEditorComponentName,
+} from "../../../utils/lovelace/chip/chip-element";
+import { ActionChipConfig, LovelaceChip } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
-import { computeChipComponentName, computeChipEditorComponentName } from "../utils";
 import "./action-chip-editor";
 
 @customElement(computeChipComponentName("action"))
