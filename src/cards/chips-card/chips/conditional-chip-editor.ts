@@ -29,7 +29,7 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
 
     @state() private _cardTab = false;
 
-    @query("hui-card-element-editor")
+    @query("mushroom-chip-element-editor")
     private _cardEditorEl?: any;
 
     public setConfig(config: ConditionalChipConfig): void {
@@ -185,6 +185,8 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
     }
 
     private _toggleMode(): void {
+        console.log("toggle");
+        console.log(this._cardEditorEl);
         this._cardEditorEl?.toggleMode();
     }
 
