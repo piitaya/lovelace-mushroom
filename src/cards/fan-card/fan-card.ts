@@ -20,7 +20,7 @@ import "../../shared/state-item";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
-import { isActive } from "../../utils/entity";
+import { isActive, isAvailable } from "../../utils/entity";
 import { FAN_CARD_EDITOR_NAME, FAN_CARD_NAME, FAN_ENTITY_DOMAINS } from "./const";
 import "./controls/fan-oscillate-control";
 import "./controls/fan-percentage-control";
@@ -95,9 +95,17 @@ export class FanCard extends LitElement implements LovelaceCard {
             stateValue += ` - ${percentage}%`;
         }
 
-        const speed = 1.5 * ((percentage ?? 0) / 100) ** 0.5;
-
         const active = isActive(entity);
+
+        let iconStyle = {};
+        if (active) {
+            if (percentage) {
+                const speed = 1.5 * (percentage / 100) ** 0.5;
+                iconStyle["--animation-duration"] = `${1 / speed}s`;
+            } else {
+                iconStyle["--animation-duration"] = `1s`;
+            }
+        }
 
         return html`
             <ha-card>
@@ -114,18 +122,18 @@ export class FanCard extends LitElement implements LovelaceCard {
                             class=${classMap({
                                 spin: active && !!this._config.icon_animation,
                             })}
-                            style=${styleMap({
-                                "--animation-duration": `${1 / speed}s`,
-                            })}
+                            style=${styleMap(iconStyle)}
                             .disabled=${!active}
                             .icon=${icon}
                         ></mushroom-shape-icon>
-                        ${entity.state === "unavailable"
-                            ? html` <mushroom-badge-icon
-                                  class="unavailable"
-                                  slot="badge"
-                                  icon="mdi:help"
-                              ></mushroom-badge-icon>`
+                        ${!isAvailable(entity)
+                            ? html`
+                                  <mushroom-badge-icon
+                                      class="unavailable"
+                                      slot="badge"
+                                      icon="mdi:help"
+                                  ></mushroom-badge-icon>
+                              `
                             : null}
                         <mushroom-state-info
                             slot="info"
