@@ -39,7 +39,11 @@ export class CoverButtonsControl extends LitElement {
                 .disabled=${isFullyClosed(this.entity) || isClosing(this.entity)}
                 @click=${this._onCloseTap}
             ></mushroom-button>
-            <mushroom-button icon="mdi:pause" @click=${this._onStopTap}></mushroom-button>
+            <mushroom-button
+                icon="mdi:pause"
+                .disabled=${isFullyClosed(this.entity) || isFullyOpen(this.entity)}
+                @click=${this._onStopTap}
+            ></mushroom-button>
             <mushroom-button
                 icon="mdi:arrow-up"
                 .disabled=${isFullyOpen(this.entity) || isOpening(this.entity)}
