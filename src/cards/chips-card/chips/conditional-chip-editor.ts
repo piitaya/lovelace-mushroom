@@ -2,9 +2,8 @@ import type { MDCTabBarActivatedEvent } from "@material/tab-bar";
 import { fireEvent, HASSDomEvent, HomeAssistant, LovelaceConfig } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state, query } from "lit/decorators.js";
-import { any, array, assert, assign, object, optional, string } from "superstruct";
 import setupCustomlocalize from "../../../localize";
-import { baseLovelaceCardConfig, configElementStyle } from "../../../utils/editor-styles";
+import { configElementStyle } from "../../../utils/editor-styles";
 import { getChipElementClass } from "../../../utils/lovelace/chip-element-editor";
 import {
     CHIP_LIST,
@@ -185,8 +184,6 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
     }
 
     private _toggleMode(): void {
-        console.log("toggle");
-        console.log(this._cardEditorEl);
         this._cardEditorEl?.toggleMode();
     }
 

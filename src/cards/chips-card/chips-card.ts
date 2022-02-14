@@ -18,6 +18,7 @@ import { createChipElement } from "../../utils/lovelace/chip/chip-element";
 
 export interface ChipsCardConfig extends LovelaceCardConfig {
     chips: LovelaceChipConfig[];
+    alignment?: string;
 }
 
 registerCustomCard({
@@ -64,8 +65,13 @@ export class ChipsCard extends LitElement implements LovelaceCard {
             return html``;
         }
 
+        let alignment = "";
+        if (this._config.alignment) {
+            alignment = `align-${this._config.alignment}`;
+        }
+
         return html`
-            <div class="chip-container">
+            <div class="chip-container ${alignment}">
                 ${this._config.chips.map((chip) => this.renderChip(chip))}
             </div>
         `;
@@ -93,6 +99,15 @@ export class ChipsCard extends LitElement implements LovelaceCard {
                     justify-content: flex-start;
                     flex-wrap: wrap;
                     margin-bottom: calc(-1 * var(--chip-spacing));
+                }
+                .chip-container.align-line-end {
+                    justify-content: flex-end;
+                }
+                .chip-container.align-center {
+                    justify-content: center;
+                }
+                .chip-container.align-justify {
+                    justify-content: space-between;
                 }
                 .chip-container * {
                     margin-bottom: var(--chip-spacing);

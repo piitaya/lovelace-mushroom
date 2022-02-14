@@ -60,6 +60,15 @@
             "title": {
                 "title": "Title",
                 "subtitle": "Subtitle"
+            },
+            "chips": {
+                "alignment": "Alignment",
+                "alignment_values": {
+                    "default": "Default (line start)",
+                    "line-end": "Line end",
+                    "center": "Center",
+                    "justify": "Justify"
+                }
             }
         },
         "chip": {
