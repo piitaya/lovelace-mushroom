@@ -1,17 +1,18 @@
 import { HomeAssistant } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { styleMap } from "lit/directives/style-map.js";
 import setupCustomlocalize from "../../localize";
-import { COLORS, computeColorName, computeRgbColor } from "../../utils/colors";
+import { INFOS } from "../../utils/info";
 
-@customElement("mushroom-color-picker")
-export class ColorPicker extends LitElement {
+@customElement("mushroom-info-picker")
+export class InfoPicker extends LitElement {
     @property() public label = "";
 
     @property() public value?: string;
 
     @property() public configValue = "";
+
+    @property() public infos: string[] = [...INFOS];
 
     @property() public hass!: HomeAssistant;
 
@@ -38,29 +39,19 @@ export class ColorPicker extends LitElement {
                     .configValue=${this.configValue}
                     @iron-select=${this._selectChanged}
                 >
-                    <paper-item value=""
-                        >${customLocalize("editor.form.color_picker.values.default")}</paper-item
-                    >
-                    ${COLORS.map(
-                        (color) => html`
-                            <paper-item .value=${color}>
-                                ${this.renderColorCircle(color)} ${computeColorName(color)}
+                    <paper-item value="">
+                        ${customLocalize("editor.form.info_picker.values.default")}
+                    </paper-item>
+                    ${this.infos.map((info) => {
+                        return html`
+                            <paper-item .value=${info}>
+                                ${customLocalize(`editor.form.info_picker.values.${info}`) ||
+                                capitalizeFirstLetter(info)}
                             </paper-item>
-                        `
-                    )}
+                        `;
+                    })}
                 </paper-listbox>
             </paper-dropdown-menu>
-        `;
-    }
-
-    private renderColorCircle(color: string) {
-        return html`
-            <span
-                class="circle-color"
-                style=${styleMap({
-                    "--main-color": computeRgbColor(color),
-                })}
-            ></span>
         `;
     }
 
@@ -71,4 +62,8 @@ export class ColorPicker extends LitElement {
             }
         `;
     }
+}
+
+function capitalizeFirstLetter(string: string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }

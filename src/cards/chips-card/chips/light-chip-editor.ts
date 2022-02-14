@@ -2,8 +2,8 @@ import { computeRTLDirection, fireEvent, HomeAssistant, stateIcon } from "custom
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import setupCustomlocalize from "../../../localize";
+import "../../../shared/editor/info-picker";
 import { configElementStyle } from "../../../utils/editor-styles";
-import { INFOS } from "../../../utils/info";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
 import { LightChipConfig } from "../../../utils/lovelace/chip/types";
 import { EditorTarget } from "../../../utils/lovelace/editor/types";
@@ -55,28 +55,16 @@ export class LightChipEditor extends LitElement implements LovelaceChipEditor {
                         .configValue=${"name"}
                         @value-changed=${this._valueChanged}
                     ></paper-input>
-                    <paper-dropdown-menu
-                        .label=${customLocalize("editor.card.entity.primary_info")}
+                    <mushroom-info-picker
+                        .label="${customLocalize(
+                            "editor.card.entity.primary_info"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
+                        .hass=${this.hass}
+                        .value=${this._config.content_info}
+                        .configValue=${"content_info"}
+                        @value-changed=${this._valueChanged}
                     >
-                        <paper-listbox
-                            slot="dropdown-content"
-                            attr-for-selected="value"
-                            .selected=${this._config.content_info ?? ""}
-                            .configValue=${"content_info"}
-                            @iron-select=${this._valueChanged}
-                        >
-                            <paper-item value="">
-                                ${customLocalize("editor.card.entity.info_values.default")}
-                            </paper-item>
-                            ${INFOS.map((info) => {
-                                return html`
-                                    <paper-item .value=${info}>
-                                        ${customLocalize(`editor.card.entity.info_values.${info}`)}
-                                    </paper-item>
-                                `;
-                            })}
-                        </paper-listbox>
-                    </paper-dropdown-menu>
+                    </mushroom-info-picker>
                 </div>
                 <div class="side-by-side">
                     <ha-icon-picker
