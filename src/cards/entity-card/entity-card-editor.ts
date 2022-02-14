@@ -10,8 +10,8 @@ import { customElement, property, state } from "lit/decorators.js";
 import { assert } from "superstruct";
 import setupCustomlocalize from "../../localize";
 import "../../shared/editor/color-picker";
+import "../../shared/editor/info-picker";
 import { configElementStyle } from "../../utils/editor-styles";
-import { INFOS } from "../../utils/info";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { ENTITY_CARD_EDITOR_NAME } from "./const";
 import { EntityCardConfig, entityCardConfigStruct } from "./entity-card-config";
@@ -104,50 +104,26 @@ export class EntityCardEditor extends LitElement implements LovelaceCardEditor {
                     </ha-formfield>
                 </div>
                 <div class="side-by-side">
-                    <paper-dropdown-menu
-                        .label=${customLocalize("editor.card.entity.primary_info")}
+                    <mushroom-info-picker
+                        .label="${customLocalize(
+                            "editor.card.entity.primary_info"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
+                        .hass=${this.hass}
+                        .value=${this._config.primary_info}
+                        .configValue=${"primary_info"}
+                        @value-changed=${this._valueChanged}
                     >
-                        <paper-listbox
-                            slot="dropdown-content"
-                            attr-for-selected="value"
-                            .selected=${this._config.primary_info ?? ""}
-                            .configValue=${"primary_info"}
-                            @iron-select=${this._valueChanged}
-                        >
-                            <paper-item value="">
-                                ${customLocalize("editor.card.entity.info_values.default")}
-                            </paper-item>
-                            ${INFOS.map((info) => {
-                                return html`
-                                    <paper-item .value=${info}>
-                                        ${customLocalize(`editor.card.entity.info_values.${info}`)}
-                                    </paper-item>
-                                `;
-                            })}
-                        </paper-listbox>
-                    </paper-dropdown-menu>
-                    <paper-dropdown-menu
-                        .label=${customLocalize("editor.card.entity.secondary_info")}
+                    </mushroom-info-picker>
+                    <mushroom-info-picker
+                        .label="${customLocalize(
+                            "editor.card.entity.secondary_info"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
+                        .hass=${this.hass}
+                        .value=${this._config.secondary_info}
+                        .configValue=${"secondary_info"}
+                        @value-changed=${this._valueChanged}
                     >
-                        <paper-listbox
-                            slot="dropdown-content"
-                            attr-for-selected="value"
-                            .selected=${this._config.secondary_info ?? ""}
-                            .configValue=${"secondary_info"}
-                            @iron-select=${this._valueChanged}
-                        >
-                            <paper-item value="">
-                                ${customLocalize("editor.card.entity.info_values.default")}
-                            </paper-item>
-                            ${INFOS.map((info) => {
-                                return html`
-                                    <paper-item .value=${info}>
-                                        ${customLocalize(`editor.card.entity.info_values.${info}`)}
-                                    </paper-item>
-                                `;
-                            })}
-                        </paper-listbox>
-                    </paper-dropdown-menu>
+                    </mushroom-info-picker>
                 </div>
                 <div class="side-by-side">
                     <hui-action-editor

@@ -2,8 +2,18 @@
     "editor": {
         "form": {
             "color_picker": {
-                "color_values": {
+                "values": {
                     "default": "Default color"
+                }
+            },
+            "info_picker": {
+                "values": {
+                    "default": "Default information",
+                    "name": "Name",
+                    "state": "State",
+                    "last-changed": "Last Changed",
+                    "last-updated": "Last Updated",
+                    "none": "None"
                 }
             }
         },
@@ -41,15 +51,7 @@
             },
             "entity": {
                 "primary_info": "Primary information",
-                "secondary_info": "Secondary information",
-                "info_values": {
-                    "default": "Default information",
-                    "name": "Name",
-                    "state": "State",
-                    "last-changed": "Last Changed",
-                    "last-updated": "Last Updated",
-                    "none": "None"
-                }
+                "secondary_info": "Secondary information"
             },
             "template": {
                 "primary": "Primary information",
