@@ -3,7 +3,6 @@ import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import "hammerjs";
-import { DIRECTION_LEFT, DIRECTION_RIGHT } from "hammerjs";
 
 const getPercentageFromEvent = (e: HammerInput) => {
     const x = e.center.x;
@@ -57,17 +56,25 @@ export class SliderItem extends LitElement {
                 })
             );
             let savedValue;
-            mc.on("panstart", () => {
+            mc.on("panstart", (e) => {
+                e.srcEvent.stopPropagation();
+                e.srcEvent.preventDefault();
                 savedValue = this.value;
             });
-            mc.on("pancancel", () => {
+            mc.on("pancancel", (e) => {
+                e.srcEvent.stopPropagation();
+                e.srcEvent.preventDefault();
                 this.value = savedValue;
             });
             mc.on("panmove", (e) => {
+                e.srcEvent.stopPropagation();
+                e.srcEvent.preventDefault();
                 const percentage = getPercentageFromEvent(e);
                 this.value = this.percentageToValue(percentage);
             });
             mc.on("panend", (e) => {
+                e.srcEvent.stopPropagation();
+                e.srcEvent.preventDefault();
                 const percentage = getPercentageFromEvent(e);
                 this.value = this.percentageToValue(percentage);
                 this.dispatchEvent(

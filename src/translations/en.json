@@ -14,7 +14,7 @@
             },
             "light": {
                 "show_brightness_control": "Brightness control?",
-                "use_light_color": "Colorize icon and slider",
+                "use_light_color": "Use light color for icon and slider",
                 "show_color_temp_control": "Temperature color control?",
                 "show_color_control": "Color control?",
                 "incompatible_controls": "Some controls may not be displayed if your light does not support the feature."

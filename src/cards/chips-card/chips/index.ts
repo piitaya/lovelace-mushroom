@@ -5,3 +5,4 @@ export { ActionChip } from "./action-chip";
 export { MenuChip } from "./menu-chip";
 export { TemplateChip } from "./template-chip";
 export { ConditionalChip } from "./conditional-chip";
+export { LightChip } from "./light-chip";

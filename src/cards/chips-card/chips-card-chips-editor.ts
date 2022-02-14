@@ -285,7 +285,7 @@ function capitalizeFirstLetter(string: string) {
 
 function renderChipLabel(chipConf: LovelaceChipConfig): string {
     let label = capitalizeFirstLetter(chipConf.type);
-    if (chipConf.type === "entity") {
+    if ("entity" in chipConf && chipConf.entity) {
         label += ` - ${chipConf.entity}`;
     }
     return label;
