@@ -1,5 +1,12 @@
 {
     "editor": {
+        "form": {
+            "color_picker": {
+                "color_values": {
+                    "default": "Couleur par défaut"
+                }
+            }
+        },
         "card": {
             "generic": {
                 "vertical": "Vertical ?",
