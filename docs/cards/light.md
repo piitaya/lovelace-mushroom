@@ -24,3 +24,4 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `use_light_color`         | boolean | `false`     | Colorize the icon and slider according light temperature or color |
 | `tap_action`              | action  | `toggle`    | Home assistant action to perform on tap                           |
 | `hold_action`             | action  | `more-info` | Home assistant action to perform on hold                          |
+| `double_tap_action`       | action  | `more-info` | Home assistant action to perform on double_tap                    |

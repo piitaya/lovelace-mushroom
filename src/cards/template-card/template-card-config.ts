@@ -12,6 +12,7 @@ export interface TemplateCardConfig extends LovelaceCardConfig {
     vertical?: boolean;
     tap_action?: ActionConfig;
     hold_action?: ActionConfig;
+    double_tap_action?: ActionConfig;
     entity_id?: string | string[];
 }
 
@@ -26,6 +27,7 @@ export const templateCardConfigStruct = assign(
         vertical: optional(boolean()),
         tap_action: optional(actionConfigStruct),
         hold_action: optional(actionConfigStruct),
+        double_tap_action: optional(actionConfigStruct),
         entity_id: optional(union([string(), array(string())])),
     })
 );

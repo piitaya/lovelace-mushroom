@@ -22,12 +22,4 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `use_entity_picture` | boolean | `false`     | Use the picture of the person entity instead of icon |
 | `tap_action`         | action  | `more-info` | Home assistant action to perform on tap              |
 | `hold_action`        | action  | `more-info` | Home assistant action to perform on hold             |
-
-    entity: string;
-    name?: string;
-    icon?: string;
-    use_entity_picture?: boolean;
-    vertical?: boolean;
-    hide_state?: boolean;
-    tap_action?: ActionConfig;
-    hold_action?: ActionConfig;
+| `double_tap_action`  | action  | `more-info` | Home assistant action to perform on double_tap       |

@@ -15,6 +15,7 @@ export interface LightCardConfig extends LovelaceCardConfig {
     use_light_color?: boolean;
     tap_action?: ActionConfig;
     hold_action?: ActionConfig;
+    double_tap_action?: ActionConfig;
 }
 
 export const lightCardConfigStruct = assign(
@@ -31,5 +32,6 @@ export const lightCardConfigStruct = assign(
         use_light_color: optional(boolean()),
         tap_action: optional(actionConfigStruct),
         hold_action: optional(actionConfigStruct),
+        double_tap_action: optional(actionConfigStruct),
     })
 );

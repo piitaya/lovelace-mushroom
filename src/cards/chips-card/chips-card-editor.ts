@@ -12,6 +12,7 @@ import {
     object,
     optional,
     string,
+    union,
 } from "superstruct";
 import { actionConfigStruct } from "../../utils/action-struct";
 import { baseLovelaceCardConfig } from "../../utils/editor-styles";
@@ -21,10 +22,10 @@ import {
     EditSubElementEvent,
     SubElementEditorConfig,
 } from "../../utils/lovelace/editor/types";
+import "../../utils/lovelace/sub-element-editor";
 import { ChipsCardConfig } from "./chips-card";
 import "./chips-card-chips-editor";
 import { CHIPS_CARD_EDITOR_NAME } from "./const";
-import "../../utils/lovelace/sub-element-editor";
 
 const actionChipConfigStruct = object({
     type: literal("action"),
@@ -81,27 +82,48 @@ const conditionChipConfigStruct = object({
     conditions: optional(array(conditionStruct)),
 });
 
+const lightChipConfigStruct = object({
+    type: literal("light"),
+    entity: optional(string()),
+    name: optional(string()),
+    content_info: optional(string()),
+    icon: optional(string()),
+    use_light_color: optional(boolean()),
+    tap_action: optional(actionConfigStruct),
+    hold_action: optional(actionConfigStruct),
+    double_tap_action: optional(actionConfigStruct),
+});
+
+const templateChipConfigStruct = object({
+    type: literal("template"),
+    tap_action: optional(actionConfigStruct),
+    hold_action: optional(actionConfigStruct),
+    double_tap_action: optional(actionConfigStruct),
+    content: optional(string()),
+    icon: optional(string()),
+    icon_color: optional(string()),
+    entity_id: optional(union([string(), array(string())])),
+});
+
 const chipsConfigStruct = dynamic<any>((value) => {
     if (value && typeof value === "object" && "type" in value) {
         switch ((value as LovelaceChipConfig).type!) {
-            case "action": {
+            case "action":
                 return actionChipConfigStruct;
-            }
-            case "back": {
+            case "back":
                 return backChipConfigStruct;
-            }
-            case "entity": {
+            case "entity":
                 return entityChipConfigStruct;
-            }
-            case "menu": {
+            case "menu":
                 return menuChipConfigStruct;
-            }
-            case "weather": {
+            case "weather":
                 return weatherChipConfigStruct;
-            }
-            case "conditional": {
+            case "conditional":
                 return conditionChipConfigStruct;
-            }
+            case "light":
+                return lightChipConfigStruct;
+            case "template":
+                return templateChipConfigStruct;
         }
     }
     return object();

@@ -22,3 +22,4 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `show_position_control` | boolean | `false`     | Show a slider to control position of the cover |
 | `tap_action`            | action  | `toggle`    | Home assistant action to perform on tap        |
 | `hold_action`           | action  | `more-info` | Home assistant action to perform on hold       |
+| `double_tap_action`     | action  | `more-info` | Home assistant action to perform on double_tap |
