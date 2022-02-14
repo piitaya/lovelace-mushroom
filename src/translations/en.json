@@ -1,5 +1,12 @@
 {
     "editor": {
+        "form": {
+            "color_picker": {
+                "color_values": {
+                    "default": "Default color"
+                }
+            }
+        },
         "card": {
             "generic": {
                 "vertical": "Vertical?",
@@ -7,10 +14,7 @@
                 "hide_state": "Hide state?",
                 "state": "State",
                 "icon_color": "Icon color",
-                "hide_icon": "Hide icon?",
-                "color_values": {
-                    "default": "Default color"
-                }
+                "hide_icon": "Hide icon?"
             },
             "light": {
                 "show_brightness_control": "Brightness control?",
