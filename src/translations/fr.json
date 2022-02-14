@@ -14,7 +14,7 @@
             },
             "light": {
                 "show_brightness_control": "Contrôle de luminosité ?",
-                "use_light_color": "Colorer l'icône et le variateur",
+                "use_light_color": "Utiliser la couleur de la lumière",
                 "show_color_temp_control": "Contrôle de la température ?",
                 "show_color_control": "Contrôle de la couleur ?",
                 "incompatible_controls": "Certains contrôles peuvent ne pas être affichés si votre lumière ne supporte pas la fonctionnalité."

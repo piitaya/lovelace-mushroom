@@ -3,7 +3,6 @@ import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import "hammerjs";
-import { DIRECTION_LEFT, DIRECTION_RIGHT } from "hammerjs";
 
 const getPercentageFromEvent = (e: HammerInput) => {
     const x = e.center.x;

@@ -62,6 +62,17 @@ export interface ConditionalChipConfig {
     conditions: Condition[];
 }
 
+export type LightChipConfig = {
+    type: "light";
+    entity?: string;
+    name?: string;
+    content_info?: Info;
+    icon?: string;
+    use_light_color?: string;
+    hold_action?: ActionConfig;
+    tap_action?: ActionConfig;
+};
+
 export type LovelaceChipConfig =
     | ActionChipConfig
     | BackChipConfig
@@ -69,13 +80,15 @@ export type LovelaceChipConfig =
     | MenuChipConfig
     | WeatherChipConfig
     | TemplateChipConfig
-    | ConditionalChipConfig;
+    | ConditionalChipConfig
+    | LightChipConfig;
 
 export const CHIP_LIST: LovelaceChipConfig["type"][] = [
     "action",
     "back",
     "conditional",
     "entity",
+    "light",
     "menu",
     "template",
     "weather",
