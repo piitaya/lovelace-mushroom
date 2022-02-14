@@ -23,6 +23,7 @@ export class BadgeIcon extends LitElement {
             }
             .chip {
                 height: var(--chip-height);
+                font-size: calc(var(--chip-height) * 0.3);
                 width: auto;
                 padding: var(--chip-padding);
                 border-radius: var(--chip-border-radius);
@@ -30,26 +31,26 @@ export class BadgeIcon extends LitElement {
                 flex-direction: row;
                 align-items: center;
                 justify-content: center;
-                line-height: 12px;
+                line-height: 0;
             }
             ::slotted(ha-icon) {
                 display: flex;
-                --mdc-icon-size: 16px;
+                --mdc-icon-size: 1.5em;
                 color: var(--icon-color);
             }
             ::slotted(svg) {
-                width: 16px;
-                height: 16px;
+                width: 1.5em;
+                height: 1.5em;
                 display: flex;
             }
             ::slotted(span) {
                 font-weight: bold;
-                font-size: 12px;
+                font-size: 1em;
                 line-height: 1;
                 color: var(--text-color);
             }
             ::slotted(*:not(:last-child)) {
-                margin-right: 4px;
+                margin-right: 0.5em;
             }
         `;
     }
