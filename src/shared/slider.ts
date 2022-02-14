@@ -56,25 +56,17 @@ export class SliderItem extends LitElement {
                 })
             );
             let savedValue;
-            mc.on("panstart", (e) => {
-                e.srcEvent.stopPropagation();
-                e.srcEvent.preventDefault();
+            mc.on("panstart", () => {
                 savedValue = this.value;
             });
-            mc.on("pancancel", (e) => {
-                e.srcEvent.stopPropagation();
-                e.srcEvent.preventDefault();
+            mc.on("pancancel", () => {
                 this.value = savedValue;
             });
             mc.on("panmove", (e) => {
-                e.srcEvent.stopPropagation();
-                e.srcEvent.preventDefault();
                 const percentage = getPercentageFromEvent(e);
                 this.value = this.percentageToValue(percentage);
             });
             mc.on("panend", (e) => {
-                e.srcEvent.stopPropagation();
-                e.srcEvent.preventDefault();
                 const percentage = getPercentageFromEvent(e);
                 this.value = this.percentageToValue(percentage);
                 this.dispatchEvent(

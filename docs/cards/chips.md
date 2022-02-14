@@ -29,6 +29,13 @@ A conditional chip allow you to display another chip based on chip state.
 
 An entity chip allow you to display entity state.
 
+### Light chip
+
+![Chip light light](../images/chip-light-light.png)
+![Chip light dark](../images/chip-light-dark.png)
+
+An light chip allow you to display light.
+
 ### Menu chip
 
 ![Chip menu light](../images/chip-menu-light.png)

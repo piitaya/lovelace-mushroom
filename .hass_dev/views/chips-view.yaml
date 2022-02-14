@@ -57,6 +57,16 @@ cards:
             icon: mdi:tree
             icon_color: green
   - type: vertical-stack
+    title: Light chips
+    cards:
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: light
+            entity: light.bed_light
+          - type: light
+            entity: light.bed_light
+            use_light_color: true
+  - type: vertical-stack
     title: Back chips
     cards:
       - type: custom:mushroom-chips-card

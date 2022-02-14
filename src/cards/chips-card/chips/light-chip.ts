@@ -80,7 +80,7 @@ export class LightChip extends LitElement implements LovelaceChip {
             const color = lightRgbColor.join(",");
             iconStyle["--color"] = `rgb(${color})`;
             if (isSuperLight(lightRgbColor)) {
-                iconStyle["--icon-color"] = `rgba(var(--rgb-primary-text-color), 0.2)`;
+                iconStyle["--color"] = `rgba(var(--rgb-primary-text-color), 0.2)`;
             }
         }
 
