@@ -169,7 +169,7 @@ export class ChipsCardEditor extends LitElement implements LovelaceCardEditor {
                         <paper-item value="">
                             ${customLocalize("editor.card.chips.alignment_values.default")}
                         </paper-item>
-                        ${["line-end", "center", "justify"].map(a => html`<paper-item .value=${a}>
+                        ${["end", "center", "justify"].map(a => html`<paper-item .value=${a}>
                             ${customLocalize(`editor.card.chips.alignment_values.${a}`)}
                         </paper-item>`)}
                     </paper-listbox>

@@ -100,7 +100,7 @@ export class ChipsCard extends LitElement implements LovelaceCard {
                     flex-wrap: wrap;
                     margin-bottom: calc(-1 * var(--chip-spacing));
                 }
-                .chip-container.align-line-end {
+                .chip-container.align-end {
                     justify-content: flex-end;
                 }
                 .chip-container.align-center {

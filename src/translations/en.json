@@ -64,8 +64,8 @@
             "chips": {
                 "alignment": "Alignment",
                 "alignment_values": {
-                    "default": "Default (line start)",
-                    "line-end": "Line end",
+                    "default": "Default (start)",
+                    "end": "End",
                     "center": "Center",
                     "justify": "Justify"
                 }

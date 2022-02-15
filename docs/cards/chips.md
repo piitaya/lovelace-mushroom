@@ -8,10 +8,10 @@ A chips card allow you to small information at the top of your dashboard
 
 All the options are available in the lovelace editor but you can use `yaml` if you want.
 
-| Name        | Type       | Default  | Description                                                                                    |
-| :---------- | :--------- | :------- | :--------------------------------------------------------------------------------------------- |
-| `alignment` | string     | Optional | Chips alignment (`line-end`, `center`, `justify`), when empty default behavior is `line-start` |
-| `chips`     | chip array | Optional | Custom icon                                                                                    |
+| Name        | Type       | Default  | Description                                                                          |
+| :---------- | :--------- | :------- | :----------------------------------------------------------------------------------- |
+| `alignment` | string     | Optional | Chips alignment (`end`, `center`, `justify`), when empty default behavior is `start` |
+| `chips`     | chip array | Optional | Custom icon                                                                          |
 
 ### Action chip
 
