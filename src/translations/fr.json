@@ -65,7 +65,7 @@
                 "alignment": "Alignement",
                 "alignment_values": {
                     "default": "Par défaut (début)",
-                    "line-end": "Fin",
+                    "end": "Fin",
                     "center": "Centré",
                     "justify": "Justifié"
                 }
