@@ -115,6 +115,21 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
                         @value-changed=${this._valueChanged}
                     ></hui-action-editor>
                 </div>
+                <div class="side-by-side">
+                    <hui-action-editor
+                        .label="${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.generic.double_tap_action"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
+                        .hass=${this.hass}
+                        .config=${this._config.double_tap_action}
+                        .actions=${actions}
+                        .configValue=${"double_tap_action"}
+                        .tooltipText=${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.button.default_action_help"
+                        )}
+                        @value-changed=${this._valueChanged}
+                    ></hui-action-editor>
+                </div>
             </div>
         `;
     }

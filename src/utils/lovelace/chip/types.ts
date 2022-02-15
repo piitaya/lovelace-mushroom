@@ -12,8 +12,9 @@ export type ActionChipConfig = {
     type: "action";
     icon?: string;
     icon_color?: string;
-    hold_action?: ActionConfig;
     tap_action?: ActionConfig;
+    hold_action?: ActionConfig;
+    double_tap_action?: ActionConfig;
 };
 
 export type BackChipConfig = {
@@ -28,8 +29,9 @@ export type EntityChipConfig = {
     content_info?: Info;
     icon?: string;
     icon_color?: string;
-    hold_action?: ActionConfig;
     tap_action?: ActionConfig;
+    hold_action?: ActionConfig;
+    double_tap_action?: ActionConfig;
 };
 
 export type MenuChipConfig = {
@@ -40,8 +42,9 @@ export type MenuChipConfig = {
 export type WeatherChipConfig = {
     type: "weather";
     entity?: string;
-    hold_action?: ActionConfig;
     tap_action?: ActionConfig;
+    hold_action?: ActionConfig;
+    double_tap_action?: ActionConfig;
     show_temperature?: boolean;
     show_conditions?: boolean;
 };
@@ -50,6 +53,7 @@ export type TemplateChipConfig = {
     type: "template";
     hold_action?: ActionConfig;
     tap_action?: ActionConfig;
+    double_tap_action?: ActionConfig;
     content?: string;
     icon?: string;
     icon_color?: string;
@@ -68,9 +72,10 @@ export type LightChipConfig = {
     name?: string;
     content_info?: Info;
     icon?: string;
-    use_light_color?: string;
+    use_light_color?: boolean;
     hold_action?: ActionConfig;
     tap_action?: ActionConfig;
+    double_tap_action?: ActionConfig;
 };
 
 export type LovelaceChipConfig =

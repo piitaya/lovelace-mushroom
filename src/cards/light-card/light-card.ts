@@ -90,6 +90,9 @@ export class LightCard extends LitElement implements LovelaceCard {
             hold_action: {
                 action: "more-info",
             },
+            double_tap_action: {
+                action: "more-info",
+            },
             ...config,
         };
         this.setControls();
@@ -175,6 +178,7 @@ export class LightCard extends LitElement implements LovelaceCard {
                         @action=${this._handleAction}
                         .actionHandler=${actionHandler({
                             hasHold: hasAction(this._config.hold_action),
+                            hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
                         <mushroom-shape-icon

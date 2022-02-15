@@ -14,6 +14,7 @@ export interface FanCardConfig extends LovelaceCardConfig {
     show_oscillate_control?: boolean;
     tap_action?: ActionConfig;
     hold_action?: ActionConfig;
+    double_tap_action?: ActionConfig;
 }
 
 export const fanCardConfigStruct = assign(
@@ -29,5 +30,6 @@ export const fanCardConfigStruct = assign(
         show_oscillate_control: optional(boolean()),
         tap_action: optional(actionConfigStruct),
         hold_action: optional(actionConfigStruct),
+        double_tap_action: optional(actionConfigStruct),
     })
 );

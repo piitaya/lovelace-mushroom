@@ -61,6 +61,9 @@ export class EntityCard extends LitElement implements LovelaceCard {
             hold_action: {
                 action: "more-info",
             },
+            double_tap_action: {
+                action: "more-info",
+            },
             ...config,
         };
     }
@@ -114,6 +117,7 @@ export class EntityCard extends LitElement implements LovelaceCard {
                     @action=${this._handleAction}
                     .actionHandler=${actionHandler({
                         hasHold: hasAction(this._config.hold_action),
+                        hasDoubleClick: hasAction(this._config.double_tap_action),
                     })}
                     .hide_info=${primary == null && secondary == null}
                     .hide_icon=${hideIcon}

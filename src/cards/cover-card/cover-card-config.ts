@@ -13,6 +13,7 @@ export interface CoverCardConfig extends LovelaceCardConfig {
     show_position_control?: false;
     tap_action?: ActionConfig;
     hold_action?: ActionConfig;
+    double_tap_action?: ActionConfig;
 }
 
 export const coverCardConfigStruct = assign(
@@ -27,5 +28,6 @@ export const coverCardConfigStruct = assign(
         show_position_control: optional(boolean()),
         tap_action: optional(actionConfigStruct),
         hold_action: optional(actionConfigStruct),
+        double_tap_action: optional(actionConfigStruct),
     })
 );

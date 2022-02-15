@@ -15,6 +15,7 @@ export interface EntityCardConfig extends LovelaceCardConfig {
     secondary_info?: Info;
     tap_action?: ActionConfig;
     hold_action?: ActionConfig;
+    double_tap_action?: ActionConfig;
 }
 
 export const entityCardConfigStruct = assign(
@@ -30,5 +31,6 @@ export const entityCardConfigStruct = assign(
         secondary_info: optional(enums(INFOS)),
         tap_action: optional(actionConfigStruct),
         hold_action: optional(actionConfigStruct),
+        double_tap_action: optional(actionConfigStruct),
     })
 );
