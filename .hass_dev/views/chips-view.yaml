@@ -162,3 +162,65 @@ cards:
               entity: light.bed_light
               tap_action:
                 action: toggle
+  - type: vertical-stack
+    title: Alignment
+    cards:
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: weather
+            entity: weather.demo_weather_north
+          - type: weather
+            entity: weather.demo_weather_north
+            show_temperature: true
+          - type: weather
+            entity: weather.demo_weather_north
+            show_conditions: true
+          - type: weather
+            entity: weather.demo_weather_north
+            show_conditions: true
+            show_temperature: true
+      - type: custom:mushroom-chips-card
+        alignment: justify
+        chips:
+          - type: weather
+            entity: weather.demo_weather_north
+          - type: weather
+            entity: weather.demo_weather_north
+            show_temperature: true
+          - type: weather
+            entity: weather.demo_weather_north
+            show_conditions: true
+          - type: weather
+            entity: weather.demo_weather_north
+            show_conditions: true
+            show_temperature: true
+      - type: custom:mushroom-chips-card
+        alignment: line-end
+        chips:
+          - type: weather
+            entity: weather.demo_weather_north
+          - type: weather
+            entity: weather.demo_weather_north
+            show_temperature: true
+          - type: weather
+            entity: weather.demo_weather_north
+            show_conditions: true
+          - type: weather
+            entity: weather.demo_weather_north
+            show_conditions: true
+            show_temperature: true
+      - type: custom:mushroom-chips-card
+        alignment: center
+        chips:
+          - type: weather
+            entity: weather.demo_weather_north
+          - type: weather
+            entity: weather.demo_weather_north
+            show_temperature: true
+          - type: weather
+            entity: weather.demo_weather_north
+            show_conditions: true
+          - type: weather
+            entity: weather.demo_weather_north
+            show_conditions: true
+            show_temperature: true

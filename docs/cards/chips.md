@@ -4,6 +4,15 @@
 
 A chips card allow you to small information at the top of your dashboard
 
+## Configuration variables
+
+All the options are available in the lovelace editor but you can use `yaml` if you want.
+
+| Name        | Type       | Default  | Description                                                                          |
+| :---------- | :--------- | :------- | :----------------------------------------------------------------------------------- |
+| `alignment` | string     | Optional | Chips alignment (`end`, `center`, `justify`), when empty default behavior is `start` |
+| `chips`     | chip array | Optional | Custom icon                                                                          |
+
 ### Action chip
 
 ![Chip action light](../images/chip-action-light.png)
