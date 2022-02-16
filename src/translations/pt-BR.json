@@ -1,0 +1,98 @@
+{
+    "editor": {
+        "form": {
+            "color_picker": {
+                "values": {
+                    "default": "Cor padrão"
+                }
+            },
+            "info_picker": {
+                "values": {
+                    "default": "Informações padrão",
+                    "name": "Nome",
+                    "state": "Estado",
+                    "last-changed": "Última alteração",
+                    "last-updated": "Última atualização",
+                    "none": "Nenhum"
+                }
+            }
+        },
+        "card": {
+            "generic": {
+                "vertical": "Vertical?",
+                "multiline_secondary": "Multilinha secundária?",
+                "hide_state": "Ocultar estado?",
+                "state": "Estado",
+                "icon_color": "Cor do ícone",
+                "hide_icon": "Ocultar ícone?"
+            },
+            "light": {
+                "show_brightness_control": "Mostrar controle de brilho?",
+                "use_light_color": "Usar cor da luz?",
+                "show_color_temp_control": "Mostrar controle de temperatura?",
+                "show_color_control": "Mostrar controle de cor?",
+                "incompatible_controls": "Alguns controles podem não ser exibidos se sua luz não suportar o recurso."
+            },
+            "fan": {
+                "animate_icon_active": "Animar ícone quando ativo?",
+                "show_percentage_control": "Mostrar controle de porcentagem?",
+                "show_oscillate_control": "Mostrar controle de oscilação?"
+            },
+            "cover": {
+                "show_buttons_control": "Mostrar botões?",
+                "show_position_control": "Mostrar controle de posição?"
+            },
+            "person": {
+                "use_entity_picture": "Usar imagem da entidade?",
+                "hide_name": "Ocultar nome?"
+            },
+            "alarm_control_panel": {
+                "displayed_states": "Estados exibidos"
+            },
+            "entity": {
+                "primary_info": "Informações primárias",
+                "secondary_info": "Informações secundárias"
+            },
+            "template": {
+                "primary": "Informações primárias",
+                "secondary": "Informações secundárias"
+            },
+            "title": {
+                "title": "Título",
+                "subtitle": "Subtítulo"
+            },
+            "chips": {
+                "alignment": "Alinhamento",
+                "alignment_values": {
+                    "default": "Padrão (inicio)",
+                    "end": "Final",
+                    "center": "Centro",
+                    "justify": "Justificado"
+                }
+            }
+        },
+        "chip": {
+            "sub_element_editor": {
+                "title": "Editor de fichas"
+            },
+            "conditional": {
+                "chip": "Ficha"
+            },
+            "chip-picker": {
+                "chips": "Fichas",
+                "details": "Mostrar detalhes clicando no botão editar",
+                "add": "Adicionar ficha",
+                "edit": "Editar",
+                "clear": "Limpar",
+                "select": "Selecionar ficha"
+            },
+            "weather": {
+                "show_conditions": "Condições?",
+                "show_temperature": "Temperatura?"
+            },
+            "template": {
+                "content": "Conteúdo"
+            }
+        }
+    }
+}
