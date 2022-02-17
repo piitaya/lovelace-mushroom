@@ -16,24 +16,25 @@ cards:
         use_entity_picture: true
     columns: 2
     square: false
-  - type: grid
-    title: Vertical
+  - type: vertical-stack
+    title: Layout
     cards:
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:mushroom-person-card
+            entity: person.anne_therese
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:mushroom-person-card
+            entity: person.anne_therese
+            layout: "vertical"
       - type: custom:mushroom-person-card
         entity: person.anne_therese
-        vertical: true
-      - type: custom:mushroom-person-card
-        entity: person.anne_therese
-        vertical: true
-        hide_state: true
-      - type: custom:mushroom-person-card
-        entity: person.anne_therese
-        vertical: true
-        hide_state: true
-        use_entity_picture: true
-        hide_name: true
-    columns: 3
-    square: false
+        layout: "horizontal"
   - type: grid
     title: Demo controls
     cards:
