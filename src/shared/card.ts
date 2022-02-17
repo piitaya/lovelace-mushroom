@@ -5,20 +5,28 @@ import { Layout } from "../utils/layout";
 
 @customElement("mushroom-card")
 export class Card extends LitElement {
+    @property({ attribute: "no-card-style" }) public noCardStyle?: boolean;
+
     @property() public layout?: Layout;
 
     protected render(): TemplateResult {
+        console.log(this.noCardStyle);
+        if (this.noCardStyle) {
+            return this.renderContent();
+        }
+        return html`<ha-card> ${this.renderContent()} </ha-card>`;
+    }
+
+    renderContent() {
         return html`
-            <ha-card>
-                <div
-                    class=${classMap({
-                        container: true,
-                        horizontal: this.layout === "horizontal",
-                    })}
-                >
-                    <slot></slot>
-                </div>
-            </ha-card>
+            <div
+                class=${classMap({
+                    container: true,
+                    horizontal: this.layout === "horizontal",
+                })}
+            >
+                <slot></slot>
+            </div>
         `;
     }
 

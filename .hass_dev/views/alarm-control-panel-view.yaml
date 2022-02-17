@@ -22,6 +22,18 @@ cards:
       - armed_away
       - armed_night
     name: Template
+  - type: custom:mushroom-alarm-control-panel-card
+    entity: alarm_control_panel.alarm_panel_code
+    states:
+      - armed_home
+      - armed_away
+    name: Number code (1234)
+  - type: custom:mushroom-alarm-control-panel-card
+    entity: alarm_control_panel.alarm_panel_text_code
+    states:
+      - armed_home
+      - armed_away
+    name: Text code (azerty)
   - type: vertical-stack
     title: Layout
     cards:
