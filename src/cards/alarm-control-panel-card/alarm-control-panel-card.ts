@@ -269,6 +269,7 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                 ha-card {
                     height: 100%;
                     box-sizing: border-box;
+                    padding: var(--spacing);
                 }
                 mushroom-state-item {
                     cursor: pointer;

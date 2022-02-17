@@ -5,7 +5,7 @@ import { Layout } from "../utils/layout";
 
 @customElement("mushroom-card")
 export class Card extends LitElement {
-    @property({ attribute: "no-card-style" }) public noCardStyle?: boolean;
+    @property({ attribute: "no-card-style", type: Boolean }) public noCardStyle?: boolean;
 
     @property() public layout: Layout = "default";
 
@@ -34,6 +34,7 @@ export class Card extends LitElement {
             ha-card {
                 height: 100%;
                 box-sizing: border-box;
+                padding: var(--spacing);
             }
             .container {
                 display: flex;
@@ -41,7 +42,6 @@ export class Card extends LitElement {
                 width: 100%;
                 height: 100%;
                 box-sizing: border-box;
-                padding: var(--spacing);
                 justify-content: center;
             }
             .container > ::slotted(*:not(:last-child)) {
