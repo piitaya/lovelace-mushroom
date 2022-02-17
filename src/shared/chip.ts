@@ -23,6 +23,7 @@ export class BadgeIcon extends LitElement {
                 --text-color: var(--primary-text-color);
             }
             .chip {
+                box-sizing: border-box;
                 height: var(--chip-height);
                 font-size: calc(var(--chip-height) * 0.3);
                 width: auto;

@@ -15,16 +15,23 @@
                     "last-updated": "Last Updated",
                     "none": "None"
                 }
+            },
+            "layout_picker": {
+                "values": {
+                    "default": "Default layout",
+                    "vertical": "Vertical layout",
+                    "horizontal": "Horizontal layout"
+                }
             }
         },
         "card": {
             "generic": {
-                "vertical": "Vertical?",
                 "multiline_secondary": "Multiline secondary?",
                 "hide_state": "Hide state?",
                 "state": "State",
                 "icon_color": "Icon color",
-                "hide_icon": "Hide icon?"
+                "hide_icon": "Hide icon?",
+                "layout": "Layout"
             },
             "light": {
                 "show_brightness_control": "Brightness control?",
