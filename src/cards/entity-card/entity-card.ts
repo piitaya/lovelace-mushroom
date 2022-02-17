@@ -12,6 +12,7 @@ import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import "../../shared/badge-icon";
+import "../../shared/card";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
@@ -21,6 +22,7 @@ import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
 import { isActive, isAvailable } from "../../utils/entity";
 import { getInfo } from "../../utils/info";
+import { getLayoutFromConfig } from "../../utils/layout";
 import { ENTITY_CARD_EDITOR_NAME, ENTITY_CARD_NAME } from "./const";
 import { EntityCardConfig } from "./entity-card-config";
 import "./entity-card-editor";
@@ -83,7 +85,7 @@ export class EntityCard extends LitElement implements LovelaceCard {
         const name = this._config.name ?? entity.attributes.friendly_name ?? "";
         const icon = this._config.icon ?? stateIcon(entity);
         const hideIcon = !!this._config.hide_icon;
-        const vertical = this._config.vertical;
+        const layout = getLayoutFromConfig(this._config);
 
         const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
@@ -103,17 +105,11 @@ export class EntityCard extends LitElement implements LovelaceCard {
         );
 
         const iconColor = this._config.icon_color;
-        const iconStyle = {};
-        if (iconColor) {
-            const iconRgbColor = computeRgbColor(iconColor);
-            iconStyle["--icon-color"] = `rgb(${iconRgbColor})`;
-            iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
-        }
 
-        return html`<ha-card>
+        return html`<mushroom-card .layout=${layout}>
             <div class="container">
                 <mushroom-state-item
-                    .vertical=${vertical}
+                .layout=${layout}
                     @action=${this._handleAction}
                     .actionHandler=${actionHandler({
                         hasHold: hasAction(this._config.hold_action),
@@ -122,23 +118,18 @@ export class EntityCard extends LitElement implements LovelaceCard {
                     .hide_info=${primary == null && secondary == null}
                     .hide_icon=${hideIcon}
                 >
-                    ${!hideIcon
-                        ? html`<mushroom-shape-icon
-                              slot="icon"
-                              .disabled=${!isActive(entity)}
-                              .icon=${icon}
-                              style=${styleMap(iconStyle)}
-                          ></mushroom-shape-icon>`
-                        : undefined}
-                    ${!isAvailable(entity)
-                        ? html`
-                              <mushroom-badge-icon
-                                  class="unavailable"
-                                  slot="badge"
-                                  icon="mdi:help"
-                              ></mushroom-badge-icon>
-                          `
-                        : null}
+                    ${!hideIcon ? this.renderIcon(icon, iconColor, isActive(entity)) : undefined}
+                    ${
+                        !isAvailable(entity)
+                            ? html`
+                                  <mushroom-badge-icon
+                                      class="unavailable"
+                                      slot="badge"
+                                      icon="mdi:help"
+                                  ></mushroom-badge-icon>
+                              `
+                            : null
+                    }
                     <mushroom-state-info
                         slot="info"
                         .primary=${primary}
@@ -147,6 +138,23 @@ export class EntityCard extends LitElement implements LovelaceCard {
                 </mushroom-state-item>
             </div>
         </ha-card>`;
+    }
+
+    renderIcon(icon: string, iconColor: string | undefined, active: boolean): TemplateResult {
+        const iconStyle = {};
+        if (iconColor) {
+            const iconRgbColor = computeRgbColor(iconColor);
+            iconStyle["--icon-color"] = `rgb(${iconRgbColor})`;
+            iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
+        }
+        return html`
+            <mushroom-shape-icon
+                slot="icon"
+                .disabled=${!active}
+                .icon=${icon}
+                style=${styleMap(iconStyle)}
+            ></mushroom-shape-icon>
+        `;
     }
 
     static get styles(): CSSResultGroup {
