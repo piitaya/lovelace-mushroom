@@ -84,7 +84,18 @@
                 "add": "Ajouter une \"chip\"",
                 "edit": "Modifier",
                 "clear": "Effacer",
-                "select": "Sélectionner une \"chip\""
+                "select": "Sélectionner une \"chip\"",
+                "types": {
+                    "action": "Action",
+                    "alarm-control-panel": "Alarme",
+                    "back": "Retour",
+                    "conditional": "Conditionnel",
+                    "entity": "Entité",
+                    "light": "Lumière",
+                    "menu": "Menu",
+                    "template": "Template",
+                    "weather": "Météo"
+                }
             },
             "weather": {
                 "show_conditons": "Conditions ?",

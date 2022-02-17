@@ -67,7 +67,7 @@ export class ChipsCardEditorChips extends LitElement {
                                       ${html`
                                           <div class="special-row">
                                               <div>
-                                                  <span> ${renderChipLabel(chipConf)} </span>
+                                                  <span> ${this._renderChipLabel(chipConf)} </span>
                                                   <span class="secondary"
                                                       >${customLocalize(
                                                           "editor.chip.chip-picker.details"
@@ -105,7 +105,7 @@ export class ChipsCardEditorChips extends LitElement {
                     ${CHIP_LIST.map(
                         (chip) => html`
                             <paper-item data-type="${chip}" }
-                                >${capitalizeFirstLetter(chip)}</paper-item
+                                >${customLocalize(`editor.chip.chip-picker.types.${chip}`)}</paper-item
                             >
                         `
                     )}
@@ -228,6 +228,15 @@ export class ChipsCardEditorChips extends LitElement {
         });
     }
 
+    private _renderChipLabel(chipConf: LovelaceChipConfig): string {
+        const customLocalize = setupCustomlocalize(this.hass);
+        let label = customLocalize(`editor.chip.chip-picker.types.${chipConf.type}`);
+        if ("entity" in chipConf && chipConf.entity) {
+            label += ` - ${chipConf.entity}`;
+        }
+        return label;
+    }
+
     static get styles(): CSSResultGroup {
         return [
             sortableStyles,
@@ -277,16 +286,4 @@ export class ChipsCardEditorChips extends LitElement {
             `,
         ];
     }
-}
-
-function capitalizeFirstLetter(string: string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-function renderChipLabel(chipConf: LovelaceChipConfig): string {
-    let label = capitalizeFirstLetter(chipConf.type);
-    if ("entity" in chipConf && chipConf.entity) {
-        label += ` - ${chipConf.entity}`;
-    }
-    return label;
 }

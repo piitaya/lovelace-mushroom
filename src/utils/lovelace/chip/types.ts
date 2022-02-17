@@ -17,6 +17,18 @@ export type ActionChipConfig = {
     double_tap_action?: ActionConfig;
 };
 
+export type AlarmControlPanelChipConfig = {
+    type: "alarm-control-panel";
+    entity?: string;
+    name?: string;
+    content_info?: Info;
+    icon?: string;
+    icon_color?: string;
+    tap_action?: ActionConfig;
+    hold_action?: ActionConfig;
+    double_tap_action?: ActionConfig;
+};
+
 export type BackChipConfig = {
     type: "back";
     icon?: string;
@@ -80,6 +92,7 @@ export type LightChipConfig = {
 
 export type LovelaceChipConfig =
     | ActionChipConfig
+    | AlarmControlPanelChipConfig
     | BackChipConfig
     | EntityChipConfig
     | MenuChipConfig
@@ -90,6 +103,7 @@ export type LovelaceChipConfig =
 
 export const CHIP_LIST: LovelaceChipConfig["type"][] = [
     "action",
+    "alarm-control-panel",
     "back",
     "conditional",
     "entity",

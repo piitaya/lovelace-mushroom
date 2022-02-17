@@ -21,6 +21,20 @@ cards:
             show_conditions: true
             show_temperature: true
   - type: vertical-stack
+    title: Alarm control panel chips
+    cards:
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: alarm-control-panel
+            entity: alarm_control_panel.templated_alarm_panel
+            content_info: none
+          - type: alarm-control-panel
+            entity: alarm_control_panel.templated_alarm_panel
+          - type: alarm-control-panel
+            entity: alarm_control_panel.templated_alarm_panel
+            name: My alarm
+            content_info: name
+  - type: vertical-stack
     title: Entity chips
     cards:
       - type: custom:mushroom-chips-card

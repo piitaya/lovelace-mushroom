@@ -32,6 +32,7 @@ import {
     getStateService,
     isActionsAvailable,
     isDisarmed,
+    shouldPulse,
 } from "./utils";
 
 registerCustomCard({
@@ -141,11 +142,9 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
         const name = this._config.name ?? entity.attributes.friendly_name;
         const icon = this._config.icon ?? getStateIcon(entity.state);
         const color = getStateColor(entity.state);
+        const shapePulse = shouldPulse(entity.state);
         const vertical = this._config.vertical;
         const hideState = this._config.hide_state;
-
-        const shapePulse =
-            ["arming", "triggered", "pending", "unavailable"].indexOf(entity.state) >= 0;
 
         const actions: ActionButtonType[] =
             this._config.states && this._config.states.length > 0

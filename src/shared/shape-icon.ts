@@ -1,6 +1,7 @@
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { property, customElement } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
+import { animations } from "../utils/entity-styles";
 
 @customElement("mushroom-shape-icon")
 export class ShapeIcon extends LitElement {
@@ -62,25 +63,7 @@ export class ShapeIcon extends LitElement {
             .shape.disabled ha-icon {
                 color: var(--icon-color-disabled);
             }
-            @keyframes pulse {
-                0% {
-                    opacity: 1;
-                }
-                50% {
-                    opacity: 0;
-                }
-                100% {
-                    opacity: 1;
-                }
-            }
-            @keyframes spin {
-                from {
-                    transform: rotate(0deg);
-                }
-                to {
-                    transform: rotate(360deg);
-                }
-            }
+            ${animations}
         `;
     }
 }

@@ -84,7 +84,18 @@
                 "add": "Add chip",
                 "edit": "Edit",
                 "clear": "Clear",
-                "select": "Select chip"
+                "select": "Select chip",
+                "types": {
+                    "action": "Action",
+                    "alarm-control-panel": "Alarm",
+                    "back": "Back",
+                    "conditional": "Conditional",
+                    "entity": "Entity",
+                    "light": "Light",
+                    "menu": "Menu",
+                    "template": "Template",
+                    "weather": "Weather"
+                }
             },
             "weather": {
                 "show_conditions": "Conditions?",
