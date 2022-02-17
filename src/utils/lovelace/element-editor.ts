@@ -284,6 +284,7 @@ export abstract class MushroomElementEditor<T> extends LitElement {
                 configElement = await this.getConfigElement();
 
                 if (configElement) {
+                    console.log(configElement);
                     configElement.hass = this.hass;
                     if ("lovelace" in configElement) {
                         configElement.lovelace = this.lovelace;

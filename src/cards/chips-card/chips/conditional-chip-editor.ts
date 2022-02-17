@@ -5,6 +5,7 @@ import { customElement, property, state, query } from "lit/decorators.js";
 import setupCustomlocalize from "../../../localize";
 import { configElementStyle } from "../../../utils/editor-styles";
 import { getChipElementClass } from "../../../utils/lovelace/chip-element-editor";
+import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
 import {
     CHIP_LIST,
     ConditionalChipConfig,
@@ -14,7 +15,7 @@ import { GUIModeChangedEvent } from "../../../utils/lovelace/editor/types";
 import { ConfigChangedEvent } from "../../../utils/lovelace/element-editor";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 
-@customElement("mushroom-conditional-chip-editor")
+@customElement(computeChipEditorComponentName("conditional"))
 export class ConditionalChipEditor extends LitElement implements LovelaceChipEditor {
     @property({ attribute: false }) public hass?: HomeAssistant;
 
