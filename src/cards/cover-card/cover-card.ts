@@ -149,11 +149,13 @@ export class CoverCard extends LitElement implements LovelaceCard {
                         .icon=${icon}
                     ></mushroom-shape-icon>
                     ${entity.state === "unavailable"
-                        ? html` <mushroom-badge-icon
-                              class="unavailable"
-                              slot="badge"
-                              icon="mdi:help"
-                          ></mushroom-badge-icon>`
+                        ? html`
+                              <mushroom-badge-icon
+                                  class="unavailable"
+                                  slot="badge"
+                                  icon="mdi:help"
+                              ></mushroom-badge-icon>
+                          `
                         : null}
                     <mushroom-state-info
                         slot="info"

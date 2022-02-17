@@ -106,38 +106,34 @@ export class EntityCard extends LitElement implements LovelaceCard {
 
         const iconColor = this._config.icon_color;
 
-        return html`<mushroom-card .layout=${layout}>
-            <div class="container">
-                <mushroom-state-item
+        return html` <mushroom-card .layout=${layout}>
+            <mushroom-state-item
                 .layout=${layout}
-                    @action=${this._handleAction}
-                    .actionHandler=${actionHandler({
-                        hasHold: hasAction(this._config.hold_action),
-                        hasDoubleClick: hasAction(this._config.double_tap_action),
-                    })}
-                    .hide_info=${primary == null && secondary == null}
-                    .hide_icon=${hideIcon}
-                >
-                    ${!hideIcon ? this.renderIcon(icon, iconColor, isActive(entity)) : undefined}
-                    ${
-                        !isAvailable(entity)
-                            ? html`
-                                  <mushroom-badge-icon
-                                      class="unavailable"
-                                      slot="badge"
-                                      icon="mdi:help"
-                                  ></mushroom-badge-icon>
-                              `
-                            : null
-                    }
-                    <mushroom-state-info
-                        slot="info"
-                        .primary=${primary}
-                        .secondary=${secondary}
-                    ></mushroom-state-info>
-                </mushroom-state-item>
-            </div>
-        </ha-card>`;
+                @action=${this._handleAction}
+                .actionHandler=${actionHandler({
+                    hasHold: hasAction(this._config.hold_action),
+                    hasDoubleClick: hasAction(this._config.double_tap_action),
+                })}
+                .hide_info=${primary == null && secondary == null}
+                .hide_icon=${hideIcon}
+            >
+                ${!hideIcon ? this.renderIcon(icon, iconColor, isActive(entity)) : undefined}
+                ${!isAvailable(entity)
+                    ? html`
+                          <mushroom-badge-icon
+                              class="unavailable"
+                              slot="badge"
+                              icon="mdi:help"
+                          ></mushroom-badge-icon>
+                      `
+                    : null}
+                <mushroom-state-info
+                    slot="info"
+                    .primary=${primary}
+                    .secondary=${secondary}
+                ></mushroom-state-info>
+            </mushroom-state-item>
+        </mushroom-card>`;
     }
 
     renderIcon(icon: string, iconColor: string | undefined, active: boolean): TemplateResult {

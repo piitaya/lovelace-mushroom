@@ -10,11 +10,10 @@ export class Card extends LitElement {
     @property() public layout: Layout = "default";
 
     protected render(): TemplateResult {
-        console.log(this.noCardStyle);
         if (this.noCardStyle) {
             return this.renderContent();
         }
-        return html`<ha-card> ${this.renderContent()} </ha-card>`;
+        return html`<ha-card>${this.renderContent()}</ha-card>`;
     }
 
     renderContent() {

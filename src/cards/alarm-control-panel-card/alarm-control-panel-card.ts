@@ -166,7 +166,7 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
 
         return html`
             <ha-card>
-                <mushroom-card .layout=${layout} no-card-style="true">
+                <mushroom-card .layout=${layout} no-card-style>
                     <mushroom-state-item
                         .layout=${layout}
                         @action=${this._handleAction}
@@ -207,7 +207,7 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                                   ${actions.map(
                                       (action) => html`
                                           <mushroom-button
-                                              icon=${getStateIcon(action.state)}
+                                              .icon=${getStateIcon(action.state)}
                                               @click=${(e) => this._onTap(e, action.state)}
                                               .disabled=${!isActionEnabled}
                                           ></mushroom-button>
