@@ -30,15 +30,28 @@ cards:
         show_oscillate_control: true
     columns: 2
     square: false
-  - type: grid
-    title: Vertical
+  - type: vertical-stack
+    title: Layout
     cards:
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:mushroom-fan-card
+            entity: fan.living_room_fan
+            show_percentage_control: true
+            show_oscillate_control: true
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:mushroom-fan-card
+            entity: fan.living_room_fan
+            show_percentage_control: true
+            show_oscillate_control: true
+            layout: "vertical"
       - type: custom:mushroom-fan-card
         entity: fan.living_room_fan
-        vertical: true
-      - type: custom:mushroom-fan-card
-        entity: fan.living_room_fan
-        vertical: true
-        hide_state: true
-    columns: 2
-    square: false
+        show_percentage_control: true
+        show_oscillate_control: true
+        layout: "horizontal"

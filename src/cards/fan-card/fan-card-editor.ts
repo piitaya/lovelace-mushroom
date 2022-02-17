@@ -9,6 +9,7 @@ import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { assert } from "superstruct";
 import setupCustomlocalize from "../../localize";
+import "../../shared/editor/layout-picker";
 import { configElementStyle } from "../../utils/editor-styles";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { FAN_CARD_EDITOR_NAME, FAN_ENTITY_DOMAINS } from "./const";
@@ -81,16 +82,16 @@ export class FanCardEditor extends LitElement implements LovelaceCardEditor {
                     </ha-formfield>
                 </div>
                 <div class="side-by-side">
-                    <ha-formfield
-                        .label=${customLocalize("editor.card.generic.vertical")}
-                        .dir=${dir}
+                    <mushroom-layout-picker
+                        .label="${customLocalize(
+                            "editor.card.generic.layout"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
+                        .hass=${this.hass}
+                        .value=${this._config.layout}
+                        .configValue=${"layout"}
+                        @value-changed=${this._valueChanged}
                     >
-                        <ha-switch
-                            .checked=${!!this._config.vertical}
-                            .configValue=${"vertical"}
-                            @change=${this._valueChanged}
-                        ></ha-switch>
-                    </ha-formfield>
+                    </mushroom-layout-picker>
                     <ha-formfield
                         .label=${customLocalize("editor.card.generic.hide_state")}
                         .dir=${dir}
