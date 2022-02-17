@@ -57,21 +57,25 @@ cards:
         icon_color: green
     columns: 2
     square: false
-  - type: grid
-    title: Vertical
+  - type: vertical-stack
+    title: Layout
     cards:
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:mushroom-entity-card
+            entity: sensor.power_consumption
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:mushroom-entity-card
+            entity: sensor.power_consumption
+            layout: "vertical"
       - type: custom:mushroom-entity-card
         entity: sensor.power_consumption
-        vertical: true
-      - type: custom:mushroom-entity-card
-        entity: sensor.power_consumption
-        vertical: true
-        secondary_info: none
-      - type: custom:mushroom-entity-card
-        entity: sensor.power_consumption
-        vertical: true
-        hide_icon: true
-        secondary_info: none
+        layout: "horizontal"
     columns: 3
     square: false
   - type: grid

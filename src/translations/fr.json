@@ -15,16 +15,23 @@
                     "last-updated": "Dernière mise à jour",
                     "none": "Aucune"
                 }
+            },
+            "layout_picker": {
+                "values": {
+                    "default": "Disposition par défault",
+                    "vertical": "Disposition verticale",
+                    "horizontal": "Disposition horizontale"
+                }
             }
         },
         "card": {
             "generic": {
-                "vertical": "Vertical ?",
                 "multiline_secondary": "Information secondaire sur plusieurs lignes?",
                 "hide_state": "Cacher l'état ?",
                 "state": "État",
                 "icon_color": "Couleur de l'icône",
-                "hide_icon": "Cacher l'icône ?"
+                "hide_icon": "Cacher l'icône ?",
+                "layout": "Disposition"
             },
             "light": {
                 "show_brightness_control": "Contrôle de luminosité ?",

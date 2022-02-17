@@ -14,16 +14,19 @@ import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import "../../shared/badge-icon";
 import "../../shared/button";
+import "../../shared/card";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
+import { isActive } from "../../utils/entity";
+import { getLayoutFromConfig } from "../../utils/layout";
 import { LIGHT_CARD_EDITOR_NAME, LIGHT_CARD_NAME, LIGHT_ENTITY_DOMAINS } from "./const";
 import "./controls/light-brightness-control";
-import "./controls/light-color-temp-control";
 import "./controls/light-color-control";
+import "./controls/light-color-temp-control";
 import { LightCardConfig } from "./light-card-config";
 import "./light-card-editor";
 import {
@@ -31,10 +34,9 @@ import {
     getRGBColor,
     isLight,
     isSuperLight,
-    supportsColorTempControl,
     supportsColorControl,
+    supportsColorTempControl,
 } from "./utils";
-import { isActive } from "../../utils/entity";
 
 type LightCardControl = "brightness_control" | "color_temp_control" | "color_control";
 
@@ -145,7 +147,7 @@ export class LightCard extends LitElement implements LovelaceCard {
         const name = this._config.name ?? entity.attributes.friendly_name;
         const icon = this._config.icon ?? stateIcon(entity);
 
-        const vertical = !!this._config.vertical;
+        const layout = getLayoutFromConfig(this._config);
         const hideState = !!this._config.hide_state;
 
         const active = isActive(entity);
@@ -171,44 +173,44 @@ export class LightCard extends LitElement implements LovelaceCard {
         }
 
         return html`
-            <ha-card>
-                <div class="container">
-                    <mushroom-state-item
-                        .vertical=${vertical}
-                        @action=${this._handleAction}
-                        .actionHandler=${actionHandler({
-                            hasHold: hasAction(this._config.hold_action),
-                            hasDoubleClick: hasAction(this._config.double_tap_action),
-                        })}
-                    >
-                        <mushroom-shape-icon
-                            slot="icon"
-                            .disabled=${!active}
-                            .icon=${icon}
-                            style=${styleMap(iconStyle)}
-                        ></mushroom-shape-icon>
-                        ${entity.state === "unavailable"
-                            ? html` <mushroom-badge-icon
+            <mushroom-card .layout=${layout}>
+                <mushroom-state-item
+                    .layout=${layout}
+                    @action=${this._handleAction}
+                    .actionHandler=${actionHandler({
+                        hasHold: hasAction(this._config.hold_action),
+                        hasDoubleClick: hasAction(this._config.double_tap_action),
+                    })}
+                >
+                    <mushroom-shape-icon
+                        slot="icon"
+                        .disabled=${!active}
+                        .icon=${icon}
+                        style=${styleMap(iconStyle)}
+                    ></mushroom-shape-icon>
+                    ${entity.state === "unavailable"
+                        ? html`
+                              <mushroom-badge-icon
                                   class="unavailable"
                                   slot="badge"
                                   icon="mdi:help"
-                              ></mushroom-badge-icon>`
-                            : null}
-                        <mushroom-state-info
-                            slot="info"
-                            .primary=${name}
-                            .secondary=${!hideState && stateValue}
-                        ></mushroom-state-info>
-                    </mushroom-state-item>
-                    ${this._controls.length > 0
-                        ? html`
-                              <div class="actions">
-                                  ${this.renderActiveControl(entity)} ${this.renderOtherControls()}
-                              </div>
+                              ></mushroom-badge-icon>
                           `
                         : null}
-                </div>
-            </ha-card>
+                    <mushroom-state-info
+                        slot="info"
+                        .primary=${name}
+                        .secondary=${!hideState && stateValue}
+                    ></mushroom-state-info>
+                </mushroom-state-item>
+                ${this._controls.length > 0
+                    ? html`
+                          <div class="actions">
+                              ${this.renderActiveControl(entity)} ${this.renderOtherControls()}
+                          </div>
+                      `
+                    : null}
+            </mushroom-card>
         `;
     }
 

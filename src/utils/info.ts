@@ -23,11 +23,13 @@ export function getInfo(
                 (entity.attributes.device_class === "timestamp" || domain === "scene") &&
                 isAvailable(entity) == true
             ) {
-                return html` <ha-relative-time
-                    .hass=${hass}
-                    .datetime=${entity.state}
-                    capitalize
-                ></ha-relative-time>`;
+                return html`
+                    <ha-relative-time
+                        .hass=${hass}
+                        .datetime=${entity.state}
+                        capitalize
+                    ></ha-relative-time>
+                `;
             } else {
                 return state;
             }

@@ -138,7 +138,7 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                         >
                             <paper-listbox slot="dropdown-content">
                                 ${states.map(
-                                    (entityState) => html` <paper-item>${entityState}</paper-item>`
+                                    (entityState) => html`<paper-item>${entityState}</paper-item>`
                                 )}
                             </paper-listbox>
                         </paper-dropdown-menu>

@@ -1,11 +1,12 @@
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { property, customElement } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
+import { Layout } from "../utils/layout";
 import "./shape-icon";
 
 @customElement("mushroom-state-item")
 export class StateItem extends LitElement {
-    @property() public vertical: boolean = false;
+    @property() public layout: Layout = "default";
 
     @property() public hide_icon: boolean = false;
 
@@ -16,19 +17,23 @@ export class StateItem extends LitElement {
             <div
                 class=${classMap({
                     container: true,
-                    vertical: this.vertical,
+                    vertical: this.layout === "vertical",
                 })}
             >
                 ${!this.hide_icon
-                    ? html`<div class="icon">
-                          <slot name="icon"></slot>
-                          <slot name="badge"></slot>
-                      </div>`
+                    ? html`
+                          <div class="icon">
+                              <slot name="icon"></slot>
+                              <slot name="badge"></slot>
+                          </div>
+                      `
                     : null}
                 ${!this.hide_info
-                    ? html`<div class="info">
-                          <slot name="info" class="info"></slot>
-                      </div>`
+                    ? html`
+                          <div class="info">
+                              <slot name="info"></slot>
+                          </div>
+                      `
                     : null}
             </div>
         `;

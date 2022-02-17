@@ -215,12 +215,14 @@ export abstract class MushroomElementEditor<T> extends LitElement {
                               )}:"
                           >
                               ${this._warnings!.length > 0 && this._warnings![0] !== undefined
-                                  ? html` <ul>
-                                        ${this._warnings!.map(
-                                            (warning) => html`<li>${warning}</li>`
-                                        )}
-                                    </ul>`
-                                  : ""}
+                                  ? html`
+                                        <ul>
+                                            ${this._warnings!.map(
+                                                (warning) => html`<li>${warning}</li>`
+                                            )}
+                                        </ul>
+                                    `
+                                  : undefined}
                               ${this.hass.localize("ui.errors.config.edit_in_yaml_supported")}
                           </ha-alert>
                       `

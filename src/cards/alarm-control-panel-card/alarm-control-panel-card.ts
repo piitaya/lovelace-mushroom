@@ -13,12 +13,14 @@ import { customElement, property, query, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import "../../shared/badge-icon";
+import "../../shared/card";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
+import { getLayoutFromConfig } from "../../utils/layout";
 import { AlarmControlPanelCardConfig } from "./alarm-control-panel-card-config";
 import "./alarm-control-panel-card-editor";
 import {
@@ -143,7 +145,7 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
         const icon = this._config.icon ?? getStateIcon(entity.state);
         const color = getStateColor(entity.state);
         const shapePulse = shouldPulse(entity.state);
-        const vertical = this._config.vertical;
+        const layout = getLayoutFromConfig(this._config);
         const hideState = this._config.hide_state;
 
         const actions: ActionButtonType[] =
@@ -164,9 +166,9 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
 
         return html`
             <ha-card>
-                <div class="container">
+                <mushroom-card .layout=${layout} no-card-style>
                     <mushroom-state-item
-                        .vertical=${vertical}
+                        .layout=${layout}
                         @action=${this._handleAction}
                         .actionHandler=${actionHandler({
                             hasHold: hasAction(this._config.hold_action),
@@ -182,11 +184,13 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                             .icon=${icon}
                         ></mushroom-shape-icon>
                         ${entity.state === "unavailable"
-                            ? html` <mushroom-badge-icon
-                                  class="unavailable"
-                                  slot="badge"
-                                  icon="mdi:help"
-                              ></mushroom-badge-icon>`
+                            ? html`
+                                  <mushroom-badge-icon
+                                      class="unavailable"
+                                      slot="badge"
+                                      icon="mdi:help"
+                                  ></mushroom-badge-icon>
+                              `
                             : null}
                         <mushroom-state-info
                             slot="info"
@@ -195,57 +199,64 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                         ></mushroom-state-info>
                     </mushroom-state-item>
                     ${actions.length > 0
-                        ? html`<div class="actions">
-                              ${actions.map(
-                                  (action) => html`
-                                      <mushroom-button
-                                          icon=${getStateIcon(action.state)}
-                                          @click=${(e) => this._onTap(e, action.state)}
-                                          .disabled=${!isActionEnabled}
-                                      ></mushroom-button>
-                                  `
-                              )}
-                          </div>`
-                        : null}
-                    ${!this._hasCode
-                        ? html``
-                        : html`
-                              <paper-input
-                                  id="alarmCode"
-                                  .label=${this.hass.localize("ui.card.alarm_control_panel.code")}
-                                  type="password"
-                                  .inputmode=${entity.attributes.code_format === "number"
-                                      ? "numeric"
-                                      : "text"}
-                              ></paper-input>
-                          `}
-                    ${!(this._hasCode && entity.attributes.code_format === "number")
-                        ? html``
-                        : html`
-                              <div id="keypad">
-                                  ${BUTTONS.map((value) =>
-                                      value === ""
-                                          ? html` <mwc-button disabled></mwc-button> `
-                                          : html`
-                                                <mwc-button
-                                                    .value=${value}
-                                                    @click=${this._handlePadClick}
-                                                    outlined
-                                                    class=${classMap({
-                                                        numberkey: value !== "clear",
-                                                    })}
-                                                >
-                                                    ${value === "clear"
-                                                        ? this.hass!.localize(
-                                                              `ui.card.alarm_control_panel.clear_code`
-                                                          )
-                                                        : value}
-                                                </mwc-button>
-                                            `
+                        ? html`
+                              <div
+                                  class=${classMap({
+                                      actions: true,
+                                      fill: layout !== "horizontal",
+                                  })}
+                              >
+                                  ${actions.map(
+                                      (action) => html`
+                                          <mushroom-button
+                                              .icon=${getStateIcon(action.state)}
+                                              @click=${(e) => this._onTap(e, action.state)}
+                                              .disabled=${!isActionEnabled}
+                                          ></mushroom-button>
+                                      `
                                   )}
                               </div>
-                          `}
-                </div>
+                          `
+                        : null}
+                </mushroom-card>
+                ${!this._hasCode
+                    ? html``
+                    : html`
+                          <paper-input
+                              id="alarmCode"
+                              .label=${this.hass.localize("ui.card.alarm_control_panel.code")}
+                              type="password"
+                              .inputmode=${entity.attributes.code_format === "number"
+                                  ? "numeric"
+                                  : "text"}
+                          ></paper-input>
+                      `}
+                ${!(this._hasCode && entity.attributes.code_format === "number")
+                    ? html``
+                    : html`
+                          <div id="keypad">
+                              ${BUTTONS.map((value) =>
+                                  value === ""
+                                      ? html`<mwc-button disabled></mwc-button>`
+                                      : html`
+                                            <mwc-button
+                                                .value=${value}
+                                                @click=${this._handlePadClick}
+                                                outlined
+                                                class=${classMap({
+                                                    numberkey: value !== "clear",
+                                                })}
+                                            >
+                                                ${value === "clear"
+                                                    ? this.hass!.localize(
+                                                          `ui.card.alarm_control_panel.clear_code`
+                                                      )
+                                                    : value}
+                                            </mwc-button>
+                                        `
+                              )}
+                          </div>
+                      `}
             </ha-card>
         `;
     }
@@ -255,6 +266,11 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
         return [
             cardStyle,
             css`
+                ha-card {
+                    height: 100%;
+                    box-sizing: border-box;
+                    padding: var(--spacing);
+                }
                 mushroom-state-item {
                     cursor: pointer;
                 }
@@ -264,7 +280,7 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                 mushroom-shape-icon.pulse {
                     --shape-animation: 1s ease 0s infinite normal none running pulse;
                 }
-                .actions mushroom-button {
+                .actions.fill mushroom-button {
                     flex: 1;
                 }
                 paper-input {

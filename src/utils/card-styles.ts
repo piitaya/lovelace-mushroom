@@ -23,25 +23,11 @@ export const cardStyle = css`
         --chip-height: var(--mush-chip-height, 36px);
         --chip-border-radius: var(--mush-chip-border-radius, 18px);
     }
-    ha-card {
-        height: 100%;
-        box-sizing: border-box;
-    }
-    .container {
-        height: 100%;
-        box-sizing: border-box;
-        justify-content: center;
-        display: flex;
-        flex-direction: column;
-        padding: var(--spacing);
-    }
-    .container > *:not(:last-child) {
-        margin-bottom: var(--spacing);
-    }
     .actions {
         display: flex;
         flex-direction: row;
         align-items: flex-start;
+        justify-content: flex-end;
         overflow-y: auto;
     }
     .actions *:not(:last-child) {

@@ -11,6 +11,7 @@ import { assert } from "superstruct";
 import setupCustomlocalize from "../../localize";
 import "../../shared/editor/color-picker";
 import "../../shared/editor/info-picker";
+import "../../shared/editor/layout-picker";
 import { configElementStyle } from "../../utils/editor-styles";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { ENTITY_CARD_EDITOR_NAME } from "./const";
@@ -92,16 +93,17 @@ export class EntityCardEditor extends LitElement implements LovelaceCardEditor {
                     </ha-formfield>
                 </div>
                 <div class="side-by-side">
-                    <ha-formfield
-                        .label=${customLocalize("editor.card.generic.vertical")}
-                        .dir=${dir}
+                    <mushroom-layout-picker
+                        .label="${customLocalize(
+                            "editor.card.generic.layout"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
+                        .hass=${this.hass}
+                        .value=${this._config.layout}
+                        .configValue=${"layout"}
+                        @value-changed=${this._valueChanged}
                     >
-                        <ha-switch
-                            .checked=${!!this._config.vertical}
-                            .configValue=${"vertical"}
-                            @change=${this._valueChanged}
-                        ></ha-switch>
-                    </ha-formfield>
+                    </mushroom-layout-picker>
+                    <span></span>
                 </div>
                 <div class="side-by-side">
                     <mushroom-info-picker

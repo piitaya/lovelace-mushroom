@@ -12,12 +12,14 @@ import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import "../../shared/badge-icon";
+import "../../shared/card";
 import "../../shared/shape-avatar";
 import "../../shared/shape-icon";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
 import { isActive } from "../../utils/entity";
+import { getLayoutFromConfig } from "../../utils/layout";
 import { PERSON_CARD_EDITOR_NAME, PERSON_CARD_NAME, PERSON_ENTITY_DOMAINS } from "./const";
 import { PersonCardConfig } from "./person-card-config";
 import "./person-card-editor";
@@ -86,7 +88,7 @@ export class PersonCard extends LitElement implements LovelaceCard {
             ? entity.attributes.entity_picture
             : undefined;
 
-        const vertical = !!this._config.vertical;
+        const layout = getLayoutFromConfig(this._config);
         const hideState = !!this._config.hide_state;
         const hideName = !!this._config.hide_name;
 
@@ -101,33 +103,37 @@ export class PersonCard extends LitElement implements LovelaceCard {
         const isAvailable = entity.state !== "unavailable";
 
         return html`
-            <ha-card>
+            <mushroom-card .layout=${layout}>
                 <div class="container">
                     <mushroom-state-item
-                        .vertical=${vertical}
+                        .layout=${layout}
                         @action=${this._handleAction}
                         .actionHandler=${actionHandler({
                             hasHold: hasAction(this._config.hold_action),
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        ${picture
-                            ? html`
-                                  <mushroom-shape-avatar
-                                      slot="icon"
-                                      .picture_url=${picture}
-                                  ></mushroom-shape-avatar>
-                              `
-                            : html`
-                                  <mushroom-shape-icon
-                                      slot="icon"
-                                      .icon=${icon}
-                                      .disabled=${!isActive(entity)}
-                                  ></mushroom-shape-icon>
-                              `}
-                        ${isAvailable
-                            ? this.renderStateBadge(stateIcon, stateColor)
-                            : this.renderUnvailableBadge()}
+                        ${
+                            picture
+                                ? html`
+                                      <mushroom-shape-avatar
+                                          slot="icon"
+                                          .picture_url=${picture}
+                                      ></mushroom-shape-avatar>
+                                  `
+                                : html`
+                                      <mushroom-shape-icon
+                                          slot="icon"
+                                          .icon=${icon}
+                                          .disabled=${!isActive(entity)}
+                                      ></mushroom-shape-icon>
+                                  `
+                        }
+                        ${
+                            isAvailable
+                                ? this.renderStateBadge(stateIcon, stateColor)
+                                : this.renderUnvailableBadge()
+                        }
                         <mushroom-state-info
                             slot="info"
                             .primary=${!hideName ? name : undefined}
