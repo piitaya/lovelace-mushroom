@@ -32,15 +32,25 @@ cards:
     show_color_temp_control: true
     show_color_control: true
     use_light_color: true
-  - type: grid
-    title: Vertical
+  - type: vertical-stack
+    title: Layout
     cards:
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:mushroom-light-card
+            entity: light.bed_light
+            show_brightness_control: true
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:mushroom-light-card
+            entity: light.bed_light
+            show_brightness_control: true
+            layout: "vertical"
       - type: custom:mushroom-light-card
         entity: light.bed_light
-        vertical: true
-      - type: custom:mushroom-light-card
-        entity: light.bed_light
-        vertical: true
-        hide_state: true
-    columns: 2
-    square: false
+        show_brightness_control: true
+        layout: "horizontal"

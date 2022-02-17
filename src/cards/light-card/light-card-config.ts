@@ -2,12 +2,13 @@ import { ActionConfig, LovelaceCardConfig } from "custom-card-helpers";
 import { assign, boolean, object, optional, string } from "superstruct";
 import { actionConfigStruct } from "../../utils/action-struct";
 import { baseLovelaceCardConfig } from "../../utils/editor-styles";
+import { Layout, layoutStruct } from "../../utils/layout";
 
 export interface LightCardConfig extends LovelaceCardConfig {
     entity?: string;
     icon?: string;
     name?: string;
-    vertical?: boolean;
+    layout?: Layout;
     hide_state?: boolean;
     show_brightness_control?: boolean;
     show_color_temp_control?: boolean;
@@ -24,7 +25,7 @@ export const lightCardConfigStruct = assign(
         entity: optional(string()),
         icon: optional(string()),
         name: optional(string()),
-        vertical: optional(boolean()),
+        layout: optional(layoutStruct),
         hide_state: optional(boolean()),
         show_brightness_control: optional(boolean()),
         show_color_temp_control: optional(boolean()),
