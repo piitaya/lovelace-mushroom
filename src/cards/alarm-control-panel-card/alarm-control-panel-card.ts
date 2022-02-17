@@ -184,11 +184,13 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                             .icon=${icon}
                         ></mushroom-shape-icon>
                         ${entity.state === "unavailable"
-                            ? html` <mushroom-badge-icon
-                                  class="unavailable"
-                                  slot="badge"
-                                  icon="mdi:help"
-                              ></mushroom-badge-icon>`
+                            ? html`
+                                  <mushroom-badge-icon
+                                      class="unavailable"
+                                      slot="badge"
+                                      icon="mdi:help"
+                                  ></mushroom-badge-icon>
+                              `
                             : null}
                         <mushroom-state-info
                             slot="info"
@@ -235,7 +237,7 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                           <div id="keypad">
                               ${BUTTONS.map((value) =>
                                   value === ""
-                                      ? html` <mwc-button disabled></mwc-button> `
+                                      ? html`<mwc-button disabled></mwc-button>`
                                       : html`
                                             <mwc-button
                                                 .value=${value}
