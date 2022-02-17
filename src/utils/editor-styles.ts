@@ -24,13 +24,6 @@ export const configElementStyle = css`
     .suffix {
         margin: 0 8px;
     }
-    .circle-color {
-        background-color: rgb(var(--main-color));
-        border-radius: 10px;
-        width: 20px;
-        height: 20px;
-        margin-right: 10px;
-    }
 `;
 
 export const baseLovelaceCardConfig = object({

@@ -16,12 +16,12 @@ export class InfoPicker extends LitElement {
 
     @property() public hass!: HomeAssistant;
 
-    _selectChanged(ev: CustomEvent) {
-        const value = ev.detail.item.value;
+    _selectChanged(ev) {
+        const value = ev.target.value;
         this.dispatchEvent(
             new CustomEvent("value-changed", {
                 detail: {
-                    value,
+                    value: value !== "default" ? value : undefined,
                 },
             })
         );
@@ -31,33 +31,33 @@ export class InfoPicker extends LitElement {
         const customLocalize = setupCustomlocalize(this.hass);
 
         return html`
-            <paper-dropdown-menu .label=${this.label}>
-                <paper-listbox
-                    slot="dropdown-content"
-                    attr-for-selected="value"
-                    .selected=${this.value ?? ""}
-                    .configValue=${this.configValue}
-                    @iron-select=${this._selectChanged}
-                >
-                    <paper-item value="">
-                        ${customLocalize("editor.form.info_picker.values.default")}
-                    </paper-item>
-                    ${this.infos.map((info) => {
-                        return html`
-                            <paper-item .value=${info}>
-                                ${customLocalize(`editor.form.info_picker.values.${info}`) ||
-                                capitalizeFirstLetter(info)}
-                            </paper-item>
-                        `;
-                    })}
-                </paper-listbox>
-            </paper-dropdown-menu>
+            <mwc-select
+                .label=${this.label}
+                .configValue=${this.configValue}
+                @selected=${this._selectChanged}
+                @closed=${(e) => e.stopPropagation()}
+                .value=${this.value || "default"}
+                fixedMenuPosition
+                naturalMenuWidth
+            >
+                <mwc-list-item value="default">
+                    ${customLocalize("editor.form.info_picker.values.default")}
+                </mwc-list-item>
+                ${this.infos.map((info) => {
+                    return html`
+                        <mwc-list-item .value=${info}>
+                            ${customLocalize(`editor.form.info_picker.values.${info}`) ||
+                            capitalizeFirstLetter(info)}
+                        </mwc-list-item>
+                    `;
+                })}
+            </mwc-select>
         `;
     }
 
     static get styles(): CSSResultGroup {
         return css`
-            paper-dropdown-menu {
+            mwc-select {
                 width: 100%;
             }
         `;

@@ -15,12 +15,12 @@ export class ColorPicker extends LitElement {
 
     @property() public hass!: HomeAssistant;
 
-    _selectChanged(ev: CustomEvent) {
-        const value = ev.detail.item.value;
+    _selectChanged(ev) {
+        const value = ev.target.value;
         this.dispatchEvent(
             new CustomEvent("value-changed", {
                 detail: {
-                    value,
+                    value: value !== "default" ? value : undefined,
                 },
             })
         );
@@ -30,26 +30,27 @@ export class ColorPicker extends LitElement {
         const customLocalize = setupCustomlocalize(this.hass);
 
         return html`
-            <paper-dropdown-menu .label=${this.label}>
-                <paper-listbox
-                    slot="dropdown-content"
-                    attr-for-selected="value"
-                    .selected=${this.value ?? ""}
-                    .configValue=${this.configValue}
-                    @iron-select=${this._selectChanged}
-                >
-                    <paper-item value=""
-                        >${customLocalize("editor.form.color_picker.values.default")}</paper-item
-                    >
-                    ${COLORS.map(
-                        (color) => html`
-                            <paper-item .value=${color}>
-                                ${this.renderColorCircle(color)} ${computeColorName(color)}
-                            </paper-item>
-                        `
-                    )}
-                </paper-listbox>
-            </paper-dropdown-menu>
+            <mwc-select
+                .label=${this.label}
+                .configValue=${this.configValue}
+                @selected=${this._selectChanged}
+                @closed=${(e) => e.stopPropagation()}
+                .value=${this.value || "default"}
+                fixedMenuPosition
+                naturalMenuWidth
+            >
+                <mwc-list-item value="default">
+                    ${customLocalize("editor.form.color_picker.values.default")}
+                </mwc-list-item>
+                ${COLORS.map(
+                    (color) => html`
+                        <mwc-list-item .value=${color} graphic="icon">
+                            ${computeColorName(color)}
+                            <mwc-icon slot="graphic">${this.renderColorCircle(color)}</mwc-icon>
+                        </mwc-list-item>
+                    `
+                )}
+            </mwc-select>
         `;
     }
 
@@ -66,8 +67,15 @@ export class ColorPicker extends LitElement {
 
     static get styles(): CSSResultGroup {
         return css`
-            paper-dropdown-menu {
+            mwc-select {
                 width: 100%;
+            }
+            .circle-color {
+                display: block;
+                background-color: rgb(var(--main-color));
+                border-radius: 10px;
+                width: 20px;
+                height: 20px;
             }
         `;
     }
