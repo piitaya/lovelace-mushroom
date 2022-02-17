@@ -6,7 +6,7 @@ import "./shape-icon";
 
 @customElement("mushroom-state-item")
 export class StateItem extends LitElement {
-    @property() public layout?: Layout;
+    @property() public layout: Layout = "default";
 
     @property() public hide_icon: boolean = false;
 

@@ -7,7 +7,7 @@ import { Layout } from "../utils/layout";
 export class Card extends LitElement {
     @property({ attribute: "no-card-style" }) public noCardStyle?: boolean;
 
-    @property() public layout?: Layout;
+    @property() public layout: Layout = "default";
 
     protected render(): TemplateResult {
         console.log(this.noCardStyle);
