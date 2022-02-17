@@ -4,7 +4,6 @@ import {
     handleAction,
     hasAction,
     HomeAssistant,
-    stateIcon,
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
@@ -12,7 +11,7 @@ import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { computeRgbColor } from "../../../utils/colors";
 import { actionHandler } from "../../../utils/directives/action-handler-directive";
-import { isActive } from "../../../utils/entity";
+import { animation } from "../../../utils/entity-styles";
 import { getInfo } from "../../../utils/info";
 import {
     computeChipComponentName,
@@ -21,7 +20,7 @@ import {
 import { AlarmControlPanelChipConfig, EntityChipConfig, LovelaceChip } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { ALARM_CONTROl_PANEL_ENTITY_DOMAINS } from "../../alarm-control-panel-card/const";
-import { getStateColor, getStateIcon } from "../../alarm-control-panel-card/utils";
+import { getStateColor, getStateIcon, shouldPulse } from "../../alarm-control-panel-card/utils";
 import "./alarm-control-panel-chip-editor";
 
 @customElement(computeChipComponentName("alarm-control-panel"))
@@ -66,10 +65,9 @@ export class AlarmControlPanelChip extends LitElement implements LovelaceChip {
         const name = this._config.name ?? entity.attributes.friendly_name ?? "";
         const icon = this._config.icon ?? getStateIcon(entity.state);
         const iconColor = getStateColor(entity.state);
+        const iconPulse = shouldPulse(entity.state);
 
         const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
-
-        const active = isActive(entity);
 
         const iconStyle = {};
         if (iconColor) {
@@ -96,21 +94,26 @@ export class AlarmControlPanelChip extends LitElement implements LovelaceChip {
                 <ha-icon
                     .icon=${icon}
                     style=${styleMap(iconStyle)}
-                    class=${classMap({ active })}
+                    class=${classMap({ pulse: iconPulse })}
                 ></ha-icon>
                 ${content ? html`<span>${content}</span>` : null}
             </mushroom-chip>
         `;
     }
 
+    // Animation cannot be defined on chip element, key-frames cannot be scoped to a slotted element: https://github.com/WICG/webcomponents/issues/748
     static get styles(): CSSResultGroup {
         return css`
             mushroom-chip {
                 cursor: pointer;
             }
-            ha-icon.active {
+            ha-icon {
                 color: var(--color);
             }
+            ha-icon.pulse {
+                animation: 1s ease 0s infinite normal none running pulse;
+            }
+            ${animation.pulse}
         `;
     }
 }

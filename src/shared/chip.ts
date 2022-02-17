@@ -1,5 +1,6 @@
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { property, customElement } from "lit/decorators.js";
+import { animations } from "../utils/entity-styles";
 
 @customElement("mushroom-chip")
 export class BadgeIcon extends LitElement {
@@ -11,7 +12,7 @@ export class BadgeIcon extends LitElement {
         return html`
             <ha-card class="chip">
                 <slot></slot>
-            </button>
+            </ha-card>
         `;
     }
 

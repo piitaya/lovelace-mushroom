@@ -24,6 +24,10 @@ export function getStateService(state: string): string | undefined {
     return ALARM_CONTROL_PANEL_CARD_STATE_SERVICE[state];
 }
 
+export function shouldPulse(state:string): boolean {
+    return ["arming", "triggered", "pending", "unavailable"].indexOf(state) >= 0
+}
+
 export function isActionsAvailable(entity: HassEntity) {
     return !["pending", "unavailable"].includes(entity.state);
 }
