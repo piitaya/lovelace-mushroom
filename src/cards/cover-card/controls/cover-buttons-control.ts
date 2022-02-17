@@ -2,6 +2,7 @@ import { HomeAssistant } from "custom-card-helpers";
 import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import { classMap } from "lit/directives/class-map.js";
 import "../../../shared/button";
 import { isClosing, isFullyClosed, isFullyOpen, isOpening } from "../utils";
 
@@ -10,6 +11,8 @@ export class CoverButtonsControl extends LitElement {
     @property({ attribute: false }) public hass!: HomeAssistant;
 
     @property({ attribute: false }) public entity!: HassEntity;
+
+    @property() public fill: boolean = false;
 
     private _onOpenTap(e: MouseEvent): void {
         e.stopPropagation();
@@ -34,17 +37,24 @@ export class CoverButtonsControl extends LitElement {
 
     protected render(): TemplateResult {
         return html`
-            <mushroom-button
-                icon="mdi:arrow-down"
-                .disabled=${isFullyClosed(this.entity) || isClosing(this.entity)}
-                @click=${this._onCloseTap}
-            ></mushroom-button>
-            <mushroom-button icon="mdi:pause" @click=${this._onStopTap}></mushroom-button>
-            <mushroom-button
-                icon="mdi:arrow-up"
-                .disabled=${isFullyOpen(this.entity) || isOpening(this.entity)}
-                @click=${this._onOpenTap}
-            ></mushroom-button>
+            <div
+                class=${classMap({
+                    container: true,
+                    fill: this.fill,
+                })}
+            >
+                <mushroom-button
+                    icon="mdi:arrow-down"
+                    .disabled=${isFullyClosed(this.entity) || isClosing(this.entity)}
+                    @click=${this._onCloseTap}
+                ></mushroom-button>
+                <mushroom-button icon="mdi:pause" @click=${this._onStopTap}></mushroom-button>
+                <mushroom-button
+                    icon="mdi:arrow-up"
+                    .disabled=${isFullyOpen(this.entity) || isOpening(this.entity)}
+                    @click=${this._onOpenTap}
+                ></mushroom-button>
+            </div>
         `;
     }
 
@@ -58,7 +68,13 @@ export class CoverButtonsControl extends LitElement {
             :host *:not(:last-child) {
                 margin-right: var(--spacing);
             }
-            mushroom-button {
+            .container {
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+            }
+            .container.fill mushroom-button {
                 flex: 1;
             }
         `;

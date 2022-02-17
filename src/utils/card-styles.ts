@@ -27,6 +27,7 @@ export const cardStyle = css`
         display: flex;
         flex-direction: row;
         align-items: flex-start;
+        justify-content: flex-end;
         overflow-y: auto;
     }
     .actions *:not(:last-child) {

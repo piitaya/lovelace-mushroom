@@ -21,7 +21,7 @@ import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
 import { isActive } from "../../utils/entity";
-import { getLayoutFromConfig } from "../../utils/layout";
+import { getLayoutFromConfig, Layout } from "../../utils/layout";
 import { COVER_CARD_EDITOR_NAME, COVER_CARD_NAME, COVER_ENTITY_DOMAINS } from "./const";
 import "./controls/cover-buttons-control";
 import "./controls/cover-position-control";
@@ -164,7 +164,8 @@ export class CoverCard extends LitElement implements LovelaceCard {
                 ${this._controls.length > 0
                     ? html`
                           <div class="actions">
-                              ${this.renderActiveControl(entity)} ${this.renderNextControlButton()}
+                              ${this.renderActiveControl(entity, layout)}
+                              ${this.renderNextControlButton()}
                           </div>
                       `
                     : null}
@@ -183,11 +184,15 @@ export class CoverCard extends LitElement implements LovelaceCard {
         `;
     }
 
-    private renderActiveControl(entity: HassEntity): TemplateResult | null {
+    private renderActiveControl(entity: HassEntity, layout?: Layout): TemplateResult | null {
         switch (this._activeControl) {
             case "buttons_control":
                 return html`
-                    <mushroom-cover-buttons-control .hass=${this.hass} .entity=${entity} />
+                    <mushroom-cover-buttons-control
+                        .hass=${this.hass}
+                        .entity=${entity}
+                        .fill=${layout !== "horizontal"}
+                    />
                 `;
             case "position_control":
                 return html`
