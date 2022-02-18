@@ -15,6 +15,13 @@
                     "last-updated": "Última atualização",
                     "none": "Nenhum"
                 }
+            },
+            "layout_picker": {
+                "values": {
+                    "default": "Layout padrão",
+                    "vertical": "Layout vertical",
+                    "horizontal": "Layout horizontal"
+                }
             }
         },
         "card": {
@@ -23,8 +30,9 @@
                 "multiline_secondary": "Multilinha secundária?",
                 "hide_state": "Ocultar estado?",
                 "state": "Estado",
-                "icon_color": "Cor do ícone",
-                "hide_icon": "Ocultar ícone?"
+                "icon_color": "Cor do ícone?",
+                "hide_icon": "Ocultar ícone?",
+                "layout": "Layout"
             },
             "light": {
                 "show_brightness_control": "Mostrar controle de brilho?",
@@ -84,7 +92,18 @@
                 "add": "Adicionar ficha",
                 "edit": "Editar",
                 "clear": "Limpar",
-                "select": "Selecionar ficha"
+                "select": "Selecionar ficha",
+                "types": {
+                    "action": "Ação",
+                    "alarm-control-panel": "Alarme",
+                    "back": "Voltar",
+                    "conditional": "Condicional",
+                    "entity": "Entidade",
+                    "light": "Iluminação",
+                    "menu": "Menu",
+                    "template": "Modelo",
+                    "weather": "Clima"
+                }
             },
             "weather": {
                 "show_conditions": "Condições?",
