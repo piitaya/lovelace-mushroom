@@ -1,0 +1,116 @@
+{
+    "editor": {
+        "form": {
+            "color_picker": {
+                "values": {
+                    "default": "默认颜色"
+                }
+            },
+            "info_picker": {
+                "values": {
+                    "default": "默认信息",
+                    "name": "名称",
+                    "state": "状态",
+                    "last-changed": "变更时间",
+                    "last-updated": "更新时间",
+                    "none": "无"
+                }
+            },
+            "layout_picker": {
+                "values": {
+                    "default": "默认布局",
+                    "vertical": "垂直布局",
+                    "horizontal": "水平布局"
+                }
+            }
+        },
+        "card": {
+            "generic": {
+                "vertical": "垂直?",
+                "multiline_secondary": "多行次要信息?",
+                "hide_state": "隐藏状态?",
+                "state": "状态",
+                "icon_color": "图标颜色",
+                "hide_icon": "隐藏图标?"
+            },
+            "light": {
+                "show_brightness_control": "亮度控制?",
+                "use_light_color": "使用灯光颜色",
+                "show_color_temp_control": "色温控制?",
+                "show_color_control": "颜色控制?",
+                "incompatible_controls": "设备不支持的控制器将不会显示。"
+            },
+            "fan": {
+                "animate_icon_active": "激活时使用动态图标?",
+                "show_percentage_control": "百分比控制?",
+                "show_oscillate_control": "摆动控制?"
+            },
+            "cover": {
+                "show_buttons_control": "按钮控制?",
+                "show_position_control": "位置控制?"
+            },
+            "person": {
+                "use_entity_picture": "使用实体图片?",
+                "hide_name": "隐藏名称"
+            },
+            "alarm_control_panel": {
+                "displayed_states": "显示的状态"
+            },
+            "entity": {
+                "primary_info": "首要信息",
+                "secondary_info": "次要信息"
+            },
+            "template": {
+                "primary": "首要信息",
+                "secondary": "次要信息"
+            },
+            "title": {
+                "title": "标题",
+                "subtitle": "子标题"
+            },
+            "chips": {
+                "alignment": "对齐",
+                "alignment_values": {
+                    "default": "默认 (左)",
+                    "end": "右",
+                    "center": "居中",
+                    "justify": "两端"
+                }
+            }
+        },
+        "chip": {
+            "sub_element_editor": {
+                "title": "Chip 编辑"
+            },
+            "conditional": {
+                "chip": "Chip"
+            },
+            "chip-picker": {
+                "chips": "Chips",
+                "details": "点击编辑按钮查看",
+                "add": "添加 chip",
+                "edit": "编辑",
+                "clear": "清除",
+                "select": "选择 chip",
+                "types": {
+                    "action": "动作",
+                    "alarm-control-panel": "警报",
+                    "back": "返回",
+                    "conditional": "条件显示",
+                    "entity": "实体",
+                    "light": "灯光",
+                    "menu": "菜单",
+                    "template": "模板",
+                    "weather": "天气"
+                }
+            },
+            "weather": {
+                "show_conditions": "条件?",
+                "show_temperature": "温度?"
+            },
+            "template": {
+                "content": "内容"
+            }
+        }
+    }
+}
