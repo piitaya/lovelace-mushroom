@@ -94,7 +94,7 @@
                 "select": "选择 chip",
                 "types": {
                     "action": "动作",
-                    "alarm-control-panel": "警报",
+                    "alarm-control-panel": "警戒控制台",
                     "back": "返回",
                     "conditional": "条件显示",
                     "entity": "实体",
