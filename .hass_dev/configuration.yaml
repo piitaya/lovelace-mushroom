@@ -15,6 +15,9 @@ climate:
 
 light:
   - platform: demo
+  - platform: switch
+    name: Christmas Tree Lights
+    entity_id: switch.decorative_lights
 
 switch:
   - platform: demo

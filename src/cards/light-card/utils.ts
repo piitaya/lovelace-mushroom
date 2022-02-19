@@ -27,12 +27,45 @@ export function isSuperLight(rgb: number[]): boolean {
     return color.l() > 97;
 }
 
+export const enum LightColorModes {
+    UNKNOWN = "unknown",
+    ONOFF = "onoff",
+    BRIGHTNESS = "brightness",
+    COLOR_TEMP = "color_temp",
+    WHITE = "white",
+    HS = "hs",
+    XY = "xy",
+    RGB = "rgb",
+    RGBW = "rgbw",
+    RGBWW = "rgbww",
+}
+
+const modesSupportingColorTemp = [LightColorModes.COLOR_TEMP];
+
+const modesSupportingColor = [
+    LightColorModes.HS,
+    LightColorModes.XY,
+    LightColorModes.RGB,
+    LightColorModes.RGBW,
+    LightColorModes.RGBWW,
+];
+
+const modesSupportingDimming = [
+    ...modesSupportingColor,
+    ...modesSupportingColorTemp,
+    LightColorModes.BRIGHTNESS,
+];
+
 export function supportsColorTempControl(entity: HassEntity): boolean {
-    return (entity.attributes.supported_color_modes ?? []).some((m) => ["color_temp"].includes(m));
+    return entity.attributes.supported_color_modes?.some((m) =>
+        modesSupportingColorTemp.includes(m)
+    );
 }
 
 export function supportsColorControl(entity: HassEntity): boolean {
-    return (entity.attributes.supported_color_modes ?? []).some((m) =>
-        ["hs", "rgb", "rgbw", "rgbww", "xy"].includes(m)
-    );
+    return entity.attributes.supported_color_modes?.some((m) => modesSupportingColor.includes(m));
+}
+
+export function supportsBrightnessControl(entity: HassEntity): boolean {
+    return entity.attributes.supported_color_modes?.some((m) => modesSupportingDimming.includes(m));
 }
