@@ -71,10 +71,10 @@
             "chips": {
                 "alignment": "对齐",
                 "alignment_values": {
-                    "default": "默认 (左)",
-                    "end": "右",
-                    "center": "居中",
-                    "justify": "两端"
+                    "default": "默认 (左对齐)",
+                    "end": "右对齐",
+                    "center": "居中对齐",
+                    "justify": "两端对齐"
                 }
             }
         },
