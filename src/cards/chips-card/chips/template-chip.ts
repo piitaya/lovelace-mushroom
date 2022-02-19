@@ -1,4 +1,4 @@
-import { ActionHandlerEvent, handleAction, HomeAssistant } from "custom-card-helpers";
+import { ActionHandlerEvent, handleAction, hasAction, HomeAssistant } from "custom-card-helpers";
 import { UnsubscribeFunc } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
@@ -82,7 +82,13 @@ export class TemplateChip extends LitElement implements LovelaceChip {
         const content = this.getValue("content");
 
         return html`
-            <mushroom-chip @action=${this._handleAction} .actionHandler=${actionHandler()}>
+            <mushroom-chip
+                @action=${this._handleAction}
+                .actionHandler=${actionHandler({
+                    hasHold: hasAction(this._config.hold_action),
+                    hasDoubleClick: hasAction(this._config.double_tap_action),
+                })}
+            >
                 ${icon ? this.renderIcon(icon, iconColor) : null}
                 ${content ? this.renderContent(content) : null}
             </mushroom-chip>

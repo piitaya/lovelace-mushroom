@@ -34,6 +34,7 @@ import {
     getRGBColor,
     isLight,
     isSuperLight,
+    supportsBrightnessControl,
     supportsColorControl,
     supportsColorTempControl,
 } from "./utils";
@@ -116,7 +117,7 @@ export class LightCard extends LitElement implements LovelaceCard {
         if (!entity) return;
 
         const controls: LightCardControl[] = [];
-        if (this._config.show_brightness_control) {
+        if (this._config.show_brightness_control && supportsBrightnessControl(entity)) {
             controls.push("brightness_control");
         }
         if (this._config.show_color_temp_control && supportsColorTempControl(entity)) {
