@@ -4,14 +4,14 @@
 import { HomeAssistant } from "custom-card-helpers";
 import * as en from "./translations/en.json";
 import * as fr from "./translations/fr.json";
+import * as pt_BR from "./translations/pt-BR.json";
 import * as zh_Hans from "./translations/zh-Hans.json";
-import * as pt_br from "./translations/pt-BR.json";
 
 const languages: Record<string, unknown> = {
     en,
     fr,
+    "pt-BR": pt_BR,
     "zh-Hans": zh_Hans,
-    pt_br,
 };
 
 const DEFAULT_LANG = "en";
@@ -27,6 +27,7 @@ function getTranslatedString(key: string, lang: string): string | undefined {
 }
 
 export default function setupCustomlocalize(hass?: HomeAssistant) {
+    console.log(hass?.locale);
     return function (key: string) {
         const lang = hass?.locale.language ?? DEFAULT_LANG;
 

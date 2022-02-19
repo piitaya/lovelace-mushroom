@@ -26,7 +26,6 @@
         },
         "card": {
             "generic": {
-                "vertical": "垂直?",
                 "multiline_secondary": "多行次要信息?",
                 "hide_state": "隐藏状态?",
                 "state": "状态",

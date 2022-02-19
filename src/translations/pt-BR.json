@@ -26,7 +26,6 @@
         },
         "card": {
             "generic": {
-                "vertical": "Vertical?",
                 "multiline_secondary": "Multilinha secundária?",
                 "hide_state": "Ocultar estado?",
                 "state": "Estado",
