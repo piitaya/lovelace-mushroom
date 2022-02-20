@@ -4,6 +4,7 @@ import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import "../../../shared/button";
+import { computeCloseIcon, computeOpenIcon } from "../../../utils/icons/cover-icon";
 import { isClosing, isFullyClosed, isFullyOpen, isOpening } from "../utils";
 
 @customElement("mushroom-cover-buttons-control")
@@ -44,13 +45,13 @@ export class CoverButtonsControl extends LitElement {
                 })}
             >
                 <mushroom-button
-                    icon="mdi:arrow-down"
+                    .icon=${computeCloseIcon(this.entity)}
                     .disabled=${isFullyClosed(this.entity) || isClosing(this.entity)}
                     @click=${this._onCloseTap}
                 ></mushroom-button>
                 <mushroom-button icon="mdi:pause" @click=${this._onStopTap}></mushroom-button>
                 <mushroom-button
-                    icon="mdi:arrow-up"
+                    .icon=${computeOpenIcon(this.entity)}
                     .disabled=${isFullyOpen(this.entity) || isOpening(this.entity)}
                     @click=${this._onOpenTap}
                 ></mushroom-button>

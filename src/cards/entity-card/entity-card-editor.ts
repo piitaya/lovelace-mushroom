@@ -3,7 +3,6 @@ import {
     fireEvent,
     HomeAssistant,
     LovelaceCardEditor,
-    stateIcon,
 } from "custom-card-helpers";
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
@@ -13,6 +12,7 @@ import "../../shared/editor/color-picker";
 import "../../shared/editor/info-picker";
 import "../../shared/editor/layout-picker";
 import { configElementStyle } from "../../utils/editor-styles";
+import { stateIcon } from "../../utils/icons/state-icon";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { ENTITY_CARD_EDITOR_NAME } from "./const";
 import { EntityCardConfig, entityCardConfigStruct } from "./entity-card-config";

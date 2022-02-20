@@ -1,10 +1,11 @@
-import { fireEvent, HomeAssistant, stateIcon } from "custom-card-helpers";
+import { fireEvent, HomeAssistant } from "custom-card-helpers";
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import setupCustomlocalize from "../../../localize";
 import "../../../shared/editor/color-picker";
 import "../../../shared/editor/info-picker";
 import { configElementStyle } from "../../../utils/editor-styles";
+import { stateIcon } from "../../../utils/icons/state-icon";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
 import { AlarmControlPanelChipConfig } from "../../../utils/lovelace/chip/types";
 import { EditorTarget } from "../../../utils/lovelace/editor/types";
