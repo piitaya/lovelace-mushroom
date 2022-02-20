@@ -4,12 +4,14 @@
 import { HomeAssistant } from "custom-card-helpers";
 import * as en from "./translations/en.json";
 import * as fr from "./translations/fr.json";
+import * as de from "./translations/de.json";
 import * as pt_BR from "./translations/pt-BR.json";
 import * as zh_Hans from "./translations/zh-Hans.json";
 
 const languages: Record<string, unknown> = {
     en,
     fr,
+    de,
     "pt-BR": pt_BR,
     "zh-Hans": zh_Hans,
 };

@@ -1,0 +1,116 @@
+{
+    "editor": {
+        "form": {
+            "color_picker": {
+                "values": {
+                    "default": "Standardfarbe"
+                }
+            },
+            "info_picker": {
+                "values": {
+                    "default": "Standard-Information",
+                    "name": "Name",
+                    "state": "Zustand",
+                    "last-changed": "Letzte Änderung",
+                    "last-updated": "Letzte Aktualisierung",
+                    "none": "Keine"
+                }
+            },
+            "layout_picker": {
+                "values": {
+                    "default": "Standard-Layout",
+                    "vertical": "Vertikales Layout",
+                    "horizontal": "Horizontales Layout"
+                }
+            }
+        },
+        "card": {
+            "generic": {
+                "multiline_secondary": "Mehrzeilig sekundär?",
+                "hide_state": "Zustand ausblenden?",
+                "state": "Zustand",
+                "icon_color": "Icon-Farbe",
+                "hide_icon": "Icon ausblenden?",
+                "layout": "Layout"
+            },
+            "light": {
+                "show_brightness_control": "Helligkeitsregelung?",
+                "use_light_color": "Farbsteuerung verwenden",
+                "show_color_temp_control": "Farbtemperatursteuerung?",
+                "show_color_control": "Farbsteuerung?",
+                "incompatible_controls": "Einige Steuerelemente werden möglicherweise nicht angezeigt, wenn Ihr Licht diese Funktion nicht unterstützt."
+            },
+            "fan": {
+                "animate_icon_active": "Icon animieren, wenn aktiv?",
+                "show_percentage_control": "Prozentuale Kontrolle?",
+                "show_oscillate_control": "Oszillationssteuerung?"
+            },
+            "cover": {
+                "show_buttons_control": "Schaltflächensteuerung?",
+                "show_position_control": "Positionssteuerung?"
+            },
+            "person": {
+                "use_entity_picture": "Entitätsbild verwenden?",
+                "hide_name": "Name ausblenden"
+            },
+            "alarm_control_panel": {
+                "displayed_states": "Angezeigte Zustände"
+            },
+            "entity": {
+                "primary_info": "Primäre Information",
+                "secondary_info": "Sekundäre Information"
+            },
+            "template": {
+                "primary": "Primäre Information",
+                "secondary": "Sekundäre Information"
+            },
+            "title": {
+                "title": "Titel",
+                "subtitle": "Untertitel"
+            },
+            "chips": {
+                "alignment": "Ausrichtung",
+                "alignment_values": {
+                    "default": "Standard (start)",
+                    "end": "Ende",
+                    "center": "Mitte",
+                    "justify": "Ausrichten"
+                }
+            }
+        },
+        "chip": {
+            "sub_element_editor": {
+                "title": "Chip Editor"
+            },
+            "conditional": {
+                "chip": "Chip"
+            },
+            "chip-picker": {
+                "chips": "Chips",
+                "details": "Zum Anzeigen von Details die Schaltfläche Bearbeiten auswählen",
+                "add": "Chip hinzufügen",
+                "edit": "Editieren",
+                "clear": "Löschen",
+                "select": "Chip auswählen",
+                "types": {
+                    "action": "Action",
+                    "alarm-control-panel": "Alarm",
+                    "back": "Zurück",
+                    "conditional": "Bedingung",
+                    "entity": "Entität",
+                    "light": "Licht",
+                    "menu": "Menü",
+                    "template": "Vorlage",
+                    "weather": "Wetter"
+                }
+            },
+            "weather": {
+                "show_conditions": "Bedingungen?",
+                "show_temperature": "Temperatur?"
+            },
+            "template": {
+                "content": "Inhalt"
+            }
+        }
+    }
+}
