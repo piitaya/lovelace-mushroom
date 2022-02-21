@@ -24,6 +24,13 @@ export const configElementStyle = css`
     .suffix {
         margin: 0 8px;
     }
+    hui-theme-select-editor,
+    hui-action-editor,
+    mwc-select,
+    ha-textfield,
+    ha-icon-picker {
+        margin-top: 8px;
+    }
 `;
 
 export const baseLovelaceCardConfig = object({

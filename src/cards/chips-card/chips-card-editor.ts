@@ -15,6 +15,7 @@ import {
     union,
 } from "superstruct";
 import setupCustomlocalize from "../../localize";
+import "../../shared/editor/alignment-picker";
 import { actionConfigStruct } from "../../utils/action-struct";
 import { baseLovelaceCardConfig } from "../../utils/editor-styles";
 import { LovelaceChipConfig } from "../../utils/lovelace/chip/types";
@@ -180,22 +181,16 @@ export class ChipsCardEditor extends LitElement implements LovelaceCardEditor {
 
         return html`
             <div class="card-config">
-                <paper-dropdown-menu .label="${customLocalize("editor.card.chips.alignment")} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})" >
-                    <paper-listbox
-                        slot="dropdown-content"
-                        attr-for-selected="value"
-                        .selected=${this._config.alignment ?? ""}
-                        .configValue=${"alignment"}
-                        @iron-select=${this._valueChanged}
-                    >
-                        <paper-item value="">
-                            ${customLocalize("editor.card.chips.alignment_values.default")}
-                        </paper-item>
-                        ${["end", "center", "justify"].map(a => html`<paper-item .value=${a}>
-                            ${customLocalize(`editor.card.chips.alignment_values.${a}`)}
-                        </paper-item>`)}
-                    </paper-listbox>
-                </paper-dropdown-menu>
+                <mushroom-alignment-picker
+                    .label="${customLocalize("editor.card.chips.alignment")} (${this.hass.localize(
+                        "ui.panel.lovelace.editor.card.config.optional"
+                    )})"
+                    .hass=${this.hass}
+                    .value=${this._config.alignment}
+                    .configValue=${"alignment"}
+                    @value-changed=${this._valueChanged}
+                >
+                </mushroom-alignment-picker>
             </div>
             <mushroom-chips-card-chips-editor
                 .hass=${this.hass}
@@ -212,10 +207,7 @@ export class ChipsCardEditor extends LitElement implements LovelaceCardEditor {
         }
         const target = ev.target! as EditorTarget;
         const configValue = target.configValue || this._subElementEditorConfig?.type;
-        const value =
-            target.checked !== undefined
-                ? target.checked
-                : target.value ?? ev.detail.value ?? ev.detail.item?.value;
+        const value = target.checked ?? ev.detail.value;
 
         if (configValue === "chip" || (ev.detail && ev.detail.chips)) {
             const newConfigChips = ev.detail.chips || this._config!.chips.concat();

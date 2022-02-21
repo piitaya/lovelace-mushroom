@@ -179,7 +179,7 @@ export class EntityCardEditor extends LitElement implements LovelaceCardEditor {
             return;
         }
         const target = ev.target! as EditorTarget;
-        const value = target.checked ?? ev.detail.value ?? ev.detail.item?.value;
+        const value = target.checked ?? ev.detail.value;
 
         if (!target.configValue || this._config[target.configValue] === value) {
             return;

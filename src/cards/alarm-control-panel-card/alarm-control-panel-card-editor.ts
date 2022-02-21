@@ -131,18 +131,24 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                                 </div>
                             `
                         )}
-                        <paper-dropdown-menu
+                        <mwc-select
                             .label=${this.hass.localize(
                                 "ui.panel.lovelace.editor.card.alarm-panel.available_states"
                             )}
-                            @value-changed=${this._stateAdded}
+                            @selected=${this._stateAdded}
+                            @closed=${(e) => e.stopPropagation()}
+                            fixedMenuPosition
+                            naturalMenuWidth
                         >
-                            <paper-listbox slot="dropdown-content">
-                                ${states.map(
-                                    (entityState) => html`<paper-item>${entityState}</paper-item>`
-                                )}
-                            </paper-listbox>
-                        </paper-dropdown-menu>
+                            ${states.map(
+                                (entityState) =>
+                                    html`
+                                        <mwc-list-item .value=${entityState}>
+                                            ${entityState}
+                                        </mwc-list-item>
+                                    `
+                            )}
+                        </mwc-select>
                     </div>
                 </div>
                 <div class="side-by-side">
@@ -197,7 +203,7 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
             return;
         }
         const target = ev.target! as EditorTarget;
-        const value = target.checked ?? ev.detail.value ?? ev.detail.item?.value;
+        const value = target.checked ?? ev.detail.value;
 
         if (!target.configValue || this._config[target.configValue] === value) {
             return;
@@ -241,6 +247,7 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
         }
         const target = ev.target! as EditorTarget;
         if (!target.value || this._states.indexOf(target.value) !== -1) {
+            target.value = "";
             return;
         }
         const newStates = [...this._states];
