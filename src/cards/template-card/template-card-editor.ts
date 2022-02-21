@@ -163,7 +163,6 @@ export class TemplateCardEditor extends LitElement implements LovelaceCardEditor
     }
 
     private _ignoreKeydown(ev: KeyboardEvent) {
-        // Stop keyboard events from the paper-textarea from propagating to avoid accidentally closing the dialog when the user presses Enter.
         ev.stopPropagation();
     }
 

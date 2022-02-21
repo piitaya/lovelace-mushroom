@@ -114,24 +114,28 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                 </div>
                 <div class="side-by-side">
                     <div>
-                        <span
-                            >${customLocalize(
-                                "editor.card.alarm_control_panel.displayed_states"
-                            )}</span
-                        >
-                        ${this._states.map(
-                            (entityState, index) => html`
-                                <div class="states">
-                                    <paper-item>${entityState}</paper-item>
-                                    <ha-icon
-                                        class="deleteState"
-                                        .value=${index}
-                                        icon="mdi:close"
-                                        @click=${this._stateRemoved}
-                                    />
-                                </div>
-                            `
-                        )}
+                        <mwc-list>
+                            <mwc-list-item noninteractive
+                                >${customLocalize(
+                                    "editor.card.alarm_control_panel.displayed_states"
+                                )}</mwc-list-item
+                            >
+                            <li divider role="separator"></li>
+                            ${this._states.map(
+                                (entityState, index) => html`
+                                    <mwc-list-item hasMeta>
+                                        <span>${entityState}</span>
+                                        <ha-icon
+                                            class="deleteState"
+                                            .value=${index}
+                                            icon="mdi:close"
+                                            @click=${this._stateRemoved}
+                                            slot="meta"
+                                        ></ha-icon>
+                                    </mwc-list-item>
+                                `
+                            )}
+                        </mwc-list>
                         <mwc-select
                             .label=${this.hass.localize(
                                 "ui.panel.lovelace.editor.card.alarm-panel.available_states"
@@ -273,7 +277,7 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                 .deleteState {
                     visibility: hidden;
                 }
-                .states:hover > .deleteState {
+                mwc-list-item:hover > .deleteState {
                     visibility: visible;
                 }
                 ha-icon {
