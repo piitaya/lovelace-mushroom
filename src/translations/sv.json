@@ -1,0 +1,116 @@
+{
+    "editor": {
+        "form": {
+            "color_picker": {
+                "values": {
+                    "default": "Standardfärg"
+                }
+            },
+            "info_picker": {
+                "values": {
+                    "default": "Förvald information",
+                    "name": "Namn",
+                    "state": "Status",
+                    "last-changed": "Sist ändrad",
+                    "last-updated": "Sist uppdaterad",
+                    "none": "Ingen"
+                }
+            },
+            "layout_picker": {
+                "values": {
+                    "default": "Standard",
+                    "vertical": "Vertikal",
+                    "horizontal": "Horisontell"
+                }
+            }
+        },
+        "card": {
+            "generic": {
+                "multiline_secondary": "Sekundär med flera rader?",
+                "hide_state": "Göm status?",
+                "state": "Status",
+                "icon_color": "Ikonens färg",
+                "hide_icon": "Göm ikon?",
+                "layout": "Layout"
+            },
+            "light": {
+                "show_brightness_control": "Styr ljushet?",
+                "use_light_color": "Styr ljusets färg",
+                "show_color_temp_control": "Styr färgtemperatur?",
+                "show_color_control": "Styr färg?",
+                "incompatible_controls": "Kontroller som inte stöds av enheten kommer inte visas."
+            },
+            "fan": {
+                "animate_icon_active": "Animera ikonen när fläkten är på?",
+                "show_percentage_control": "Procentuell kontroll?",
+                "show_oscillate_control": "Kontroll för oscillera?"
+            },
+            "cover": {
+                "show_buttons_control": "Visa kontrollknappar?",
+                "show_position_control": "Visa positionskontroll?"
+            },
+            "person": {
+                "use_entity_picture": "Använd enheten bild?",
+                "hide_name": "Göm namn"
+            },
+            "alarm_control_panel": {
+                "displayed_states": "Status som visas"
+            },
+            "entity": {
+                "primary_info": "Primär information",
+                "secondary_info": "Sekundär information"
+            },
+            "template": {
+                "primary": "Primär information",
+                "secondary": "Sekundär information"
+            },
+            "title": {
+                "title": "Rubrik",
+                "subtitle": "Underrubrik"
+            },
+            "chips": {
+                "alignment": "Justering",
+                "alignment_values": {
+                    "default": "Standard (början)",
+                    "end": "Slutet",
+                    "center": "Centrerad",
+                    "justify": "Anpassa"
+                }
+            }
+        },
+        "chip": {
+            "sub_element_editor": {
+                "title": "Chipredigerare"
+            },
+            "conditional": {
+                "chip": "Chip"
+            },
+            "chip-picker": {
+                "chips": "Chips",
+                "details": "Visa detaljer genom att klicka på knappen Redigera",
+                "add": "Lägg till chip",
+                "edit": "Redigera",
+                "clear": "Rensa",
+                "select": "Välj chip",
+                "types": {
+                    "action": "Händelse",
+                    "alarm-control-panel": "Alarm",
+                    "back": "Bakåt",
+                    "conditional": "Villkorad",
+                    "entity": "Enhet",
+                    "light": "Ljus",
+                    "menu": "Meny",
+                    "template": "Mall",
+                    "weather": "Väder"
+                }
+            },
+            "weather": {
+                "show_conditions": "Förhållanden?",
+                "show_temperature": "Temperatur?"
+            },
+            "template": {
+                "content": "Innehåll"
+            }
+        }
+    }
+}
