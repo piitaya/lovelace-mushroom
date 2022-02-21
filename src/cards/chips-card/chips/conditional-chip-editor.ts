@@ -153,7 +153,7 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
                                                   )}
                                               </mwc-list-item>
                                           </mwc-select>
-                                          <paper-input
+                                          <ha-textfield
                                               .label="${this.hass!.localize(
                                                   "ui.panel.lovelace.editor.card.generic.state"
                                               )} (${this.hass!.localize(
@@ -164,8 +164,9 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
                                                   : cond.state}
                                               .idx=${idx}
                                               .configValue=${"state"}
-                                              @value-changed=${this._changeCondition}
-                                          ></paper-input>
+                                              @input=${this._changeCondition}
+                                          >
+                                          </ha-textfield>
                                       </div>
                                   </div>
                               `

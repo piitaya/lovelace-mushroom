@@ -207,7 +207,7 @@ export class ChipsCardEditor extends LitElement implements LovelaceCardEditor {
         }
         const target = ev.target! as EditorTarget;
         const configValue = target.configValue || this._subElementEditorConfig?.type;
-        const value = target.checked ?? ev.detail.value;
+        const value = target.checked ?? ev.detail.value ?? target.value;
 
         if (configValue === "chip" || (ev.detail && ev.detail.chips)) {
             const newConfigChips = ev.detail.chips || this._config!.chips.concat();

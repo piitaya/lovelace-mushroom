@@ -122,7 +122,7 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
             return;
         }
         const target = ev.target! as EditorTarget;
-        const value = target.checked ?? ev.detail.value;
+        const value = target.checked ?? ev.detail.value ?? target.value;
 
         if (!target.configValue || this._config[target.configValue] === value) {
             return;

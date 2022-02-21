@@ -1,4 +1,3 @@
-import type { PaperInputElement } from "@polymer/paper-input/paper-input";
 import {
     ActionHandlerEvent,
     computeStateDisplay,
@@ -49,6 +48,8 @@ type ActionButtonType = {
     disabled?: boolean;
 };
 
+type HaTextField = any;
+
 const BUTTONS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "", "0", "clear"];
 
 /*
@@ -78,7 +79,7 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
 
     @state() private _config?: AlarmControlPanelCardConfig;
 
-    @query("#alarmCode") private _input?: PaperInputElement;
+    @query("#alarmCode") private _input?: HaTextField;
 
     getCardSize(): number | Promise<number> {
         return 1;
@@ -223,14 +224,14 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                 ${!this._hasCode
                     ? html``
                     : html`
-                          <paper-input
+                          <ha-textfield
                               id="alarmCode"
                               .label=${this.hass.localize("ui.card.alarm_control_panel.code")}
                               type="password"
                               .inputmode=${entity.attributes.code_format === "number"
                                   ? "numeric"
                                   : "text"}
-                          ></paper-input>
+                          ></ha-textfield>
                       `}
                 ${!(this._hasCode && entity.attributes.code_format === "number")
                     ? html``
@@ -284,8 +285,9 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                 .actions.fill mushroom-button {
                     flex: 1;
                 }
-                paper-input {
-                    margin: 0 auto 8px;
+                ha-textfield {
+                    display: block;
+                    margin: 8px auto;
                     max-width: 150px;
                     text-align: center;
                 }

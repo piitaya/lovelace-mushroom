@@ -28,7 +28,11 @@ export const configElementStyle = css`
     hui-action-editor,
     mwc-select,
     ha-textfield,
-    ha-icon-picker {
+    ha-icon-picker,
+    mushroom-layout-picker,
+    mushroom-info-picker,
+    mushroom-alignment-picker,
+    mushroom-color-picker {
         margin-top: 8px;
     }
 `;

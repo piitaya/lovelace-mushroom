@@ -166,7 +166,7 @@ export class TemplateCardEditor extends LitElement implements LovelaceCardEditor
             return;
         }
         const target = ev.target! as EditorTarget;
-        const value = target.checked !== undefined ? target.checked : ev.detail.value;
+        const value = target.checked ?? ev.detail.value ?? target.value;
 
         if (this[`_${target.configValue}`] === value) {
             return;
