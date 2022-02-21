@@ -24,10 +24,14 @@ export const configElementStyle = css`
     .suffix {
         margin: 0 8px;
     }
+    ha-textarea {
+        width: 100%;
+    }
     hui-theme-select-editor,
     hui-action-editor,
     mwc-select,
     ha-textfield,
+    ha-textarea,
     ha-icon-picker,
     mushroom-layout-picker,
     mushroom-info-picker,

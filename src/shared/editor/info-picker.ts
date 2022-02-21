@@ -21,7 +21,7 @@ export class InfoPicker extends LitElement {
         this.dispatchEvent(
             new CustomEvent("value-changed", {
                 detail: {
-                    value: value !== "default" ? value : undefined,
+                    value: value !== "default" ? value : "",
                 },
             })
         );

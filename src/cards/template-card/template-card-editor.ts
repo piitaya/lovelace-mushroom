@@ -37,56 +37,62 @@ export class TemplateCardEditor extends LitElement implements LovelaceCardEditor
 
         return html`
             <div class="card-config">
-                <div class="side-by-side">
-                    <paper-textarea
-                        .label="${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.generic.icon"
-                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
-                        .value=${this._config.icon}
-                        .configValue=${"icon"}
-                        @keydown=${this._ignoreKeydown}
-                        @value-changed=${this._valueChanged}
-                        autocapitalize="none"
-                        autocomplete="off"
-                        spellcheck="false"
-                    ></paper-textarea>
-                    <paper-textarea
-                        .label="${customLocalize(
-                            "editor.card.generic.icon_color"
-                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
-                        .value=${this._config.icon_color}
-                        .configValue=${"icon_color"}
-                        @keydown=${this._ignoreKeydown}
-                        @value-changed=${this._valueChanged}
-                        autocapitalize="none"
-                        autocomplete="off"
-                        spellcheck="false"
-                    ></paper-textarea>
-                </div>
-                <paper-textarea
+                <ha-textarea
+                    .label="${this.hass.localize(
+                        "ui.panel.lovelace.editor.card.generic.icon"
+                    )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
+                    .value=${this._config.icon ?? ""}
+                    .configValue=${"icon"}
+                    @keydown=${this._ignoreKeydown}
+                    @input=${this._valueChanged}
+                    dir="ltr"
+                    autogrow
+                    autocapitalize="none"
+                    autocomplete="off"
+                    spellcheck="false"
+                ></ha-textarea>
+                <ha-textarea
+                    .label="${customLocalize(
+                        "editor.card.generic.icon_color"
+                    )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
+                    .value=${this._config.icon_color ?? ""}
+                    .configValue=${"icon_color"}
+                    @keydown=${this._ignoreKeydown}
+                    @input=${this._valueChanged}
+                    dir="ltr"
+                    autogrow
+                    autocapitalize="none"
+                    autocomplete="off"
+                    spellcheck="false"
+                ></ha-textarea>
+                <ha-textarea
                     .label="${customLocalize("editor.card.template.primary")} (${this.hass.localize(
                         "ui.panel.lovelace.editor.card.config.optional"
                     )})"
-                    .value=${this._config.primary}
+                    .value=${this._config.primary ?? ""}
                     .configValue=${"primary"}
                     @keydown=${this._ignoreKeydown}
-                    @value-changed=${this._valueChanged}
+                    @input=${this._valueChanged}
+                    dir="ltr"
+                    autogrow
                     autocapitalize="none"
                     autocomplete="off"
                     spellcheck="false"
-                ></paper-textarea>
-                <paper-textarea
+                ></ha-textarea>
+                <ha-textarea
                     .label="${customLocalize(
                         "editor.card.template.secondary"
                     )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
-                    .value=${this._config.secondary}
+                    .value=${this._config.secondary ?? ""}
                     .configValue=${"secondary"}
                     @keydown=${this._ignoreKeydown}
-                    @value-changed=${this._valueChanged}
+                    @input=${this._valueChanged}
+                    dir="ltr"
+                    autogrow
                     autocapitalize="none"
                     autocomplete="off"
                     spellcheck="false"
-                ></paper-textarea>
+                ></ha-textarea>
                 <div class="side-by-side">
                     <mushroom-layout-picker
                         .label="${customLocalize(

@@ -29,42 +29,48 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
 
         return html`
             <div class="card-config">
-                <paper-textarea
+                <ha-textarea
                     .label="${customLocalize("editor.chip.template.content")} (${this.hass.localize(
                         "ui.panel.lovelace.editor.card.config.optional"
                     )})"
-                    .value=${this._config.content}
+                    .value=${this._config.content ?? ""}
                     .configValue=${"content"}
                     @keydown=${this._ignoreKeydown}
-                    @value-changed=${this._valueChanged}
+                    @input=${this._valueChanged}
+                    dir="ltr"
+                    autogrow
                     autocapitalize="none"
                     autocomplete="off"
                     spellcheck="false"
-                ></paper-textarea>
-                <paper-textarea
+                ></ha-textarea>
+                <ha-textarea
                     .label="${this.hass.localize(
                         "ui.panel.lovelace.editor.card.generic.icon"
                     )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
-                    .value=${this._config.icon}
+                    .value=${this._config.icon ?? ""}
                     .configValue=${"icon"}
                     @keydown=${this._ignoreKeydown}
-                    @value-changed=${this._valueChanged}
+                    @input=${this._valueChanged}
+                    dir="ltr"
+                    autogrow
                     autocapitalize="none"
                     autocomplete="off"
                     spellcheck="false"
-                ></paper-textarea>
-                <paper-textarea
+                ></ha-textarea>
+                <ha-textarea
                     .label="${customLocalize(
                         "editor.card.generic.icon_color"
                     )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
-                    .value=${this._config.icon_color}
+                    .value=${this._config.icon_color ?? ""}
                     .configValue=${"icon_color"}
                     @keydown=${this._ignoreKeydown}
-                    @value-changed=${this._valueChanged}
+                    @input=${this._valueChanged}
+                    dir="ltr"
+                    autogrow
                     autocapitalize="none"
                     autocomplete="off"
                     spellcheck="false"
-                ></paper-textarea>
+                ></ha-textarea>
                 <div class="side-by-side">
                     <hui-action-editor
                         .label="${this.hass.localize(
