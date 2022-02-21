@@ -18,26 +18,26 @@
             },
             "layout_picker": {
                 "values": {
-                    "default": "Standardlayout",
-                    "vertical": "Vertikal layout",
-                    "horizontal": "Horisontell layout"
+                    "default": "Standard",
+                    "vertical": "Vertikal",
+                    "horizontal": "Horisontell"
                 }
             }
         },
         "card": {
             "generic": {
                 "multiline_secondary": "Sekundär med flera rader?",
-                "hide_state": "Gömma status?",
+                "hide_state": "Göm status?",
                 "state": "Status",
                 "icon_color": "Ikonens färg",
-                "hide_icon": "Gömma ikonen?",
+                "hide_icon": "Göm ikon?",
                 "layout": "Layout"
             },
             "light": {
-                "show_brightness_control": "Kontrollera ljushet?",
+                "show_brightness_control": "Styr ljushet?",
                 "use_light_color": "Styr ljusets färg",
-                "show_color_temp_control": "Visa kontroll av färgtemperatur?",
-                "show_color_control": "Visa färgkontroll?",
+                "show_color_temp_control": "Styr färgtemperatur?",
+                "show_color_control": "Styr färg?",
                 "incompatible_controls": "Kontroller som inte stöds av enheten kommer inte visas."
             },
             "fan": {
