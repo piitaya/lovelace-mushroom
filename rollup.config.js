@@ -5,6 +5,7 @@ import babel from "@rollup/plugin-babel";
 import json from "@rollup/plugin-json";
 import { terser } from "rollup-plugin-terser";
 import serve from "rollup-plugin-serve";
+import ignore from "./rollup-plugins/rollup-ignore-plugin.js";
 
 const dev = process.env.ROLLUP_WATCH;
 
@@ -19,6 +20,11 @@ const serveOptions = {
 };
 
 const plugins = [
+    ignore({
+        files: [
+            require.resolve("@material/mwc-notched-outline/mwc-notched-outline.js"),
+        ],
+    }),
     typescript({
         declaration: false,
     }),

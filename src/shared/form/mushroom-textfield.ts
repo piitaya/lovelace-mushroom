@@ -1,7 +1,7 @@
 import { styles } from "@material/mwc-textfield/mwc-textfield.css";
 import { css, html, PropertyValues, TemplateResult } from "lit";
 import { property } from "lit/decorators.js";
-import { TextFieldBase } from "./mwc-textfield";
+import { TextFieldBase } from "@material/mwc-textfield/mwc-textfield-base";
 
 class MushroomTextField extends TextFieldBase {
     @property({ type: Boolean }) public invalid?: boolean;

@@ -2,7 +2,7 @@ import { styles as textareaStyles } from "@material/mwc-textarea/mwc-textarea.cs
 import { styles as textfieldStyles } from "@material/mwc-textfield/mwc-textfield.css";
 import { css, PropertyValues } from "lit";
 import { property } from "lit/decorators.js";
-import { TextAreaBase } from "./mwc-textarea";
+import { TextAreaBase } from "@material/mwc-textarea/mwc-textarea-base";
 
 class MushroomTextArea extends TextAreaBase {
     @property({ type: Boolean, reflect: true }) autogrow = false;
