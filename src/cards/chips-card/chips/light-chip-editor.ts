@@ -48,7 +48,7 @@ export class LightChipEditor extends LitElement implements LovelaceChipEditor {
                     ></ha-entity-picker>
                 </div>
                 <div class="side-by-side">
-                    <ha-textfield
+                    <mushroom-textfield
                         .label="${this.hass.localize(
                             "ui.panel.lovelace.editor.card.generic.name"
                         )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
@@ -56,7 +56,7 @@ export class LightChipEditor extends LitElement implements LovelaceChipEditor {
                         .configValue=${"name"}
                         @input=${this._valueChanged}
                     >
-                    </ha-textfield>
+                    </mushroom-textfield>
                     <mushroom-info-picker
                         .label="${customLocalize(
                             "editor.card.entity.primary_info"

@@ -153,7 +153,7 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
                                                   )}
                                               </mwc-list-item>
                                           </mwc-select>
-                                          <ha-textfield
+                                          <mushroom-textfield
                                               .label="${this.hass!.localize(
                                                   "ui.panel.lovelace.editor.card.generic.state"
                                               )} (${this.hass!.localize(
@@ -166,7 +166,7 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
                                               .configValue=${"state"}
                                               @input=${this._changeCondition}
                                           >
-                                          </ha-textfield>
+                                          </mushroom-textfield>
                                       </div>
                                   </div>
                               `

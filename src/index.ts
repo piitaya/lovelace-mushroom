@@ -1,5 +1,8 @@
 import { version } from "../package.json";
 
+import "./shared/form/mushroom-textfield";
+import "./shared/form/mushroom-textarea";
+
 export { AlarmControlPanelCard } from "./cards/alarm-control-panel-card/alarm-control-panel-card";
 export { ChipsCard } from "./cards/chips-card/chips-card";
 export { CoverCard } from "./cards/cover-card/cover-card";

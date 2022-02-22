@@ -29,7 +29,7 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
 
         return html`
             <div class="card-config">
-                <ha-textarea
+                <mushroom-textarea
                     .label="${customLocalize("editor.chip.template.content")} (${this.hass.localize(
                         "ui.panel.lovelace.editor.card.config.optional"
                     )})"
@@ -42,8 +42,8 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
                     autocapitalize="none"
                     autocomplete="off"
                     spellcheck="false"
-                ></ha-textarea>
-                <ha-textarea
+                ></mushroom-textarea>
+                <mushroom-textarea
                     .label="${this.hass.localize(
                         "ui.panel.lovelace.editor.card.generic.icon"
                     )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
@@ -56,8 +56,8 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
                     autocapitalize="none"
                     autocomplete="off"
                     spellcheck="false"
-                ></ha-textarea>
-                <ha-textarea
+                ></mushroom-textarea>
+                <mushroom-textarea
                     .label="${customLocalize(
                         "editor.card.generic.icon_color"
                     )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
@@ -70,7 +70,7 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
                     autocapitalize="none"
                     autocomplete="off"
                     spellcheck="false"
-                ></ha-textarea>
+                ></mushroom-textarea>
                 <div class="side-by-side">
                     <hui-action-editor
                         .label="${this.hass.localize(

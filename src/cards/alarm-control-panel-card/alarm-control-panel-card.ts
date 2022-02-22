@@ -224,14 +224,14 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                 ${!this._hasCode
                     ? html``
                     : html`
-                          <ha-textfield
+                          <mushroom-textfield
                               id="alarmCode"
                               .label=${this.hass.localize("ui.card.alarm_control_panel.code")}
                               type="password"
                               .inputmode=${entity.attributes.code_format === "number"
                                   ? "numeric"
                                   : "text"}
-                          ></ha-textfield>
+                          ></mushroom-textfield>
                       `}
                 ${!(this._hasCode && entity.attributes.code_format === "number")
                     ? html``
@@ -285,7 +285,7 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                 .actions.fill mushroom-button {
                     flex: 1;
                 }
-                ha-textfield {
+                mushroom-textfield {
                     display: block;
                     margin: 8px auto;
                     max-width: 150px;

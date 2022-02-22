@@ -37,7 +37,7 @@ export class TemplateCardEditor extends LitElement implements LovelaceCardEditor
 
         return html`
             <div class="card-config">
-                <ha-textarea
+                <mushroom-textarea
                     .label="${this.hass.localize(
                         "ui.panel.lovelace.editor.card.generic.icon"
                     )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
@@ -50,8 +50,8 @@ export class TemplateCardEditor extends LitElement implements LovelaceCardEditor
                     autocapitalize="none"
                     autocomplete="off"
                     spellcheck="false"
-                ></ha-textarea>
-                <ha-textarea
+                ></mushroom-textarea>
+                <mushroom-textarea
                     .label="${customLocalize(
                         "editor.card.generic.icon_color"
                     )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
@@ -64,8 +64,8 @@ export class TemplateCardEditor extends LitElement implements LovelaceCardEditor
                     autocapitalize="none"
                     autocomplete="off"
                     spellcheck="false"
-                ></ha-textarea>
-                <ha-textarea
+                ></mushroom-textarea>
+                <mushroom-textarea
                     .label="${customLocalize("editor.card.template.primary")} (${this.hass.localize(
                         "ui.panel.lovelace.editor.card.config.optional"
                     )})"
@@ -78,8 +78,8 @@ export class TemplateCardEditor extends LitElement implements LovelaceCardEditor
                     autocapitalize="none"
                     autocomplete="off"
                     spellcheck="false"
-                ></ha-textarea>
-                <ha-textarea
+                ></mushroom-textarea>
+                <mushroom-textarea
                     .label="${customLocalize(
                         "editor.card.template.secondary"
                     )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
@@ -92,7 +92,7 @@ export class TemplateCardEditor extends LitElement implements LovelaceCardEditor
                     autocapitalize="none"
                     autocomplete="off"
                     spellcheck="false"
-                ></ha-textarea>
+                ></mushroom-textarea>
                 <div class="side-by-side">
                     <mushroom-layout-picker
                         .label="${customLocalize(

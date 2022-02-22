@@ -51,7 +51,7 @@ export class CoverCardEditor extends LitElement implements LovelaceCardEditor {
                     allow-custom-entity
                 ></ha-entity-picker>
                 <div class="side-by-side">
-                    <ha-textfield
+                    <mushroom-textfield
                         .label="${this.hass.localize(
                             "ui.panel.lovelace.editor.card.generic.name"
                         )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
@@ -59,7 +59,7 @@ export class CoverCardEditor extends LitElement implements LovelaceCardEditor {
                         .configValue=${"name"}
                         @input=${this._valueChanged}
                     >
-                    </ha-textfield>
+                    </mushroom-textfield>
                     <ha-icon-picker
                         .label="${this.hass.localize(
                             "ui.panel.lovelace.editor.card.generic.icon"
