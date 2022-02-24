@@ -26,7 +26,6 @@ import { COVER_CARD_EDITOR_NAME, COVER_CARD_NAME, COVER_ENTITY_DOMAINS } from ".
 import "./controls/cover-buttons-control";
 import "./controls/cover-position-control";
 import { CoverCardConfig } from "./cover-card-config";
-import "./cover-card-editor";
 import { getPosition } from "./utils";
 
 type CoverCardControl = "buttons_control" | "position_control";
@@ -45,6 +44,7 @@ registerCustomCard({
 @customElement(COVER_CARD_NAME)
 export class CoverCard extends LitElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
+        await import("./cover-card-editor");
         return document.createElement(COVER_CARD_EDITOR_NAME) as LovelaceCardEditor;
     }
 

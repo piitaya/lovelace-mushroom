@@ -20,11 +20,11 @@ import {
 import { LightChipConfig, LovelaceChip } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { getRGBColor, isSuperLight } from "../../light-card/utils";
-import "./light-chip-editor";
 
 @customElement(computeChipComponentName("light"))
 export class LightChip extends LitElement implements LovelaceChip {
     public static async getConfigElement(): Promise<LovelaceChipEditor> {
+        await import("./light-chip-editor");
         return document.createElement(
             computeChipEditorComponentName("light")
         ) as LovelaceChipEditor;

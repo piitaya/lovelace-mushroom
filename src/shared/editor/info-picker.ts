@@ -3,6 +3,7 @@ import { css, CSSResultGroup, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import setupCustomlocalize from "../../localize";
 import { INFOS } from "../../utils/info";
+import "./../form/mushroom-select";
 
 @customElement("mushroom-info-picker")
 export class InfoPicker extends LitElement {

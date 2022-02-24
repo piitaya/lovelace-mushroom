@@ -16,11 +16,11 @@ import {
 import { LovelaceChip, WeatherChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { getWeatherStateSVG, weatherSVGStyles } from "../../../utils/weather";
-import "./weather-chip-editor";
 
 @customElement(computeChipComponentName("weather"))
 export class WeatherChip extends LitElement implements LovelaceChip {
     public static async getConfigElement(): Promise<LovelaceChipEditor> {
+        await import("./weather-chip-editor");
         return document.createElement(
             computeChipEditorComponentName("weather")
         ) as LovelaceChipEditor;

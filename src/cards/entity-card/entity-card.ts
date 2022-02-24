@@ -25,7 +25,6 @@ import { getInfo } from "../../utils/info";
 import { getLayoutFromConfig } from "../../utils/layout";
 import { ENTITY_CARD_EDITOR_NAME, ENTITY_CARD_NAME } from "./const";
 import { EntityCardConfig } from "./entity-card-config";
-import "./entity-card-editor";
 
 registerCustomCard({
     type: ENTITY_CARD_NAME,
@@ -36,6 +35,7 @@ registerCustomCard({
 @customElement(ENTITY_CARD_NAME)
 export class EntityCard extends LitElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
+        await import("./entity-card-editor");
         return document.createElement(ENTITY_CARD_EDITOR_NAME) as LovelaceCardEditor;
     }
 

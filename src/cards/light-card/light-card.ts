@@ -28,7 +28,6 @@ import "./controls/light-brightness-control";
 import "./controls/light-color-control";
 import "./controls/light-color-temp-control";
 import { LightCardConfig } from "./light-card-config";
-import "./light-card-editor";
 import {
     getBrightness,
     getRGBColor,
@@ -56,6 +55,7 @@ registerCustomCard({
 @customElement(LIGHT_CARD_NAME)
 export class LightCard extends LitElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
+        await import("./light-card-editor");
         return document.createElement(LIGHT_CARD_EDITOR_NAME) as LovelaceCardEditor;
     }
 

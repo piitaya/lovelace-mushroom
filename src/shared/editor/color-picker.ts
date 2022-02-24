@@ -4,6 +4,7 @@ import { customElement, property } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import setupCustomlocalize from "../../localize";
 import { COLORS, computeColorName, computeRgbColor } from "../../utils/colors";
+import "./../form/mushroom-select";
 
 @customElement("mushroom-color-picker")
 export class ColorPicker extends LitElement {

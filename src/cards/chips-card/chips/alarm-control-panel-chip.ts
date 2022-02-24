@@ -26,11 +26,11 @@ import {
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { ALARM_CONTROl_PANEL_ENTITY_DOMAINS } from "../../alarm-control-panel-card/const";
 import { getStateColor, shouldPulse } from "../../alarm-control-panel-card/utils";
-import "./alarm-control-panel-chip-editor";
 
 @customElement(computeChipComponentName("alarm-control-panel"))
 export class AlarmControlPanelChip extends LitElement implements LovelaceChip {
     public static async getConfigElement(): Promise<LovelaceChipEditor> {
+        await import("./alarm-control-panel-chip-editor");
         return document.createElement(
             computeChipEditorComponentName("alarm-control-panel")
         ) as LovelaceChipEditor;

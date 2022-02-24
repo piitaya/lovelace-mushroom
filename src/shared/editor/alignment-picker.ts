@@ -2,6 +2,7 @@ import { HomeAssistant } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import setupCustomlocalize from "../../localize";
+import "./../form/mushroom-select";
 
 export const ALIGNMENT = ["start", "end", "center", "justify"];
 

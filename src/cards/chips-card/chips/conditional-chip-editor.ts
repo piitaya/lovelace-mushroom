@@ -1,8 +1,10 @@
 import type { MDCTabBarActivatedEvent } from "@material/tab-bar";
 import { fireEvent, HASSDomEvent, HomeAssistant, LovelaceConfig } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { customElement, property, state, query } from "lit/decorators.js";
+import { customElement, property, query, state } from "lit/decorators.js";
 import setupCustomlocalize from "../../../localize";
+import "../../../shared/form/mushroom-select";
+import "../../../shared/form/mushroom-textfield";
 import { configElementStyle } from "../../../utils/editor-styles";
 import { getChipElementClass } from "../../../utils/lovelace/chip-element-editor";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";

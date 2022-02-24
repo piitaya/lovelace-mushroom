@@ -11,6 +11,7 @@ import setupCustomlocalize from "../../localize";
 import "../../shared/editor/color-picker";
 import "../../shared/editor/info-picker";
 import "../../shared/editor/layout-picker";
+import "../../shared/form/mushroom-textfield";
 import { configElementStyle } from "../../utils/editor-styles";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { EditorTarget } from "../../utils/lovelace/editor/types";

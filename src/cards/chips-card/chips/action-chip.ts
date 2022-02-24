@@ -10,11 +10,11 @@ import {
 } from "../../../utils/lovelace/chip/chip-element";
 import { ActionChipConfig, LovelaceChip } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
-import "./action-chip-editor";
 
 @customElement(computeChipComponentName("action"))
 export class ActionChip extends LitElement implements LovelaceChip {
     public static async getConfigElement(): Promise<LovelaceChipEditor> {
+        await import("./action-chip-editor");
         return document.createElement(
             computeChipEditorComponentName("action")
         ) as LovelaceChipEditor;

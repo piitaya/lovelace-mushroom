@@ -11,7 +11,6 @@ import { CHIPS_CARD_EDITOR_NAME, CHIPS_CARD_NAME } from "./const";
 import "../../shared/chip";
 import { EntityChip } from "./chips";
 import "./chips";
-import "./chips-card-editor";
 import { LovelaceChip, LovelaceChipConfig } from "../../utils/lovelace/chip/types";
 import { cardStyle } from "../../utils/card-styles";
 import { createChipElement } from "../../utils/lovelace/chip/chip-element";
@@ -30,6 +29,7 @@ registerCustomCard({
 @customElement(CHIPS_CARD_NAME)
 export class ChipsCard extends LitElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
+        await import("./chips-card-editor");
         return document.createElement(CHIPS_CARD_EDITOR_NAME) as LovelaceCardEditor;
     }
 

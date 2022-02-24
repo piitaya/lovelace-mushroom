@@ -8,11 +8,11 @@ import {
 } from "../../../utils/lovelace/chip/chip-element";
 import { ConditionalChipConfig, LovelaceChip } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
-import "./conditional-chip-editor";
 
 @customElement(computeChipComponentName("conditional"))
 export class ConditionalChip extends ConditionalBase implements LovelaceChip {
     public static async getConfigElement(): Promise<LovelaceChipEditor> {
+        await import("./conditional-chip-editor");
         return document.createElement(
             computeChipEditorComponentName("conditional")
         ) as LovelaceChipEditor;

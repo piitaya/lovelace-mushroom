@@ -8,11 +8,11 @@ import {
 } from "../../../utils/lovelace/chip/chip-element";
 import { LovelaceChip, MenuChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
-import "./menu-chip-editor";
 
 @customElement(computeChipComponentName("menu"))
 export class MenuChip extends LitElement implements LovelaceChip {
     public static async getConfigElement(): Promise<LovelaceChipEditor> {
+        await import("./menu-chip-editor");
         return document.createElement(computeChipEditorComponentName("menu")) as LovelaceChipEditor;
     }
 
