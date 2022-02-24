@@ -91,25 +91,24 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
                                     ></mushroom-chip-element-editor>
                                 `
                               : html`
-                                    <paper-dropdown-menu
-                                        .placeholder=${customLocalize(
-                                            "editor.chip.chip-picker.select"
-                                        )}
-                                        @iron-select=${this._handleChipPicked}
+                                    <mushroom-select
+                                        .label=${customLocalize("editor.chip.chip-picker.select")}
+                                        @selected=${this._handleChipPicked}
+                                        @closed=${(e) => e.stopPropagation()}
+                                        fixedMenuPosition
+                                        naturalMenuWidth
                                     >
-                                        <paper-listbox
-                                            slot="dropdown-content"
-                                            attr-for-selected="data-type"
-                                        >
-                                            ${CHIP_LIST.map(
-                                                (chip) => html`
-                                                    <paper-item data-type="${chip}" }
-                                                        >${capitalizeFirstLetter(chip)}</paper-item
-                                                    >
+                                        ${CHIP_LIST.map(
+                                            (chip) =>
+                                                html`
+                                                    <mwc-list-item .value=${chip}>
+                                                        ${customLocalize(
+                                                            `editor.chip.chip-picker.types.${chip}`
+                                                        )}
+                                                    </mwc-list-item>
                                                 `
-                                            )}
-                                        </paper-listbox>
-                                    </paper-dropdown-menu>
+                                        )}
+                                    </mushroom-select>
                                 `}
                       </div>
                   `
@@ -125,34 +124,36 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
                                           <ha-entity-picker
                                               .hass=${this.hass}
                                               .value=${cond.entity}
-                                              .index=${idx}
+                                              .idx=${idx}
                                               .configValue=${"entity"}
                                               @change=${this._changeCondition}
                                               allow-custom-entity
                                           ></ha-entity-picker>
                                       </div>
                                       <div class="state">
-                                          <paper-dropdown-menu>
-                                              <paper-listbox
-                                                  .selected=${cond.state_not !== undefined ? 1 : 0}
-                                                  slot="dropdown-content"
-                                                  .index=${idx}
-                                                  .configValue=${"invert"}
-                                                  @selected-item-changed=${this._changeCondition}
-                                              >
-                                                  <paper-item
-                                                      >${this.hass!.localize(
-                                                          "ui.panel.lovelace.editor.card.conditional.state_equal"
-                                                      )}</paper-item
-                                                  >
-                                                  <paper-item
-                                                      >${this.hass!.localize(
-                                                          "ui.panel.lovelace.editor.card.conditional.state_not_equal"
-                                                      )}</paper-item
-                                                  >
-                                              </paper-listbox>
-                                          </paper-dropdown-menu>
-                                          <paper-input
+                                          <mushroom-select
+                                              .value=${cond.state_not !== undefined
+                                                  ? "true"
+                                                  : "false"}
+                                              .idx=${idx}
+                                              .configValue=${"invert"}
+                                              @selected=${this._changeCondition}
+                                              @closed=${(e) => e.stopPropagation()}
+                                              naturalMenuWidth
+                                              fixedMenuPosition
+                                          >
+                                              <mwc-list-item value="false">
+                                                  ${this.hass!.localize(
+                                                      "ui.panel.lovelace.editor.card.conditional.state_equal"
+                                                  )}
+                                              </mwc-list-item>
+                                              <mwc-list-item value="true">
+                                                  ${this.hass!.localize(
+                                                      "ui.panel.lovelace.editor.card.conditional.state_not_equal"
+                                                  )}
+                                              </mwc-list-item>
+                                          </mushroom-select>
+                                          <mushroom-textfield
                                               .label="${this.hass!.localize(
                                                   "ui.panel.lovelace.editor.card.generic.state"
                                               )} (${this.hass!.localize(
@@ -161,10 +162,11 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
                                               .value=${cond.state_not !== undefined
                                                   ? cond.state_not
                                                   : cond.state}
-                                              .index=${idx}
+                                              .idx=${idx}
                                               .configValue=${"state"}
-                                              @value-changed=${this._changeCondition}
-                                          ></paper-input>
+                                              @input=${this._changeCondition}
+                                          >
+                                          </mushroom-textfield>
                                       </div>
                                   </div>
                               `
@@ -202,8 +204,7 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
     }
 
     private async _handleChipPicked(ev: CustomEvent): Promise<void> {
-        const value = ev.detail.item.dataset.type as any;
-        (ev.target as any).selected = "";
+        const value = (ev.target as any).value;
 
         if (value === "") {
             return;
@@ -219,7 +220,7 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
             newChip = { type: value };
         }
 
-        (ev.target as any).selected = "";
+        (ev.target as any).value = "";
 
         ev.stopPropagation();
         if (!this._config) {
@@ -276,9 +277,9 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
         }
         const conditions = [...this._config.conditions];
         if (target.configValue === "entity" && target.value === "") {
-            conditions.splice(target.index, 1);
+            conditions.splice(target.idx, 1);
         } else {
-            const condition = { ...conditions[target.index] };
+            const condition = { ...conditions[target.idx] };
             if (target.configValue === "entity") {
                 condition.entity = target.value;
             } else if (target.configValue === "state") {
@@ -288,7 +289,7 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
                     condition.state = target.value;
                 }
             } else if (target.configValue === "invert") {
-                if (target.selected === 1) {
+                if (target.value === "true") {
                     if (condition.state) {
                         condition.state_not = condition.state;
                         delete condition.state;
@@ -298,7 +299,7 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
                     delete condition.state_not;
                 }
             }
-            conditions[target.index] = condition;
+            conditions[target.idx] = condition;
         }
         this._config = { ...this._config, conditions };
         fireEvent(this, "config-changed", { config: this._config });
@@ -323,17 +324,17 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
                     display: flex;
                     align-items: flex-end;
                 }
-                .condition .state paper-dropdown-menu {
+                .condition .state mushroom-select {
                     margin-right: 16px;
                 }
-                .condition .state paper-input {
-                    flex-grow: 1;
-                }
-
                 .card {
                     margin-top: 8px;
                     border: 1px solid var(--divider-color);
                     padding: 12px;
+                }
+                .card mushroom-select {
+                    width: 100%;
+                    margin-top: 0px;
                 }
                 @media (max-width: 450px) {
                     .card,

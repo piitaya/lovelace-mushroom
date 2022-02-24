@@ -45,7 +45,7 @@ export class MenuChipEditor extends LitElement implements LovelaceChipEditor {
             return;
         }
         const target = ev.target! as EditorTarget;
-        const value = target.checked ?? ev.detail.value ?? ev.detail.item?.value;
+        const value = target.checked ?? ev.detail.value ?? target.value;
 
         if (!target.configValue || this._config[target.configValue] === value) {
             return;

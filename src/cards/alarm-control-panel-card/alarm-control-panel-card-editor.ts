@@ -71,14 +71,15 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                     allow-custom-entity
                 ></ha-entity-picker>
                 <div class="side-by-side">
-                    <paper-input
+                    <mushroom-textfield
                         .label="${this.hass.localize(
                             "ui.panel.lovelace.editor.card.generic.name"
                         )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
-                        .value=${this._config.name}
+                        .value=${this._config.name ?? ""}
                         .configValue=${"name"}
-                        @value-changed=${this._valueChanged}
-                    ></paper-input>
+                        @input=${this._valueChanged}
+                    >
+                    </mushroom-textfield>
                     <ha-icon-picker
                         .label="${this.hass.localize(
                             "ui.panel.lovelace.editor.card.generic.icon"
@@ -113,36 +114,46 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                 </div>
                 <div class="side-by-side">
                     <div>
-                        <span
-                            >${customLocalize(
-                                "editor.card.alarm_control_panel.displayed_states"
-                            )}</span
-                        >
-                        ${this._states.map(
-                            (entityState, index) => html`
-                                <div class="states">
-                                    <paper-item>${entityState}</paper-item>
-                                    <ha-icon
-                                        class="deleteState"
-                                        .value=${index}
-                                        icon="mdi:close"
-                                        @click=${this._stateRemoved}
-                                    />
-                                </div>
-                            `
-                        )}
-                        <paper-dropdown-menu
+                        <mwc-list>
+                            <mwc-list-item noninteractive
+                                >${customLocalize(
+                                    "editor.card.alarm_control_panel.displayed_states"
+                                )}</mwc-list-item
+                            >
+                            <li divider role="separator"></li>
+                            ${this._states.map(
+                                (entityState, index) => html`
+                                    <mwc-list-item hasMeta>
+                                        <span>${entityState}</span>
+                                        <ha-icon
+                                            class="deleteState"
+                                            .value=${index}
+                                            icon="mdi:close"
+                                            @click=${this._stateRemoved}
+                                            slot="meta"
+                                        ></ha-icon>
+                                    </mwc-list-item>
+                                `
+                            )}
+                        </mwc-list>
+                        <mushroom-select
                             .label=${this.hass.localize(
                                 "ui.panel.lovelace.editor.card.alarm-panel.available_states"
                             )}
-                            @value-changed=${this._stateAdded}
+                            @selected=${this._stateAdded}
+                            @closed=${(e) => e.stopPropagation()}
+                            fixedMenuPosition
+                            naturalMenuWidth
                         >
-                            <paper-listbox slot="dropdown-content">
-                                ${states.map(
-                                    (entityState) => html`<paper-item>${entityState}</paper-item>`
-                                )}
-                            </paper-listbox>
-                        </paper-dropdown-menu>
+                            ${states.map(
+                                (entityState) =>
+                                    html`
+                                        <mwc-list-item .value=${entityState}>
+                                            ${entityState}
+                                        </mwc-list-item>
+                                    `
+                            )}
+                        </mushroom-select>
                     </div>
                 </div>
                 <div class="side-by-side">
@@ -197,7 +208,7 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
             return;
         }
         const target = ev.target! as EditorTarget;
-        const value = target.checked ?? ev.detail.value ?? ev.detail.item?.value;
+        const value = target.checked ?? ev.detail.value ?? target.value;
 
         if (!target.configValue || this._config[target.configValue] === value) {
             return;
@@ -241,6 +252,7 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
         }
         const target = ev.target! as EditorTarget;
         if (!target.value || this._states.indexOf(target.value) !== -1) {
+            target.value = "";
             return;
         }
         const newStates = [...this._states];
@@ -265,7 +277,7 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                 .deleteState {
                     visibility: hidden;
                 }
-                .states:hover > .deleteState {
+                mwc-list-item:hover > .deleteState {
                     visibility: visible;
                 }
                 ha-icon {

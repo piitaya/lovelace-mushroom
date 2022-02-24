@@ -24,12 +24,20 @@ export const configElementStyle = css`
     .suffix {
         margin: 0 8px;
     }
-    .circle-color {
-        background-color: rgb(var(--main-color));
-        border-radius: 10px;
-        width: 20px;
-        height: 20px;
-        margin-right: 10px;
+    mushroom-textarea {
+        width: 100%;
+    }
+    hui-theme-select-editor,
+    hui-action-editor,
+    mushroom-select,
+    mushroom-textfield,
+    mushroom-textarea,
+    ha-icon-picker,
+    mushroom-layout-picker,
+    mushroom-info-picker,
+    mushroom-alignment-picker,
+    mushroom-color-picker {
+        margin-top: 8px;
     }
 `;
 

@@ -51,14 +51,15 @@ export class LightCardEditor extends LitElement implements LovelaceCardEditor {
                     allow-custom-entity
                 ></ha-entity-picker>
                 <div class="side-by-side">
-                    <paper-input
+                    <mushroom-textfield
                         .label="${this.hass.localize(
                             "ui.panel.lovelace.editor.card.generic.name"
                         )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
-                        .value=${this._config.name}
+                        .value=${this._config.name ?? ""}
                         .configValue=${"name"}
-                        @value-changed=${this._valueChanged}
-                    ></paper-input>
+                        @input=${this._valueChanged}
+                    >
+                    </mushroom-textfield>
                     <ha-icon-picker
                         .label="${this.hass.localize(
                             "ui.panel.lovelace.editor.card.generic.icon"
@@ -192,7 +193,7 @@ export class LightCardEditor extends LitElement implements LovelaceCardEditor {
             return;
         }
         const target = ev.target! as EditorTarget;
-        const value = target.checked ?? ev.detail.value ?? ev.detail.item?.value;
+        const value = target.checked ?? ev.detail.value ?? target.value;
 
         if (!target.configValue || this._config[target.configValue] === value) {
             return;

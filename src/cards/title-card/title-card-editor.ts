@@ -28,36 +28,39 @@ export class TitleCardEditor extends LitElement implements LovelaceCardEditor {
 
         return html`
             <div class="card-config">
-                <paper-textarea
+                <mushroom-textarea
                     .label="${customLocalize("editor.card.title.title")} (${this.hass.localize(
                         "ui.panel.lovelace.editor.card.config.optional"
                     )})"
-                    .value=${this._config.title}
+                    .value=${this._config.title ?? ""}
                     .configValue=${"title"}
                     @keydown=${this._ignoreKeydown}
-                    @value-changed=${this._valueChanged}
+                    @input=${this._valueChanged}
+                    dir="ltr"
+                    autogrow
                     autocapitalize="none"
                     autocomplete="off"
                     spellcheck="false"
-                ></paper-textarea>
-                <paper-textarea
+                ></mushroom-textarea>
+                <mushroom-textarea
                     .label="${customLocalize("editor.card.title.subtitle")} (${this.hass.localize(
                         "ui.panel.lovelace.editor.card.config.optional"
                     )})"
-                    .value=${this._config.subtitle}
+                    .value=${this._config.subtitle ?? ""}
                     .configValue=${"subtitle"}
                     @keydown=${this._ignoreKeydown}
-                    @value-changed=${this._valueChanged}
+                    @input=${this._valueChanged}
+                    dir="ltr"
+                    autogrow
                     autocapitalize="none"
                     autocomplete="off"
                     spellcheck="false"
-                ></paper-textarea>
+                ></mushroom-textarea>
             </div>
         `;
     }
 
     private _ignoreKeydown(ev: KeyboardEvent) {
-        // Stop keyboard events from the paper-textarea from propagating to avoid accidentally closing the dialog when the user presses Enter.
         ev.stopPropagation();
     }
 
@@ -66,7 +69,7 @@ export class TitleCardEditor extends LitElement implements LovelaceCardEditor {
             return;
         }
         const target = ev.target! as EditorTarget;
-        const value = target.checked !== undefined ? target.checked : ev.detail.value;
+        const value = target.checked ?? ev.detail.value ?? target.value;
 
         if (this[`_${target.configValue}`] === value) {
             return;

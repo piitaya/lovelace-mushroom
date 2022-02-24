@@ -2,17 +2,16 @@ import { HomeAssistant } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import setupCustomlocalize from "../../localize";
-import { INFOS } from "../../utils/info";
 
-@customElement("mushroom-info-picker")
-export class InfoPicker extends LitElement {
+export const ALIGNMENT = ["start", "end", "center", "justify"];
+
+@customElement("mushroom-alignment-picker")
+export class ColorPicker extends LitElement {
     @property() public label = "";
 
     @property() public value?: string;
 
     @property() public configValue = "";
-
-    @property() public infos: string[] = [...INFOS];
 
     @property() public hass!: HomeAssistant;
 
@@ -41,13 +40,12 @@ export class InfoPicker extends LitElement {
                 naturalMenuWidth
             >
                 <mwc-list-item value="default">
-                    ${customLocalize("editor.form.info_picker.values.default")}
+                    ${customLocalize("editor.card.chips.alignment_values.default")}
                 </mwc-list-item>
-                ${this.infos.map((info) => {
+                ${ALIGNMENT.map((alignment) => {
                     return html`
-                        <mwc-list-item .value=${info}>
-                            ${customLocalize(`editor.form.info_picker.values.${info}`) ||
-                            capitalizeFirstLetter(info)}
+                        <mwc-list-item .value=${alignment}>
+                            ${customLocalize(`editor.card.chips.alignment_values.${alignment}`)}
                         </mwc-list-item>
                     `;
                 })}
@@ -62,8 +60,4 @@ export class InfoPicker extends LitElement {
             }
         `;
     }
-}
-
-function capitalizeFirstLetter(string: string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
 }

@@ -6,6 +6,7 @@ import type { SortableEvent } from "sortablejs";
 import setupCustomlocalize from "../../localize";
 import { getChipElementClass } from "../../utils/lovelace/chip-element-editor";
 import { CHIP_LIST, LovelaceChipConfig } from "../../utils/lovelace/chip/types";
+import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { sortableStyles } from "../../utils/sortable-styles";
 
 let Sortable;
@@ -97,20 +98,22 @@ export class ChipsCardEditorChips extends LitElement {
                           )
                 )}
             </div>
-            <paper-dropdown-menu
-                .placeholder=${customLocalize("editor.chip.chip-picker.add")}
-                @iron-select=${this._addChips}
+            <mushroom-select
+                .label=${customLocalize("editor.chip.chip-picker.add")}
+                @selected=${this._addChips}
+                @closed=${(e) => e.stopPropagation()}
+                fixedMenuPosition
+                naturalMenuWidth
             >
-                <paper-listbox slot="dropdown-content" attr-for-selected="data-type">
-                    ${CHIP_LIST.map(
-                        (chip) => html`
-                            <paper-item data-type="${chip}" }
-                                >${customLocalize(`editor.chip.chip-picker.types.${chip}`)}</paper-item
-                            >
+                ${CHIP_LIST.map(
+                    (chip) =>
+                        html`
+                            <mwc-list-item .value=${chip}>
+                                ${customLocalize(`editor.chip.chip-picker.types.${chip}`)}
+                            </mwc-list-item>
                         `
-                    )}
-                </paper-listbox>
-            </paper-dropdown-menu>
+                )}
+            </mushroom-select>
         `;
     }
 
@@ -168,9 +171,9 @@ export class ChipsCardEditorChips extends LitElement {
         });
     }
 
-    private async _addChips(ev: CustomEvent): Promise<void> {
-        const value = ev.detail.item.dataset.type as any;
-        (ev.target as any).selected = "";
+    private async _addChips(ev: any): Promise<void> {
+        const target = ev.target! as EditorTarget;
+        const value = target.value as string;
 
         if (value === "") {
             return;
@@ -184,11 +187,11 @@ export class ChipsCardEditorChips extends LitElement {
         if (elClass && elClass.getStubConfig) {
             newChip = (await elClass.getStubConfig(this.hass)) as LovelaceChipConfig;
         } else {
-            newChip = { type: value };
+            newChip = { type: value } as LovelaceChipConfig;
         }
 
         const newConfigChips = this.chips!.concat(newChip);
-        (ev.target as any).selected = "";
+        target.value = "";
         fireEvent(this, "chips-changed", {
             chips: newConfigChips,
         });
@@ -250,7 +253,7 @@ export class ChipsCardEditorChips extends LitElement {
                     display: flex;
                 }
 
-                paper-dropdown-menu {
+                mushroom-select {
                     width: 100%;
                 }
 

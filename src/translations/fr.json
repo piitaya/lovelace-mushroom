@@ -71,7 +71,8 @@
             "chips": {
                 "alignment": "Alignement",
                 "alignment_values": {
-                    "default": "Par défaut (début)",
+                    "default": "Alignement par défaut",
+                    "start": "Début",
                     "end": "Fin",
                     "center": "Centré",
                     "justify": "Justifié"
