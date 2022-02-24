@@ -6,7 +6,6 @@ import {
     HomeAssistant,
     LovelaceCard,
     LovelaceCardEditor,
-    stateIcon as stateIconHelper,
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
@@ -19,6 +18,7 @@ import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
 import { isActive } from "../../utils/entity";
+import { stateIcon as stateIconHelper } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig } from "../../utils/layout";
 import { PERSON_CARD_EDITOR_NAME, PERSON_CARD_NAME, PERSON_ENTITY_DOMAINS } from "./const";
 import { PersonCardConfig } from "./person-card-config";

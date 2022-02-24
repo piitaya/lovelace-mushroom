@@ -3,7 +3,6 @@ import {
     fireEvent,
     HomeAssistant,
     LovelaceCardEditor,
-    stateIcon,
 } from "custom-card-helpers";
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
@@ -11,6 +10,7 @@ import { assert } from "superstruct";
 import setupCustomlocalize from "../../localize";
 import "../../shared/editor/layout-picker";
 import { configElementStyle } from "../../utils/editor-styles";
+import { stateIcon } from "../../utils/icons/state-icon";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { COVER_CARD_EDITOR_NAME, COVER_ENTITY_DOMAINS } from "./const";
 import { CoverCardConfig, coverCardConfigStruct } from "./cover-card-config";

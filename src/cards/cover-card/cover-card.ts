@@ -6,7 +6,6 @@ import {
     HomeAssistant,
     LovelaceCard,
     LovelaceCardEditor,
-    stateIcon,
 } from "custom-card-helpers";
 import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
@@ -21,6 +20,7 @@ import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
 import { isActive } from "../../utils/entity";
+import { stateIcon } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig, Layout } from "../../utils/layout";
 import { COVER_CARD_EDITOR_NAME, COVER_CARD_NAME, COVER_ENTITY_DOMAINS } from "./const";
 import "./controls/cover-buttons-control";

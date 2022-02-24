@@ -12,15 +12,20 @@ import { styleMap } from "lit/directives/style-map.js";
 import { computeRgbColor } from "../../../utils/colors";
 import { actionHandler } from "../../../utils/directives/action-handler-directive";
 import { animation } from "../../../utils/entity-styles";
+import { stateIcon } from "../../../utils/icons/state-icon";
 import { getInfo } from "../../../utils/info";
 import {
     computeChipComponentName,
     computeChipEditorComponentName,
 } from "../../../utils/lovelace/chip/chip-element";
-import { AlarmControlPanelChipConfig, EntityChipConfig, LovelaceChip } from "../../../utils/lovelace/chip/types";
+import {
+    AlarmControlPanelChipConfig,
+    EntityChipConfig,
+    LovelaceChip,
+} from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { ALARM_CONTROl_PANEL_ENTITY_DOMAINS } from "../../alarm-control-panel-card/const";
-import { getStateColor, getStateIcon, shouldPulse } from "../../alarm-control-panel-card/utils";
+import { getStateColor, shouldPulse } from "../../alarm-control-panel-card/utils";
 import "./alarm-control-panel-chip-editor";
 
 @customElement(computeChipComponentName("alarm-control-panel"))
@@ -63,7 +68,7 @@ export class AlarmControlPanelChip extends LitElement implements LovelaceChip {
         const entity = this.hass.states[entity_id];
 
         const name = this._config.name ?? entity.attributes.friendly_name ?? "";
-        const icon = this._config.icon ?? getStateIcon(entity.state);
+        const icon = this._config.icon ?? stateIcon(entity);
         const iconColor = getStateColor(entity.state);
         const iconPulse = shouldPulse(entity.state);
 

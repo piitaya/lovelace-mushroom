@@ -1,10 +1,11 @@
-import { fireEvent, HomeAssistant, stateIcon } from "custom-card-helpers";
+import { fireEvent, HomeAssistant } from "custom-card-helpers";
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import setupCustomlocalize from "../../../localize";
 import "../../../shared/editor/color-picker";
 import "../../../shared/editor/info-picker";
 import { configElementStyle } from "../../../utils/editor-styles";
+import { stateIcon } from "../../../utils/icons/state-icon";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
 import { AlarmControlPanelChipConfig } from "../../../utils/lovelace/chip/types";
 import { EditorTarget } from "../../../utils/lovelace/editor/types";
@@ -65,6 +66,17 @@ export class AlarmControlPanelChipEditor extends LitElement implements LovelaceC
                         @value-changed=${this._valueChanged}
                     >
                     </mushroom-info-picker>
+                </div>
+                <div class="side-by-side">
+                    <ha-icon-picker
+                        .label="${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.generic.icon"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
+                        .value=${this._config.icon}
+                        .placeholder=${this._config.icon || entityIcon}
+                        .configValue=${"icon"}
+                        @value-changed=${this._valueChanged}
+                    ></ha-icon-picker>
                 </div>
                 <div class="side-by-side">
                     <hui-action-editor

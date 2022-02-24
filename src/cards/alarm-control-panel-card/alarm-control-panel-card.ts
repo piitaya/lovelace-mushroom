@@ -20,6 +20,8 @@ import "../../shared/state-item";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
+import { alarmPanelIconAction } from "../../utils/icons/alarm-panel-icon";
+import { stateIcon } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig } from "../../utils/layout";
 import { AlarmControlPanelCardConfig } from "./alarm-control-panel-card-config";
 import "./alarm-control-panel-card-editor";
@@ -30,7 +32,6 @@ import {
 } from "./const";
 import {
     getStateColor,
-    getStateIcon,
     getStateService,
     isActionsAvailable,
     isDisarmed,
@@ -142,7 +143,7 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
         const entity = this.hass.states[entity_id];
 
         const name = this._config.name ?? entity.attributes.friendly_name;
-        const icon = this._config.icon ?? getStateIcon(entity.state);
+        const icon = this._config.icon ?? stateIcon(entity);
         const color = getStateColor(entity.state);
         const shapePulse = shouldPulse(entity.state);
         const layout = getLayoutFromConfig(this._config);
@@ -209,7 +210,7 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                                   ${actions.map(
                                       (action) => html`
                                           <mushroom-button
-                                              .icon=${getStateIcon(action.state)}
+                                              .icon=${alarmPanelIconAction(action.state)}
                                               @click=${(e) => this._onTap(e, action.state)}
                                               .disabled=${!isActionEnabled}
                                           ></mushroom-button>
