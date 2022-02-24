@@ -31,6 +31,7 @@ export class ColorPicker extends LitElement {
 
         return html`
             <mushroom-select
+                .icon=${Boolean(this.value)}
                 .label=${this.label}
                 .configValue=${this.configValue}
                 @selected=${this._selectChanged}
@@ -39,6 +40,7 @@ export class ColorPicker extends LitElement {
                 fixedMenuPosition
                 naturalMenuWidth
             >
+                <mwc-icon slot="icon">${this.renderColorCircle(this.value || "grey")}</mwc-icon>
                 <mwc-list-item value="default">
                     ${customLocalize("editor.form.color_picker.values.default")}
                 </mwc-list-item>
