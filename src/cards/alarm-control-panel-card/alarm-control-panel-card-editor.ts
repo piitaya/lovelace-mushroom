@@ -9,6 +9,8 @@ import { customElement, property, state } from "lit/decorators.js";
 import { assert } from "superstruct";
 import setupCustomlocalize from "../../localize";
 import "../../shared/editor/layout-picker";
+import "../../shared/form/mushroom-select";
+import "../../shared/form/mushroom-textfield";
 import { configElementStyle } from "../../utils/editor-styles";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { EditorTarget } from "../../utils/lovelace/editor/types";

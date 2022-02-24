@@ -27,7 +27,6 @@ import { FAN_CARD_EDITOR_NAME, FAN_CARD_NAME, FAN_ENTITY_DOMAINS } from "./const
 import "./controls/fan-oscillate-control";
 import "./controls/fan-percentage-control";
 import { FanCardConfig } from "./fan-card-config";
-import "./fan-card-editor";
 import { getPercentage } from "./utils";
 
 registerCustomCard({
@@ -39,6 +38,7 @@ registerCustomCard({
 @customElement(FAN_CARD_NAME)
 export class FanCard extends LitElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
+        await import("./fan-card-editor");
         return document.createElement(FAN_CARD_EDITOR_NAME) as LovelaceCardEditor;
     }
 

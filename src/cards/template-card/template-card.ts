@@ -21,7 +21,6 @@ import { getLayoutFromConfig } from "../../utils/layout";
 import { RenderTemplateResult, subscribeRenderTemplate } from "../../utils/ws-templates";
 import { TEMPLATE_CARD_EDITOR_NAME, TEMPLATE_CARD_NAME } from "./const";
 import { TemplateCardConfig } from "./template-card-config";
-import "./template-card-editor";
 
 registerCustomCard({
     type: TEMPLATE_CARD_NAME,
@@ -35,6 +34,7 @@ type TemplateKey = typeof TEMPLATE_KEYS[number];
 @customElement(TEMPLATE_CARD_NAME)
 export class TemplateCard extends LitElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
+        await import("./template-card-editor");
         return document.createElement(TEMPLATE_CARD_EDITOR_NAME) as LovelaceCardEditor;
     }
 

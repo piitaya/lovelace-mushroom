@@ -19,4 +19,4 @@ jobs:
               with:
                   draft: true
                   generate_release_notes: true
-                  files: dist/mushroom.js
+                  files: dist/*.js

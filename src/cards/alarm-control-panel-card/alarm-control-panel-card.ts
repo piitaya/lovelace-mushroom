@@ -7,7 +7,7 @@ import {
     LovelaceCard,
     LovelaceCardEditor,
 } from "custom-card-helpers";
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -23,7 +23,6 @@ import { alarmPanelIconAction } from "../../utils/icons/alarm-panel-icon";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig } from "../../utils/layout";
 import { AlarmControlPanelCardConfig } from "./alarm-control-panel-card-config";
-import "./alarm-control-panel-card-editor";
 import {
     ALARM_CONTROl_PANEL_CARD_EDITOR_NAME,
     ALARM_CONTROl_PANEL_CARD_NAME,
@@ -32,6 +31,7 @@ import {
 import {
     getStateColor,
     getStateService,
+    hasCode,
     isActionsAvailable,
     isDisarmed,
     shouldPulse,
@@ -60,6 +60,7 @@ const BUTTONS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "", "0", "clear"];
 @customElement(ALARM_CONTROl_PANEL_CARD_NAME)
 export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
+        await import("./alarm-control-panel-card-editor");
         return document.createElement(ALARM_CONTROl_PANEL_CARD_EDITOR_NAME) as LovelaceCardEditor;
     }
 
@@ -98,6 +99,24 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
             },
             ...config,
         };
+        this.loadComponents();
+    }
+
+    protected updated(changedProperties: PropertyValues) {
+        super.updated(changedProperties);
+        if (this.hass && changedProperties.has("hass")) {
+            this.loadComponents();
+        }
+    }
+
+    async loadComponents() {
+        if (!this._config || !this.hass || !this._config.entity) return;
+        const entity_id = this._config.entity;
+        const entity = this.hass.states[entity_id];
+
+        if (hasCode(entity)) {
+            void import("../../shared/form/mushroom-textfield");
+        }
     }
 
     private _onTap(e: MouseEvent, state: string): void {
@@ -129,7 +148,7 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
         const entity_id = this._config?.entity;
         if (entity_id) {
             const entity = this.hass.states[entity_id];
-            return entity.attributes.code_format && entity.attributes.code_format !== "no_code";
+            return hasCode(entity);
         }
         return false;
     }

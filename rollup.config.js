@@ -7,6 +7,16 @@ import { terser } from "rollup-plugin-terser";
 import serve from "rollup-plugin-serve";
 import ignore from "./rollup-plugins/rollup-ignore-plugin.js";
 
+const IGNORED_FILES = [
+    "@material/mwc-notched-outline/mwc-notched-outline.js",
+    "@material/mwc-ripple/mwc-ripple.js",
+    "@material/mwc-list/mwc-list.js",
+    "@material/mwc-list/mwc-list-item.js",
+    "@material/mwc-menu/mwc-menu.js",
+    "@material/mwc-menu/mwc-menu-surface.js",
+    "@material/mwc-icon/mwc-icon.js",
+];
+
 const dev = process.env.ROLLUP_WATCH;
 
 const serveOptions = {
@@ -21,15 +31,7 @@ const serveOptions = {
 
 const plugins = [
     ignore({
-        files: [
-            require.resolve("@material/mwc-notched-outline/mwc-notched-outline.js"),
-            require.resolve("@material/mwc-ripple/mwc-ripple.js"),
-            require.resolve("@material/mwc-list/mwc-list.js"),
-            require.resolve("@material/mwc-list/mwc-list-item.js"),
-            require.resolve("@material/mwc-menu/mwc-menu.js"),
-            require.resolve("@material/mwc-menu/mwc-menu-surface.js"),
-            require.resolve("@material/mwc-icon/mwc-icon.js"),
-        ],
+        files: IGNORED_FILES.map(file => require.resolve(file))
     }),
     typescript({
         declaration: false,
@@ -46,13 +48,13 @@ const plugins = [
 
 export default [
     {
-        input: "src/index.ts",
+        input: "src/mushroom.ts",
         output: {
-            file: "dist/mushroom.js",
+            dir: "dist",
             format: "es",
         },
         plugins,
-        inlineDynamicImports: true,
+        inlineDynamicImports: false,
         moduleContext: (id) => {
             const thisAsWindowForModules = [
                 "node_modules/@formatjs/intl-utils/lib/src/diff.js",

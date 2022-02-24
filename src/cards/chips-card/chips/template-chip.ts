@@ -12,7 +12,6 @@ import {
 import { LovelaceChip, TemplateChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { RenderTemplateResult, subscribeRenderTemplate } from "../../../utils/ws-templates";
-import "./template-chip-editor";
 
 const TEMPLATE_KEYS = ["content", "icon", "icon_color"] as const;
 type TemplateKey = typeof TEMPLATE_KEYS[number];
@@ -20,6 +19,7 @@ type TemplateKey = typeof TEMPLATE_KEYS[number];
 @customElement(computeChipComponentName("template"))
 export class TemplateChip extends LitElement implements LovelaceChip {
     public static async getConfigElement(): Promise<LovelaceChipEditor> {
+        await import("./template-chip-editor");
         return document.createElement(
             computeChipEditorComponentName("template")
         ) as LovelaceChipEditor;

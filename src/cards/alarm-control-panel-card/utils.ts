@@ -27,3 +27,7 @@ export function isActionsAvailable(entity: HassEntity) {
 export function isDisarmed(entity: HassEntity) {
     return entity.state === "disarmed";
 }
+
+export function hasCode(entity: HassEntity): boolean {
+    return entity.attributes.code_format && entity.attributes.code_format !== "no_code";
+}

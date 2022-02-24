@@ -4,6 +4,7 @@ import { customElement, property, state } from "lit/decorators.js";
 import setupCustomlocalize from "../../../localize";
 import "../../../shared/editor/color-picker";
 import "../../../shared/editor/info-picker";
+import "../../../shared/form/mushroom-textfield";
 import { configElementStyle } from "../../../utils/editor-styles";
 import { stateIcon } from "../../../utils/icons/state-icon";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";

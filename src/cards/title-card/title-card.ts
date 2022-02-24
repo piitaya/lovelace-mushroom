@@ -9,7 +9,6 @@ import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { RenderTemplateResult, subscribeRenderTemplate } from "../../utils/ws-templates";
 import { TITLE_CARD_EDITOR_NAME, TITLE_CARD_NAME } from "./const";
-import "./title-card-editor";
 import { TitleCardConfig } from "./title-card-config";
 
 registerCustomCard({
@@ -24,6 +23,7 @@ type TemplateKey = typeof TEMPLATE_KEYS[number];
 @customElement(TITLE_CARD_NAME)
 export class TitleCard extends LitElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
+        await import("./title-card-editor");
         return document.createElement(TITLE_CARD_EDITOR_NAME) as LovelaceCardEditor;
     }
 

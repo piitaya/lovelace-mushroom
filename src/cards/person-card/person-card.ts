@@ -22,7 +22,6 @@ import { stateIcon as stateIconHelper } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig } from "../../utils/layout";
 import { PERSON_CARD_EDITOR_NAME, PERSON_CARD_NAME, PERSON_ENTITY_DOMAINS } from "./const";
 import { PersonCardConfig } from "./person-card-config";
-import "./person-card-editor";
 import { getStateColor, getStateIcon } from "./utils";
 
 registerCustomCard({
@@ -34,6 +33,7 @@ registerCustomCard({
 @customElement(PERSON_CARD_NAME)
 export class PersonCard extends LitElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
+        await import("./person-card-editor");
         return document.createElement(PERSON_CARD_EDITOR_NAME) as LovelaceCardEditor;
     }
 
