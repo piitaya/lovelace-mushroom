@@ -30,7 +30,7 @@ export class ColorPicker extends LitElement {
         const customLocalize = setupCustomlocalize(this.hass);
 
         return html`
-            <mwc-select
+            <mushroom-select
                 .label=${this.label}
                 .configValue=${this.configValue}
                 @selected=${this._selectChanged}
@@ -50,7 +50,7 @@ export class ColorPicker extends LitElement {
                         </mwc-list-item>
                     `
                 )}
-            </mwc-select>
+            </mushroom-select>
         `;
     }
 
@@ -67,7 +67,7 @@ export class ColorPicker extends LitElement {
 
     static get styles(): CSSResultGroup {
         return css`
-            mwc-select {
+            mushroom-select {
                 width: 100%;
             }
             .circle-color {

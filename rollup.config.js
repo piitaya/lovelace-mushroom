@@ -23,6 +23,12 @@ const plugins = [
     ignore({
         files: [
             require.resolve("@material/mwc-notched-outline/mwc-notched-outline.js"),
+            require.resolve("@material/mwc-ripple/mwc-ripple.js"),
+            require.resolve("@material/mwc-list/mwc-list.js"),
+            require.resolve("@material/mwc-list/mwc-list-item.js"),
+            require.resolve("@material/mwc-menu/mwc-menu.js"),
+            require.resolve("@material/mwc-menu/mwc-menu-surface.js"),
+            require.resolve("@material/mwc-icon/mwc-icon.js"),
         ],
     }),
     typescript({

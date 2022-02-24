@@ -91,7 +91,7 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
                                     ></mushroom-chip-element-editor>
                                 `
                               : html`
-                                    <mwc-select
+                                    <mushroom-select
                                         .label=${customLocalize("editor.chip.chip-picker.select")}
                                         @selected=${this._handleChipPicked}
                                         @closed=${(e) => e.stopPropagation()}
@@ -108,7 +108,7 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
                                                     </mwc-list-item>
                                                 `
                                         )}
-                                    </mwc-select>
+                                    </mushroom-select>
                                 `}
                       </div>
                   `
@@ -131,7 +131,7 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
                                           ></ha-entity-picker>
                                       </div>
                                       <div class="state">
-                                          <mwc-select
+                                          <mushroom-select
                                               .value=${cond.state_not !== undefined
                                                   ? "true"
                                                   : "false"}
@@ -152,7 +152,7 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
                                                       "ui.panel.lovelace.editor.card.conditional.state_not_equal"
                                                   )}
                                               </mwc-list-item>
-                                          </mwc-select>
+                                          </mushroom-select>
                                           <mushroom-textfield
                                               .label="${this.hass!.localize(
                                                   "ui.panel.lovelace.editor.card.generic.state"
@@ -324,7 +324,7 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
                     display: flex;
                     align-items: flex-end;
                 }
-                .condition .state mwc-select {
+                .condition .state mushroom-select {
                     margin-right: 16px;
                 }
                 .card {
@@ -332,7 +332,7 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
                     border: 1px solid var(--divider-color);
                     padding: 12px;
                 }
-                .card mwc-select {
+                .card mushroom-select {
                     width: 100%;
                     margin-top: 0px;
                 }

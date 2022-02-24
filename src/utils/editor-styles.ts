@@ -29,7 +29,7 @@ export const configElementStyle = css`
     }
     hui-theme-select-editor,
     hui-action-editor,
-    mwc-select,
+    mushroom-select,
     mushroom-textfield,
     mushroom-textarea,
     ha-icon-picker,

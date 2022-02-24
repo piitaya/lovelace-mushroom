@@ -98,7 +98,7 @@ export class ChipsCardEditorChips extends LitElement {
                           )
                 )}
             </div>
-            <mwc-select
+            <mushroom-select
                 .label=${customLocalize("editor.chip.chip-picker.add")}
                 @selected=${this._addChips}
                 @closed=${(e) => e.stopPropagation()}
@@ -113,7 +113,7 @@ export class ChipsCardEditorChips extends LitElement {
                             </mwc-list-item>
                         `
                 )}
-            </mwc-select>
+            </mushroom-select>
         `;
     }
 
@@ -253,7 +253,7 @@ export class ChipsCardEditorChips extends LitElement {
                     display: flex;
                 }
 
-                mwc-select {
+                mushroom-select {
                     width: 100%;
                 }
 

@@ -28,7 +28,7 @@ export class LayoutPicker extends LitElement {
         const customLocalize = setupCustomlocalize(this.hass);
 
         return html`
-            <mwc-select
+            <mushroom-select
                 .label=${this.label}
                 .configValue=${this.configValue}
                 @selected=${this._selectChanged}
@@ -46,13 +46,13 @@ export class LayoutPicker extends LitElement {
                 <mwc-list-item .value=${"horizontal"}>
                     ${customLocalize("editor.form.layout_picker.values.horizontal")}
                 </mwc-list-item>
-            </mwc-select>
+            </mushroom-select>
         `;
     }
 
     static get styles(): CSSResultGroup {
         return css`
-            mwc-select {
+            mushroom-select {
                 width: 100%;
             }
         `;

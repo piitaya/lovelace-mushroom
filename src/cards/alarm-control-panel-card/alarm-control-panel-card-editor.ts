@@ -136,7 +136,7 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                                 `
                             )}
                         </mwc-list>
-                        <mwc-select
+                        <mushroom-select
                             .label=${this.hass.localize(
                                 "ui.panel.lovelace.editor.card.alarm-panel.available_states"
                             )}
@@ -153,7 +153,7 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                                         </mwc-list-item>
                                     `
                             )}
-                        </mwc-select>
+                        </mushroom-select>
                     </div>
                 </div>
                 <div class="side-by-side">

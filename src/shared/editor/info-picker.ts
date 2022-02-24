@@ -31,7 +31,7 @@ export class InfoPicker extends LitElement {
         const customLocalize = setupCustomlocalize(this.hass);
 
         return html`
-            <mwc-select
+            <mushroom-select
                 .label=${this.label}
                 .configValue=${this.configValue}
                 @selected=${this._selectChanged}
@@ -51,13 +51,13 @@ export class InfoPicker extends LitElement {
                         </mwc-list-item>
                     `;
                 })}
-            </mwc-select>
+            </mushroom-select>
         `;
     }
 
     static get styles(): CSSResultGroup {
         return css`
-            mwc-select {
+            mushroom-select {
                 width: 100%;
             }
         `;
