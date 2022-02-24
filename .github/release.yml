@@ -11,6 +11,9 @@ changelog:
     - title: New Features 🎉
       labels:
         - enhancement
+    - title: Fixes 🐛
+      labels:
+        - bug
     - title: Translations 🌍
       labels:
         - translations
