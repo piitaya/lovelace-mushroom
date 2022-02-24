@@ -10,13 +10,13 @@ import { assert } from "superstruct";
 import setupCustomlocalize from "../../localize";
 import "../../shared/editor/layout-picker";
 import { configElementStyle } from "../../utils/editor-styles";
+import { stateIcon } from "../../utils/icons/state-icon";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
 import {
     alarmControlPanelCardCardConfigStruct,
     AlarmControlPanelCardConfig,
 } from "./alarm-control-panel-card-config";
 import { ALARM_CONTROl_PANEL_CARD_EDITOR_NAME, ALARM_CONTROl_PANEL_ENTITY_DOMAINS } from "./const";
-import { getStateIcon } from "./utils";
 
 const DOMAINS = [...ALARM_CONTROl_PANEL_ENTITY_DOMAINS];
 
@@ -46,8 +46,8 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
         }
 
         const dir = computeRTLDirection(this.hass);
-        const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
-        const entityIcon = entityState ? getStateIcon(entityState.state) : undefined;
+        const entity = this._config.entity ? this.hass.states[this._config.entity] : undefined;
+        const entityIcon = entity ? stateIcon(entity) : undefined;
 
         const states = [
             "armed_home",

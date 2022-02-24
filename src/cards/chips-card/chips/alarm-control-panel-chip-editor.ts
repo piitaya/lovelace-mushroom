@@ -68,6 +68,17 @@ export class AlarmControlPanelChipEditor extends LitElement implements LovelaceC
                     </mushroom-info-picker>
                 </div>
                 <div class="side-by-side">
+                    <ha-icon-picker
+                        .label="${this.hass.localize(
+                            "ui.panel.lovelace.editor.card.generic.icon"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
+                        .value=${this._config.icon}
+                        .placeholder=${this._config.icon || entityIcon}
+                        .configValue=${"icon"}
+                        @value-changed=${this._valueChanged}
+                    ></ha-icon-picker>
+                </div>
+                <div class="side-by-side">
                     <hui-action-editor
                         .label="${this.hass.localize(
                             "ui.panel.lovelace.editor.card.generic.tap_action"
