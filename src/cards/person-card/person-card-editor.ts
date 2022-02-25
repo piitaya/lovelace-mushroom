@@ -134,7 +134,7 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                             "ui.panel.lovelace.editor.card.generic.hold_action"
                         )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
                         .hass=${this.hass}
-                        ..config=${this._config.hold_action}
+                        .config=${this._config.hold_action}
                         .actions=${actions}
                         .configValue=${"hold_action"}
                         .tooltipText=${this.hass.localize(
