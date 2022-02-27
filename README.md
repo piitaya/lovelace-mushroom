@@ -2,6 +2,7 @@
 
 [![hacs][hacs-badge]][hacs-url]
 [![release][release-badge]][release-url]
+![downloads][downloads-badge]
 ![build][build-badge]
 
 <a href="https://www.buymeacoffee.com/piitaya" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/white_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
@@ -40,15 +41,15 @@ Mushroom is available in [HACS][hacs] (Home Assistant Community Store).
 
 ### Manual
 
-1. Download all the files from from the [latest-release].
-2. Put them into your `config/www/mushroom` folder.
-3. Add reference to `mushroom/mushroom.js` in Lovelace. There's two way to do that:
-    - **Using UI:** _Configuration_ → _Lovelace Dashboards_ → _Resources Tab_ → Click Plus button → Set _Url_ as `/local/mushroom/mushroom.js` → Set _Resource type_ as `JavaScript Module`.
+1. Download `mushroom.js` file from the [latest-release].
+2. Put `mushroom.js` file into your `config/www` folder.
+3. Add reference to `mushroom.js` in Lovelace. There's two way to do that:
+    - **Using UI:** _Configuration_ → _Lovelace Dashboards_ → _Resources Tab_ → Click Plus button → Set _Url_ as `/local/mushroom.js` → Set _Resource type_ as `JavaScript Module`.
       **Note:** If you do not see the Resources Tab, you will need to enable _Advanced Mode_ in your _User Profile_
     - **Using YAML:** Add following code to `lovelace` section.
         ```yaml
         resources:
-            - url: /local/mushroom/mushroom.js
+            - url: /local/mushroom.js
               type: module
         ```
 
@@ -136,6 +137,7 @@ The design is inspired by [7ahang’s work][7ahang] on Behance and [Ui Lovelace 
 [hacs-url]: https://github.com/custom-components/hacs
 [hacs-badge]: https://img.shields.io/badge/hacs-default-orange.svg?style=flat-square
 [release-badge]: https://img.shields.io/github/v/release/piitaya/lovelace-mushroom?style=flat-square
+[downloads-badge]: https://img.shields.io/github/downloads/piitaya/lovelace-mushroom/total?style=flat-square
 [build-badge]: https://img.shields.io/github/workflow/status/piitaya/lovelace-mushroom/Build?style=flat-square
 
 <!-- References -->
