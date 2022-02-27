@@ -26,3 +26,6 @@ export function isActive(entity: HassEntity) {
 export function isAvailable(entity: HassEntity) {
     return entity.state !== "unavailable" && entity.state !== "unknown";
 }
+
+export const supportsFeature = (entity: HassEntity, feature: number): boolean =>
+    (entity.attributes.supported_features! & feature) !== 0;
