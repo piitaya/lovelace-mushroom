@@ -104,6 +104,16 @@ export class CoverCardEditor extends LitElement implements LovelaceCardEditor {
                             @change=${this._valueChanged}
                         ></ha-switch>
                     </ha-formfield>
+                    <ha-formfield
+                        .label=${customLocalize("editor.card.cover.show_buttons_control")}
+                        .dir=${dir}
+                    >
+                        <ha-switch
+                            .checked=${!!this._config.show_buttons_control}
+                            .configValue=${"show_buttons_control"}
+                            @change=${this._valueChanged}
+                        ></ha-switch>
+                    </ha-formfield>
                 </div>
                 <div class="side-by-side">
                     <hui-action-editor
