@@ -15,7 +15,6 @@ export function getInfo(
     entity: HassEntity,
     hass: HomeAssistant
 ) {
-    console.log(state);
     switch (info) {
         case "name":
             return name;

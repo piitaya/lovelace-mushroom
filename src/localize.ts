@@ -31,7 +31,6 @@ function getTranslatedString(key: string, lang: string): string | undefined {
 }
 
 export default function setupCustomlocalize(hass?: HomeAssistant) {
-    console.log(hass?.locale);
     return function (key: string) {
         const lang = hass?.locale.language ?? DEFAULT_LANG;
 
