@@ -28,8 +28,19 @@ export function isActive(entity: HassEntity) {
     }
 }
 
+const AUTHORIZED_UNKNOWN_STATE_DOMAINS = ["button", "input_button", "scene"];
+
 export function isAvailable(entity: HassEntity) {
-    return entity.state !== UNAVAILABLE && entity.state !== UNKNOWN;
+    const domain = entity.entity_id.split(".")[0];
+
+    return (
+        entity.state !== UNAVAILABLE &&
+        (entity.state !== UNKNOWN || AUTHORIZED_UNKNOWN_STATE_DOMAINS.includes(domain))
+    );
+}
+
+export function isUnknown(entity: HassEntity) {
+    return entity.state === UNKNOWN;
 }
 
 export const supportsFeature = (entity: HassEntity, feature: number): boolean =>

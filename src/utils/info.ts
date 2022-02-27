@@ -1,9 +1,10 @@
 import { HomeAssistant } from "custom-card-helpers";
 import { HassEntity } from "home-assistant-js-websocket";
 import { html } from "lit";
-import { isAvailable } from "./entity";
+import { isAvailable, isUnknown } from "./entity";
 
 export const INFOS = ["name", "state", "last-changed", "last-updated", "none"] as const;
+const TIMESTAMP_STATE_DOMAINS = ["button", "input_button", "scene"];
 
 export type Info = typeof INFOS[number];
 
@@ -14,14 +15,17 @@ export function getInfo(
     entity: HassEntity,
     hass: HomeAssistant
 ) {
+    console.log(state);
     switch (info) {
         case "name":
             return name;
         case "state":
             const domain = entity.entity_id.split(".")[0];
             if (
-                (entity.attributes.device_class === "timestamp" || domain === "scene") &&
-                isAvailable(entity) == true
+                (entity.attributes.device_class === "timestamp" ||
+                    TIMESTAMP_STATE_DOMAINS.includes(domain)) &&
+                isAvailable(entity) &&
+                !isUnknown(entity)
             ) {
                 return html`
                     <ha-relative-time
