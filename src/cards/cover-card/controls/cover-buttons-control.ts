@@ -4,6 +4,7 @@ import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import "../../../shared/button";
+import { UNAVAILABLE } from "../../../utils/entity";
 import { computeCloseIcon, computeOpenIcon } from "../../../utils/icons/cover-icon";
 import {
     isClosing,
@@ -44,29 +45,23 @@ export class CoverButtonsControl extends LitElement {
         });
     }
 
-    private _computeOpenDisabled(): boolean {
-        if (this.entity.state === "unavailable") {
-            return true;
-        }
+    private get openDisabled(): boolean {
+        if (this.entity.state === UNAVAILABLE) return true;
         const assumedState = this.entity.attributes.assumed_state === true;
         return (isFullyOpen(this.entity) || isOpening(this.entity)) && !assumedState;
     }
 
-    private _computeClosedDisabled(): boolean {
-        if (this.entity.state === "unavailable") {
-            return true;
-        }
+    private get closedDisabled(): boolean {
+        if (this.entity.state === UNAVAILABLE) return true;
         const assumedState = this.entity.attributes.assumed_state === true;
         return (isFullyClosed(this.entity) || isClosing(this.entity)) && !assumedState;
     }
 
-    private _computePauseDisabled(): boolean {
-        return this.entity.state === "unavailable";
+    private get pauseDisabled(): boolean {
+        return this.entity.state === UNAVAILABLE;
     }
 
     protected render(): TemplateResult {
-        const assumedState = this.entity.attributes.assumed_state === true;
-
         return html`
             <div
                 class=${classMap({
@@ -78,7 +73,7 @@ export class CoverButtonsControl extends LitElement {
                     ? html`
                           <mushroom-button
                               .icon=${computeCloseIcon(this.entity)}
-                              .disabled=${this._computeClosedDisabled()}
+                              .disabled=${this.closedDisabled}
                               @click=${this._onCloseTap}
                           ></mushroom-button>
                       `
@@ -87,7 +82,7 @@ export class CoverButtonsControl extends LitElement {
                     ? html`
                           <mushroom-button
                               icon="mdi:pause"
-                              .disabled=${this._computePauseDisabled()}
+                              .disabled=${this.pauseDisabled}
                               @click=${this._onStopTap}
                           ></mushroom-button>
                       `
@@ -96,7 +91,7 @@ export class CoverButtonsControl extends LitElement {
                     ? html`
                           <mushroom-button
                               .icon=${computeOpenIcon(this.entity)}
-                              .disabled=${this._computeOpenDisabled()}
+                              .disabled=${this.openDisabled}
                               @click=${this._onOpenTap}
                           ></mushroom-button>
                       `
