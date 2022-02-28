@@ -24,6 +24,7 @@ import { isActive, isAvailable } from "../../utils/entity";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig } from "../../utils/layout";
 import { FAN_CARD_EDITOR_NAME, FAN_CARD_NAME, FAN_ENTITY_DOMAINS } from "./const";
+import "./controls/fan-auto-control";
 import "./controls/fan-oscillate-control";
 import "./controls/fan-percentage-control";
 import { FanCardConfig } from "./fan-card-config";
@@ -146,7 +147,7 @@ export class FanCard extends LitElement implements LovelaceCard {
                         .secondary=${!hideState && stateValue}
                     ></mushroom-state-info>
                 </mushroom-state-item>
-                ${this._config.show_percentage_control || this._config.show_oscillate_control
+                ${this._config.show_percentage_control || this._config.show_auto_control || this._config.show_oscillate_control
                     ? html`
                           <div class="actions">
                               ${this._config.show_percentage_control
@@ -155,6 +156,14 @@ export class FanCard extends LitElement implements LovelaceCard {
                                             .hass=${this.hass}
                                             .entity=${entity}
                                         ></mushroom-fan-percentage-control>
+                                    `
+                                  : null}
+                              ${this._config.show_auto_control
+                                  ? html`
+                                        <mushroom-fan-auto-control
+                                            .hass=${this.hass}
+                                            .entity=${entity}
+                                        ></mushroom-fan-auto-control>
                                     `
                                   : null}
                               ${this._config.show_oscillate_control

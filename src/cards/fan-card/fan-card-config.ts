@@ -12,6 +12,7 @@ export interface FanCardConfig extends LovelaceCardConfig {
     hide_state?: boolean;
     icon_animation?: boolean;
     show_percentage_control?: boolean;
+    show_auto_control?: boolean;
     show_oscillate_control?: boolean;
     tap_action?: ActionConfig;
     hold_action?: ActionConfig;
@@ -28,6 +29,7 @@ export const fanCardConfigStruct = assign(
         layout: optional(layoutStruct),
         hide_state: optional(boolean()),
         show_percentage_control: optional(boolean()),
+        show_auto_control: optional(boolean()),
         show_oscillate_control: optional(boolean()),
         tap_action: optional(actionConfigStruct),
         hold_action: optional(actionConfigStruct),

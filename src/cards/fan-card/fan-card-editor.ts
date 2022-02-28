@@ -117,6 +117,16 @@ export class FanCardEditor extends LitElement implements LovelaceCardEditor {
                         ></ha-switch>
                     </ha-formfield>
                     <ha-formfield
+                        .label=${customLocalize("editor.card.fan.show_auto_control")}
+                        .dir=${dir}
+                    >
+                        <ha-switch
+                            .checked=${!!this._config.show_auto_control}
+                            .configValue=${"show_auto_control"}
+                            @change=${this._valueChanged}
+                        ></ha-switch>
+                    </ha-formfield>
+                    <ha-formfield
                         .label=${customLocalize("editor.card.fan.show_oscillate_control")}
                         .dir=${dir}
                     >

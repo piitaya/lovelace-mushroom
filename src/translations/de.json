@@ -43,6 +43,7 @@
             "fan": {
                 "animate_icon_active": "Icon animieren, wenn aktiv?",
                 "show_percentage_control": "Prozentuale Kontrolle?",
+                "show_auto_control": "Automatische Drehzahlregelung?",
                 "show_oscillate_control": "Oszillationssteuerung?"
             },
             "cover": {

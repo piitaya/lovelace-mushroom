@@ -43,6 +43,7 @@
             "fan": {
                 "animate_icon_active": "Animation de l'icône ?",
                 "show_percentage_control": "Contrôle de la vitesse ?",
+                "show_auto_control": "Contrôle automatique de la vitesse ?",
                 "show_oscillate_control": "Contrôle de l'oscillation ?"
             },
             "cover": {

@@ -42,6 +42,7 @@
             "fan": {
                 "animate_icon_active": "激活时使用动态图标?",
                 "show_percentage_control": "百分比控制?",
+                "show_auto_control": "自动调速?",
                 "show_oscillate_control": "摆动控制?"
             },
             "cover": {

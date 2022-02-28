@@ -43,6 +43,7 @@
             "fan": {
                 "animate_icon_active": "Animate icon when active?",
                 "show_percentage_control": "Percentage control?",
+                "show_auto_control": "Auto Speed control?",
                 "show_oscillate_control": "Oscillate control?"
             },
             "cover": {

@@ -43,6 +43,7 @@
             "fan": {
                 "animate_icon_active": "Animera ikonen när fläkten är på?",
                 "show_percentage_control": "Procentuell kontroll?",
+                "show_auto_control": "Kontroll för automatisk hastighet?",
                 "show_oscillate_control": "Kontroll för oscillera?"
             },
             "cover": {
