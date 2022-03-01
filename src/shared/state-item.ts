@@ -60,7 +60,7 @@ export class StateItem extends LitElement {
             }
             .info {
                 min-width: 0;
-                flex: 1;
+                width: 100%;
                 display: flex;
                 flex-direction: column;
             }
