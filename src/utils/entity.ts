@@ -1,9 +1,14 @@
 import { HassEntity } from "home-assistant-js-websocket";
 
+export const UNAVAILABLE = "unavailable";
+export const UNKNOWN = "unknown";
+export const ON = "on";
+export const OFF = "off";
+
 export function isActive(entity: HassEntity) {
     const domain = entity.entity_id.split(".")[0];
     const state = entity.state;
-    if (state === "unavailable" || state === "unknown" || state === "off") return false;
+    if (state === UNAVAILABLE || state === UNKNOWN || state === OFF) return false;
 
     // Custom cases
     switch (domain) {
@@ -24,5 +29,8 @@ export function isActive(entity: HassEntity) {
 }
 
 export function isAvailable(entity: HassEntity) {
-    return entity.state !== "unavailable" && entity.state !== "unknown";
+    return entity.state !== UNAVAILABLE && entity.state !== UNKNOWN;
 }
+
+export const supportsFeature = (entity: HassEntity, feature: number): boolean =>
+    (entity.attributes.supported_features! & feature) !== 0;

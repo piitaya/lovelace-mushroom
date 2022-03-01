@@ -4,8 +4,17 @@ import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import "../../../shared/button";
+import { UNAVAILABLE } from "../../../utils/entity";
 import { computeCloseIcon, computeOpenIcon } from "../../../utils/icons/cover-icon";
-import { isClosing, isFullyClosed, isFullyOpen, isOpening } from "../utils";
+import {
+    isClosing,
+    isFullyClosed,
+    isFullyOpen,
+    isOpening,
+    supportsClose,
+    supportsOpen,
+    supportsStop,
+} from "../utils";
 
 @customElement("mushroom-cover-buttons-control")
 export class CoverButtonsControl extends LitElement {
@@ -36,6 +45,22 @@ export class CoverButtonsControl extends LitElement {
         });
     }
 
+    private get openDisabled(): boolean {
+        if (this.entity.state === UNAVAILABLE) return true;
+        const assumedState = this.entity.attributes.assumed_state === true;
+        return (isFullyOpen(this.entity) || isOpening(this.entity)) && !assumedState;
+    }
+
+    private get closedDisabled(): boolean {
+        if (this.entity.state === UNAVAILABLE) return true;
+        const assumedState = this.entity.attributes.assumed_state === true;
+        return (isFullyClosed(this.entity) || isClosing(this.entity)) && !assumedState;
+    }
+
+    private get pauseDisabled(): boolean {
+        return this.entity.state === UNAVAILABLE;
+    }
+
     protected render(): TemplateResult {
         return html`
             <div
@@ -44,17 +69,33 @@ export class CoverButtonsControl extends LitElement {
                     fill: this.fill,
                 })}
             >
-                <mushroom-button
-                    .icon=${computeCloseIcon(this.entity)}
-                    .disabled=${isFullyClosed(this.entity) || isClosing(this.entity)}
-                    @click=${this._onCloseTap}
-                ></mushroom-button>
-                <mushroom-button icon="mdi:pause" @click=${this._onStopTap}></mushroom-button>
-                <mushroom-button
-                    .icon=${computeOpenIcon(this.entity)}
-                    .disabled=${isFullyOpen(this.entity) || isOpening(this.entity)}
-                    @click=${this._onOpenTap}
-                ></mushroom-button>
+                ${supportsClose(this.entity)
+                    ? html`
+                          <mushroom-button
+                              .icon=${computeCloseIcon(this.entity)}
+                              .disabled=${this.closedDisabled}
+                              @click=${this._onCloseTap}
+                          ></mushroom-button>
+                      `
+                    : undefined}
+                ${supportsStop(this.entity)
+                    ? html`
+                          <mushroom-button
+                              icon="mdi:pause"
+                              .disabled=${this.pauseDisabled}
+                              @click=${this._onStopTap}
+                          ></mushroom-button>
+                      `
+                    : undefined}
+                ${supportsOpen(this.entity)
+                    ? html`
+                          <mushroom-button
+                              .icon=${computeOpenIcon(this.entity)}
+                              .disabled=${this.openDisabled}
+                              @click=${this._onOpenTap}
+                          ></mushroom-button>
+                      `
+                    : undefined}
             </div>
         `;
     }
