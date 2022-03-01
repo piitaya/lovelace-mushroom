@@ -62,7 +62,8 @@
             },
             "template": {
                 "primary": "Information principale",
-                "secondary": "Information secondaire"
+                "secondary": "Information secondaire",
+                "entity_extra": "Utilisée pour les templates et les actions"
             },
             "title": {
                 "title": "Titre",

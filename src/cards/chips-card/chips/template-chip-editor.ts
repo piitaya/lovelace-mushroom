@@ -9,7 +9,7 @@ import { TemplateChipConfig } from "../../../utils/lovelace/chip/types";
 import { EditorTarget } from "../../../utils/lovelace/editor/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 
-const actions = ["navigate", "url", "call-service", "none"];
+const actions = ["toggle", "more-info", "navigate", "url", "call-service", "none"];
 
 @customElement(computeChipEditorComponentName("template"))
 export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
@@ -30,6 +30,16 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
 
         return html`
             <div class="card-config">
+                <ha-entity-picker
+                    .label="${this.hass.localize(
+                        "ui.panel.lovelace.editor.card.generic.entity"
+                    )}  (${customLocalize("editor.card.template.entity_extra")})"
+                    .hass=${this.hass}
+                    .value=${this._config.entity}
+                    .configValue=${"entity"}
+                    @value-changed=${this._valueChanged}
+                    allow-custom-entity
+                ></ha-entity-picker>
                 <mushroom-textarea
                     .label="${customLocalize("editor.chip.template.content")} (${this.hass.localize(
                         "ui.panel.lovelace.editor.card.config.optional"

@@ -5,6 +5,7 @@ import { baseLovelaceCardConfig } from "../../utils/editor-styles";
 import { Layout, layoutStruct } from "../../utils/layout";
 
 export interface TemplateCardConfig extends LovelaceCardConfig {
+    entity?: string;
     icon?: string;
     icon_color?: string;
     primary?: string;
@@ -20,6 +21,7 @@ export interface TemplateCardConfig extends LovelaceCardConfig {
 export const templateCardConfigStruct = assign(
     baseLovelaceCardConfig,
     object({
+        entity: optional(string()),
         icon: optional(string()),
         icon_color: optional(string()),
         primary: optional(string()),

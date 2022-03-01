@@ -43,11 +43,22 @@ export class TemplateChip extends LitElement implements LovelaceChip {
 
     public setConfig(config: TemplateChipConfig): void {
         TEMPLATE_KEYS.forEach((key) => {
-            if (this._config?.[key] !== config[key]) {
+            if (this._config?.[key] !== config[key] || this._config?.entity != config.entity) {
                 this._tryDisconnectKey(key);
             }
         });
-        this._config = config;
+        this._config = {
+            tap_action: {
+                action: "toggle",
+            },
+            hold_action: {
+                action: "more-info",
+            },
+            double_tap_action: {
+                action: "more-info",
+            },
+            ...config,
+        };
     }
 
     public connectedCallback() {
@@ -148,6 +159,7 @@ export class TemplateChip extends LitElement implements LovelaceChip {
                     variables: {
                         config: this._config,
                         user: this.hass.user!.name,
+                        entity: this._config.entity,
                     },
                 }
             );
