@@ -52,6 +52,7 @@ export class Card extends LitElement {
             }
             .container.horizontal > ::slotted(*) {
                 flex: 1;
+                min-width: 0;
             }
             .container.horizontal > ::slotted(*:not(:last-child)) {
                 margin-right: var(--spacing);
