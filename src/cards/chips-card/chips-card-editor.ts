@@ -18,6 +18,7 @@ import setupCustomlocalize from "../../localize";
 import "../../shared/editor/alignment-picker";
 import { actionConfigStruct } from "../../utils/action-struct";
 import { baseLovelaceCardConfig } from "../../utils/editor-styles";
+import { loadHaComponents } from "../../utils/loader";
 import { LovelaceChipConfig } from "../../utils/lovelace/chip/types";
 import {
     EditorTarget,
@@ -147,6 +148,10 @@ export class ChipsCardEditor extends LitElement implements LovelaceCardEditor {
     @state() private _config?: ChipsCardConfig;
 
     @state() private _subElementEditorConfig?: SubElementEditorConfig;
+
+    protected firstUpdated(): void {
+        void loadHaComponents();
+    }
 
     public setConfig(config: ChipsCardConfig): void {
         assert(config, cardConfigStruct);

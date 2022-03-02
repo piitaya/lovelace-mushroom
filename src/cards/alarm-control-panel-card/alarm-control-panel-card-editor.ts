@@ -13,6 +13,7 @@ import "../../shared/form/mushroom-select";
 import "../../shared/form/mushroom-textfield";
 import { configElementStyle } from "../../utils/editor-styles";
 import { stateIcon } from "../../utils/icons/state-icon";
+import { loadHaComponents } from "../../utils/loader";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
 import {
     alarmControlPanelCardCardConfigStruct,
@@ -32,6 +33,10 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
     @property({ attribute: false }) public hass?: HomeAssistant;
 
     @state() private _config?: AlarmControlPanelCardConfig;
+
+    protected firstUpdated(): void {
+        void loadHaComponents();
+    }
 
     public setConfig(config: AlarmControlPanelCardConfig): void {
         assert(config, alarmControlPanelCardCardConfigStruct);
