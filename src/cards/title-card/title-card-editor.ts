@@ -5,6 +5,7 @@ import { assert } from "superstruct";
 import setupCustomlocalize from "../../localize";
 import "../../shared/form/mushroom-textarea";
 import { configElementStyle } from "../../utils/editor-styles";
+import { loadHaComponents } from "../../utils/loader";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { TITLE_CARD_EDITOR_NAME } from "./const";
 import { TitleCardConfig, titleCardConfigStruct } from "./title-card-config";
@@ -14,6 +15,10 @@ export class TitleCardEditor extends LitElement implements LovelaceCardEditor {
     @property({ attribute: false }) public hass?: HomeAssistant;
 
     @state() private _config?: TitleCardConfig;
+
+    protected firstUpdated(): void {
+        void loadHaComponents();
+    }
 
     public setConfig(config: TitleCardConfig): void {
         assert(config, titleCardConfigStruct);

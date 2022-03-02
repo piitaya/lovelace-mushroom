@@ -11,6 +11,7 @@ import setupCustomlocalize from "../../localize";
 import "../../shared/editor/layout-picker";
 import "../../shared/form/mushroom-textarea";
 import { configElementStyle } from "../../utils/editor-styles";
+import { loadHaComponents } from "../../utils/loader";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { TEMPLATE_CARD_EDITOR_NAME } from "./const";
 import { TemplateCardConfig, templateCardConfigStruct } from "./template-card-config";
@@ -22,6 +23,10 @@ export class TemplateCardEditor extends LitElement implements LovelaceCardEditor
     @property({ attribute: false }) public hass?: HomeAssistant;
 
     @state() private _config?: TemplateCardConfig;
+
+    protected firstUpdated(): void {
+        void loadHaComponents();
+    }
 
     public setConfig(config: TemplateCardConfig): void {
         assert(config, templateCardConfigStruct);

@@ -12,6 +12,7 @@ import "../../shared/editor/layout-picker";
 import "../../shared/form/mushroom-textfield";
 import { configElementStyle } from "../../utils/editor-styles";
 import { stateIcon } from "../../utils/icons/state-icon";
+import { loadHaComponents } from "../../utils/loader";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { PERSON_CARD_EDITOR_NAME, PERSON_ENTITY_DOMAINS } from "./const";
 import { PersonCardConfig, personCardConfigStruct } from "./person-card-config";
@@ -23,6 +24,10 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
     @property({ attribute: false }) public hass?: HomeAssistant;
 
     @state() private _config?: PersonCardConfig;
+
+    protected firstUpdated(): void {
+        void loadHaComponents();
+    }
 
     public setConfig(config: PersonCardConfig): void {
         assert(config, personCardConfigStruct);
