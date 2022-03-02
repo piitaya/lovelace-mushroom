@@ -63,7 +63,7 @@ export class TemplateCard extends LitElement implements LovelaceCard {
 
     setConfig(config: TemplateCardConfig): void {
         TEMPLATE_KEYS.forEach((key) => {
-            if (this._config?.[key] !== config[key]) {
+            if (this._config?.[key] !== config[key] || this._config?.entity != config.entity) {
                 this._tryDisconnectKey(key);
             }
         });
@@ -205,6 +205,7 @@ export class TemplateCard extends LitElement implements LovelaceCard {
                     variables: {
                         config: this._config,
                         user: this.hass.user!.name,
+                        entity: this._config.entity,
                     },
                 }
             );

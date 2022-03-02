@@ -62,7 +62,8 @@
             },
             "template": {
                 "primary": "Primary information",
-                "secondary": "Secondary information"
+                "secondary": "Secondary information",
+                "entity_extra": "Used in templates and actions"
             },
             "title": {
                 "title": "Title",

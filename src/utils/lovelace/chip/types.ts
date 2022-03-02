@@ -63,6 +63,7 @@ export type WeatherChipConfig = {
 
 export type TemplateChipConfig = {
     type: "template";
+    entity?: string;
     hold_action?: ActionConfig;
     tap_action?: ActionConfig;
     double_tap_action?: ActionConfig;

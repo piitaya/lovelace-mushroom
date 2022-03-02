@@ -15,7 +15,7 @@ import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { TEMPLATE_CARD_EDITOR_NAME } from "./const";
 import { TemplateCardConfig, templateCardConfigStruct } from "./template-card-config";
 
-const actions = ["navigate", "url", "call-service", "none"];
+const actions = ["toggle", "more-info", "navigate", "url", "call-service", "none"];
 
 @customElement(TEMPLATE_CARD_EDITOR_NAME)
 export class TemplateCardEditor extends LitElement implements LovelaceCardEditor {
@@ -38,7 +38,17 @@ export class TemplateCardEditor extends LitElement implements LovelaceCardEditor
 
         return html`
             <div class="card-config">
-                <mushroom-textarea
+                <ha-entity-picker
+                    .label="${this.hass.localize(
+                        "ui.panel.lovelace.editor.card.generic.entity"
+                    )} (${customLocalize("editor.card.template.entity_extra")})"
+                    .hass=${this.hass}
+                    .value=${this._config.entity}
+                    .configValue=${"entity"}
+                    @value-changed=${this._valueChanged}
+                    allow-custom-entity
+                ></ha-entity-picker
+                ><mushroom-textarea
                     .label="${this.hass.localize(
                         "ui.panel.lovelace.editor.card.generic.icon"
                     )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
