@@ -30,6 +30,8 @@ export class SliderItem extends LitElement {
     @property({ type: Number })
     public max: number = 100;
 
+    private _mc?: HammerManager;
+
     valueToPercentage(value: number) {
         return (value - this.min) / (this.max - this.min);
     }
@@ -47,8 +49,8 @@ export class SliderItem extends LitElement {
         const slider = this.shadowRoot?.getElementById("slider");
 
         if (slider) {
-            const mc = new Hammer.Manager(slider, { touchAction: "pan-y" });
-            mc.add(
+            this._mc = new Hammer.Manager(slider, { touchAction: "pan-y" });
+            this._mc.add(
                 new Hammer.Pan({
                     threshold: 10,
                     direction: Hammer.DIRECTION_ALL,
@@ -56,17 +58,17 @@ export class SliderItem extends LitElement {
                 })
             );
             let savedValue;
-            mc.on("panstart", () => {
+            this._mc.on("panstart", () => {
                 savedValue = this.value;
             });
-            mc.on("pancancel", () => {
+            this._mc.on("pancancel", () => {
                 this.value = savedValue;
             });
-            mc.on("panmove", (e) => {
+            this._mc.on("panmove", (e) => {
                 const percentage = getPercentageFromEvent(e);
                 this.value = this.percentageToValue(percentage);
             });
-            mc.on("panend", (e) => {
+            this._mc.on("panend", (e) => {
                 const percentage = getPercentageFromEvent(e);
                 this.value = this.percentageToValue(percentage);
                 this.dispatchEvent(
@@ -78,6 +80,10 @@ export class SliderItem extends LitElement {
                 );
             });
         }
+    }
+
+    disconnectedCallback(): void {
+        if (this._mc) this._mc.destroy();
     }
 
     protected render(): TemplateResult {

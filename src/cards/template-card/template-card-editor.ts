@@ -24,7 +24,8 @@ export class TemplateCardEditor extends LitElement implements LovelaceCardEditor
 
     @state() private _config?: TemplateCardConfig;
 
-    protected firstUpdated(): void {
+    connectedCallback() {
+        super.connectedCallback();
         void loadHaComponents();
     }
 
