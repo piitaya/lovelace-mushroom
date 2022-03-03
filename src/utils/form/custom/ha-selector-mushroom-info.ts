@@ -23,6 +23,7 @@ export class HaMushInfoSelector extends LitElement {
     protected render() {
         return html`
             <mushroom-info-picker
+                .hass=${this.hass}
                 .infos=${this.selector["mush-info"].infos}
                 .label=${this.label}
                 .value=${this.value}

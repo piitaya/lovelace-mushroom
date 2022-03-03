@@ -45,23 +45,13 @@ export class EntityCardEditor extends LitElement implements LovelaceCardEditor {
     }
 
     private _schema = memoizeOne((icon?: string): HaFormSchema[] => [
-        {
-            name: "entity",
-            selector: { entity: {} },
-        },
+        { name: "entity", selector: { entity: {} } },
         { name: "name", selector: { text: {} } },
         {
             type: "grid",
             name: "",
             schema: [
-                {
-                    name: "icon",
-                    selector: {
-                        icon: {
-                            placeholder: icon,
-                        },
-                    },
-                },
+                { name: "icon", selector: { icon: { placeholder: icon } } },
                 { name: "icon_color", selector: { "mush-color": {} } },
             ],
         },

@@ -20,6 +20,7 @@ export class HaMushLayoutSelector extends LitElement {
     protected render() {
         return html`
             <mushroom-layout-picker
+                .hass=${this.hass}
                 .label=${this.label}
                 .value=${this.value}
                 @value-changed=${this._valueChanged}

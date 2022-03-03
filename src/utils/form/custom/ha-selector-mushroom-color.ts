@@ -20,6 +20,7 @@ export class HaMushColorSelector extends LitElement {
     protected render() {
         return html`
             <mushroom-color-picker
+                .hass=${this.hass}
                 .label=${this.label}
                 .value=${this.value}
                 @value-changed=${this._valueChanged}
