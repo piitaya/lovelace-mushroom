@@ -25,7 +25,8 @@ export class LightCardEditor extends LitElement implements LovelaceCardEditor {
 
     @state() private _config?: LightCardConfig;
 
-    protected firstUpdated(): void {
+    connectedCallback() {
+        super.connectedCallback();
         void loadHaComponents();
     }
 

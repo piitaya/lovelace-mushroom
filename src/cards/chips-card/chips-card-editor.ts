@@ -149,7 +149,8 @@ export class ChipsCardEditor extends LitElement implements LovelaceCardEditor {
 
     @state() private _subElementEditorConfig?: SubElementEditorConfig;
 
-    protected firstUpdated(): void {
+    connectedCallback() {
+        super.connectedCallback();
         void loadHaComponents();
     }
 

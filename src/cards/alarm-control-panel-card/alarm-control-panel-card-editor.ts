@@ -34,7 +34,8 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
 
     @state() private _config?: AlarmControlPanelCardConfig;
 
-    protected firstUpdated(): void {
+    connectedCallback() {
+        super.connectedCallback();
         void loadHaComponents();
     }
 

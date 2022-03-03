@@ -27,7 +27,8 @@ export class EntityCardEditor extends LitElement implements LovelaceCardEditor {
 
     @state() private _config?: EntityCardConfig;
 
-    protected firstUpdated(): void {
+    connectedCallback() {
+        super.connectedCallback();
         void loadHaComponents();
     }
 
