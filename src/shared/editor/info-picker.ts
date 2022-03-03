@@ -2,7 +2,7 @@ import { HomeAssistant } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import setupCustomlocalize from "../../localize";
-import { INFOS } from "../../utils/info";
+import { Info, INFOS } from "../../utils/info";
 import "./../form/mushroom-select";
 
 @customElement("mushroom-info-picker")
@@ -13,7 +13,7 @@ export class InfoPicker extends LitElement {
 
     @property() public configValue = "";
 
-    @property() public infos: string[] = [...INFOS];
+    @property() public infos?: Info[];
 
     @property() public hass!: HomeAssistant;
 
@@ -44,7 +44,7 @@ export class InfoPicker extends LitElement {
                 <mwc-list-item value="default">
                     ${customLocalize("editor.form.info_picker.values.default")}
                 </mwc-list-item>
-                ${this.infos.map((info) => {
+                ${(this.infos ?? INFOS).map((info) => {
                     return html`
                         <mwc-list-item .value=${info}>
                             ${customLocalize(`editor.form.info_picker.values.${info}`) ||
