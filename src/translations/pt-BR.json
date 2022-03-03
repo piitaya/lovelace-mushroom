@@ -26,12 +26,14 @@
         },
         "card": {
             "generic": {
-                "multiline_secondary": "Multilinha secundária?",
+                "hide_name": "Ocultar nome?",
                 "hide_state": "Ocultar estado?",
-                "state": "Estado",
-                "icon_color": "Cor do ícone?",
                 "hide_icon": "Ocultar ícone?",
-                "layout": "Layout"
+                "icon_color": "Cor do ícone?",
+                "layout": "Layout",
+                "primary_info": "Informações primárias",
+                "secondary_info": "Informações secundárias",
+                "use_entity_picture": "Usar imagem da entidade?"
             },
             "light": {
                 "show_brightness_control": "Mostrar controle de brilho?",
@@ -49,20 +51,13 @@
                 "show_buttons_control": "Mostrar botões?",
                 "show_position_control": "Mostrar controle de posição?"
             },
-            "person": {
-                "use_entity_picture": "Usar imagem da entidade?",
-                "hide_name": "Ocultar nome?"
-            },
             "alarm_control_panel": {
                 "displayed_states": "Estados exibidos"
             },
-            "entity": {
-                "primary_info": "Informações primárias",
-                "secondary_info": "Informações secundárias"
-            },
             "template": {
                 "primary": "Informações primárias",
-                "secondary": "Informações secundárias"
+                "secondary": "Informações secundárias",
+                "multiline_secondary": "Multilinha secundária?"
             },
             "title": {
                 "title": "Título",

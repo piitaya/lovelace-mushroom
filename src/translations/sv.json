@@ -26,12 +26,14 @@
         },
         "card": {
             "generic": {
-                "multiline_secondary": "Sekundär med flera rader?",
+                "hide_name": "Göm namn",
                 "hide_state": "Göm status?",
-                "state": "Status",
-                "icon_color": "Ikonens färg",
                 "hide_icon": "Göm ikon?",
-                "layout": "Layout"
+                "icon_color": "Ikonens färg",
+                "layout": "Layout",
+                "primary_info": "Primär information",
+                "secondary_info": "Sekundär information",
+                "use_entity_picture": "Använd enheten bild?"
             },
             "light": {
                 "show_brightness_control": "Styr ljushet?",
@@ -49,20 +51,13 @@
                 "show_buttons_control": "Visa kontrollknappar?",
                 "show_position_control": "Visa positionskontroll?"
             },
-            "person": {
-                "use_entity_picture": "Använd enheten bild?",
-                "hide_name": "Göm namn"
-            },
             "alarm_control_panel": {
                 "displayed_states": "Status som visas"
             },
-            "entity": {
-                "primary_info": "Primär information",
-                "secondary_info": "Sekundär information"
-            },
             "template": {
                 "primary": "Primär information",
-                "secondary": "Sekundär information"
+                "secondary": "Sekundär information",
+                "multiline_secondary": "Sekundär med flera rader?"
             },
             "title": {
                 "title": "Rubrik",

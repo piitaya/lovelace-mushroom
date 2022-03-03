@@ -89,7 +89,7 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                     >
                     </mushroom-layout-picker>
                     <ha-formfield
-                        .label=${customLocalize("editor.card.person.use_entity_picture")}
+                        .label=${customLocalize("editor.card.generic.use_entity_picture")}
                         .dir=${dir}
                     >
                         <ha-switch
@@ -111,7 +111,7 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                         ></ha-switch>
                     </ha-formfield>
                     <ha-formfield
-                        .label=${customLocalize("editor.card.person.hide_name")}
+                        .label=${customLocalize("editor.card.generic.hide_name")}
                         .dir=${dir}
                     >
                         <ha-switch

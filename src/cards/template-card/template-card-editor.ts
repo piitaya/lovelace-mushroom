@@ -122,7 +122,7 @@ export class TemplateCardEditor extends LitElement implements LovelaceCardEditor
                     >
                     </mushroom-layout-picker>
                     <ha-formfield
-                        .label=${customLocalize("editor.card.generic.multiline_secondary")}
+                        .label=${customLocalize("editor.card.template.multiline_secondary")}
                         .dir=${dir}
                     >
                         <ha-switch

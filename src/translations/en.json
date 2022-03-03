@@ -26,12 +26,14 @@
         },
         "card": {
             "generic": {
-                "multiline_secondary": "Multiline secondary?",
+                "hide_name": "Hide name?",
                 "hide_state": "Hide state?",
-                "state": "State",
-                "icon_color": "Icon color",
                 "hide_icon": "Hide icon?",
-                "layout": "Layout"
+                "icon_color": "Icon color",
+                "layout": "Layout",
+                "primary_info": "Primary information",
+                "secondary_info": "Secondary information",
+                "use_entity_picture": "Use entity picture?"
             },
             "light": {
                 "show_brightness_control": "Brightness control?",
@@ -49,20 +51,13 @@
                 "show_buttons_control": "Buttons control?",
                 "show_position_control": "Position control?"
             },
-            "person": {
-                "use_entity_picture": "Use entity picture?",
-                "hide_name": "Hide name"
-            },
             "alarm_control_panel": {
                 "displayed_states": "Displayed states"
-            },
-            "entity": {
-                "primary_info": "Primary information",
-                "secondary_info": "Secondary information"
             },
             "template": {
                 "primary": "Primary information",
                 "secondary": "Secondary information",
+                "multiline_secondary": "Multiline secondary?",
                 "entity_extra": "Used in templates and actions"
             },
             "title": {

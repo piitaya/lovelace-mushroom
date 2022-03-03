@@ -26,12 +26,14 @@
         },
         "card": {
             "generic": {
-                "multiline_secondary": "Mehrzeilig sekundär?",
+                "hide_name": "Name ausblenden?",
                 "hide_state": "Zustand ausblenden?",
-                "state": "Zustand",
-                "icon_color": "Icon-Farbe",
                 "hide_icon": "Icon ausblenden?",
-                "layout": "Layout"
+                "icon_color": "Icon-Farbe",
+                "layout": "Layout",
+                "primary_info": "Primäre Information",
+                "secondary_info": "Sekundäre Information",
+                "use_entity_picture": "Entitätsbild verwenden?"
             },
             "light": {
                 "show_brightness_control": "Helligkeitsregelung?",
@@ -49,20 +51,13 @@
                 "show_buttons_control": "Schaltflächensteuerung?",
                 "show_position_control": "Positionssteuerung?"
             },
-            "person": {
-                "use_entity_picture": "Entitätsbild verwenden?",
-                "hide_name": "Name ausblenden"
-            },
             "alarm_control_panel": {
                 "displayed_states": "Angezeigte Zustände"
             },
-            "entity": {
-                "primary_info": "Primäre Information",
-                "secondary_info": "Sekundäre Information"
-            },
             "template": {
                 "primary": "Primäre Information",
-                "secondary": "Sekundäre Information"
+                "secondary": "Sekundäre Information",
+                "multiline_secondary": "Mehrzeilig sekundär?"
             },
             "title": {
                 "title": "Titel",

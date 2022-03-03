@@ -20,6 +20,7 @@
     "hammerjs": "^2.0.8",
     "home-assistant-js-websocket": "^6.0.1",
     "lit": "^2.2.0",
+    "memoize-one": "^6.0.0",
     "sortablejs": "^1.14.0",
     "superstruct": "^0.15.4"
   },
