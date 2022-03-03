@@ -24,6 +24,7 @@ import { stateIcon } from "../../utils/icons/state-icon";
 import { getInfo } from "../../utils/info";
 import { getLayoutFromConfig } from "../../utils/layout";
 import { ENTITY_CARD_EDITOR_NAME, ENTITY_CARD_NAME } from "./const";
+import "./controls/entity-shortcuts-control";
 import { EntityCardConfig } from "./entity-card-config";
 
 registerCustomCard({
@@ -119,21 +120,37 @@ export class EntityCard extends LitElement implements LovelaceCard {
                     .hide_icon=${hideIcon}
                 >
                     ${!hideIcon ? this.renderIcon(icon, iconColor, isActive(entity)) : undefined}
-                    ${!isAvailable(entity)
-                        ? html`
-                              <mushroom-badge-icon
-                                  class="unavailable"
-                                  slot="badge"
-                                  icon="mdi:help"
-                              ></mushroom-badge-icon>
-                          `
-                        : null}
+                    ${
+                        !isAvailable(entity)
+                            ? html`
+                                  <mushroom-badge-icon
+                                      class="unavailable"
+                                      slot="badge"
+                                      icon="mdi:help"
+                                  ></mushroom-badge-icon>
+                              `
+                            : null
+                    }
                     <mushroom-state-info
                         slot="info"
                         .primary=${primary}
                         .secondary=${secondary}
                     ></mushroom-state-info>
                 </mushroom-state-item>
+                ${
+                    this._config.shortcuts
+                        ? html`
+                              <div class="actions">
+                                  <mushroom-entity-shortcuts-control
+                                      .hass=${this.hass}
+                                      .shortcuts=${this._config.shortcuts}
+                                      .fill=${layout !== "horizontal"}
+                                  ></mushroom-entity-shortcuts-control>
+                              </div>
+                          `
+                        : null
+                }
+            </mushroom-card>
             </mushroom-card>
         `;
     }
