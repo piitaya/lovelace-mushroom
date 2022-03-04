@@ -9,21 +9,12 @@ import "../../shared/editor/info-picker";
 import "../../shared/editor/layout-picker";
 import "../../shared/form/mushroom-textfield";
 import { configElementStyle } from "../../utils/editor-styles";
+import { GENERIC_FIELDS } from "../../utils/form/fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { loadHaComponents } from "../../utils/loader";
 import { ENTITY_CARD_EDITOR_NAME } from "./const";
 import { EntityCardConfig, entityCardConfigStruct } from "./entity-card-config";
-
-const GENERIC_FIELDS = [
-    "hide_name",
-    "hide_state",
-    "hide_icon",
-    "icon_color",
-    "layout",
-    "primary_info",
-    "secondary_info",
-];
 
 @customElement(ENTITY_CARD_EDITOR_NAME)
 export class EntityCardEditor extends LitElement implements LovelaceCardEditor {

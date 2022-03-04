@@ -1,23 +1,25 @@
-import {
-    computeRTLDirection,
-    fireEvent,
-    HomeAssistant,
-    LovelaceCardEditor,
-} from "custom-card-helpers";
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { fireEvent, HomeAssistant, LovelaceCardEditor } from "custom-card-helpers";
+import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import setupCustomlocalize from "../../localize";
 import "../../shared/editor/layout-picker";
 import "../../shared/form/mushroom-textfield";
 import { configElementStyle } from "../../utils/editor-styles";
+import { GENERIC_FIELDS } from "../../utils/form/fields";
+import { HaFormSchema } from "../../utils/form/ha-form";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { loadHaComponents } from "../../utils/loader";
-import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { LIGHT_CARD_EDITOR_NAME, LIGHT_ENTITY_DOMAINS } from "./const";
 import { LightCardConfig, lightCardConfigStruct } from "./light-card-config";
 
-const actions = ["toggle", "more-info", "navigate", "url", "call-service", "none"];
+const LIGHT_FIELDS = [
+    "show_brightness_control",
+    "use_light_color",
+    "show_color_temp_control",
+    "show_color_control",
+];
 
 @customElement(LIGHT_CARD_EDITOR_NAME)
 export class LightCardEditor extends LitElement implements LovelaceCardEditor {
@@ -35,198 +37,75 @@ export class LightCardEditor extends LitElement implements LovelaceCardEditor {
         this._config = config;
     }
 
+    private _schema = memoizeOne((icon?: string): HaFormSchema[] => [
+        { name: "entity", selector: { entity: { domain: LIGHT_ENTITY_DOMAINS } } },
+        { name: "name", selector: { text: {} } },
+        {
+            type: "grid",
+            name: "",
+            schema: [{ name: "icon", selector: { icon: { placeholder: icon } } }],
+        },
+        {
+            type: "grid",
+            name: "",
+            schema: [
+                { name: "layout", selector: { "mush-layout": {} } },
+                { name: "hide_state", selector: { boolean: {} } },
+            ],
+        },
+        {
+            type: "grid",
+            name: "",
+            schema: [
+                { name: "use_light_color", selector: { boolean: {} } },
+                { name: "show_brightness_control", selector: { boolean: {} } },
+                { name: "show_color_temp_control", selector: { boolean: {} } },
+                { name: "show_color_control", selector: { boolean: {} } },
+            ],
+        },
+        { name: "tap_action", selector: { "mush-action": {} } },
+        { name: "hold_action", selector: { "mush-action": {} } },
+        { name: "double_tap_action", selector: { "mush-action": {} } },
+    ]);
+
+    private _computeLabelCallback = (schema: HaFormSchema) => {
+        const customLocalize = setupCustomlocalize(this.hass!);
+
+        if (GENERIC_FIELDS.includes(schema.name)) {
+            return customLocalize(`editor.card.generic.${schema.name}`);
+        }
+        if (LIGHT_FIELDS.includes(schema.name)) {
+            return customLocalize(`editor.card.light.${schema.name}`);
+        }
+        return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
+    };
+
     protected render(): TemplateResult {
         if (!this.hass || !this._config) {
             return html``;
         }
 
-        const dir = computeRTLDirection(this.hass);
         const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
         const entityIcon = entityState ? stateIcon(entityState) : undefined;
-
-        const customLocalize = setupCustomlocalize(this.hass);
+        const icon = this._config.icon || entityIcon;
+        const schema = this._schema(icon);
 
         return html`
-            <div class="card-config">
-                <ha-entity-picker
-                    .label="${this.hass.localize("ui.panel.lovelace.editor.card.generic.entity")}"
-                    .hass=${this.hass}
-                    .value=${this._config.entity}
-                    .configValue=${"entity"}
-                    @value-changed=${this._valueChanged}
-                    .includeDomains=${LIGHT_ENTITY_DOMAINS}
-                    allow-custom-entity
-                ></ha-entity-picker>
-                <div class="side-by-side">
-                    <mushroom-textfield
-                        .label="${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.generic.name"
-                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
-                        .value=${this._config.name ?? ""}
-                        .configValue=${"name"}
-                        @input=${this._valueChanged}
-                    >
-                    </mushroom-textfield>
-                    <ha-icon-picker
-                        .label="${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.generic.icon"
-                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
-                        .value=${this._config.icon}
-                        .placeholder=${this._config.icon || entityIcon}
-                        .configValue=${"icon"}
-                        @value-changed=${this._valueChanged}
-                    ></ha-icon-picker>
-                </div>
-                <div class="side-by-side">
-                    <mushroom-layout-picker
-                        .label="${customLocalize(
-                            "editor.card.generic.layout"
-                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
-                        .hass=${this.hass}
-                        .value=${this._config.layout}
-                        .configValue=${"layout"}
-                        @value-changed=${this._valueChanged}
-                    >
-                    </mushroom-layout-picker>
-                    <ha-formfield
-                        .label=${customLocalize("editor.card.generic.hide_state")}
-                        .dir=${dir}
-                    >
-                        <ha-switch
-                            .checked=${!!this._config.hide_state}
-                            .configValue=${"hide_state"}
-                            @change=${this._valueChanged}
-                        ></ha-switch>
-                    </ha-formfield>
-                </div>
-                <div class="side-by-side">
-                    <ha-formfield
-                        .label=${customLocalize("editor.card.light.show_brightness_control")}
-                        .dir=${dir}
-                    >
-                        <ha-switch
-                            .checked=${!!this._config.show_brightness_control}
-                            .configValue=${"show_brightness_control"}
-                            @change=${this._valueChanged}
-                        ></ha-switch>
-                    </ha-formfield>
-                    <ha-formfield
-                        .label=${customLocalize("editor.card.light.use_light_color")}
-                        .dir=${dir}
-                    >
-                        <ha-switch
-                            .checked=${!!this._config.use_light_color}
-                            .configValue=${"use_light_color"}
-                            @change=${this._valueChanged}
-                        ></ha-switch>
-                    </ha-formfield>
-                </div>
-                <div class="side-by-side">
-                    <ha-formfield
-                        .label=${customLocalize("editor.card.light.show_color_temp_control")}
-                        .dir=${dir}
-                    >
-                        <ha-switch
-                            .checked=${!!this._config.show_color_temp_control}
-                            .configValue=${"show_color_temp_control"}
-                            @change=${this._valueChanged}
-                        ></ha-switch>
-                    </ha-formfield>
-                    <ha-formfield
-                        .label=${customLocalize("editor.card.light.show_color_control")}
-                        .dir=${dir}
-                    >
-                        <ha-switch
-                            .checked=${!!this._config.show_color_control}
-                            .configValue=${"show_color_control"}
-                            @change=${this._valueChanged}
-                        ></ha-switch>
-                    </ha-formfield>
-                </div>
-                <div class="side-by-side">
-                    <p class="message">
-                        ${customLocalize("editor.card.light.incompatible_controls")}
-                    </p>
-                </div>
-                <div class="side-by-side">
-                    <hui-action-editor
-                        .label="${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.generic.tap_action"
-                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
-                        .hass=${this.hass}
-                        .config=${this._config.tap_action}
-                        .actions=${actions}
-                        .configValue=${"tap_action"}
-                        .tooltipText=${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.button.default_action_help"
-                        )}
-                        @value-changed=${this._valueChanged}
-                    ></hui-action-editor>
-                    <hui-action-editor
-                        .label="${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.generic.hold_action"
-                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
-                        .hass=${this.hass}
-                        .config=${this._config.hold_action}
-                        .actions=${actions}
-                        .configValue=${"hold_action"}
-                        .tooltipText=${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.button.default_action_help"
-                        )}
-                        @value-changed=${this._valueChanged}
-                    ></hui-action-editor>
-                </div>
-                <div class="side-by-side">
-                    <hui-action-editor
-                        .label="${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.generic.double_tap_action"
-                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
-                        .hass=${this.hass}
-                        .config=${this._config.double_tap_action}
-                        .actions=${actions}
-                        .configValue=${"double_tap_action"}
-                        .tooltipText=${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.button.default_action_help"
-                        )}
-                        @value-changed=${this._valueChanged}
-                    ></hui-action-editor>
-                </div>
-            </div>
+            <ha-form
+                .hass=${this.hass}
+                .data=${this._config}
+                .schema=${schema}
+                .computeLabel=${this._computeLabelCallback}
+                @value-changed=${this._valueChanged}
+            ></ha-form>
         `;
     }
 
     private _valueChanged(ev: CustomEvent): void {
-        if (!this._config || !this.hass) {
-            return;
-        }
-        const target = ev.target! as EditorTarget;
-        const value = target.checked ?? ev.detail.value ?? target.value;
-
-        if (!target.configValue || this._config[target.configValue] === value) {
-            return;
-        }
-        if (target.configValue) {
-            if (!value) {
-                this._config = { ...this._config };
-                delete this._config[target.configValue!];
-            } else {
-                this._config = {
-                    ...this._config,
-                    [target.configValue!]: value,
-                };
-            }
-        }
-        fireEvent(this, "config-changed", { config: this._config });
+        fireEvent(this, "config-changed", { config: ev.detail.value });
     }
 
     static get styles(): CSSResultGroup {
-        return [
-            configElementStyle,
-            css`
-                .message {
-                    font-size: 14px;
-                }
-            `,
-        ];
+        return [configElementStyle];
     }
 }
