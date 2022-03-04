@@ -1,6 +1,7 @@
 import { fireEvent, HomeAssistant, LovelaceCardEditor } from "custom-card-helpers";
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import setupCustomlocalize from "../../localize";
 import { configElementStyle } from "../../utils/editor-styles";

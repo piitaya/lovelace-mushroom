@@ -14,6 +14,35 @@ import { CoverCardConfig, coverCardConfigStruct } from "./cover-card-config";
 
 const COVER_FIELDS = ["show_buttons_control", "show_position_control"];
 
+const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
+    { name: "entity", selector: { entity: { domain: COVER_ENTITY_DOMAINS } } },
+    { name: "name", selector: { text: {} } },
+    {
+        type: "grid",
+        name: "",
+        schema: [{ name: "icon", selector: { icon: { placeholder: icon } } }],
+    },
+    {
+        type: "grid",
+        name: "",
+        schema: [
+            { name: "layout", selector: { "mush-layout": {} } },
+            { name: "hide_state", selector: { boolean: {} } },
+        ],
+    },
+    {
+        type: "grid",
+        name: "",
+        schema: [
+            { name: "show_position_control", selector: { boolean: {} } },
+            { name: "show_buttons_control", selector: { boolean: {} } },
+        ],
+    },
+    { name: "tap_action", selector: { "mush-action": {} } },
+    { name: "hold_action", selector: { "mush-action": {} } },
+    { name: "double_tap_action", selector: { "mush-action": {} } },
+]);
+
 @customElement(COVER_CARD_EDITOR_NAME)
 export class CoverCardEditor extends LitElement implements LovelaceCardEditor {
     @property({ attribute: false }) public hass?: HomeAssistant;
@@ -29,35 +58,6 @@ export class CoverCardEditor extends LitElement implements LovelaceCardEditor {
         assert(config, coverCardConfigStruct);
         this._config = config;
     }
-
-    private _schema = memoizeOne((icon?: string): HaFormSchema[] => [
-        { name: "entity", selector: { entity: { domain: COVER_ENTITY_DOMAINS } } },
-        { name: "name", selector: { text: {} } },
-        {
-            type: "grid",
-            name: "",
-            schema: [{ name: "icon", selector: { icon: { placeholder: icon } } }],
-        },
-        {
-            type: "grid",
-            name: "",
-            schema: [
-                { name: "layout", selector: { "mush-layout": {} } },
-                { name: "hide_state", selector: { boolean: {} } },
-            ],
-        },
-        {
-            type: "grid",
-            name: "",
-            schema: [
-                { name: "show_position_control", selector: { boolean: {} } },
-                { name: "show_buttons_control", selector: { boolean: {} } },
-            ],
-        },
-        { name: "tap_action", selector: { "mush-action": {} } },
-        { name: "hold_action", selector: { "mush-action": {} } },
-        { name: "double_tap_action", selector: { "mush-action": {} } },
-    ]);
 
     private _computeLabelCallback = (schema: HaFormSchema) => {
         const customLocalize = setupCustomlocalize(this.hass!);
@@ -79,7 +79,7 @@ export class CoverCardEditor extends LitElement implements LovelaceCardEditor {
         const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
         const entityIcon = entityState ? stateIcon(entityState) : undefined;
         const icon = this._config.icon || entityIcon;
-        const schema = this._schema(icon);
+        const schema = computeSchema(icon);
 
         return html`
             <ha-form

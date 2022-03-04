@@ -19,6 +19,37 @@ const LIGHT_FIELDS = [
     "show_color_control",
 ];
 
+const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
+    { name: "entity", selector: { entity: { domain: LIGHT_ENTITY_DOMAINS } } },
+    { name: "name", selector: { text: {} } },
+    {
+        type: "grid",
+        name: "",
+        schema: [{ name: "icon", selector: { icon: { placeholder: icon } } }],
+    },
+    {
+        type: "grid",
+        name: "",
+        schema: [
+            { name: "layout", selector: { "mush-layout": {} } },
+            { name: "hide_state", selector: { boolean: {} } },
+        ],
+    },
+    {
+        type: "grid",
+        name: "",
+        schema: [
+            { name: "use_light_color", selector: { boolean: {} } },
+            { name: "show_brightness_control", selector: { boolean: {} } },
+            { name: "show_color_temp_control", selector: { boolean: {} } },
+            { name: "show_color_control", selector: { boolean: {} } },
+        ],
+    },
+    { name: "tap_action", selector: { "mush-action": {} } },
+    { name: "hold_action", selector: { "mush-action": {} } },
+    { name: "double_tap_action", selector: { "mush-action": {} } },
+]);
+
 @customElement(LIGHT_CARD_EDITOR_NAME)
 export class LightCardEditor extends LitElement implements LovelaceCardEditor {
     @property({ attribute: false }) public hass?: HomeAssistant;
@@ -34,37 +65,6 @@ export class LightCardEditor extends LitElement implements LovelaceCardEditor {
         assert(config, lightCardConfigStruct);
         this._config = config;
     }
-
-    private _schema = memoizeOne((icon?: string): HaFormSchema[] => [
-        { name: "entity", selector: { entity: { domain: LIGHT_ENTITY_DOMAINS } } },
-        { name: "name", selector: { text: {} } },
-        {
-            type: "grid",
-            name: "",
-            schema: [{ name: "icon", selector: { icon: { placeholder: icon } } }],
-        },
-        {
-            type: "grid",
-            name: "",
-            schema: [
-                { name: "layout", selector: { "mush-layout": {} } },
-                { name: "hide_state", selector: { boolean: {} } },
-            ],
-        },
-        {
-            type: "grid",
-            name: "",
-            schema: [
-                { name: "use_light_color", selector: { boolean: {} } },
-                { name: "show_brightness_control", selector: { boolean: {} } },
-                { name: "show_color_temp_control", selector: { boolean: {} } },
-                { name: "show_color_control", selector: { boolean: {} } },
-            ],
-        },
-        { name: "tap_action", selector: { "mush-action": {} } },
-        { name: "hold_action", selector: { "mush-action": {} } },
-        { name: "double_tap_action", selector: { "mush-action": {} } },
-    ]);
 
     private _computeLabelCallback = (schema: HaFormSchema) => {
         const customLocalize = setupCustomlocalize(this.hass!);
@@ -86,7 +86,7 @@ export class LightCardEditor extends LitElement implements LovelaceCardEditor {
         const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
         const entityIcon = entityState ? stateIcon(entityState) : undefined;
         const icon = this._config.icon || entityIcon;
-        const schema = this._schema(icon);
+        const schema = computeSchema(icon);
 
         return html`
             <ha-form
