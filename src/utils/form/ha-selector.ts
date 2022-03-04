@@ -1,3 +1,4 @@
+import { MushActionSelector } from "./custom/ha-selector-mushroom-action";
 import { MushColorSelector } from "./custom/ha-selector-mushroom-color";
 import { MushInfoSelector } from "./custom/ha-selector-mushroom-info";
 import { MushLayoutSelector } from "./custom/ha-selector-mushroom-layout";
@@ -22,7 +23,8 @@ export type Selector =
     | ThemeSelector
     | MushColorSelector
     | MushLayoutSelector
-    | MushInfoSelector;
+    | MushInfoSelector
+    | MushActionSelector;
 
 export interface EntitySelector {
     entity: {

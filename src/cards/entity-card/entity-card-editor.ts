@@ -12,11 +12,8 @@ import { configElementStyle } from "../../utils/editor-styles";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { loadHaComponents } from "../../utils/loader";
-import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { ENTITY_CARD_EDITOR_NAME } from "./const";
 import { EntityCardConfig, entityCardConfigStruct } from "./entity-card-config";
-
-const actions = ["toggle", "more-info", "navigate", "url", "call-service", "none"];
 
 const GENERIC_FIELDS = [
     "hide_name",
@@ -71,6 +68,9 @@ export class EntityCardEditor extends LitElement implements LovelaceCardEditor {
                 { name: "secondary_info", selector: { "mush-info": {} } },
             ],
         },
+        { name: "tap_action", selector: { "mush-action": {} } },
+        { name: "hold_action", selector: { "mush-action": {} } },
+        { name: "double_tap_action", selector: { "mush-action": {} } },
     ]);
 
     private _computeLabelCallback = (schema: HaFormSchema) => {
@@ -101,59 +101,11 @@ export class EntityCardEditor extends LitElement implements LovelaceCardEditor {
                 .computeLabel=${this._computeLabelCallback}
                 @value-changed=${this._valueChanged}
             ></ha-form>
-            <div class="card-config">
-                <div class="side-by-side">
-                    <hui-action-editor
-                        .label=${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.generic.tap_action"
-                        )}
-                        .hass=${this.hass}
-                        .config=${this._config.tap_action}
-                        .actions=${actions}
-                        .configValue=${"tap_action"}
-                        @value-changed=${this._actionChanged}
-                    ></hui-action-editor>
-                    <hui-action-editor
-                        .label=${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.generic.hold_action"
-                        )}
-                        .hass=${this.hass}
-                        .config=${this._config.hold_action}
-                        .actions=${actions}
-                        .configValue=${"hold_action"}
-                        @value-changed=${this._actionChanged}
-                    ></hui-action-editor>
-                </div>
-            </div>
         `;
     }
 
     private _valueChanged(ev: CustomEvent): void {
         fireEvent(this, "config-changed", { config: ev.detail.value });
-    }
-
-    private _actionChanged(ev: CustomEvent): void {
-        if (!this._config || !this.hass) {
-            return;
-        }
-        const target = ev.target! as EditorTarget;
-        const value = ev.detail.value;
-
-        if (target.configValue && this._config[target.configValue] === value) {
-            return;
-        }
-        if (target.configValue) {
-            if (value !== false && !value) {
-                this._config = { ...this._config };
-                delete this._config[target.configValue!];
-            } else {
-                this._config = {
-                    ...this._config,
-                    [target.configValue!]: value,
-                };
-            }
-        }
-        fireEvent(this, "config-changed", { config: this._config });
     }
 
     static get styles(): CSSResultGroup {
