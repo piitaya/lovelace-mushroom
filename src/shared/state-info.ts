@@ -48,7 +48,7 @@ export class StateItem extends LitElement {
                 white-space: nowrap;
             }
             .multiline_secondary {
-                white-space: normal;
+                white-space: pre-wrap;
             }
         `;
     }

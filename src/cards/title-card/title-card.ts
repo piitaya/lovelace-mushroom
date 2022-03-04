@@ -188,6 +188,7 @@ export class TitleCard extends LitElement implements LovelaceCard {
                 }
                 .header * {
                     margin: 0;
+                    white-space: pre-wrap;
                 }
                 .header *:not(:last-child) {
                     margin-bottom: var(--title-spacing);
