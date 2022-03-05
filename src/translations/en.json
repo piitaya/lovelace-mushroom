@@ -59,7 +59,8 @@
                 "primary": "Primary information",
                 "secondary": "Secondary information",
                 "multiline_secondary": "Multiline secondary?",
-                "entity_extra": "Used in templates and actions"
+                "entity_extra": "Used in templates and actions",
+                "content": "Content"
             },
             "title": {
                 "title": "Title",
@@ -74,6 +75,10 @@
                     "center": "Center",
                     "justify": "Justify"
                 }
+            },
+            "weather": {
+                "show_conditions": "Conditions?",
+                "show_temperature": "Temperature?"
             }
         },
         "chip": {
@@ -101,13 +106,6 @@
                     "template": "Template",
                     "weather": "Weather"
                 }
-            },
-            "weather": {
-                "show_conditions": "Conditions?",
-                "show_temperature": "Temperature?"
-            },
-            "template": {
-                "content": "Content"
             }
         }
     }

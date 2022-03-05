@@ -56,7 +56,8 @@
             "template": {
                 "primary": "首要信息",
                 "secondary": "次要信息",
-                "multiline_secondary": "多行次要信息?"
+                "multiline_secondary": "多行次要信息?",
+                "content": "内容"
             },
             "title": {
                 "title": "标题",
@@ -70,6 +71,10 @@
                     "center": "居中对齐",
                     "justify": "两端对齐"
                 }
+            },
+            "weather": {
+                "show_conditions": "条件?",
+                "show_temperature": "温度?"
             }
         },
         "chip": {
@@ -97,13 +102,6 @@
                     "template": "模板",
                     "weather": "天气"
                 }
-            },
-            "weather": {
-                "show_conditions": "条件?",
-                "show_temperature": "温度?"
-            },
-            "template": {
-                "content": "内容"
             }
         }
     }

@@ -57,7 +57,8 @@
             "template": {
                 "primary": "Primär information",
                 "secondary": "Sekundär information",
-                "multiline_secondary": "Sekundär med flera rader?"
+                "multiline_secondary": "Sekundär med flera rader?",
+                "content": "Innehåll"
             },
             "title": {
                 "title": "Rubrik",
@@ -71,6 +72,10 @@
                     "center": "Centrerad",
                     "justify": "Anpassa"
                 }
+            },
+            "weather": {
+                "show_conditions": "Förhållanden?",
+                "show_temperature": "Temperatur?"
             }
         },
         "chip": {
@@ -98,13 +103,6 @@
                     "template": "Mall",
                     "weather": "Väder"
                 }
-            },
-            "weather": {
-                "show_conditions": "Förhållanden?",
-                "show_temperature": "Temperatur?"
-            },
-            "template": {
-                "content": "Innehåll"
             }
         }
     }

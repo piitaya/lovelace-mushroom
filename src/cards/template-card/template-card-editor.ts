@@ -1,7 +1,6 @@
 import { fireEvent, HomeAssistant, LovelaceCardEditor } from "custom-card-helpers";
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import setupCustomlocalize from "../../localize";
 import { configElementStyle } from "../../utils/editor-styles";
@@ -11,10 +10,10 @@ import { loadHaComponents } from "../../utils/loader";
 import { TEMPLATE_CARD_EDITOR_NAME } from "./const";
 import { TemplateCardConfig, templateCardConfigStruct } from "./template-card-config";
 
-const TEMPLATE_FIELDS = ["primary", "secondary", "multiline_secondary"];
+export const TEMPLATE_FIELDS = ["content", "primary", "secondary", "multiline_secondary"];
 
 const SCHEMA: HaFormSchema[] = [
-    { name: "entity", selector: { text: {} } },
+    { name: "entity", selector: { entity: {} } },
     { name: "icon", selector: { text: { multiline: true } } },
     { name: "icon_color", selector: { text: { multiline: true } } },
     { name: "primary", selector: { text: { multiline: true } } },

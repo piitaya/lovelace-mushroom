@@ -57,7 +57,8 @@
             "template": {
                 "primary": "Primäre Information",
                 "secondary": "Sekundäre Information",
-                "multiline_secondary": "Mehrzeilig sekundär?"
+                "multiline_secondary": "Mehrzeilig sekundär?",
+                "content": "Inhalt"
             },
             "title": {
                 "title": "Titel",
@@ -71,6 +72,10 @@
                     "center": "Mitte",
                     "justify": "Ausrichten"
                 }
+            },
+            "weather": {
+                "show_conditions": "Bedingungen?",
+                "show_temperature": "Temperatur?"
             }
         },
         "chip": {
@@ -98,13 +103,6 @@
                     "template": "Vorlage",
                     "weather": "Wetter"
                 }
-            },
-            "weather": {
-                "show_conditions": "Bedingungen?",
-                "show_temperature": "Temperatur?"
-            },
-            "template": {
-                "content": "Inhalt"
             }
         }
     }

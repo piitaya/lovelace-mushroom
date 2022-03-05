@@ -59,7 +59,8 @@
                 "primary": "Information principale",
                 "secondary": "Information secondaire",
                 "multiline_secondary": "Information secondaire sur plusieurs lignes?",
-                "entity_extra": "Utilisée pour les templates et les actions"
+                "entity_extra": "Utilisée pour les templates et les actions",
+                "content": "Contenu"
             },
             "title": {
                 "title": "Titre",
@@ -74,6 +75,10 @@
                     "center": "Centré",
                     "justify": "Justifié"
                 }
+            },
+            "weather": {
+                "show_conditons": "Conditions ?",
+                "show_temperature": "Température ?"
             }
         },
         "chip": {
@@ -101,13 +106,6 @@
                     "template": "Template",
                     "weather": "Météo"
                 }
-            },
-            "weather": {
-                "show_conditons": "Conditions ?",
-                "show_temperature": "Température ?"
-            },
-            "template": {
-                "content": "Contenu"
             }
         }
     }

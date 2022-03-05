@@ -2,14 +2,23 @@ import { fireEvent, HomeAssistant } from "custom-card-helpers";
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import setupCustomlocalize from "../../../localize";
-import "../../../shared/form/mushroom-textarea";
 import { configElementStyle } from "../../../utils/editor-styles";
+import { GENERIC_FIELDS } from "../../../utils/form/fields";
+import { HaFormSchema } from "../../../utils/form/ha-form";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
 import { TemplateChipConfig } from "../../../utils/lovelace/chip/types";
-import { EditorTarget } from "../../../utils/lovelace/editor/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
+import { TEMPLATE_FIELDS } from "../../template-card/template-card-editor";
 
-const actions = ["toggle", "more-info", "navigate", "url", "call-service", "none"];
+const SCHEMA: HaFormSchema[] = [
+    { name: "entity", selector: { entity: {} } },
+    { name: "icon", selector: { text: { multiline: true } } },
+    { name: "icon_color", selector: { text: { multiline: true } } },
+    { name: "content", selector: { text: { multiline: true } } },
+    { name: "tap_action", selector: { "mush-action": {} } },
+    { name: "hold_action", selector: { "mush-action": {} } },
+    { name: "double_tap_action", selector: { "mush-action": {} } },
+];
 
 @customElement(computeChipEditorComponentName("template"))
 export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
@@ -21,140 +30,41 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
         this._config = config;
     }
 
+    private _computeLabelCallback = (schema: HaFormSchema) => {
+        const customLocalize = setupCustomlocalize(this.hass!);
+
+        if (schema.name === "entity") {
+            return `${this.hass!.localize(
+                "ui.panel.lovelace.editor.card.generic.entity"
+            )} (${customLocalize("editor.card.template.entity_extra")})`;
+        }
+        if (GENERIC_FIELDS.includes(schema.name)) {
+            return customLocalize(`editor.card.generic.${schema.name}`);
+        }
+        if (TEMPLATE_FIELDS.includes(schema.name)) {
+            return customLocalize(`editor.card.template.${schema.name}`);
+        }
+        return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
+    };
+
     protected render(): TemplateResult {
         if (!this.hass || !this._config) {
             return html``;
         }
 
-        const customLocalize = setupCustomlocalize(this.hass);
-
         return html`
-            <div class="card-config">
-                <ha-entity-picker
-                    .label="${this.hass.localize(
-                        "ui.panel.lovelace.editor.card.generic.entity"
-                    )}  (${customLocalize("editor.card.template.entity_extra")})"
-                    .hass=${this.hass}
-                    .value=${this._config.entity}
-                    .configValue=${"entity"}
-                    @value-changed=${this._valueChanged}
-                    allow-custom-entity
-                ></ha-entity-picker>
-                <mushroom-textarea
-                    .label="${customLocalize("editor.chip.template.content")} (${this.hass.localize(
-                        "ui.panel.lovelace.editor.card.config.optional"
-                    )})"
-                    .value=${this._config.content ?? ""}
-                    .configValue=${"content"}
-                    @keydown=${this._ignoreKeydown}
-                    @input=${this._valueChanged}
-                    dir="ltr"
-                    autogrow
-                    autocapitalize="none"
-                    autocomplete="off"
-                    spellcheck="false"
-                ></mushroom-textarea>
-                <mushroom-textarea
-                    .label="${this.hass.localize(
-                        "ui.panel.lovelace.editor.card.generic.icon"
-                    )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
-                    .value=${this._config.icon ?? ""}
-                    .configValue=${"icon"}
-                    @keydown=${this._ignoreKeydown}
-                    @input=${this._valueChanged}
-                    dir="ltr"
-                    autogrow
-                    autocapitalize="none"
-                    autocomplete="off"
-                    spellcheck="false"
-                ></mushroom-textarea>
-                <mushroom-textarea
-                    .label="${customLocalize(
-                        "editor.card.generic.icon_color"
-                    )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
-                    .value=${this._config.icon_color ?? ""}
-                    .configValue=${"icon_color"}
-                    @keydown=${this._ignoreKeydown}
-                    @input=${this._valueChanged}
-                    dir="ltr"
-                    autogrow
-                    autocapitalize="none"
-                    autocomplete="off"
-                    spellcheck="false"
-                ></mushroom-textarea>
-                <div class="side-by-side">
-                    <hui-action-editor
-                        .label="${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.generic.tap_action"
-                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
-                        .hass=${this.hass}
-                        .config=${this._config.tap_action}
-                        .actions=${actions}
-                        .configValue=${"tap_action"}
-                        .tooltipText=${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.button.default_action_help"
-                        )}
-                        @value-changed=${this._valueChanged}
-                    ></hui-action-editor>
-                    <hui-action-editor
-                        .label="${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.generic.hold_action"
-                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
-                        .hass=${this.hass}
-                        .config=${this._config.hold_action}
-                        .actions=${actions}
-                        .configValue=${"hold_action"}
-                        .tooltipText=${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.button.default_action_help"
-                        )}
-                        @value-changed=${this._valueChanged}
-                    ></hui-action-editor>
-                </div>
-                <div class="side-by-side">
-                    <hui-action-editor
-                        .label="${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.generic.double_tap_action"
-                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
-                        .hass=${this.hass}
-                        .config=${this._config.double_tap_action}
-                        .actions=${actions}
-                        .configValue=${"double_tap_action"}
-                        .tooltipText=${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.button.default_action_help"
-                        )}
-                        @value-changed=${this._valueChanged}
-                    ></hui-action-editor>
-                </div>
-            </div>
+            <ha-form
+                .hass=${this.hass}
+                .data=${this._config}
+                .schema=${SCHEMA}
+                .computeLabel=${this._computeLabelCallback}
+                @value-changed=${this._valueChanged}
+            ></ha-form>
         `;
     }
 
-    private _ignoreKeydown(ev: KeyboardEvent) {
-        ev.stopPropagation();
-    }
-
     private _valueChanged(ev: CustomEvent): void {
-        if (!this._config || !this.hass) {
-            return;
-        }
-        const target = ev.target! as EditorTarget;
-        const value = target.checked ?? ev.detail.value ?? target.value;
-
-        if (!target.configValue || this._config[target.configValue] === value) {
-            return;
-        }
-        if (target.configValue) {
-            if (!value) {
-                this._config = { ...this._config };
-                delete this._config[target.configValue!];
-            } else {
-                this._config = {
-                    ...this._config,
-                    [target.configValue!]: value,
-                };
-            }
-        }
-        fireEvent(this, "config-changed", { config: this._config });
+        fireEvent(this, "config-changed", { config: ev.detail.value });
     }
 
     static get styles(): CSSResultGroup {
