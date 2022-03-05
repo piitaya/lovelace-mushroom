@@ -11,6 +11,7 @@ import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import setupCustomlocalize from "../../localize";
 import { configElementStyle } from "../../utils/editor-styles";
+import { Action } from "../../utils/form/custom/ha-selector-mushroom-action";
 import { GENERIC_FIELDS } from "../../utils/form/fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { stateIcon } from "../../utils/icons/state-icon";
@@ -21,7 +22,7 @@ import {
 } from "./alarm-control-panel-card-config";
 import { ALARM_CONTROl_PANEL_CARD_EDITOR_NAME, ALARM_CONTROl_PANEL_ENTITY_DOMAINS } from "./const";
 
-const actions: ActionConfig["action"][] = ["more-info", "navigate", "url", "call-service", "none"];
+const actions: Action[] = ["more-info", "navigate", "url", "call-service", "none"];
 
 const states = ["armed_home", "armed_away", "armed_night", "armed_vacation", "armed_custom_bypass"];
 

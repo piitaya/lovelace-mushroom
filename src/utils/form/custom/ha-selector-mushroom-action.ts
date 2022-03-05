@@ -3,9 +3,10 @@ import { html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import "../../../shared/editor/action-picker";
 
+export type Action = ActionConfig["action"];
 export type MushActionSelector = {
     "mush-action": {
-        actions?: ActionConfig["action"][];
+        actions?: Action[];
     };
 };
 
