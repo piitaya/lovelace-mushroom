@@ -1,16 +1,34 @@
-import { computeRTLDirection, fireEvent, HomeAssistant } from "custom-card-helpers";
+import { fireEvent, HomeAssistant } from "custom-card-helpers";
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import setupCustomlocalize from "../../../localize";
 import { configElementStyle } from "../../../utils/editor-styles";
+import { Action } from "../../../utils/form/custom/ha-selector-mushroom-action";
+import { GENERIC_FIELDS } from "../../../utils/form/fields";
+import { HaFormSchema } from "../../../utils/form/ha-form";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
 import { WeatherChipConfig } from "../../../utils/lovelace/chip/types";
-import { EditorTarget } from "../../../utils/lovelace/editor/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 
-const DOMAINS = ["weather"];
+const WEATHER_ENTITY_DOMAINS = ["weather"];
+const WEATHER_FIELDS = ["show_conditions", "show_temperature"];
 
-const actions = ["more-info", "navigate", "url", "call-service", "none"];
+const actions: Action[] = ["more-info", "navigate", "url", "call-service", "none"];
+
+const SCHEMA: HaFormSchema[] = [
+    { name: "entity", selector: { entity: { domain: WEATHER_ENTITY_DOMAINS } } },
+    {
+        type: "grid",
+        name: "",
+        schema: [
+            { name: "show_conditions", selector: { boolean: {} } },
+            { name: "show_temperature", selector: { boolean: {} } },
+        ],
+    },
+    { name: "tap_action", selector: { "mush-action": { actions } } },
+    { name: "hold_action", selector: { "mush-action": { actions } } },
+    { name: "double_tap_action", selector: { "mush-action": { actions } } },
+];
 
 @customElement(computeChipEditorComponentName("weather"))
 export class WeatherChipEditor extends LitElement implements LovelaceChipEditor {
@@ -22,120 +40,39 @@ export class WeatherChipEditor extends LitElement implements LovelaceChipEditor 
         this._config = config;
     }
 
+    private _computeLabelCallback = (schema: HaFormSchema) => {
+        const customLocalize = setupCustomlocalize(this.hass!);
+
+        if (GENERIC_FIELDS.includes(schema.name)) {
+            return customLocalize(`editor.card.generic.${schema.name}`);
+        }
+        if (WEATHER_FIELDS.includes(schema.name)) {
+            return customLocalize(`editor.card.weather.${schema.name}`);
+        }
+        return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
+    };
+
     protected render(): TemplateResult {
         if (!this.hass || !this._config) {
             return html``;
         }
 
-        const dir = computeRTLDirection(this.hass);
-
-        const customlocalize = setupCustomlocalize(this.hass);
-
         return html`
-            <div class="card-config">
-                <ha-entity-picker
-                    .label="${this.hass.localize("ui.panel.lovelace.editor.card.generic.entity")}"
-                    .hass=${this.hass}
-                    .value=${this._config.entity}
-                    .configValue=${"entity"}
-                    @value-changed=${this._valueChanged}
-                    .includeDomains=${DOMAINS}
-                    allow-custom-entity
-                ></ha-entity-picker>
-                <div class="side-by-side">
-                    <ha-formfield
-                        .label=${customlocalize("editor.chip.weather.show_conditions")}
-                        .dir=${dir}
-                    >
-                        <ha-switch
-                            .checked=${!!this._config.show_conditions}
-                            .configValue=${"show_conditions"}
-                            @change=${this._valueChanged}
-                        ></ha-switch>
-                    </ha-formfield>
-                    <ha-formfield
-                        .label=${customlocalize("editor.chip.weather.show_temperature")}
-                        .dir=${dir}
-                    >
-                        <ha-switch
-                            .checked=${!!this._config.show_temperature}
-                            .configValue=${"show_temperature"}
-                            @change=${this._valueChanged}
-                        ></ha-switch>
-                    </ha-formfield>
-                </div>
-                <div class="side-by-side">
-                    <hui-action-editor
-                        .label="${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.generic.tap_action"
-                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
-                        .hass=${this.hass}
-                        .config=${this._config.tap_action}
-                        .actions=${actions}
-                        .configValue=${"tap_action"}
-                        .tooltipText=${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.button.default_action_help"
-                        )}
-                        @value-changed=${this._valueChanged}
-                    ></hui-action-editor>
-                    <hui-action-editor
-                        .label="${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.generic.hold_action"
-                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
-                        .hass=${this.hass}
-                        .config=${this._config.hold_action}
-                        .actions=${actions}
-                        .configValue=${"hold_action"}
-                        .tooltipText=${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.button.default_action_help"
-                        )}
-                        @value-changed=${this._valueChanged}
-                    ></hui-action-editor>
-                </div>
-                <div class="side-by-side">
-                    <hui-action-editor
-                        .label="${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.generic.double_tap_action"
-                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
-                        .hass=${this.hass}
-                        .config=${this._config.double_tap_action}
-                        .actions=${actions}
-                        .configValue=${"double_tap_action"}
-                        .tooltipText=${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.button.default_action_help"
-                        )}
-                        @value-changed=${this._valueChanged}
-                    ></hui-action-editor>
-                </div>
-            </div>
+            <ha-form
+                .hass=${this.hass}
+                .data=${this._config}
+                .schema=${SCHEMA}
+                .computeLabel=${this._computeLabelCallback}
+                @value-changed=${this._valueChanged}
+            ></ha-form>
         `;
     }
 
     private _valueChanged(ev: CustomEvent): void {
-        if (!this._config || !this.hass) {
-            return;
-        }
-        const target = ev.target! as EditorTarget;
-        const value = target.checked ?? ev.detail.value ?? target.value;
-
-        if (!target.configValue || this._config[target.configValue] === value) {
-            return;
-        }
-        if (target.configValue) {
-            if (!value) {
-                this._config = { ...this._config };
-                delete this._config[target.configValue!];
-            } else {
-                this._config = {
-                    ...this._config,
-                    [target.configValue!]: value,
-                };
-            }
-        }
-        fireEvent(this, "config-changed", { config: this._config });
+        fireEvent(this, "config-changed", { config: ev.detail.value });
     }
 
     static get styles(): CSSResultGroup {
-        return configElementStyle;
+        return [configElementStyle];
     }
 }

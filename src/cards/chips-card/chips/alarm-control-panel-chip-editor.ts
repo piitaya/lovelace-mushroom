@@ -11,11 +11,12 @@ import { stateIcon } from "../../../utils/icons/state-icon";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
 import { AlarmControlPanelChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
+import { ALARM_CONTROl_PANEL_ENTITY_DOMAINS } from "../../alarm-control-panel-card/const";
 
 const actions: Action[] = ["more-info", "navigate", "url", "call-service", "none"];
 
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
-    { name: "entity", selector: { entity: {} } },
+    { name: "entity", selector: { entity: { domain: ALARM_CONTROl_PANEL_ENTITY_DOMAINS } } },
     {
         type: "grid",
         name: "",

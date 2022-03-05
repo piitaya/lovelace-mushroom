@@ -12,10 +12,11 @@ import { stateIcon } from "../../../utils/icons/state-icon";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
 import { LightChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
+import { LIGHT_ENTITY_DOMAINS } from "../../light-card/const";
 import { LIGHT_FIELDS } from "../../light-card/light-card-editor";
 
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
-    { name: "entity", selector: { entity: {} } },
+    { name: "entity", selector: { entity: { domain: LIGHT_ENTITY_DOMAINS } } },
     {
         type: "grid",
         name: "",
