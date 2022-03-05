@@ -1,12 +1,17 @@
 import { fireEvent, HomeAssistant } from "custom-card-helpers";
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import setupCustomlocalize from "../../../localize";
+import memoizeOne from "memoize-one";
 import { configElementStyle } from "../../../utils/editor-styles";
+import { HaFormSchema } from "../../../utils/form/ha-form";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
 import { EntityChipConfig } from "../../../utils/lovelace/chip/types";
-import { EditorTarget } from "../../../utils/lovelace/editor/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
+import { DEFAULT_MENU_ICON } from "./menu-chip";
+
+const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
+    { name: "icon", selector: { icon: { placeholder: icon } } },
+]);
 
 @customElement(computeChipEditorComponentName("menu"))
 export class MenuChipEditor extends LitElement implements LovelaceChipEditor {
@@ -18,50 +23,31 @@ export class MenuChipEditor extends LitElement implements LovelaceChipEditor {
         this._config = config;
     }
 
+    private _computeLabelCallback = (schema: HaFormSchema) => {
+        return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
+    };
+
     protected render(): TemplateResult {
         if (!this.hass || !this._config) {
             return html``;
         }
 
+        const icon = this._config.icon || DEFAULT_MENU_ICON;
+        const schema = computeSchema(icon);
+
         return html`
-            <div class="card-config">
-                <div class="side-by-side">
-                    <ha-icon-picker
-                        .label="${this.hass.localize(
-                            "ui.panel.lovelace.editor.card.generic.icon"
-                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
-                        .value=${this._config.icon}
-                        .placeholder=${this._config.icon || "mdi:menu"}
-                        .configValue=${"icon"}
-                        @value-changed=${this._valueChanged}
-                    ></ha-icon-picker>
-                </div>
-            </div>
+            <ha-form
+                .hass=${this.hass}
+                .data=${this._config}
+                .schema=${schema}
+                .computeLabel=${this._computeLabelCallback}
+                @value-changed=${this._valueChanged}
+            ></ha-form>
         `;
     }
 
     private _valueChanged(ev: CustomEvent): void {
-        if (!this._config || !this.hass) {
-            return;
-        }
-        const target = ev.target! as EditorTarget;
-        const value = target.checked ?? ev.detail.value ?? target.value;
-
-        if (!target.configValue || this._config[target.configValue] === value) {
-            return;
-        }
-        if (target.configValue) {
-            if (!value) {
-                this._config = { ...this._config };
-                delete this._config[target.configValue!];
-            } else {
-                this._config = {
-                    ...this._config,
-                    [target.configValue!]: value,
-                };
-            }
-        }
-        fireEvent(this, "config-changed", { config: this._config });
+        fireEvent(this, "config-changed", { config: ev.detail.value });
     }
 
     static get styles(): CSSResultGroup {

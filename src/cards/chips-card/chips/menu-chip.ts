@@ -9,6 +9,8 @@ import {
 import { LovelaceChip, MenuChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 
+export const DEFAULT_MENU_ICON = "mdi:menu";
+
 @customElement(computeChipComponentName("menu"))
 export class MenuChip extends LitElement implements LovelaceChip {
     public static async getConfigElement(): Promise<LovelaceChipEditor> {
@@ -39,7 +41,7 @@ export class MenuChip extends LitElement implements LovelaceChip {
             return html``;
         }
 
-        const icon = this._config.icon ?? "mdi:menu";
+        const icon = this._config.icon || DEFAULT_MENU_ICON;
 
         return html`
             <mushroom-chip @action=${this._handleAction} .actionHandler=${actionHandler()}>
