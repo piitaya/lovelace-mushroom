@@ -38,6 +38,7 @@ export class LayoutPicker extends LitElement {
         const customLocalize = setupCustomlocalize(this.hass);
 
         const value = this.value || "default";
+
         return html`
             <mushroom-select
                 icon
