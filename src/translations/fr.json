@@ -22,6 +22,15 @@
                     "vertical": "Disposition verticale",
                     "horizontal": "Disposition horizontale"
                 }
+            },
+            "alignment_picker": {
+                "values": {
+                    "default": "Alignement par défaut",
+                    "start": "Début",
+                    "end": "Fin",
+                    "center": "Centré",
+                    "justify": "Justifié"
+                }
             }
         },
         "card": {
@@ -67,14 +76,7 @@
                 "subtitle": "Sous-titre"
             },
             "chips": {
-                "alignment": "Alignement",
-                "alignment_values": {
-                    "default": "Alignement par défaut",
-                    "start": "Début",
-                    "end": "Fin",
-                    "center": "Centré",
-                    "justify": "Justifié"
-                }
+                "alignment": "Alignement"
             },
             "weather": {
                 "show_conditons": "Conditions ?",

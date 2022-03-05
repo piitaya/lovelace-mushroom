@@ -22,6 +22,14 @@
                     "vertical": "Vertikales Layout",
                     "horizontal": "Horizontales Layout"
                 }
+            },
+            "alignment_picker": {
+                "values": {
+                    "default": "Standard (start)",
+                    "end": "Ende",
+                    "center": "Mitte",
+                    "justify": "Ausrichten"
+                }
             }
         },
         "card": {
@@ -65,13 +73,7 @@
                 "subtitle": "Untertitel"
             },
             "chips": {
-                "alignment": "Ausrichtung",
-                "alignment_values": {
-                    "default": "Standard (start)",
-                    "end": "Ende",
-                    "center": "Mitte",
-                    "justify": "Ausrichten"
-                }
+                "alignment": "Ausrichtung"
             },
             "weather": {
                 "show_conditions": "Bedingungen?",

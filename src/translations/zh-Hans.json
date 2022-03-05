@@ -22,6 +22,14 @@
                     "vertical": "垂直布局",
                     "horizontal": "水平布局"
                 }
+            },
+            "alignment_picker": {
+                "values": {
+                    "default": "默认 (左对齐)",
+                    "end": "右对齐",
+                    "center": "居中对齐",
+                    "justify": "两端对齐"
+                }
             }
         },
         "card": {
@@ -64,13 +72,7 @@
                 "subtitle": "子标题"
             },
             "chips": {
-                "alignment": "对齐",
-                "alignment_values": {
-                    "default": "默认 (左对齐)",
-                    "end": "右对齐",
-                    "center": "居中对齐",
-                    "justify": "两端对齐"
-                }
+                "alignment": "对齐"
             },
             "weather": {
                 "show_conditions": "条件?",

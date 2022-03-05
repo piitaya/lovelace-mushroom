@@ -4,10 +4,10 @@ import { customElement, property } from "lit/decorators.js";
 import setupCustomlocalize from "../../localize";
 import "./../form/mushroom-select";
 
-export const ALIGNMENT = ["start", "end", "center", "justify"];
+const ALIGNMENT = ["default", "start", "end", "center", "justify"] as const;
 
 @customElement("mushroom-alignment-picker")
-export class ColorPicker extends LitElement {
+export class AlignmentPicker extends LitElement {
     @property() public label = "";
 
     @property() public value?: string;
@@ -40,13 +40,10 @@ export class ColorPicker extends LitElement {
                 fixedMenuPosition
                 naturalMenuWidth
             >
-                <mwc-list-item value="default">
-                    ${customLocalize("editor.card.chips.alignment_values.default")}
-                </mwc-list-item>
                 ${ALIGNMENT.map((alignment) => {
                     return html`
                         <mwc-list-item .value=${alignment}>
-                            ${customLocalize(`editor.card.chips.alignment_values.${alignment}`)}
+                            ${customLocalize(`editor.form.alignment_picker.values.${alignment}`)}
                         </mwc-list-item>
                     `;
                 })}

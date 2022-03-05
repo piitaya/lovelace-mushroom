@@ -22,6 +22,15 @@
                     "vertical": "Vertical layout",
                     "horizontal": "Horizontal layout"
                 }
+            },
+            "alignment_picker": {
+                "values": {
+                    "default": "Default alignment",
+                    "start": "Start",
+                    "end": "End",
+                    "center": "Center",
+                    "justify": "Justify"
+                }
             }
         },
         "card": {
@@ -67,14 +76,7 @@
                 "subtitle": "Subtitle"
             },
             "chips": {
-                "alignment": "Alignment",
-                "alignment_values": {
-                    "default": "Default alignment",
-                    "start": "Start",
-                    "end": "End",
-                    "center": "Center",
-                    "justify": "Justify"
-                }
+                "alignment": "Alignment"
             },
             "weather": {
                 "show_conditions": "Conditions?",

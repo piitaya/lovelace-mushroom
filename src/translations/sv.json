@@ -22,6 +22,14 @@
                     "vertical": "Vertikal",
                     "horizontal": "Horisontell"
                 }
+            },
+            "alignment_picker": {
+                "values": {
+                    "default": "Standard (början)",
+                    "end": "Slutet",
+                    "center": "Centrerad",
+                    "justify": "Anpassa"
+                }
             }
         },
         "card": {
@@ -65,13 +73,7 @@
                 "subtitle": "Underrubrik"
             },
             "chips": {
-                "alignment": "Justering",
-                "alignment_values": {
-                    "default": "Standard (början)",
-                    "end": "Slutet",
-                    "center": "Centrerad",
-                    "justify": "Anpassa"
-                }
+                "alignment": "Justering"
             },
             "weather": {
                 "show_conditions": "Förhållanden?",
