@@ -6,5 +6,6 @@ export const GENERIC_FIELDS = [
     "layout",
     "primary_info",
     "secondary_info",
+    "content_info",
     "use_entity_picture",
 ];
