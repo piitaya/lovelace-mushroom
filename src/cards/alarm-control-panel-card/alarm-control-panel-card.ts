@@ -162,8 +162,8 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
 
         const entity = this.hass.states[entity_id];
 
-        const name = this._config.name ?? entity.attributes.friendly_name;
-        const icon = this._config.icon ?? stateIcon(entity);
+        const name = this._config.name || entity.attributes.friendly_name;
+        const icon = this._config.icon || stateIcon(entity);
         const color = getStateColor(entity.state);
         const shapePulse = shouldPulse(entity.state);
         const layout = getLayoutFromConfig(this._config);
