@@ -43,7 +43,7 @@
                 "incompatible_controls": "Certains contrôles peuvent ne pas être affichés si votre lumière ne supporte pas la fonctionnalité."
             },
             "fan": {
-                "animate_icon_active": "Animation de l'icône ?",
+                "icon_animation": "Animation de l'icône ?",
                 "show_percentage_control": "Contrôle de la vitesse ?",
                 "show_oscillate_control": "Contrôle de l'oscillation ?"
             },

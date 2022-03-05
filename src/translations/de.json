@@ -43,7 +43,7 @@
                 "incompatible_controls": "Einige Steuerelemente werden möglicherweise nicht angezeigt, wenn Ihr Licht diese Funktion nicht unterstützt."
             },
             "fan": {
-                "animate_icon_active": "Icon animieren, wenn aktiv?",
+                "icon_animation": "Icon animieren, wenn aktiv?",
                 "show_percentage_control": "Prozentuale Kontrolle?",
                 "show_oscillate_control": "Oszillationssteuerung?"
             },

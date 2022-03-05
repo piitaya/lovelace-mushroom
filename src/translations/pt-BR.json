@@ -43,7 +43,7 @@
                 "incompatible_controls": "Alguns controles podem não ser exibidos se sua luz não suportar o recurso."
             },
             "fan": {
-                "animate_icon_active": "Animar ícone quando ativo?",
+                "icon_animation": "Animar ícone quando ativo?",
                 "show_percentage_control": "Mostrar controle de porcentagem?",
                 "show_oscillate_control": "Mostrar controle de oscilação?"
             },

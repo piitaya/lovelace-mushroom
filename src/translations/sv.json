@@ -43,7 +43,7 @@
                 "incompatible_controls": "Kontroller som inte stöds av enheten kommer inte visas."
             },
             "fan": {
-                "animate_icon_active": "Animera ikonen när fläkten är på?",
+                "icon_animation": "Animera ikonen när fläkten är på?",
                 "show_percentage_control": "Procentuell kontroll?",
                 "show_oscillate_control": "Kontroll för oscillera?"
             },
