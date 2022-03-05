@@ -12,7 +12,7 @@ import { loadHaComponents } from "../../utils/loader";
 import { LIGHT_CARD_EDITOR_NAME, LIGHT_ENTITY_DOMAINS } from "./const";
 import { LightCardConfig, lightCardConfigStruct } from "./light-card-config";
 
-const LIGHT_FIELDS = [
+export const LIGHT_FIELDS = [
     "show_brightness_control",
     "use_light_color",
     "show_color_temp_control",
