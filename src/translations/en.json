@@ -19,6 +19,7 @@
             "attributes_picker": {
                 "values": {
                     "default": "Default information",
+                    "state": "State",
                     "battery": "Battery",
                     "temperature": "Temperature",
                     "device_class": "Device class",
@@ -68,12 +69,14 @@
             "entity": {
                 "primary_info": "Primary information",
                 "secondary_info": "Secondary information",
-                "attribute": "Attribute"
+                "primary_attribute": "Primary attribute",
+                "secondary_attribute": "Secondary attribute"
             },
             "template": {
                 "primary": "Primary information",
-                "secondary": "Secondary information",
-                "attribute": "Attribute",
+                "secondary_info": "Secondary information",
+                "primary_attribute": "Primary attribute",
+                "secondary_attribute": "Secondary attribute",
                 "entity_extra": "Used in templates and actions"
             },
             "title": {

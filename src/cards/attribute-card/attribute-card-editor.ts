@@ -125,28 +125,29 @@ export class AttributeCardEditor extends LitElement implements LovelaceCardEdito
                         @value-changed=${this._valueChanged}
                     >
                     </mushroom-info-picker>
-                    <mushroom-info-picker
-                        .label="${customLocalize(
-                            "editor.card.entity.secondary_info"
-                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
-                        .hass=${this.hass}
-                        .value=${this._config.secondary_info}
-                        .configValue=${"secondary_info"}
-                        @value-changed=${this._valueChanged}
-                    >
-                    </mushroom-info-picker>
+                    
                 </div>
                 <div class="side-by-side">
                     <mushroom-attributes-picker
                         .label="${customLocalize(
-                            "editor.card.entity.attribute"
+                            "editor.card.entity.primary_attribute"
                         )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
                         .hass=${this.hass}
                         .value=${this._config.attribute}
-                        .configValue=${"attribute"}
+                        .configValue=${"primary_attribute"}
                         @value-changed=${this._valueChanged}
                     >
                     </mushroom-attributes-picker></div>
+                    <mushroom-attributes-picker
+                        .label="${customLocalize(
+                            "editor.card.entity.secondary_attribute"
+                        )} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
+                        .hass=${this.hass}
+                        .value=${this._config.secondary_attribute}
+                        .configValue=${"secondary_attribute"}
+                        @value-changed=${this._valueChanged}
+                    >
+                    </mushroom-attributes-picker>
                 <div class="side-by-side">
                     <hui-action-editor
                         .label="${this.hass.localize(

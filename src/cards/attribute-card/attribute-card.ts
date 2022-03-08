@@ -13,7 +13,7 @@ import { styleMap } from "lit/directives/style-map.js";
 import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-icon";
-import "../../shared/state-info";
+import "../../shared/attribute-info";
 import "../../shared/state-item";
 import { cardStyle } from "../../utils/card-styles";
 import { computeRgbColor } from "../../utils/colors";
@@ -97,15 +97,16 @@ export class AttributeCard extends LitElement implements LovelaceCard {
             entity,
             this.hass
         );
-        const secondary = getInfo(
+        const primary_attribute = getInfo(
             this._config.secondary_info ?? "state",
             name,
             stateDisplay,
             entity,
             this.hass
         );
-        const attribute = getAttributes(
-            this._config.attribute ?? "none",
+        const secondary_attribute = getAttributes(
+            this._config.secondary_attribute ?? "none",
+            stateDisplay,
             entity,
             this.hass
         );
@@ -121,7 +122,7 @@ export class AttributeCard extends LitElement implements LovelaceCard {
                         hasHold: hasAction(this._config.hold_action),
                         hasDoubleClick: hasAction(this._config.double_tap_action),
                     })}
-                    .hide_info=${primary == null && secondary == null}
+                    .hide_info=${primary == null && primary_attribute == null}
                     .hide_icon=${hideIcon}
                 >
                     ${!hideIcon ? this.renderIcon(icon, iconColor, isActive(entity)) : undefined}
@@ -134,12 +135,12 @@ export class AttributeCard extends LitElement implements LovelaceCard {
                               ></mushroom-badge-icon>
                           `
                         : null}
-                    <mushroom-state-info
+                    <mushroom-attribute-info
                         slot="info"
                         .primary=${primary}
-                        .secondary=${secondary}
-                        .attribute=${attribute}
-                    ></mushroom-state-info>
+                        .primary_attribute=${primary_attribute}
+                        .secondary_attribute=${secondary_attribute}
+                    ></mushroom-attribute-info>
                 </mushroom-state-item>
             </mushroom-card>
         `;
