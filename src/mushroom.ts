@@ -4,6 +4,7 @@ export { AlarmControlPanelCard } from "./cards/alarm-control-panel-card/alarm-co
 export { ChipsCard } from "./cards/chips-card/chips-card";
 export { CoverCard } from "./cards/cover-card/cover-card";
 export { EntityCard } from "./cards/entity-card/entity-card";
+export { AttributeCard } from "./cards/attribute-card/attribute-card";
 export { FanCard } from "./cards/fan-card/fan-card";
 export { LightCard } from "./cards/light-card/light-card";
 export { PersonCard } from "./cards/person-card/person-card";

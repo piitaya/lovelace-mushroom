@@ -35,6 +35,7 @@ export const configElementStyle = css`
     ha-icon-picker,
     mushroom-layout-picker,
     mushroom-info-picker,
+    mushroom-attributes-picker,
     mushroom-alignment-picker,
     mushroom-color-picker {
         margin-top: 8px;

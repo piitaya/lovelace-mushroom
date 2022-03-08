@@ -16,6 +16,15 @@
                     "none": "None"
                 }
             },
+            "attributes_picker": {
+                "values": {
+                    "default": "Default information",
+                    "battery": "Battery",
+                    "temperature": "Temperature",
+                    "device_class": "Device class",
+                    "none": "None"
+                }
+            },
             "layout_picker": {
                 "values": {
                     "default": "Default layout",
@@ -58,11 +67,13 @@
             },
             "entity": {
                 "primary_info": "Primary information",
-                "secondary_info": "Secondary information"
+                "secondary_info": "Secondary information",
+                "attribute": "Tertiary information"
             },
             "template": {
                 "primary": "Primary information",
                 "secondary": "Secondary information",
+                "attribute": "Attribute",
                 "entity_extra": "Used in templates and actions"
             },
             "title": {

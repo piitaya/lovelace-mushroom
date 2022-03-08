@@ -7,20 +7,48 @@ export class StateItem extends LitElement {
 
     @property() public secondary?: string;
 
+    @property() public tertiary?: string;
+
     @property() public multiline_secondary?: boolean = false;
 
     protected render(): TemplateResult {
-        return html`
+
+        if(this.tertiary){
+            return html`
             <div class="container">
                 <span class="primary">${this.primary}</span>
+                <span>
+                
+                ${this.secondary
+                    ? html`<span
+                          class="secondary${this.multiline_secondary ? ` multiline_secondary` : ``} pull-left"
+                          >${this.secondary}</span
+                      >`
+                    : null}
+
+            ${this.tertiary
+                ? html`<span
+                        class="tertiary pull-right"
+                        >${this.tertiary}</span
+                    >`
+                : null}
+                </span>
+            </div>
+        `;
+        }
+        else{
+            return html`
+            <div class="container">
+                <span class="primary">${this.primary}</span>
+                
                 ${this.secondary
                     ? html`<span
                           class="secondary${this.multiline_secondary ? ` multiline_secondary` : ``}"
                           >${this.secondary}</span
                       >`
                     : null}
-            </div>
         `;
+        }
     }
 
     static get styles(): CSSResultGroup {
@@ -47,8 +75,22 @@ export class StateItem extends LitElement {
                 overflow: hidden;
                 white-space: nowrap;
             }
+            .tertiary {
+                font-weight: bolder;
+                font-size: 12px;
+                color: var(--secondary-text-color);
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+            }
             .multiline_secondary {
                 white-space: pre-wrap;
+            }
+            .pull-left{
+                float:left;
+            }
+            .pull-right{
+                float:right;
             }
         `;
     }
