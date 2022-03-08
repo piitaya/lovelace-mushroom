@@ -7,13 +7,13 @@ export class StateItem extends LitElement {
 
     @property() public secondary?: string;
 
-    @property() public tertiary?: string;
+    @property() public attribute?: string;
 
     @property() public multiline_secondary?: boolean = false;
 
     protected render(): TemplateResult {
 
-        if(this.tertiary){
+        if (this.attribute) {
             return html`
             <div class="container">
                 <span class="primary">${this.primary}</span>
@@ -26,17 +26,17 @@ export class StateItem extends LitElement {
                       >`
                     : null}
 
-            ${this.tertiary
-                ? html`<span
-                        class="tertiary pull-right"
-                        >${this.tertiary}</span
-                    >`
-                : null}
+                ${this.attribute
+                    ? html`<span
+                            class="attribute pull-right"
+                            >${this.attribute}</span
+                        >`
+                    : null}
                 </span>
             </div>
         `;
         }
-        else{
+        else {
             return html`
             <div class="container">
                 <span class="primary">${this.primary}</span>
@@ -75,7 +75,7 @@ export class StateItem extends LitElement {
                 overflow: hidden;
                 white-space: nowrap;
             }
-            .tertiary {
+            .attribute {
                 font-weight: bolder;
                 font-size: 12px;
                 color: var(--secondary-text-color);

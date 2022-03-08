@@ -68,7 +68,7 @@
             "entity": {
                 "primary_info": "Primary information",
                 "secondary_info": "Secondary information",
-                "attribute": "Tertiary information"
+                "attribute": "Attribute"
             },
             "template": {
                 "primary": "Primary information",

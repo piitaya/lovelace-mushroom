@@ -104,7 +104,7 @@ export class AttributeCard extends LitElement implements LovelaceCard {
             entity,
             this.hass
         );
-        const tertiary = getAttributes(
+        const attribute = getAttributes(
             this._config.attribute ?? "none",
             entity,
             this.hass
@@ -138,7 +138,7 @@ export class AttributeCard extends LitElement implements LovelaceCard {
                         slot="info"
                         .primary=${primary}
                         .secondary=${secondary}
-                        .tertiary=${tertiary}
+                        .attribute=${attribute}
                     ></mushroom-state-info>
                 </mushroom-state-item>
             </mushroom-card>
