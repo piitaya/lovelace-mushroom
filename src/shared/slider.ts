@@ -1,5 +1,5 @@
 import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { customElement, property, query } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import "hammerjs";
@@ -45,11 +45,22 @@ export class SliderItem extends LitElement {
         this.setupListeners();
     }
 
-    setupListeners() {
-        const slider = this.shadowRoot?.getElementById("slider");
+    connectedCallback(): void {
+        super.connectedCallback();
+        this.setupListeners();
+    }
 
-        if (slider) {
-            this._mc = new Hammer.Manager(slider, { touchAction: "pan-y" });
+    disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.destroyListeners();
+    }
+
+    @query("#slider")
+    slider;
+
+    setupListeners() {
+        if (this.slider && !this._mc) {
+            this._mc = new Hammer.Manager(this.slider, { touchAction: "pan-y" });
             this._mc.add(
                 new Hammer.Pan({
                     threshold: 10,
@@ -82,8 +93,11 @@ export class SliderItem extends LitElement {
         }
     }
 
-    disconnectedCallback(): void {
-        if (this._mc) this._mc.destroy();
+    destroyListeners() {
+        if (this._mc) {
+            this._mc.destroy();
+            this._mc = undefined;
+        }
     }
 
     protected render(): TemplateResult {
