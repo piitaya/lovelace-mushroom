@@ -37,17 +37,17 @@ export class BadgeIcon extends LitElement {
             }
             ::slotted(ha-icon) {
                 display: flex;
-                --mdc-icon-size: 1.5em;
+                --mdc-icon-size: var(--chip-icon-size);
                 color: var(--icon-color);
             }
             ::slotted(svg) {
-                width: 1.5em;
-                height: 1.5em;
+                width: var(--chip-icon-size);
+                height: var(--chip-icon-size);
                 display: flex;
             }
             ::slotted(span) {
-                font-weight: bold;
-                font-size: 1em;
+                font-weight: var(--chip-font-weight);
+                font-size: var(--chip-font-size);
                 line-height: 1;
                 color: var(--text-color);
             }

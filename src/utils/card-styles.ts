@@ -26,6 +26,9 @@ export const cardStyle = css`
         --chip-padding: var(--mush-chip-padding, 0 10px);
         --chip-height: var(--mush-chip-height, 36px);
         --chip-border-radius: var(--mush-chip-border-radius, 18px);
+        --chip-font-size: var(--mush-chip-font-size, 1em);
+        --chip-font-weight: var(--mush-font-weight, bold);
+        --chip-icon-size: var(--mush-font-weight, 1.5em);
     }
     .actions {
         display: flex;
