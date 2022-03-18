@@ -32,16 +32,16 @@ export class StateItem extends LitElement {
                 flex-direction: column;
             }
             .primary {
-                font-weight: bold;
-                font-size: 14px;
+                font-weight: var(--card-primary-font-weight);
+                font-size: var(--card-primary-font-size);
                 color: var(--primary-text-color);
                 text-overflow: ellipsis;
                 overflow: hidden;
                 white-space: nowrap;
             }
             .secondary {
-                font-weight: bolder;
-                font-size: 12px;
+                font-weight: var(--card-secondary-font-weight);
+                font-size: var(--card-secondary-font-size);
                 color: var(--secondary-text-color);
                 text-overflow: ellipsis;
                 overflow: hidden;
