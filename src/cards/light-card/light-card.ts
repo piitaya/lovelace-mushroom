@@ -98,17 +98,33 @@ export class LightCard extends LitElement implements LovelaceCard {
             },
             ...config,
         };
-        this.setControls();
+        this.updateControls();
+        this.updateBrightness();
     }
 
     protected updated(changedProperties: PropertyValues) {
         super.updated(changedProperties);
         if (this.hass && changedProperties.has("hass")) {
-            this.setControls();
+            this.updateControls();
+            this.updateBrightness();
         }
     }
 
-    setControls() {
+    @state()
+    private brightness?: number;
+
+    updateBrightness() {
+        this.brightness = undefined;
+        if (!this._config || !this.hass || !this._config.entity) return;
+
+        const entity_id = this._config.entity;
+        const entity = this.hass.states[entity_id];
+
+        if (!entity) return;
+        this.brightness = getBrightness(entity);
+    }
+
+    updateControls() {
         if (!this._config || !this.hass || !this._config.entity) return;
 
         const entity_id = this._config.entity;
@@ -155,9 +171,7 @@ export class LightCard extends LitElement implements LovelaceCard {
 
         const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
-        const brightness = getBrightness(entity);
-
-        const stateValue = brightness != null ? `${brightness}%` : stateDisplay;
+        const stateValue = this.brightness != null ? `${this.brightness}%` : stateDisplay;
 
         const lightRgbColor = getRGBColor(entity);
         const iconStyle = {};
@@ -230,6 +244,12 @@ export class LightCard extends LitElement implements LovelaceCard {
         `;
     }
 
+    private onCurrentBrightnessChange(e: CustomEvent<{ value?: number }>): void {
+        if (e.detail.value != null) {
+            this.brightness = e.detail.value;
+        }
+    }
+
     private renderActiveControl(entity: HassEntity): TemplateResult | null {
         switch (this._activeControl) {
             case "brightness_control":
@@ -251,6 +271,7 @@ export class LightCard extends LitElement implements LovelaceCard {
                         .hass=${this.hass}
                         .entity=${entity}
                         style=${styleMap(sliderStyle)}
+                        @current-change=${this.onCurrentBrightnessChange}
                     />
                 `;
             case "color_temp_control":
