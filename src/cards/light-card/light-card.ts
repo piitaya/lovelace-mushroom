@@ -124,6 +124,12 @@ export class LightCard extends LitElement implements LovelaceCard {
         this.brightness = getBrightness(entity);
     }
 
+    private onCurrentBrightnessChange(e: CustomEvent<{ value?: number }>): void {
+        if (e.detail.value != null) {
+            this.brightness = e.detail.value;
+        }
+    }
+
     updateControls() {
         if (!this._config || !this.hass || !this._config.entity) return;
 
@@ -242,12 +248,6 @@ export class LightCard extends LitElement implements LovelaceCard {
                 `
             )}
         `;
-    }
-
-    private onCurrentBrightnessChange(e: CustomEvent<{ value?: number }>): void {
-        if (e.detail.value != null) {
-            this.brightness = e.detail.value;
-        }
     }
 
     private renderActiveControl(entity: HassEntity): TemplateResult | null {

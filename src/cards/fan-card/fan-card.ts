@@ -7,7 +7,7 @@ import {
     LovelaceCard,
     LovelaceCardEditor,
 } from "custom-card-helpers";
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -72,6 +72,34 @@ export class FanCard extends LitElement implements LovelaceCard {
             },
             ...config,
         };
+        this.updatePercentage();
+    }
+
+    protected updated(changedProperties: PropertyValues) {
+        super.updated(changedProperties);
+        if (this.hass && changedProperties.has("hass")) {
+            this.updatePercentage();
+        }
+    }
+
+    @state()
+    private percentage?: number;
+
+    updatePercentage() {
+        this.percentage = undefined;
+        if (!this._config || !this.hass || !this._config.entity) return;
+
+        const entity_id = this._config.entity;
+        const entity = this.hass.states[entity_id];
+
+        if (!entity) return;
+        this.percentage = getPercentage(entity);
+    }
+
+    private onCurrentPercentageChange(e: CustomEvent<{ value?: number }>): void {
+        if (e.detail.value != null) {
+            this.percentage = e.detail.value;
+        }
     }
 
     private _handleAction(ev: ActionHandlerEvent) {
@@ -93,16 +121,10 @@ export class FanCard extends LitElement implements LovelaceCard {
 
         const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
-        const percentage = getPercentage(entity);
-
-        let stateValue = `${stateDisplay}`;
-        if (percentage) {
-            stateValue += ` - ${percentage}%`;
-        }
-
         const active = isActive(entity);
 
         let iconStyle = {};
+        const percentage = getPercentage(entity);
         if (active) {
             if (percentage) {
                 const speed = 1.5 * (percentage / 100) ** 0.5;
@@ -110,6 +132,11 @@ export class FanCard extends LitElement implements LovelaceCard {
             } else {
                 iconStyle["--animation-duration"] = `1s`;
             }
+        }
+
+        let stateValue = `${stateDisplay}`;
+        if (this.percentage) {
+            stateValue += ` - ${this.percentage}%`;
         }
 
         return html`
@@ -154,6 +181,7 @@ export class FanCard extends LitElement implements LovelaceCard {
                                         <mushroom-fan-percentage-control
                                             .hass=${this.hass}
                                             .entity=${entity}
+                                            @current-change=${this.onCurrentPercentageChange}
                                         ></mushroom-fan-percentage-control>
                                     `
                                   : null}

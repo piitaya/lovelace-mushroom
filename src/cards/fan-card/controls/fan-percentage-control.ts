@@ -12,14 +12,23 @@ export class FanPercentageControl extends LitElement {
 
     @property({ attribute: false }) public entity!: HassEntity;
 
-    private _onSliderChange(e: CustomEvent): void {
-        const value = Number((e.target as any).value);
-        if (isNaN(value)) return;
-
+    onChange(e: CustomEvent<{ value: number }>): void {
+        const value = e.detail.value;
         this.hass.callService("fan", "set_percentage", {
             entity_id: this.entity.entity_id,
             percentage: value,
         });
+    }
+
+    onCurrentChange(e: CustomEvent<{ value?: number }>): void {
+        const value = e.detail.value;
+        this.dispatchEvent(
+            new CustomEvent("current-change", {
+                detail: {
+                    value,
+                },
+            })
+        );
     }
 
     protected render(): TemplateResult {
@@ -30,7 +39,8 @@ export class FanPercentageControl extends LitElement {
                 .value=${percentage}
                 .disabled=${!isActive(this.entity)}
                 .showActive=${true}
-                @change=${this._onSliderChange}
+                @change=${this.onChange}
+                @current-change=${this.onCurrentChange}
             />
         `;
     }
