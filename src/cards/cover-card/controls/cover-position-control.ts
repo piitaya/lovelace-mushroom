@@ -12,14 +12,24 @@ export class CoverPositionControl extends LitElement {
 
     @property({ attribute: false }) public entity!: HassEntity;
 
-    private _onSliderChange(e: CustomEvent): void {
-        const value = Number((e.target as any).value);
-        if (isNaN(value)) return;
+    private onChange(e: CustomEvent<{ value: number }>): void {
+        const value = e.detail.value;
 
         this.hass.callService("cover", "set_cover_position", {
             entity_id: this.entity.entity_id,
             position: value,
         });
+    }
+
+    onCurrentChange(e: CustomEvent<{ value?: number }>): void {
+        const value = e.detail.value;
+        this.dispatchEvent(
+            new CustomEvent("current-change", {
+                detail: {
+                    value,
+                },
+            })
+        );
     }
 
     protected render(): TemplateResult {
@@ -30,7 +40,8 @@ export class CoverPositionControl extends LitElement {
                 .value=${position}
                 .disabled=${!isActive(this.entity)}
                 .showActive=${true}
-                @change=${this._onSliderChange}
+                @change=${this.onChange}
+                @current-change=${this.onCurrentChange}
             />
         `;
     }

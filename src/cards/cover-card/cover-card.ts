@@ -8,7 +8,7 @@ import {
     LovelaceCardEditor,
 } from "custom-card-helpers";
 import { HassEntity } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import "../../shared/badge-icon";
 import "../../shared/button";
@@ -105,6 +105,34 @@ export class CoverCard extends LitElement implements LovelaceCard {
         }
         this._controls = controls;
         this._activeControl = controls[0];
+        this.updatePosition();
+    }
+
+    protected updated(changedProperties: PropertyValues) {
+        super.updated(changedProperties);
+        if (this.hass && changedProperties.has("hass")) {
+            this.updatePosition();
+        }
+    }
+
+    @state()
+    private position?: number;
+
+    updatePosition() {
+        this.position = undefined;
+        if (!this._config || !this.hass || !this._config.entity) return;
+
+        const entity_id = this._config.entity;
+        const entity = this.hass.states[entity_id];
+
+        if (!entity) return;
+        this.position = getPosition(entity);
+    }
+
+    private onCurrentPositionChange(e: CustomEvent<{ value?: number }>): void {
+        if (e.detail.value != null) {
+            this.position = e.detail.value;
+        }
     }
 
     private _handleAction(ev: ActionHandlerEvent) {
@@ -126,11 +154,9 @@ export class CoverCard extends LitElement implements LovelaceCard {
 
         const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
-        const position = getPosition(entity);
-
         let stateValue = `${stateDisplay}`;
-        if (position) {
-            stateValue += ` - ${position}%`;
+        if (this.position) {
+            stateValue += ` - ${this.position}%`;
         }
 
         return html`
@@ -198,7 +224,11 @@ export class CoverCard extends LitElement implements LovelaceCard {
                 `;
             case "position_control":
                 return html`
-                    <mushroom-cover-position-control .hass=${this.hass} .entity=${entity} />
+                    <mushroom-cover-position-control
+                        .hass=${this.hass}
+                        .entity=${entity}
+                        @current-change=${this.onCurrentPositionChange}
+                    />
                 `;
             default:
                 return null;
