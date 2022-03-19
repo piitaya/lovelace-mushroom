@@ -31,7 +31,7 @@ export const supportsSetTiltPosition = (entity: HassEntity) =>
 
 export function getPosition(entity: HassEntity) {
     return entity.attributes.current_position != null
-        ? (entity.attributes.current_position as number)
+        ? Math.round(entity.attributes.current_position)
         : undefined;
 }
 

@@ -1,6 +1,5 @@
 import { HassEntity } from "home-assistant-js-websocket";
 import Color from "color";
-import { HomeAssistant } from "custom-card-helpers";
 
 export function getBrightness(entity: HassEntity): number | undefined {
     return entity.attributes.brightness != null
