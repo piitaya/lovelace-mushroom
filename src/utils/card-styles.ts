@@ -17,11 +17,18 @@ export const cardStyle = css`
         /* Card */
         --icon-border-radius: var(--mush-icon-border-radius, 50%);
         --control-border-radius: var(--mush-control-border-radius, 12px);
+        --card-primary-font-size: var(--mush-card-primary-font-size, 14px);
+        --card-secondary-font-size: var(--mush-card-secondary-font-size, 12px);
+        --card-primary-font-weight: var(--mush-card-primary-font-weight, bold);
+        --card-secondary-font-weight: var(--mush-card-secondary-font-weight, bolder);
         /* Chips */
         --chip-spacing: var(--mush-chip-spacing, 8px);
         --chip-padding: var(--mush-chip-padding, 0 10px);
         --chip-height: var(--mush-chip-height, 36px);
         --chip-border-radius: var(--mush-chip-border-radius, 18px);
+        --chip-font-size: var(--mush-chip-font-size, 1em);
+        --chip-font-weight: var(--mush-chip-font-weight, bold);
+        --chip-icon-size: var(--mush-chip-icon-size, 1.5em);
     }
     .actions {
         display: flex;
