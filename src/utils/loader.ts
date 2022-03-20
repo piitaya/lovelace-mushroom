@@ -1,6 +1,6 @@
 // Hack to load ha-components needed for editor
 export const loadHaComponents = () => {
-    if (!customElements.get("ha-form")) {
+    if (!customElements.get("ha-form") || !customElements.get("hui-action-editor")) {
         (customElements.get("hui-button-card") as any)?.getConfigElement();
     }
     if (!customElements.get("ha-entity-picker")) {
