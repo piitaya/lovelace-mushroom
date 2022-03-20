@@ -18,13 +18,15 @@ export class ColorPicker extends LitElement {
 
     _selectChanged(ev) {
         const value = ev.target.value;
-        this.dispatchEvent(
-            new CustomEvent("value-changed", {
-                detail: {
-                    value: value !== "default" ? value : "",
-                },
-            })
-        );
+        if (value) {
+            this.dispatchEvent(
+                new CustomEvent("value-changed", {
+                    detail: {
+                        value: value !== "default" ? value : "",
+                    },
+                })
+            );
+        }
     }
 
     render() {

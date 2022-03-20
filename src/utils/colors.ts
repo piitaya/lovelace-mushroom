@@ -1,4 +1,5 @@
 import { css } from "lit";
+import * as Color from "color";
 
 export const COLORS = [
     "red",
@@ -27,9 +28,14 @@ export const COLORS = [
 export function computeRgbColor(color: string): string {
     if (COLORS.includes(color)) {
         return `var(--rgb-${color})`;
-    } else {
-        return color;
+    } else if (color.startsWith("#")) {
+        try {
+            return Color.rgb(color).rgb().array().join(", ");
+        } catch (err) {
+            return "";
+        }
     }
+    return color;
 }
 
 export function computeColorName(color: string): string {
