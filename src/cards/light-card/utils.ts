@@ -3,7 +3,7 @@ import * as Color from "color";
 
 export function getBrightness(entity: HassEntity): number | undefined {
     return entity.attributes.brightness != null
-        ? Math.round((entity.attributes.brightness * 100) / 255)
+        ? Math.max(Math.round((entity.attributes.brightness * 100) / 255), 1)
         : undefined;
 }
 
