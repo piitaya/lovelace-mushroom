@@ -22,16 +22,26 @@
                     "vertical": "Layout vertical",
                     "horizontal": "Layout horizontal"
                 }
+            },
+            "alignment_picker": {
+                "values": {
+                    "default": "Padrão (inicio)",
+                    "end": "Final",
+                    "center": "Centro",
+                    "justify": "Justificado"
+                }
             }
         },
         "card": {
             "generic": {
-                "multiline_secondary": "Multilinha secundária?",
+                "hide_name": "Ocultar nome?",
                 "hide_state": "Ocultar estado?",
-                "state": "Estado",
-                "icon_color": "Cor do ícone?",
                 "hide_icon": "Ocultar ícone?",
-                "layout": "Layout"
+                "icon_color": "Cor do ícone?",
+                "layout": "Layout",
+                "primary_info": "Informações primárias",
+                "secondary_info": "Informações secundárias",
+                "use_entity_picture": "Usar imagem da entidade?"
             },
             "light": {
                 "show_brightness_control": "Mostrar controle de brilho?",
@@ -41,7 +51,7 @@
                 "incompatible_controls": "Alguns controles podem não ser exibidos se sua luz não suportar o recurso."
             },
             "fan": {
-                "animate_icon_active": "Animar ícone quando ativo?",
+                "icon_animation": "Animar ícone quando ativo?",
                 "show_percentage_control": "Mostrar controle de porcentagem?",
                 "show_oscillate_control": "Mostrar controle de oscilação?"
             },
@@ -49,33 +59,25 @@
                 "show_buttons_control": "Mostrar botões?",
                 "show_position_control": "Mostrar controle de posição?"
             },
-            "person": {
-                "use_entity_picture": "Usar imagem da entidade?",
-                "hide_name": "Ocultar nome?"
-            },
             "alarm_control_panel": {
                 "displayed_states": "Estados exibidos"
             },
-            "entity": {
-                "primary_info": "Informações primárias",
-                "secondary_info": "Informações secundárias"
-            },
             "template": {
                 "primary": "Informações primárias",
-                "secondary": "Informações secundárias"
+                "secondary": "Informações secundárias",
+                "multiline_secondary": "Multilinha secundária?",
+                "content": "Conteúdo"
             },
             "title": {
                 "title": "Título",
                 "subtitle": "Subtítulo"
             },
             "chips": {
-                "alignment": "Alinhamento",
-                "alignment_values": {
-                    "default": "Padrão (inicio)",
-                    "end": "Final",
-                    "center": "Centro",
-                    "justify": "Justificado"
-                }
+                "alignment": "Alinhamento"
+            },
+            "weather": {
+                "show_conditions": "Condições?",
+                "show_temperature": "Temperatura?"
             }
         },
         "chip": {
@@ -103,13 +105,6 @@
                     "template": "Modelo",
                     "weather": "Clima"
                 }
-            },
-            "weather": {
-                "show_conditions": "Condições?",
-                "show_temperature": "Temperatura?"
-            },
-            "template": {
-                "content": "Conteúdo"
             }
         }
     }

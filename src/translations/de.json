@@ -22,16 +22,26 @@
                     "vertical": "Vertikales Layout",
                     "horizontal": "Horizontales Layout"
                 }
+            },
+            "alignment_picker": {
+                "values": {
+                    "default": "Standard (start)",
+                    "end": "Ende",
+                    "center": "Mitte",
+                    "justify": "Ausrichten"
+                }
             }
         },
         "card": {
             "generic": {
-                "multiline_secondary": "Mehrzeilig sekundär?",
+                "hide_name": "Name ausblenden?",
                 "hide_state": "Zustand ausblenden?",
-                "state": "Zustand",
-                "icon_color": "Icon-Farbe",
                 "hide_icon": "Icon ausblenden?",
-                "layout": "Layout"
+                "icon_color": "Icon-Farbe",
+                "layout": "Layout",
+                "primary_info": "Primäre Information",
+                "secondary_info": "Sekundäre Information",
+                "use_entity_picture": "Entitätsbild verwenden?"
             },
             "light": {
                 "show_brightness_control": "Helligkeitsregelung?",
@@ -41,7 +51,7 @@
                 "incompatible_controls": "Einige Steuerelemente werden möglicherweise nicht angezeigt, wenn Ihr Licht diese Funktion nicht unterstützt."
             },
             "fan": {
-                "animate_icon_active": "Icon animieren, wenn aktiv?",
+                "icon_animation": "Icon animieren, wenn aktiv?",
                 "show_percentage_control": "Prozentuale Kontrolle?",
                 "show_oscillate_control": "Oszillationssteuerung?"
             },
@@ -49,33 +59,25 @@
                 "show_buttons_control": "Schaltflächensteuerung?",
                 "show_position_control": "Positionssteuerung?"
             },
-            "person": {
-                "use_entity_picture": "Entitätsbild verwenden?",
-                "hide_name": "Name ausblenden"
-            },
             "alarm_control_panel": {
                 "displayed_states": "Angezeigte Zustände"
             },
-            "entity": {
-                "primary_info": "Primäre Information",
-                "secondary_info": "Sekundäre Information"
-            },
             "template": {
                 "primary": "Primäre Information",
-                "secondary": "Sekundäre Information"
+                "secondary": "Sekundäre Information",
+                "multiline_secondary": "Mehrzeilig sekundär?",
+                "content": "Inhalt"
             },
             "title": {
                 "title": "Titel",
                 "subtitle": "Untertitel"
             },
             "chips": {
-                "alignment": "Ausrichtung",
-                "alignment_values": {
-                    "default": "Standard (start)",
-                    "end": "Ende",
-                    "center": "Mitte",
-                    "justify": "Ausrichten"
-                }
+                "alignment": "Ausrichtung"
+            },
+            "weather": {
+                "show_conditions": "Bedingungen?",
+                "show_temperature": "Temperatur?"
             }
         },
         "chip": {
@@ -103,13 +105,6 @@
                     "template": "Vorlage",
                     "weather": "Wetter"
                 }
-            },
-            "weather": {
-                "show_conditions": "Bedingungen?",
-                "show_temperature": "Temperatur?"
-            },
-            "template": {
-                "content": "Inhalt"
             }
         }
     }

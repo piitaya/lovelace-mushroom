@@ -4,6 +4,15 @@ import { customElement, property } from "lit/decorators.js";
 import setupCustomlocalize from "../../localize";
 import "./../form/mushroom-select";
 
+const LAYOUTS = ["default", "horizontal", "vertical"] as const;
+type Layout = typeof LAYOUTS[number];
+
+const ICONS: Record<Layout, string> = {
+    default: "mdi:card-text-outline",
+    vertical: "mdi:focus-field-vertical",
+    horizontal: "mdi:focus-field-horizontal",
+};
+
 @customElement("mushroom-layout-picker")
 export class LayoutPicker extends LitElement {
     @property() public label = "";
@@ -28,25 +37,29 @@ export class LayoutPicker extends LitElement {
     render() {
         const customLocalize = setupCustomlocalize(this.hass);
 
+        const value = this.value || "default";
+
         return html`
             <mushroom-select
+                icon
                 .label=${this.label}
                 .configValue=${this.configValue}
                 @selected=${this._selectChanged}
                 @closed=${(e) => e.stopPropagation()}
-                .value=${this.value || "default"}
+                .value=${value}
                 fixedMenuPosition
                 naturalMenuWidth
             >
-                <mwc-list-item value="default">
-                    ${customLocalize("editor.form.layout_picker.values.default")}
-                </mwc-list-item>
-                <mwc-list-item .value=${"vertical"}>
-                    ${customLocalize("editor.form.layout_picker.values.vertical")}
-                </mwc-list-item>
-                <mwc-list-item .value=${"horizontal"}>
-                    ${customLocalize("editor.form.layout_picker.values.horizontal")}
-                </mwc-list-item>
+                <ha-icon slot="icon" .icon=${ICONS[value as Layout]}></ha-icon>
+                ${LAYOUTS.map(
+                    (layout) =>
+                        html`
+                            <mwc-list-item .value=${layout} graphic="icon">
+                                ${customLocalize(`editor.form.layout_picker.values.${layout}`)}
+                                <ha-icon slot="graphic" .icon=${ICONS[layout]}></ha-icon>
+                            </mwc-list-item>
+                        `
+                )}
             </mushroom-select>
         `;
     }

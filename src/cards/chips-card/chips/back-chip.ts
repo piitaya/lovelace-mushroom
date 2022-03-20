@@ -9,6 +9,8 @@ import {
 import { BackChipConfig, LovelaceChip } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 
+export const DEFAULT_BACK_ICON = "mdi:arrow-left";
+
 @customElement(computeChipComponentName("back"))
 export class BackChip extends LitElement implements LovelaceChip {
     public static async getConfigElement(): Promise<LovelaceChipEditor> {
@@ -39,7 +41,7 @@ export class BackChip extends LitElement implements LovelaceChip {
             return html``;
         }
 
-        const icon = this._config.icon ?? "mdi:arrow-left";
+        const icon = this._config.icon || DEFAULT_BACK_ICON;
 
         return html`
             <mushroom-chip @action=${this._handleAction} .actionHandler=${actionHandler()}>

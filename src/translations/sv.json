@@ -22,16 +22,26 @@
                     "vertical": "Vertikal",
                     "horizontal": "Horisontell"
                 }
+            },
+            "alignment_picker": {
+                "values": {
+                    "default": "Standard (början)",
+                    "end": "Slutet",
+                    "center": "Centrerad",
+                    "justify": "Anpassa"
+                }
             }
         },
         "card": {
             "generic": {
-                "multiline_secondary": "Sekundär med flera rader?",
+                "hide_name": "Göm namn",
                 "hide_state": "Göm status?",
-                "state": "Status",
-                "icon_color": "Ikonens färg",
                 "hide_icon": "Göm ikon?",
-                "layout": "Layout"
+                "icon_color": "Ikonens färg",
+                "layout": "Layout",
+                "primary_info": "Primär information",
+                "secondary_info": "Sekundär information",
+                "use_entity_picture": "Använd enheten bild?"
             },
             "light": {
                 "show_brightness_control": "Styr ljushet?",
@@ -41,7 +51,7 @@
                 "incompatible_controls": "Kontroller som inte stöds av enheten kommer inte visas."
             },
             "fan": {
-                "animate_icon_active": "Animera ikonen när fläkten är på?",
+                "icon_animation": "Animera ikonen när fläkten är på?",
                 "show_percentage_control": "Procentuell kontroll?",
                 "show_oscillate_control": "Kontroll för oscillera?"
             },
@@ -49,33 +59,25 @@
                 "show_buttons_control": "Visa kontrollknappar?",
                 "show_position_control": "Visa positionskontroll?"
             },
-            "person": {
-                "use_entity_picture": "Använd enheten bild?",
-                "hide_name": "Göm namn"
-            },
             "alarm_control_panel": {
                 "displayed_states": "Status som visas"
             },
-            "entity": {
-                "primary_info": "Primär information",
-                "secondary_info": "Sekundär information"
-            },
             "template": {
                 "primary": "Primär information",
-                "secondary": "Sekundär information"
+                "secondary": "Sekundär information",
+                "multiline_secondary": "Sekundär med flera rader?",
+                "content": "Innehåll"
             },
             "title": {
                 "title": "Rubrik",
                 "subtitle": "Underrubrik"
             },
             "chips": {
-                "alignment": "Justering",
-                "alignment_values": {
-                    "default": "Standard (början)",
-                    "end": "Slutet",
-                    "center": "Centrerad",
-                    "justify": "Anpassa"
-                }
+                "alignment": "Justering"
+            },
+            "weather": {
+                "show_conditions": "Förhållanden?",
+                "show_temperature": "Temperatur?"
             }
         },
         "chip": {
@@ -103,13 +105,6 @@
                     "template": "Mall",
                     "weather": "Väder"
                 }
-            },
-            "weather": {
-                "show_conditions": "Förhållanden?",
-                "show_temperature": "Temperatur?"
-            },
-            "template": {
-                "content": "Innehåll"
             }
         }
     }

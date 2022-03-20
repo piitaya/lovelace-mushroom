@@ -3,12 +3,18 @@ import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { assert } from "superstruct";
 import setupCustomlocalize from "../../localize";
-import "../../shared/form/mushroom-textarea";
 import { configElementStyle } from "../../utils/editor-styles";
+import { HaFormSchema } from "../../utils/form/ha-form";
 import { loadHaComponents } from "../../utils/loader";
-import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { TITLE_CARD_EDITOR_NAME } from "./const";
 import { TitleCardConfig, titleCardConfigStruct } from "./title-card-config";
+
+const TITLE_FIELDS = ["title", "subtitle"];
+
+const SCHEMA: HaFormSchema[] = [
+    { name: "title", selector: { text: { multiline: true } } },
+    { name: "subtitle", selector: { text: { multiline: true } } },
+];
 
 @customElement(TITLE_CARD_EDITOR_NAME)
 export class TitleCardEditor extends LitElement implements LovelaceCardEditor {
@@ -26,75 +32,33 @@ export class TitleCardEditor extends LitElement implements LovelaceCardEditor {
         this._config = config;
     }
 
+    private _computeLabelCallback = (schema: HaFormSchema) => {
+        const customLocalize = setupCustomlocalize(this.hass!);
+
+        if (TITLE_FIELDS.includes(schema.name)) {
+            return customLocalize(`editor.card.title.${schema.name}`);
+        }
+        return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
+    };
+
     protected render(): TemplateResult {
         if (!this.hass || !this._config) {
             return html``;
         }
 
-        const customLocalize = setupCustomlocalize(this.hass);
-
         return html`
-            <div class="card-config">
-                <mushroom-textarea
-                    .label="${customLocalize("editor.card.title.title")} (${this.hass.localize(
-                        "ui.panel.lovelace.editor.card.config.optional"
-                    )})"
-                    .value=${this._config.title ?? ""}
-                    .configValue=${"title"}
-                    @keydown=${this._ignoreKeydown}
-                    @input=${this._valueChanged}
-                    dir="ltr"
-                    autogrow
-                    autocapitalize="none"
-                    autocomplete="off"
-                    spellcheck="false"
-                ></mushroom-textarea>
-                <mushroom-textarea
-                    .label="${customLocalize("editor.card.title.subtitle")} (${this.hass.localize(
-                        "ui.panel.lovelace.editor.card.config.optional"
-                    )})"
-                    .value=${this._config.subtitle ?? ""}
-                    .configValue=${"subtitle"}
-                    @keydown=${this._ignoreKeydown}
-                    @input=${this._valueChanged}
-                    dir="ltr"
-                    autogrow
-                    autocapitalize="none"
-                    autocomplete="off"
-                    spellcheck="false"
-                ></mushroom-textarea>
-            </div>
+            <ha-form
+                .hass=${this.hass}
+                .data=${this._config}
+                .schema=${SCHEMA}
+                .computeLabel=${this._computeLabelCallback}
+                @value-changed=${this._valueChanged}
+            ></ha-form>
         `;
     }
 
-    private _ignoreKeydown(ev: KeyboardEvent) {
-        ev.stopPropagation();
-    }
-
     private _valueChanged(ev: CustomEvent): void {
-        if (!this._config || !this.hass) {
-            return;
-        }
-        const target = ev.target! as EditorTarget;
-        const value = target.checked ?? ev.detail.value ?? target.value;
-
-        if (this[`_${target.configValue}`] === value) {
-            return;
-        }
-
-        let newConfig;
-        if (target.configValue) {
-            if (!value) {
-                newConfig = { ...this._config };
-                delete newConfig[target.configValue!];
-            } else {
-                newConfig = {
-                    ...this._config,
-                    [target.configValue!]: value,
-                };
-            }
-        }
-        fireEvent(this, "config-changed", { config: newConfig });
+        fireEvent(this, "config-changed", { config: ev.detail.value });
     }
 
     static get styles(): CSSResultGroup {

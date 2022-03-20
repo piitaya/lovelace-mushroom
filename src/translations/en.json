@@ -22,16 +22,28 @@
                     "vertical": "Vertical layout",
                     "horizontal": "Horizontal layout"
                 }
+            },
+            "alignment_picker": {
+                "values": {
+                    "default": "Default alignment",
+                    "start": "Start",
+                    "end": "End",
+                    "center": "Center",
+                    "justify": "Justify"
+                }
             }
         },
         "card": {
             "generic": {
-                "multiline_secondary": "Multiline secondary?",
+                "hide_name": "Hide name?",
                 "hide_state": "Hide state?",
-                "state": "State",
-                "icon_color": "Icon color",
                 "hide_icon": "Hide icon?",
-                "layout": "Layout"
+                "icon_color": "Icon color",
+                "layout": "Layout",
+                "primary_info": "Primary information",
+                "secondary_info": "Secondary information",
+                "content_info": "Content",
+                "use_entity_picture": "Use entity picture?"
             },
             "light": {
                 "show_brightness_control": "Brightness control?",
@@ -41,7 +53,7 @@
                 "incompatible_controls": "Some controls may not be displayed if your light does not support the feature."
             },
             "fan": {
-                "animate_icon_active": "Animate icon when active?",
+                "icon_animation": "Animate icon when active?",
                 "show_percentage_control": "Percentage control?",
                 "show_oscillate_control": "Oscillate control?"
             },
@@ -49,35 +61,26 @@
                 "show_buttons_control": "Buttons control?",
                 "show_position_control": "Position control?"
             },
-            "person": {
-                "use_entity_picture": "Use entity picture?",
-                "hide_name": "Hide name"
-            },
             "alarm_control_panel": {
                 "displayed_states": "Displayed states"
-            },
-            "entity": {
-                "primary_info": "Primary information",
-                "secondary_info": "Secondary information"
             },
             "template": {
                 "primary": "Primary information",
                 "secondary": "Secondary information",
-                "entity_extra": "Used in templates and actions"
+                "multiline_secondary": "Multiline secondary?",
+                "entity_extra": "Used in templates and actions",
+                "content": "Content"
             },
             "title": {
                 "title": "Title",
                 "subtitle": "Subtitle"
             },
             "chips": {
-                "alignment": "Alignment",
-                "alignment_values": {
-                    "default": "Default alignment",
-                    "start": "Start",
-                    "end": "End",
-                    "center": "Center",
-                    "justify": "Justify"
-                }
+                "alignment": "Alignment"
+            },
+            "weather": {
+                "show_conditions": "Conditions?",
+                "show_temperature": "Temperature?"
             }
         },
         "chip": {
@@ -105,13 +108,6 @@
                     "template": "Template",
                     "weather": "Weather"
                 }
-            },
-            "weather": {
-                "show_conditions": "Conditions?",
-                "show_temperature": "Temperature?"
-            },
-            "template": {
-                "content": "Content"
             }
         }
     }

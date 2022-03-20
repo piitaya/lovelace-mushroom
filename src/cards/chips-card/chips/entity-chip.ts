@@ -58,8 +58,8 @@ export class EntityChip extends LitElement implements LovelaceChip {
         const entity_id = this._config.entity;
         const entity = this.hass.states[entity_id];
 
-        const name = this._config.name ?? entity.attributes.friendly_name ?? "";
-        const icon = this._config.icon ?? stateIcon(entity);
+        const name = this._config.name || entity.attributes.friendly_name || "";
+        const icon = this._config.icon || stateIcon(entity);
         const iconColor = this._config.icon_color;
 
         const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);

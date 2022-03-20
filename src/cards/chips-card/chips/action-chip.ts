@@ -11,6 +11,8 @@ import {
 import { ActionChipConfig, LovelaceChip } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 
+export const DEFAULT_ACTION_ICON = "mdi:flash";
+
 @customElement(computeChipComponentName("action"))
 export class ActionChip extends LitElement implements LovelaceChip {
     public static async getConfigElement(): Promise<LovelaceChipEditor> {
@@ -43,7 +45,7 @@ export class ActionChip extends LitElement implements LovelaceChip {
             return html``;
         }
 
-        const icon = this._config.icon ?? "mdi:flash";
+        const icon = this._config.icon || DEFAULT_ACTION_ICON;
         const iconColor = this._config.icon_color;
 
         const iconStyle = {};

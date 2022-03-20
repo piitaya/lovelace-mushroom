@@ -22,15 +22,25 @@
                     "vertical": "垂直布局",
                     "horizontal": "水平布局"
                 }
+            },
+            "alignment_picker": {
+                "values": {
+                    "default": "默认 (左对齐)",
+                    "end": "右对齐",
+                    "center": "居中对齐",
+                    "justify": "两端对齐"
+                }
             }
         },
         "card": {
             "generic": {
-                "multiline_secondary": "多行次要信息?",
+                "hide_name": "隐藏名称?",
                 "hide_state": "隐藏状态?",
-                "state": "状态",
+                "hide_icon": "隐藏图标?",
                 "icon_color": "图标颜色",
-                "hide_icon": "隐藏图标?"
+                "primary_info": "首要信息",
+                "secondary_info": "次要信息",
+                "use_entity_picture": "使用实体图片?"
             },
             "light": {
                 "show_brightness_control": "亮度控制?",
@@ -40,7 +50,7 @@
                 "incompatible_controls": "设备不支持的控制器将不会显示。"
             },
             "fan": {
-                "animate_icon_active": "激活时使用动态图标?",
+                "icon_animation": "激活时使用动态图标?",
                 "show_percentage_control": "百分比控制?",
                 "show_oscillate_control": "摆动控制?"
             },
@@ -48,33 +58,25 @@
                 "show_buttons_control": "按钮控制?",
                 "show_position_control": "位置控制?"
             },
-            "person": {
-                "use_entity_picture": "使用实体图片?",
-                "hide_name": "隐藏名称"
-            },
             "alarm_control_panel": {
                 "displayed_states": "显示的状态"
             },
-            "entity": {
-                "primary_info": "首要信息",
-                "secondary_info": "次要信息"
-            },
             "template": {
                 "primary": "首要信息",
-                "secondary": "次要信息"
+                "secondary": "次要信息",
+                "multiline_secondary": "多行次要信息?",
+                "content": "内容"
             },
             "title": {
                 "title": "标题",
                 "subtitle": "子标题"
             },
             "chips": {
-                "alignment": "对齐",
-                "alignment_values": {
-                    "default": "默认 (左对齐)",
-                    "end": "右对齐",
-                    "center": "居中对齐",
-                    "justify": "两端对齐"
-                }
+                "alignment": "对齐"
+            },
+            "weather": {
+                "show_conditions": "条件?",
+                "show_temperature": "温度?"
             }
         },
         "chip": {
@@ -102,13 +104,6 @@
                     "template": "模板",
                     "weather": "天气"
                 }
-            },
-            "weather": {
-                "show_conditions": "条件?",
-                "show_temperature": "温度?"
-            },
-            "template": {
-                "content": "内容"
             }
         }
     }
