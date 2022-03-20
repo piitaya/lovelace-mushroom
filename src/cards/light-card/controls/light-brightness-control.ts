@@ -11,14 +11,23 @@ export class LightBrighnessControl extends LitElement {
 
     @property({ attribute: false }) public entity!: HassEntity;
 
-    onChange(e: CustomEvent): void {
-        const value = Number((e.target as any).value);
-        if (isNaN(value)) return;
-
+    onChange(e: CustomEvent<{ value: number }>): void {
+        const value = e.detail.value;
         this.hass.callService("light", "turn_on", {
             entity_id: this.entity.entity_id,
             brightness_pct: value,
         });
+    }
+
+    onCurrentChange(e: CustomEvent<{ value?: number }>): void {
+        const value = e.detail.value;
+        this.dispatchEvent(
+            new CustomEvent("current-change", {
+                detail: {
+                    value,
+                },
+            })
+        );
     }
 
     protected render(): TemplateResult {
@@ -32,6 +41,7 @@ export class LightBrighnessControl extends LitElement {
                 .disabled=${state !== "on"}
                 .showActive=${true}
                 @change=${this.onChange}
+                @current-change=${this.onCurrentChange}
             />
         `;
     }

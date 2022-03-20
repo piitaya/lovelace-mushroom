@@ -33,9 +33,8 @@ export class LightColorControl extends LitElement {
         return color.hsv().hue() / 360;
     }
 
-    onChange(e: CustomEvent): void {
-        const value = Number((e.target as any).value);
-        if (isNaN(value)) return;
+    onChange(e: CustomEvent<{ value: number }>): void {
+        const value = e.detail.value;
         this._percent = value;
 
         const rgb_color = this._percentToRGB(value / 100);

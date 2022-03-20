@@ -11,9 +11,8 @@ export class LightColorTempControl extends LitElement {
 
     @property({ attribute: false }) public entity!: HassEntity;
 
-    onChange(e: CustomEvent): void {
-        const value = Number((e.target as any).value);
-        if (isNaN(value)) return;
+    onChange(e: CustomEvent<{ value: number }>): void {
+        const value = e.detail.value;
 
         this.hass.callService("light", "turn_on", {
             entity_id: this.entity.entity_id,

@@ -56,7 +56,7 @@ export class SliderItem extends LitElement {
     }
 
     @query("#slider")
-    slider;
+    private slider;
 
     setupListeners() {
         if (this.slider && !this._mc) {
@@ -78,10 +78,24 @@ export class SliderItem extends LitElement {
             this._mc.on("panmove", (e) => {
                 const percentage = getPercentageFromEvent(e);
                 this.value = this.percentageToValue(percentage);
+                this.dispatchEvent(
+                    new CustomEvent("current-change", {
+                        detail: {
+                            value: Math.round(this.value),
+                        },
+                    })
+                );
             });
             this._mc.on("panend", (e) => {
                 const percentage = getPercentageFromEvent(e);
                 this.value = this.percentageToValue(percentage);
+                this.dispatchEvent(
+                    new CustomEvent("current-change", {
+                        detail: {
+                            value: undefined,
+                        },
+                    })
+                );
                 this.dispatchEvent(
                     new CustomEvent("change", {
                         detail: {
