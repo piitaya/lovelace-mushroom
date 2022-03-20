@@ -3,7 +3,7 @@ import { HassEntity } from "home-assistant-js-websocket";
 import { css, unsafeCSS, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import "../../../shared/slider";
-import Color from "color";
+import * as Color from "color";
 
 const GRADIENT = [
     [0, "#f00"],
