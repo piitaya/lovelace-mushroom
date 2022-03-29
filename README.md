@@ -67,8 +67,8 @@ All the Mushroom cards can be configured using Lovelace UI editor.
 Different cards are available for differents entities :
 
 -   🚨 [Alarm card](docs/cards/alarm.md)
--   🪟 [Cover card](docs/cards/cover.md)
--   🪄 [Entity card](docs/cards/entity.md)
+-  🔖 [Cover card](docs/cards/cover.md)
+-  🏷 [Entity card](docs/cards/entity.md)
 -   💨 [Fan card](docs/cards/fan.md)
 -   💡 [Light card](docs/cards/light.md)
 -   🙋 [Person card](docs/cards/person.md)
