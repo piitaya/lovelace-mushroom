@@ -15,6 +15,7 @@ import { ClimateCardConfig, climateCardConfigStruct } from "./climate-card-confi
 export const CLIMATE_FIELDS = [
     "use_action_icon",
     "use_action_color",
+    "show_mode_control",
     "show_temp_control",
     "show_temp_indicators",
     "temperature_gap",
@@ -23,6 +24,7 @@ export const CLIMATE_FIELDS = [
 export const CLIMATE_ENGLISH = {
     use_action_color: "Icon action color?",
     use_action_icon: "Icon action?",
+    show_mode_control: "Mode control?",
     show_temp_control: "Temperature control?",
     show_temp_indicators: "Temperature control indicators?",
     temperature_gap: "Energy Efficient Gap",
@@ -50,6 +52,7 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
         schema: [
             { name: "use_action_color", selector: { boolean: {} } },
             { name: "use_action_icon", selector: { boolean: {} } },
+            { name: "show_mode_control", selector: { boolean: {} } },
             { name: "show_temp_control", selector: { boolean: {} } },
             { name: "show_temp_indicators", selector: { boolean: {} } },
         ],

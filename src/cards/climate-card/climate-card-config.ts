@@ -12,6 +12,7 @@ export interface ClimateCardConfig extends LovelaceCardConfig {
     hide_state?: boolean;
     use_action_color?: true;
     use_action_icon?: true;
+    show_mode_control?: boolean;
     show_temp_control?: boolean;
     show_temp_indicators?: boolean;
     temperature_gap?: number;
@@ -30,6 +31,7 @@ export const climateCardConfigStruct = assign(
         hide_state: optional(boolean()),
         use_action_color: optional(boolean()),
         use_action_icon: optional(boolean()),
+        show_mode_control: optional(boolean()),
         show_temp_control: optional(boolean()),
         show_temp_indicators: optional(boolean()),
         temperature_gap: optional(number()),

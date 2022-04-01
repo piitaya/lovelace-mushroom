@@ -21,6 +21,7 @@ import { actionHandler } from "../../utils/directives/action-handler-directive";
 import { isActive } from "../../utils/entity";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig } from "../../utils/layout";
+import "./controls/climate-mode-control";
 import "./controls/climate-temperature-control";
 import { ClimateCardConfig } from "./climate-card-config";
 import {
@@ -28,19 +29,16 @@ import {
     CLIMATE_CARD_NAME,
     CLIMATE_ENTITY_DOMAINS,
     CLIMATE_PRESET_NONE,
+    ACTION_ICONS,
 } from "./const";
 import { isNumber } from "../../utils/number";
+import { HassEntity } from "home-assistant-js-websocket";
 
-type ClimateCardControl = "temperature_control";
+type ClimateCardControl = "temperature_control" | "mode_control";
 
-export type HvacAction = "off" | "heating" | "cooling" | "drying" | "idle";
-
-const MODE_ICONS: Record<HvacAction, string> = {
-    off: "mdi:power",
-    heating: "mdi:fire",
-    cooling: "mdi:snowflake",
-    drying: "mdi:water-percent",
-    idle: "mdi:thermostat",
+const CONTROLS_ICONS: Record<ClimateCardControl, string> = {
+    mode_control: "mdi:thermostat",
+    temperature_control: "mdi:thermometer",
 };
 
 registerCustomCard({
@@ -69,13 +67,18 @@ export class ClimateCard extends LitElement implements LovelaceCard {
 
     @state() private _config?: ClimateCardConfig;
 
-    @state() private _activeControl?: ClimateCardControl = "temperature_control";
+    @state() private _activeControl?: ClimateCardControl;
 
     @state() private _controls: ClimateCardControl[] = [];
 
     @state() private low?: number;
 
     @state() private high?: number;
+
+    _onControlTap(ctrl, e): void {
+        e.stopPropagation();
+        this._activeControl = ctrl;
+    }
 
     getCardSize(): number | Promise<number> {
         return 1;
@@ -95,6 +98,29 @@ export class ClimateCard extends LitElement implements LovelaceCard {
             ...config,
         };
         this.updateTemps();
+        this.updateControls();
+    }
+
+    updateControls() {
+        if (!this._config || !this.hass || !this._config.entity) return;
+
+        const entity_id = this._config.entity;
+        const entity = this.hass.states[entity_id];
+
+        if (!entity) return;
+
+        const controls: ClimateCardControl[] = [];
+        if (this._config.show_temp_control) {
+            controls.push("temperature_control");
+        }
+        if (this._config.show_mode_control) {
+            controls.push("mode_control");
+        }
+        this._controls = controls;
+        const isActiveControlSupported = this._activeControl
+            ? controls.includes(this._activeControl)
+            : false;
+        this._activeControl = isActiveControlSupported ? this._activeControl : controls[0];
     }
 
     private _handleAction(ev: ActionHandlerEvent) {
@@ -105,6 +131,7 @@ export class ClimateCard extends LitElement implements LovelaceCard {
         super.updated(changedProperties);
         if (this.hass && changedProperties.has("hass")) {
             this.updateTemps();
+            this.updateControls();
         }
     }
 
@@ -134,14 +161,7 @@ export class ClimateCard extends LitElement implements LovelaceCard {
         const entity_id = this._config.entity;
         const entity = this.hass.states[entity_id];
 
-        const { current_temperature, hvac_action, preset_mode, target_temp_step } =
-            entity.attributes;
-
-        const stepSize = target_temp_step
-            ? target_temp_step
-            : this.hass!.config.unit_system.temperature === UNIT_F
-            ? 1
-            : 0.5;
+        const { current_temperature, hvac_action, preset_mode } = entity.attributes;
 
         const name = this._config.name || entity.attributes.friendly_name || "";
 
@@ -151,8 +171,8 @@ export class ClimateCard extends LitElement implements LovelaceCard {
         const active = isActive(entity);
 
         const icon =
-            this._config.icon || (this._config.use_action_icon && MODE_ICONS[hvac_action])
-                ? MODE_ICONS[hvac_action]
+            this._config.icon || (this._config.use_action_icon && ACTION_ICONS[hvac_action])
+                ? ACTION_ICONS[hvac_action]
                 : stateIcon(entity);
 
         const currentTempDisplay = isNumber(current_temperature)
@@ -174,6 +194,18 @@ export class ClimateCard extends LitElement implements LovelaceCard {
                 : ""
         }`;
 
+        const iconStyle = {};
+        if (this._config?.use_action_color && hvac_action) {
+            iconStyle["--icon-color"] = `rgb(var(--rgb-action-climate-${hvac_action}))`;
+            iconStyle["--shape-color"] = `rgba(var(--rgb-action-climate-${hvac_action}), 0.25)`;
+        }
+
+        const stepSize = entity.attributes.target_temp_step
+            ? entity.attributes.target_temp_step
+            : this.hass!.config.unit_system.temperature === UNIT_F
+            ? 1
+            : 0.5;
+
         const formatIndicator = (value: number) => {
             const options: Intl.NumberFormatOptions =
                 stepSize === 1
@@ -181,14 +213,6 @@ export class ClimateCard extends LitElement implements LovelaceCard {
                     : { maximumFractionDigits: 1, minimumFractionDigits: 1 };
             return formatNumber(value, this.hass.locale, options);
         };
-
-        const iconStyle = {};
-        if (hvac_action && this._config?.use_action_color) {
-            iconStyle["--icon-color"] = `rgb(var(--rgb-state-climate-${hvac_action || "idle"}))`;
-            iconStyle["--shape-color"] = `rgba(var(--rgb-state-climate-${
-                hvac_action || "idle"
-            }), 0.25)`;
-        }
 
         return html`
             <mushroom-card .layout=${layout}>
@@ -221,13 +245,26 @@ export class ClimateCard extends LitElement implements LovelaceCard {
                         .secondary=${!hideState && state}
                     ></mushroom-state-info>
                 </mushroom-state-item>
+                ${this._controls.length > 0
+                    ? html`
+                          <div class="actions">
+                              ${this.renderActiveControl(entity)} ${this.renderOtherControls()}
+                          </div>
+                      `
+                    : null}
+                <!-- <div class="actions">
+                    <mushroom-climate-mode-control
+                        .hass=${this.hass}
+                        .entity=${entity}
+                    ></mushroom-climate-mode-control>
+                </div>
                 ${this._config.show_temp_control
                     ? html`
                           <div class="actions">
                               ${this._config.show_temp_indicators
                                   ? html`<shroom-state-value
                                         value=${formatIndicator(this.low!)}
-                                        color="rgb(var(--rgb-state-climate-heating)"
+                                        color="rgb(var(--rgb-action-climate-heating))"
                                     ></shroom-state-value>`
                                   : html``}
                               <mushroom-climate-temperature-control
@@ -239,14 +276,102 @@ export class ClimateCard extends LitElement implements LovelaceCard {
                               ${this._config.show_temp_indicators
                                   ? html`<shroom-state-value
                                         value=${formatIndicator(this.high!)}
-                                        color="rgb(var(--rgb-state-climate-cooling)"
+                                        color="rgb(var(--rgb-action-climate-cooling))"
                                     ></shroom-state-value>`
                                   : html``}
                           </div>
                       `
-                    : html``}
+                    : html``} -->
             </mushroom-card>
         `;
+    }
+
+    private renderOtherControls(): TemplateResult | null {
+        const otherControls = this._controls.filter((control) => control != this._activeControl);
+
+        return html`
+            ${otherControls.map(
+                (ctrl) => html`
+                    <mushroom-button
+                        .icon=${CONTROLS_ICONS[ctrl]}
+                        @click=${(e) => this._onControlTap(ctrl, e)}
+                    ></mushroom-button>
+                `
+            )}
+        `;
+    }
+
+    private renderActiveControl(entity: HassEntity): TemplateResult | null {
+        switch (this._activeControl) {
+            case "mode_control":
+                return html` <mushroom-climate-mode-control
+                    .hass=${this.hass}
+                    .entity=${entity}
+                ></mushroom-climate-mode-control>`;
+            case "temperature_control":
+                const stepSize = entity.attributes.target_temp_step
+                    ? entity.attributes.target_temp_step
+                    : this.hass!.config.unit_system.temperature === UNIT_F
+                    ? 1
+                    : 0.5;
+                const formatIndicator = (value: number) => {
+                    const options: Intl.NumberFormatOptions =
+                        stepSize === 1
+                            ? { maximumFractionDigits: 0 }
+                            : { maximumFractionDigits: 1, minimumFractionDigits: 1 };
+                    return formatNumber(value, this.hass.locale, options);
+                };
+                return html`${this._config?.show_temp_indicators
+                        ? html`<shroom-state-value
+                              value=${formatIndicator(this.low!)}
+                              color="rgb(var(--rgb-action-climate-heating))"
+                          ></shroom-state-value>`
+                        : html``}
+                    <mushroom-climate-temperature-control
+                        .hass=${this.hass}
+                        .entity=${entity}
+                        .gap=${this._config?.temperature_gap ?? 0}
+                        @current-change=${this.onTempChange}
+                    ></mushroom-climate-temperature-control>
+                    ${this._config?.show_temp_indicators
+                        ? html`<shroom-state-value
+                              value=${formatIndicator(this.high!)}
+                              color="rgb(var(--rgb-action-climate-cooling))"
+                          ></shroom-state-value>`
+                        : html``}`;
+            // case "brightness_control":
+            //     const lightRgbColor = getRGBColor(entity);
+            //     const sliderStyle = {};
+            //     if (lightRgbColor && this._config?.use_light_color) {
+            //         const color = lightRgbColor.join(",");
+            //         sliderStyle["--slider-color"] = `rgb(${color})`;
+            //         sliderStyle["--slider-bg-color"] = `rgba(${color}, 0.2)`;
+            //         if (isLight(lightRgbColor) && !(this.hass.themes as any).darkMode) {
+            //             sliderStyle[
+            //                 "--slider-bg-color"
+            //             ] = `rgba(var(--rgb-primary-text-color), 0.05)`;
+            //             sliderStyle["--slider-color"] = `rgba(var(--rgb-primary-text-color), 0.15)`;
+            //         }
+            //     }
+            //     return html`
+            //         <mushroom-light-brightness-control
+            //             .hass=${this.hass}
+            //             .entity=${entity}
+            //             style=${styleMap(sliderStyle)}
+            //             @current-change=${this.onCurrentBrightnessChange}
+            //         />
+            //     `;
+            // case "color_temp_control":
+            //     return html`
+            //         <mushroom-light-color-temp-control .hass=${this.hass} .entity=${entity} />
+            //     `;
+            // case "color_control":
+            //     return html`
+            //         <mushroom-light-color-control .hass=${this.hass} .entity=${entity} />
+            //     `;
+            default:
+                return null;
+        }
     }
 
     static get styles(): CSSResultGroup {
