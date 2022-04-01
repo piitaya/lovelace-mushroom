@@ -11,6 +11,13 @@ const getPercentageFromEvent = (e: HammerInput) => {
     return Math.max(Math.min(1, (x - offset) / total), 0);
 };
 
+export const DEFAULT_SLIDER_THRESHOLD = 10;
+const getSliderThreshold = (element: any): number | undefined => {
+    const thresholdValue = window.getComputedStyle(element).getPropertyValue("--slider-threshold");
+    const threshold = parseFloat(thresholdValue);
+    return isNaN(threshold) ? DEFAULT_SLIDER_THRESHOLD : threshold;
+};
+
 @customElement("mushroom-slider")
 export class SliderItem extends LitElement {
     @property() public disabled: boolean = false;
@@ -60,10 +67,11 @@ export class SliderItem extends LitElement {
 
     setupListeners() {
         if (this.slider && !this._mc) {
+            const threshold = getSliderThreshold(this.slider);
             this._mc = new Hammer.Manager(this.slider, { touchAction: "pan-y" });
             this._mc.add(
                 new Hammer.Pan({
-                    threshold: 10,
+                    threshold,
                     direction: Hammer.DIRECTION_ALL,
                     enable: true,
                 })
