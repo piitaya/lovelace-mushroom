@@ -3,7 +3,7 @@ import { customElement, property, query } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import "hammerjs";
-import { isNumber } from "../utils/number";
+import { clamp, isNumber } from "../utils/number";
 
 const getPercentageFromEvent = (e: HammerInput) => {
     const x = e.center.x;
@@ -54,16 +54,20 @@ export class SliderItem extends LitElement {
     private _active?: "value" | "secondary";
 
     private get _activeMinMax() {
-        const min = this._active === "secondary" ? this.value! + this.gap : this.min;
+        const min =
+            this._active === "secondary" && isNumber(this.value)
+                ? this.value! + this.gap
+                : this.min;
         const max =
-            this._active === "value" && this.secondary !== undefined
+            this._active === "value" && isNumber(this.secondary)
                 ? this.secondary! - this.gap
                 : this.max;
         return { min, max };
     }
 
     eventToValue(e: HammerInput) {
-        return this.percentageToValue(getPercentageFromEvent(e));
+        const { min, max } = this._activeMinMax;
+        return clamp(this.percentageToValue(getPercentageFromEvent(e)), min, max);
     }
 
     valueToPercentage(value: number) {
