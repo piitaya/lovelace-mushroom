@@ -1,6 +1,5 @@
 import {
     ActionHandlerEvent,
-    computeStateDisplay,
     formatNumber,
     handleAction,
     hasAction,
@@ -43,7 +42,7 @@ const CONTROLS_ICONS: Record<ClimateCardControl, string> = {
 
 registerCustomCard({
     type: CLIMATE_CARD_NAME,
-    name: "Musshroom - Climate Card",
+    name: "Mushroom - Climate Card",
     description: "Mushroom card for climate entities",
 });
 
@@ -200,20 +199,6 @@ export class ClimateCard extends LitElement implements LovelaceCard {
             iconStyle["--shape-color"] = `rgba(var(--rgb-action-climate-${hvac_action}), 0.25)`;
         }
 
-        const stepSize = entity.attributes.target_temp_step
-            ? entity.attributes.target_temp_step
-            : this.hass!.config.unit_system.temperature === UNIT_F
-            ? 1
-            : 0.5;
-
-        const formatIndicator = (value: number) => {
-            const options: Intl.NumberFormatOptions =
-                stepSize === 1
-                    ? { maximumFractionDigits: 0 }
-                    : { maximumFractionDigits: 1, minimumFractionDigits: 1 };
-            return formatNumber(value, this.hass.locale, options);
-        };
-
         return html`
             <mushroom-card .layout=${layout}>
                 <mushroom-state-item
@@ -252,36 +237,6 @@ export class ClimateCard extends LitElement implements LovelaceCard {
                           </div>
                       `
                     : null}
-                <!-- <div class="actions">
-                    <mushroom-climate-mode-control
-                        .hass=${this.hass}
-                        .entity=${entity}
-                    ></mushroom-climate-mode-control>
-                </div>
-                ${this._config.show_temp_control
-                    ? html`
-                          <div class="actions">
-                              ${this._config.show_temp_indicators
-                                  ? html`<shroom-state-value
-                                        value=${formatIndicator(this.low!)}
-                                        color="rgb(var(--rgb-action-climate-heating))"
-                                    ></shroom-state-value>`
-                                  : html``}
-                              <mushroom-climate-temperature-control
-                                  .hass=${this.hass}
-                                  .entity=${entity}
-                                  .gap=${this._config.temperature_gap ?? 0}
-                                  @current-change=${this.onTempChange}
-                              ></mushroom-climate-temperature-control>
-                              ${this._config.show_temp_indicators
-                                  ? html`<shroom-state-value
-                                        value=${formatIndicator(this.high!)}
-                                        color="rgb(var(--rgb-action-climate-cooling))"
-                                    ></shroom-state-value>`
-                                  : html``}
-                          </div>
-                      `
-                    : html``} -->
             </mushroom-card>
         `;
     }
@@ -314,6 +269,7 @@ export class ClimateCard extends LitElement implements LovelaceCard {
                     : this.hass!.config.unit_system.temperature === UNIT_F
                     ? 1
                     : 0.5;
+
                 const formatIndicator = (value: number) => {
                     const options: Intl.NumberFormatOptions =
                         stepSize === 1
@@ -321,6 +277,7 @@ export class ClimateCard extends LitElement implements LovelaceCard {
                             : { maximumFractionDigits: 1, minimumFractionDigits: 1 };
                     return formatNumber(value, this.hass.locale, options);
                 };
+
                 return html`${this._config?.show_temp_indicators
                         ? html`<shroom-state-value
                               value=${formatIndicator(this.low!)}
@@ -339,36 +296,6 @@ export class ClimateCard extends LitElement implements LovelaceCard {
                               color="rgb(var(--rgb-action-climate-cooling))"
                           ></shroom-state-value>`
                         : html``}`;
-            // case "brightness_control":
-            //     const lightRgbColor = getRGBColor(entity);
-            //     const sliderStyle = {};
-            //     if (lightRgbColor && this._config?.use_light_color) {
-            //         const color = lightRgbColor.join(",");
-            //         sliderStyle["--slider-color"] = `rgb(${color})`;
-            //         sliderStyle["--slider-bg-color"] = `rgba(${color}, 0.2)`;
-            //         if (isLight(lightRgbColor) && !(this.hass.themes as any).darkMode) {
-            //             sliderStyle[
-            //                 "--slider-bg-color"
-            //             ] = `rgba(var(--rgb-primary-text-color), 0.05)`;
-            //             sliderStyle["--slider-color"] = `rgba(var(--rgb-primary-text-color), 0.15)`;
-            //         }
-            //     }
-            //     return html`
-            //         <mushroom-light-brightness-control
-            //             .hass=${this.hass}
-            //             .entity=${entity}
-            //             style=${styleMap(sliderStyle)}
-            //             @current-change=${this.onCurrentBrightnessChange}
-            //         />
-            //     `;
-            // case "color_temp_control":
-            //     return html`
-            //         <mushroom-light-color-temp-control .hass=${this.hass} .entity=${entity} />
-            //     `;
-            // case "color_control":
-            //     return html`
-            //         <mushroom-light-color-control .hass=${this.hass} .entity=${entity} />
-            //     `;
             default:
                 return null;
         }
