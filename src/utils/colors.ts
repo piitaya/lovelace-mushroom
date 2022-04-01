@@ -117,12 +117,20 @@ export const colorCss = css`
     --rgb-state-alarm-triggered: var(--mush-rgb-state-alarm-triggered, var(--rgb-danger));
 
     /* State climate colors */
-    --rgb-state-climate-cooling: var(--mush-rgb-state-climate-cooling, var(--rgb-blue));
-    --rgb-state-climate-heating: var(--mush-rgb-state-climate-heating, var(--rgb-orange));
+    --rgb-state-climate-auto: var(--mush-rgb-state-climate-auto, var(--rgb-green));
+    --rgb-state-climate-heat_cool: var(--mush-rgb-state-climate-heat_cool, var(--rgb-green));
+    --rgb-state-climate-heat: var(--mush-rgb-state-climate-heat, var(--rgb-orange));
+    --rgb-state-climate-cool: var(--mush-rgb-state-climate-cool, var(--rgb-blue));
+    --rgb-state-climate-dry: var(--mush-rgb-state-climate-dry, var(--rgb-amber));
+    --rgb-state-climate-fan_only: var(--mush-rgb-state-climate-fan_only, var(--rgb-grey));
     --rgb-state-climate-off: var(--mush-rgb-state-climate-off, var(--rgb-grey));
-    --rgb-state-climate-fan: var(--mush-rgb-state-climate-fan, var(--rgb-grey));
-    --rgb-state-climate-drying: var(--mush-rgb-state-climate-drying, var(--rgb-amber));
-    --rgb-state-climate-idle: var(--mush-rgb-state-climate-idle, var(--rgb-grey));
+
+    /* Action climate colors */
+    --rgb-action-climate-cooling: var(--mush-rgb-action-climate-cooling, var(--rgb-blue));
+    --rgb-action-climate-heating: var(--mush-rgb-action-climate-heating, var(--rgb-orange));
+    --rgb-action-climate-fan: var(--mush-rgb-action-climate-fan, var(--rgb-grey));
+    --rgb-action-climate-drying: var(--mush-rgb-action-climate-drying, var(--rgb-amber));
+    --rgb-action-climate-idle: var(--mush-rgb-action-climate-idle, var(--rgb-grey));
 
     /* State person colors */
     --rgb-state-person-home: var(--mush-rgb-state-person-home, var(--rgb-success));

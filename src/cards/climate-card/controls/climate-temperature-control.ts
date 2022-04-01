@@ -73,10 +73,10 @@ export class ClimateTemperatureControl extends LitElement {
             :host {
                 display: flex;
                 flex: auto;
-                --cooling-color: rgb(var(--rgb-state-climate-cooling));
-                --heating-color: rgb(var(--rgb-state-climate-heating));
+                --cooling-color: rgb(var(--rgb-action-climate-cooling));
+                --heating-color: rgb(var(--rgb-action-climate-heating));
                 --slider-outline-color: transparent;
-                --slider-bg-color: rgba(var(--rgb-state-climate-off), 0.2);
+                --slider-bg-color: rgba(var(--rgb-action-climate-off), 0.2);
             }
             mushroom-slider {
                 flex: auto;
