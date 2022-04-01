@@ -3,6 +3,7 @@ import { customElement, property, query } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import "hammerjs";
+import { isNumber } from "../utils/number";
 
 const getPercentageFromEvent = (e: HammerInput) => {
     const x = e.center.x;
@@ -33,20 +34,56 @@ export class SliderItem extends LitElement {
     @property({ attribute: false, type: Number, reflect: true })
     public value?: number;
 
+    @property({ attribute: false, type: Number, reflect: true })
+    public secondary?: number;
+
     @property({ type: Number })
     public min: number = 0;
 
     @property({ type: Number })
     public max: number = 100;
 
+    @property({ type: Number })
+    public step: number = 1;
+
+    @property({ type: Number })
+    public gap: number = 0;
+
     private _mc?: HammerManager;
+
+    private _active?: "value" | "secondary";
+
+    private get _activeMinMax() {
+        const min = this._active === "secondary" ? this.value! + this.gap : this.min;
+        const max =
+            this._active === "value" && this.secondary !== undefined
+                ? this.secondary! - this.gap
+                : this.max;
+        return { min, max };
+    }
+
+    eventToValue(e: HammerInput) {
+        return this.percentageToValue(getPercentageFromEvent(e));
+    }
 
     valueToPercentage(value: number) {
         return (value - this.min) / (this.max - this.min);
     }
 
     percentageToValue(value: number) {
-        return (this.max - this.min) * value + this.min;
+        return Math.round(((this.max - this.min) * value + this.min) / this.step) * this.step;
+    }
+
+    setActive(value: number) {
+        if (
+            this.secondary === undefined ||
+            (this.value === this.secondary && value < this.value!) ||
+            Math.abs(value - this.value!) < Math.abs(value - this.secondary!)
+        ) {
+            this._active = "value";
+        } else {
+            this._active = "secondary";
+        }
     }
 
     protected firstUpdated(changedProperties: PropertyValues): void {
@@ -82,57 +119,64 @@ export class SliderItem extends LitElement {
             this._mc.add(new Hammer.Tap({ event: "singletap" }));
 
             let savedValue;
-            this._mc.on("panstart", () => {
+            this._mc.on("panstart", (e) => {
                 if (this.disabled) return;
-                savedValue = this.value;
+                const percentage = getPercentageFromEvent(e);
+                const value = this.percentageToValue(percentage);
+                this.setActive(value);
+
+                savedValue = this[this._active!];
             });
             this._mc.on("pancancel", () => {
                 if (this.disabled) return;
-                this.value = savedValue;
+                this[this._active!] = savedValue;
+                this._active = undefined;
             });
             this._mc.on("panmove", (e) => {
-                if (this.disabled) return;
-                const percentage = getPercentageFromEvent(e);
-                this.value = this.percentageToValue(percentage);
+               if (this.disabled) return;
+                if (this._active === undefined) return;
+                this[this._active] = this.eventToValue(e);
                 this.dispatchEvent(
                     new CustomEvent("current-change", {
                         detail: {
-                            value: Math.round(this.value),
+                            [this._active]: this[this._active]!,
                         },
                     })
                 );
             });
             this._mc.on("panend", (e) => {
-                if (this.disabled) return;
-                const percentage = getPercentageFromEvent(e);
-                this.value = this.percentageToValue(percentage);
+                if (this.disabled || this._active === undefined) return;
+                this[this._active] = this.eventToValue(e);
                 this.dispatchEvent(
                     new CustomEvent("current-change", {
                         detail: {
-                            value: undefined,
+                            [this._active]: undefined,
                         },
                     })
                 );
                 this.dispatchEvent(
                     new CustomEvent("change", {
                         detail: {
-                            value: Math.round(this.value),
+                            [this._active]: this[this._active]!,
                         },
                     })
                 );
+                this._active = undefined;
             });
 
             this._mc.on("singletap", (e) => {
                 if (this.disabled) return;
-                const percentage = getPercentageFromEvent(e);
-                this.value = this.percentageToValue(percentage);
+                const value = this.eventToValue(e);
+                this.setActive(value);
+                this[this._active!] = value;
                 this.dispatchEvent(
                     new CustomEvent("change", {
                         detail: {
-                            value: Math.round(this.value),
+                            [this._active!]: this[this._active!]!,
                         },
                     })
                 );
+                this._active = undefined;
             });
         }
     }
@@ -152,10 +196,16 @@ export class SliderItem extends LitElement {
                     class="slider"
                     style=${styleMap({
                         "--value": `${this.valueToPercentage(this.value ?? 0)}`,
+                        "--secondary": `${this.valueToPercentage(this.secondary ?? 0)}`,
                     })}
                 >
                     <div class="slider-track-background"></div>
-                    ${this.showActive ? html`<div class="slider-track-active"></div>` : null}
+                    ${this.showActive && isNumber(this.value)
+                        ? html`<div class="slider-track-active"></div>`
+                        : null}
+                    ${this.showActive && isNumber(this.secondary)
+                        ? html`<div class="slider-track-secondary"></div>`
+                        : null}
                     ${this.showIndicator ? html`<div class="slider-track-indicator"></div>` : null}
                 </div>
             </div>
@@ -166,6 +216,7 @@ export class SliderItem extends LitElement {
         return css`
             :host {
                 --main-color: rgba(var(--rgb-secondary-text-color), 1);
+                --secondary-color: rgba(var(---rgb-secondary-text-color), 1);
                 --bg-gradient: none;
                 --bg-color: rgba(var(--rgb-secondary-text-color), 0.2);
                 --main-color-inactive: var(--disabled-text-color);
@@ -200,7 +251,8 @@ export class SliderItem extends LitElement {
                 background-color: var(--bg-color);
                 background-image: var(--gradient);
             }
-            .slider .slider-track-active {
+            .slider .slider-track-active,
+            .slider .slider-track-secondary {
                 position: absolute;
                 top: 0;
                 left: 0;
@@ -209,6 +261,11 @@ export class SliderItem extends LitElement {
                 transform: scale3d(var(--value, 0), 1, 1);
                 transform-origin: left;
                 background-color: var(--main-color);
+            }
+            .slider .slider-track-secondary {
+                transform: scale3d(calc(1 - var(--secondary, 0)), 1, 1);
+                transform-origin: right;
+                background-color: var(--secondary-color);
             }
             .slider .slider-track-indicator {
                 position: absolute;
@@ -241,7 +298,8 @@ export class SliderItem extends LitElement {
             .inactive .slider .slider-track-indicator:after {
                 background-color: var(--main-color-inactive);
             }
-            .inactive .slider .slider-track-active {
+            .inactive .slider .slider-track-active,
+            .inactive .slider .slider-track-secondary {
                 background-color: var(--main-color-inactive);
             }
         `;
