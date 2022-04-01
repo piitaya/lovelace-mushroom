@@ -63,7 +63,7 @@ export class SliderItem extends LitElement {
             this._mc = new Hammer.Manager(this.slider, { touchAction: "pan-y" });
             this._mc.add(
                 new Hammer.Pan({
-                    threshold: 10,
+                    threshold: 0,
                     direction: Hammer.DIRECTION_ALL,
                     enable: true,
                 })
