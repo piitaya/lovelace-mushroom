@@ -29,6 +29,8 @@ export const cardStyle = css`
         --chip-font-size: var(--mush-chip-font-size, 1em);
         --chip-font-weight: var(--mush-chip-font-weight, bold);
         --chip-icon-size: var(--mush-chip-icon-size, 1.5em);
+        /* Slider */
+        --slider-threshold: var(--mush-slider-threshold);
     }
     .actions {
         display: flex;
