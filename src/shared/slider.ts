@@ -63,11 +63,14 @@ export class SliderItem extends LitElement {
             this._mc = new Hammer.Manager(this.slider, { touchAction: "pan-y" });
             this._mc.add(
                 new Hammer.Pan({
-                    threshold: 0,
+                    threshold: 10,
                     direction: Hammer.DIRECTION_ALL,
                     enable: true,
                 })
             );
+
+            this._mc.add(new Hammer.Tap({ event: "singletap" }));
+
             let savedValue;
             this._mc.on("panstart", () => {
                 savedValue = this.value;
@@ -98,6 +101,18 @@ export class SliderItem extends LitElement {
                 );
                 this.dispatchEvent(
                     new CustomEvent("change", {
+                        detail: {
+                            value: Math.round(this.value),
+                        },
+                    })
+                );
+            });
+
+            this._mc.on("singletap", (e) => {
+                const percentage = getPercentageFromEvent(e);
+                this.value = this.percentageToValue(percentage);
+                this.dispatchEvent(
+                    new CustomEvent("current-change", {
                         detail: {
                             value: Math.round(this.value),
                         },
