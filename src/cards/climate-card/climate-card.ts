@@ -23,7 +23,12 @@ import { stateIcon } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig } from "../../utils/layout";
 import "./controls/climate-temperature-control";
 import { ClimateCardConfig } from "./climate-card-config";
-import { CLIMATE_CARD_EDITOR_NAME, CLIMATE_CARD_NAME, CLIMATE_ENTITY_DOMAINS } from "./const";
+import {
+    CLIMATE_CARD_EDITOR_NAME,
+    CLIMATE_CARD_NAME,
+    CLIMATE_ENTITY_DOMAINS,
+    CLIMATE_PRESET_NONE,
+} from "./const";
 import { isNumber } from "../../utils/number";
 
 type ClimateCardControl = "temperature_control";
@@ -129,11 +134,8 @@ export class ClimateCard extends LitElement implements LovelaceCard {
         const entity_id = this._config.entity;
         const entity = this.hass.states[entity_id];
 
-        const {
-            hvac_action: activeMode,
-            current_temperature: currentTemp,
-            target_temp_step,
-        } = entity.attributes;
+        const { current_temperature, hvac_action, preset_mode, target_temp_step } =
+            entity.attributes;
 
         const stepSize = target_temp_step
             ? target_temp_step
@@ -149,24 +151,28 @@ export class ClimateCard extends LitElement implements LovelaceCard {
         const active = isActive(entity);
 
         const icon =
-            this._config.icon || (this._config.use_action_icon && MODE_ICONS[activeMode])
-                ? MODE_ICONS[activeMode]
+            this._config.icon || (this._config.use_action_icon && MODE_ICONS[hvac_action])
+                ? MODE_ICONS[hvac_action]
                 : stateIcon(entity);
 
-        const stateDisplay = activeMode
-            ? this.hass!.localize(`state_attributes.climate.hvac_action.${activeMode}`)
-            : computeStateDisplay(this.hass.localize, entity, this.hass.locale);
+        const currentTempDisplay = isNumber(current_temperature)
+            ? `${formatNumber(current_temperature, this.hass.locale)} ${
+                  this.hass.config.unit_system.temperature
+              }`
+            : "";
 
-        const currentTempDisplay =
-            currentTemp !== null && isNumber(currentTemp)
-                ? `${formatNumber(currentTemp, this.hass.locale)} ${
-                      this.hass.config.unit_system.temperature
+        const state = `${currentTempDisplay && `${currentTempDisplay} | `}${
+            hvac_action
+                ? this.hass!.localize(`state_attributes.climate.hvac_action.${hvac_action}`)
+                : this.hass!.localize(`component.climate.state._.${entity.state}`)
+        } ${
+            preset_mode && preset_mode !== CLIMATE_PRESET_NONE
+                ? `- ${
+                      this.hass!.localize(`state_attributes.climate.preset_mode.${preset_mode}`) ||
+                      preset_mode
                   }`
-                : "";
-
-        let state;
-        if (currentTempDisplay) state = `${currentTempDisplay} | `;
-        state = `${state}${stateDisplay}`;
+                : ""
+        }`;
 
         const formatIndicator = (value: number) => {
             const options: Intl.NumberFormatOptions =
@@ -177,10 +183,10 @@ export class ClimateCard extends LitElement implements LovelaceCard {
         };
 
         const iconStyle = {};
-        if (activeMode && this._config?.use_action_color) {
-            iconStyle["--icon-color"] = `rgb(var(--rgb-state-climate-${activeMode || "idle"}))`;
+        if (hvac_action && this._config?.use_action_color) {
+            iconStyle["--icon-color"] = `rgb(var(--rgb-state-climate-${hvac_action || "idle"}))`;
             iconStyle["--shape-color"] = `rgba(var(--rgb-state-climate-${
-                activeMode || "idle"
+                hvac_action || "idle"
             }), 0.25)`;
         }
 
