@@ -21,7 +21,7 @@ export function shouldPulse(state: string): boolean {
 }
 
 export function isActionsAvailable(entity: HassEntity) {
-    return !["pending", "unavailable"].includes(entity.state);
+    return !["unavailable"].includes(entity.state);
 }
 
 export function isDisarmed(entity: HassEntity) {
