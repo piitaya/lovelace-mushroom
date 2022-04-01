@@ -76,6 +76,9 @@ export class SliderItem extends LitElement {
                     enable: true,
                 })
             );
+
+            this._mc.add(new Hammer.Tap({ event: "singletap" }));
+
             let savedValue;
             this._mc.on("panstart", () => {
                 savedValue = this.value;
@@ -104,6 +107,18 @@ export class SliderItem extends LitElement {
                         },
                     })
                 );
+                this.dispatchEvent(
+                    new CustomEvent("change", {
+                        detail: {
+                            value: Math.round(this.value),
+                        },
+                    })
+                );
+            });
+
+            this._mc.on("singletap", (e) => {
+                const percentage = getPercentageFromEvent(e);
+                this.value = this.percentageToValue(percentage);
                 this.dispatchEvent(
                     new CustomEvent("change", {
                         detail: {
