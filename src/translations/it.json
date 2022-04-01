@@ -1,0 +1,114 @@
+{
+    "editor": {
+        "form": {
+            "color_picker": {
+                "values": {
+                    "default": "Colore predefinito"
+                }
+            },
+            "info_picker": {
+                "values": {
+                    "default": "Informazione predefinita",
+                    "name": "Nome",
+                    "state": "Statp",
+                    "last-changed": "Ultimo Cambiamento",
+                    "last-updated": "Ultimo Aggiornamento",
+                    "none": "Nessuno"
+                }
+            },
+            "layout_picker": {
+                "values": {
+                    "default": "Disposizione Predefinita",
+                    "vertical": "Disposizione Verticale",
+                    "horizontal": "Disposizione Orizzontale"
+                }
+            },
+            "alignment_picker": {
+                "values": {
+                    "default": "Allineamento predefinito",
+                    "start": "Inizio",
+                    "end": "Fine",
+                    "center": "Centro",
+                    "justify": "Giustificato"
+                }
+            }
+        },
+        "card": {
+            "generic": {
+                "hide_name": "Nascondi il nome",
+                "hide_state": "Nascondi lo stato",
+                "hide_icon": "Nascondi l'icona",
+                "icon_color": "Colore dell'icona",
+                "layout": "Disposizione",
+                "primary_info": "Informazione primaria",
+                "secondary_info": "Informazione secondaria",
+                "content_info": "Contenuto",
+                "use_entity_picture": "Usa l'immagine dell'entità"
+            },
+            "light": {
+                "use_light_color": "Usa il colore della luce",
+                "show_brightness_control": "Controllo luminosità",
+                "show_color_temp_control": "Controllo temperatura",
+                "show_color_control": "Controllo colore",
+                "incompatible_controls": "Alcuni controlli potrebbero non essere mostrati se la tua luce non li supporta."
+            },
+            "fan": {
+                "icon_animation": "Anima l'icona quando attiva",
+                "show_percentage_control": "Controllo potenza",
+                "show_oscillate_control": "Controllo oscillazione"
+            },
+            "cover": {
+                "show_buttons_control": "Controllo",
+                "show_position_control": "Controllo percentuale apertura"
+            },
+            "alarm_control_panel": {
+                "displayed_states": "Mostra stati"
+            },
+            "template": {
+                "primary": "Informazione primaria",
+                "secondary": "Informazione Secondaria",
+                "multiline_secondary": "Abilita frasi multilinea",
+                "entity_extra": "Usato in templates ed azioni",
+                "content": "Contenuto"
+            },
+            "title": {
+                "title": "Titolo",
+                "subtitle": "Sottotitolo"
+            },
+            "chips": {
+                "alignment": "Allineamento"
+            },
+            "weather": {
+                "show_conditions": "Condizioni",
+                "show_temperature": "Temperatura"
+            }
+        },
+        "chip": {
+            "sub_element_editor": {
+                "title": "Editor di chip"
+            },
+            "conditional": {
+                "chip": "Chip"
+            },
+            "chip-picker": {
+                "chips": "Chips",
+                "details": "Mostra i dettagli cliccando sul bottone di modifica",
+                "add": "Aggiungi chip",
+                "edit": "Modifica",
+                "clear": "Libera",
+                "select": "Seleziona chip",
+                "types": {
+                    "action": "Azione",
+                    "alarm-control-panel": "Allarme",
+                    "back": "Torna indietro",
+                    "conditional": "Condizionale",
+                    "entity": "Entità",
+                    "light": "Luce",
+                    "menu": "Menù",
+                    "template": "Template",
+                    "weather": "Meteo"
+                }
+            }
+        }
+    }
+}
