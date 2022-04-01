@@ -112,7 +112,7 @@ export class SliderItem extends LitElement {
                 const percentage = getPercentageFromEvent(e);
                 this.value = this.percentageToValue(percentage);
                 this.dispatchEvent(
-                    new CustomEvent("current-change", {
+                    new CustomEvent("change", {
                         detail: {
                             value: Math.round(this.value),
                         },
