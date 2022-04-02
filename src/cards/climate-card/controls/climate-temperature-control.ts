@@ -70,15 +70,10 @@ export class ClimateTemperatureControl extends LitElement {
             return;
         }
 
-        const stateObj = this.hass.states[this.entity.entity_id];
-        if (!stateObj) {
-            return;
-        }
-
         const oldHass = changedProps.get("hass") as HomeAssistant | undefined;
 
-        if (!oldHass || oldHass.states[this.entity.entity_id] !== stateObj) {
-            this._setTemps = getSetTemp(stateObj);
+        if (!oldHass || oldHass.states[this.entity.entity_id] !== this.entity) {
+            this._setTemps = getSetTemp(this.entity);
         }
     }
 
