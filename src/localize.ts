@@ -10,6 +10,8 @@ import * as it from "./translations/it.json";
 import * as pt_BR from "./translations/pt-BR.json";
 import * as sv from "./translations/sv.json";
 import * as zh_Hans from "./translations/zh-Hans.json";
+import * as nl from "./translations/nl.json";
+
 
 const languages: Record<string, unknown> = {
     de,
@@ -19,6 +21,7 @@ const languages: Record<string, unknown> = {
     "pt-BR": pt_BR,
     sv,
     "zh-Hans": zh_Hans,
+    "nl": nl,
 };
 
 const DEFAULT_LANG = "en";
