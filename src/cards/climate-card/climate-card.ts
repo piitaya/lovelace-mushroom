@@ -6,7 +6,6 @@ import {
     HomeAssistant,
     LovelaceCard,
     LovelaceCardEditor,
-    UNIT_F,
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
@@ -70,10 +69,6 @@ export class ClimateCard extends LitElement implements LovelaceCard {
 
     @state() private _controls: ClimateCardControl[] = [];
 
-    @state() private low?: number;
-
-    @state() private high?: number;
-
     _onControlTap(ctrl, e): void {
         e.stopPropagation();
         this._activeControl = ctrl;
@@ -96,7 +91,6 @@ export class ClimateCard extends LitElement implements LovelaceCard {
             },
             ...config,
         };
-        this.updateTemps();
         this.updateControls();
     }
 
@@ -129,27 +123,8 @@ export class ClimateCard extends LitElement implements LovelaceCard {
     protected updated(changedProperties: PropertyValues) {
         super.updated(changedProperties);
         if (this.hass && changedProperties.has("hass")) {
-            this.updateTemps();
             this.updateControls();
         }
-    }
-
-    updateTemps() {
-        this.low = undefined;
-        this.high = undefined;
-        if (!this._config || !this.hass || !this._config.entity) return;
-
-        const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id];
-
-        if (!entity) return;
-        this.low = entity.attributes.target_temp_low;
-        this.high = entity.attributes.target_temp_high;
-    }
-
-    private onTempChange(e: CustomEvent<{ low?: number; high?: number }>): void {
-        if (e.detail.low) this.low = e.detail.low;
-        if (e.detail.high) this.high = e.detail.high;
     }
 
     protected render(): TemplateResult {
