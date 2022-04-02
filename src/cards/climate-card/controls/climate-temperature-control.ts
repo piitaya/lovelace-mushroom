@@ -1,8 +1,10 @@
-import { HomeAssistant, UNIT_F } from "custom-card-helpers";
+import { formatNumber, HomeAssistant, UNIT_F } from "custom-card-helpers";
 import { HassEntity } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
+import { customElement, property, state } from "lit/decorators.js";
+import { styleMap } from "lit/directives/style-map.js";
 import "../../../shared/slider";
+import { getSetTemp } from "../utils";
 
 @customElement("mushroom-climate-temperature-control")
 export class ClimateTemperatureControl extends LitElement {
@@ -10,7 +12,11 @@ export class ClimateTemperatureControl extends LitElement {
 
     @property({ attribute: false }) public entity!: HassEntity;
 
+    @property({ type: Boolean }) public showIndicators = false;
+
     @property({ type: Number }) public gap!: number;
+
+    @state() private _setTemps?: number | number[];
 
     private get _stepSize(): number {
         if (this.entity.attributes.target_temp_step) {
@@ -36,6 +42,11 @@ export class ClimateTemperatureControl extends LitElement {
     }
 
     onCurrentChange(e: CustomEvent<{ secondary?: number; value?: number }>): void {
+        if (e.detail.value) {
+            this._setTemps = [e.detail.value, this.entity.attributes.target_temp_high];
+        } else if (e.detail.secondary) {
+            this._setTemps = [this.entity.attributes.target_temp_low, e.detail.secondary];
+        }
         this.dispatchEvent(
             new CustomEvent("current-change", {
                 detail: {
@@ -46,12 +57,45 @@ export class ClimateTemperatureControl extends LitElement {
         );
     }
 
+    formatIndicator = (value: number) => {
+        const options: Intl.NumberFormatOptions =
+            this._stepSize === 1
+                ? { maximumFractionDigits: 0 }
+                : { maximumFractionDigits: 1, minimumFractionDigits: 1 };
+        return formatNumber(value, this.hass.locale, options);
+    };
+
+    public willUpdate(changedProps: PropertyValues) {
+        if (!this.hass || !this.entity || !changedProps.has("hass")) {
+            return;
+        }
+
+        const stateObj = this.hass.states[this.entity.entity_id];
+        if (!stateObj) {
+            return;
+        }
+
+        const oldHass = changedProps.get("hass") as HomeAssistant | undefined;
+
+        if (!oldHass || oldHass.states[this.entity.entity_id] !== stateObj) {
+            this._setTemps = getSetTemp(stateObj);
+        }
+    }
+
     protected render(): TemplateResult {
         const state = this.entity.state;
 
         const { min_temp, max_temp, target_temp_high, target_temp_low } = this.entity.attributes;
 
-        return html`
+        return html`${this.showIndicators
+                ? html`<shroom-state-value
+                      value=${this.formatIndicator(this._setTemps![0])}
+                      style=${styleMap({
+                          "--text-color": "rgb(var(--rgb-action-climate-heating))",
+                          "--bg-color": "rgba(var(--rgb-action-climate-heating), 0.05)",
+                      })}
+                  ></shroom-state-value>`
+                : null}
             <mushroom-slider
                 .showActive=${true}
                 .disabled=${state === "off"}
@@ -65,7 +109,15 @@ export class ClimateTemperatureControl extends LitElement {
                 @current-change=${this.onCurrentChange}
             >
             </mushroom-slider>
-        `;
+            ${this.showIndicators
+                ? html`<shroom-state-value
+                      value=${this.formatIndicator(this._setTemps![1])}
+                      style=${styleMap({
+                          "--text-color": "rgb(var(--rgb-action-climate-cooling))",
+                          "--bg-color": "rgba(var(--rgb-action-climate-cooling), 0.05)",
+                      })}
+                  ></shroom-state-value>`
+                : null} `;
     }
 
     static get styles(): CSSResultGroup {
@@ -77,6 +129,9 @@ export class ClimateTemperatureControl extends LitElement {
                 --heating-color: rgb(var(--rgb-action-climate-heating));
                 --slider-outline-color: transparent;
                 --slider-bg-color: rgba(var(--rgb-action-climate-off), 0.2);
+            }
+            :host :not(:last-child) {
+                margin-right: var(--spacing);
             }
             mushroom-slider {
                 flex: auto;

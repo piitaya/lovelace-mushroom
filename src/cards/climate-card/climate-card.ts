@@ -264,44 +264,12 @@ export class ClimateCard extends LitElement implements LovelaceCard {
                     .entity=${entity}
                 ></mushroom-climate-mode-control>`;
             case "temperature_control":
-                const stepSize = entity.attributes.target_temp_step
-                    ? entity.attributes.target_temp_step
-                    : this.hass!.config.unit_system.temperature === UNIT_F
-                    ? 1
-                    : 0.5;
-
-                const formatIndicator = (value: number) => {
-                    const options: Intl.NumberFormatOptions =
-                        stepSize === 1
-                            ? { maximumFractionDigits: 0 }
-                            : { maximumFractionDigits: 1, minimumFractionDigits: 1 };
-                    return formatNumber(value, this.hass.locale, options);
-                };
-
-                return html`${this._config?.show_temp_indicators
-                        ? html`<shroom-state-value
-                              value=${formatIndicator(this.low!)}
-                              style=${styleMap({
-                                  "--text-color": "rgb(var(--rgb-action-climate-heating))",
-                                  "--bg-color": "rgba(var(--rgb-action-climate-heating), 0.05)",
-                              })}
-                          ></shroom-state-value>`
-                        : html``}
-                    <mushroom-climate-temperature-control
-                        .hass=${this.hass}
-                        .entity=${entity}
-                        .gap=${this._config?.temperature_gap ?? 0}
-                        @current-change=${this.onTempChange}
-                    ></mushroom-climate-temperature-control>
-                    ${this._config?.show_temp_indicators
-                        ? html`<shroom-state-value
-                              value=${formatIndicator(this.high!)}
-                              style=${styleMap({
-                                  "--text-color": "rgb(var(--rgb-action-climate-cooling))",
-                                  "--bg-color": "rgba(var(--rgb-action-climate-cooling), 0.05)",
-                              })}
-                          ></shroom-state-value>`
-                        : html``}`;
+                return html`<mushroom-climate-temperature-control
+                    .hass=${this.hass}
+                    .entity=${entity}
+                    .gap=${this._config?.temperature_gap ?? 0}
+                    .showIndicators=${this._config?.show_temp_indicators}
+                ></mushroom-climate-temperature-control>`;
             default:
                 return null;
         }
