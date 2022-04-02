@@ -10,7 +10,7 @@
                 "values": {
                     "default": "Informazione predefinita",
                     "name": "Nome",
-                    "state": "Statp",
+                    "state": "Stato",
                     "last-changed": "Ultimo Cambiamento",
                     "last-updated": "Ultimo Aggiornamento",
                     "none": "Nessuno"
@@ -35,9 +35,9 @@
         },
         "card": {
             "generic": {
-                "hide_name": "Nascondi il nome",
-                "hide_state": "Nascondi lo stato",
-                "hide_icon": "Nascondi l'icona",
+                "hide_name": "Nascondi nome",
+                "hide_state": "Nascondi stato",
+                "hide_icon": "Nascondi icona",
                 "icon_color": "Colore dell'icona",
                 "layout": "Disposizione",
                 "primary_info": "Informazione primaria",
@@ -66,7 +66,7 @@
             },
             "template": {
                 "primary": "Informazione primaria",
-                "secondary": "Informazione Secondaria",
+                "secondary": "Informazione secondaria",
                 "multiline_secondary": "Abilita frasi multilinea",
                 "entity_extra": "Usato in templates ed azioni",
                 "content": "Contenuto"
@@ -95,13 +95,13 @@
                 "details": "Mostra i dettagli cliccando sul bottone di modifica",
                 "add": "Aggiungi chip",
                 "edit": "Modifica",
-                "clear": "Libera",
+                "clear": "Rimuovi",
                 "select": "Seleziona chip",
                 "types": {
                     "action": "Azione",
                     "alarm-control-panel": "Allarme",
-                    "back": "Torna indietro",
-                    "conditional": "Condizionale",
+                    "back": "Pulsante indietro",
+                    "conditional": "Condizione",
                     "entity": "Entità",
                     "light": "Luce",
                     "menu": "Menù",
