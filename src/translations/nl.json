@@ -1,0 +1,114 @@
+{
+    "editor": {
+        "form": {
+            "color_picker": {
+                "values": {
+                    "default": "Standaard kleur"
+                }
+            },
+            "info_picker": {
+                "values": {
+                    "default": "Standaard informatie",
+                    "name": "Naam",
+                    "state": "Straat",
+                    "last-changed": "Laaste Gewijzigd",
+                    "last-updated": "Laatste update",
+                    "none": "Geen"
+                }
+            },
+            "layout_picker": {
+                "values": {
+                    "default": "Standaard lay-out",
+                    "vertical": "Verticaal lay-out",
+                    "horizontal": "Horizontaal lay-out"
+                }
+            },
+            "alignment_picker": {
+                "values": {
+                    "default": "Standaard uitlijning",
+                    "start": "Begin",
+                    "end": "Einde",
+                    "center": "Midden",
+                    "justify": "Justify"
+                }
+            }
+        },
+        "card": {
+            "generic": {
+                "hide_name": "Verberg naam?",
+                "hide_state": "Verberg staat?",
+                "hide_icon": "Verberg icoon?",
+                "icon_color": "Icon kleur",
+                "layout": "Lay-out",
+                "primary_info": "Primaire informatie",
+                "secondary_info": "Secundaire informatie",
+                "content_info": "Inhoud",
+                "use_entity_picture": "Gebruik entiteit afbeelding?"
+            },
+            "light": {
+                "show_brightness_control": "Helderheidsregeling?",
+                "use_light_color": "Gebruik lichte kleur",
+                "show_color_temp_control": "Temperatuur kleurregeling?",
+                "show_color_control": "Kleurcontrole?",
+                "incompatible_controls": "Sommige bedieningselementen worden mogelijk niet weergegeven als uw lamp deze functie niet ondersteunt."
+            },
+            "fan": {
+                "icon_animation": "Pictogram animeren indien actief?",
+                "show_percentage_control": "Percentage controle?",
+                "show_oscillate_control": "Oscillerende controle?"
+            },
+            "cover": {
+                "show_buttons_control": "Knoppen controle?",
+                "show_position_control": "Positie controle?"
+            },
+            "alarm_control_panel": {
+                "displayed_states": "Weergegeven staten"
+            },
+            "template": {
+                "primary": "Primaire informatie",
+                "secondary": "Secundaire informati",
+                "multiline_secondary": "Meerlijnig secundair?",
+                "entity_extra": "Gebruikt in sjablonen en acties",
+                "content": "Inhoud"
+            },
+            "title": {
+                "title": "Titel",
+                "subtitle": "Ondertitel"
+            },
+            "chips": {
+                "alignment": "Uitlijning"
+            },
+            "weather": {
+                "show_conditions": "Conditie?",
+                "show_temperature": "Temperatuur?"
+            }
+        },
+        "chip": {
+            "sub_element_editor": {
+                "title": "Chip-editor"
+            },
+            "conditional": {
+                "chip": "Chip"
+            },
+            "chip-picker": {
+                "chips": "Chips",
+                "details": "Om meer details te tonen klik de edit knop",
+                "add": "Toevoegen chip",
+                "edit": "Edit",
+                "clear": "Maak leeg",
+                "select": "Selecteer chip",
+                "types": {
+                    "action": "actie",
+                    "alarm-control-panel": "Alarm",
+                    "back": "Terug",
+                    "conditional": "Voorwaardelijk",
+                    "entity": "Entiteit",
+                    "light": "Licht",
+                    "menu": "Menu",
+                    "template": "Sjabloon",
+                    "weather": "Weer"
+                }
+            }
+        }
+    }
+}
