@@ -4,25 +4,25 @@ import { property, customElement } from "lit/decorators.js";
 @customElement("shroom-state-value")
 export class StateValue extends LitElement {
     @property() public value: string = "";
-    @property() public color: string = "var(--secondary-text-color)";
 
     protected render(): TemplateResult {
-        return html`<div class="button" style="color: ${this.color}">${this.value}</div>`;
+        return html`<div class="value">${this.value}</div>`;
     }
 
     static get styles(): CSSResultGroup {
         return css`
             :host {
-                --icon-color: var(--primary-text-color);
+                --text-color: var(--primary-text-color);
                 --bg-color: rgba(var(--rgb-primary-text-color), 0.05);
                 width: 42px;
                 height: 42px;
                 flex: none;
             }
-            .button {
+            .value {
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                color: var(--text-color);
                 font-size: 16px;
                 font-weight: bold;
                 height: 100%;

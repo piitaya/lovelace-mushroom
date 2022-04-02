@@ -281,7 +281,10 @@ export class ClimateCard extends LitElement implements LovelaceCard {
                 return html`${this._config?.show_temp_indicators
                         ? html`<shroom-state-value
                               value=${formatIndicator(this.low!)}
-                              color="rgb(var(--rgb-action-climate-heating))"
+                              style=${styleMap({
+                                  "--text-color": "rgb(var(--rgb-action-climate-heating))",
+                                  "--bg-color": "rgba(var(--rgb-action-climate-heating), 0.05)",
+                              })}
                           ></shroom-state-value>`
                         : html``}
                     <mushroom-climate-temperature-control
@@ -293,7 +296,10 @@ export class ClimateCard extends LitElement implements LovelaceCard {
                     ${this._config?.show_temp_indicators
                         ? html`<shroom-state-value
                               value=${formatIndicator(this.high!)}
-                              color="rgb(var(--rgb-action-climate-cooling))"
+                              style=${styleMap({
+                                  "--text-color": "rgb(var(--rgb-action-climate-cooling))",
+                                  "--bg-color": "rgba(var(--rgb-action-climate-cooling), 0.05)",
+                              })}
                           ></shroom-state-value>`
                         : html``}`;
             default:
