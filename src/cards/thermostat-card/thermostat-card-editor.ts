@@ -21,15 +21,6 @@ export const THERMOSTAT_FIELDS = [
     "temperature_gap",
 ];
 
-export const THERMOSTAT_ENGLISH = {
-    use_action_color: "Icon action color?",
-    use_action_icon: "Icon action?",
-    show_mode_control: "Mode control?",
-    show_temp_control: "Temperature control?",
-    show_temp_indicators: "Temperature control indicators?",
-    temperature_gap: "Energy Efficient Gap",
-};
-
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: THERMOSTAT_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
@@ -89,7 +80,7 @@ export class ThermostatCardEditor extends LitElement implements LovelaceCardEdit
             return customLocalize(`editor.card.generic.${schema.name}`);
         }
         if (THERMOSTAT_FIELDS.includes(schema.name)) {
-            return THERMOSTAT_ENGLISH[schema.name];
+            return customLocalize(`editor.card.thermostat.${schema.name}`);
         }
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
     };
