@@ -21,7 +21,7 @@ const languages: Record<string, unknown> = {
     "pt-BR": pt_BR,
     sv,
     "zh-Hans": zh_Hans,
-    "nl": nl,
+    nl,
 };
 
 const DEFAULT_LANG = "en";
