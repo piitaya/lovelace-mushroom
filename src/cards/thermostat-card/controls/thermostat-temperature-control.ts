@@ -16,7 +16,7 @@ export class ThermostatTemperatureControl extends LitElement {
 
     @property({ type: Number }) public gap!: number;
 
-    @state() private _setTemps?: number | number[];
+    @state() private _setTemps: number | number[] = [];
 
     private get _stepSize(): number {
         if (this.entity.attributes.target_temp_step) {
@@ -26,7 +26,12 @@ export class ThermostatTemperatureControl extends LitElement {
     }
 
     onChange(e: CustomEvent<{ value?: number; secondary?: number }>): void {
-        if (e.detail.value) {
+        if (this.entity.attributes.temperature) {
+            this.hass!.callService("climate", "set_temperature", {
+                entity_id: this.entity.entity_id,
+                temperature: e.detail.value ?? e.detail.secondary,
+            });
+        } else if (e.detail.value) {
             this.hass!.callService("climate", "set_temperature", {
                 entity_id: this.entity.entity_id,
                 target_temp_low: e.detail.value,
@@ -42,7 +47,9 @@ export class ThermostatTemperatureControl extends LitElement {
     }
 
     onCurrentChange(e: CustomEvent<{ secondary?: number; value?: number }>): void {
-        if (e.detail.value) {
+        if (this.entity.attributes.temperature && (e.detail.value || e.detail.secondary)) {
+            this._setTemps = (e.detail.value ?? e.detail.secondary) as number;
+        } else if (e.detail.value) {
             this._setTemps = [e.detail.value, this.entity.attributes.target_temp_high];
         } else if (e.detail.secondary) {
             this._setTemps = [this.entity.attributes.target_temp_low, e.detail.secondary];
@@ -80,11 +87,15 @@ export class ThermostatTemperatureControl extends LitElement {
     protected render(): TemplateResult {
         const state = this.entity.state;
 
-        const { min_temp, max_temp, target_temp_high, target_temp_low } = this.entity.attributes;
+        const { min_temp, max_temp, target_temp_high, target_temp_low, temperature } =
+            this.entity.attributes;
 
-        return html`${this.showIndicators
+        const targetLow = state === "heat" ? temperature : target_temp_low;
+        const targetHigh = state === "cool" ? temperature : target_temp_high;
+
+        return html`${this.showIndicators && targetLow
                 ? html`<shroom-state-value
-                      value=${this.formatIndicator(this._setTemps![0])}
+                      value=${this.formatIndicator(this._setTemps[0] ?? this._setTemps)}
                       style=${styleMap({
                           "--text-color": "rgb(var(--rgb-action-climate-heating))",
                           "--bg-color": "rgba(var(--rgb-action-climate-heating), 0.05)",
@@ -92,10 +103,11 @@ export class ThermostatTemperatureControl extends LitElement {
                   ></shroom-state-value>`
                 : null}
             <mushroom-slider
+                styles="--bg-color: rgba(var(--rgb-primary-text-color), 0.05);"
                 .showActive=${true}
                 .disabled=${state === "off"}
-                .value=${target_temp_low}
-                .secondary=${target_temp_high}
+                .value=${targetLow}
+                .secondary=${targetHigh}
                 .min=${min_temp ?? 45}
                 .max=${max_temp ?? 95}
                 .step=${this._stepSize}
@@ -104,9 +116,9 @@ export class ThermostatTemperatureControl extends LitElement {
                 @current-change=${this.onCurrentChange}
             >
             </mushroom-slider>
-            ${this.showIndicators
+            ${this.showIndicators && targetHigh
                 ? html`<shroom-state-value
-                      value=${this.formatIndicator(this._setTemps![1])}
+                      value=${this.formatIndicator(this._setTemps[1] ?? this._setTemps)}
                       style=${styleMap({
                           "--text-color": "rgb(var(--rgb-action-climate-cooling))",
                           "--bg-color": "rgba(var(--rgb-action-climate-cooling), 0.05)",
