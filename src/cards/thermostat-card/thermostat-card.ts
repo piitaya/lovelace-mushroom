@@ -258,8 +258,8 @@ export class ThermostatCard extends LitElement implements LovelaceCard {
                     cursor: pointer;
                 }
                 mushroom-shape-icon {
-                    --icon-color: rgb(var(--rgb-state-climate-off));
-                    --shape-color: rgba(var(--rgb-state-climate-off), 0.2);
+                    --icon-color: rgba(var(--rgb-state-climate-off), 0.5);
+                    --shape-color: rgba(var(--rgb-primary-text-color), 0.05);
                 }
             `,
         ];
