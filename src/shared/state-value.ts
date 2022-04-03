@@ -1,7 +1,7 @@
 import { css, CSSResultGroup, html, LitElement, TemplateResult, unsafeCSS } from "lit";
 import { property, customElement } from "lit/decorators.js";
 
-@customElement("shroom-state-value")
+@customElement("mushroom-state-value")
 export class StateValue extends LitElement {
     @property() public value: string = "";
 

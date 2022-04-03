@@ -94,13 +94,13 @@ export class ThermostatTemperatureControl extends LitElement {
         const targetHigh = state === "cool" ? temperature : target_temp_high;
 
         return html`${this.showIndicators && targetLow
-                ? html`<shroom-state-value
+                ? html`<mushroom-state-value
                       value=${this.formatIndicator(this._setTemps[0] ?? this._setTemps)}
                       style=${styleMap({
                           "--text-color": "rgb(var(--rgb-action-climate-heating))",
                           "--bg-color": "rgba(var(--rgb-action-climate-heating), 0.05)",
                       })}
-                  ></shroom-state-value>`
+                  ></mushroom-state-value>`
                 : null}
             <mushroom-slider
                 styles="--bg-color: rgba(var(--rgb-primary-text-color), 0.05);"
@@ -114,16 +114,15 @@ export class ThermostatTemperatureControl extends LitElement {
                 .gap=${this.gap}
                 @change=${this.onChange}
                 @current-change=${this.onCurrentChange}
-            >
-            </mushroom-slider>
+            ></mushroom-slider>
             ${this.showIndicators && targetHigh
-                ? html`<shroom-state-value
+                ? html`<mushroom-state-value
                       value=${this.formatIndicator(this._setTemps[1] ?? this._setTemps)}
                       style=${styleMap({
                           "--text-color": "rgb(var(--rgb-action-climate-cooling))",
                           "--bg-color": "rgba(var(--rgb-action-climate-cooling), 0.05)",
                       })}
-                  ></shroom-state-value>`
+                  ></mushroom-state-value>`
                 : null} `;
     }
 

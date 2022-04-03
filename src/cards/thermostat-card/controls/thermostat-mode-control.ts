@@ -7,7 +7,7 @@ import { MODE_ICONS } from "../const";
 import { compareClimateHvacModes } from "../utils";
 
 @customElement("mushroom-thermostat-mode-control")
-export class ThermostateModeControl extends LitElement {
+export class ThermostatModeControl extends LitElement {
     @property({ attribute: false }) public hass!: HomeAssistant;
 
     @property({ attribute: false }) public entity!: HassEntity;
