@@ -123,7 +123,7 @@ export class ThermostatTemperatureControl extends LitElement {
                 --cooling-color: rgb(var(--rgb-action-climate-cooling));
                 --heating-color: rgb(var(--rgb-action-climate-heating));
                 --slider-outline-color: transparent;
-                --slider-bg-color: rgba(var(--rgb-action-climate-off), 0.2);
+                --slider-bg-color: rgba(var(--rgb-secondary-text-color), 0.05);
             }
             :host :not(:last-child) {
                 margin-right: var(--spacing);
