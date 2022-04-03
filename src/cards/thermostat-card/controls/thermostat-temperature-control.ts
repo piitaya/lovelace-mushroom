@@ -6,8 +6,8 @@ import { styleMap } from "lit/directives/style-map.js";
 import "../../../shared/slider";
 import { getSetTemp } from "../utils";
 
-@customElement("mushroom-climate-temperature-control")
-export class ClimateTemperatureControl extends LitElement {
+@customElement("mushroom-thermostat-temperature-control")
+export class ThermostatTemperatureControl extends LitElement {
     @property({ attribute: false }) public hass!: HomeAssistant;
 
     @property({ attribute: false }) public entity!: HassEntity;

@@ -9,10 +9,10 @@ import { GENERIC_FIELDS } from "../../utils/form/fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { loadHaComponents } from "../../utils/loader";
-import { CLIMATE_CARD_EDITOR_NAME, CLIMATE_ENTITY_DOMAINS } from "./const";
-import { ClimateCardConfig, climateCardConfigStruct } from "./climate-card-config";
+import { THERMOSTAT_CARD_EDITOR_NAME, THERMOSTAT_ENTITY_DOMAINS } from "./const";
+import { ThermostatCardConfig, thermostatCardConfigStruct } from "./thermostat-card-config";
 
-export const CLIMATE_FIELDS = [
+export const THERMOSTAT_FIELDS = [
     "use_action_icon",
     "use_action_color",
     "show_mode_control",
@@ -21,7 +21,7 @@ export const CLIMATE_FIELDS = [
     "temperature_gap",
 ];
 
-export const CLIMATE_ENGLISH = {
+export const THERMOSTAT_ENGLISH = {
     use_action_color: "Icon action color?",
     use_action_icon: "Icon action?",
     show_mode_control: "Mode control?",
@@ -31,7 +31,7 @@ export const CLIMATE_ENGLISH = {
 };
 
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
-    { name: "entity", selector: { entity: { domain: CLIMATE_ENTITY_DOMAINS } } },
+    { name: "entity", selector: { entity: { domain: THERMOSTAT_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
     {
         type: "grid",
@@ -66,19 +66,19 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     { name: "double_tap_action", selector: { "mush-action": {} } },
 ]);
 
-@customElement(CLIMATE_CARD_EDITOR_NAME)
-export class ClimateCardEditor extends LitElement implements LovelaceCardEditor {
+@customElement(THERMOSTAT_CARD_EDITOR_NAME)
+export class ThermostatCardEditor extends LitElement implements LovelaceCardEditor {
     @property({ attribute: false }) public hass?: HomeAssistant;
 
-    @state() private _config?: ClimateCardConfig;
+    @state() private _config?: ThermostatCardConfig;
 
     connectedCallback() {
         super.connectedCallback();
         void loadHaComponents();
     }
 
-    public setConfig(config: ClimateCardConfig): void {
-        assert(config, climateCardConfigStruct);
+    public setConfig(config: ThermostatCardConfig): void {
+        assert(config, thermostatCardConfigStruct);
         this._config = config;
     }
 
@@ -88,8 +88,8 @@ export class ClimateCardEditor extends LitElement implements LovelaceCardEditor 
         if (GENERIC_FIELDS.includes(schema.name)) {
             return customLocalize(`editor.card.generic.${schema.name}`);
         }
-        if (CLIMATE_FIELDS.includes(schema.name)) {
-            return CLIMATE_ENGLISH[schema.name];
+        if (THERMOSTAT_FIELDS.includes(schema.name)) {
+            return THERMOSTAT_ENGLISH[schema.name];
         }
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
     };

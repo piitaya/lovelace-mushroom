@@ -1,14 +1,13 @@
-import { HomeAssistant, UNIT_F } from "custom-card-helpers";
+import { HomeAssistant } from "custom-card-helpers";
 import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { MODE_ICONS } from "../const";
-import { HvacMode } from "../types";
 import { compareClimateHvacModes } from "../utils";
 
-@customElement("mushroom-climate-mode-control")
-export class ClimateModeControl extends LitElement {
+@customElement("mushroom-thermostat-mode-control")
+export class ThermostateModeControl extends LitElement {
     @property({ attribute: false }) public hass!: HomeAssistant;
 
     @property({ attribute: false }) public entity!: HassEntity;

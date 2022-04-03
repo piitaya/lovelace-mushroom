@@ -19,55 +19,55 @@ import { actionHandler } from "../../utils/directives/action-handler-directive";
 import { isActive } from "../../utils/entity";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig } from "../../utils/layout";
-import "./controls/climate-mode-control";
-import "./controls/climate-temperature-control";
-import { ClimateCardConfig } from "./climate-card-config";
+import "./controls/thermostat-mode-control";
+import "./controls/thermostat-temperature-control";
+import { ThermostatCardConfig } from "./thermostat-card-config";
 import {
-    CLIMATE_CARD_EDITOR_NAME,
-    CLIMATE_CARD_NAME,
-    CLIMATE_ENTITY_DOMAINS,
+    THERMOSTAT_CARD_EDITOR_NAME,
+    THERMOSTAT_CARD_NAME,
+    THERMOSTAT_ENTITY_DOMAINS,
     CLIMATE_PRESET_NONE,
     ACTION_ICONS,
 } from "./const";
 import { isNumber } from "../../utils/number";
 import { HassEntity } from "home-assistant-js-websocket";
 
-type ClimateCardControl = "temperature_control" | "mode_control";
+type ThermostatCardControl = "temperature_control" | "mode_control";
 
-const CONTROLS_ICONS: Record<ClimateCardControl, string> = {
+const CONTROLS_ICONS: Record<ThermostatCardControl, string> = {
     mode_control: "mdi:thermostat",
     temperature_control: "mdi:thermometer",
 };
 
 registerCustomCard({
-    type: CLIMATE_CARD_NAME,
-    name: "Mushroom - Climate Card",
+    type: THERMOSTAT_CARD_NAME,
+    name: "Mushroom - Thermostat Card",
     description: "Mushroom card for climate entities",
 });
 
-@customElement(CLIMATE_CARD_NAME)
-export class ClimateCard extends LitElement implements LovelaceCard {
+@customElement(THERMOSTAT_CARD_NAME)
+export class ThermostatCard extends LitElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
-        await import("./climate-card-editor");
-        return document.createElement(CLIMATE_CARD_EDITOR_NAME) as LovelaceCardEditor;
+        await import("./thermostat-card-editor");
+        return document.createElement(THERMOSTAT_CARD_EDITOR_NAME) as LovelaceCardEditor;
     }
 
-    public static async getStubConfig(hass: HomeAssistant): Promise<ClimateCardConfig> {
+    public static async getStubConfig(hass: HomeAssistant): Promise<ThermostatCardConfig> {
         const entities = Object.keys(hass.states);
-        const panels = entities.filter((e) => CLIMATE_ENTITY_DOMAINS.includes(e.split(".")[0]));
+        const panels = entities.filter((e) => THERMOSTAT_ENTITY_DOMAINS.includes(e.split(".")[0]));
         return {
-            type: `custom:${CLIMATE_CARD_NAME}`,
+            type: `custom:${THERMOSTAT_CARD_NAME}`,
             entity: panels[0],
         };
     }
 
     @property({ attribute: false }) public hass!: HomeAssistant;
 
-    @state() private _config?: ClimateCardConfig;
+    @state() private _config?: ThermostatCardConfig;
 
-    @state() private _activeControl?: ClimateCardControl;
+    @state() private _activeControl?: ThermostatCardControl;
 
-    @state() private _controls: ClimateCardControl[] = [];
+    @state() private _controls: ThermostatCardControl[] = [];
 
     _onControlTap(ctrl, e): void {
         e.stopPropagation();
@@ -78,7 +78,7 @@ export class ClimateCard extends LitElement implements LovelaceCard {
         return 1;
     }
 
-    setConfig(config: ClimateCardConfig): void {
+    setConfig(config: ThermostatCardConfig): void {
         this._config = {
             tap_action: {
                 action: "more-info",
@@ -102,7 +102,7 @@ export class ClimateCard extends LitElement implements LovelaceCard {
 
         if (!entity) return;
 
-        const controls: ClimateCardControl[] = [];
+        const controls: ThermostatCardControl[] = [];
         if (this._config.show_temp_control) {
             controls.push("temperature_control");
         }
@@ -234,17 +234,17 @@ export class ClimateCard extends LitElement implements LovelaceCard {
     private renderActiveControl(entity: HassEntity): TemplateResult | null {
         switch (this._activeControl) {
             case "mode_control":
-                return html` <mushroom-climate-mode-control
+                return html` <mushroom-thermostat-mode-control
                     .hass=${this.hass}
                     .entity=${entity}
-                ></mushroom-climate-mode-control>`;
+                ></mushroom-thermostat-mode-control>`;
             case "temperature_control":
-                return html`<mushroom-climate-temperature-control
+                return html`<mushroom-thermostat-temperature-control
                     .hass=${this.hass}
                     .entity=${entity}
                     .gap=${this._config?.temperature_gap ?? 0}
                     .showIndicators=${this._config?.show_temp_indicators}
-                ></mushroom-climate-temperature-control>`;
+                ></mushroom-thermostat-temperature-control>`;
             default:
                 return null;
         }

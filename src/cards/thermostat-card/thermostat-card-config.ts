@@ -4,7 +4,7 @@ import { actionConfigStruct } from "../../utils/action-struct";
 import { baseLovelaceCardConfig } from "../../utils/editor-styles";
 import { Layout, layoutStruct } from "../../utils/layout";
 
-export interface ClimateCardConfig extends LovelaceCardConfig {
+export interface ThermostatCardConfig extends LovelaceCardConfig {
     entity?: string;
     icon?: string;
     name?: string;
@@ -21,7 +21,7 @@ export interface ClimateCardConfig extends LovelaceCardConfig {
     double_tap_action?: ActionConfig;
 }
 
-export const climateCardConfigStruct = assign(
+export const thermostatCardConfigStruct = assign(
     baseLovelaceCardConfig,
     object({
         entity: optional(string()),
