@@ -11,7 +11,7 @@
                     "default": "Standaard informatie",
                     "name": "Naam",
                     "state": "Straat",
-                    "last-changed": "Laaste Gewijzigd",
+                    "last-changed": "laatst Gewijzigd",
                     "last-updated": "Laatste update",
                     "none": "Geen"
                 }
@@ -20,7 +20,7 @@
                 "values": {
                     "default": "Standaard lay-out",
                     "vertical": "Verticaal lay-out",
-                    "horizontal": "Horizontaal lay-out"
+                    "horizontal": "Horizontale lay-out"
                 }
             },
             "alignment_picker": {
@@ -29,7 +29,7 @@
                     "start": "Begin",
                     "end": "Einde",
                     "center": "Midden",
-                    "justify": "Justify"
+                    "justify": "Uitlijnen "
                 }
             }
         },
