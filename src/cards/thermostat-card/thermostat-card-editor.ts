@@ -1,4 +1,4 @@
-import { fireEvent, HomeAssistant, LovelaceCardEditor } from "custom-card-helpers";
+import { fireEvent, HomeAssistant, LovelaceCardEditor, UNIT_F } from "custom-card-helpers";
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
@@ -21,7 +21,7 @@ export const THERMOSTAT_FIELDS = [
     "temperature_gap",
 ];
 
-const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
+const computeSchema = memoizeOne((icon?: string, unit?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: THERMOSTAT_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
     {
@@ -50,7 +50,15 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     },
     {
         name: "temperature_gap",
-        selector: { number: { min: 0, max: 5, step: 0.5, mode: "slider" } },
+        selector: {
+            number: {
+                min: 0,
+                max: unit === UNIT_F ? 10 : 5,
+                step: unit === UNIT_F ? 1 : 0.5,
+                mode: "slider",
+                unit_of_measurement: unit,
+            },
+        },
     },
     { name: "tap_action", selector: { "mush-action": {} } },
     { name: "hold_action", selector: { "mush-action": {} } },
@@ -93,7 +101,7 @@ export class ThermostatCardEditor extends LitElement implements LovelaceCardEdit
         const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
         const entityIcon = entityState ? stateIcon(entityState) : undefined;
         const icon = this._config.icon || entityIcon;
-        const schema = computeSchema(icon);
+        const schema = computeSchema(icon, this.hass.config.unit_system.temperature);
 
         return html`
             <ha-form
