@@ -43,9 +43,9 @@ const computeSchema = memoizeOne((icon?: string, unit?: string): HaFormSchema[] 
         schema: [
             { name: "use_action_color", selector: { boolean: {} } },
             { name: "use_action_icon", selector: { boolean: {} } },
-            { name: "show_mode_control", selector: { boolean: {} } },
             { name: "show_temp_control", selector: { boolean: {} } },
             { name: "show_temp_indicators", selector: { boolean: {} } },
+            { name: "show_mode_control", selector: { boolean: {} } },
         ],
     },
     {
