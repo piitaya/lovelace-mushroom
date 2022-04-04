@@ -6,6 +6,7 @@ import {
     HomeAssistant,
     LovelaceCard,
     LovelaceCardEditor,
+    UNIT_F,
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
@@ -58,6 +59,7 @@ export class ThermostatCard extends LitElement implements LovelaceCard {
         return {
             type: `custom:${THERMOSTAT_CARD_NAME}`,
             entity: panels[0],
+            temperature_gap: hass.config.unit_system.temperature === UNIT_F ? 2 : 1,
         };
     }
 
