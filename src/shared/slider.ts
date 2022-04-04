@@ -81,12 +81,15 @@ export class SliderItem extends LitElement {
 
             let savedValue;
             this._mc.on("panstart", () => {
+                if (this.disabled) return;
                 savedValue = this.value;
             });
             this._mc.on("pancancel", () => {
+                if (this.disabled) return;
                 this.value = savedValue;
             });
             this._mc.on("panmove", (e) => {
+                if (this.disabled) return;
                 const percentage = getPercentageFromEvent(e);
                 this.value = this.percentageToValue(percentage);
                 this.dispatchEvent(
@@ -98,6 +101,7 @@ export class SliderItem extends LitElement {
                 );
             });
             this._mc.on("panend", (e) => {
+                if (this.disabled) return;
                 const percentage = getPercentageFromEvent(e);
                 this.value = this.percentageToValue(percentage);
                 this.dispatchEvent(
@@ -117,6 +121,7 @@ export class SliderItem extends LitElement {
             });
 
             this._mc.on("singletap", (e) => {
+                if (this.disabled) return;
                 const percentage = getPercentageFromEvent(e);
                 this.value = this.percentageToValue(percentage);
                 this.dispatchEvent(

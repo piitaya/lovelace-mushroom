@@ -2,7 +2,9 @@ import { HomeAssistant } from "custom-card-helpers";
 import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import { styleMap } from "lit/directives/style-map.js";
 import "../../../shared/slider";
+import { isAvailable } from "../../../utils/entity";
 import { getColorTemp } from "../utils";
 
 @customElement("mushroom-light-color-temp-control")
@@ -25,10 +27,16 @@ export class LightColorTempControl extends LitElement {
 
         const colorTemp = getColorTemp(this.entity);
 
+        const sliderStyle = {};
+        if (state === "off") {
+            sliderStyle["--gradient"] = "none";
+        }
+
         return html`
             <mushroom-slider
+                style=${styleMap(sliderStyle)}
                 .value=${colorTemp}
-                .disabled=${state !== "on"}
+                .disabled=${!isAvailable(this.entity)}
                 .min=${this.entity.attributes.min_mireds ?? 0}
                 .max=${this.entity.attributes.max_mireds ?? 100}
                 .showIndicator=${true}

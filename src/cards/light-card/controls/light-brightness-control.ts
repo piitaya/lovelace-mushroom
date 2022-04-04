@@ -2,7 +2,9 @@ import { HomeAssistant } from "custom-card-helpers";
 import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import { styleMap } from "lit/directives/style-map.js";
 import "../../../shared/slider";
+import { isAvailable } from "../../../utils/entity";
 import { getBrightness } from "../utils";
 
 @customElement("mushroom-light-brightness-control")
@@ -35,10 +37,17 @@ export class LightBrighnessControl extends LitElement {
 
         const brightness = getBrightness(this.entity);
 
+        const sliderStyle = {};
+        if (state === "off") {
+            sliderStyle["--bg-color"] = "var(--bg-color-disabled)";
+            sliderStyle["--main-color"] = "var(--main-color-disabled)";
+        }
+
         return html`
             <mushroom-slider
+                style=${styleMap(sliderStyle)}
                 .value=${brightness}
-                .disabled=${state !== "on"}
+                .disabled=${!isAvailable(this.entity)}
                 .showActive=${true}
                 @change=${this.onChange}
                 @current-change=${this.onCurrentChange}
