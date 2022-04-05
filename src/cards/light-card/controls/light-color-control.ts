@@ -5,7 +5,7 @@ import { customElement, property } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import * as Color from "color";
 import "../../../shared/slider";
-import { isAvailable } from "../../../utils/entity";
+import { isActive, isAvailable } from "../../../utils/entity";
 
 const GRADIENT = [
     [0, "#f00"],
@@ -50,21 +50,14 @@ export class LightColorControl extends LitElement {
     }
 
     protected render(): TemplateResult {
-        const state = this.entity.state;
-
         const colorPercent =
             this._percent || this._rgbToPercent(this.entity.attributes.rgb_color) * 100;
 
-        const sliderStyle = {};
-        if (state === "off") {
-            sliderStyle["--gradient"] = "none";
-        }
-
         return html`
             <mushroom-slider
-                style=${styleMap(sliderStyle)}
                 .value=${colorPercent}
                 .disabled=${!isAvailable(this.entity)}
+                .inactive=${!isActive(this.entity)}
                 .min=${0}
                 .max=${100}
                 .showIndicator=${true}

@@ -4,7 +4,7 @@ import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import "../../../shared/slider";
-import { isAvailable } from "../../../utils/entity";
+import { isActive, isAvailable } from "../../../utils/entity";
 import { getColorTemp } from "../utils";
 
 @customElement("mushroom-light-color-temp-control")
@@ -23,20 +23,13 @@ export class LightColorTempControl extends LitElement {
     }
 
     protected render(): TemplateResult {
-        const state = this.entity.state;
-
         const colorTemp = getColorTemp(this.entity);
-
-        const sliderStyle = {};
-        if (state === "off") {
-            sliderStyle["--gradient"] = "none";
-        }
 
         return html`
             <mushroom-slider
-                style=${styleMap(sliderStyle)}
                 .value=${colorTemp}
                 .disabled=${!isAvailable(this.entity)}
+                .inactive=${!isActive(this.entity)}
                 .min=${this.entity.attributes.min_mireds ?? 0}
                 .max=${this.entity.attributes.max_mireds ?? 100}
                 .showIndicator=${true}
