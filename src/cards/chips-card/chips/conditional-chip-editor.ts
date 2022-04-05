@@ -278,7 +278,7 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
             return;
         }
         const conditions = [...this._config.conditions];
-        if (target.configValue === "entity" && target.value === "") {
+        if (target.configValue === "entity" && !target.value) {
             conditions.splice(target.idx, 1);
         } else {
             const condition = { ...conditions[target.idx] };
