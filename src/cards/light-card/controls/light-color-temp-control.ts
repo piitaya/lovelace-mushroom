@@ -2,7 +2,6 @@ import { HomeAssistant } from "custom-card-helpers";
 import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { styleMap } from "lit/directives/style-map.js";
 import "../../../shared/slider";
 import { isActive, isAvailable } from "../../../utils/entity";
 import { getColorTemp } from "../utils";
