@@ -20,7 +20,9 @@ const getSliderThreshold = (element: any): number | undefined => {
 
 @customElement("mushroom-slider")
 export class SliderItem extends LitElement {
-    @property() public disabled: boolean = false;
+    @property({ type: Boolean }) public disabled: boolean = false;
+
+    @property({ type: Boolean }) public inactive: boolean = false;
 
     @property({ type: Boolean, attribute: "show-active" })
     public showActive?: boolean;
@@ -81,12 +83,15 @@ export class SliderItem extends LitElement {
 
             let savedValue;
             this._mc.on("panstart", () => {
+                if (this.disabled) return;
                 savedValue = this.value;
             });
             this._mc.on("pancancel", () => {
+                if (this.disabled) return;
                 this.value = savedValue;
             });
             this._mc.on("panmove", (e) => {
+                if (this.disabled) return;
                 const percentage = getPercentageFromEvent(e);
                 this.value = this.percentageToValue(percentage);
                 this.dispatchEvent(
@@ -98,6 +103,7 @@ export class SliderItem extends LitElement {
                 );
             });
             this._mc.on("panend", (e) => {
+                if (this.disabled) return;
                 const percentage = getPercentageFromEvent(e);
                 this.value = this.percentageToValue(percentage);
                 this.dispatchEvent(
@@ -117,6 +123,7 @@ export class SliderItem extends LitElement {
             });
 
             this._mc.on("singletap", (e) => {
+                if (this.disabled) return;
                 const percentage = getPercentageFromEvent(e);
                 this.value = this.percentageToValue(percentage);
                 this.dispatchEvent(
@@ -139,7 +146,7 @@ export class SliderItem extends LitElement {
 
     protected render(): TemplateResult {
         return html`
-            <div class=${classMap({ container: true, disabled: this.disabled })}>
+            <div class=${classMap({ container: true, inactive: this.inactive || this.disabled })}>
                 <div
                     id="slider"
                     class="slider"
@@ -161,8 +168,8 @@ export class SliderItem extends LitElement {
                 --main-color: rgba(var(--rgb-secondary-text-color), 1);
                 --bg-gradient: none;
                 --bg-color: rgba(var(--rgb-secondary-text-color), 0.2);
-                --main-color-disabled: var(--disabled-text-color);
-                --bg-color-disabled: rgba(var(--rgb-primary-text-color), 0.05);
+                --main-color-inactive: var(--disabled-text-color);
+                --bg-color-inactive: rgba(var(--rgb-primary-text-color), 0.05);
             }
             .container {
                 display: flex;
@@ -227,15 +234,15 @@ export class SliderItem extends LitElement {
                 width: 2px;
                 border-radius: 1px;
             }
-            .disabled .slider .slider-track-background {
-                background-color: var(--bg-color-disabled);
+            .inactive .slider .slider-track-background {
+                background-color: var(--bg-color-inactive);
                 background-image: none;
             }
-            .disabled .slider .slider-track-indicator:after {
-                background-color: var(--main-color-disabled);
+            .inactive .slider .slider-track-indicator:after {
+                background-color: var(--main-color-inactive);
             }
-            .disabled .slider .slider-track-active {
-                background-color: var(--main-color-disabled);
+            .inactive .slider .slider-track-active {
+                background-color: var(--main-color-inactive);
             }
         `;
     }

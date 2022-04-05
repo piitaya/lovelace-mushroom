@@ -3,6 +3,7 @@ import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import "../../../shared/slider";
+import { isActive, isAvailable } from "../../../utils/entity";
 import { getBrightness } from "../utils";
 
 @customElement("mushroom-light-brightness-control")
@@ -31,14 +32,13 @@ export class LightBrighnessControl extends LitElement {
     }
 
     protected render(): TemplateResult {
-        const state = this.entity.state;
-
         const brightness = getBrightness(this.entity);
 
         return html`
             <mushroom-slider
                 .value=${brightness}
-                .disabled=${state !== "on"}
+                .disabled=${!isAvailable(this.entity)}
+                .inactive=${!isActive(this.entity)}
                 .showActive=${true}
                 @change=${this.onChange}
                 @current-change=${this.onCurrentChange}

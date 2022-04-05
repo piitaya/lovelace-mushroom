@@ -2,8 +2,9 @@ import { HomeAssistant } from "custom-card-helpers";
 import { HassEntity } from "home-assistant-js-websocket";
 import { css, unsafeCSS, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import "../../../shared/slider";
 import * as Color from "color";
+import "../../../shared/slider";
+import { isActive, isAvailable } from "../../../utils/entity";
 
 const GRADIENT = [
     [0, "#f00"],
@@ -48,15 +49,14 @@ export class LightColorControl extends LitElement {
     }
 
     protected render(): TemplateResult {
-        const state = this.entity.state;
-
         const colorPercent =
             this._percent || this._rgbToPercent(this.entity.attributes.rgb_color) * 100;
 
         return html`
             <mushroom-slider
                 .value=${colorPercent}
-                .disabled=${state !== "on"}
+                .disabled=${!isAvailable(this.entity)}
+                .inactive=${!isActive(this.entity)}
                 .min=${0}
                 .max=${100}
                 .showIndicator=${true}
