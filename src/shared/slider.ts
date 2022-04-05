@@ -137,7 +137,7 @@ export class SliderItem extends LitElement {
                 this._active = undefined;
             });
             this._mc.on("panmove", (e) => {
-               if (this.disabled) return;
+                if (this.disabled) return;
                 if (this._active === undefined) return;
                 this[this._active] = this.eventToValue(e);
                 this.dispatchEvent(
