@@ -26,3 +26,11 @@ export const getStepSize = (hass: HomeAssistant, entity: HassEntity): number => 
     const systemStep = hass.config.unit_system.temperature === UNIT_F ? 1 : 0.5;
     return entity.attributes.target_temp_step ?? systemStep;
 };
+
+export const getTargetTemp = (entity: HassEntity, target: "low" | "high"): number | undefined => {
+    const { target_temp_high, target_temp_low, temperature } = entity.attributes;
+
+    if (target === "low" && entity.state !== "cool") return target_temp_low ?? temperature;
+    if (target === "high" && entity.state !== "heat") return target_temp_high ?? temperature;
+    return;
+};

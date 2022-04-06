@@ -4,9 +4,8 @@ import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult }
 import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import "../../../shared/slider";
-import { isActive } from "../../../utils/entity";
-import { Indicator } from "../types";
-import { formatDegrees, getSetTemp, getStepSize } from "../utils";
+import { isAvailable } from "../../../utils/entity";
+import { formatDegrees, getSetTemp, getStepSize, getTargetTemp } from "../utils";
 
 @customElement("mushroom-thermostat-temperature-control")
 export class ThermostatTemperatureControl extends LitElement {
@@ -21,7 +20,6 @@ export class ThermostatTemperatureControl extends LitElement {
     @state() private _setTemps: number | number[] = [];
 
     onChange(e: CustomEvent<{ value?: number; secondary?: number }>): void {
-        if (!isActive(this.entity)) return;
         if (this.entity.attributes.temperature) {
             this.hass!.callService("climate", "set_temperature", {
                 entity_id: this.entity.entity_id,
@@ -43,7 +41,6 @@ export class ThermostatTemperatureControl extends LitElement {
     }
 
     onCurrentChange(e: CustomEvent<{ secondary?: number; value?: number }>): void {
-        if (!isActive(this.entity)) return;
         if (this.entity.attributes.temperature && (e.detail.value || e.detail.secondary)) {
             this._setTemps = (e.detail.value ?? e.detail.secondary) as number;
         } else if (e.detail.value) {
@@ -74,53 +71,34 @@ export class ThermostatTemperatureControl extends LitElement {
     }
 
     protected render(): TemplateResult {
-        const state = this.entity.state;
-
-        const { min_temp, max_temp, target_temp_high, target_temp_low, temperature } =
-            this.entity.attributes;
-
-        const lowIndicator: Indicator = { style: {}, visible: false };
-        const highIndicator: Indicator = { style: {}, visible: false };
+        const { min_temp, max_temp } = this.entity.attributes;
 
         const step = getStepSize(this.hass, this.entity);
 
-        if (isActive(this.entity)) {
-            lowIndicator.visible = (state === "heat" && temperature) || target_temp_low;
-            lowIndicator.value = formatDegrees(
-                this.hass,
-                this._setTemps[0] ?? this._setTemps,
-                step
-            );
-            lowIndicator.style = {
-                "--text-color": "rgb(var(--rgb-action-climate-heating))",
-                "--bg-color": "rgba(var(--rgb-action-climate-heating), 0.05)",
-            };
+        const lowTarget = getTargetTemp(this.entity, "low");
+        const highTarget = getTargetTemp(this.entity, "high");
 
-            highIndicator.visible = (state === "cool" && temperature) || target_temp_high;
-            highIndicator.value = formatDegrees(
-                this.hass,
-                this._setTemps[1] ?? this._setTemps,
-                step
-            );
+        const lowIndicator = formatDegrees(this.hass, this._setTemps[0] ?? this._setTemps, step);
+        const highIndicator = formatDegrees(this.hass, this._setTemps[1] ?? this._setTemps, step);
 
-            highIndicator.style = {
-                "--text-color": "rgb(var(--rgb-action-climate-cooling))",
-                "--bg-color": "rgba(var(--rgb-action-climate-cooling), 0.05)",
-            };
-        }
+        const indicator = (
+            value: string,
+            action: "cooling" | "heating"
+        ) => html`<mushroom-state-value
+            .value=${value}
+            style=${styleMap({
+                "--text-color": `rgb(var(--rgb-action-climate-${action}))`,
+                "--bg-color": `rgba(var(--rgb-action-climate-${action}), 0.05)`,
+            })}
+        ></mushroom-state-value>`;
 
-        return html`${this.showIndicators && lowIndicator.visible
-                ? html`<mushroom-state-value
-                      .value=${lowIndicator?.value}
-                      style=${styleMap(lowIndicator?.style)}
-                  ></mushroom-state-value>`
-                : null}
+        return html`${this.showIndicators && lowTarget ? indicator(lowIndicator, "heating") : null}
             <mushroom-slider
                 styles="--bg-color: rgba(var(--rgb-primary-text-color), 0.05);"
                 .showActive=${true}
-                .disabled=${!isActive(this.entity)}
-                .value=${lowIndicator.visible ? target_temp_low || temperature : undefined}
-                .secondary=${highIndicator.visible ? target_temp_high || temperature : undefined}
+                .disabled=${!isAvailable(this.entity)}
+                .value=${lowTarget}
+                .secondary=${highTarget}
                 .min=${min_temp ?? 45}
                 .max=${max_temp ?? 95}
                 .step=${step}
@@ -128,12 +106,7 @@ export class ThermostatTemperatureControl extends LitElement {
                 @change=${this.onChange}
                 @current-change=${this.onCurrentChange}
             ></mushroom-slider>
-            ${this.showIndicators && highIndicator.visible
-                ? html`<mushroom-state-value
-                      .value=${highIndicator?.value}
-                      style=${styleMap(highIndicator.style)}
-                  ></mushroom-state-value>`
-                : null} `;
+            ${this.showIndicators && highTarget ? indicator(highIndicator, "cooling") : null}`;
     }
 
     static get styles(): CSSResultGroup {
