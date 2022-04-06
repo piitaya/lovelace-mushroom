@@ -1,6 +1,5 @@
 import {
     ActionHandlerEvent,
-    computeStateDisplay,
     handleAction,
     hasAction,
     HomeAssistant,
@@ -17,6 +16,7 @@ import "../../shared/state-info";
 import "../../shared/state-item";
 import { cardStyle } from "../../utils/card-styles";
 import { computeRgbColor } from "../../utils/colors";
+import { computeStateDisplay } from "../../utils/compute-state-display";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
 import { isActive, isAvailable } from "../../utils/entity";

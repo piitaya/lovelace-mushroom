@@ -9,13 +9,13 @@ import {
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
-import { styleMap } from "lit/directives/style-map.js";
 import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
 import { cardStyle } from "../../utils/card-styles";
+import { computeStateDisplay } from "../../utils/compute-state-display";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
 import { isActive, isAvailable, supportsFeature } from "../../utils/entity";
@@ -24,12 +24,7 @@ import { getLayoutFromConfig } from "../../utils/layout";
 import { UPDATE_CARD_EDITOR_NAME, UPDATE_CARD_NAME, UPDATE_ENTITY_DOMAINS } from "./const";
 import "./controls/update-buttons-control";
 import { UpdateCardConfig } from "./update-card-config";
-import {
-    computeUpdateStateDisplay,
-    UpdateEntity,
-    updateIsInstalling,
-    UPDATE_SUPPORT_INSTALL,
-} from "./utils";
+import { UpdateEntity, updateIsInstalling, UPDATE_SUPPORT_INSTALL } from "./utils";
 
 registerCustomCard({
     type: UPDATE_CARD_NAME,
@@ -91,7 +86,7 @@ export class UpdateCard extends LitElement implements LovelaceCard {
         const icon = this._config.icon || stateIcon(entity);
         const layout = getLayoutFromConfig(this._config);
 
-        const stateDisplay = computeUpdateStateDisplay(this.hass.localize, entity);
+        const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
         let stateValue = `${stateDisplay}`;
 

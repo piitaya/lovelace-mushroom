@@ -42,22 +42,3 @@ export const updateReleaseNotes = (hass: HomeAssistant, entityId: string) =>
         type: "update/release_notes",
         entity_id: entityId,
     });
-
-export const computeUpdateStateDisplay = (
-    localize: LocalizeFunc,
-    stateObj: HassEntity,
-    state?: string | undefined
-): string => {
-    const compareState = state !== undefined ? state : stateObj.state;
-    return compareState === "on"
-        ? updateIsInstalling(stateObj as UpdateEntity)
-            ? supportsFeature(stateObj, UPDATE_SUPPORT_PROGRESS)
-                ? localize("ui.card.update.installing_with_progress", {
-                      progress: stateObj.attributes.in_progress,
-                  })
-                : localize("ui.card.update.installing")
-            : stateObj.attributes.latest_version
-        : stateObj.attributes.skipped_version === stateObj.attributes.latest_version
-        ? stateObj.attributes.latest_version ?? localize("state.default.unavailable")
-        : localize("ui.card.update.up_to_date");
-};
