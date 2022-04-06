@@ -12,6 +12,7 @@ export const ACTION_ICONS: Record<HvacAction, string> = {
     cooling: "mdi:snowflake",
     drying: "mdi:water-percent",
     idle: "mdi:thermostat",
+    fan: "mdi:fan",
 };
 
 export const MODE_ICONS: Record<HvacMode, string> = {
