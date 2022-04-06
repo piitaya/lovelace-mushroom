@@ -1,4 +1,4 @@
-import { formatNumber, HomeAssistant, UNIT_F } from "custom-card-helpers";
+import { HomeAssistant } from "custom-card-helpers";
 import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
@@ -6,7 +6,7 @@ import { styleMap } from "lit/directives/style-map.js";
 import "../../../shared/slider";
 import { isActive } from "../../../utils/entity";
 import { Indicator } from "../types";
-import { getSetTemp, getStepSize } from "../utils";
+import { formatDegrees, getSetTemp, getStepSize } from "../utils";
 
 @customElement("mushroom-thermostat-temperature-control")
 export class ThermostatTemperatureControl extends LitElement {
@@ -61,14 +61,6 @@ export class ThermostatTemperatureControl extends LitElement {
         );
     }
 
-    formatIndicator = (value: number) => {
-        const options: Intl.NumberFormatOptions =
-            getStepSize(this.hass, this.entity) === 1
-                ? { maximumFractionDigits: 0 }
-                : { maximumFractionDigits: 1, minimumFractionDigits: 1 };
-        return formatNumber(value, this.hass.locale, options);
-    };
-
     public willUpdate(changedProps: PropertyValues) {
         if (!this.hass || !this.entity || !changedProps.has("hass")) {
             return;
@@ -90,16 +82,27 @@ export class ThermostatTemperatureControl extends LitElement {
         const lowIndicator: Indicator = { style: {}, visible: false };
         const highIndicator: Indicator = { style: {}, visible: false };
 
+        const step = getStepSize(this.hass, this.entity);
+
         if (isActive(this.entity)) {
             lowIndicator.visible = (state === "heat" && temperature) || target_temp_low;
-            lowIndicator.value = this._setTemps[0] ?? this._setTemps;
+            lowIndicator.value = formatDegrees(
+                this.hass,
+                this._setTemps[0] ?? this._setTemps,
+                step
+            );
             lowIndicator.style = {
                 "--text-color": "rgb(var(--rgb-action-climate-heating))",
                 "--bg-color": "rgba(var(--rgb-action-climate-heating), 0.05)",
             };
 
             highIndicator.visible = (state === "cool" && temperature) || target_temp_high;
-            highIndicator.value = this._setTemps[1] ?? this._setTemps;
+            highIndicator.value = formatDegrees(
+                this.hass,
+                this._setTemps[1] ?? this._setTemps,
+                step
+            );
+
             highIndicator.style = {
                 "--text-color": "rgb(var(--rgb-action-climate-cooling))",
                 "--bg-color": "rgba(var(--rgb-action-climate-cooling), 0.05)",
@@ -120,7 +123,7 @@ export class ThermostatTemperatureControl extends LitElement {
                 .secondary=${highIndicator.visible ? target_temp_high || temperature : undefined}
                 .min=${min_temp ?? 45}
                 .max=${max_temp ?? 95}
-                .step=${getStepSize(this.hass, this.entity)}
+                .step=${step}
                 .gap=${this.gap}
                 @change=${this.onChange}
                 @current-change=${this.onCurrentChange}

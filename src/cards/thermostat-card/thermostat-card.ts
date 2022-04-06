@@ -1,6 +1,5 @@
 import {
     ActionHandlerEvent,
-    formatNumber,
     handleAction,
     hasAction,
     HomeAssistant,
@@ -32,6 +31,7 @@ import {
 } from "./const";
 import { isNumber } from "../../utils/number";
 import { HassEntity } from "home-assistant-js-websocket";
+import { formatDegrees, getStepSize } from "./utils";
 
 type ThermostatCardControl = "temperature_control" | "mode_control";
 
@@ -137,7 +137,7 @@ export class ThermostatCard extends LitElement implements LovelaceCard {
         const entity_id = this._config.entity;
         const entity = this.hass.states[entity_id];
 
-        const { current_temperature, hvac_action, preset_mode } = entity.attributes;
+        const { current_temperature: currentTemp, hvac_action, preset_mode } = entity.attributes;
 
         const name = this._config.name || entity.attributes.friendly_name || "";
 
@@ -151,13 +151,12 @@ export class ThermostatCard extends LitElement implements LovelaceCard {
                 ? ACTION_ICONS[hvac_action]
                 : stateIcon(entity);
 
-        const currentTempDisplay = isNumber(current_temperature)
-            ? `${formatNumber(current_temperature, this.hass.locale)} ${
-                  this.hass.config.unit_system.temperature
-              }`
-            : "";
+        const step = getStepSize(this.hass, entity);
 
-        const state = `${currentTempDisplay && `${currentTempDisplay} | `}${
+        const formattedCurrentTemp = formatDegrees(this.hass, currentTemp, step);
+        const currentTempDisplay = `${formattedCurrentTemp} ${this.hass.config.unit_system.temperature}`;
+
+        const state = `${currentTempDisplay} | ${
             hvac_action
                 ? this.hass!.localize(`state_attributes.climate.hvac_action.${hvac_action}`)
                 : this.hass!.localize(`component.climate.state._.${entity.state}`)
