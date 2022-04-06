@@ -6,7 +6,7 @@ import { styleMap } from "lit/directives/style-map.js";
 import "../../../shared/slider";
 import { isActive } from "../../../utils/entity";
 import { Indicator } from "../types";
-import { getSetTemp } from "../utils";
+import { getSetTemp, getStepSize } from "../utils";
 
 @customElement("mushroom-thermostat-temperature-control")
 export class ThermostatTemperatureControl extends LitElement {
@@ -19,13 +19,6 @@ export class ThermostatTemperatureControl extends LitElement {
     @property({ type: Number }) public gap!: number;
 
     @state() private _setTemps: number | number[] = [];
-
-    private get _stepSize(): number {
-        if (this.entity.attributes.target_temp_step) {
-            return this.entity.attributes.target_temp_step;
-        }
-        return this.hass!.config.unit_system.temperature === UNIT_F ? 1 : 0.5;
-    }
 
     onChange(e: CustomEvent<{ value?: number; secondary?: number }>): void {
         if (!isActive(this.entity)) return;
@@ -70,7 +63,7 @@ export class ThermostatTemperatureControl extends LitElement {
 
     formatIndicator = (value: number) => {
         const options: Intl.NumberFormatOptions =
-            this._stepSize === 1
+            getStepSize(this.hass, this.entity) === 1
                 ? { maximumFractionDigits: 0 }
                 : { maximumFractionDigits: 1, minimumFractionDigits: 1 };
         return formatNumber(value, this.hass.locale, options);
@@ -127,7 +120,7 @@ export class ThermostatTemperatureControl extends LitElement {
                 .secondary=${highIndicator.visible ? target_temp_high || temperature : undefined}
                 .min=${min_temp ?? 45}
                 .max=${max_temp ?? 95}
-                .step=${this._stepSize}
+                .step=${getStepSize(this.hass, this.entity)}
                 .gap=${this.gap}
                 @change=${this.onChange}
                 @current-change=${this.onCurrentChange}
