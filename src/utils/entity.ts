@@ -23,6 +23,8 @@ export function isActive(entity: HassEntity) {
             return state === "home";
         case "vacuum":
             return state !== "docked";
+        case "plant":
+            return state === "problem"
         default:
             return true;
     }
