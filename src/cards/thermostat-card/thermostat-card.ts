@@ -29,7 +29,6 @@ import {
     CLIMATE_PRESET_NONE,
     ACTION_ICONS,
 } from "./const";
-import { isNumber } from "../../utils/number";
 import { HassEntity } from "home-assistant-js-websocket";
 import { formatDegrees, getStepSize } from "./utils";
 
