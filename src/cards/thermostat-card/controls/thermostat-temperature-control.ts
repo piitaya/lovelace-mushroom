@@ -5,7 +5,7 @@ import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import "../../../shared/slider";
 import { isAvailable } from "../../../utils/entity";
-import { formatDegrees, getSetTemp, getStepSize, getTargetTemp } from "../utils";
+import { formatDegrees, getStepSize, getTargetTemps } from "../utils";
 
 @customElement("mushroom-thermostat-temperature-control")
 export class ThermostatTemperatureControl extends LitElement {
@@ -17,7 +17,7 @@ export class ThermostatTemperatureControl extends LitElement {
 
     @property({ type: Number }) public gap!: number;
 
-    @state() private _setTemps: number | number[] = [];
+    @state() private _indicatorTemps: [number?, number?] = [undefined, undefined];
 
     onChange(e: CustomEvent<{ value?: number; secondary?: number }>): void {
         if (this.entity.attributes.temperature) {
@@ -41,12 +41,10 @@ export class ThermostatTemperatureControl extends LitElement {
     }
 
     onCurrentChange(e: CustomEvent<{ secondary?: number; value?: number }>): void {
-        if (this.entity.attributes.temperature && (e.detail.value || e.detail.secondary)) {
-            this._setTemps = (e.detail.value ?? e.detail.secondary) as number;
-        } else if (e.detail.value) {
-            this._setTemps = [e.detail.value, this.entity.attributes.target_temp_high];
+        if (e.detail.value) {
+            this._indicatorTemps = [e.detail.value, this._indicatorTemps[1]];
         } else if (e.detail.secondary) {
-            this._setTemps = [this.entity.attributes.target_temp_low, e.detail.secondary];
+            this._indicatorTemps = [this._indicatorTemps[0], e.detail.secondary];
         }
         this.dispatchEvent(
             new CustomEvent("current-change", {
@@ -66,7 +64,7 @@ export class ThermostatTemperatureControl extends LitElement {
         const oldHass = changedProps.get("hass") as HomeAssistant | undefined;
 
         if (!oldHass || oldHass.states[this.entity.entity_id] !== this.entity) {
-            this._setTemps = getSetTemp(this.entity);
+            this._indicatorTemps = getTargetTemps(this.entity);
         }
     }
 
@@ -75,14 +73,11 @@ export class ThermostatTemperatureControl extends LitElement {
 
         const step = getStepSize(this.hass, this.entity);
 
-        const lowTarget = getTargetTemp(this.entity, "low");
-        const highTarget = getTargetTemp(this.entity, "high");
-
-        const lowIndicator = formatDegrees(this.hass, this._setTemps[0] ?? this._setTemps, step);
-        const highIndicator = formatDegrees(this.hass, this._setTemps[1] ?? this._setTemps, step);
+        const low = formatDegrees(this.hass, this._indicatorTemps[0], step);
+        const high = formatDegrees(this.hass, this._indicatorTemps[1], step);
 
         const indicator = (
-            value: string,
+            value: number,
             action: "cooling" | "heating"
         ) => html`<mushroom-state-value
             .value=${value}
@@ -92,13 +87,13 @@ export class ThermostatTemperatureControl extends LitElement {
             })}
         ></mushroom-state-value>`;
 
-        return html`${this.showIndicators && lowTarget ? indicator(lowIndicator, "heating") : null}
+        return html`${this.showIndicators && low ? indicator(low, "heating") : null}
             <mushroom-slider
                 styles="--bg-color: rgba(var(--rgb-primary-text-color), 0.05);"
                 .showActive=${true}
                 .disabled=${!isAvailable(this.entity)}
-                .value=${lowTarget}
-                .secondary=${highTarget}
+                .value=${low}
+                .secondary=${high}
                 .min=${min_temp ?? 45}
                 .max=${max_temp ?? 95}
                 .step=${step}
@@ -106,7 +101,7 @@ export class ThermostatTemperatureControl extends LitElement {
                 @change=${this.onChange}
                 @current-change=${this.onCurrentChange}
             ></mushroom-slider>
-            ${this.showIndicators && highTarget ? indicator(highIndicator, "cooling") : null}`;
+            ${this.showIndicators && high ? indicator(high, "cooling") : null}`;
     }
 
     static get styles(): CSSResultGroup {
