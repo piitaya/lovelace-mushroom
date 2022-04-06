@@ -170,7 +170,7 @@ export class ThermostatCard extends LitElement implements LovelaceCard {
         }`;
 
         const iconStyle = {};
-        if (this._config?.use_action_color && hvac_action) {
+        if (this._config?.use_action_color && hvac_action && hvac_action !== "idle") {
             iconStyle["--icon-color"] = `rgb(var(--rgb-action-climate-${hvac_action}))`;
             iconStyle["--shape-color"] = `rgba(var(--rgb-action-climate-${hvac_action}), 0.25)`;
         }

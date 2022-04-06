@@ -130,7 +130,6 @@ export const colorCss = css`
     --rgb-action-climate-heating: var(--mush-rgb-action-climate-heating, var(--rgb-orange));
     --rgb-action-climate-fan: var(--mush-rgb-action-climate-fan, var(--rgb-grey));
     --rgb-action-climate-drying: var(--mush-rgb-action-climate-drying, var(--rgb-amber));
-    --rgb-action-climate-idle: var(--mush-rgb-action-climate-idle, var(--rgb-grey));
 
     /* State person colors */
     --rgb-state-person-home: var(--mush-rgb-state-person-home, var(--rgb-success));
