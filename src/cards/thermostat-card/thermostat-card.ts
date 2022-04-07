@@ -41,7 +41,7 @@ const CONTROLS_ICONS: Record<ThermostatCardControl, string> = {
 
 registerCustomCard({
     type: THERMOSTAT_CARD_NAME,
-    name: "Mushroom - Thermostat Card",
+    name: "Mushroom Thermostat Card",
     description: "Mushroom card for climate entities",
 });
 
