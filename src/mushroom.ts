@@ -6,13 +6,13 @@ import "./utils/form/custom/ha-selector-mushroom-layout";
 
 export { AlarmControlPanelCard } from "./cards/alarm-control-panel-card/alarm-control-panel-card";
 export { ChipsCard } from "./cards/chips-card/chips-card";
-export { ThermostatCard } from "./cards/thermostat-card/thermostat-card";
 export { CoverCard } from "./cards/cover-card/cover-card";
 export { EntityCard } from "./cards/entity-card/entity-card";
 export { FanCard } from "./cards/fan-card/fan-card";
 export { LightCard } from "./cards/light-card/light-card";
 export { PersonCard } from "./cards/person-card/person-card";
 export { TemplateCard } from "./cards/template-card/template-card";
+export { ThermostatCard } from "./cards/thermostat-card/thermostat-card";
 export { TitleCard } from "./cards/title-card/title-card";
 export { UpdateCard } from "./cards/update-card/update-card";
 export { VacuumCard } from "./cards/vacuum-card/vacuum-card";
