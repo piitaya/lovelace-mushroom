@@ -27,10 +27,10 @@ import {
     THERMOSTAT_CARD_NAME,
     THERMOSTAT_ENTITY_DOMAINS,
     CLIMATE_PRESET_NONE,
-    ACTION_ICONS,
 } from "./const";
 import { HassEntity } from "home-assistant-js-websocket";
 import { formatDegrees, getStepSize } from "./utils";
+import { climateIconAction } from "../../utils/icons/climate-icon";
 
 type ThermostatCardControl = "temperature_control" | "mode_control";
 
@@ -143,11 +143,11 @@ export class ThermostatCard extends LitElement implements LovelaceCard {
         const layout = getLayoutFromConfig(this._config);
         const hideState = !!this._config.hide_state;
 
-        const active = isActive(entity);
+        const actionIcon = climateIconAction(hvac_action);
 
         const icon =
-            this._config.icon || (this._config.use_action_icon && ACTION_ICONS[hvac_action])
-                ? ACTION_ICONS[hvac_action]
+            this._config.icon || (this._config.use_action_icon && actionIcon)
+                ? actionIcon
                 : stateIcon(entity);
 
         const step = getStepSize(this.hass, entity);
@@ -186,7 +186,7 @@ export class ThermostatCard extends LitElement implements LovelaceCard {
                 >
                     <mushroom-shape-icon
                         slot="icon"
-                        .disabled=${!active}
+                        .disabled=${!isActive(entity)}
                         .icon=${icon}
                         style=${styleMap(iconStyle)}
                     ></mushroom-shape-icon>

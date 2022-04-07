@@ -4,7 +4,7 @@ import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
-import { MODE_ICONS } from "../const";
+import { climateIcon } from "../../../utils/icons/climate-icon";
 import { compareClimateHvacModes } from "../utils";
 
 @customElement("mushroom-thermostat-mode-control")
@@ -22,31 +22,28 @@ export class ThermostatModeControl extends LitElement {
         });
     }
 
-    private _renderModeIcon(mode: string, currentMode: string): TemplateResult {
-        if (!MODE_ICONS[mode]) {
-            return html``;
-        }
+    private _renderModeIcon(mode: string): TemplateResult {
+        const state = this.entity.state;
+
         const style = {};
-        if (mode === currentMode) {
+        if (mode === state) {
             style["--icon-color"] = `rgb(var(--rgb-state-climate-${mode}))`;
             style["--bg-color"] = `rgba(var(--rgb-state-climate-${mode}), 0.05)`;
         }
         return html`<mushroom-button
             style=${styleMap(style)}
-            .icon=${MODE_ICONS[mode]}
+            .icon=${climateIcon(mode)}
             @click=${() => this.onClick(mode)}
         />`;
     }
 
     protected render(): TemplateResult {
-        const currentMode = this.entity.state in MODE_ICONS ? this.entity.state : "unknown-mode";
-
         const { hvac_modes } = this.entity.attributes;
 
         return html`<div class=${classMap({ container: true, fill: this.fill })}>
             ${(hvac_modes || [])
                 .sort(compareClimateHvacModes)
-                .map((mode) => this._renderModeIcon(mode, currentMode))}
+                .map((mode) => this._renderModeIcon(mode))}
         </div>`;
     }
 

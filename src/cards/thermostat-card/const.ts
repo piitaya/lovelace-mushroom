@@ -6,25 +6,6 @@ export const THERMOSTAT_ENTITY_DOMAINS = ["climate"];
 
 export const CLIMATE_PRESET_NONE = "none";
 
-export const ACTION_ICONS: Record<HvacAction, string> = {
-    off: "mdi:power",
-    heating: "mdi:fire",
-    cooling: "mdi:snowflake",
-    drying: "mdi:water-percent",
-    idle: "mdi:thermostat",
-    fan: "mdi:fan",
-};
-
-export const MODE_ICONS: Record<HvacMode, string> = {
-    auto: "mdi:calendar-sync",
-    heat_cool: "mdi:autorenew",
-    heat: "mdi:fire",
-    cool: "mdi:snowflake",
-    off: "mdi:power",
-    fan_only: "mdi:fan",
-    dry: "mdi:water-percent",
-};
-
 export const HVAC_MODE_ORDERING: Record<HvacMode, number> = {
     auto: 1,
     heat_cool: 2,
