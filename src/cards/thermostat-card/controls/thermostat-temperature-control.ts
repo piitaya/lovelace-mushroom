@@ -87,7 +87,8 @@ export class ThermostatTemperatureControl extends LitElement {
             })}
         ></mushroom-state-value>`;
 
-        return html`${this.showIndicators && low ? indicator(low, "heating") : null}
+        return html`<div class="container">
+            ${this.showIndicators && low ? indicator(low, "heating") : null}
             <mushroom-slider
                 styles="--bg-color: rgba(var(--rgb-primary-text-color), 0.05);"
                 .showActive=${true}
@@ -101,14 +102,16 @@ export class ThermostatTemperatureControl extends LitElement {
                 @change=${this.onChange}
                 @current-change=${this.onCurrentChange}
             ></mushroom-slider>
-            ${this.showIndicators && high ? indicator(high, "cooling") : null}`;
+            ${this.showIndicators && high ? indicator(high, "cooling") : null}
+        </div>`;
     }
 
     static get styles(): CSSResultGroup {
         return css`
             :host {
                 display: flex;
-                flex: auto;
+                flex-direction: row;
+                width: 100%;
                 --cooling-color: rgb(var(--rgb-action-climate-cooling));
                 --heating-color: rgb(var(--rgb-action-climate-heating));
                 --slider-outline-color: transparent;
@@ -117,8 +120,14 @@ export class ThermostatTemperatureControl extends LitElement {
             :host :not(:last-child) {
                 margin-right: var(--spacing);
             }
-            mushroom-slider {
-                flex: auto;
+            .container {
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+            }
+            .container mushroom-slider {
+                flex: 1;
                 --main-color: var(--heating-color);
                 --secondary-color: var(--cooling-color);
                 --bg-color: var(--slider-bg-color);
