@@ -74,12 +74,12 @@ Different cards are available for differents entities :
 -   🙋 [Person card](docs/cards/person.md)
 -   🛠 [Template card](docs/cards/template.md)
 -   🔔 [Chips card](docs/cards/chips.md)
+-   🌡 [Thermostat card](docs/cards/thermostat.md)
 -   ✏️ [Title card](docs/cards/title.md)
 -   📦 [Update card](docs/cards/update.md)
 -   🧹 [Vacuum card](docs/cards/vacuum.md)
  
 Some cards are on the todo list :
--   🌡 Climate card
 -   📺 Media card
 
 ### Theme customization
