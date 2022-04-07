@@ -122,7 +122,7 @@ export const colorCss = css`
     --rgb-state-person-unknown: var(--mush-rgb-state-person-unknown, var(--rgb-grey));
 
     /* State update colors */
-    --rgb-state-update-on: var(--mush-rgb-state-person-home, var(--rgb-orange));
-    --rgb-state-update-off: var(--mush-rgb-state-person-not-home, var(--rgb-green));
-    --rgb-state-update-installing: var(--mush-rgb-state-person-zone, var(--rgb-blue));
+    --rgb-state-update-on: var(--mush-rgb-state-update-on, var(--rgb-orange));
+    --rgb-state-update-off: var(--mush-rgb-update-off, var(--rgb-green));
+    --rgb-state-update-installing: var(--mush-rgb-update-installing, var(--rgb-blue));
 `;
