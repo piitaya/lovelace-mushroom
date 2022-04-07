@@ -4,7 +4,7 @@ import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult }
 import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import "../../../shared/slider";
-import { isAvailable } from "../../../utils/entity";
+import { isActive } from "../../../utils/entity";
 import { formatDegrees, getStepSize, getTargetTemps } from "../utils";
 
 @customElement("mushroom-thermostat-temperature-control")
@@ -92,7 +92,7 @@ export class ThermostatTemperatureControl extends LitElement {
             <mushroom-slider
                 styles="--bg-color: rgba(var(--rgb-primary-text-color), 0.05);"
                 .showActive=${true}
-                .disabled=${!isAvailable(this.entity)}
+                .disabled=${!isActive(this.entity)}
                 .value=${low}
                 .secondary=${high}
                 .min=${min_temp ?? 45}
