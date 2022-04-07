@@ -1,0 +1,62 @@
+title: Update
+icon: mdi:package
+cards:
+  - type: grid
+    title: Simple
+    cards:
+      - type: custom:mushroom-update-card
+        entity: update.demo_update_with_progress
+      - type: custom:mushroom-update-card
+        entity: update.demo_update_with_progress
+        name: Custom name and icon
+        icon: mdi:robot-outline
+      - type: custom:mushroom-update-card
+        entity: update.demo_update_with_progress
+        name: Update picture
+        use_entity_picture: true
+    columns: 2
+    square: false
+  - type: grid
+    title: Controls
+    cards:
+      - type: custom:mushroom-update-card
+        entity: update.demo_update_with_progress
+        name: Buttons control
+        show_buttons_control: true
+    columns: 2
+    square: false
+  - type: vertical-stack
+    title: Layout
+    cards:
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:mushroom-update-card
+            entity: update.demo_update_with_progress
+            show_buttons_control: true
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:mushroom-update-card
+            entity: update.demo_update_with_progress
+            show_buttons_control: true
+            layout: "vertical"
+      - type: custom:mushroom-update-card
+        entity: update.demo_update_with_progress
+        show_buttons_control: true
+        layout: "horizontal"
+  - type: vertical-stack
+    title: State
+    cards:
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:mushroom-update-card
+            entity: update.demo_no_update
+            show_buttons_control: true
+          - type: custom:mushroom-update-card
+            entity: update.demo_update_with_progress
+            show_buttons_control: true

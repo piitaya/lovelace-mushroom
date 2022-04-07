@@ -75,6 +75,7 @@ Different cards are available for differents entities :
 -   🛠 [Template card](docs/cards/template.md)
 -   🔔 [Chips card](docs/cards/chips.md)
 -   ✏️ [Title card](docs/cards/title.md)
+-   📦 [Update card](docs/cards/update.md)
 
 Some cards are on the todo list :
 
