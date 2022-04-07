@@ -2,6 +2,7 @@ import { HassEntity } from "home-assistant-js-websocket";
 import { UpdateEntity, updateIsInstalling } from "../../ha/data/update";
 import { alarmPanelIcon } from "./alarm-panel-icon";
 import { binarySensorIcon } from "./binary-sensor-icon";
+import { climateIcon } from "./climate-icon";
 import { coverIcon } from "./cover-icon";
 import { sensorIcon } from "./sensor-icon";
 
@@ -69,6 +70,9 @@ export function domainIcon(domain: string, entity?: HassEntity, state?: string):
                 default:
                     return "mdi:gesture-tap-button";
             }
+
+        case "climate":
+            return climateIcon(state);
 
         case "cover":
             return coverIcon(state, entity);
