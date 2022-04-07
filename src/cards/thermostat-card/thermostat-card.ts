@@ -232,11 +232,14 @@ export class ThermostatCard extends LitElement implements LovelaceCard {
     }
 
     private renderActiveControl(entity: HassEntity): TemplateResult | null {
+        const layout = getLayoutFromConfig(this._config!);
+
         switch (this._activeControl) {
             case "mode_control":
                 return html` <mushroom-thermostat-mode-control
                     .hass=${this.hass}
                     .entity=${entity}
+                    .fill=${layout !== "horizontal"}
                 ></mushroom-thermostat-mode-control>`;
             case "temperature_control":
                 return html`<mushroom-thermostat-temperature-control
