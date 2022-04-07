@@ -6,8 +6,10 @@ import {
     LovelaceCard,
     LovelaceCardEditor,
 } from "custom-card-helpers";
+import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import "../../shared/badge-icon";
 import "../../shared/card";
@@ -15,47 +17,47 @@ import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
 import { cardStyle } from "../../utils/card-styles";
-import { computeRgbColor } from "../../utils/colors";
 import { computeStateDisplay } from "../../utils/compute-state-display";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
-import { isActive, isAvailable } from "../../utils/entity";
+import { isAvailable, supportsFeature } from "../../utils/entity";
 import { stateIcon } from "../../utils/icons/state-icon";
-import { getInfo } from "../../utils/info";
 import { getLayoutFromConfig } from "../../utils/layout";
-import { ENTITY_CARD_EDITOR_NAME, ENTITY_CARD_NAME } from "./const";
-import { EntityCardConfig } from "./entity-card-config";
+import { UPDATE_CARD_EDITOR_NAME, UPDATE_CARD_NAME, UPDATE_ENTITY_DOMAINS } from "./const";
+import "./controls/update-buttons-control";
+import { UpdateCardConfig } from "./update-card-config";
+import { getStateColor, UpdateEntity, updateIsInstalling, UPDATE_SUPPORT_INSTALL } from "./utils";
 
 registerCustomCard({
-    type: ENTITY_CARD_NAME,
-    name: "Mushroom Entity Card",
-    description: "Card for all entities",
+    type: UPDATE_CARD_NAME,
+    name: "Mushroom Update Card",
+    description: "Card for update entity",
 });
 
-@customElement(ENTITY_CARD_NAME)
-export class EntityCard extends LitElement implements LovelaceCard {
+@customElement(UPDATE_CARD_NAME)
+export class UpdateCard extends LitElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
-        await import("./entity-card-editor");
-        return document.createElement(ENTITY_CARD_EDITOR_NAME) as LovelaceCardEditor;
+        await import("./update-card-editor");
+        return document.createElement(UPDATE_CARD_EDITOR_NAME) as LovelaceCardEditor;
     }
 
-    public static async getStubConfig(hass: HomeAssistant): Promise<EntityCardConfig> {
+    public static async getStubConfig(hass: HomeAssistant): Promise<UpdateCardConfig> {
         const entities = Object.keys(hass.states);
+        const updates = entities.filter((e) => UPDATE_ENTITY_DOMAINS.includes(e.split(".")[0]));
         return {
-            type: `custom:${ENTITY_CARD_NAME}`,
-            entity: entities[0],
+            type: `custom:${UPDATE_CARD_NAME}`,
+            entity: updates[0],
         };
     }
-
     @property({ attribute: false }) public hass!: HomeAssistant;
 
-    @state() private _config?: EntityCardConfig;
+    @state() private _config?: UpdateCardConfig;
 
     getCardSize(): number | Promise<number> {
         return 1;
     }
 
-    setConfig(config: EntityCardConfig): void {
+    setConfig(config: UpdateCardConfig): void {
         this._config = {
             tap_action: {
                 action: "more-info",
@@ -84,27 +86,15 @@ export class EntityCard extends LitElement implements LovelaceCard {
 
         const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
-        const hideIcon = !!this._config.hide_icon;
+        const picture = this._config.use_entity_picture
+            ? entity.attributes.entity_picture
+            : undefined;
+
         const layout = getLayoutFromConfig(this._config);
 
         const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
-        const primary = getInfo(
-            this._config.primary_info ?? "name",
-            name,
-            stateDisplay,
-            entity,
-            this.hass
-        );
-        const secondary = getInfo(
-            this._config.secondary_info ?? "state",
-            name,
-            stateDisplay,
-            entity,
-            this.hass
-        );
-
-        const iconColor = this._config.icon_color;
+        let stateValue = `${stateDisplay}`;
 
         return html`
             <mushroom-card .layout=${layout}>
@@ -115,10 +105,15 @@ export class EntityCard extends LitElement implements LovelaceCard {
                         hasHold: hasAction(this._config.hold_action),
                         hasDoubleClick: hasAction(this._config.double_tap_action),
                     })}
-                    .hide_info=${primary == null && secondary == null}
-                    .hide_icon=${hideIcon}
                 >
-                    ${!hideIcon ? this.renderIcon(icon, iconColor, isActive(entity)) : undefined}
+                    ${picture
+                        ? html`
+                              <mushroom-shape-avatar
+                                  slot="icon"
+                                  .picture_url=${picture}
+                              ></mushroom-shape-avatar>
+                          `
+                        : this.renderShapeIcon(entity, icon)}
                     ${!isAvailable(entity)
                         ? html`
                               <mushroom-badge-icon
@@ -130,27 +125,45 @@ export class EntityCard extends LitElement implements LovelaceCard {
                         : null}
                     <mushroom-state-info
                         slot="info"
-                        .primary=${primary}
-                        .secondary=${secondary}
+                        .primary=${name}
+                        .secondary=${stateValue}
                     ></mushroom-state-info>
                 </mushroom-state-item>
+                ${this._config.show_buttons_control &&
+                supportsFeature(entity, UPDATE_SUPPORT_INSTALL)
+                    ? html`
+                          <div class="actions">
+                              <mushroom-update-buttons-control
+                                  .hass=${this.hass}
+                                  .entity=${entity}
+                                  .fill=${layout !== "horizontal"}
+                              />
+                          </div>
+                      `
+                    : null}
             </mushroom-card>
         `;
     }
 
-    renderIcon(icon: string, iconColor: string | undefined, active: boolean): TemplateResult {
-        const iconStyle = {};
-        if (iconColor) {
-            const iconRgbColor = computeRgbColor(iconColor);
-            iconStyle["--icon-color"] = `rgb(${iconRgbColor})`;
-            iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
-        }
+    protected renderShapeIcon(entity: HassEntity, icon: string): TemplateResult {
+        const isInstalling = updateIsInstalling(entity as UpdateEntity);
+
+        const color = getStateColor(entity.state, isInstalling);
+
+        const style = {
+            "--icon-color": `rgb(${color})`,
+            "--shape-color": `rgba(${color}, 0.2)`,
+        };
+
         return html`
             <mushroom-shape-icon
                 slot="icon"
-                .disabled=${!active}
+                .disabled=${!isAvailable(entity)}
                 .icon=${icon}
-                style=${styleMap(iconStyle)}
+                class=${classMap({
+                    pulse: isInstalling,
+                })}
+                style=${styleMap(style)}
             ></mushroom-shape-icon>
         `;
     }
@@ -165,6 +178,12 @@ export class EntityCard extends LitElement implements LovelaceCard {
                 mushroom-shape-icon {
                     --icon-color: rgb(var(--rgb-state-entity));
                     --shape-color: rgba(var(--rgb-state-entity), 0.2);
+                }
+                mushroom-shape-icon.pulse {
+                    --shape-animation: 1s ease 0s infinite normal none running pulse;
+                }
+                mushroom-update-buttons-control {
+                    flex: 1;
                 }
             `,
         ];

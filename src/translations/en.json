@@ -81,6 +81,9 @@
             "weather": {
                 "show_conditions": "Conditions?",
                 "show_temperature": "Temperature?"
+            },
+            "update": {
+                "show_buttons_control": "Buttons control?"
             }
         },
         "chip": {

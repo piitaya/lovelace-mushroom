@@ -9,3 +9,4 @@ views:
   - !include views/entity-view.yaml
   - !include views/chips-view.yaml
   - !include views/title-view.yaml
+  - !include views/update-view.yaml
