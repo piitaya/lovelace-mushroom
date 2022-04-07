@@ -9,6 +9,7 @@ import {
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
+import { styleMap } from "lit/directives/style-map.js";
 import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-icon";
@@ -18,13 +19,13 @@ import { cardStyle } from "../../utils/card-styles";
 import { computeStateDisplay } from "../../utils/compute-state-display";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
-import { isActive, isAvailable, supportsFeature } from "../../utils/entity";
+import { isAvailable, supportsFeature } from "../../utils/entity";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig } from "../../utils/layout";
 import { UPDATE_CARD_EDITOR_NAME, UPDATE_CARD_NAME, UPDATE_ENTITY_DOMAINS } from "./const";
 import "./controls/update-buttons-control";
 import { UpdateCardConfig } from "./update-card-config";
-import { UpdateEntity, updateIsInstalling, UPDATE_SUPPORT_INSTALL } from "./utils";
+import { getStateColor, UpdateEntity, updateIsInstalling, UPDATE_SUPPORT_INSTALL } from "./utils";
 
 registerCustomCard({
     type: UPDATE_CARD_NAME,
@@ -90,9 +91,14 @@ export class UpdateCard extends LitElement implements LovelaceCard {
 
         let stateValue = `${stateDisplay}`;
 
-        console.log(this._config.show_buttons_control);
-
         const isInstalling = updateIsInstalling(entity as UpdateEntity);
+
+        const color = getStateColor(entity.state, isInstalling);
+
+        const iconStyle = {
+            "--icon-color": `rgb(${color})`,
+            "--shape-color": `rgba(${color}, 0.2)`,
+        };
 
         return html`
             <mushroom-card .layout=${layout}>
@@ -106,11 +112,12 @@ export class UpdateCard extends LitElement implements LovelaceCard {
                 >
                     <mushroom-shape-icon
                         slot="icon"
-                        .disabled=${!isActive(entity)}
+                        .disabled=${!isAvailable(entity)}
                         .icon=${icon}
                         class=${classMap({
                             pulse: isInstalling,
                         })}
+                        style=${styleMap(iconStyle)}
                     ></mushroom-shape-icon>
                     ${!isAvailable(entity)
                         ? html`

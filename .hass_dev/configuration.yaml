@@ -62,6 +62,9 @@ zone:
 vacuum:
   - platform: demo
 
+update:
+  - platform: demo
+  
 alarm_control_panel:
   - platform: manual
     name: Alarm panel 1

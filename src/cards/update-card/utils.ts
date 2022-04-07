@@ -1,10 +1,7 @@
-import { HomeAssistant, LocalizeFunc } from "custom-card-helpers";
-import type {
-    HassEntity,
-    HassEntityAttributeBase,
-    HassEntityBase,
-} from "home-assistant-js-websocket";
+import { HomeAssistant } from "custom-card-helpers";
+import type { HassEntityAttributeBase, HassEntityBase } from "home-assistant-js-websocket";
 import { supportsFeature } from "../../utils/entity";
+import { UPDATE_CARD_DEFAULT_STATE_COLOR, UPDATE_CARD_STATE_COLOR } from "./const";
 
 export const UPDATE_SUPPORT_INSTALL = 1;
 export const UPDATE_SUPPORT_SPECIFIC_VERSION = 2;
@@ -42,3 +39,11 @@ export const updateReleaseNotes = (hass: HomeAssistant, entityId: string) =>
         type: "update/release_notes",
         entity_id: entityId,
     });
+
+export function getStateColor(state: string, isInstalling: boolean): string {
+    if (isInstalling) {
+        return UPDATE_CARD_STATE_COLOR["installing"];
+    } else {
+        return UPDATE_CARD_STATE_COLOR[state] || UPDATE_CARD_DEFAULT_STATE_COLOR;
+    }
+}
