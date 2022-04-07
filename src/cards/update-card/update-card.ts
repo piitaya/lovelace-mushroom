@@ -6,6 +6,7 @@ import {
     LovelaceCard,
     LovelaceCardEditor,
 } from "custom-card-helpers";
+import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
@@ -85,20 +86,15 @@ export class UpdateCard extends LitElement implements LovelaceCard {
 
         const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
+        const picture = this._config.use_entity_picture
+            ? entity.attributes.entity_picture
+            : undefined;
+
         const layout = getLayoutFromConfig(this._config);
 
         const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
         let stateValue = `${stateDisplay}`;
-
-        const isInstalling = updateIsInstalling(entity as UpdateEntity);
-
-        const color = getStateColor(entity.state, isInstalling);
-
-        const iconStyle = {
-            "--icon-color": `rgb(${color})`,
-            "--shape-color": `rgba(${color}, 0.2)`,
-        };
 
         return html`
             <mushroom-card .layout=${layout}>
@@ -110,15 +106,14 @@ export class UpdateCard extends LitElement implements LovelaceCard {
                         hasDoubleClick: hasAction(this._config.double_tap_action),
                     })}
                 >
-                    <mushroom-shape-icon
-                        slot="icon"
-                        .disabled=${!isAvailable(entity)}
-                        .icon=${icon}
-                        class=${classMap({
-                            pulse: isInstalling,
-                        })}
-                        style=${styleMap(iconStyle)}
-                    ></mushroom-shape-icon>
+                    ${picture
+                        ? html`
+                              <mushroom-shape-avatar
+                                  slot="icon"
+                                  .picture_url=${picture}
+                              ></mushroom-shape-avatar>
+                          `
+                        : this.renderShapeIcon(entity, icon)}
                     ${!isAvailable(entity)
                         ? html`
                               <mushroom-badge-icon
@@ -147,6 +142,29 @@ export class UpdateCard extends LitElement implements LovelaceCard {
                       `
                     : null}
             </mushroom-card>
+        `;
+    }
+
+    protected renderShapeIcon(entity: HassEntity, icon: string): TemplateResult {
+        const isInstalling = updateIsInstalling(entity as UpdateEntity);
+
+        const color = getStateColor(entity.state, isInstalling);
+
+        const style = {
+            "--icon-color": `rgb(${color})`,
+            "--shape-color": `rgba(${color}, 0.2)`,
+        };
+
+        return html`
+            <mushroom-shape-icon
+                slot="icon"
+                .disabled=${!isAvailable(entity)}
+                .icon=${icon}
+                class=${classMap({
+                    pulse: isInstalling,
+                })}
+                style=${styleMap(style)}
+            ></mushroom-shape-icon>
         `;
     }
 

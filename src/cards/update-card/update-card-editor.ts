@@ -5,6 +5,7 @@ import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import setupCustomlocalize from "../../localize";
 import { configElementStyle } from "../../utils/editor-styles";
+import { Action } from "../../utils/form/custom/ha-selector-mushroom-action";
 import { GENERIC_FIELDS } from "../../utils/form/fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { stateIcon } from "../../utils/icons/state-icon";
@@ -14,13 +15,18 @@ import { UpdateCardConfig, updateCardConfigStruct } from "./update-card-config";
 
 const UPDATE_FIELDS = ["show_buttons_control"];
 
+const actions: Action[] = ["more-info", "navigate", "url", "call-service", "none"];
+
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: UPDATE_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
     {
         type: "grid",
         name: "",
-        schema: [{ name: "icon", selector: { icon: { placeholder: icon } } }],
+        schema: [
+            { name: "icon", selector: { icon: { placeholder: icon } } },
+            { name: "use_entity_picture", selector: { boolean: {} } },
+        ],
     },
     {
         type: "grid",
@@ -32,9 +38,9 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
         name: "",
         schema: [{ name: "show_buttons_control", selector: { boolean: {} } }],
     },
-    { name: "tap_action", selector: { "mush-action": {} } },
-    { name: "hold_action", selector: { "mush-action": {} } },
-    { name: "double_tap_action", selector: { "mush-action": {} } },
+    { name: "tap_action", selector: { "mush-action": { actions } } },
+    { name: "hold_action", selector: { "mush-action": { actions } } },
+    { name: "double_tap_action", selector: { "mush-action": { actions } } },
 ]);
 
 @customElement(UPDATE_CARD_EDITOR_NAME)
