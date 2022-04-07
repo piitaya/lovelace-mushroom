@@ -12,6 +12,7 @@ import * as sv from "./translations/sv.json";
 import * as zh_Hans from "./translations/zh-Hans.json";
 import * as nl from "./translations/nl.json";
 import * as zh_Hant from "./translations/zh-Hant.json";
+import * as nb from "./translations/nb.json";
 
 const languages: Record<string, unknown> = {
     de,
@@ -23,6 +24,7 @@ const languages: Record<string, unknown> = {
     "zh-Hans": zh_Hans,
     nl,
     "zh-Hant": zh_Hant,
+    nb,
 };
 
 const DEFAULT_LANG = "en";
