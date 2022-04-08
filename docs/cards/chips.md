@@ -2,7 +2,7 @@
 
 ## Description
 
-A chips card allow you to small information at the top of your dashboard
+A chips card allows you to put small information at the top of your dashboard
 
 ## Configuration variables
 
