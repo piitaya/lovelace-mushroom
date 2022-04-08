@@ -56,16 +56,16 @@ const VACUUM_COMMANDS: VacuumCommand[] = [
         isDisabled: (entity) => isUnavailable(entity),
     },
     {
-        icon: "map-marker",
-        serviceName: "locate",
-        isVisible: (entity) => supportsLocate(entity),
-        isDisabled: (entity) => isUnavailable(entity),
-    },
-    {
         icon: "home-map-marker",
         serviceName: "return_to_base",
         isVisible: (entity) => supportsReturnHome(entity),
         isDisabled: (entity) => isUnavailable(entity) || isReturningHome(entity),
+    },
+    {
+        icon: "map-marker",
+        serviceName: "locate",
+        isVisible: (entity) => supportsLocate(entity),
+        isDisabled: (entity) => isUnavailable(entity),
     },
 ];
 
@@ -92,15 +92,17 @@ export class VacuumButtonsControl extends LitElement {
                     fill: this.fill,
                 })}
             >
-                ${VACUUM_COMMANDS.filter((item) => item.isVisible(this.entity)).map(
-                    (item) => html`
-                        <mushroom-button
-                            .icon="mdi:${item.icon}"
-                            .disabled=${item.isDisabled(this.entity)}
-                            @click=${(e) => this._callService(e, item.serviceName)}
-                        ></mushroom-button>
-                    `
-                )}
+                ${VACUUM_COMMANDS.filter((item) => item.isVisible(this.entity))
+                    .slice(0, 4)
+                    .map(
+                        (item) => html`
+                            <mushroom-button
+                                .icon="mdi:${item.icon}"
+                                .disabled=${item.isDisabled(this.entity)}
+                                @click=${(e) => this._callService(e, item.serviceName)}
+                            ></mushroom-button>
+                        `
+                    )}
             </div>
         `;
     }

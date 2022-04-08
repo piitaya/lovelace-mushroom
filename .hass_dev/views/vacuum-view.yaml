@@ -17,6 +17,10 @@ cards:
         entity: vacuum.0_ground_floor
         show_buttons_control: true
         layout: "horizontal"
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.0_ground_floor
+        show_buttons_control: true
+        layout: "vertical"
     square: false
   - type: vertical-stack
     title: Most vacuum capabilities
@@ -34,6 +38,10 @@ cards:
         entity: vacuum.1_first_floor
         show_buttons_control: true
         layout: "horizontal"
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.1_first_floor
+        show_buttons_control: true
+        layout: "vertical"
     square: false
   - type: vertical-stack
     title: Basic vacuum capabilities
@@ -51,6 +59,10 @@ cards:
         entity: vacuum.2_second_floor
         show_buttons_control: true
         layout: "horizontal"
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.2_second_floor
+        show_buttons_control: true
+        layout: "vertical"
     square: false
   - type: vertical-stack
     title: Minimal vacuum capabilities
@@ -68,6 +80,10 @@ cards:
         entity: vacuum.3_third_floor
         show_buttons_control: true
         layout: "horizontal"
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.3_third_floor
+        show_buttons_control: true
+        layout: "vertical"
     square: false
   - type: vertical-stack
     title: None vacuum capabilities
@@ -85,6 +101,10 @@ cards:
         entity: vacuum.4_fourth_floor
         show_buttons_control: true
         layout: "horizontal"
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.4_fourth_floor
+        show_buttons_control: true
+        layout: "vertical"
     square: false
   - type: vertical-stack
     title: State vacuum capabilities
@@ -102,4 +122,8 @@ cards:
         entity: vacuum.5_fifth_floor
         show_buttons_control: true
         layout: "horizontal"
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.5_fifth_floor
+        show_buttons_control: true
+        layout: "vertical"
     square: false
