@@ -81,6 +81,9 @@
             "weather": {
                 "show_conditions": "狀況?",
                 "show_temperature": "溫度?"
+            },
+            "update": {
+                "show_buttons_control": "按鈕控制?"
             }
         },
         "chip": {
