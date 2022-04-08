@@ -1,26 +1,27 @@
 import { HomeAssistant } from "custom-card-helpers";
-import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
-import "../../../shared/button";
-import { UNAVAILABLE } from "../../../utils/entity";
-import { computeCloseIcon, computeOpenIcon } from "../../../utils/icons/cover-icon";
+import { supportsFeature } from "../../../ha/common/entity/supports-feature";
 import {
+    CoverEntity,
+    COVER_SUPPORT_CLOSE,
+    COVER_SUPPORT_OPEN,
+    COVER_SUPPORT_STOP,
     isClosing,
     isFullyClosed,
     isFullyOpen,
     isOpening,
-    supportsClose,
-    supportsOpen,
-    supportsStop,
-} from "../utils";
+} from "../../../ha/data/cover";
+import "../../../shared/button";
+import { UNAVAILABLE } from "../../../utils/entity";
+import { computeCloseIcon, computeOpenIcon } from "../../../utils/icons/cover-icon";
 
 @customElement("mushroom-cover-buttons-control")
 export class CoverButtonsControl extends LitElement {
     @property({ attribute: false }) public hass!: HomeAssistant;
 
-    @property({ attribute: false }) public entity!: HassEntity;
+    @property({ attribute: false }) public entity!: CoverEntity;
 
     @property() public fill: boolean = false;
 
@@ -69,7 +70,7 @@ export class CoverButtonsControl extends LitElement {
                     fill: this.fill,
                 })}
             >
-                ${supportsClose(this.entity)
+                ${supportsFeature(this.entity, COVER_SUPPORT_CLOSE)
                     ? html`
                           <mushroom-button
                               .icon=${computeCloseIcon(this.entity)}
@@ -78,7 +79,7 @@ export class CoverButtonsControl extends LitElement {
                           ></mushroom-button>
                       `
                     : undefined}
-                ${supportsStop(this.entity)
+                ${supportsFeature(this.entity, COVER_SUPPORT_STOP)
                     ? html`
                           <mushroom-button
                               icon="mdi:pause"
@@ -87,7 +88,7 @@ export class CoverButtonsControl extends LitElement {
                           ></mushroom-button>
                       `
                     : undefined}
-                ${supportsOpen(this.entity)
+                ${supportsFeature(this.entity, COVER_SUPPORT_OPEN)
                     ? html`
                           <mushroom-button
                               .icon=${computeOpenIcon(this.entity)}

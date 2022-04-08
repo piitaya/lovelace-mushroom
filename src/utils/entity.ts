@@ -24,7 +24,7 @@ export function isActive(entity: HassEntity) {
         case "vacuum":
             return state !== "docked";
         case "plant":
-            return state === "problem"
+            return state === "problem";
         default:
             return true;
     }
@@ -44,6 +44,3 @@ export function isAvailable(entity: HassEntity) {
 export function isUnknown(entity: HassEntity) {
     return entity.state === UNKNOWN;
 }
-
-export const supportsFeature = (entity: HassEntity, feature: number): boolean =>
-    (entity.attributes.supported_features! & feature) !== 0;

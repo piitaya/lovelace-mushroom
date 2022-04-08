@@ -9,6 +9,8 @@ import {
 import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
+import { CoverEntity } from "../../ha/data/cover";
 import "../../shared/badge-icon";
 import "../../shared/button";
 import "../../shared/card";
@@ -16,7 +18,6 @@ import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
 import { cardStyle } from "../../utils/card-styles";
-import { computeStateDisplay } from "../../utils/compute-state-display";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
 import { isActive } from "../../utils/entity";
@@ -126,7 +127,7 @@ export class CoverCard extends LitElement implements LovelaceCard {
         const entity = this.hass.states[entity_id];
 
         if (!entity) return;
-        this.position = getPosition(entity);
+        this.position = getPosition(entity as CoverEntity);
     }
 
     private onCurrentPositionChange(e: CustomEvent<{ value?: number }>): void {
