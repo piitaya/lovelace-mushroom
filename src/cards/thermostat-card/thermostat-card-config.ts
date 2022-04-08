@@ -10,8 +10,8 @@ export interface ThermostatCardConfig extends LovelaceCardConfig {
     name?: string;
     layout?: Layout;
     hide_state?: boolean;
-    use_action_color?: true;
-    use_action_icon?: true;
+    use_action_color?: boolean;
+    use_action_icon?: boolean;
     show_mode_control?: boolean;
     show_temp_control?: boolean;
     show_temp_indicators?: boolean;
