@@ -16,6 +16,7 @@ import * as zh_Hant from "./translations/zh-Hant.json";
 
 const languages: Record<string, unknown> = {
     de,
+    el,
     en,
     fr,
     it,
