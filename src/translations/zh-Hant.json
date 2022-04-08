@@ -86,7 +86,6 @@
                 "show_buttons_control": "按鈕控制?"
             },
             "vacuum": {
-                "icon_animation": "啟動時使用動態圖示?",
                 "show_buttons_control": "按鈕控制?"
             }
         },

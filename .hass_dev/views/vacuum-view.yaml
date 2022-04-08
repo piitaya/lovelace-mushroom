@@ -125,5 +125,6 @@ cards:
       - type: custom:mushroom-vacuum-card
         entity: vacuum.5_fifth_floor
         show_buttons_control: true
+        icon_animation: true
         layout: "vertical"
     square: false

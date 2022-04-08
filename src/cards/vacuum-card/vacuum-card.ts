@@ -25,6 +25,7 @@ import { stateIcon } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig } from "../../utils/layout";
 import { VACUUM_CARD_EDITOR_NAME, VACUUM_CARD_NAME, VACUUM_ENTITY_DOMAINS } from "./const";
 import "./controls/vacuum-buttons-control";
+import { isCleaning } from "./utils";
 import { VacuumCardConfig } from "./vacuum-card-config";
 
 type VacuumCardControl = "buttons_control";
@@ -124,12 +125,7 @@ export class VacuumCard extends LitElement implements LovelaceCard {
 
         let stateValue = `${this.state}`;
 
-        const active = isActive(entity);
-
-        let iconStyle = {};
-        if (active) {
-            iconStyle["--animation-duration"] = `2s`;
-        }
+        const active = isCleaning(entity);
 
         return html`
             <mushroom-card .layout=${layout}>
@@ -143,10 +139,6 @@ export class VacuumCard extends LitElement implements LovelaceCard {
                 >
                     <mushroom-shape-icon
                         slot="icon"
-                        class=${classMap({
-                            spin: active && !!this._config.icon_animation,
-                        })}
-                        style=${styleMap(iconStyle)}
                         .disabled=${!active}
                         .icon=${icon}
                     ></mushroom-shape-icon>
@@ -191,14 +183,8 @@ export class VacuumCard extends LitElement implements LovelaceCard {
                     --icon-color: rgb(var(--rgb-state-vacuum));
                     --shape-color: rgba(var(--rgb-state-vacuum), 0.2);
                 }
-                mushroom-shape-icon.spin {
-                    --icon-animation: var(--animation-duration) infinite linear spin;
-                }
                 mushroom-shape-icon ha-icon {
                     color: red !important;
-                }
-                mushroom-vacuum-percentage-control {
-                    flex: 1;
                 }
             `,
         ];

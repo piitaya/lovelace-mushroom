@@ -86,7 +86,6 @@
                 "show_buttons_control": "Buttons control?"
             },
             "vacuum": {
-                "icon_animation": "Animate icon when active?",
                 "show_buttons_control": "Buttons control?"
             }
         },

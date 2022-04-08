@@ -79,7 +79,6 @@
                 "show_temperature": "温度?"
             },
             "vacuum": {
-                "icon_animation": "激活时使用动态图标?",
                 "show_buttons_control": "按钮控制?"
             }
         },

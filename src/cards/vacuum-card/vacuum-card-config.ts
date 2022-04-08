@@ -10,7 +10,6 @@ export interface VacuumCardConfig extends LovelaceCardConfig {
     name?: string;
     layout?: Layout;
     hide_state?: boolean;
-    icon_animation?: boolean;
     show_buttons_control?: false;
     tap_action?: ActionConfig;
     hold_action?: ActionConfig;
@@ -25,7 +24,6 @@ export const vacuumCardConfigStruct = assign(
         icon: optional(string()),
         layout: optional(layoutStruct),
         hide_state: optional(boolean()),
-        icon_animation: optional(boolean()),
         show_buttons_control: optional(boolean()),
         tap_action: optional(actionConfigStruct),
         hold_action: optional(actionConfigStruct),

@@ -80,7 +80,6 @@
                 "show_temperature": "Temperatur?"
             },
             "vacuum": {
-                "icon_animation": "Icon animieren, wenn aktiv?",
                 "show_buttons_control": "Schaltflächensteuerung?"
             }
         },

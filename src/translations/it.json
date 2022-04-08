@@ -83,7 +83,6 @@
                 "show_temperature": "Temperatura"
             },
             "vacuum": {
-                "icon_animation": "Anima l'icona quando attiva",
                 "show_buttons_control": "Controllo"
             }
         },
