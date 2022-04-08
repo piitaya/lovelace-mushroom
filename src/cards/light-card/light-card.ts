@@ -11,6 +11,7 @@ import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult }
 import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
+import { LightEntity } from "../../ha/data/light";
 import "../../shared/badge-icon";
 import "../../shared/button";
 import "../../shared/card";
@@ -31,8 +32,8 @@ import { LightCardConfig } from "./light-card-config";
 import {
     getBrightness,
     getRGBColor,
-    isLight,
-    isSuperLight,
+    isColorLight,
+    isColorSuperLight,
     supportsBrightnessControl,
     supportsColorControl,
     supportsColorTempControl,
@@ -118,7 +119,7 @@ export class LightCard extends LitElement implements LovelaceCard {
         if (!this._config || !this.hass || !this._config.entity) return;
 
         const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id];
+        const entity = this.hass.states[entity_id] as LightEntity;
 
         if (!entity) return;
         this.brightness = getBrightness(entity);
@@ -134,7 +135,7 @@ export class LightCard extends LitElement implements LovelaceCard {
         if (!this._config || !this.hass || !this._config.entity) return;
 
         const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id];
+        const entity = this.hass.states[entity_id] as LightEntity;
 
         if (!entity) return;
 
@@ -165,7 +166,7 @@ export class LightCard extends LitElement implements LovelaceCard {
         }
 
         const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id];
+        const entity = this.hass.states[entity_id] as LightEntity;
 
         const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
@@ -185,9 +186,9 @@ export class LightCard extends LitElement implements LovelaceCard {
             const color = lightRgbColor.join(",");
             iconStyle["--icon-color"] = `rgb(${color})`;
             iconStyle["--shape-color"] = `rgba(${color}, 0.25)`;
-            if (isLight(lightRgbColor) && !(this.hass.themes as any).darkMode) {
+            if (isColorLight(lightRgbColor) && !(this.hass.themes as any).darkMode) {
                 iconStyle["--shape-outline-color"] = `rgba(var(--rgb-primary-text-color), 0.05)`;
-                if (isSuperLight(lightRgbColor)) {
+                if (isColorSuperLight(lightRgbColor)) {
                     iconStyle["--icon-color"] = `rgba(var(--rgb-primary-text-color), 0.2)`;
                 }
             }
@@ -250,7 +251,7 @@ export class LightCard extends LitElement implements LovelaceCard {
         `;
     }
 
-    private renderActiveControl(entity: HassEntity): TemplateResult | null {
+    private renderActiveControl(entity: LightEntity): TemplateResult | null {
         switch (this._activeControl) {
             case "brightness_control":
                 const lightRgbColor = getRGBColor(entity);
@@ -259,7 +260,7 @@ export class LightCard extends LitElement implements LovelaceCard {
                     const color = lightRgbColor.join(",");
                     sliderStyle["--slider-color"] = `rgb(${color})`;
                     sliderStyle["--slider-bg-color"] = `rgba(${color}, 0.2)`;
-                    if (isLight(lightRgbColor) && !(this.hass.themes as any).darkMode) {
+                    if (isColorLight(lightRgbColor) && !(this.hass.themes as any).darkMode) {
                         sliderStyle[
                             "--slider-bg-color"
                         ] = `rgba(var(--rgb-primary-text-color), 0.05)`;

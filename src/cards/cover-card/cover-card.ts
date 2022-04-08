@@ -124,10 +124,10 @@ export class CoverCard extends LitElement implements LovelaceCard {
         if (!this._config || !this.hass || !this._config.entity) return;
 
         const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id];
+        const entity = this.hass.states[entity_id] as CoverEntity;
 
         if (!entity) return;
-        this.position = getPosition(entity as CoverEntity);
+        this.position = getPosition(entity);
     }
 
     private onCurrentPositionChange(e: CustomEvent<{ value?: number }>): void {

@@ -84,7 +84,7 @@ export class UpdateCard extends LitElement implements LovelaceCard {
         }
 
         const entityId = this._config.entity;
-        const entity = this.hass.states[entityId];
+        const entity = this.hass.states[entityId] as UpdateEntity;
 
         const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
@@ -147,8 +147,8 @@ export class UpdateCard extends LitElement implements LovelaceCard {
         `;
     }
 
-    protected renderShapeIcon(entity: HassEntity, icon: string): TemplateResult {
-        const isInstalling = updateIsInstalling(entity as UpdateEntity);
+    protected renderShapeIcon(entity: UpdateEntity, icon: string): TemplateResult {
+        const isInstalling = updateIsInstalling(entity);
 
         const color = getStateColor(entity.state, isInstalling);
 
