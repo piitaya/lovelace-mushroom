@@ -81,6 +81,9 @@
             "weather": {
                 "show_conditions": "Weerbeeld",
                 "show_temperature": "Temperatuur"
+            },
+            "vacuum": {
+                "show_buttons_control": "Bediening middels knoppen"
             }
         },
         "chip": {
