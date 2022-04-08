@@ -1,9 +1,9 @@
 import { HomeAssistant } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import { isActive, isAvailable } from "../../../ha/data/entity";
 import { LightEntity } from "../../../ha/data/light";
 import "../../../shared/slider";
-import { isActive, isAvailable } from "../../../utils/entity";
 import { getBrightness } from "../utils";
 
 @customElement("mushroom-light-brightness-control")

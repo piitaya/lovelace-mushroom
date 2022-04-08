@@ -1,10 +1,9 @@
 import { HomeAssistant } from "custom-card-helpers";
-import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { CoverEntity } from "../../../ha/data/cover";
+import { isActive } from "../../../ha/data/entity";
 import "../../../shared/slider";
-import { isActive } from "../../../utils/entity";
 import { getPosition } from "../utils";
 
 @customElement("mushroom-cover-position-control")

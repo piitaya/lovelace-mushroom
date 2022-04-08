@@ -1,7 +1,7 @@
 import { HomeAssistant } from "custom-card-helpers";
 import type { HassEntityAttributeBase, HassEntityBase } from "home-assistant-js-websocket";
-import { BINARY_STATE_ON } from "../common/const";
 import { supportsFeature } from "../common/entity/supports-feature";
+import { ON } from "./entity";
 
 export const UPDATE_SUPPORT_INSTALL = 1;
 export const UPDATE_SUPPORT_SPECIFIC_VERSION = 2;
@@ -29,7 +29,7 @@ export const updateUsesProgress = (entity: UpdateEntity): boolean =>
     typeof entity.attributes.in_progress === "number";
 
 export const updateCanInstall = (entity: UpdateEntity): boolean =>
-    entity.state === BINARY_STATE_ON && supportsFeature(entity, UPDATE_SUPPORT_INSTALL);
+    entity.state === ON && supportsFeature(entity, UPDATE_SUPPORT_INSTALL);
 
 export const updateIsInstalling = (entity: UpdateEntity): boolean =>
     updateUsesProgress(entity) || !!entity.attributes.in_progress;

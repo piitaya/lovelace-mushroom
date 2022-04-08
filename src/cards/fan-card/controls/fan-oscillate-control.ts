@@ -3,8 +3,8 @@ import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
+import { isActive } from "../../../ha/data/entity";
 import "../../../shared/slider";
-import { isActive } from "../../../utils/entity";
 import { isOscillating } from "../utils";
 
 @customElement("mushroom-fan-oscillate-control")

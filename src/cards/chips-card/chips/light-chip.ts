@@ -4,9 +4,9 @@ import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { computeStateDisplay } from "../../../ha/common/entity/compute-state-display";
+import { isActive } from "../../../ha/data/entity";
 import { LightEntity } from "../../../ha/data/light";
 import { actionHandler } from "../../../utils/directives/action-handler-directive";
-import { isActive } from "../../../utils/entity";
 import { stateIcon } from "../../../utils/icons/state-icon";
 import { getInfo } from "../../../utils/info";
 import {

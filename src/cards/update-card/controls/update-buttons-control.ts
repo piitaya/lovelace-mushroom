@@ -2,9 +2,9 @@ import { HomeAssistant } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
+import { isActive, isAvailable, OFF } from "../../../ha/data/entity";
 import { UpdateEntity, updateIsInstalling } from "../../../ha/data/update";
 import "../../../shared/button";
-import { OFF, UNAVAILABLE } from "../../../utils/entity";
 
 @customElement("mushroom-update-buttons-control")
 export class UpdateButtonsControl extends LitElement {
@@ -28,19 +28,19 @@ export class UpdateButtonsControl extends LitElement {
     }
 
     private get installDisabled(): boolean {
-        if (this.entity.state === UNAVAILABLE) return true;
+        if (!isAvailable(this.entity)) return true;
         const skippedVersion =
             this.entity.attributes.latest_version &&
             this.entity.attributes.skipped_version === this.entity.attributes.latest_version;
-        return (this.entity.state === OFF && !skippedVersion) || updateIsInstalling(this.entity);
+        return (!isActive(this.entity) && !skippedVersion) || updateIsInstalling(this.entity);
     }
 
     private get skipDisabled(): boolean {
-        if (this.entity.state === UNAVAILABLE) return true;
+        if (!isAvailable(this.entity)) return true;
         const skippedVersion =
             this.entity.attributes.latest_version &&
             this.entity.attributes.skipped_version === this.entity.attributes.latest_version;
-        return skippedVersion || this.entity.state === OFF || updateIsInstalling(this.entity);
+        return skippedVersion || !isActive(this.entity) || updateIsInstalling(this.entity);
     }
 
     protected render(): TemplateResult {

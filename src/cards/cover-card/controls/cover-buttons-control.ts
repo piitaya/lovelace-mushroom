@@ -13,8 +13,8 @@ import {
     isFullyOpen,
     isOpening,
 } from "../../../ha/data/cover";
+import { isAvailable } from "../../../ha/data/entity";
 import "../../../shared/button";
-import { UNAVAILABLE } from "../../../utils/entity";
 import { computeCloseIcon, computeOpenIcon } from "../../../utils/icons/cover-icon";
 
 @customElement("mushroom-cover-buttons-control")
@@ -47,19 +47,19 @@ export class CoverButtonsControl extends LitElement {
     }
 
     private get openDisabled(): boolean {
-        if (this.entity.state === UNAVAILABLE) return true;
+        if (!isAvailable(this.entity)) return true;
         const assumedState = this.entity.attributes.assumed_state === true;
         return (isFullyOpen(this.entity) || isOpening(this.entity)) && !assumedState;
     }
 
     private get closedDisabled(): boolean {
-        if (this.entity.state === UNAVAILABLE) return true;
+        if (!isAvailable(this.entity)) return true;
         const assumedState = this.entity.attributes.assumed_state === true;
         return (isFullyClosed(this.entity) || isClosing(this.entity)) && !assumedState;
     }
 
     private get pauseDisabled(): boolean {
-        return this.entity.state === UNAVAILABLE;
+        return !isAvailable(this.entity);
     }
 
     protected render(): TemplateResult {

@@ -1,10 +1,4 @@
-import {
-    ActionConfig,
-    fireEvent,
-    HomeAssistant,
-    LocalizeFunc,
-    LovelaceCardEditor,
-} from "custom-card-helpers";
+import { fireEvent, HomeAssistant, LocalizeFunc, LovelaceCardEditor } from "custom-card-helpers";
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
