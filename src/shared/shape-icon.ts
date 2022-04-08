@@ -44,11 +44,11 @@ export class ShapeIcon extends LitElement {
                 align-items: center;
                 justify-content: center;
                 background-color: var(--shape-color);
-                transition-property: background-color, outline;
+                transition-property: background-color, box-shadow;
                 transition-duration: 280ms;
                 transition-timing-function: ease-out;
                 animation: var(--shape-animation);
-                outline: var(--shape-outline-color) solid var(--shape-outline-size);
+                box-shadow: 0 0 0 var(--shape-outline-size) var(--shape-outline-color);
             }
             .shape ha-icon {
                 display: flex;
