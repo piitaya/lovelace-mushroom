@@ -5,11 +5,7 @@ import {
     computeStateDisplay as customCardHelpersComputeStateDisplay,
 } from "custom-card-helpers";
 import { HassEntity } from "home-assistant-js-websocket";
-import {
-    UpdateEntity,
-    updateIsInstalling,
-    UPDATE_SUPPORT_PROGRESS,
-} from "../cards/update-card/utils";
+import { UpdateEntity, updateIsInstalling, UPDATE_SUPPORT_PROGRESS } from "../ha/data/update";
 import { supportsFeature } from "./entity";
 
 export const computeStateDisplay = (

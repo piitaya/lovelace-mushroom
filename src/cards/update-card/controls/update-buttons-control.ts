@@ -2,9 +2,9 @@ import { HomeAssistant } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
+import { UpdateEntity, updateIsInstalling } from "../../../ha/data/update";
 import "../../../shared/button";
 import { OFF, UNAVAILABLE } from "../../../utils/entity";
-import { UpdateEntity, updateIsInstalling } from "../utils";
 
 @customElement("mushroom-update-buttons-control")
 export class UpdateButtonsControl extends LitElement {

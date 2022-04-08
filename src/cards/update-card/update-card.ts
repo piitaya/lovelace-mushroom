@@ -11,6 +11,7 @@ import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
+import { UpdateEntity, updateIsInstalling, UPDATE_SUPPORT_INSTALL } from "../../ha/data/update";
 import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-icon";
@@ -26,7 +27,7 @@ import { getLayoutFromConfig } from "../../utils/layout";
 import { UPDATE_CARD_EDITOR_NAME, UPDATE_CARD_NAME, UPDATE_ENTITY_DOMAINS } from "./const";
 import "./controls/update-buttons-control";
 import { UpdateCardConfig } from "./update-card-config";
-import { getStateColor, UpdateEntity, updateIsInstalling, UPDATE_SUPPORT_INSTALL } from "./utils";
+import { getStateColor } from "./utils";
 
 registerCustomCard({
     type: UPDATE_CARD_NAME,
