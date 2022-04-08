@@ -78,6 +78,10 @@
             "weather": {
                 "show_conditions": "Förhållanden?",
                 "show_temperature": "Temperatur?"
+            },
+            "vacuum": {
+                "icon_animation": "Animera ikonen när fläkten är på?",
+                "show_buttons_control": "Visa kontrollknappar?"
             }
         },
         "chip": {

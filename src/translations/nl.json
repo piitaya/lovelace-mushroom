@@ -81,6 +81,10 @@
             "weather": {
                 "show_conditions": "Conditie?",
                 "show_temperature": "Temperatuur?"
+            },
+            "vacuum": {
+                "icon_animation": "Pictogram animeren indien actief?",
+                "show_buttons_control": "Knoppen controle?"
             }
         },
         "chip": {
