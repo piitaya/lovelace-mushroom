@@ -102,8 +102,6 @@ export class VacuumCard extends LitElement implements LovelaceCard {
         const entity = this.hass.states[entity_id];
 
         if (!entity) return;
-        console.log(entity.state);
-        console.log(entity.attributes);
         this.state = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
     }
 

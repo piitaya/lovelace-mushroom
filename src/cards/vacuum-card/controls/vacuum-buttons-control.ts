@@ -4,12 +4,70 @@ import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import "../../../shared/button";
-import { UNAVAILABLE } from "../../../utils/entity";
-import { computeStartStopIcon } from "../../../utils/icons/vacuum-icon";
 import {
     isCleaning,
+    isReturningHome,
     isStopped,
+    isUnavailable,
+    supportsCleanSpot,
+    supportsLocate,
+    supportsPause,
+    supportsReturnHome,
+    supportsStart,
+    supportsStop,
 } from "../utils";
+
+interface VacuumCommand {
+    icon: string;
+    serviceName: string;
+    isVisible: (entity: HassEntity) => boolean;
+    isDisabled: (entity: HassEntity) => boolean;
+}
+
+const VACUUM_COMMANDS: VacuumCommand[] = [
+    {
+        icon: "play",
+        serviceName: "start",
+        isVisible: (entity) => supportsStart(entity),
+        isDisabled: (entity) => isUnavailable(entity) || isCleaning(entity),
+    },
+    {
+        icon: "pause",
+        serviceName: "pause",
+        isVisible: (entity) => supportsStart(entity) && supportsPause(entity),
+        isDisabled: (entity) => isUnavailable(entity) || !isCleaning(entity),
+    },
+    {
+        icon: "play-pause",
+        serviceName: "start_pause",
+        isVisible: (entity) => !supportsStart(entity) && supportsPause(entity),
+        isDisabled: (entity) => isUnavailable(entity),
+    },
+    {
+        icon: "stop",
+        serviceName: "stop",
+        isVisible: (entity) => supportsStop(entity),
+        isDisabled: (entity) => isUnavailable(entity) || isStopped(entity),
+    },
+    {
+        icon: "target-variant",
+        serviceName: "clean_spot",
+        isVisible: (entity) => supportsCleanSpot(entity),
+        isDisabled: (entity) => isUnavailable(entity),
+    },
+    {
+        icon: "map-marker",
+        serviceName: "locate",
+        isVisible: (entity) => supportsLocate(entity),
+        isDisabled: (entity) => isUnavailable(entity),
+    },
+    {
+        icon: "home-map-marker",
+        serviceName: "return_to_base",
+        isVisible: (entity) => supportsReturnHome(entity),
+        isDisabled: (entity) => isUnavailable(entity) || isReturningHome(entity),
+    },
+];
 
 @customElement("mushroom-vacuum-buttons-control")
 export class VacuumButtonsControl extends LitElement {
@@ -19,29 +77,9 @@ export class VacuumButtonsControl extends LitElement {
 
     @property() public fill: boolean = false;
 
-    private _onStartStopTap(e: MouseEvent): void {
-        e.stopPropagation(); 
-        if (isCleaning(this.entity)) {
-            this.hass.callService("vacuum", "stop", {
-                entity_id: this.entity.entity_id,
-            });
-        } else {
-            this.hass.callService("vacuum", "start", {
-                entity_id: this.entity.entity_id,
-            });
-        }
-    }
-
-    private _onReturnToBase(e: MouseEvent): void {
+    private _callService(e: MouseEvent, serviceName: string): void {
         e.stopPropagation();
-        this.hass.callService("vacuum", "return_to_base", {
-            entity_id: this.entity.entity_id,
-        });
-    }
-
-    private _onLocate(e: MouseEvent): void {
-        e.stopPropagation();
-        this.hass.callService("vacuum", "locate", {
+        this.hass.callService("vacuum", serviceName, {
             entity_id: this.entity.entity_id,
         });
     }
@@ -54,20 +92,15 @@ export class VacuumButtonsControl extends LitElement {
                     fill: this.fill,
                 })}
             >
-                <mushroom-button
-                    .icon=${computeStartStopIcon(this.entity.state)}
-                    @click=${this._onStartStopTap}
-                ></mushroom-button>
-
-                <mushroom-button
-                    icon="mdi:home-map-marker"
-                    @click=${this._onReturnToBase}
-                ></mushroom-button>
-
-                <mushroom-button
-                    icon="mdi:map-marker"
-                    @click=${this._onLocate}
-                ></mushroom-button>
+                ${VACUUM_COMMANDS.filter((item) => item.isVisible(this.entity)).map(
+                    (item) => html`
+                        <mushroom-button
+                            .icon="mdi:${item.icon}"
+                            .disabled=${item.isDisabled(this.entity)}
+                            @click=${(e) => this._callService(e, item.serviceName)}
+                        ></mushroom-button>
+                    `
+                )}
             </div>
         `;
     }

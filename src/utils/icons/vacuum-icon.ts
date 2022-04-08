@@ -1,10 +1,11 @@
-import { STATE_CLEANING } from "../../cards/vacuum-card/const";
+import { STATE_CLEANING, STATE_ON } from "../../cards/vacuum-card/const";
 
 export const computeStartStopIcon = (state?: string): string => {
-    
-    if (state?.toLocaleLowerCase() === STATE_CLEANING) {
-        return "mdi:stop";
+    switch (state) {
+        case STATE_CLEANING:
+        case STATE_ON:
+            return "mdi:stop";    
+        default:
+            return "mdi:play"
     }
-
-    return "mdi:play";
 };
