@@ -146,9 +146,8 @@ export class ThermostatCard extends LitElement implements LovelaceCard {
         const actionIcon = climateIconAction(hvac_action);
 
         const icon =
-            this._config.icon || (this._config.use_action_icon && actionIcon)
-                ? actionIcon
-                : stateIcon(entity);
+            this._config.icon ||
+            (!!this._config.use_action_icon && actionIcon ? actionIcon : stateIcon(entity));
 
         const step = getStepSize(this.hass, entity);
 
