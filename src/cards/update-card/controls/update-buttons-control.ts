@@ -1,10 +1,10 @@
 import { HomeAssistant } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { classMap } from "lit/directives/class-map.js";
-import { isActive, isAvailable, OFF } from "../../../ha/data/entity";
+import { isActive, isAvailable } from "../../../ha/data/entity";
 import { UpdateEntity, updateIsInstalling } from "../../../ha/data/update";
 import "../../../shared/button";
+import "../../../shared/button-group";
 
 @customElement("mushroom-update-buttons-control")
 export class UpdateButtonsControl extends LitElement {
@@ -45,12 +45,7 @@ export class UpdateButtonsControl extends LitElement {
 
     protected render(): TemplateResult {
         return html`
-            <div
-                class=${classMap({
-                    container: true,
-                    fill: this.fill,
-                })}
-            >
+            <mushroom-button-group .fill=${this.fill}>
                 <mushroom-button
                     icon="mdi:cancel"
                     .disabled=${this.skipDisabled}
@@ -61,29 +56,7 @@ export class UpdateButtonsControl extends LitElement {
                     .disabled=${this.installDisabled}
                     @click=${this._handleInstall}
                 ></mushroom-button>
-            </div>
-        `;
-    }
-
-    static get styles(): CSSResultGroup {
-        return css`
-            :host {
-                display: flex;
-                flex-direction: row;
-                width: 100%;
-            }
-            :host *:not(:last-child) {
-                margin-right: var(--spacing);
-            }
-            .container {
-                width: 100%;
-                display: flex;
-                flex-direction: row;
-                justify-content: flex-end;
-            }
-            .container.fill mushroom-button {
-                flex: 1;
-            }
+            </mushroom-button-group>
         `;
     }
 }

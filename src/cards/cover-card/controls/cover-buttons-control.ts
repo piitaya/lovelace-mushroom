@@ -15,6 +15,7 @@ import {
 } from "../../../ha/data/cover";
 import { isAvailable } from "../../../ha/data/entity";
 import "../../../shared/button";
+import "../../../shared/button-group";
 import { computeCloseIcon, computeOpenIcon } from "../../../utils/icons/cover-icon";
 
 @customElement("mushroom-cover-buttons-control")
@@ -64,12 +65,7 @@ export class CoverButtonsControl extends LitElement {
 
     protected render(): TemplateResult {
         return html`
-            <div
-                class=${classMap({
-                    container: true,
-                    fill: this.fill,
-                })}
-            >
+            <mushroom-button-group .fill=${this.fill}>
                 ${supportsFeature(this.entity, COVER_SUPPORT_CLOSE)
                     ? html`
                           <mushroom-button
@@ -97,29 +93,7 @@ export class CoverButtonsControl extends LitElement {
                           ></mushroom-button>
                       `
                     : undefined}
-            </div>
-        `;
-    }
-
-    static get styles(): CSSResultGroup {
-        return css`
-            :host {
-                display: flex;
-                flex-direction: row;
-                width: 100%;
-            }
-            :host *:not(:last-child) {
-                margin-right: var(--spacing);
-            }
-            .container {
-                width: 100%;
-                display: flex;
-                flex-direction: row;
-                justify-content: flex-end;
-            }
-            .container.fill mushroom-button {
-                flex: 1;
-            }
+            </mushroom-button-group>
         `;
     }
 }
