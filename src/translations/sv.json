@@ -48,7 +48,9 @@
                 "use_light_color": "Styr ljusets färg",
                 "show_color_temp_control": "Styr färgtemperatur?",
                 "show_color_control": "Styr färg?",
-                "incompatible_controls": "Kontroller som inte stöds av enheten kommer inte visas."
+                "incompatible_controls": "Kontroller som inte stöds av enheten kommer inte visas.",
+                "brightness_control_set_min": "Ljushet val min",
+                "brightness_control_set_max": "Ljushet val max"
             },
             "fan": {
                 "icon_animation": "Animera ikonen när fläkten är på?",
