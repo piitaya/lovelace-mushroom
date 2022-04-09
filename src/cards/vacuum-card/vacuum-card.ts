@@ -15,10 +15,8 @@ import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
 import { cardStyle } from "../../utils/card-styles";
-import { computeStateDisplay } from "../../utils/compute-state-display";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
-import { isAvailable } from "../../utils/entity";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig } from "../../utils/layout";
 import { VACUUM_CARD_EDITOR_NAME, VACUUM_CARD_NAME, VACUUM_ENTITY_DOMAINS } from "./const";
@@ -36,6 +34,8 @@ import {
     supportVacuumStopControl,
 } from "./utils";
 import { VacuumCardConfig } from "./vacuum-card-config";
+import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
+import { isAvailable } from "../../ha/data/entity";
 
 registerCustomCard({
     type: VACUUM_CARD_NAME,

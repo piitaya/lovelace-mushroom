@@ -2,6 +2,9 @@ import { HassEntity } from "home-assistant-js-websocket";
 
 export const UNAVAILABLE = "unavailable";
 export const UNKNOWN = "unknown";
+
+export const UNAVAILABLE_STATES = [UNAVAILABLE, UNKNOWN];
+
 export const ON = "on";
 export const OFF = "off";
 
@@ -24,26 +27,21 @@ export function isActive(entity: HassEntity) {
         case "vacuum":
             return state !== "docked";
         case "plant":
-            return state === "problem"
+            return state === "problem";
         default:
             return true;
     }
 }
 
-const AUTHORIZED_UNKNOWN_STATE_DOMAINS = ["button", "input_button", "scene"];
-
 export function isAvailable(entity: HassEntity) {
     const domain = entity.entity_id.split(".")[0];
 
-    return (
-        entity.state !== UNAVAILABLE &&
-        (entity.state !== UNKNOWN || AUTHORIZED_UNKNOWN_STATE_DOMAINS.includes(domain))
-    );
+    if (["button", "input_button", "scene"].includes(domain)) {
+        return entity.state !== UNAVAILABLE;
+    }
+    return !UNAVAILABLE_STATES.includes(entity.state);
 }
 
 export function isUnknown(entity: HassEntity) {
     return entity.state === UNKNOWN;
 }
-
-export const supportsFeature = (entity: HassEntity, feature: number): boolean =>
-    (entity.attributes.supported_features! & feature) !== 0;

@@ -10,13 +10,15 @@ import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult }
 import { customElement, property, query, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
+import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
 import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
+import "../../shared/button";
+import "../../shared/button-group";
 import { cardStyle } from "../../utils/card-styles";
-import { computeStateDisplay } from "../../utils/compute-state-display";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
 import { alarmPanelIconAction } from "../../utils/icons/alarm-panel-icon";
@@ -221,12 +223,7 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                     </mushroom-state-item>
                     ${actions.length > 0
                         ? html`
-                              <div
-                                  class=${classMap({
-                                      actions: true,
-                                      fill: layout !== "horizontal",
-                                  })}
-                              >
+                              <mushroom-button-group .fill="${layout !== "horizontal"},">
                                   ${actions.map(
                                       (action) => html`
                                           <mushroom-button
@@ -236,7 +233,7 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                                           ></mushroom-button>
                                       `
                                   )}
-                              </div>
+                              </mushroom-button-group>
                           `
                         : null}
                 </mushroom-card>
@@ -300,9 +297,6 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                 }
                 mushroom-shape-icon.pulse {
                     --shape-animation: 1s ease 0s infinite normal none running pulse;
-                }
-                .actions.fill mushroom-button {
-                    flex: 1;
                 }
                 mushroom-textfield {
                     display: block;

@@ -1,7 +1,7 @@
 import { HomeAssistant } from "custom-card-helpers";
 import { HassEntity } from "home-assistant-js-websocket";
 import { html } from "lit";
-import { isAvailable, isUnknown } from "./entity";
+import { isAvailable, isUnknown } from "../ha/data/entity";
 
 export const INFOS = ["name", "state", "last-changed", "last-updated", "none"] as const;
 const TIMESTAMP_STATE_DOMAINS = ["button", "input_button", "scene"];
