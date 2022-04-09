@@ -6,10 +6,8 @@ import {
     LovelaceCard,
     LovelaceCardEditor,
 } from "custom-card-helpers";
-import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { classMap } from "lit/directives/class-map.js";
-import { styleMap } from "lit/directives/style-map.js";
 import "../../shared/badge-icon";
 import "../../shared/button";
 import "../../shared/card";
@@ -20,7 +18,7 @@ import { cardStyle } from "../../utils/card-styles";
 import { computeStateDisplay } from "../../utils/compute-state-display";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
-import { isActive, isAvailable } from "../../utils/entity";
+import { isAvailable } from "../../utils/entity";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig } from "../../utils/layout";
 import { VACUUM_CARD_EDITOR_NAME, VACUUM_CARD_NAME, VACUUM_ENTITY_DOMAINS } from "./const";
@@ -82,28 +80,6 @@ export class VacuumCard extends LitElement implements LovelaceCard {
         }
 
         this._controls = controls;
-        this.updateState();
-    }
-
-    protected updated(changedProperties: PropertyValues) {
-        super.updated(changedProperties);
-        if (this.hass && changedProperties.has("hass")) {
-            this.updateState();
-        }
-    }
-
-    @state()
-    private state?: string;
-
-    updateState() {
-        this.state = undefined;
-        if (!this._config || !this.hass || !this._config.entity) return;
-
-        const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id];
-
-        if (!entity) return;
-        this.state = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
     }
 
     private _handleAction(ev: ActionHandlerEvent) {
@@ -123,7 +99,7 @@ export class VacuumCard extends LitElement implements LovelaceCard {
         const layout = getLayoutFromConfig(this._config);
         const hideState = this._config.hide_state;
 
-        let stateValue = `${this.state}`;
+        let stateValue = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
         const active = isCleaning(entity);
 
@@ -157,7 +133,7 @@ export class VacuumCard extends LitElement implements LovelaceCard {
                         .secondary=${!hideState && stateValue}
                     ></mushroom-state-info>
                 </mushroom-state-item>
-                ${this._controls.length > 0
+                ${this._controls.length > 0 && isAvailable(entity)
                     ? html`
                           <div class="actions">
                               <mushroom-vacuum-buttons-control
