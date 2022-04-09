@@ -117,7 +117,6 @@ export class EntityChip extends LitElement implements LovelaceChip {
             }
             .mushroom-chip-entity-picture {
                 border-radius: var(--chip-entity-picture-border-radius);
-                
                 height: var(--chip-entity-picture-size);
                 width: var(--chip-entity-picture-size);
             }
