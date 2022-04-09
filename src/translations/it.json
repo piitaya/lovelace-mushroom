@@ -83,7 +83,11 @@
                 "show_temperature": "Temperatura"
             },
             "vacuum": {
-                "show_buttons_control": "Controllo"
+                "show_start_pause_control": "Pulsante di avvio/pausa",
+                "show_stop_control": "Pulsante di arresto",
+                "show_locate_control": "Pulsante Trova",
+                "show_clean_spot_control": "Pulsante punto pulito",
+                "show_return_home_control": "Pulsante Torna a casa"
             }
         },
         "chip": {

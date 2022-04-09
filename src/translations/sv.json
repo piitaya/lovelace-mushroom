@@ -80,7 +80,11 @@
                 "show_temperature": "Temperatur?"
             },
             "vacuum": {
-                "show_buttons_control": "Visa kontrollknappar?"
+                "show_start_pause_control": "Start/Paus-knapp",
+                "show_stop_control": "Stoppknapp",
+                "show_locate_control": "Hitta knappen",
+                "show_clean_spot_control": "Clean spot-knapp",
+                "show_return_home_control": "Återvänd hem-knapp"
             }
         },
         "chip": {

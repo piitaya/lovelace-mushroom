@@ -79,7 +79,11 @@
                 "show_temperature": "温度?"
             },
             "vacuum": {
-                "show_buttons_control": "按钮控制?"
+                "show_start_pause_control": "开始/暂停按钮",
+                "show_stop_control": "停止按钮",
+                "show_locate_control": "定位按钮",
+                "show_clean_spot_control": "清洁点按钮",
+                "show_return_home_control": "返回主页按钮"
             }
         },
         "chip": {

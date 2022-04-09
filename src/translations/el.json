@@ -84,6 +84,13 @@
             },
             "update": {
                 "show_buttons_control": "Έλεγχος κουμπιών;"
+            },
+            "vacuum": {
+                "show_start_pause_control": "Κουμπί έναρξης/παύσης",
+                "show_stop_control": "Κουμπί διακοπής",
+                "show_locate_control": "Κουμπί εντοπισμού",
+                "show_clean_spot_control": "Κουμπί καθαρισμού σημείου",
+                "show_return_home_control": "Κουμπί επιστροφής στο σπίτι"
             }
         },
         "chip": {

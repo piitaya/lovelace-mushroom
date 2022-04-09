@@ -12,7 +12,13 @@ import { loadHaComponents } from "../../utils/loader";
 import { VACUUM_CARD_EDITOR_NAME, VACUUM_ENTITY_DOMAINS } from "./const";
 import { VacuumCardConfig, vacuumCardConfigStruct } from "./vacuum-card-config";
 
-const VACUUM_FIELDS = ["show_buttons_control"];
+const VACUUM_FIELDS = [
+    "show_start_pause_control",
+    "show_stop_control",
+    "show_locate_control",
+    "show_clean_spot_control",
+    "show_return_home_control",
+];
 
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: VACUUM_ENTITY_DOMAINS } } },
@@ -33,7 +39,13 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     {
         type: "grid",
         name: "",
-        schema: [{ name: "show_buttons_control", selector: { boolean: {} } }],
+        schema: [
+            { name: "show_start_pause_control", selector: { boolean: {} } },
+            { name: "show_stop_control", selector: { boolean: {} } },
+            { name: "show_locate_control", selector: { boolean: {} } },
+            { name: "show_clean_spot_control", selector: { boolean: {} } },
+            { name: "show_return_home_control", selector: { boolean: {} } },
+        ],
     },
     { name: "tap_action", selector: { "mush-action": {} } },
     { name: "hold_action", selector: { "mush-action": {} } },

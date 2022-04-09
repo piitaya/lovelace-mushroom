@@ -1,3 +1,4 @@
+import { HomeAssistant } from "custom-card-helpers";
 import { HassEntity } from "home-assistant-js-websocket";
 import { supportsFeature, UNAVAILABLE } from "../../utils/entity";
 import {
@@ -18,6 +19,33 @@ import {
     SUPPORT_TURN_OFF,
     SUPPORT_TURN_ON,
 } from "./const";
+
+export function callService(e: MouseEvent, hass: HomeAssistant, entity: HassEntity, serviceName: string): void {
+    e.stopPropagation();
+    hass.callService("vacuum", serviceName, {
+        entity_id: entity.entity_id,
+    });
+}
+
+export function supportVacuumStartPauseControl(entity: HassEntity) {
+    return supportsStart(entity) || (supportsStart(entity) && supportsPause(entity)) || (!supportsStart(entity) && supportsPause(entity));
+}
+
+export function supportVacuumStopControl(entity: HassEntity) {
+    return supportsStop(entity);
+}
+
+export function supportVacuumLocateControl(entity: HassEntity) {
+    return supportsLocate(entity);
+}
+
+export function supportVacuumCleanSpotControl(entity: HassEntity) {
+    return supportsCleanSpot(entity);
+}
+
+export function supportVacuumReturnHomeControl(entity: HassEntity) {
+    return supportsReturnHome(entity);
+}
 
 export function isUnavailable(entity: HassEntity): boolean {
     return entity.state === UNAVAILABLE;

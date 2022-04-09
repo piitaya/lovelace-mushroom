@@ -22,11 +22,20 @@ import { isAvailable } from "../../utils/entity";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig } from "../../utils/layout";
 import { VACUUM_CARD_EDITOR_NAME, VACUUM_CARD_NAME, VACUUM_ENTITY_DOMAINS } from "./const";
-import "./controls/vacuum-buttons-control";
-import { isCleaning } from "./utils";
+import "./controls/vacuum-start-pause-control";
+import "./controls/vacuum-stop-control";
+import "./controls/vacuum-clean-spot-control";
+import "./controls/vacuum-return-home-control";
+import "./controls/vacuum-locate-control";
+import {
+    isCleaning,
+    supportVacuumCleanSpotControl,
+    supportVacuumLocateControl,
+    supportVacuumReturnHomeControl,
+    supportVacuumStartPauseControl,
+    supportVacuumStopControl,
+} from "./utils";
 import { VacuumCardConfig } from "./vacuum-card-config";
-
-type VacuumCardControl = "buttons_control";
 
 registerCustomCard({
     type: VACUUM_CARD_NAME,
@@ -54,8 +63,6 @@ export class VacuumCard extends LitElement implements LovelaceCard {
 
     @state() private _config?: VacuumCardConfig;
 
-    @state() private _controls: VacuumCardControl[] = [];
-
     getCardSize(): number | Promise<number> {
         return 1;
     }
@@ -73,13 +80,6 @@ export class VacuumCard extends LitElement implements LovelaceCard {
             },
             ...config,
         };
-
-        const controls: VacuumCardControl[] = [];
-        if (this._config?.show_buttons_control) {
-            controls.push("buttons_control");
-        }
-
-        this._controls = controls;
     }
 
     private _handleAction(ev: ActionHandlerEvent) {
@@ -133,17 +133,55 @@ export class VacuumCard extends LitElement implements LovelaceCard {
                         .secondary=${!hideState && stateValue}
                     ></mushroom-state-info>
                 </mushroom-state-item>
-                ${this._controls.length > 0 && isAvailable(entity)
-                    ? html`
-                          <div class="actions">
-                              <mushroom-vacuum-buttons-control
+                <div class="actions">
+                    ${this._config?.show_start_pause_control &&
+                    supportVacuumStartPauseControl(entity)
+                        ? html`
+                              <mushroom-vacuum-start-pause-control
                                   .hass=${this.hass}
                                   .entity=${entity}
                                   .fill=${layout !== "horizontal"}
                               />
-                          </div>
-                      `
-                    : null}
+                          `
+                        : null}
+                    ${this._config?.show_stop_control && supportVacuumStopControl(entity)
+                        ? html`
+                              <mushroom-vacuum-stop-control
+                                  .hass=${this.hass}
+                                  .entity=${entity}
+                                  .fill=${layout !== "horizontal"}
+                              />
+                          `
+                        : null}
+                    ${this._config?.show_locate_control && supportVacuumLocateControl(entity)
+                        ? html`
+                              <mushroom-vacuum-locate-control
+                                  .hass=${this.hass}
+                                  .entity=${entity}
+                                  .fill=${layout !== "horizontal"}
+                              />
+                          `
+                        : null}
+                    ${this._config?.show_clean_spot_control && supportVacuumCleanSpotControl(entity)
+                        ? html`
+                              <mushroom-vacuum-clean-spot-control
+                                  .hass=${this.hass}
+                                  .entity=${entity}
+                                  .fill=${layout !== "horizontal"}
+                              />
+                          `
+                        : null}
+                    ${this._config?.show_return_home_control &&
+                    supportVacuumReturnHomeControl(entity)
+                        ? html`
+                              <mushroom-vacuum-return-home-control
+                                  .hass=${this.hass}
+                                  .entity=${entity}
+                                  .fill=${layout !== "horizontal"}
+                              />
+                          `
+                        : null}
+                </div>
             </mushroom-card>
         `;
     }
