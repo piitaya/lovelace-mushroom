@@ -1,6 +1,6 @@
 import { HomeAssistant } from "custom-card-helpers";
 import { HassEntity } from "home-assistant-js-websocket";
-import { supportsFeature, UNAVAILABLE } from "../../utils/entity";
+import { supportsFeature } from "../../ha/common/entity/supports-feature";
 import {
     STATE_CLEANING,
     STATE_DOCKED,
@@ -18,9 +18,14 @@ import {
     SUPPORT_STOP,
     SUPPORT_TURN_OFF,
     SUPPORT_TURN_ON,
-} from "./const";
+} from "../../ha/data/vacuum";
 
-export function callService(e: MouseEvent, hass: HomeAssistant, entity: HassEntity, serviceName: string): void {
+export function callService(
+    e: MouseEvent,
+    hass: HomeAssistant,
+    entity: HassEntity,
+    serviceName: string
+): void {
     e.stopPropagation();
     hass.callService("vacuum", serviceName, {
         entity_id: entity.entity_id,
@@ -28,7 +33,11 @@ export function callService(e: MouseEvent, hass: HomeAssistant, entity: HassEnti
 }
 
 export function supportVacuumStartPauseControl(entity: HassEntity) {
-    return supportsStart(entity) || (supportsStart(entity) && supportsPause(entity)) || (!supportsStart(entity) && supportsPause(entity));
+    return (
+        supportsStart(entity) ||
+        (supportsStart(entity) && supportsPause(entity)) ||
+        (!supportsStart(entity) && supportsPause(entity))
+    );
 }
 
 export function supportVacuumStopControl(entity: HassEntity) {
@@ -45,10 +54,6 @@ export function supportVacuumCleanSpotControl(entity: HassEntity) {
 
 export function supportVacuumReturnHomeControl(entity: HassEntity) {
     return supportsReturnHome(entity);
-}
-
-export function isUnavailable(entity: HassEntity): boolean {
-    return entity.state === UNAVAILABLE;
 }
 
 export function isCleaning(entity: HassEntity): boolean {
@@ -82,6 +87,16 @@ export function isReturningHome(entity: HassEntity): boolean {
             return false;
     }
 }
+
+export const computeStartStopIcon = (state?: string): string => {
+    switch (state) {
+        case STATE_CLEANING:
+        case STATE_ON:
+            return "mdi:stop";
+        default:
+            return "mdi:play";
+    }
+};
 
 export const supportsTurnOn = (entity: HassEntity) => supportsFeature(entity, SUPPORT_TURN_ON);
 export const supportsTurnOff = (entity: HassEntity) => supportsFeature(entity, SUPPORT_TURN_OFF);
