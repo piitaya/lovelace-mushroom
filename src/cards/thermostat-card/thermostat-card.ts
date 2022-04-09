@@ -16,7 +16,6 @@ import "../../shared/state-value";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
-import { isActive } from "../../utils/entity";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig } from "../../utils/layout";
 import "./controls/thermostat-mode-control";
@@ -26,11 +25,11 @@ import {
     THERMOSTAT_CARD_EDITOR_NAME,
     THERMOSTAT_CARD_NAME,
     THERMOSTAT_ENTITY_DOMAINS,
-    CLIMATE_PRESET_NONE,
 } from "./const";
-import { HassEntity } from "home-assistant-js-websocket";
 import { formatDegrees, getStepSize } from "./utils";
 import { climateIconAction } from "../../utils/icons/climate-icon";
+import { isActive } from "../../ha/data/entity";
+import { ClimateEntity, CLIMATE_PRESET_NONE } from "../../ha/data/climate";
 
 type ThermostatCardControl = "temperature_control" | "mode_control";
 
@@ -134,7 +133,7 @@ export class ThermostatCard extends LitElement implements LovelaceCard {
         }
 
         const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id];
+        const entity = this.hass.states[entity_id] as ClimateEntity;
 
         const { current_temperature: currentTemp, hvac_action, preset_mode } = entity.attributes;
 
@@ -230,7 +229,7 @@ export class ThermostatCard extends LitElement implements LovelaceCard {
         `;
     }
 
-    private renderActiveControl(entity: HassEntity): TemplateResult | null {
+    private renderActiveControl(entity: ClimateEntity): TemplateResult | null {
         const layout = getLayoutFromConfig(this._config!);
 
         switch (this._activeControl) {
