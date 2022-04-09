@@ -2,7 +2,7 @@ import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { property, customElement } from "lit/decorators.js";
 
 @customElement("mushroom-button")
-export class BadgeIcon extends LitElement {
+export class Button extends LitElement {
     @property() public icon: string = "";
     @property({ type: Boolean }) public disabled: boolean = false;
 
@@ -30,8 +30,8 @@ export class BadgeIcon extends LitElement {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                height: 100%;
                 width: 100%;
+                height: 100%;
                 border-radius: var(--control-border-radius);
                 border: none;
                 background-color: var(--bg-color);

@@ -25,7 +25,7 @@ export function isActive(entity: HassEntity) {
         case "person":
             return state === "home";
         case "vacuum":
-            return state !== "docked";
+            return state == "cleaning";
         case "plant":
             return state === "problem";
         default:
