@@ -244,7 +244,7 @@ export class ThermostatCard extends LitElement implements LovelaceCard {
                     .hass=${this.hass}
                     .entity=${entity}
                     .gap=${this._config?.temperature_gap ?? 0}
-                    .showIndicators=${this._config?.show_temp_indicators}
+                    .showIndicators=${!!this._config!.show_temp_indicators}
                 ></mushroom-thermostat-temperature-control>`;
             default:
                 return null;

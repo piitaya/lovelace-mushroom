@@ -3,7 +3,7 @@ import { ClimateEntity } from "../../ha/data/climate";
 import { isNumber } from "../../utils/number";
 
 export const formatDegrees = (hass: HomeAssistant, value: number | undefined, step: number) => {
-    if (!isNumber(value)) return null;
+    if (!isNumber(value)) return undefined;
     const options: Intl.NumberFormatOptions =
         step === 1
             ? { maximumFractionDigits: 0 }
