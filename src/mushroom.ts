@@ -14,6 +14,10 @@ export { PersonCard } from "./cards/person-card/person-card";
 export { TemplateCard } from "./cards/template-card/template-card";
 export { TitleCard } from "./cards/title-card/title-card";
 export { UpdateCard } from "./cards/update-card/update-card";
+<<<<<<< HEAD
 export { MediaCard } from "./cards/media-card/media-card";
+=======
+export { VacuumCard } from "./cards/vacuum-card/vacuum-card";
+>>>>>>> main
 
 console.info(`%c🍄 Mushroom 🍄 - ${version}`, "color: #ef5350; font-weight: 700;");

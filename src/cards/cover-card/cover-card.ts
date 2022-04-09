@@ -9,6 +9,9 @@ import {
 import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
+import { CoverEntity } from "../../ha/data/cover";
+import { isActive } from "../../ha/data/entity";
 import "../../shared/badge-icon";
 import "../../shared/button";
 import "../../shared/card";
@@ -16,10 +19,8 @@ import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
 import { cardStyle } from "../../utils/card-styles";
-import { computeStateDisplay } from "../../utils/compute-state-display";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
-import { isActive } from "../../utils/entity";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig, Layout } from "../../utils/layout";
 import { COVER_CARD_EDITOR_NAME, COVER_CARD_NAME, COVER_ENTITY_DOMAINS } from "./const";
@@ -123,7 +124,7 @@ export class CoverCard extends LitElement implements LovelaceCard {
         if (!this._config || !this.hass || !this._config.entity) return;
 
         const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id];
+        const entity = this.hass.states[entity_id] as CoverEntity;
 
         if (!entity) return;
         this.position = getPosition(entity);

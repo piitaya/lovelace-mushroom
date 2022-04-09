@@ -1,16 +1,16 @@
 import { HomeAssistant } from "custom-card-helpers";
-import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import { CoverEntity } from "../../../ha/data/cover";
+import { isActive } from "../../../ha/data/entity";
 import "../../../shared/slider";
-import { isActive } from "../../../utils/entity";
 import { getPosition } from "../utils";
 
 @customElement("mushroom-cover-position-control")
 export class CoverPositionControl extends LitElement {
     @property({ attribute: false }) public hass!: HomeAssistant;
 
-    @property({ attribute: false }) public entity!: HassEntity;
+    @property({ attribute: false }) public entity!: CoverEntity;
 
     private onChange(e: CustomEvent<{ value: number }>): void {
         const value = e.detail.value;

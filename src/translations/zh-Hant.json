@@ -84,6 +84,13 @@
             },
             "update": {
                 "show_buttons_control": "按鈕控制?"
+            },
+            "vacuum": {
+                "show_start_pause_control": "開始/暫停按鈕",
+                "show_stop_control": "定位按鈕",
+                "show_locate_control": "定位按鈕",
+                "show_clean_spot_control": "清潔點按鈕",
+                "show_return_home_control": "返回主頁按鈕"
             }
         },
         "chip": {

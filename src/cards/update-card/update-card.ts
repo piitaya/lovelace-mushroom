@@ -11,22 +11,24 @@ import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
+import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
+import { supportsFeature } from "../../ha/common/entity/supports-feature";
+import { isAvailable } from "../../ha/data/entity";
+import { UpdateEntity, updateIsInstalling, UPDATE_SUPPORT_INSTALL } from "../../ha/data/update";
 import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
 import { cardStyle } from "../../utils/card-styles";
-import { computeStateDisplay } from "../../utils/compute-state-display";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
-import { isAvailable, supportsFeature } from "../../utils/entity";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig } from "../../utils/layout";
 import { UPDATE_CARD_EDITOR_NAME, UPDATE_CARD_NAME, UPDATE_ENTITY_DOMAINS } from "./const";
 import "./controls/update-buttons-control";
 import { UpdateCardConfig } from "./update-card-config";
-import { getStateColor, UpdateEntity, updateIsInstalling, UPDATE_SUPPORT_INSTALL } from "./utils";
+import { getStateColor } from "./utils";
 
 registerCustomCard({
     type: UPDATE_CARD_NAME,
@@ -82,7 +84,7 @@ export class UpdateCard extends LitElement implements LovelaceCard {
         }
 
         const entityId = this._config.entity;
-        const entity = this.hass.states[entityId];
+        const entity = this.hass.states[entityId] as UpdateEntity;
 
         const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
@@ -145,8 +147,8 @@ export class UpdateCard extends LitElement implements LovelaceCard {
         `;
     }
 
-    protected renderShapeIcon(entity: HassEntity, icon: string): TemplateResult {
-        const isInstalling = updateIsInstalling(entity as UpdateEntity);
+    protected renderShapeIcon(entity: UpdateEntity, icon: string): TemplateResult {
+        const isInstalling = updateIsInstalling(entity);
 
         const color = getStateColor(entity.state, isInstalling);
 
