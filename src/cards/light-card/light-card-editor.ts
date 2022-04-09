@@ -17,6 +17,8 @@ export const LIGHT_FIELDS = [
     "use_light_color",
     "show_color_temp_control",
     "show_color_control",
+    "brightness_control_set_min",
+    "brightness_control_set_max"
 ];
 
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
@@ -43,6 +45,14 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
             { name: "show_brightness_control", selector: { boolean: {} } },
             { name: "show_color_temp_control", selector: { boolean: {} } },
             { name: "show_color_control", selector: { boolean: {} } },
+        ],
+    },
+    {
+        type: "grid",
+        name: "",
+        schema: [
+            { name: "brightness_control_set_min", selector: { number: {min: 0, max: 100, mode: "box", unit_of_measurement: "%" } } },
+            { name: "brightness_control_set_max", selector: { number: {min: 0, max: 100, mode: "box", unit_of_measurement: "%" } } },
         ],
     },
     { name: "tap_action", selector: { "mush-action": {} } },

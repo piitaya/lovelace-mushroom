@@ -39,6 +39,12 @@ export class SliderItem extends LitElement {
     @property({ type: Number })
     public max: number = 100;
 
+    @property({ type: Number })
+    public setMin: number = 0;
+
+    @property({ type: Number })
+    public setMax: number = 100;
+
     private _mc?: HammerManager;
 
     valueToPercentage(value: number) {
@@ -47,6 +53,12 @@ export class SliderItem extends LitElement {
 
     percentageToValue(value: number) {
         return (this.max - this.min) * value + this.min;
+    }
+
+    valueSetLimit(value: number) {
+        if (value < this.setMin) value = this.setMin;
+        if (value > this.setMax) value = this.setMax;
+        return value;
     }
 
     protected firstUpdated(changedProperties: PropertyValues): void {
@@ -94,6 +106,7 @@ export class SliderItem extends LitElement {
                 if (this.disabled) return;
                 const percentage = getPercentageFromEvent(e);
                 this.value = this.percentageToValue(percentage);
+                this.value = this.valueSetLimit(this.value);
                 this.dispatchEvent(
                     new CustomEvent("current-change", {
                         detail: {
@@ -106,6 +119,7 @@ export class SliderItem extends LitElement {
                 if (this.disabled) return;
                 const percentage = getPercentageFromEvent(e);
                 this.value = this.percentageToValue(percentage);
+                this.value = this.valueSetLimit(this.value);
                 this.dispatchEvent(
                     new CustomEvent("current-change", {
                         detail: {
@@ -126,6 +140,7 @@ export class SliderItem extends LitElement {
                 if (this.disabled) return;
                 const percentage = getPercentageFromEvent(e);
                 this.value = this.percentageToValue(percentage);
+                this.value = this.valueSetLimit(this.value);
                 this.dispatchEvent(
                     new CustomEvent("change", {
                         detail: {
