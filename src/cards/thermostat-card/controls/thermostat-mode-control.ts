@@ -57,15 +57,6 @@ export class ThermostatModeControl extends LitElement {
             :host *:not(:last-child) {
                 margin-right: var(--spacing);
             }
-            .container {
-                width: 100%;
-                display: flex;
-                flex-direction: row;
-                justify-content: flex-end;
-            }
-            .container.fill mushroom-button {
-                flex: 1;
-            }
         `;
     }
 }
