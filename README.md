@@ -76,12 +76,12 @@ Different cards are available for differents entities :
 -   🔔 [Chips card](docs/cards/chips.md)
 -   ✏️ [Title card](docs/cards/title.md)
 -   📦 [Update card](docs/cards/update.md)
+-   🧹 [Vacuum card](docs/cards/vacuum.md)
 
 Some cards are on the todo list :
 
 -   🌡 Climate card
 -   📺 Media card
--   🧹 Vacuum card
 
 ### Theme customization
 

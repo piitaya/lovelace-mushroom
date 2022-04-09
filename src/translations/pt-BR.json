@@ -78,6 +78,13 @@
             "weather": {
                 "show_conditions": "Condições?",
                 "show_temperature": "Temperatura?"
+            },
+            "vacuum": {
+                "show_start_pause_control": "Botão Iniciar/Pausar",
+                "show_stop_control": "Botão de parada",
+                "show_locate_control": "Botão Localizar",
+                "show_clean_spot_control": "Botão limpar ponto",
+                "show_return_home_control": "Botão voltar para casa"
             }
         },
         "chip": {

@@ -84,6 +84,13 @@
             },
             "update": {
                 "show_buttons_control": "Buttons control?"
+            },
+            "vacuum": {
+                "show_start_pause_control": "Start/Pause button",
+                "show_stop_control": "Stop button",
+                "show_locate_control": "Locate button",
+                "show_clean_spot_control": "Clean spot button",
+                "show_return_home_control": "Return home button"
             }
         },
         "chip": {

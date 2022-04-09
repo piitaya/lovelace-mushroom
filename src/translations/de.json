@@ -78,6 +78,13 @@
             "weather": {
                 "show_conditions": "Bedingungen?",
                 "show_temperature": "Temperatur?"
+            },
+            "vacuum": {
+                "show_start_pause_control": "Start/Pause-Taste",
+                "show_stop_control": "Stopp-Taste",
+                "show_locate_control": "Schaltfläche Suchen",
+                "show_clean_spot_control": "Spot-Taste reinigen",
+                "show_return_home_control": "Zurück nach Hause-Taste"
             }
         },
         "chip": {

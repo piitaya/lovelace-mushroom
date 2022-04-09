@@ -1,0 +1,201 @@
+title: Vacuum
+icon: mdi:vacuum
+cards:
+  - type: vertical-stack
+    title: Complete vacuum capabilities
+    cards:
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.0_ground_floor
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.0_ground_floor
+        name: Custom name and icon
+        icon: mdi:robot-outline
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.0_ground_floor
+        show_start_pause_control: true
+        show_stop_control: true
+        show_locate_control: true
+        show_clean_spot_control: true
+        show_return_home_control: true
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.0_ground_floor
+        show_start_pause_control: true
+        show_stop_control: true
+        show_locate_control: true
+        show_clean_spot_control: true
+        show_return_home_control: true
+        layout: "horizontal"
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.0_ground_floor
+        show_start_pause_control: true
+        show_stop_control: true
+        show_locate_control: true
+        show_clean_spot_control: true
+        show_return_home_control: true
+        layout: "vertical"
+    square: false
+  - type: vertical-stack
+    title: Most vacuum capabilities
+    cards:
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.1_first_floor
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.1_first_floor
+        name: Custom name and icon
+        icon: mdi:robot-outline
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.1_first_floor
+        show_start_pause_control: true
+        show_stop_control: true
+        show_locate_control: true
+        show_clean_spot_control: true
+        show_return_home_control: true
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.1_first_floor
+        show_start_pause_control: true
+        show_stop_control: true
+        show_locate_control: true
+        show_clean_spot_control: true
+        show_return_home_control: true
+        layout: "horizontal"
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.1_first_floor
+        show_start_pause_control: true
+        show_stop_control: true
+        show_locate_control: true
+        show_clean_spot_control: true
+        show_return_home_control: true
+        layout: "vertical"
+    square: false
+  - type: vertical-stack
+    title: Basic vacuum capabilities
+    cards:
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.2_second_floor
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.2_second_floor
+        name: Custom name and icon
+        icon: mdi:robot-outline
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.2_second_floor
+        show_start_pause_control: true
+        show_stop_control: true
+        show_locate_control: true
+        show_clean_spot_control: true
+        show_return_home_control: true
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.2_second_floor
+        show_start_pause_control: true
+        show_stop_control: true
+        show_locate_control: true
+        show_clean_spot_control: true
+        show_return_home_control: true
+        layout: "horizontal"
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.2_second_floor
+        show_start_pause_control: true
+        show_stop_control: true
+        show_locate_control: true
+        show_clean_spot_control: true
+        show_return_home_control: true
+        layout: "vertical"
+    square: false
+  - type: vertical-stack
+    title: Minimal vacuum capabilities
+    cards:
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.3_third_floor
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.3_third_floor
+        name: Custom name and icon
+        icon: mdi:robot-outline
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.3_third_floor
+        show_start_pause_control: true
+        show_stop_control: true
+        show_locate_control: true
+        show_clean_spot_control: true
+        show_return_home_control: true
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.3_third_floor
+        show_start_pause_control: true
+        show_stop_control: true
+        show_locate_control: true
+        show_clean_spot_control: true
+        show_return_home_control: true
+        layout: "horizontal"
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.3_third_floor
+        show_start_pause_control: true
+        show_stop_control: true
+        show_locate_control: true
+        show_clean_spot_control: true
+        show_return_home_control: true
+        layout: "vertical"
+    square: false
+  - type: vertical-stack
+    title: None vacuum capabilities
+    cards:
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.4_fourth_floor
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.4_fourth_floor
+        name: Custom name and icon
+        icon: mdi:robot-outline
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.4_fourth_floor
+        show_start_pause_control: true
+        show_stop_control: true
+        show_locate_control: true
+        show_clean_spot_control: true
+        show_return_home_control: true
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.4_fourth_floor
+        show_start_pause_control: true
+        show_stop_control: true
+        show_locate_control: true
+        show_clean_spot_control: true
+        show_return_home_control: true
+        layout: "horizontal"
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.4_fourth_floor
+        show_start_pause_control: true
+        show_stop_control: true
+        show_locate_control: true
+        show_clean_spot_control: true
+        show_return_home_control: true
+        layout: "vertical"
+    square: false
+  - type: vertical-stack
+    title: State vacuum capabilities
+    cards:
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.5_fifth_floor
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.5_fifth_floor
+        name: Custom name and icon
+        icon: mdi:robot-outline
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.5_fifth_floor
+        show_start_pause_control: true
+        show_stop_control: true
+        show_locate_control: true
+        show_clean_spot_control: true
+        show_return_home_control: true
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.5_fifth_floor
+        show_start_pause_control: true
+        show_stop_control: true
+        show_locate_control: true
+        show_clean_spot_control: true
+        show_return_home_control: true
+        layout: "horizontal"
+      - type: custom:mushroom-vacuum-card
+        entity: vacuum.5_fifth_floor
+        show_start_pause_control: true
+        show_stop_control: true
+        show_locate_control: true
+        show_clean_spot_control: true
+        show_return_home_control: true
+        layout: "vertical"
+    square: false

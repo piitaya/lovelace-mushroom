@@ -105,6 +105,7 @@ export const colorCss = css`
 
     /* State colors */
     --rgb-state-cover: var(--mush-rgb-state-cover, var(--rgb-blue));
+    --rgb-state-vacuum: var(--mush-rgb-state-vacuum, var(--rgb-blue));
     --rgb-state-fan: var(--mush-rgb-state-fan, var(--rgb-green));
     --rgb-state-light: var(--mush-rgb-state-light, var(--rgb-orange));
     --rgb-state-entity: var(--mush-rgb-state-entity, var(--rgb-blue));
