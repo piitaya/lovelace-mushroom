@@ -6,22 +6,33 @@ import {
     LovelaceCard,
     LovelaceCardEditor,
 } from "custom-card-helpers";
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
-import { isActive, isAvailable } from "../../ha/data/entity";
+import { isActive } from "../../ha/data/entity";
 import { MediaPlayerEntity } from "../../ha/data/media-player";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
-import { stateIcon } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig } from "../../utils/layout";
 import { MEDIA_PLAYER_CARD_EDITOR_NAME, MEDIA_PLAYER_CARD_NAME } from "./const";
 import "./controls/media-player-buttons-control";
 import "./controls/media-player-volume-control";
 import { MediaPlayerCardConfig } from "./media-player-card-config";
-import { computeIcon, getCardName, getStateDisplay, supportsVolumeSet } from "./utils";
+import {
+    computeIcon,
+    computeSupportMediaPlayerControls,
+    getCardName,
+    getStateDisplay,
+    supportsVolumeSet,
+} from "./utils";
+
+type MediaPlayerCardControl = "buttons_control" | "volume_control";
+
+const CONTROLS_ICONS: Record<MediaPlayerCardControl, string> = {
+    buttons_control: "mdi:gamepad",
+    volume_control: "mdi:volume-high",
+};
 
 registerCustomCard({
     type: MEDIA_PLAYER_CARD_NAME,
@@ -40,6 +51,15 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
 
     @state() private _config?: MediaPlayerCardConfig;
 
+    @state() private _activeControl?: MediaPlayerCardControl;
+
+    @state() private _controls: MediaPlayerCardControl[] = [];
+
+    _onControlTap(ctrl, e): void {
+        e.stopPropagation();
+        this._activeControl = ctrl;
+    }
+
     getCardSize(): number | Promise<number> {
         return 1;
     }
@@ -57,70 +77,45 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
             },
             ...config,
         };
+        this.updateControls();
+    }
+
+    protected updated(changedProperties: PropertyValues) {
+        super.updated(changedProperties);
+        if (this.hass && changedProperties.has("hass")) {
+            this.updateControls();
+        }
+    }
+
+    updateControls() {
+        if (!this._config || !this.hass || !this._config.entity) return;
+
+        const entity_id = this._config.entity;
+        const entity = this.hass.states[entity_id] as MediaPlayerEntity;
+
+        if (!entity) return;
+
+        const controls: MediaPlayerCardControl[] = [];
+
+        if (
+            this._config.show_buttons_control &&
+            computeSupportMediaPlayerControls(entity)
+        ) {
+            controls.push("buttons_control");
+        }
+        if (this._config.show_volume_control && supportsVolumeSet(entity)) {
+            controls.push("volume_control");
+        }
+
+        this._controls = controls;
+        const isActiveControlSupported = this._activeControl
+            ? controls.includes(this._activeControl)
+            : false;
+        this._activeControl = isActiveControlSupported ? this._activeControl : controls[0];
     }
 
     private _handleAction(ev: ActionHandlerEvent) {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
-    }
-
-    private _renderActionsHorizontal(
-        buttonsControlEnabled: boolean,
-        volumeControleEnabled: boolean,
-        entity: MediaPlayerEntity,
-        layout: string,
-        active: boolean,
-        backgroundArtEnabled: boolean
-    ): TemplateResult {
-        return html` ${volumeControleEnabled && active
-            ? html` <div class="actions">
-                  <mushroom-media-player-volume-control
-                      .hass=${this.hass}
-                      .entity=${entity}
-                      .fill=${layout !== "horizontal"}
-                      .artBackgroundEnabled=${backgroundArtEnabled}
-                  />
-              </div>`
-            : null}
-        ${buttonsControlEnabled
-            ? html` <div class="actions">
-                  <mushroom-media-player-buttons-control
-                      .hass=${this.hass}
-                      .entity=${entity}
-                      .fill=${layout !== "horizontal"}
-                      .artBackgroundEnabled=${backgroundArtEnabled}
-                  />
-              </div>`
-            : null}`;
-    }
-
-    private _renderActionsVertical(
-        buttonsControlEnabled: boolean,
-        volumeControleEnabled: boolean,
-        entity: MediaPlayerEntity,
-        layout: string,
-        active: boolean,
-        backgroundArtEnabled: boolean
-    ): TemplateResult {
-        return html` ${buttonsControlEnabled
-            ? html` <div class="actions">
-                  <mushroom-media-player-buttons-control
-                      .hass=${this.hass}
-                      .entity=${entity}
-                      .fill=${layout !== "horizontal"}
-                      .artBackgroundEnabled=${backgroundArtEnabled}
-                  />
-              </div>`
-            : null}
-        ${volumeControleEnabled && active
-            ? html` <div class="actions">
-                  <mushroom-media-player-volume-control
-                      .hass=${this.hass}
-                      .entity=${entity}
-                      .fill=${layout !== "horizontal"}
-                      .artBackgroundEnabled=${backgroundArtEnabled}
-                  />
-              </div>`
-            : null}`;
     }
 
     protected render(): TemplateResult {
@@ -133,39 +128,14 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
 
         const icon = computeIcon(this._config, entity);
         const layout = getLayoutFromConfig(this._config);
-
-        const available = isAvailable(entity);
         const active = isActive(entity);
 
-        const buttonsControlEnabled = (available && this._config.show_buttons_control) || false;
-        const volumeControleEnabled =
-            (available && this._config.show_volume_control && supportsVolumeSet(entity)) || false;
-        const backgroundArtEnabled =
-            (available &&
-                this._config?.enable_art_background &&
-                entity.attributes.entity_picture != null) ||
-            false;
-
-        let backgroundStyleMap = {};
         let iconStyle = {};
-        if (backgroundArtEnabled) {
-            backgroundStyleMap = {
-                "--art-background-url": `url(${entity.attributes.entity_picture})`,
-            };
-
-            iconStyle = {};
-        }
 
         let nameDisplay = getCardName(this._config, entity);
         let stateDisplay = getStateDisplay(entity, this.hass);
 
-        return html`<mushroom-card
-            .layout=${layout}
-            class=${classMap({
-                art: backgroundArtEnabled,
-            })}
-            style=${styleMap(backgroundStyleMap)}
-        >
+        return html`<mushroom-card .layout=${layout}>
             <mushroom-state-item
                 .layout=${layout}
                 @action=${this._handleAction}
@@ -179,34 +149,64 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
                     .disabled=${!active}
                     .icon="${icon}"
                     style=${styleMap(iconStyle)}
-                    class=${classMap({
-                        darkest: backgroundArtEnabled,
-                    })}
                 ></mushroom-shape-icon>
+                ${entity.state === "unavailable"
+                        ? html`
+                              <mushroom-badge-icon
+                                  class="unavailable"
+                                  slot="badge"
+                                  icon="mdi:help"
+                              ></mushroom-badge-icon>
+                          `
+                        : null}
                 <mushroom-state-info
                     slot="info"
                     .primary=${nameDisplay}
                     .secondary=${stateDisplay}
                 ></mushroom-state-info>
             </mushroom-state-item>
-            ${layout === "horizontal"
-                ? this._renderActionsHorizontal(
-                      buttonsControlEnabled,
-                      volumeControleEnabled,
-                      entity,
-                      layout,
-                      active,
-                      backgroundArtEnabled
-                  )
-                : this._renderActionsVertical(
-                      buttonsControlEnabled,
-                      volumeControleEnabled,
-                      entity,
-                      layout,
-                      active,
-                      backgroundArtEnabled
-                  )}
+            ${this._controls.length > 0
+                ? html`
+                      <div class="actions">
+                          ${this.renderActiveControl(entity)} ${this.renderOtherControls()}
+                      </div>
+                  `
+                : null}
         </mushroom-card>`;
+    }
+
+    private renderOtherControls(): TemplateResult | null {
+        const otherControls = this._controls.filter((control) => control != this._activeControl);
+
+        return html`
+            ${otherControls.map(
+                (ctrl) => html`
+                    <mushroom-button
+                        .icon=${CONTROLS_ICONS[ctrl]}
+                        @click=${(e) => this._onControlTap(ctrl, e)}
+                    />
+                `
+            )}
+        `;
+    }
+
+    private renderActiveControl(entity: MediaPlayerEntity): TemplateResult | null {
+        switch (this._activeControl) {
+            case "buttons_control":
+                return html`
+                    <mushroom-media-player-buttons-control
+                        .hass=${this.hass}
+                        .entity=${entity}
+                        .fill=${this._config?.layout !== "horizontal"}
+                    />
+                `;
+            case "volume_control":
+                return html`
+                    <mushroom-media-player-volume-control .hass=${this.hass} .entity="${entity}" />
+                `;
+            default:
+                return null;
+        }
     }
 
     static get styles(): CSSResultGroup {
@@ -220,16 +220,6 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
                 mushroom-media-player-buttons-control,
                 mushroom-media-player-volume-control {
                     flex: 1;
-                }
-
-                mushroom-shape-icon.darkest {
-                    --shape-color: rgba(var(--rgb-primary-text-color), 0.5);
-                }
-
-                mushroom-card.art {
-                    --ha-card-background: center / cover var(--art-background-url)
-                        rgba(0, 0, 0, 0.25);
-                    background-blend-mode: multiply;
                 }
             `,
         ];

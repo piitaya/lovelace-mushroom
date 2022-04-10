@@ -93,7 +93,6 @@
                 "show_return_home_control": "Bouton retour à la base"
             },
             "media-player": {
-                "enable_art_background": "Activer l'arrière-plan artistique ?",
                 "show_buttons_control": "Contrôle avec boutons ?",
                 "show_volume_control": "Contrôle du volume ?"
             }

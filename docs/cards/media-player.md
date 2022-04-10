@@ -17,7 +17,6 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `icon`                  | string  | Optional    | Custom icon                                                               |
 | `name`                  | string  | Optional    | Custom name                                                               |
 | `layout`                | string  | Optional    | Layout of the card. Vertical, horizontal and default layout are supported |
-| `enable_art_background` | boolean | `false`     | Enable art background                                                     |
 | `show_buttons_control`  | boolean | `false`     | Show buttons control                                                      |
 | `show_volume_control`   | boolean | `false`     | Show volume control                                                       |
 | `tap_action`            | action  | `toggle`    | Home assistant action to perform on tap                                   |

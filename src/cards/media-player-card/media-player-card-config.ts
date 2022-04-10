@@ -8,7 +8,6 @@ export interface MediaPlayerCardConfig extends LovelaceCardConfig {
     entity?: string;
     name?: string;
     icon?: string;
-    enable_art_background?: boolean;
     show_buttons_control?: boolean;
     show_volume_control?: boolean;
     layout?: Layout;

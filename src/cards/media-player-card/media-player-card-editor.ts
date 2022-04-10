@@ -13,7 +13,6 @@ import { MEDIA_PLAYER_CARD_EDITOR_NAME, MEDIA_PLAYER_ENTITY_DOMAINS } from "./co
 import { MediaPlayerCardConfig, mediaPlayerCardConfigStruct } from "./media-player-card-config";
 
 export const MEDIA_FIELDS = [
-    "enable_art_background",
     "show_buttons_control",
     "show_volume_control"
 ];
@@ -37,7 +36,6 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
         type: "grid",
         name: "",
         schema: [
-            { name: "enable_art_background", selector: { boolean: {} } },
             { name: "show_buttons_control", selector: { boolean: {} } },
             { name: "show_volume_control", selector: { boolean: {} } },
         ],

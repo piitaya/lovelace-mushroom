@@ -20,7 +20,7 @@ export function callService(
 ): void {
     e.stopPropagation();
     hass.callService("media_player", serviceName, {
-        entity_id: entity.entity_id
+        entity_id: entity.entity_id,
     });
 }
 
@@ -85,6 +85,12 @@ export function computeIcon(config: MediaPlayerCardConfig, entity: MediaPlayerEn
             return icon;
     }
 }
+
+export const computeSupportMediaPlayerControls = (entity: HassEntity) =>
+    supportsPrevious(entity) ||
+    supportsPlay(entity) ||
+    supportsPause(entity) ||
+    supportsNext(entity);
 
 export const supportsPrevious = (entity: HassEntity) =>
     supportsFeature(entity, MEDIA_PLAYER_SUPPORT_PREVIOUS_TRACK);

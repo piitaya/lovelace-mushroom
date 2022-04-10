@@ -93,7 +93,6 @@
                 "show_return_home_control": "Return home button"
             },
             "media-player": {
-                "enable_art_background": "Enable art background?",
                 "show_buttons_control": "Buttons control?",
                 "show_volume_control": "Volume control?"
             }

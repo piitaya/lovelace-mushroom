@@ -1,7 +1,6 @@
 import { HomeAssistant } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { classMap } from "lit/directives/class-map.js";
 import { isAvailable } from "../../../ha/data/entity";
 import { MediaPlayerEntity } from "../../../ha/data/media-player";
 import { getVolumeLevel } from "../utils";
@@ -12,8 +11,6 @@ export class MediaPlayerVolumeControl extends LitElement {
 
     @property({ attribute: false }) public entity!: MediaPlayerEntity;
 
-    @property() public artBackgroundEnabled: boolean = false;
-
     onChange(e: CustomEvent<{ value: number }>): void {
         const value = e.detail.value;
         this.hass.callService("media_player", "volume_set", {
@@ -23,7 +20,7 @@ export class MediaPlayerVolumeControl extends LitElement {
     }
 
     onCurrentChange(e: CustomEvent<{ value?: number }>): void {
-        const value = (e.detail?.value || 1)/100;
+        const value = (e.detail?.value || 1) / 100;
         this.dispatchEvent(
             new CustomEvent("current-change", {
                 detail: {
@@ -33,7 +30,9 @@ export class MediaPlayerVolumeControl extends LitElement {
         );
     }
 
-    protected render(): TemplateResult {
+    protected render(): TemplateResult | null {
+        if (!this.entity) return null;
+
         const value = getVolumeLevel(this.entity);
         return html`
             <mushroom-slider
@@ -44,9 +43,6 @@ export class MediaPlayerVolumeControl extends LitElement {
                 .max=${100}
                 @change=${this.onChange}
                 @current-change=${this.onCurrentChange}
-                class=${classMap({
-                    darkest: this.artBackgroundEnabled,
-                })}
             />
         `;
     }
@@ -56,10 +52,6 @@ export class MediaPlayerVolumeControl extends LitElement {
             mushroom-slider {
                 --main-color: rgb(var(--rgb-state-media-player));
                 --bg-color: rgba(var(--rgb-state-media-player), 0.2);
-            }
-            mushroom-slider.darkest {
-                --main-color: rgb(var(--rgb-state-media-player));
-                --bg-color: rgba(var(--rgb-state-media-player), 0.5);
             }
         `;
     }
