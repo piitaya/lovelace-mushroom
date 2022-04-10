@@ -11,8 +11,8 @@
                     "default": "Standaard informatie",
                     "name": "Naam",
                     "state": "Staat",
-                    "last-changed": "Laatst Gewijzigd",
-                    "last-updated": "Laatste update",
+                    "last-changed": "Laatst gewijzigd",
+                    "last-updated": "Laatst bijgewerkt",
                     "none": "Geen"
                 }
             },
@@ -84,10 +84,10 @@
             },
             "vacuum": {
                 "show_start_pause_control": "Start/Pauze-knop",
-                "show_stop_control": "Stop knop",
+                "show_stop_control": "Stopknop",
                 "show_locate_control": "Zoekknop",
-                "show_clean_spot_control": "Knop voor schone vlek",
-                "show_return_home_control": "Knop voor schone vlek"
+                "show_clean_spot_control": "Schone plek knop",
+                "show_return_home_control": "Terug naar huis knop"
             }
         },
         "chip": {
