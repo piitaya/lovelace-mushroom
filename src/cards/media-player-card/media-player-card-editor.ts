@@ -70,7 +70,7 @@ export class MediaCardEditor extends LitElement implements LovelaceCardEditor {
             return customLocalize(`editor.card.generic.${schema.name}`);
         }
         if (MEDIA_FIELDS.includes(schema.name)) {
-            return customLocalize(`editor.card.light.${schema.name}`);
+            return customLocalize(`editor.card.media-player.${schema.name}`);
         }
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
     };

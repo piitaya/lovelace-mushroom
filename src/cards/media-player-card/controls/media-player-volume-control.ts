@@ -1,47 +1,57 @@
 import { HomeAssistant } from "custom-card-helpers";
-import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { isActive, isAvailable } from "../../../ha/data/entity";
+import { MediaPlayerEntity } from "../../../ha/data/media-player";
+import { getVolumeLevel } from "../utils";
 
 @customElement("mushroom-media-player-volume-control")
 export class MediaPlayerVolumeControl extends LitElement {
     @property({ attribute: false }) public hass!: HomeAssistant;
 
-    @property({ attribute: false }) public entity!: HassEntity;
-
-    _percent = 0;
+    @property({ attribute: false }) public entity!: MediaPlayerEntity;
 
     onChange(e: CustomEvent<{ value: number }>): void {
         const value = e.detail.value;
-        this._percent = value;
+        this.hass.callService("media_player", "volume_set", {
+            entity_id: this.entity.entity_id,
+            volume_level: value / 100,
+        });
+    }
+
+    onCurrentChange(e: CustomEvent<{ value?: number }>): void {
+        const value = (e.detail?.value || 1)/100;
+        this.dispatchEvent(
+            new CustomEvent("current-change", {
+                detail: {
+                    value,
+                },
+            })
+        );
     }
 
     protected render(): TemplateResult {
+        const value = getVolumeLevel(this.entity);
+        console.log(this.entity.entity_id + " " + value);
         return html`
             <mushroom-slider
-                .value=${this._percent}
+                .value=${value}
                 .disabled=${!isAvailable(this.entity)}
-                .inactive=${!isActive(this.entity)}
+                .showActive=${true}
                 .min=${0}
                 .max=${100}
                 .showIndicator=${true}
                 @change=${this.onChange}
+                @current-change=${this.onCurrentChange}
             />
         `;
     }
 
     static get styles(): CSSResultGroup {
         return css`
-            :host {
-                --slider-color: rgb(var(--rgb-state-light));
-                --slider-outline-color: transparent;
-                --slider-bg-color: rgba(var(--rgb-state-light), 0.2);
-            }
             mushroom-slider {
-                --main-color: var(--slider-color);
-                --bg-color: var(--slider-bg-color);
-                --main-outline-color: var(--slider-outline-color);
+                --main-color: rgb(var(--rgb-state-media-player));
+                --bg-color: rgba(var(--rgb-state-media-player), 0.2);
             }
         `;
     }

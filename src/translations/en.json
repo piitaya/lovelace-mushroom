@@ -91,6 +91,11 @@
                 "show_locate_control": "Locate button",
                 "show_clean_spot_control": "Clean spot button",
                 "show_return_home_control": "Return home button"
+            },
+            "media-player": {
+                "enable_art_background": "Enable art background?",
+                "show_buttons_control": "Buttons control?",
+                "show_volume_control": "Volume control?"
             }
         },
         "chip": {
