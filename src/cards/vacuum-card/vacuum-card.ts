@@ -22,9 +22,8 @@ import { actionHandler } from "../../utils/directives/action-handler-directive";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig } from "../../utils/layout";
 import { VACUUM_CARD_EDITOR_NAME, VACUUM_CARD_NAME, VACUUM_ENTITY_DOMAINS } from "./const";
-import "./controls/vaccum-commands-control";
-import { VACUUM_COMMANDS } from "./controls/vaccum-commands-control";
-import { isCleaning } from "./utils";
+import "./controls/vacuum-commands-control";
+import { isCommandsControlVisible } from "./controls/vacuum-commands-control";
 import { VacuumCardConfig } from "./vacuum-card-config";
 
 registerCustomCard({
@@ -93,6 +92,8 @@ export class VacuumCard extends LitElement implements LovelaceCard {
 
         const active = isActive(entity);
 
+        const commands = this._config?.commands ?? [];
+
         return html`
             <mushroom-card .layout=${layout}>
                 <mushroom-state-item
@@ -123,13 +124,13 @@ export class VacuumCard extends LitElement implements LovelaceCard {
                         .secondary=${!hideState && stateValue}
                     ></mushroom-state-info>
                 </mushroom-state-item>
-                ${VACUUM_COMMANDS.some((item) => item.isVisible(entity, this._config!))
+                ${isCommandsControlVisible(entity, commands)
                     ? html`
                           <div class="actions">
                               <mushroom-vacuum-commands-control
                                   .hass=${this.hass}
                                   .entity=${entity}
-                                  .config=${this._config}
+                                  .commands=${commands}
                                   .fill=${layout !== "horizontal"}
                               >
                               </mushroom-vacuum-commands-control>
