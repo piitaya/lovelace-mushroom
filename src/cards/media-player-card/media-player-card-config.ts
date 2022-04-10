@@ -22,7 +22,6 @@ export const mediaPlayerCardConfigStruct = assign(
         entity: optional(string()),
         icon: optional(string()),
         name: optional(string()),
-        enable_art_background: optional(boolean()),
         show_buttons_control: optional(boolean()),
         show_volume_control: optional(boolean()),
         layout: optional(layoutStruct),

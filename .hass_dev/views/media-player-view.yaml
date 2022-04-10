@@ -44,7 +44,6 @@ cards:
     name: Multiple controls
     show_buttons_control: true
     show_volume_control: true
-    enable_art_background: true
   - type: vertical-stack
     title: Layout
     cards:
@@ -64,7 +63,6 @@ cards:
             entity: media_player.bedroom
             show_buttons_control: true
             show_volume_control: true
-            enable_art_background: true
             layout: "vertical"
       - type: custom:mushroom-media-player-card
         entity: media_player.kitchen
