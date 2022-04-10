@@ -2,10 +2,10 @@ import { HomeAssistant } from "custom-card-helpers";
 import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { isActive, isAvailable } from "../../../utils/entity";
+import { isActive, isAvailable } from "../../../ha/data/entity";
 
-@customElement("mushroom-media-volume-control")
-export class MediaVolumeControl extends LitElement {
+@customElement("mushroom-media-player-volume-control")
+export class MediaPlayerVolumeControl extends LitElement {
     @property({ attribute: false }) public hass!: HomeAssistant;
 
     @property({ attribute: false }) public entity!: HassEntity;

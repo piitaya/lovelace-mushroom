@@ -9,8 +9,8 @@ import { GENERIC_FIELDS } from "../../utils/form/fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { loadHaComponents } from "../../utils/loader";
 import { stateIcon } from "../../utils/icons/state-icon";
-import { MEDIA_CARD_EDITOR_NAME, MEDIA_ENTITY_DOMAINS } from "./const";
-import { MediaCardConfig, mediaCardConfigStruct } from "./media-card-config";
+import { MEDIA_PLAYER_CARD_EDITOR_NAME, MEDIA_PLAYER_ENTITY_DOMAINS } from "./const";
+import { MediaPlayerCardConfig, mediaPlayerCardConfigStruct } from "./media-player-card-config";
 
 export const MEDIA_FIELDS = [
     "enable_art_background",
@@ -19,7 +19,7 @@ export const MEDIA_FIELDS = [
 ];
 
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
-    { name: "entity", selector: { entity: { domain: MEDIA_ENTITY_DOMAINS } } },
+    { name: "entity", selector: { entity: { domain: MEDIA_PLAYER_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
     {
         type: "grid",
@@ -47,19 +47,19 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     { name: "double_tap_action", selector: { "mush-action": {} } },
 ]);
 
-@customElement(MEDIA_CARD_EDITOR_NAME)
+@customElement(MEDIA_PLAYER_CARD_EDITOR_NAME)
 export class MediaCardEditor extends LitElement implements LovelaceCardEditor {
     @property({ attribute: false }) public hass?: HomeAssistant;
 
-    @state() private _config?: MediaCardConfig;
+    @state() private _config?: MediaPlayerCardConfig;
 
     connectedCallback() {
         super.connectedCallback();
         void loadHaComponents();
     }
 
-    public setConfig(config: MediaCardConfig): void {
-        assert(config, mediaCardConfigStruct);
+    public setConfig(config: MediaPlayerCardConfig): void {
+        assert(config, mediaPlayerCardConfigStruct);
         this._config = config;
     }
 

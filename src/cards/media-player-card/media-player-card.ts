@@ -1,5 +1,6 @@
 import {
     ActionHandlerEvent,
+    computeStateDisplay,
     handleAction,
     hasAction,
     HomeAssistant,
@@ -9,48 +10,44 @@ import {
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
+import { isActive, isAvailable } from "../../ha/data/entity";
+import { ATTR_APP_NAME, ATTR_MEDIA_ARTIST, ATTR_MEDIA_TITLE, MEDIA_PLAYER_STATE_PLAYING } from "../../ha/data/media-player";
 import { cardStyle } from "../../utils/card-styles";
-import { computeStateDisplay } from "../../utils/compute-state-display";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
-import { isActive, isAvailable } from "../../utils/entity";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig } from "../../utils/layout";
 import {
-    ATTR_APP_NAME,
-    ATTR_MEDIA_ARTIST,
-    ATTR_MEDIA_TITLE,
-    MEDIA_CARD_EDITOR_NAME,
-    MEDIA_CARD_NAME,
-    STATE_PLAYING,
+    MEDIA_PLAYER_CARD_EDITOR_NAME,
+    MEDIA_PLAYER_CARD_NAME,
 } from "./const";
-import { MediaCardConfig } from "./media-card-config";
-import "./controls/media-buttons-control";
-import "./controls/media-volume-control";
+import "./controls/media-player-buttons-control";
+import "./controls/media-player-volume-control";
+import { MediaPlayerCardConfig } from "./media-player-card-config";
 import { supportsVolumeSet } from "./utils";
 
 registerCustomCard({
-    type: MEDIA_CARD_NAME,
+    type: MEDIA_PLAYER_CARD_NAME,
     name: "Mushroom Media Card",
     description: "Card for media player entity",
 });
 
-@customElement(MEDIA_CARD_NAME)
-export class MediaCard extends LitElement implements LovelaceCard {
+@customElement(MEDIA_PLAYER_CARD_NAME)
+export class MediaPlayerCard extends LitElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
-        await import("./media-card-editor");
-        return document.createElement(MEDIA_CARD_EDITOR_NAME) as LovelaceCardEditor;
+        await import("./media-player-card-editor");
+        return document.createElement(MEDIA_PLAYER_CARD_EDITOR_NAME) as LovelaceCardEditor;
     }
 
     @property({ attribute: false }) public hass!: HomeAssistant;
 
-    @state() private _config?: MediaCardConfig;
+    @state() private _config?: MediaPlayerCardConfig;
 
     getCardSize(): number | Promise<number> {
         return 1;
     }
 
-    setConfig(config: MediaCardConfig): void {
+    setConfig(config: MediaPlayerCardConfig): void {
         this._config = {
             tap_action: {
                 action: "more-info",
@@ -97,7 +94,7 @@ export class MediaCard extends LitElement implements LovelaceCard {
         let stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
         let iconStyle = {};
 
-        if (entity.state == STATE_PLAYING) {
+        if (entity.state == MEDIA_PLAYER_STATE_PLAYING) {
             name = entity.attributes[ATTR_MEDIA_TITLE];
             stateDisplay = entity.attributes[ATTR_MEDIA_ARTIST] || entity.attributes[ATTR_APP_NAME];
         }
@@ -125,7 +122,7 @@ export class MediaCard extends LitElement implements LovelaceCard {
             </mushroom-state-item>
             ${buttonsControlEnabled
                 ? html` <div class="actions">
-                      <mushroom-media-buttons-control
+                      <mushroom-media-player-buttons-control
                           .hass=${this.hass}
                           .entity=${entity}
                           .fill=${layout !== "horizontal"}
@@ -134,7 +131,7 @@ export class MediaCard extends LitElement implements LovelaceCard {
                 : null}
             ${volumeControleEnabled
                 ? html` <div class="actions">
-                      <mushroom-media-volume-control
+                      <mushroom-media-player-volume-control
                           .hass=${this.hass}
                           .entity=${entity}
                           .fill=${layout !== "horizontal"}

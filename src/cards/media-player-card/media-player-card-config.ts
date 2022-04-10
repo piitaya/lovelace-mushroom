@@ -4,7 +4,7 @@ import { actionConfigStruct } from "../../utils/action-struct";
 import { baseLovelaceCardConfig } from "../../utils/editor-styles";
 import { Layout, layoutStruct } from "../../utils/layout";
 
-export interface MediaCardConfig extends LovelaceCardConfig {
+export interface MediaPlayerCardConfig extends LovelaceCardConfig {
     entity?: string;
     name?: string;
     icon?: string;
@@ -17,7 +17,7 @@ export interface MediaCardConfig extends LovelaceCardConfig {
     double_tap_action?: ActionConfig;
 }
 
-export const mediaCardConfigStruct = assign(
+export const mediaPlayerCardConfigStruct = assign(
     baseLovelaceCardConfig,
     object({
         entity: optional(string()),

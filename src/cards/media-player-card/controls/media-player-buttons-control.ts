@@ -3,8 +3,8 @@ import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
-@customElement("mushroom-media-buttons-control")
-export class MediaButtonsControl extends LitElement {
+@customElement("mushroom-media-player-buttons-control")
+export class MediaPlayerButtonsControl extends LitElement {
     @property({ attribute: false }) public hass!: HomeAssistant;
 
     @property({ attribute: false }) public entity!: HassEntity;
