@@ -1,6 +1,5 @@
 import {
     ActionHandlerEvent,
-    computeStateDisplay,
     handleAction,
     hasAction,
     HomeAssistant,
@@ -9,13 +8,10 @@ import {
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { isActive, isAvailable } from "../../ha/data/entity";
-import {
-    MediaPlayerEntity,
-    MEDIA_PLAYER_STATE_OFF,
-    MEDIA_PLAYER_STATE_PLAYING,
-} from "../../ha/data/media-player";
+import { MediaPlayerEntity } from "../../ha/data/media-player";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
@@ -138,6 +134,14 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
         const buttonsControlEnabled = (available && this._config.show_buttons_control) || false;
         const volumeControleEnabled =
             (available && this._config.show_volume_control && supportsVolumeSet(entity)) || false;
+        const backgroundArtEnabled =
+            (available && this._config.enable_art_background && entity.attributes.entity_picture) ||
+            false;
+
+        let backgroundClassMap = {};
+        if (backgroundArtEnabled) {
+            // TODO
+        }
 
         let iconStyle = {};
 
@@ -187,6 +191,10 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
         return [
             cardStyle,
             css`
+                ha-card {
+                    background: "center / cover url("entity.attributes.entity_picture") rgba(0, 0, 0, 0.15);",
+                }
+
                 mushroom-state-item {
                     cursor: pointer;
                 }
