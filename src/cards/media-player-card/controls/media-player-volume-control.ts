@@ -1,7 +1,7 @@
 import { HomeAssistant } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { isActive, isAvailable } from "../../../ha/data/entity";
+import { isAvailable } from "../../../ha/data/entity";
 import { MediaPlayerEntity } from "../../../ha/data/media-player";
 import { getVolumeLevel } from "../utils";
 
@@ -32,7 +32,6 @@ export class MediaPlayerVolumeControl extends LitElement {
 
     protected render(): TemplateResult {
         const value = getVolumeLevel(this.entity);
-        console.log(this.entity.entity_id + " " + value);
         return html`
             <mushroom-slider
                 .value=${value}
@@ -40,7 +39,6 @@ export class MediaPlayerVolumeControl extends LitElement {
                 .showActive=${true}
                 .min=${0}
                 .max=${100}
-                .showIndicator=${true}
                 @change=${this.onChange}
                 @current-change=${this.onCurrentChange}
             />
