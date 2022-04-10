@@ -3,6 +3,7 @@ import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
+import { styleMap } from "lit/directives/style-map.js";
 import { MEDIA_PLAYER_STATE_PLAYING } from "../../../ha/data/media-player";
 import { callService, supportsNext, supportsPause, supportsPlay, supportsPrevious } from "../utils";
 
@@ -13,6 +14,8 @@ export class MediaPlayerButtonsControl extends LitElement {
     @property({ attribute: false }) public entity!: HassEntity;
 
     @property() public fill: boolean = false;
+
+    @property() public artBackgroundEnabled: boolean = false;
 
     protected render(): TemplateResult {
         return html`
@@ -39,6 +42,9 @@ export class MediaPlayerButtonsControl extends LitElement {
         return html`
             <mushroom-button
                 .icon="mdi:${iconName}"
+                class=${classMap({
+                    darkest: this.artBackgroundEnabled,
+                })}
                 @click=${(e) => callService(e, this.hass, this.entity, serviceName)}
             ></mushroom-button>
         `;
@@ -46,10 +52,14 @@ export class MediaPlayerButtonsControl extends LitElement {
 
     _generatePlayPauseButton(): TemplateResult {
         const serviceName = "media_play_pause";
+
         if (this.entity.state == MEDIA_PLAYER_STATE_PLAYING) {
             return html`
                 <mushroom-button
                     icon="mdi:pause"
+                    class=${classMap({
+                        darkest: this.artBackgroundEnabled,
+                    })}
                     @click=${(e) => callService(e, this.hass, this.entity, serviceName)}
                 ></mushroom-button>
             `;
@@ -57,6 +67,9 @@ export class MediaPlayerButtonsControl extends LitElement {
             return html`
                 <mushroom-button
                     icon="mdi:play"
+                    class=${classMap({
+                        darkest: this.artBackgroundEnabled,
+                    })}
                     @click=${(e) => callService(e, this.hass, this.entity, serviceName)}
                 ></mushroom-button>
             `;
@@ -81,6 +94,9 @@ export class MediaPlayerButtonsControl extends LitElement {
             }
             .container.fill mushroom-button {
                 flex: 1;
+            }
+            mushroom-button.darkest {
+                --bg-color: rgba(0, 0, 0, 0.8);
             }
         `;
     }

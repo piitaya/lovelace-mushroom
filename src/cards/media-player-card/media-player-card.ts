@@ -68,7 +68,8 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
         volumeControleEnabled: boolean,
         entity: MediaPlayerEntity,
         layout: string,
-        active: boolean
+        active: boolean,
+        backgroundArtEnabled: boolean
     ): TemplateResult {
         return html` ${volumeControleEnabled && active
             ? html` <div class="actions">
@@ -76,6 +77,7 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
                       .hass=${this.hass}
                       .entity=${entity}
                       .fill=${layout !== "horizontal"}
+                      .artBackgroundEnabled=${backgroundArtEnabled}
                   />
               </div>`
             : null}
@@ -85,6 +87,7 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
                       .hass=${this.hass}
                       .entity=${entity}
                       .fill=${layout !== "horizontal"}
+                      .artBackgroundEnabled=${backgroundArtEnabled}
                   />
               </div>`
             : null}`;
@@ -95,7 +98,8 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
         volumeControleEnabled: boolean,
         entity: MediaPlayerEntity,
         layout: string,
-        active: boolean
+        active: boolean,
+        backgroundArtEnabled: boolean
     ): TemplateResult {
         return html` ${buttonsControlEnabled
             ? html` <div class="actions">
@@ -103,6 +107,7 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
                       .hass=${this.hass}
                       .entity=${entity}
                       .fill=${layout !== "horizontal"}
+                      .artBackgroundEnabled=${backgroundArtEnabled}
                   />
               </div>`
             : null}
@@ -112,6 +117,7 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
                       .hass=${this.hass}
                       .entity=${entity}
                       .fill=${layout !== "horizontal"}
+                      .artBackgroundEnabled=${backgroundArtEnabled}
                   />
               </div>`
             : null}`;
@@ -135,20 +141,31 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
         const volumeControleEnabled =
             (available && this._config.show_volume_control && supportsVolumeSet(entity)) || false;
         const backgroundArtEnabled =
-            (available && this._config.enable_art_background && entity.attributes.entity_picture) ||
+            (available &&
+                this._config?.enable_art_background &&
+                entity.attributes.entity_picture != null) ||
             false;
 
-        let backgroundClassMap = {};
-        if (backgroundArtEnabled) {
-            // TODO
-        }
-
+        let backgroundStyleMap = {};
         let iconStyle = {};
+        if (backgroundArtEnabled) {
+            backgroundStyleMap = {
+                "--art-background-url": `url(${entity.attributes.entity_picture})`,
+            };
+
+            iconStyle = {};
+        }
 
         let nameDisplay = getCardName(this._config, entity);
         let stateDisplay = getStateDisplay(entity, this.hass);
 
-        return html`<mushroom-card .layout=${layout}>
+        return html`<mushroom-card
+            .layout=${layout}
+            class=${classMap({
+                art: backgroundArtEnabled,
+            })}
+            style=${styleMap(backgroundStyleMap)}
+        >
             <mushroom-state-item
                 .layout=${layout}
                 @action=${this._handleAction}
@@ -162,6 +179,9 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
                     .disabled=${!active}
                     .icon="${icon}"
                     style=${styleMap(iconStyle)}
+                    class=${classMap({
+                        darkest: backgroundArtEnabled,
+                    })}
                 ></mushroom-shape-icon>
                 <mushroom-state-info
                     slot="info"
@@ -175,14 +195,16 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
                       volumeControleEnabled,
                       entity,
                       layout,
-                      active
+                      active,
+                      backgroundArtEnabled
                   )
                 : this._renderActionsVertical(
                       buttonsControlEnabled,
                       volumeControleEnabled,
                       entity,
                       layout,
-                      active
+                      active,
+                      backgroundArtEnabled
                   )}
         </mushroom-card>`;
     }
@@ -191,10 +213,6 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
         return [
             cardStyle,
             css`
-                ha-card {
-                    background: "center / cover url("entity.attributes.entity_picture") rgba(0, 0, 0, 0.15);",
-                }
-
                 mushroom-state-item {
                     cursor: pointer;
                 }
@@ -202,6 +220,16 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
                 mushroom-media-player-buttons-control,
                 mushroom-media-player-volume-control {
                     flex: 1;
+                }
+
+                mushroom-shape-icon.darkest {
+                    --shape-color: rgba(var(--rgb-primary-text-color), 0.5);
+                }
+
+                mushroom-card.art {
+                    --ha-card-background: center / cover var(--art-background-url)
+                        rgba(0, 0, 0, 0.25);
+                    background-blend-mode: multiply;
                 }
             `,
         ];
