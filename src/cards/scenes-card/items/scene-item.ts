@@ -75,7 +75,7 @@ export class SceneItem extends LitElement implements LovelaceScene {
                     style=${styleMap(iconStyle)}
                     class=${classMap({ active })}
                 ></ha-icon>
-                <span>Test</span>
+                <span>${name}</span>
             </mushroom-scene>
         `;
     }

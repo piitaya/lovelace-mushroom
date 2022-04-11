@@ -69,9 +69,11 @@ export class ScenesCard extends LitElement implements LovelaceCard {
         }
 
         return html`
-            <div class="item-container ${alignment}">
-                ${this._config.items.map((item) => this.renderItem(item))}
-            </div>
+            <mushroom-card>
+                <div class="item-container ${alignment}">
+                    ${this._config.items.map((item) => this.renderItem(item))}
+                </div>
+            </mushroom-card>
         `;
     }
 

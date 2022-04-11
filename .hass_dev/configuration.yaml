@@ -106,19 +106,19 @@ alarm_control_panel:
 
 scene:
   - name: music
-    icon: mdi:music
+    icon: mdi:music-note
     entities:
       light.bed_light: "off"
   - name: running
-    icon: mdi:sleep
+    icon: mdi:run
     entities:
       light.bed_light: "off"
   - name: night
-    icon: mdi:moon
+    icon: mdi:moon-waning-crescent
     entities:
       light.bed_light: "off"
   - name: movie
-    icon: mdi:sleep
+    icon: mdi:movie
     entities:
       light.bed_light: "off"
   - name: sleep

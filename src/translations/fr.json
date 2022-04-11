@@ -91,6 +91,14 @@
                 "show_locate_control": "Bouton localiser",
                 "show_clean_spot_control": "Bouton nettoyer une zone",
                 "show_return_home_control": "Bouton retour à la base"
+            },
+            "scenes": {
+                "alignment": "Alignement"
+            }
+        },
+        "scene": {
+            "scene-picker": {
+                "items": "\"Elements\""
             }
         },
         "chip": {

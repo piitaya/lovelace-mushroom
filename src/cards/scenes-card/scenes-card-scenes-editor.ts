@@ -54,7 +54,7 @@ export class ScenesCardEditorScenes extends LitElement {
         return html`
             <h3>
                 ${this.label ||
-                `${customLocalize("editor.scene.scene-picker.scenes")} (${this.hass!.localize(
+                `${customLocalize("editor.scene.scene-picker.items")} (${this.hass!.localize(
                     "ui.panel.lovelace.editor.card.config.required"
                 )})`}
             </h3>

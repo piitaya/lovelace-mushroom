@@ -72,7 +72,7 @@ export class ScriptItem extends LitElement implements LovelaceScene {
                     style=${styleMap(iconStyle)}
                     class=${classMap({ active })}
                 ></ha-icon>
-                <span>Test</span>
+                <span>${name}</span>
             </mushroom-script>
         `;
     }
