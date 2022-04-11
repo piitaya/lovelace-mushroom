@@ -8,13 +8,13 @@ import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { SCENES_CARD_EDITOR_NAME, SCENES_CARD_NAME } from "./const";
-import { LovelaceScene, LovelaceSceneConfig } from "../../utils/lovelace/scene/types";
 import { cardStyle } from "../../utils/card-styles";
-import { createSceneElement } from "../../utils/lovelace/scene/scene-element";
 import { SceneItem } from "./items/scene-item";
+import { SceneElement, SceneCardConfig } from "./scene-editor-config";
+import { createSceneElement } from "./utils";
 
 export interface ScenesCardConfig extends LovelaceCardConfig {
-    scenes: LovelaceSceneConfig[];
+    scenes: SceneCardConfig[];
     alignment?: string;
 }
 
@@ -27,7 +27,7 @@ registerCustomCard({
 @customElement(SCENES_CARD_NAME)
 export class ScenesCard extends LitElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
-        await import("./scenes-card-editor");
+        await import("./editor/scenes-card-editor");
         return document.createElement(SCENES_CARD_EDITOR_NAME) as LovelaceCardEditor;
     }
 
@@ -46,7 +46,7 @@ export class ScenesCard extends LitElement implements LovelaceCard {
     set hass(hass: HomeAssistant) {
         this._hass = hass;
         this.shadowRoot?.querySelectorAll("div > *").forEach((element: unknown) => {
-            (element as LovelaceScene).hass = hass;
+            (element as SceneElement).hass = hass;
         });
     }
 
@@ -77,7 +77,7 @@ export class ScenesCard extends LitElement implements LovelaceCard {
         `;
     }
 
-    private renderItem(sceneConfig: LovelaceSceneConfig): TemplateResult {
+    private renderItem(sceneConfig: SceneCardConfig): TemplateResult {
         const element = createSceneElement(sceneConfig);
         if (!element) {
             return html``;

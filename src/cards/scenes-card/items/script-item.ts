@@ -7,12 +7,11 @@ import { computeStateDisplay } from "../../../ha/common/entity/compute-state-dis
 import { isActive } from "../../../ha/data/entity";
 import { computeRgbColor } from "../../../utils/colors";
 import { stateIcon } from "../../../utils/icons/state-icon";
-import { computeSceneComponentName } from "../../../utils/lovelace/scene/scene-element";
-import { LovelaceScene, ScriptSceneConfig } from "../../../utils/lovelace/scene/types";
-import { LovelaceSceneEditor } from "../../../utils/lovelace/types";
+import { SceneElement, ScriptConfig } from "../scene-editor-config";
+import { computeSceneComponentName, LovelaceSceneEditor } from "../utils";
 
 @customElement(computeSceneComponentName("script"))
-export class ScriptItem extends LitElement implements LovelaceScene {
+export class ScriptItem extends LitElement implements SceneElement {
     public static async getConfigElement(): Promise<LovelaceSceneEditor> {
         await import("./script-item-editor");
         return document.createElement(
@@ -20,7 +19,7 @@ export class ScriptItem extends LitElement implements LovelaceScene {
         ) as LovelaceSceneEditor;
     }
 
-    public static async getStubConfig(hass: HomeAssistant): Promise<ScriptSceneConfig> {
+    public static async getStubConfig(hass: HomeAssistant): Promise<ScriptConfig> {
         const entities = Object.keys(hass.states);
         return {
             type: `script`,
@@ -30,9 +29,9 @@ export class ScriptItem extends LitElement implements LovelaceScene {
 
     @property({ attribute: false }) public hass?: HomeAssistant;
 
-    @state() private _config?: ScriptSceneConfig;
+    @state() private _config?: ScriptConfig;
 
-    public setConfig(config: ScriptSceneConfig): void {
+    public setConfig(config: ScriptConfig): void {
         this._config = config;
     }
 

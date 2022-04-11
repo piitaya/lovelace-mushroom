@@ -7,12 +7,11 @@ import { configElementStyle } from "../../../utils/editor-styles";
 import { GENERIC_FIELDS } from "../../../utils/form/fields";
 import { HaFormSchema } from "../../../utils/form/ha-form";
 import { stateIcon } from "../../../utils/icons/state-icon";
-import { computeSceneEditorComponentName } from "../../../utils/lovelace/scene/scene-element";
-import { SceneSceneConfig } from "../../../utils/lovelace/scene/types";
-import { LovelaceSceneEditor } from "../../../utils/lovelace/types";
+import { SceneConfig } from "../scene-editor-config";
+import { computeSceneEditorComponentName, LovelaceSceneEditor } from "../utils";
 
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
-    { name: "entity", selector: { entity: {} } },
+    { name: "entity", selector: { entity: { domain: "scene" } } },
     {
         type: "grid",
         name: "",
@@ -35,9 +34,9 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
 export class SceneSceneEditor extends LitElement implements LovelaceSceneEditor {
     @property({ attribute: false }) public hass?: HomeAssistant;
 
-    @state() private _config?: SceneSceneConfig;
+    @state() private _config?: SceneConfig;
 
-    public setConfig(config: SceneSceneConfig): void {
+    public setConfig(config: SceneConfig): void {
         this._config = config;
     }
 

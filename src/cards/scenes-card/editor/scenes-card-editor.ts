@@ -2,21 +2,15 @@ import { fireEvent, HASSDomEvent, HomeAssistant, LovelaceCardEditor } from "cust
 import { html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { array, assert, assign, dynamic, literal, object, optional, string } from "superstruct";
-import setupCustomlocalize from "../../localize";
-import "../../shared/editor/alignment-picker";
-import { actionConfigStruct } from "../../utils/action-struct";
-import { baseLovelaceCardConfig } from "../../utils/editor-styles";
-import { loadHaComponents } from "../../utils/loader";
-import { LovelaceSceneConfig } from "../../utils/lovelace/scene/types";
-import {
-    EditorTarget,
-    EditSubElementEvent,
-    SubElementEditorConfig,
-} from "../../utils/lovelace/editor/types";
-import "../../utils/lovelace/sub-element-editor";
-import { ScenesCardConfig } from "./scenes-card";
+import setupCustomlocalize from "../../../localize";
+import { baseLovelaceCardConfig } from "../../../utils/editor-styles";
+import { loadHaComponents } from "../../../utils/loader";
+import { EditorTarget, EditSubElementEvent, SubElementEditorConfig } from "../../../utils/lovelace/editor/types";
+import { SCENES_CARD_EDITOR_NAME } from "../const";
+import { SceneCardConfig } from "../scene-editor-config";
+import { ScenesCardConfig } from "../scenes-card";
 import "./scenes-card-scenes-editor";
-import { SCENES_CARD_EDITOR_NAME } from "./const";
+import "./item-element-editor";
 
 const sceneConfigStruct = object({
     type: literal("scene"),
@@ -38,7 +32,7 @@ const scriptConfigStruct = object({
 
 const scenesConfigStruct = dynamic<any>((value) => {
     if (value && typeof value === "object" && "type" in value) {
-        switch ((value as LovelaceSceneConfig).type!) {
+        switch ((value as SceneCardConfig).type!) {
             case "scene":
                 return sceneConfigStruct;
             case "script":
@@ -89,13 +83,13 @@ export class ScenesCardEditor extends LitElement implements LovelaceCardEditor {
 
         if (this._subElementEditorConfig) {
             return html`
-                <mushroom-sub-element-editor
+                <mushroom-scene-card-sub-element-editor
                     .hass=${this.hass}
                     .config=${this._subElementEditorConfig}
                     @go-back=${this._goBack}
                     @config-changed=${this._handleSubElementChanged}
                 >
-                </mushroom-sub-element-editor>
+                </mushroom-scene-card-sub-element-editor>
             `;
         }
 
@@ -116,8 +110,8 @@ export class ScenesCardEditor extends LitElement implements LovelaceCardEditor {
             </div>
             <mushroom-scenes-card-scenes-editor
                 .hass=${this.hass}
-                .scenes=${this._config!.items}
-                @scenes-changed=${this._valueChanged}
+                .items=${this._config!.items}
+                @items-changed=${this._valueChanged}
                 @edit-detail-element=${this._editDetailElement}
             ></mushroom-scenes-card-scenes-editor>
         `;

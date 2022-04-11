@@ -98,7 +98,16 @@
         },
         "scene": {
             "scene-picker": {
-                "items": "\"Elements\""
+                "items": "\"Elements\"",
+                "details": "Affichez les détails en cliquant sur le bouton Modifier",
+                "add": "Ajouter un \"élément\"",
+                "edit": "Modifier",
+                "clear": "Effacer",
+                "select": "Sélectionner un \"élement\"",
+                "types": {
+                    "scene": "Scéne",
+                    "script": "Script"
+                }
             }
         },
         "chip": {

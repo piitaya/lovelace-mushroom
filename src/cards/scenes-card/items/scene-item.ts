@@ -1,4 +1,4 @@
-import { ActionHandlerEvent, handleAction, hasAction, HomeAssistant } from "custom-card-helpers";
+import { ActionHandlerEvent, handleAction, HomeAssistant } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
@@ -6,18 +6,12 @@ import { styleMap } from "lit/directives/style-map.js";
 import { computeStateDisplay } from "../../../ha/common/entity/compute-state-display";
 import { isActive } from "../../../ha/data/entity";
 import { computeRgbColor } from "../../../utils/colors";
-import { actionHandler } from "../../../utils/directives/action-handler-directive";
 import { stateIcon } from "../../../utils/icons/state-icon";
-import { getInfo } from "../../../utils/info";
-import {
-    computeSceneComponentName,
-    computeSceneEditorComponentName,
-} from "../../../utils/lovelace/scene/scene-element";
-import { LovelaceScene, SceneSceneConfig } from "../../../utils/lovelace/scene/types";
-import { LovelaceSceneEditor } from "../../../utils/lovelace/types";
+import { SceneConfig, SceneElement } from "../scene-editor-config";
+import { computeSceneComponentName, computeSceneEditorComponentName, LovelaceSceneEditor } from "../utils";
 
 @customElement(computeSceneComponentName("scene"))
-export class SceneItem extends LitElement implements LovelaceScene {
+export class SceneItem extends LitElement implements SceneElement {
     public static async getConfigElement(): Promise<LovelaceSceneEditor> {
         await import("./scene-item-editor");
         return document.createElement(
@@ -25,7 +19,7 @@ export class SceneItem extends LitElement implements LovelaceScene {
         ) as LovelaceSceneEditor;
     }
 
-    public static async getStubConfig(hass: HomeAssistant): Promise<SceneSceneConfig> {
+    public static async getStubConfig(hass: HomeAssistant): Promise<SceneConfig> {
         const entities = Object.keys(hass.states);
         return {
             type: `scene`,
@@ -35,9 +29,9 @@ export class SceneItem extends LitElement implements LovelaceScene {
 
     @property({ attribute: false }) public hass?: HomeAssistant;
 
-    @state() private _config?: SceneSceneConfig;
+    @state() private _config?: SceneConfig;
 
-    public setConfig(config: SceneSceneConfig): void {
+    public setConfig(config: SceneConfig): void {
         this._config = config;
     }
 

@@ -1,13 +1,18 @@
-import { PREFIX_NAME } from "../../../const";
-import { LovelaceScene, LovelaceSceneConfig } from "./types";
+import { PREFIX_NAME } from "../../const";
+import { LovelaceGenericElementEditor } from "../../utils/lovelace/types";
+import { SceneElement, SceneCardConfig } from "./scene-editor-config";
 
-export const createSceneElement = (config: LovelaceSceneConfig): LovelaceScene | undefined => {
+export interface LovelaceSceneEditor extends LovelaceGenericElementEditor {
+    setConfig(config: SceneCardConfig): void;
+}
+
+export const createSceneElement = (config: SceneCardConfig): SceneElement | undefined => {
     try {
         // @ts-ignore
         const element = document.createElement(
             computeSceneComponentName(config.type),
             config
-        ) as LovelaceScene;
+        ) as SceneElement;
         element.setConfig(config);
         return element;
     } catch (err) {

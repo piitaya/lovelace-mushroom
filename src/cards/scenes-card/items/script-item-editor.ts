@@ -7,12 +7,11 @@ import { configElementStyle } from "../../../utils/editor-styles";
 import { GENERIC_FIELDS } from "../../../utils/form/fields";
 import { HaFormSchema } from "../../../utils/form/ha-form";
 import { stateIcon } from "../../../utils/icons/state-icon";
-import { computeSceneEditorComponentName } from "../../../utils/lovelace/scene/scene-element";
-import { ScriptSceneConfig } from "../../../utils/lovelace/scene/types";
-import { LovelaceSceneEditor } from "../../../utils/lovelace/types";
+import { SceneElement, ScriptConfig } from "../scene-editor-config";
+import { computeSceneEditorComponentName } from "../utils";
 
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
-    { name: "entity", selector: { entity: {} } },
+    { name: "entity", selector: { entity: { domain: "script" } } },
     {
         type: "grid",
         name: "",
@@ -32,12 +31,12 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
 ]);
 
 @customElement(computeSceneEditorComponentName("script"))
-export class ScriptScriptEditor extends LitElement implements LovelaceSceneEditor {
+export class ScriptScriptEditor extends LitElement implements SceneElement {
     @property({ attribute: false }) public hass?: HomeAssistant;
 
-    @state() private _config?: ScriptSceneConfig;
+    @state() private _config?: ScriptConfig;
 
-    public setConfig(config: ScriptSceneConfig): void {
+    public setConfig(config: ScriptConfig): void {
         this._config = config;
     }
 

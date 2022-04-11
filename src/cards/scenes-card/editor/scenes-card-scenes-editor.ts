@@ -3,19 +3,18 @@ import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult }
 import { customElement, property, state } from "lit/decorators.js";
 import { guard } from "lit/directives/guard.js";
 import type { SortableEvent } from "sortablejs";
-import setupCustomlocalize from "../../localize";
-import { getSceneElementClass } from "../../utils/lovelace/scene-element-editor";
-import { ITEM_LIST, LovelaceSceneConfig } from "../../utils/lovelace/scene/types";
-import { EditorTarget } from "../../utils/lovelace/editor/types";
-import { sortableStyles } from "../../utils/sortable-styles";
-import "../../shared/form/mushroom-select";
+import setupCustomlocalize from "../../../localize";
+import { EditorTarget } from "../../../utils/lovelace/editor/types";
+import { sortableStyles } from "../../../utils/sortable-styles";
+import { ITEM_LIST, SceneCardConfig } from "../scene-editor-config";
+import { getSceneElementClass } from "./scene-element-editor";
 
 let Sortable;
 
 declare global {
     interface HASSDomEvents {
         "items-changed": {
-            items: LovelaceSceneConfig[];
+            items: SceneCardConfig[];
         };
     }
 }
@@ -24,7 +23,7 @@ declare global {
 export class ScenesCardEditorScenes extends LitElement {
     @property({ attribute: false }) protected hass?: HomeAssistant;
 
-    @property({ attribute: false }) protected items?: LovelaceSceneConfig[];
+    @property({ attribute: false }) protected items?: SceneCardConfig[];
 
     @property() protected label?: string;
 
@@ -184,18 +183,18 @@ export class ScenesCardEditorScenes extends LitElement {
             return;
         }
 
-        let newScene: LovelaceSceneConfig;
+        let newItem: SceneCardConfig;
 
         // Check if a stub config exists
         const elClass = getSceneElementClass(value) as any;
 
         if (elClass && elClass.getStubConfig) {
-            newScene = (await elClass.getStubConfig(this.hass)) as LovelaceSceneConfig;
+            newItem = (await elClass.getStubConfig(this.hass)) as SceneCardConfig;
         } else {
-            newScene = { type: value } as LovelaceSceneConfig;
+            newItem = { type: value } as SceneCardConfig;
         }
 
-        const newConfigScenes = this.items!.concat(newScene);
+        const newConfigScenes = this.items!.concat(newItem);
         target.value = "";
         fireEvent(this, "items-changed", {
             items: newConfigScenes,
@@ -236,7 +235,7 @@ export class ScenesCardEditorScenes extends LitElement {
         });
     }
 
-    private _renderSceneLabel(sceneConf: LovelaceSceneConfig): string {
+    private _renderSceneLabel(sceneConf: SceneCardConfig): string {
         const customLocalize = setupCustomlocalize(this.hass);
         let label = customLocalize(`editor.scene.scene-picker.types.${sceneConf.type}`);
         if ("entity" in sceneConf && sceneConf.entity) {
@@ -249,7 +248,7 @@ export class ScenesCardEditorScenes extends LitElement {
         return [
             sortableStyles,
             css`
-                .scene {
+                .item {
                     display: flex;
                     align-items: center;
                 }
@@ -262,7 +261,7 @@ export class ScenesCardEditorScenes extends LitElement {
                     width: 100%;
                 }
 
-                .scene .handle {
+                .item .handle {
                     padding-right: 8px;
                     cursor: move;
                 }
