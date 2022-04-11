@@ -80,7 +80,6 @@ Different cards are available for differents entities :
 -   📺 [Media card](docs/cards/media-player.md)
 
 Some cards are on the todo list :
-
 -   🌡 Climate card
 
 ### Theme customization
