@@ -104,6 +104,12 @@ alarm_control_panel:
               - alarm_control_panel.alarm_panel_1
               - alarm_control_panel.alarm_panel_2
 
+scene:
+  - name: dodo
+    icon: mdi:sleep
+    entities:
+      light.bed_light: "off"
+
 lovelace: !include ui-lovelace.yaml
 
 frontend:
