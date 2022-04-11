@@ -2,7 +2,6 @@ import { fireEvent, HASSDomEvent, HomeAssistant, LovelaceCardEditor } from "cust
 import { html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { array, assert, assign, dynamic, literal, object, optional, string } from "superstruct";
-import setupCustomlocalize from "../../../localize";
 import { baseLovelaceCardConfig } from "../../../utils/editor-styles";
 import { loadHaComponents } from "../../../utils/loader";
 import { EditorTarget, EditSubElementEvent, SubElementEditorConfig } from "../../../utils/lovelace/editor/types";
@@ -46,7 +45,6 @@ const cardConfigStruct = assign(
     baseLovelaceCardConfig,
     object({
         items: array(scenesConfigStruct),
-        alignment: optional(string()),
     })
 );
 
@@ -93,21 +91,7 @@ export class ScenesCardEditor extends LitElement implements LovelaceCardEditor {
             `;
         }
 
-        const customLocalize = setupCustomlocalize(this.hass);
-
         return html`
-            <div class="card-config">
-                <mushroom-alignment-picker
-                    .label="${customLocalize("editor.card.scenes.alignment")} (${this.hass.localize(
-                        "ui.panel.lovelace.editor.card.config.optional"
-                    )})"
-                    .hass=${this.hass}
-                    .value=${this._config.alignment}
-                    .configValue=${"alignment"}
-                    @value-changed=${this._valueChanged}
-                >
-                </mushroom-alignment-picker>
-            </div>
             <mushroom-scenes-card-scenes-editor
                 .hass=${this.hass}
                 .items=${this._config!.items}

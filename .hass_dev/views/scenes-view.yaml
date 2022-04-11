@@ -26,8 +26,8 @@ cards:
             name: Movie
             icon_color: green
             background_color: green
-          - type: scene
-            entity: scene.sleep
-            name: Sleep
+          - type: script
+            entity: script.wakeup
+            name: mdi:party-popper
             icon_color: yellow
             background_color: yellow

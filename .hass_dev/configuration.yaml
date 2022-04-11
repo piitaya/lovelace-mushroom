@@ -126,6 +126,18 @@ scene:
     entities:
       light.bed_light: "off"
 
+script:
+  wakeup:
+    alias: "Wake up"
+    icon: "mdi:party-popper"
+    sequence:
+      - alias: "Bedroom lights on"
+        service: light.turn_on
+        target:
+          entity_id: light.bed_light
+        data:
+          brightness: 100
+
 lovelace: !include ui-lovelace.yaml
 
 frontend:

@@ -15,7 +15,6 @@ import { createSceneElement } from "./utils";
 
 export interface ScenesCardConfig extends LovelaceCardConfig {
     scenes: SceneCardConfig[];
-    alignment?: string;
 }
 
 registerCustomCard({
@@ -63,14 +62,9 @@ export class ScenesCard extends LitElement implements LovelaceCard {
             return html``;
         }
 
-        let alignment = "";
-        if (this._config.alignment) {
-            alignment = `align-${this._config.alignment}`;
-        }
-
         return html`
             <mushroom-card>
-                <div class="item-container ${alignment}">
+                <div class="item-container">
                     ${this._config.items.map((item) => this.renderItem(item))}
                 </div>
             </mushroom-card>
@@ -99,14 +93,6 @@ export class ScenesCard extends LitElement implements LovelaceCard {
                     justify-content: flex-start;
                     flex-wrap: wrap;
                     margin-bottom: calc(-1 * var(--scene-spacing));
-                }
-                .item-container.align-end {
-                    justify-content: flex-end;
-                }
-                .item-container.align-center {
-                    justify-content: center;
-                }
-                .item-container.align-justify {
                     justify-content: space-between;
                 }
                 .item-container * {

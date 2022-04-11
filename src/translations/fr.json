@@ -93,7 +93,6 @@
                 "show_return_home_control": "Bouton retour à la base"
             },
             "scenes": {
-                "alignment": "Alignement",
                 "background_color": "Couleur du fond"
             }
         },
