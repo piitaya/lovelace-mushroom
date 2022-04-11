@@ -60,9 +60,17 @@ export class SceneItem extends LitElement implements SceneElement {
             iconStyle["--shape-color"] = `rgba(${bgRgbColor}, 0.1)`;
         }
 
+        const haCardStyle = {
+            "--box-shadow": `0px 2px 4px 0px rgba(0, 0, 0, 0.8);`
+        };
+
+        if(!(this.hass.themes as any).darkMode) {
+            haCardStyle["--box-shadow"] = `0px 2px 4px 0px rgba(0, 0, 0, 0.2);`;
+        }
+
         return html`
             <mushroom-scene @action=${this._handleAction}>
-                <ha-card>
+                <ha-card style=${styleMap(haCardStyle)}>
                     <div class="container">
                         <mushroom-shape-icon
                             slot="icon"
