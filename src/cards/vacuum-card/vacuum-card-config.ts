@@ -1,8 +1,17 @@
 import { ActionConfig, LovelaceCardConfig } from "custom-card-helpers";
-import { assign, boolean, object, optional, string } from "superstruct";
+import { array, assign, boolean, object, optional, string } from "superstruct";
 import { actionConfigStruct } from "../../utils/action-struct";
 import { baseLovelaceCardConfig } from "../../utils/editor-styles";
 import { Layout, layoutStruct } from "../../utils/layout";
+
+export const VACUUM_COMMANDS = [
+    "start_pause",
+    "stop",
+    "locate",
+    "clean_spot",
+    "return_home",
+] as const;
+export type VacuumCommand = typeof VACUUM_COMMANDS[number];
 
 export interface VacuumCardConfig extends LovelaceCardConfig {
     entity?: string;
@@ -10,11 +19,7 @@ export interface VacuumCardConfig extends LovelaceCardConfig {
     name?: string;
     layout?: Layout;
     hide_state?: boolean;
-    show_start_pause_control?: false;
-    show_stop_control?: false;
-    show_locate_control?: false;
-    show_clean_spot_control?: false;
-    show_return_home_control?: false;
+    commands?: VacuumCommand[];
     tap_action?: ActionConfig;
     hold_action?: ActionConfig;
     double_tap_action?: ActionConfig;
@@ -33,6 +38,7 @@ export const vacuumCardConfigStruct = assign(
         show_locate_control: optional(boolean()),
         show_clean_spot_control: optional(boolean()),
         show_return_home_control: optional(boolean()),
+        commands: optional(array(string())),
         tap_action: optional(actionConfigStruct),
         hold_action: optional(actionConfigStruct),
         double_tap_action: optional(actionConfigStruct),
