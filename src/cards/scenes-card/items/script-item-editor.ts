@@ -7,8 +7,9 @@ import { configElementStyle } from "../../../utils/editor-styles";
 import { GENERIC_FIELDS } from "../../../utils/form/fields";
 import { HaFormSchema } from "../../../utils/form/ha-form";
 import { stateIcon } from "../../../utils/icons/state-icon";
-import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
-import { LovelaceSceneEditor } from "./scene-element-editor";
+import { computeSceneEditorComponentName } from "../../../utils/lovelace/scene/scene-element";
+import { ScriptSceneConfig } from "../../../utils/lovelace/scene/types";
+import { LovelaceSceneEditor } from "../../../utils/lovelace/types";
 
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: {} } },
@@ -27,19 +28,16 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
             { name: "icon_color", selector: { "mush-color": {} } },
             { name: "background_color", selector: { "mush-color": {} } },
         ],
-    },
-    { name: "tap_action", selector: { "mush-action": {} } },
-    { name: "hold_action", selector: { "mush-action": {} } },
-    { name: "double_tap_action", selector: { "mush-action": {} } },
+    }
 ]);
 
-@customElement(computeChipEditorComponentName("entity"))
-export class EntitySceneEditor extends LitElement implements LovelaceSceneEditor {
+@customElement(computeSceneEditorComponentName("script"))
+export class ScriptScriptEditor extends LitElement implements LovelaceSceneEditor {
     @property({ attribute: false }) public hass?: HomeAssistant;
 
-    @state() private _config?: SceneCardConfig;
+    @state() private _config?: ScriptSceneConfig;
 
-    public setConfig(config: SceneCardConfig): void {
+    public setConfig(config: ScriptSceneConfig): void {
         this._config = config;
     }
 

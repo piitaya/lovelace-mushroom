@@ -6,14 +6,24 @@ export interface LovelaceScene extends HTMLElement {
     setConfig(config: LovelaceSceneConfig);
 }
 
-export type LovelaceSceneConfig = {
-    type: "scene",
+export type SceneSceneConfig = {
+    type: "scene";
     entity?: string;
     name?: string;
     icon?: string;
-    icon_color?: string; 
-    background_color?: string;    
-    hold_action?: ActionConfig;
-    tap_action?: ActionConfig;
-    double_tap_action?: ActionConfig;
+    icon_color?: string;
+    background_color?: string;
 };
+
+export type ScriptSceneConfig = {
+    type: "script";
+    entity?: string;
+    name?: string;
+    icon?: string;
+    icon_color?: string;
+    background_color?: string;
+};
+
+export type LovelaceSceneConfig = SceneSceneConfig | ScriptSceneConfig;
+
+export const ITEM_LIST: LovelaceSceneConfig["type"][] = ["scene", "script"];

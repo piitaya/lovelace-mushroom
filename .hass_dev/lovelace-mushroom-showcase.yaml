@@ -11,3 +11,4 @@ views:
   - !include views/title-view.yaml
   - !include views/update-view.yaml
   - !include views/vacuum-view.yaml
+  - !include views/scenes-view.yaml

@@ -1,4 +1,4 @@
-import { ActionHandlerEvent, handleAction, hasAction, HomeAssistant } from "custom-card-helpers";
+import { ActionHandlerEvent, handleAction, HomeAssistant } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
@@ -6,38 +6,33 @@ import { styleMap } from "lit/directives/style-map.js";
 import { computeStateDisplay } from "../../../ha/common/entity/compute-state-display";
 import { isActive } from "../../../ha/data/entity";
 import { computeRgbColor } from "../../../utils/colors";
-import { actionHandler } from "../../../utils/directives/action-handler-directive";
 import { stateIcon } from "../../../utils/icons/state-icon";
-import { getInfo } from "../../../utils/info";
-import {
-    computeChipComponentName,
-    computeChipEditorComponentName,
-} from "../../../utils/lovelace/chip/chip-element";
-import { SceneCardConfig } from "../../../utils/lovelace/scene/types";
-import { LovelaceSceneEditor } from "./scene-element-editor";
+import { computeSceneComponentName } from "../../../utils/lovelace/scene/scene-element";
+import { LovelaceScene, ScriptSceneConfig } from "../../../utils/lovelace/scene/types";
+import { LovelaceSceneEditor } from "../../../utils/lovelace/types";
 
-@customElement(computeChipComponentName("entity"))
-export class EntityScene extends LitElement implements LovelaceScene {
+@customElement(computeSceneComponentName("script"))
+export class ScriptItem extends LitElement implements LovelaceScene {
     public static async getConfigElement(): Promise<LovelaceSceneEditor> {
-        await import("./entity-scene-editor");
+        await import("./script-item-editor");
         return document.createElement(
-            computeChipEditorComponentName("entity")
+            computeSceneComponentName("script")
         ) as LovelaceSceneEditor;
     }
 
-    public static async getStubConfig(hass: HomeAssistant): Promise<SceneCardConfig> {
+    public static async getStubConfig(hass: HomeAssistant): Promise<ScriptSceneConfig> {
         const entities = Object.keys(hass.states);
         return {
-            type: `scene`,
+            type: `script`,
             entity: entities[0],
         };
     }
 
     @property({ attribute: false }) public hass?: HomeAssistant;
 
-    @state() private _config?: SceneCardConfig;
+    @state() private _config?: ScriptSceneConfig;
 
-    public setConfig(config: SceneCardConfig): void {
+    public setConfig(config: ScriptSceneConfig): void {
         this._config = config;
     }
 
@@ -51,7 +46,8 @@ export class EntityScene extends LitElement implements LovelaceScene {
         }
 
         const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id];
+        const entity = this.hass.states[entity_id];        
+        if (!entity) return html``;
 
         const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
@@ -67,35 +63,23 @@ export class EntityScene extends LitElement implements LovelaceScene {
             iconStyle["--color"] = `rgb(${iconRgbColor})`;
         }
 
-        const content = getInfo(
-            this._config.content_info ?? "state",
-            name,
-            stateDisplay,
-            entity,
-            this.hass
-        );
-
         return html`
-            <mushroom-chip
+            <mushroom-script
                 @action=${this._handleAction}
-                .actionHandler=${actionHandler({
-                    hasHold: hasAction(this._config.hold_action),
-                    hasDoubleClick: hasAction(this._config.double_tap_action),
-                })}
             >
                 <ha-icon
                     .icon=${icon}
                     style=${styleMap(iconStyle)}
                     class=${classMap({ active })}
                 ></ha-icon>
-                ${content ? html`<span>${content}</span>` : null}
-            </mushroom-chip>
+                <span>Test</span>
+            </mushroom-script>
         `;
     }
 
     static get styles(): CSSResultGroup {
         return css`
-            mushroom-chip {
+            mushroom-script {
                 cursor: pointer;
             }
             ha-icon.active {

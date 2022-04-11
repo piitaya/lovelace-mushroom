@@ -1,0 +1,33 @@
+title: Scenes
+icon: mdi:palette-swatch-variant
+cards:
+  - type: vertical-stack
+    cards:
+      - type: custom:mushroom-scenes-card
+        items:
+          - type: scene
+            entity: scene.music
+            icon: mdi:play
+            name: Music
+            icon_color: red
+            background_color: red
+          - type: scene
+            entity: scene.running            
+            name: Running
+            icon_color: blue
+            background_color: blue
+          - type: scene
+            entity: scene.night            
+            name: Night
+            icon_color: purple
+            background_color: purple
+          - type: scene
+            entity: scene.movie
+            name: Movie
+            icon_color: green
+            background_color: green
+          - type: scene
+            entity: scene.sleep
+            name: Sleep
+            icon_color: yellow
+            background_color: yellow

@@ -1,75 +1,89 @@
 import { fireEvent, HomeAssistant } from "custom-card-helpers";
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { guard } from "lit/directives/guard.js";
+import type { SortableEvent } from "sortablejs";
 import setupCustomlocalize from "../../localize";
+import { getSceneElementClass } from "../../utils/lovelace/scene-element-editor";
+import { ITEM_LIST, LovelaceSceneConfig } from "../../utils/lovelace/scene/types";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { sortableStyles } from "../../utils/sortable-styles";
-import { SCENES_CARD_EDITOR_NAME } from "./const";
-import { SceneCardConfig } from "../../utils/lovelace/scene/types";
-import type { SortableEvent } from "sortablejs";
-import { getSceneElementClass } from "./editors/scene-element-editor";
+import "../../shared/form/mushroom-select";
 
 let Sortable;
 
 declare global {
     interface HASSDomEvents {
-        "scenes-changed": {
-            scenes: SceneCardConfig[];
+        "items-changed": {
+            items: LovelaceSceneConfig[];
         };
     }
 }
 
-@customElement(SCENES_CARD_EDITOR_NAME)
-export class ScenesCardEditor extends LitElement {
-    @property({ attribute: false }) public hass?: HomeAssistant;
+@customElement("mushroom-scenes-card-scenes-editor")
+export class ScenesCardEditorScenes extends LitElement {
+    @property({ attribute: false }) protected hass?: HomeAssistant;
 
-    @property({ attribute: false }) protected scenes?: SceneCardConfig[];
+    @property({ attribute: false }) protected items?: LovelaceSceneConfig[];
+
+    @property() protected label?: string;
+
+    @state() private _attached = false;
 
     @state() private _renderEmptySortable = false;
 
     private _sortable?;
 
-    connectedCallback() {
+    public connectedCallback() {
         super.connectedCallback();
+        this._attached = true;
     }
 
     public disconnectedCallback() {
         super.disconnectedCallback();
+        this._attached = false;
     }
 
     protected render(): TemplateResult {
-        if (!this.scenes || !this.hass) {
+        if (!this.items || !this.hass) {
             return html``;
         }
 
         const customLocalize = setupCustomlocalize(this.hass);
 
         return html`
-            <div class="scenes">
-                ${guard([this.scenes, this._renderEmptySortable], () =>
+            <h3>
+                ${this.label ||
+                `${customLocalize("editor.scene.scene-picker.scenes")} (${this.hass!.localize(
+                    "ui.panel.lovelace.editor.card.config.required"
+                )})`}
+            </h3>
+            <div class="items">
+                ${guard([this.items, this._renderEmptySortable], () =>
                     this._renderEmptySortable
                         ? ""
-                        : this.scenes!.map(
-                              (sceneConfig, index) => html`
-                                  <div class="scene">
+                        : this.items!.map(
+                              (sceneConf, index) => html`
+                                  <div class="item">
                                       <ha-icon class="handle" icon="mdi:drag"></ha-icon>
                                       ${html`
                                           <div class="special-row">
                                               <div>
                                                   <span>
-                                                      ${this._renderSceneLabel(sceneConfig)}
+                                                      ${this._renderSceneLabel(sceneConf)}
                                                   </span>
                                                   <span class="secondary"
                                                       >${customLocalize(
-                                                          "editor.chip.chip-picker.details"
+                                                          "editor.scene.scene-picker.details"
                                                       )}</span
                                                   >
                                               </div>
                                           </div>
-                                      `}                                      
+                                      `}
                                       <ha-icon-button
-                                          .label=${customLocalize("editor.chip.chip-picker.clear")}
+                                          .label=${customLocalize(
+                                              "editor.scene.scene-picker.clear"
+                                          )}
                                           class="remove-icon"
                                           .index=${index}
                                           @click=${this._removeScene}
@@ -77,7 +91,7 @@ export class ScenesCardEditor extends LitElement {
                                           <ha-icon icon="mdi:close"></ha-icon
                                       ></ha-icon-button>
                                       <ha-icon-button
-                                          .label=${customLocalize("editor.chip.chip-picker.edit")}
+                                          .label=${customLocalize("editor.scene.scene-picker.edit")}
                                           class="edit-icon"
                                           .index=${index}
                                           @click=${this._editScene}
@@ -89,22 +103,56 @@ export class ScenesCardEditor extends LitElement {
                           )
                 )}
             </div>
+            <mushroom-select
+                .label=${customLocalize("editor.scene.scene-picker.add")}
+                @selected=${this._addScenes}
+                @closed=${(e) => e.stopPropagation()}
+                fixedMenuPosition
+                naturalMenuWidth
+            >
+                ${ITEM_LIST.map(
+                    (scene) =>
+                        html`
+                            <mwc-list-item .value=${scene}>
+                                ${customLocalize(`editor.scene.scene-picker.types.${scene}`)}
+                            </mwc-list-item>
+                        `
+                )}
+            </mushroom-select>
         `;
     }
 
-    private _renderSceneLabel(sceneConfig: SceneCardConfig): string {
-        const customLocalize = setupCustomlocalize(this.hass);
-        let label = customLocalize(`editor.chip.chip-picker.types.${sceneConfig.type}`);
-        if ("entity" in sceneConfig && sceneConfig.entity) {
-            label += ` - ${sceneConfig.entity}`;
+    protected updated(changedProps: PropertyValues): void {
+        super.updated(changedProps);
+
+        const attachedChanged = changedProps.has("_attached");
+        const itemsChanged = changedProps.has("items");
+
+        if (!itemsChanged && !attachedChanged) {
+            return;
         }
-        return label;
+
+        if (attachedChanged && !this._attached) {
+            // Tear down sortable, if available
+            this._sortable?.destroy();
+            this._sortable = undefined;
+            return;
+        }
+
+        if (!this._sortable && this.items) {
+            this._createSortable();
+            return;
+        }
+
+        if (itemsChanged) {
+            this._handleItemsChanged();
+        }
     }
 
-    private async _handleChipsChanged() {
+    private async _handleItemsChanged() {
         this._renderEmptySortable = true;
         await this.updateComplete;
-        const container = this.shadowRoot!.querySelector(".chips")!;
+        const container = this.shadowRoot!.querySelector(".items")!;
         while (container.lastElementChild) {
             container.removeChild(container.lastElementChild);
         }
@@ -120,7 +168,7 @@ export class ScenesCardEditor extends LitElement {
             Sortable.mount(sortableImport.AutoScroll());
         }
 
-        this._sortable = new Sortable(this.shadowRoot!.querySelector(".chips"), {
+        this._sortable = new Sortable(this.shadowRoot!.querySelector(".items"), {
             animation: 150,
             fallbackClass: "sortable-fallback",
             handle: ".handle",
@@ -136,21 +184,21 @@ export class ScenesCardEditor extends LitElement {
             return;
         }
 
-        let newScene: SceneCardConfig;
+        let newScene: LovelaceSceneConfig;
 
         // Check if a stub config exists
         const elClass = getSceneElementClass(value) as any;
 
         if (elClass && elClass.getStubConfig) {
-            newScene = (await elClass.getStubConfig(this.hass)) as SceneCardConfig;
+            newScene = (await elClass.getStubConfig(this.hass)) as LovelaceSceneConfig;
         } else {
-            newScene = { type: value } as SceneCardConfig;
+            newScene = { type: value } as LovelaceSceneConfig;
         }
 
-        const newConfigScenes = this.scenes!.concat(newScene);
+        const newConfigScenes = this.items!.concat(newScene);
         target.value = "";
-        fireEvent(this, "scenes-changed", {
-            scenes: newConfigScenes,
+        fireEvent(this, "items-changed", {
+            items: newConfigScenes,
         });
     }
 
@@ -159,21 +207,21 @@ export class ScenesCardEditor extends LitElement {
             return;
         }
 
-        const newScenes = this.scenes!.concat();
+        const newScenes = this.items!.concat();
 
         newScenes.splice(ev.newIndex!, 0, newScenes.splice(ev.oldIndex!, 1)[0]);
 
-        fireEvent(this, "scenes-changed", { scenes: newScenes });
+        fireEvent(this, "items-changed", { items: newScenes });
     }
 
     private _removeScene(ev: CustomEvent): void {
         const index = (ev.currentTarget as any).index;
-        const newConfigScenes = this.scenes!.concat();
+        const newConfigScenes = this.items!.concat();
 
         newConfigScenes.splice(index, 1);
 
-        fireEvent(this, "scenes-changed", {
-            scenes: newConfigScenes,
+        fireEvent(this, "items-changed", {
+            items: newConfigScenes,
         });
     }
 
@@ -183,13 +231,18 @@ export class ScenesCardEditor extends LitElement {
             subElementConfig: {
                 index,
                 type: "scene",
-                elementConfig: this.scenes![index],
+                elementConfig: this.items![index],
             },
         });
     }
 
-    private _valueChanged(ev: CustomEvent): void {
-        fireEvent(this, "config-changed", { config: ev.detail.value });
+    private _renderSceneLabel(sceneConf: LovelaceSceneConfig): string {
+        const customLocalize = setupCustomlocalize(this.hass);
+        let label = customLocalize(`editor.scene.scene-picker.types.${sceneConf.type}`);
+        if ("entity" in sceneConf && sceneConf.entity) {
+            label += ` - ${sceneConf.entity}`;
+        }
+        return label;
     }
 
     static get styles(): CSSResultGroup {

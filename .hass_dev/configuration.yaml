@@ -105,7 +105,23 @@ alarm_control_panel:
               - alarm_control_panel.alarm_panel_2
 
 scene:
-  - name: dodo
+  - name: music
+    icon: mdi:music
+    entities:
+      light.bed_light: "off"
+  - name: running
+    icon: mdi:sleep
+    entities:
+      light.bed_light: "off"
+  - name: night
+    icon: mdi:moon
+    entities:
+      light.bed_light: "off"
+  - name: movie
+    icon: mdi:sleep
+    entities:
+      light.bed_light: "off"
+  - name: sleep
     icon: mdi:sleep
     entities:
       light.bed_light: "off"
