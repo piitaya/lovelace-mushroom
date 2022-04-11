@@ -10,7 +10,7 @@ export const createSceneElement = (config: SceneCardConfig): SceneElement | unde
     try {
         // @ts-ignore
         const element = document.createElement(
-            computeSceneComponentName(config.type),
+            computeComponentName(config.type),
             config
         ) as SceneElement;
         element.setConfig(config);
@@ -20,10 +20,10 @@ export const createSceneElement = (config: SceneCardConfig): SceneElement | unde
     }
 };
 
-export function computeSceneComponentName(type: string): string {
+export function computeComponentName(type: string): string {
     return `${PREFIX_NAME}-${type}-scene`;
 }
 
-export function computeSceneEditorComponentName(type: string): string {
+export function computeEditorComponentName(type: string): string {
     return `${PREFIX_NAME}-${type}-scene-editor`;
 }

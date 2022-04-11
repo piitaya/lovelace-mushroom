@@ -3,11 +3,11 @@ import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult }
 import { customElement, property, state } from "lit/decorators.js";
 import { guard } from "lit/directives/guard.js";
 import type { SortableEvent } from "sortablejs";
-import setupCustomlocalize from "../../../localize";
-import { EditorTarget } from "../../../utils/lovelace/editor/types";
-import { sortableStyles } from "../../../utils/sortable-styles";
-import { ITEM_LIST, SceneCardConfig } from "../scene-editor-config";
-import { getElementClass } from "./scene-element-editor";
+import setupCustomlocalize from "../../localize";
+import { EditorTarget } from "../../utils/lovelace/editor/types";
+import { sortableStyles } from "../../utils/sortable-styles";
+import { ITEM_LIST, SceneCardConfig } from "./scene-editor-config";
+import { getElementClass } from "./editor/scene-element-editor";
 
 let Sortable;
 
@@ -53,7 +53,7 @@ export class ScenesCardEditorScenes extends LitElement {
         return html`
             <h3>
                 ${this.label ||
-                `${customLocalize("editor.scene.scene-picker.items")} (${this.hass!.localize(
+                `${customLocalize("editor.scene.item-picker.items")} (${this.hass!.localize(
                     "ui.panel.lovelace.editor.card.config.required"
                 )})`}
             </h3>
@@ -73,7 +73,7 @@ export class ScenesCardEditorScenes extends LitElement {
                                                   </span>
                                                   <span class="secondary"
                                                       >${customLocalize(
-                                                          "editor.scene.scene-picker.details"
+                                                          "editor.scene.item-picker.details"
                                                       )}</span
                                                   >
                                               </div>
@@ -81,19 +81,19 @@ export class ScenesCardEditorScenes extends LitElement {
                                       `}
                                       <ha-icon-button
                                           .label=${customLocalize(
-                                              "editor.scene.scene-picker.clear"
+                                              "editor.scene.item-picker.clear"
                                           )}
                                           class="remove-icon"
                                           .index=${index}
-                                          @click=${this._removeScene}
+                                          @click=${this._removeItem}
                                       >
                                           <ha-icon icon="mdi:close"></ha-icon
                                       ></ha-icon-button>
                                       <ha-icon-button
-                                          .label=${customLocalize("editor.scene.scene-picker.edit")}
+                                          .label=${customLocalize("editor.scene.item-picker.edit")}
                                           class="edit-icon"
                                           .index=${index}
-                                          @click=${this._editScene}
+                                          @click=${this._editItem}
                                       >
                                           <ha-icon icon="mdi:pencil"></ha-icon>
                                       </ha-icon-button>
@@ -103,7 +103,7 @@ export class ScenesCardEditorScenes extends LitElement {
                 )}
             </div>
             <mushroom-select
-                .label=${customLocalize("editor.scene.scene-picker.add")}
+                .label=${customLocalize("editor.scene.item-picker.add")}
                 @selected=${this._addScenes}
                 @closed=${(e) => e.stopPropagation()}
                 fixedMenuPosition
@@ -113,7 +113,7 @@ export class ScenesCardEditorScenes extends LitElement {
                     (scene) =>
                         html`
                             <mwc-list-item .value=${scene}>
-                                ${customLocalize(`editor.scene.scene-picker.types.${scene}`)}
+                                ${customLocalize(`editor.scene.item-picker.types.${scene}`)}
                             </mwc-list-item>
                         `
                 )}
@@ -213,7 +213,7 @@ export class ScenesCardEditorScenes extends LitElement {
         fireEvent(this, "items-changed", { items: newScenes });
     }
 
-    private _removeScene(ev: CustomEvent): void {
+    private _removeItem(ev: CustomEvent): void {
         const index = (ev.currentTarget as any).index;
         const newConfigScenes = this.items!.concat();
 
@@ -224,7 +224,7 @@ export class ScenesCardEditorScenes extends LitElement {
         });
     }
 
-    private _editScene(ev: CustomEvent): void {
+    private _editItem(ev: CustomEvent): void {
         const index = (ev.currentTarget as any).index;
         fireEvent<any>(this, "edit-detail-element", {
             subElementConfig: {
@@ -237,7 +237,7 @@ export class ScenesCardEditorScenes extends LitElement {
 
     private _renderSceneLabel(sceneConf: SceneCardConfig): string {
         const customLocalize = setupCustomlocalize(this.hass);
-        let label = customLocalize(`editor.scene.scene-picker.types.${sceneConf.type}`);
+        let label = customLocalize(`editor.scene.item-picker.types.${sceneConf.type}`);
         if ("entity" in sceneConf && sceneConf.entity) {
             label += ` - ${sceneConf.entity}`;
         }

@@ -26,7 +26,7 @@ registerCustomCard({
 @customElement(SCENES_CARD_NAME)
 export class ScenesCard extends LitElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
-        await import("./editor/scenes-card-editor");
+        await import("./scenes-card-editor");
         return document.createElement(SCENES_CARD_EDITOR_NAME) as LovelaceCardEditor;
     }
 

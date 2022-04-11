@@ -1,7 +1,7 @@
 import { customElement } from "lit/decorators.js";
 import { MushroomElementEditor } from "../../../utils/lovelace/element-editor";
 import { SceneCardConfig } from "../scene-editor-config";
-import { computeSceneComponentName, LovelaceSceneEditor } from "../utils";
+import { computeComponentName, LovelaceSceneEditor } from "../utils";
 
 @customElement("mushroom-scene-element-editor")
 export class MushroomSceneElementEditor extends MushroomElementEditor<SceneCardConfig> {
@@ -10,7 +10,7 @@ export class MushroomSceneElementEditor extends MushroomElementEditor<SceneCardC
     }
 
     protected async getConfigElement(): Promise<LovelaceSceneEditor | undefined> {
-        const elClass = (await getSceneElementClass(this.configElementType!)) as any;
+        const elClass = (await getElementClass(this.configElementType!)) as any;
 
         // Check if a GUI editor exists
         if (elClass && elClass.getConfigElement) {
@@ -21,5 +21,5 @@ export class MushroomSceneElementEditor extends MushroomElementEditor<SceneCardC
     }
 }
 
-export const getSceneElementClass = (type: string) =>
-    customElements.get(computeSceneComponentName(type));
+export const getElementClass = (type: string) =>
+    customElements.get(computeComponentName(type));

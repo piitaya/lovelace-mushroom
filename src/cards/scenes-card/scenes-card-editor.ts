@@ -2,14 +2,14 @@ import { fireEvent, HASSDomEvent, HomeAssistant, LovelaceCardEditor } from "cust
 import { html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { array, assert, assign, dynamic, literal, object, optional, string } from "superstruct";
-import { baseLovelaceCardConfig } from "../../../utils/editor-styles";
-import { loadHaComponents } from "../../../utils/loader";
-import { EditorTarget, EditSubElementEvent, SubElementEditorConfig } from "../../../utils/lovelace/editor/types";
-import { SCENES_CARD_EDITOR_NAME } from "../const";
-import { SceneCardConfig } from "../scene-editor-config";
-import { ScenesCardConfig } from "../scenes-card";
+import { baseLovelaceCardConfig } from "../../utils/editor-styles";
+import { loadHaComponents } from "../../utils/loader";
+import { EditorTarget, EditSubElementEvent, SubElementEditorConfig } from "../../utils/lovelace/editor/types";
+import { SCENES_CARD_EDITOR_NAME } from "./const";
+import { SceneCardConfig } from "./scene-editor-config";
+import { ScenesCardConfig } from "./scenes-card";
 import "./scenes-card-scenes-editor";
-import "./item-element-editor";
+import "./editor/item-element-editor";
 
 const sceneConfigStruct = object({
     type: literal("scene"),

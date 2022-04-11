@@ -9,7 +9,7 @@ import { HaFormSchema } from "../../../utils/form/ha-form";
 import { stateIcon } from "../../../utils/icons/state-icon";
 import { SCENES_CARD_FIELDS, SCENES_CARD_SCRIPT_DOMAIN } from "../const";
 import { SceneElement, ScriptConfig } from "../scene-editor-config";
-import { computeSceneEditorComponentName } from "../utils";
+import { computeEditorComponentName } from "../utils";
 
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: SCENES_CARD_SCRIPT_DOMAIN } } },
@@ -31,7 +31,7 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     }
 ]);
 
-@customElement(computeSceneEditorComponentName("script"))
+@customElement(computeEditorComponentName("script"))
 export class ScriptScriptEditor extends LitElement implements SceneElement {
     @property({ attribute: false }) public hass?: HomeAssistant;
 

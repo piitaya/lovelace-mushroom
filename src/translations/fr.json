@@ -100,7 +100,7 @@
             "sub_element_editor": {
                 "title": "Éditeur de' \"type\""
             },
-            "scene-picker": {
+            "item-picker": {
                 "items": "\"Types\"",
                 "details": "Affichez les détails en cliquant sur le bouton Modifier",
                 "add": "Ajouter un \"type\"",

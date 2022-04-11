@@ -8,14 +8,14 @@ import { isActive } from "../../../ha/data/entity";
 import { computeRgbColor } from "../../../utils/colors";
 import { stateIcon } from "../../../utils/icons/state-icon";
 import { SceneConfig, SceneElement } from "../scene-editor-config";
-import { computeSceneComponentName, computeSceneEditorComponentName, LovelaceSceneEditor } from "../utils";
+import { computeComponentName, computeEditorComponentName, LovelaceSceneEditor } from "../utils";
 
-@customElement(computeSceneComponentName("scene"))
+@customElement(computeComponentName("scene"))
 export class SceneItem extends LitElement implements SceneElement {
     public static async getConfigElement(): Promise<LovelaceSceneEditor> {
         await import("./scene-item-editor");
         return document.createElement(
-            computeSceneEditorComponentName("scene")
+            computeEditorComponentName("scene")
         ) as LovelaceSceneEditor;
     }
 
