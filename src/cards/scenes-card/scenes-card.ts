@@ -98,7 +98,7 @@ export class ScenesCard extends LitElement implements LovelaceCard {
                     flex-wrap: wrap;
                     margin-bottom: calc(-1 * var(--scene-spacing));
                     justify-content: space-between;
-                    padding: 12px;
+                    padding: 6px;
                 }
                 .item-container * {
                     margin-bottom: var(--item-spacing);

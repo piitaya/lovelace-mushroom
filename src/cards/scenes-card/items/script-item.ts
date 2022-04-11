@@ -1,10 +1,7 @@
 import { ActionHandlerEvent, handleAction, HomeAssistant } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
-import { computeStateDisplay } from "../../../ha/common/entity/compute-state-display";
-import { isActive } from "../../../ha/data/entity";
 import { computeRgbColor } from "../../../utils/colors";
 import { stateIcon } from "../../../utils/icons/state-icon";
 import { LovelaceItemEditor, SceneElement, ScriptConfig } from "../scene-editor-config";
@@ -50,15 +47,17 @@ export class ScriptItem extends LitElement implements SceneElement {
         const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
         const iconColor = this._config.icon_color;
-
-        const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
-
-        const active = isActive(entity);
+        const backgroundColor = this._config.background_color;
 
         const iconStyle = {};
         if (iconColor) {
             const iconRgbColor = computeRgbColor(iconColor);
-            iconStyle["--color"] = `rgb(${iconRgbColor})`;
+            iconStyle["--primary-text-color"] = `rgb(${iconRgbColor})`;
+        }
+
+        if (backgroundColor) {
+            const bgRgbColor = computeRgbColor(backgroundColor);
+            iconStyle["--shape-color"] = `rgba(${bgRgbColor}, 0.1)`;
         }
 
         return html`
@@ -67,7 +66,7 @@ export class ScriptItem extends LitElement implements SceneElement {
                     <div class="container">
                         <mushroom-shape-icon
                             slot="icon"
-                            .disabled=${!active}
+                            style=${styleMap(iconStyle)}
                             .icon=${icon}
                         ></mushroom-shape-icon>
                         <span class="name">${name}</span>
