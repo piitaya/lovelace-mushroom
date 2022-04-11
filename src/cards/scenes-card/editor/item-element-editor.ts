@@ -39,7 +39,7 @@ export class MushroomSceneCardSubElementEditor extends LitElement {
                         <ha-icon icon="mdi:arrow-left"></ha-icon>
                     </ha-icon-button>
                     <span slot="title"
-                        >${customLocalize(`editor.chip.sub_element_editor.title`)}</span
+                        >${customLocalize(`editor.scene.sub_element_editor.title`)}</span
                     >
                 </div>
                 <mwc-button

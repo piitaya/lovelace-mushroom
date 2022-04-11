@@ -7,23 +7,24 @@ import { configElementStyle } from "../../../utils/editor-styles";
 import { GENERIC_FIELDS } from "../../../utils/form/fields";
 import { HaFormSchema } from "../../../utils/form/ha-form";
 import { stateIcon } from "../../../utils/icons/state-icon";
+import { SCENES_CARD_FIELDS, SCENES_CARD_SCENE_DOMAIN } from "../const";
 import { SceneConfig } from "../scene-editor-config";
 import { computeSceneEditorComponentName, LovelaceSceneEditor } from "../utils";
 
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
-    { name: "entity", selector: { entity: { domain: "scene" } } },
+    { name: "entity", selector: { entity: { domain: SCENES_CARD_SCENE_DOMAIN } } },
     {
         type: "grid",
         name: "",
         schema: [
             { name: "name", selector: { text: {} } },
+            { name: "icon", selector: { icon: { placeholder: icon } } },
         ],
     },
     {
         type: "grid",
         name: "",
-        schema: [
-            { name: "icon", selector: { icon: { placeholder: icon } } },
+        schema: [            
             { name: "icon_color", selector: { "mush-color": {} } },
             { name: "background_color", selector: { "mush-color": {} } },
         ],
@@ -45,6 +46,10 @@ export class SceneSceneEditor extends LitElement implements LovelaceSceneEditor 
 
         if (GENERIC_FIELDS.includes(schema.name)) {
             return customLocalize(`editor.card.generic.${schema.name}`);
+        }
+
+        if (SCENES_CARD_FIELDS.includes(schema.name)) {
+            return customLocalize(`editor.card.scenes.${schema.name}`);
         }
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
     };

@@ -93,17 +93,21 @@
                 "show_return_home_control": "Bouton retour à la base"
             },
             "scenes": {
-                "alignment": "Alignement"
+                "alignment": "Alignement",
+                "background_color": "Couleur du fond"
             }
         },
         "scene": {
+            "sub_element_editor": {
+                "title": "Éditeur de' \"type\""
+            },
             "scene-picker": {
-                "items": "\"Elements\"",
+                "items": "\"Types\"",
                 "details": "Affichez les détails en cliquant sur le bouton Modifier",
-                "add": "Ajouter un \"élément\"",
+                "add": "Ajouter un \"type\"",
                 "edit": "Modifier",
                 "clear": "Effacer",
-                "select": "Sélectionner un \"élement\"",
+                "select": "Sélectionner un \"type\"",
                 "types": {
                     "scene": "Scéne",
                     "script": "Script"
