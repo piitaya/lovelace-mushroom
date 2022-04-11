@@ -14,9 +14,7 @@ import { computeComponentName, computeEditorComponentName } from "../utils";
 export class SceneItem extends LitElement implements SceneElement {
     public static async getConfigElement(): Promise<LovelaceItemEditor> {
         await import("./scene-item-editor");
-        return document.createElement(
-            computeEditorComponentName("scene")
-        ) as LovelaceItemEditor;
+        return document.createElement(computeEditorComponentName("scene")) as LovelaceItemEditor;
     }
 
     public static async getStubConfig(hass: HomeAssistant): Promise<SceneConfig> {
@@ -65,18 +63,64 @@ export class SceneItem extends LitElement implements SceneElement {
 
         return html`
             <mushroom-scene @action=${this._handleAction}>
-                <ha-icon
-                    .icon=${icon}
-                    style=${styleMap(iconStyle)}
-                    class=${classMap({ active })}
-                ></ha-icon>
-                <span>${name}</span>
+                <ha-card>
+                    <div class="container">
+                        <mushroom-shape-icon
+                            slot="icon"
+                            .disabled=${!active}
+                            .icon=${icon}
+                        ></mushroom-shape-icon>
+                        <span class="name">${name}</span>
+                    </div>
+                </ha-card>
             </mushroom-scene>
         `;
     }
 
     static get styles(): CSSResultGroup {
         return css`
+            ha-card {
+                cursor: pointer;
+                border-radius: 50px;
+                place-self: center;
+                width: 52px;
+                height: 84px;
+                box-shadow: var(--box-shadow);
+                --box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.8);
+                box-sizing: border-box;
+                text-align: center;
+                padding: 5px;
+            }
+            div.container {
+                display: grid;
+                grid-template:
+                    "i" 1fr
+                    "n" 1fr / min-content;
+                row-gap: 0px;
+                justify-items: center;
+            }
+            span.name {
+                font-size: 9.5px;
+                font-weight: bold;
+                padding-bottom: 7px;
+                width: 33px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                grid-area: n / n / n / n;
+                max-width: 100%;
+                place-self: center;
+            }
+            mushroom-shape-icon {
+                grid-area: i / i / i / i;
+                max-width: 100%;
+                place-self: center;
+                overflow: hidden;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                display: flex;
+            }
             mushroom-scene {
                 cursor: pointer;
             }

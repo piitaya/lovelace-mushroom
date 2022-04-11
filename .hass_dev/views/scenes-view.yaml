@@ -28,6 +28,7 @@ cards:
             background_color: green
           - type: script
             entity: script.wakeup
-            name: mdi:party-popper
+            icon: mdi:party-popper
+            name: Wake up
             icon_color: yellow
             background_color: yellow
