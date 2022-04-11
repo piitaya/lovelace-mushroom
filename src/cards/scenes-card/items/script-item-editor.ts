@@ -8,8 +8,8 @@ import { GENERIC_FIELDS } from "../../../utils/form/fields";
 import { HaFormSchema } from "../../../utils/form/ha-form";
 import { stateIcon } from "../../../utils/icons/state-icon";
 import { SCENES_CARD_FIELDS, SCENES_CARD_SCRIPT_DOMAIN } from "../const";
-import { SceneElement, ScriptConfig } from "../scene-editor-config";
-import { computeEditorComponentName, LovelaceItemEditor } from "../utils";
+import { LovelaceItemEditor, ScriptConfig } from "../scene-editor-config";
+import { computeEditorComponentName } from "../utils";
 
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: SCENES_CARD_SCRIPT_DOMAIN } } },

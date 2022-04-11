@@ -1,4 +1,20 @@
 import { HomeAssistant } from "custom-card-helpers";
+import { LovelaceGenericElementEditor } from "../../utils/lovelace/types";
+
+
+export interface LovelaceItemEditor extends LovelaceGenericElementEditor {
+    setConfig(config: ItemConfig): void;
+}
+
+export interface SubItemEditorConfig {
+    index?: number;
+    elementConfig?: ItemConfig;
+    type: string;
+}
+
+export interface EditSubItemEditorConfig {
+    subElementConfig: SubItemEditorConfig;
+}
 
 export interface SceneElement extends HTMLElement {
     hass?: HomeAssistant;

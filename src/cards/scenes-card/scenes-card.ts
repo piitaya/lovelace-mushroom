@@ -12,9 +12,10 @@ import { cardStyle } from "../../utils/card-styles";
 import { SceneItem } from "./items/scene-item";
 import { SceneElement, ItemConfig } from "./scene-editor-config";
 import { createSceneElement } from "./utils";
+import { ScriptItem } from "./items/script-item";
 
 export interface ScenesCardConfig extends LovelaceCardConfig {
-    scenes: ItemConfig[];
+    items: ItemConfig[];
 }
 
 registerCustomCard({
@@ -31,10 +32,13 @@ export class ScenesCard extends LitElement implements LovelaceCard {
     }
 
     public static async getStubConfig(_hass: HomeAssistant): Promise<ScenesCardConfig> {
-        const scenes = await Promise.all([SceneItem.getStubConfig(_hass)]);
+        const items = await Promise.all([
+            SceneItem.getStubConfig(_hass),
+            ScriptItem.getStubConfig(_hass),
+        ]);
         return {
             type: `custom:${SCENES_CARD_NAME}`,
-            scenes,
+            items,
         };
     }
 

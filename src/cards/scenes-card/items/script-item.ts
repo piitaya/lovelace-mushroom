@@ -7,8 +7,8 @@ import { computeStateDisplay } from "../../../ha/common/entity/compute-state-dis
 import { isActive } from "../../../ha/data/entity";
 import { computeRgbColor } from "../../../utils/colors";
 import { stateIcon } from "../../../utils/icons/state-icon";
-import { SceneElement, ScriptConfig } from "../scene-editor-config";
-import { computeComponentName, computeEditorComponentName, LovelaceItemEditor } from "../utils";
+import { LovelaceItemEditor, SceneElement, ScriptConfig } from "../scene-editor-config";
+import { computeComponentName, computeEditorComponentName } from "../utils";
 
 @customElement(computeComponentName("script"))
 export class ScriptItem extends LitElement implements SceneElement {

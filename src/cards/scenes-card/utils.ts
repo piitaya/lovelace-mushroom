@@ -2,10 +2,6 @@ import { PREFIX_NAME } from "../../const";
 import { LovelaceGenericElementEditor } from "../../utils/lovelace/types";
 import { SceneElement, ItemConfig } from "./scene-editor-config";
 
-export interface LovelaceItemEditor extends LovelaceGenericElementEditor {
-    setConfig(config: ItemConfig): void;
-}
-
 export const createSceneElement = (config: ItemConfig): SceneElement | undefined => {
     try {
         // @ts-ignore

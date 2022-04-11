@@ -4,9 +4,9 @@ import { customElement, property, state } from "lit/decorators.js";
 import { array, assert, assign, dynamic, literal, object, optional, string } from "superstruct";
 import { baseLovelaceCardConfig } from "../../utils/editor-styles";
 import { loadHaComponents } from "../../utils/loader";
-import { EditorTarget, EditSubElementEvent, SubElementEditorConfig } from "../../utils/lovelace/editor/types";
+import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { SCENES_CARD_EDITOR_NAME } from "./const";
-import { ItemConfig } from "./scene-editor-config";
+import { EditSubItemEditorConfig, ItemConfig, SubItemEditorConfig } from "./scene-editor-config";
 import { ScenesCardConfig } from "./scenes-card";
 import "./scenes-card-scenes-editor";
 import "./editor/item-element-editor";
@@ -54,7 +54,7 @@ export class ScenesCardEditor extends LitElement implements LovelaceCardEditor {
 
     @state() private _config?: ScenesCardConfig;
 
-    @state() private _subElementEditorConfig?: SubElementEditorConfig;
+    @state() private _subItemEditorConfig?: SubItemEditorConfig;
 
     connectedCallback() {
         super.connectedCallback();
@@ -79,11 +79,11 @@ export class ScenesCardEditor extends LitElement implements LovelaceCardEditor {
             return html``;
         }
 
-        if (this._subElementEditorConfig) {
+        if (this._subItemEditorConfig) {
             return html`
                 <mushroom-scene-card-sub-element-editor
                     .hass=${this.hass}
-                    .config=${this._subElementEditorConfig}
+                    .config=${this._subItemEditorConfig}
                     @go-back=${this._goBack}
                     @config-changed=${this._handleSubElementChanged}
                 >
@@ -106,23 +106,23 @@ export class ScenesCardEditor extends LitElement implements LovelaceCardEditor {
             return;
         }
         const target = ev.target! as EditorTarget;
-        const configValue = target.configValue || this._subElementEditorConfig?.type;
+        const configValue = target.configValue || this._subItemEditorConfig?.type;
         const value = target.checked ?? ev.detail.value ?? target.value;
 
-        if (configValue === "scene" || (ev.detail && ev.detail.items)) {
-            const newConfigScenes = ev.detail.items || this._config!.items.concat();
-            if (configValue === "scene") {
+        if (configValue === "item" || (ev.detail && ev.detail.items)) {
+            const newConfigItems = ev.detail.items || this._config!.items.concat();
+            if (configValue === "item") {
                 if (!value) {
-                    newConfigScenes.splice(this._subElementEditorConfig!.index!, 1);
+                    newConfigItems.splice(this._subItemEditorConfig!.index!, 1);
                     this._goBack();
                 } else {
-                    newConfigScenes[this._subElementEditorConfig!.index!] = value;
+                    newConfigItems[this._subItemEditorConfig!.index!] = value;
                 }
 
-                this._subElementEditorConfig!.elementConfig = value;
+                this._subItemEditorConfig!.elementConfig = value;
             }
 
-            this._config = { ...this._config!, items: newConfigScenes };
+            this._config = { ...this._config!, items: newConfigItems };
         } else if (configValue) {
             if (!value) {
                 this._config = { ...this._config };
@@ -144,16 +144,16 @@ export class ScenesCardEditor extends LitElement implements LovelaceCardEditor {
             return;
         }
 
-        const configValue = this._subElementEditorConfig?.type;
+        const configValue = this._subItemEditorConfig?.type;
         const value = ev.detail.config;
 
-        if (configValue === "scene") {
+        if (configValue === "item") {
             const newConfig = this._config!.items!.concat();
             if (!value) {
-                newConfig.splice(this._subElementEditorConfig!.index!, 1);
+                newConfig.splice(this._subItemEditorConfig!.index!, 1);
                 this._goBack();
             } else {
-                newConfig[this._subElementEditorConfig!.index!] = value;
+                newConfig[this._subItemEditorConfig!.index!] = value;
             }
 
             this._config = { ...this._config!, items: newConfig };
@@ -169,19 +169,19 @@ export class ScenesCardEditor extends LitElement implements LovelaceCardEditor {
             }
         }
 
-        this._subElementEditorConfig = {
-            ...this._subElementEditorConfig!,
+        this._subItemEditorConfig = {
+            ...this._subItemEditorConfig!,
             elementConfig: value,
         };
 
         fireEvent(this, "config-changed", { config: this._config });
     }
 
-    private _editDetailElement(ev: HASSDomEvent<EditSubElementEvent>): void {
-        this._subElementEditorConfig = ev.detail.subElementConfig;
+    private _editDetailElement(ev: HASSDomEvent<EditSubItemEditorConfig>): void {
+        this._subItemEditorConfig = ev.detail.subElementConfig;
     }
 
     private _goBack(): void {
-        this._subElementEditorConfig = undefined;
+        this._subItemEditorConfig = undefined;
     }
 }

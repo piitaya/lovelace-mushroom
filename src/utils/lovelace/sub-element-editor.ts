@@ -2,10 +2,11 @@ import { fireEvent, HASSDomEvent, HomeAssistant } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state, query } from "lit/decorators.js";
 import { LovelaceChipConfig } from "./chip/types";
-import { GUIModeChangedEvent, SubElementEditorConfig } from "./editor/types";
+import { GUIModeChangedEvent } from "./editor/types";
 import type { MushroomElementEditor } from "./element-editor";
 import "./chip-element-editor";
 import setupCustomlocalize from "../../localize";
+import { SubItemEditorConfig } from "../../cards/scenes-card/scene-editor-config";
 
 declare global {
     interface HASSDomEvents {
@@ -17,7 +18,7 @@ declare global {
 export class MushroomSubElementEditor extends LitElement {
     public hass!: HomeAssistant;
 
-    @property({ attribute: false }) public config!: SubElementEditorConfig;
+    @property({ attribute: false }) public config!: SubItemEditorConfig;
 
     @state() private _guiModeAvailable = true;
 

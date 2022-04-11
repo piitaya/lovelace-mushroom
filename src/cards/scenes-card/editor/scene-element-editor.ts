@@ -1,7 +1,7 @@
 import { customElement } from "lit/decorators.js";
 import { MushroomElementEditor } from "../../../utils/lovelace/element-editor";
-import { ItemConfig } from "../scene-editor-config";
-import { computeComponentName, LovelaceItemEditor } from "../utils";
+import { ItemConfig, LovelaceItemEditor } from "../scene-editor-config";
+import { computeComponentName } from "../utils";
 
 @customElement("mushroom-scene-element-editor")
 export class MushroomSceneElementEditor extends MushroomElementEditor<ItemConfig> {

@@ -229,17 +229,17 @@ export class ScenesCardEditorScenes extends LitElement {
         fireEvent<any>(this, "edit-detail-element", {
             subElementConfig: {
                 index,
-                type: "scene",
+                type: "item",
                 elementConfig: this.items![index],
             },
         });
     }
 
-    private _renderSceneLabel(sceneConf: ItemConfig): string {
+    private _renderSceneLabel(itemConf: ItemConfig): string {
         const customLocalize = setupCustomlocalize(this.hass);
-        let label = customLocalize(`editor.scene.item-picker.types.${sceneConf.type}`);
-        if ("entity" in sceneConf && sceneConf.entity) {
-            label += ` - ${sceneConf.entity}`;
+        let label = customLocalize(`editor.scene.item-picker.types.${itemConf.type}`);
+        if ("entity" in itemConf && itemConf.entity) {
+            label += ` - ${itemConf.entity}`;
         }
         return label;
     }

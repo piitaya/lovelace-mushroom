@@ -2,9 +2,9 @@ import { fireEvent, HASSDomEvent, HomeAssistant } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state, query } from "lit/decorators.js";
 import setupCustomlocalize from "../../../localize";
-import { GUIModeChangedEvent, SubElementEditorConfig } from "../../../utils/lovelace/editor/types";
+import { GUIModeChangedEvent } from "../../../utils/lovelace/editor/types";
 import { MushroomElementEditor } from "../../../utils/lovelace/element-editor";
-import { ItemConfig } from "../scene-editor-config";
+import { ItemConfig, SubItemEditorConfig } from "../scene-editor-config";
 import "./scene-element-editor";
 
 declare global {
@@ -17,7 +17,7 @@ declare global {
 export class MushroomSceneCardSubElementEditor extends LitElement {
     public hass!: HomeAssistant;
 
-    @property({ attribute: false }) public config!: SubElementEditorConfig;
+    @property({ attribute: false }) public config!: SubItemEditorConfig;
 
     @state() private _guiModeAvailable = true;
 
@@ -54,7 +54,7 @@ export class MushroomSceneCardSubElementEditor extends LitElement {
                     )}
                 </mwc-button>
             </div>
-            ${this.config.type === "scene"
+            ${this.config.type === "item"
                 ? html`
                       <mushroom-scene-element-editor
                           class="editor"

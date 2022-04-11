@@ -104,7 +104,7 @@ export class ScenesCardEditorScenes extends LitElement {
             </div>
             <mushroom-select
                 .label=${customLocalize("editor.scene.scene-picker.add")}
-                @selected=${this._addScenes}
+                @selected=${this._addItem}
                 @closed=${(e) => e.stopPropagation()}
                 fixedMenuPosition
                 naturalMenuWidth
@@ -175,7 +175,7 @@ export class ScenesCardEditorScenes extends LitElement {
         });
     }
 
-    private async _addScenes(ev: any): Promise<void> {
+    private async _addItem(ev: any): Promise<void> {
         const target = ev.target! as EditorTarget;
         const value = target.value as string;
 
