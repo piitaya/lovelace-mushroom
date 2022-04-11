@@ -8,22 +8,23 @@ import { isActive } from "../../../ha/data/entity";
 import { computeRgbColor } from "../../../utils/colors";
 import { stateIcon } from "../../../utils/icons/state-icon";
 import { SceneConfig, SceneElement } from "../scene-editor-config";
-import { computeComponentName, computeEditorComponentName, LovelaceSceneEditor } from "../utils";
+import { computeComponentName, computeEditorComponentName, LovelaceItemEditor } from "../utils";
 
 @customElement(computeComponentName("scene"))
 export class SceneItem extends LitElement implements SceneElement {
-    public static async getConfigElement(): Promise<LovelaceSceneEditor> {
+    public static async getConfigElement(): Promise<LovelaceItemEditor> {
         await import("./scene-item-editor");
         return document.createElement(
             computeEditorComponentName("scene")
-        ) as LovelaceSceneEditor;
+        ) as LovelaceItemEditor;
     }
 
     public static async getStubConfig(hass: HomeAssistant): Promise<SceneConfig> {
         const entities = Object.keys(hass.states);
+        const scene = entities.filter((e) => e.split(".")[0] === "scene");
         return {
             type: `scene`,
-            entity: entities[0],
+            entity: scene[0],
         };
     }
 

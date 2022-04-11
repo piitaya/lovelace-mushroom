@@ -1,15 +1,15 @@
 import { customElement } from "lit/decorators.js";
 import { MushroomElementEditor } from "../../../utils/lovelace/element-editor";
-import { SceneCardConfig } from "../scene-editor-config";
-import { computeComponentName, LovelaceSceneEditor } from "../utils";
+import { ItemConfig } from "../scene-editor-config";
+import { computeComponentName, LovelaceItemEditor } from "../utils";
 
 @customElement("mushroom-scene-element-editor")
-export class MushroomSceneElementEditor extends MushroomElementEditor<SceneCardConfig> {
+export class MushroomSceneElementEditor extends MushroomElementEditor<ItemConfig> {
     protected get configElementType(): string | undefined {
         return this.value?.type;
     }
 
-    protected async getConfigElement(): Promise<LovelaceSceneEditor | undefined> {
+    protected async getConfigElement(): Promise<LovelaceItemEditor | undefined> {
         const elClass = (await getElementClass(this.configElementType!)) as any;
 
         // Check if a GUI editor exists

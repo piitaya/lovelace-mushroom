@@ -4,7 +4,7 @@ import { customElement, property, state, query } from "lit/decorators.js";
 import setupCustomlocalize from "../../../localize";
 import { GUIModeChangedEvent, SubElementEditorConfig } from "../../../utils/lovelace/editor/types";
 import { MushroomElementEditor } from "../../../utils/lovelace/element-editor";
-import { SceneCardConfig } from "../scene-editor-config";
+import { ItemConfig } from "../scene-editor-config";
 import "./scene-element-editor";
 
 declare global {
@@ -24,7 +24,7 @@ export class MushroomSceneCardSubElementEditor extends LitElement {
     @state() private _guiMode = true;
 
     @query(".editor")
-    private _editorElement?: MushroomElementEditor<SceneCardConfig>;
+    private _editorElement?: MushroomElementEditor<ItemConfig>;
 
     protected render(): TemplateResult {
         const customLocalize = setupCustomlocalize(this.hass);

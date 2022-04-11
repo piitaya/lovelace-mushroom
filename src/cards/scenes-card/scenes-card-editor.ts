@@ -6,7 +6,7 @@ import { baseLovelaceCardConfig } from "../../utils/editor-styles";
 import { loadHaComponents } from "../../utils/loader";
 import { EditorTarget, EditSubElementEvent, SubElementEditorConfig } from "../../utils/lovelace/editor/types";
 import { SCENES_CARD_EDITOR_NAME } from "./const";
-import { SceneCardConfig } from "./scene-editor-config";
+import { ItemConfig } from "./scene-editor-config";
 import { ScenesCardConfig } from "./scenes-card";
 import "./scenes-card-scenes-editor";
 import "./editor/item-element-editor";
@@ -31,7 +31,7 @@ const scriptConfigStruct = object({
 
 const scenesConfigStruct = dynamic<any>((value) => {
     if (value && typeof value === "object" && "type" in value) {
-        switch ((value as SceneCardConfig).type!) {
+        switch ((value as ItemConfig).type!) {
             case "scene":
                 return sceneConfigStruct;
             case "script":
@@ -148,15 +148,15 @@ export class ScenesCardEditor extends LitElement implements LovelaceCardEditor {
         const value = ev.detail.config;
 
         if (configValue === "scene") {
-            const newConfigScenes = this._config!.items!.concat();
+            const newConfig = this._config!.items!.concat();
             if (!value) {
-                newConfigScenes.splice(this._subElementEditorConfig!.index!, 1);
+                newConfig.splice(this._subElementEditorConfig!.index!, 1);
                 this._goBack();
             } else {
-                newConfigScenes[this._subElementEditorConfig!.index!] = value;
+                newConfig[this._subElementEditorConfig!.index!] = value;
             }
 
-            this._config = { ...this._config!, items: newConfigScenes };
+            this._config = { ...this._config!, items: newConfig };
         } else if (configValue) {
             if (value === "") {
                 this._config = { ...this._config };

@@ -3,7 +3,7 @@ import { HomeAssistant } from "custom-card-helpers";
 export interface SceneElement extends HTMLElement {
     hass?: HomeAssistant;
     editMode?: boolean;
-    setConfig(config: SceneCardConfig);
+    setConfig(config: ItemConfig);
 }
 
 export type SceneConfig = {
@@ -24,6 +24,6 @@ export type ScriptConfig = {
     background_color?: string;
 };
 
-export type SceneCardConfig = SceneConfig | ScriptConfig;
+export type ItemConfig = SceneConfig | ScriptConfig;
 
-export const ITEM_LIST: SceneCardConfig["type"][] = ["scene", "script"];
+export const ITEM_LIST: ItemConfig["type"][] = ["scene", "script"];

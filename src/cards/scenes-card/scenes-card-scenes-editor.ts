@@ -6,7 +6,7 @@ import type { SortableEvent } from "sortablejs";
 import setupCustomlocalize from "../../localize";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { sortableStyles } from "../../utils/sortable-styles";
-import { ITEM_LIST, SceneCardConfig } from "./scene-editor-config";
+import { ITEM_LIST, ItemConfig } from "./scene-editor-config";
 import { getElementClass } from "./editor/scene-element-editor";
 
 let Sortable;
@@ -14,7 +14,7 @@ let Sortable;
 declare global {
     interface HASSDomEvents {
         "items-changed": {
-            items: SceneCardConfig[];
+            items: ItemConfig[];
         };
     }
 }
@@ -23,7 +23,7 @@ declare global {
 export class ScenesCardEditorScenes extends LitElement {
     @property({ attribute: false }) protected hass?: HomeAssistant;
 
-    @property({ attribute: false }) protected items?: SceneCardConfig[];
+    @property({ attribute: false }) protected items?: ItemConfig[];
 
     @property() protected label?: string;
 
@@ -183,15 +183,15 @@ export class ScenesCardEditorScenes extends LitElement {
             return;
         }
 
-        let newItem: SceneCardConfig;
+        let newItem: ItemConfig;
 
         // Check if a stub config exists
         const elClass = getElementClass(value) as any;
 
         if (elClass && elClass.getStubConfig) {
-            newItem = (await elClass.getStubConfig(this.hass)) as SceneCardConfig;
+            newItem = (await elClass.getStubConfig(this.hass)) as ItemConfig;
         } else {
-            newItem = { type: value } as SceneCardConfig;
+            newItem = { type: value } as ItemConfig;
         }
 
         const newConfigScenes = this.items!.concat(newItem);
@@ -235,7 +235,7 @@ export class ScenesCardEditorScenes extends LitElement {
         });
     }
 
-    private _renderSceneLabel(sceneConf: SceneCardConfig): string {
+    private _renderSceneLabel(sceneConf: ItemConfig): string {
         const customLocalize = setupCustomlocalize(this.hass);
         let label = customLocalize(`editor.scene.item-picker.types.${sceneConf.type}`);
         if ("entity" in sceneConf && sceneConf.entity) {

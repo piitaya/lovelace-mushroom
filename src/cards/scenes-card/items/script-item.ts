@@ -8,22 +8,23 @@ import { isActive } from "../../../ha/data/entity";
 import { computeRgbColor } from "../../../utils/colors";
 import { stateIcon } from "../../../utils/icons/state-icon";
 import { SceneElement, ScriptConfig } from "../scene-editor-config";
-import { computeComponentName, computeEditorComponentName, LovelaceSceneEditor } from "../utils";
+import { computeComponentName, computeEditorComponentName, LovelaceItemEditor } from "../utils";
 
 @customElement(computeComponentName("script"))
 export class ScriptItem extends LitElement implements SceneElement {
-    public static async getConfigElement(): Promise<LovelaceSceneEditor> {
+    public static async getConfigElement(): Promise<LovelaceItemEditor> {
         await import("./script-item-editor");
         return document.createElement(
             computeEditorComponentName("script")
-        ) as LovelaceSceneEditor;
+        ) as LovelaceItemEditor;
     }
 
     public static async getStubConfig(hass: HomeAssistant): Promise<ScriptConfig> {
         const entities = Object.keys(hass.states);
+        const script = entities.filter((e) => e.split(".")[0] === "script");
         return {
             type: `script`,
-            entity: entities[0],
+            entity: script[0],
         };
     }
 

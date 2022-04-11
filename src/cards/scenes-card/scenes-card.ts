@@ -10,11 +10,11 @@ import { registerCustomCard } from "../../utils/custom-cards";
 import { SCENES_CARD_EDITOR_NAME, SCENES_CARD_NAME } from "./const";
 import { cardStyle } from "../../utils/card-styles";
 import { SceneItem } from "./items/scene-item";
-import { SceneElement, SceneCardConfig } from "./scene-editor-config";
+import { SceneElement, ItemConfig } from "./scene-editor-config";
 import { createSceneElement } from "./utils";
 
 export interface ScenesCardConfig extends LovelaceCardConfig {
-    scenes: SceneCardConfig[];
+    scenes: ItemConfig[];
 }
 
 registerCustomCard({
@@ -71,7 +71,7 @@ export class ScenesCard extends LitElement implements LovelaceCard {
         `;
     }
 
-    private renderItem(sceneConfig: SceneCardConfig): TemplateResult {
+    private renderItem(sceneConfig: ItemConfig): TemplateResult {
         const element = createSceneElement(sceneConfig);
         if (!element) {
             return html``;
