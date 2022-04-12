@@ -1,4 +1,4 @@
-import { fireEvent, HomeAssistant, LovelaceCardEditor } from "custom-card-helpers";
+import { fireEvent, HomeAssistant, LocalizeFunc, LovelaceCardEditor } from "custom-card-helpers";
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
@@ -10,17 +10,11 @@ import { HaFormSchema } from "../../utils/form/ha-form";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { loadHaComponents } from "../../utils/loader";
 import { VACUUM_CARD_EDITOR_NAME, VACUUM_ENTITY_DOMAINS } from "./const";
-import { VacuumCardConfig, vacuumCardConfigStruct } from "./vacuum-card-config";
+import { VACUUM_COMMANDS, VacuumCardConfig, vacuumCardConfigStruct } from "./vacuum-card-config";
 
-const VACUUM_FIELDS = [
-    "show_start_pause_control",
-    "show_stop_control",
-    "show_locate_control",
-    "show_clean_spot_control",
-    "show_return_home_control",
-];
+const VACUUM_FIELDS = ["commands"];
 
-const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
+const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: VACUUM_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
     {
@@ -37,15 +31,12 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
         ],
     },
     {
-        type: "grid",
-        name: "",
-        schema: [
-            { name: "show_start_pause_control", selector: { boolean: {} } },
-            { name: "show_stop_control", selector: { boolean: {} } },
-            { name: "show_locate_control", selector: { boolean: {} } },
-            { name: "show_clean_spot_control", selector: { boolean: {} } },
-            { name: "show_return_home_control", selector: { boolean: {} } },
-        ],
+        type: "multi_select",
+        name: "commands",
+        options: VACUUM_COMMANDS.map((command) => [
+            command,
+            localize(`ui.dialogs.more_info_control.vacuum.${command}`),
+        ]) as [string, string][],
     },
     { name: "tap_action", selector: { "mush-action": {} } },
     { name: "hold_action", selector: { "mush-action": {} } },
@@ -88,7 +79,7 @@ export class VacuumCardEditor extends LitElement implements LovelaceCardEditor {
         const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
         const entityIcon = entityState ? stateIcon(entityState) : undefined;
         const icon = this._config.icon || entityIcon;
-        const schema = computeSchema(icon);
+        const schema = computeSchema(this.hass!.localize, icon);
 
         return html`
             <ha-form

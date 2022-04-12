@@ -86,11 +86,7 @@
                 "show_buttons_control": "Contrôle avec boutons ?"
             },
             "vacuum": {
-                "show_start_pause_control": "Bouton Démarrer/Pause",
-                "show_stop_control": "Bouton stop",
-                "show_locate_control": "Bouton localiser",
-                "show_clean_spot_control": "Bouton nettoyer une zone",
-                "show_return_home_control": "Bouton retour à la base"
+                "commands": "Commandes"
             },
             "scenes": {
                 "background_color": "Couleur du fond"

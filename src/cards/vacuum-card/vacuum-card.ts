@@ -8,8 +8,10 @@ import {
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
+import { isActive, isAvailable } from "../../ha/data/entity";
+import { VacuumEntity } from "../../ha/data/vacuum";
 import "../../shared/badge-icon";
-import "../../shared/button";
 import "../../shared/card";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
@@ -20,22 +22,9 @@ import { actionHandler } from "../../utils/directives/action-handler-directive";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig } from "../../utils/layout";
 import { VACUUM_CARD_EDITOR_NAME, VACUUM_CARD_NAME, VACUUM_ENTITY_DOMAINS } from "./const";
-import "./controls/vacuum-start-pause-control";
-import "./controls/vacuum-stop-control";
-import "./controls/vacuum-clean-spot-control";
-import "./controls/vacuum-return-home-control";
-import "./controls/vacuum-locate-control";
-import {
-    isCleaning,
-    supportVacuumCleanSpotControl,
-    supportVacuumLocateControl,
-    supportVacuumReturnHomeControl,
-    supportVacuumStartPauseControl,
-    supportVacuumStopControl,
-} from "./utils";
+import "./controls/vacuum-commands-control";
+import { isCommandsControlVisible } from "./controls/vacuum-commands-control";
 import { VacuumCardConfig } from "./vacuum-card-config";
-import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
-import { isAvailable } from "../../ha/data/entity";
 
 registerCustomCard({
     type: VACUUM_CARD_NAME,
@@ -92,7 +81,7 @@ export class VacuumCard extends LitElement implements LovelaceCard {
         }
 
         const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id];
+        const entity = this.hass.states[entity_id] as VacuumEntity;
 
         const name = this._config.name || entity.attributes.friendly_name;
         const icon = this._config.icon || stateIcon(entity);
@@ -101,7 +90,9 @@ export class VacuumCard extends LitElement implements LovelaceCard {
 
         let stateValue = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
-        const active = isCleaning(entity);
+        const active = isActive(entity);
+
+        const commands = this._config?.commands ?? [];
 
         return html`
             <mushroom-card .layout=${layout}>
@@ -133,55 +124,19 @@ export class VacuumCard extends LitElement implements LovelaceCard {
                         .secondary=${!hideState && stateValue}
                     ></mushroom-state-info>
                 </mushroom-state-item>
-                <div class="actions">
-                    ${this._config?.show_start_pause_control &&
-                    supportVacuumStartPauseControl(entity)
-                        ? html`
-                              <mushroom-vacuum-start-pause-control
+                ${isCommandsControlVisible(entity, commands)
+                    ? html`
+                          <div class="actions">
+                              <mushroom-vacuum-commands-control
                                   .hass=${this.hass}
                                   .entity=${entity}
+                                  .commands=${commands}
                                   .fill=${layout !== "horizontal"}
-                              />
-                          `
-                        : null}
-                    ${this._config?.show_stop_control && supportVacuumStopControl(entity)
-                        ? html`
-                              <mushroom-vacuum-stop-control
-                                  .hass=${this.hass}
-                                  .entity=${entity}
-                                  .fill=${layout !== "horizontal"}
-                              />
-                          `
-                        : null}
-                    ${this._config?.show_locate_control && supportVacuumLocateControl(entity)
-                        ? html`
-                              <mushroom-vacuum-locate-control
-                                  .hass=${this.hass}
-                                  .entity=${entity}
-                                  .fill=${layout !== "horizontal"}
-                              />
-                          `
-                        : null}
-                    ${this._config?.show_clean_spot_control && supportVacuumCleanSpotControl(entity)
-                        ? html`
-                              <mushroom-vacuum-clean-spot-control
-                                  .hass=${this.hass}
-                                  .entity=${entity}
-                                  .fill=${layout !== "horizontal"}
-                              />
-                          `
-                        : null}
-                    ${this._config?.show_return_home_control &&
-                    supportVacuumReturnHomeControl(entity)
-                        ? html`
-                              <mushroom-vacuum-return-home-control
-                                  .hass=${this.hass}
-                                  .entity=${entity}
-                                  .fill=${layout !== "horizontal"}
-                              />
-                          `
-                        : null}
-                </div>
+                              >
+                              </mushroom-vacuum-commands-control>
+                          </div>
+                      `
+                    : null}
             </mushroom-card>
         `;
     }
@@ -197,8 +152,8 @@ export class VacuumCard extends LitElement implements LovelaceCard {
                     --icon-color: rgb(var(--rgb-state-vacuum));
                     --shape-color: rgba(var(--rgb-state-vacuum), 0.2);
                 }
-                mushroom-shape-icon ha-icon {
-                    color: red !important;
+                mushroom-vacuum-commands-control {
+                    flex: 1;
                 }
             `,
         ];

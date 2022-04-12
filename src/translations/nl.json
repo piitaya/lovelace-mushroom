@@ -81,13 +81,6 @@
             "weather": {
                 "show_conditions": "Weerbeeld",
                 "show_temperature": "Temperatuur"
-            },
-            "vacuum": {
-                "show_start_pause_control": "Start/Pauze-knop",
-                "show_stop_control": "Stop knop",
-                "show_locate_control": "Zoekknop",
-                "show_clean_spot_control": "Knop voor schone vlek",
-                "show_return_home_control": "Knop voor schone vlek"
             }
         },
         "chip": {
