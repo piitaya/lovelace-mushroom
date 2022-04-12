@@ -1,0 +1,5 @@
+---
+title: FAQ
+hide:
+  - toc
+---

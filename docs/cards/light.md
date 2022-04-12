@@ -1,7 +1,13 @@
+---
+title: Light
+hide:
+  - toc
+---
+
 # Light card
 
-![Light light](../images/light-light.png)
-![Light dark](../images/light-dark.png)
+![Light light](../assets/images/light-light.png)
+![Light dark](../assets/images/light-dark.png)
 
 ## Description
 

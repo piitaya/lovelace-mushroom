@@ -1,7 +1,13 @@
+---
+title: Alarm
+hide:
+  - toc
+---
+
 # Alarm control panel card
 
-![Alarm light](../images/alarm-light.png)
-![Alarm dark](../images/alarm-dark.png)
+![Alarm light](../assets/images/alarm-light.png)
+![Alarm dark](../assets/images/alarm-dark.png)
 
 ## Description
 

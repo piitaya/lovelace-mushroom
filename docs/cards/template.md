@@ -1,7 +1,13 @@
+---
+title: Template
+hide:
+  - toc
+---
+
 # Template card
 
-![Template light](../images/template-light.png)
-![Template dark](../images/template-dark.png)
+![Template light](../assets/images/template-light.png)
+![Template dark](../assets/images/template-dark.png)
 
 ## Description
 

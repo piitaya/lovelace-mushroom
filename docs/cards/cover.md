@@ -1,7 +1,13 @@
+---
+title: Cover
+hide:
+  - toc
+---
+
 # Cover card
 
-![Cover light](../images/cover-light.png)
-![Cover dark](../images/cover-dark.png)
+![Cover light](../assets/images/cover-light.png)
+![Cover dark](../assets/images/cover-dark.png)
 
 ## Description
 

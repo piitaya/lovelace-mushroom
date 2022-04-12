@@ -1,3 +1,9 @@
+---
+title: Chips
+hide:
+  - toc
+---
+
 # Chips card
 
 ## Description
@@ -15,22 +21,22 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 
 ### Action chip
 
-![Chip action light](../images/chip-action-light.png)
-![Chip action dark](../images/chip-action-dark.png)
+![Chip action light](../assets/images/chip-action-light.png)
+![Chip action dark](../assets/images/chip-action-dark.png)
 
 An action chip allows you to perform a Home Assistant action (navigate, call-service, etc...).
 
 ### Alarm control panel chip
 
-![Chip alarm light](../images/chip-alarm-control-panel-light.png)
-![Chip alarm dark](../images/chip-alarm-control-panel-dark.png)
+![Chip alarm light](../assets/images/chip-alarm-control-panel-light.png)
+![Chip alarm dark](../assets/images/chip-alarm-control-panel-dark.png)
 
 An alarm control panel is an entity chip that allows you to display the right icon and with the right color for alarm control panels.
 
 ### Back chip
 
-![Chip back light](../images/chip-back-light.png)
-![Chip back dark](../images/chip-back-dark.png)
+![Chip back light](../assets/images/chip-back-light.png)
+![Chip back dark](../assets/images/chip-back-dark.png)
 
 An action chip allows you to perform a back action.
 
@@ -40,35 +46,35 @@ A conditional chip allows you to display another chip based on chip state.
 
 ### Entity chip
 
-![Chip entity light](../images/chip-entity-light.png)
-![Chip entity dark](../images/chip-entity-dark.png)
+![Chip entity light](../assets/images/chip-entity-light.png)
+![Chip entity dark](../assets/images/chip-entity-dark.png)
 
 An entity chip allows you to display entity state.
 
 ### Light chip
 
-![Chip light light](../images/chip-light-light.png)
-![Chip light dark](../images/chip-light-dark.png)
+![Chip light light](../assets/images/chip-light-light.png)
+![Chip light dark](../assets/images/chip-light-dark.png)
 
 An light chip allows you to display light.
 
 ### Menu chip
 
-![Chip menu light](../images/chip-menu-light.png)
-![Chip menu dark](../images/chip-menu-dark.png)
+![Chip menu light](../assets/images/chip-menu-light.png)
+![Chip menu dark](../assets/images/chip-menu-dark.png)
 
 A menu chip allows you to open the drawer in mobile.
 
 ### Template chip
 
-![Chip template light](../images/chip-template-light.png)
-![Chip template dark](../images/chip-template-dark.png)
+![Chip template light](../assets/images/chip-template-light.png)
+![Chip template dark](../assets/images/chip-template-dark.png)
 
 A template chip allows you to build custom chip using [templates](https://www.home-assistant.io/docs/configuration/templating/).
 
 ### Weather chip
 
-![Chip weather light](../images/chip-weather-light.png)
-![Chip weather dark](../images/chip-weather-dark.png)
+![Chip weather light](../assets/images/chip-weather-light.png)
+![Chip weather dark](../assets/images/chip-weather-dark.png)
 
 A weather chip allows you to display the weather.

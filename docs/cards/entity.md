@@ -1,7 +1,13 @@
+---
+title: Entity
+hide:
+  - toc
+---
+
 # Entity card
 
-![Entity light](../images/entity-light.png)
-![Entity dark](../images/entity-dark.png)
+![Entity light](../assets/images/entity-light.png)
+![Entity dark](../assets/images/entity-dark.png)
 
 ## Description
 

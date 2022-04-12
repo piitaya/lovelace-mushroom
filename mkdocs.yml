@@ -1,0 +1,98 @@
+---
+# Project information
+site_name: "Lovelace Mushroom"
+site_url: "https://piitaya.github.io/lovelace-mushroom"
+
+# Repository
+repo_url: "https://github.com/piitaya/lovelace-mushroom"
+repo_name: "piitaya/lovelace-mushroom"
+edit_uri: "edit/main/docs"
+
+# https://pythonrepo.com/repo/lukasgeiter-mkdocs-awesome-pages-plugin-python-documentation
+nav:
+  - Home: "index.md"
+  - Setup:
+      - Installation: "setup/installation.md"
+      - Usage: "setup/usage.md"
+      - Theme: "setup/theme.md"
+  - Cards:
+      - Alarm: "cards/alarm.md"
+      - Chips: "cards/chips.md"
+      - Cover: "cards/cover.md"
+      - Entity: "cards/entity.md"
+      - Fan: "cards/fan.md"
+      - Light: "cards/light.md"
+      - Person: "cards/person.md"
+      - Template: "cards/template.md"
+      - Title: "cards/title.md"
+      - Update: "cards/update.md"
+      - Vacuum: "cards/vacuum.md"
+  - Development:
+      - Setup: "development/setup.md"
+      - Translations: "development/translations.md"
+      - Documentation: "development/documentation.md"
+  - Troubleshooting:
+      - FAQ: "troubleshooting/faq.md"
+
+theme:
+  name: "material"
+  language: "en"
+  font:
+    text: Roboto
+    code: Roboto Mono
+  logo: "assets/logos/website_logo.png"
+  favicon: "assets/logos/favicon/favicon-32x32.png"
+  custom_dir: "docs/assets/overrides"
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to light mode
+  features:
+    - "navigation.instant"
+    - "navigation.tracking"
+    - "navigation.top"
+    - "navigation.tabs"
+    - "navigation.indexes"
+    - "search.suggest"
+    - "search.highlight"
+    - "search.share"
+    - "content.code.annotate"
+    - "content.tabs.link"
+
+markdown_extensions:
+  - "meta"
+  - "pymdownx.superfences"
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - "admonition"
+  - "pymdownx.details"
+  - "pymdownx.inlinehilite"
+  - "pymdownx.critic"
+  - "pymdownx.caret"
+  - "pymdownx.keys"
+  - "pymdownx.tilde"
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: "piitaya"
+      repo: "lovelace-mushroom"
+  - "tables"
+  - "footnotes"
+  - "attr_list"
+  - "md_in_html"
+  - "def_list"
+  - toc:
+      permalink: true
+
+plugins:
+  - "search"
+  - "awesome-pages"

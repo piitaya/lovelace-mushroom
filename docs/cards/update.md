@@ -1,7 +1,13 @@
+---
+title: Update
+hide:
+  - toc
+---
+
 # Update card
 
-![Update light](../images/update-light.png)
-![Update dark](../images/update-dark.png)
+![Update light](../assets/images/update-light.png)
+![Update dark](../assets/images/update-dark.png)
 
 ## Description
 

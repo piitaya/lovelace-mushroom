@@ -1,7 +1,13 @@
+---
+title: Title
+hide:
+  - toc
+---
+
 # Title card
 
-![Title light](../images/title-light.png)
-![Title dark](../images/title-dark.png)
+![Title light](../assets/images/title-light.png)
+![Title dark](../assets/images/title-dark.png)
 
 ## Description
 

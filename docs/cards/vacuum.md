@@ -1,7 +1,13 @@
+---
+title: Vacuum
+hide:
+  - toc
+---
+
 # Vacuum card
 
-![Vacuum light](../images/vacuum-light.png)
-![Vacuum dark](../images/vacuum-dark.png)
+![Vacuum light](../assets/images/vacuum-light.png)
+![Vacuum dark](../assets/images/vacuum-dark.png)
 
 ## Description
 
