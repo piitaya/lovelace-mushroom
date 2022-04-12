@@ -29,13 +29,13 @@ export class MediaPlayerButtonsControl extends LitElement {
                 })}
             >
                 ${supportsPrevious(this.entity)
-                    ? this._generateButton("skip-previous", "media_previous_track")
+                    ? this._generateButton("mdi:skip-previous", "media_previous_track")
                     : null}
                 ${supportsPlay(this.entity) && supportsPause(this.entity)
                     ? this._generatePlayPauseButton()
                     : null}
                 ${supportsNext(this.entity)
-                    ? this._generateButton("skip-next", "media_next_track")
+                    ? this._generateButton("mdi:skip-next", "media_next_track")
                     : null}
             </div>
         `;
@@ -44,7 +44,7 @@ export class MediaPlayerButtonsControl extends LitElement {
     _generateButton(iconName: string, serviceName: string): TemplateResult {
         return html`
             <mushroom-button
-                .icon="mdi:${iconName}"
+                .icon=${iconName}
                 @click=${(e) => callService(e, this.hass, this.entity, serviceName)}
             ></mushroom-button>
         `;

@@ -30,7 +30,7 @@ import {
 type MediaPlayerCardControl = "buttons_control" | "volume_control";
 
 const CONTROLS_ICONS: Record<MediaPlayerCardControl, string> = {
-    buttons_control: "mdi:gamepad",
+    buttons_control: "mdi:play-pause",
     volume_control: "mdi:volume-high",
 };
 
