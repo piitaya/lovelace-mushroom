@@ -2,15 +2,10 @@ import { HomeAssistant } from "custom-card-helpers";
 import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { classMap } from "lit/directives/class-map.js";
 import { MEDIA_PLAYER_STATE_PLAYING } from "../../../ha/data/media-player";
-import {
-    callService,
-    supportsNext,
-    supportsPause,
-    supportsPlay,
-    supportsPrevious,
-} from "../utils";
+import { callService, supportsNext, supportsPause, supportsPlay, supportsPrevious } from "../utils";
+import "../../../shared/button-group";
+import "../../../shared/button";
 
 @customElement("mushroom-media-player-buttons-control")
 export class MediaPlayerButtonsControl extends LitElement {
@@ -22,12 +17,7 @@ export class MediaPlayerButtonsControl extends LitElement {
 
     protected render(): TemplateResult {
         return html`
-            <div
-                class=${classMap({
-                    container: true,
-                    fill: this.fill,
-                })}
-            >
+            <mushroom-button-group .fill=${this.fill}>
                 ${supportsPrevious(this.entity)
                     ? this._generateButton("mdi:skip-previous", "media_previous_track")
                     : null}
@@ -37,7 +27,7 @@ export class MediaPlayerButtonsControl extends LitElement {
                 ${supportsNext(this.entity)
                     ? this._generateButton("mdi:skip-next", "media_next_track")
                     : null}
-            </div>
+            </mushroom-button-group>
         `;
     }
 
