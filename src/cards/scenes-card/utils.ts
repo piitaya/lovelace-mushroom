@@ -1,5 +1,4 @@
 import { PREFIX_NAME } from "../../const";
-import { LovelaceGenericElementEditor } from "../../utils/lovelace/types";
 import { SceneElement, ItemConfig } from "./scene-editor-config";
 
 export const createSceneElement = (config: ItemConfig): SceneElement | undefined => {

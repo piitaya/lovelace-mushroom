@@ -48,6 +48,7 @@ export class ScriptItem extends LitElement implements SceneElement {
         const icon = this._config.icon || stateIcon(entity);
         const iconColor = this._config.icon_color;
         const backgroundColor = this._config.background_color;
+        const darkMode = (this.hass.themes as any).darkMode || false;
 
         const iconStyle = {};
         if (iconColor) {
@@ -64,8 +65,8 @@ export class ScriptItem extends LitElement implements SceneElement {
             "--box-shadow": `0px 2px 4px 0px rgba(0, 0, 0, 0.8);`
         };
 
-        if(!(this.hass.themes as any).darkMode) {
-            haCardStyle["--box-shadow"] = `0px 2px 4px 0px rgba(0, 0, 0, 0.2);`;
+        if(darkMode) {
+            haCardStyle["--box-shadow"] = `0px 2px 4px 0px rgba(0, 0, 0, 0.8);`;
         }
 
         return html`
