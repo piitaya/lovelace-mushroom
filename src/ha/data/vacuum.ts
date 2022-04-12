@@ -9,17 +9,17 @@ export const STATE_PAUSED = "paused";
 export const STATE_RETURNING = "returning";
 export const STATE_ERROR = "error";
 
-export const SUPPORT_TURN_ON = 1;
-export const SUPPORT_TURN_OFF = 2;
-export const SUPPORT_PAUSE = 4;
-export const SUPPORT_STOP = 8;
-export const SUPPORT_RETURN_HOME = 16;
-export const SUPPORT_STATUS = 128;
-export const SUPPORT_LOCATE = 512;
-export const SUPPORT_CLEAN_SPOT = 1024;
-export const SUPPORT_MAP = 2048;
-export const SUPPORT_STATE = 4096;
-export const SUPPORT_START = 8192;
+export const VACUUM_SUPPORT_TURN_ON = 1;
+export const VACUUM_SUPPORT_TURN_OFF = 2;
+export const VACUUM_SUPPORT_PAUSE = 4;
+export const VACUUM_SUPPORT_STOP = 8;
+export const VACUUM_SUPPORT_RETURN_HOME = 16;
+export const VACUUM_SUPPORT_STATUS = 128;
+export const VACUUM_SUPPORT_LOCATE = 512;
+export const VACUUM_SUPPORT_CLEAN_SPOT = 1024;
+export const VACUUM_SUPPORT_MAP = 2048;
+export const VACUUM_SUPPORT_STATE = 4096;
+export const VACUUM_SUPPORT_START = 8192;
 
 interface VacuumEntityAttributes extends HassEntityAttributeBase {
     battery_level: number;
