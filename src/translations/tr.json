@@ -8,7 +8,7 @@
             },
             "info_picker": {
                 "values": {
-                    "default": "Default information",
+                    "default": "Varsayılan bilgi",
                     "name": "İsim",
                     "state": "Durum",
                     "last-changed": "Son Değişim",
