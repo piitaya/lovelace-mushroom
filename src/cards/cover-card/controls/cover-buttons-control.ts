@@ -48,19 +48,13 @@ export class CoverButtonsControl extends LitElement {
     }
 
     private get openDisabled(): boolean {
-        if (!isAvailable(this.entity)) return true;
         const assumedState = this.entity.attributes.assumed_state === true;
         return (isFullyOpen(this.entity) || isOpening(this.entity)) && !assumedState;
     }
 
     private get closedDisabled(): boolean {
-        if (!isAvailable(this.entity)) return true;
         const assumedState = this.entity.attributes.assumed_state === true;
         return (isFullyClosed(this.entity) || isClosing(this.entity)) && !assumedState;
-    }
-
-    private get pauseDisabled(): boolean {
-        return !isAvailable(this.entity);
     }
 
     protected render(): TemplateResult {
@@ -70,7 +64,7 @@ export class CoverButtonsControl extends LitElement {
                     ? html`
                           <mushroom-button
                               .icon=${computeCloseIcon(this.entity)}
-                              .disabled=${this.closedDisabled}
+                              .disabled=${!isAvailable(this.entity) || this.closedDisabled}
                               @click=${this._onCloseTap}
                           ></mushroom-button>
                       `
@@ -79,7 +73,7 @@ export class CoverButtonsControl extends LitElement {
                     ? html`
                           <mushroom-button
                               icon="mdi:pause"
-                              .disabled=${this.pauseDisabled}
+                              .disabled=${!isAvailable(this.entity)}
                               @click=${this._onStopTap}
                           ></mushroom-button>
                       `
@@ -88,7 +82,7 @@ export class CoverButtonsControl extends LitElement {
                     ? html`
                           <mushroom-button
                               .icon=${computeOpenIcon(this.entity)}
-                              .disabled=${this.openDisabled}
+                              .disabled=${!isAvailable(this.entity) || this.openDisabled}
                               @click=${this._onOpenTap}
                           ></mushroom-button>
                       `

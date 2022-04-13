@@ -58,7 +58,7 @@
                 "show_oscillate_control": "Controllo oscillazione"
             },
             "cover": {
-                "show_buttons_control": "Controllo",
+                "show_buttons_control": "Pulsanti di controllo",
                 "show_position_control": "Controllo percentuale apertura"
             },
             "alarm_control_panel": {
@@ -82,12 +82,11 @@
                 "show_conditions": "Condizioni",
                 "show_temperature": "Temperatura"
             },
+            "update": {
+                "show_buttons_control": "Pulsanti di controllo"
+            },
             "vacuum": {
-                "show_start_pause_control": "Pulsante di avvio/pausa",
-                "show_stop_control": "Pulsante di arresto",
-                "show_locate_control": "Pulsante Trova",
-                "show_clean_spot_control": "Pulsante punto pulito",
-                "show_return_home_control": "Pulsante Torna a casa"
+                "commands": "Comandi"
             }
         },
         "chip": {

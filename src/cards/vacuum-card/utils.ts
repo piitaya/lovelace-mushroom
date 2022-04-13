@@ -1,6 +1,4 @@
-import { HomeAssistant } from "custom-card-helpers";
 import { HassEntity } from "home-assistant-js-websocket";
-import { supportsFeature } from "../../ha/common/entity/supports-feature";
 import {
     STATE_CLEANING,
     STATE_DOCKED,
@@ -8,53 +6,7 @@ import {
     STATE_OFF,
     STATE_ON,
     STATE_RETURNING,
-    SUPPORT_CLEAN_SPOT,
-    SUPPORT_LOCATE,
-    SUPPORT_MAP,
-    SUPPORT_PAUSE,
-    SUPPORT_RETURN_HOME,
-    SUPPORT_START,
-    SUPPORT_STATE,
-    SUPPORT_STOP,
-    SUPPORT_TURN_OFF,
-    SUPPORT_TURN_ON,
 } from "../../ha/data/vacuum";
-
-export function callService(
-    e: MouseEvent,
-    hass: HomeAssistant,
-    entity: HassEntity,
-    serviceName: string
-): void {
-    e.stopPropagation();
-    hass.callService("vacuum", serviceName, {
-        entity_id: entity.entity_id,
-    });
-}
-
-export function supportVacuumStartPauseControl(entity: HassEntity) {
-    return (
-        supportsStart(entity) ||
-        (supportsStart(entity) && supportsPause(entity)) ||
-        (!supportsStart(entity) && supportsPause(entity))
-    );
-}
-
-export function supportVacuumStopControl(entity: HassEntity) {
-    return supportsStop(entity);
-}
-
-export function supportVacuumLocateControl(entity: HassEntity) {
-    return supportsLocate(entity);
-}
-
-export function supportVacuumCleanSpotControl(entity: HassEntity) {
-    return supportsCleanSpot(entity);
-}
-
-export function supportVacuumReturnHomeControl(entity: HassEntity) {
-    return supportsReturnHome(entity);
-}
 
 export function isCleaning(entity: HassEntity): boolean {
     switch (entity.state) {
@@ -87,26 +39,3 @@ export function isReturningHome(entity: HassEntity): boolean {
             return false;
     }
 }
-
-export const computeStartStopIcon = (state?: string): string => {
-    switch (state) {
-        case STATE_CLEANING:
-        case STATE_ON:
-            return "mdi:stop";
-        default:
-            return "mdi:play";
-    }
-};
-
-export const supportsTurnOn = (entity: HassEntity) => supportsFeature(entity, SUPPORT_TURN_ON);
-export const supportsTurnOff = (entity: HassEntity) => supportsFeature(entity, SUPPORT_TURN_OFF);
-export const supportsPause = (entity: HassEntity) => supportsFeature(entity, SUPPORT_PAUSE);
-export const supportsStop = (entity: HassEntity) => supportsFeature(entity, SUPPORT_STOP);
-export const supportsReturnHome = (entity: HassEntity) =>
-    supportsFeature(entity, SUPPORT_RETURN_HOME);
-export const supportsLocate = (entity: HassEntity) => supportsFeature(entity, SUPPORT_LOCATE);
-export const supportsCleanSpot = (entity: HassEntity) =>
-    supportsFeature(entity, SUPPORT_CLEAN_SPOT);
-export const supportsMap = (entity: HassEntity) => supportsFeature(entity, SUPPORT_MAP);
-export const supportsState = (entity: HassEntity) => supportsFeature(entity, SUPPORT_STATE);
-export const supportsStart = (entity: HassEntity) => supportsFeature(entity, SUPPORT_START);
