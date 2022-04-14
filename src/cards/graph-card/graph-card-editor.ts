@@ -1,4 +1,10 @@
-import { fireEvent, HomeAssistant, LovelaceCardEditor, stateIcon } from "custom-card-helpers";
+import {
+    fireEvent,
+    HomeAssistant,
+    LocalizeFunc,
+    LovelaceCardEditor,
+    stateIcon,
+} from "custom-card-helpers";
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
@@ -8,21 +14,27 @@ import { Action } from "../../utils/form/custom/ha-selector-mushroom-action";
 import { GENERIC_FIELDS } from "../../utils/form/fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { loadHaComponents } from "../../utils/loader";
-import { GRAPH_CARD_EDITOR_NAME, GRAPH_ENTITY_DOMAINS } from "./const";
+import {
+    GRAPH_CARD_EDITOR_NAME,
+    GRAPH_DEFAULT_HOURS,
+    GRAPH_ENTITY_DOMAINS,
+    GRAPH_MODE,
+} from "./const";
 import { GraphCardConfig, graphCardConfigStruct } from "./graph-card-config";
 import { assert } from "superstruct";
+import { SelectOption } from "../../utils/form/ha-selector";
 
 const actions: Action[] = ["more-info", "call-service", "none"];
+const GRAPH_FIELDS = ["graph_mode"];
 
-const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
+const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: GRAPH_ENTITY_DOMAINS } } },
-    { name: "name", selector: { text: {} } },
     {
         type: "grid",
         name: "",
         schema: [
+            { name: "name", selector: { text: {} } },
             { name: "icon", selector: { icon: { placeholder: icon } } },
-            { name: "hours_to_show", selector: { number: { min: 1, max: 48, mode: "box", step: 1 } } },            
         ],
     },
     {
@@ -30,14 +42,30 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
         name: "",
         schema: [
             { name: "graph_color", selector: { "mush-color": {} } },
-            { name: "fill", selector: { boolean : { } } },
+            {
+                name: "hours_to_show",
+                selector: { number: { min: 1, max: 168, mode: "box", step: 1 } },
+            },
         ],
     },
     {
         type: "grid",
         name: "",
         schema: [
-            { name: "hours_to_show", selector: { number: { min: 1, max: 48, mode: "box", step: 1 } } },
+            {
+                name: "graph_mode",
+                selector: {
+                    select: {
+                        options: GRAPH_MODE.map(
+                            (mode) =>
+                                <SelectOption>{
+                                    value: mode,
+                                    label: localize(`editor.card.graph.mode_type.${mode}`) || mode,
+                                }
+                        ) as SelectOption[],
+                    },
+                },
+            },
         ],
     },
     { name: "tap_action", selector: { "mush-action": { actions } } },
@@ -67,6 +95,10 @@ export class GraphCardEditor extends LitElement implements LovelaceCardEditor {
         if (GENERIC_FIELDS.includes(schema.name)) {
             return customLocalize(`editor.card.generic.${schema.name}`);
         }
+
+        if (GRAPH_FIELDS.includes(schema.name)) {
+            return customLocalize(`editor.card.graph.${schema.name}`);
+        }
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
     };
 
@@ -78,7 +110,13 @@ export class GraphCardEditor extends LitElement implements LovelaceCardEditor {
         const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
         const entityIcon = entityState ? stateIcon(entityState) : undefined;
         const icon = this._config.icon || entityIcon;
-        const schema = computeSchema(icon);
+        const customLocalize = setupCustomlocalize(this.hass!);
+        const schema = computeSchema(customLocalize, icon);
+
+        this._config = {
+            hours_to_show: GRAPH_DEFAULT_HOURS,
+            ...this._config,
+        };
 
         return html`
             <ha-form

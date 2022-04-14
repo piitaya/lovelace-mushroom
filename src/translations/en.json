@@ -87,6 +87,13 @@
             },
             "vacuum": {
                 "commands": "Commands"
+            },
+            "graph": {
+                "graph_mode": "Mode",
+                "mode_type" : {
+                    "fill": "Fill",
+                    "line": "Line"
+                }
             }
         },
         "chip": {

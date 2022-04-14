@@ -82,8 +82,6 @@ export class GraphCard extends LitElement implements LovelaceCard {
             },
             ...config,
         };
-
-        this.loadComponents();
     }
 
     protected updated(changedProperties: PropertyValues) {
@@ -101,12 +99,6 @@ export class GraphCard extends LitElement implements LovelaceCard {
         } else if (Date.now() - this._date!.getTime() >= GRAPH_MINUTE) {
             this._getCoordinates();
         }
-    }
-
-    async loadComponents() {
-        if (!this._config || !this.hass || !this._config.entity) return;
-
-        customElements.get("hui-graph-base");
     }
 
     private _handleAction(ev: ActionHandlerEvent) {
@@ -178,7 +170,7 @@ export class GraphCard extends LitElement implements LovelaceCard {
         const name = this._config.name || entity.attributes.friendly_name;
         const icon = this._config.icon || stateIcon(entity);
         const graphColor = this._config.graph_color;
-        const fill = this._config.fill;
+        const graphMode = this._config.graph_mode;
 
         const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
@@ -221,7 +213,7 @@ export class GraphCard extends LitElement implements LovelaceCard {
                         .secondary=${name}
                     ></mushroom-state-info>
                 </mushroom-state-item>
-                <mushroom-graph-base .coordinates=${this._coordinates} .graphColor=${graphColor} .fill=${fill}> </mushroom-graph-base>
+                <mushroom-graph-base .coordinates=${this._coordinates} .graphColor=${graphColor} .graphMode=${graphMode}> </mushroom-graph-base>
             </mushroom-card>
         </ha-card>`;
 

@@ -1,17 +1,17 @@
 import { ActionConfig, LovelaceCardConfig } from "custom-card-helpers";
 import {
     assign,
-    boolean,
-    intersection,
-    max,
-    min,
-    number,
+    enums,
+    integer,
     object,
     optional,
     string,
 } from "superstruct";
 import { actionConfigStruct } from "../../utils/action-struct";
 import { baseLovelaceCardConfig } from "../../utils/editor-styles";
+import { GRAPH_MODE } from "./const";
+
+export type GraphMode = typeof GRAPH_MODE[number];
 
 export interface GraphCardConfig extends LovelaceCardConfig {
     entity?: string;
@@ -19,7 +19,7 @@ export interface GraphCardConfig extends LovelaceCardConfig {
     icon?: string;
     hours_to_show?: number;
     graph_color?: string;
-    fill?: boolean;
+    graph_mode?: GraphMode;
     tap_action?: ActionConfig;
     hold_action?: ActionConfig;
     double_tap_action?: ActionConfig;
@@ -31,12 +31,9 @@ export const graphCardConfigStruct = assign(
         entity: optional(string()),
         icon: optional(string()),
         name: optional(string()),
-        hours_to_show: intersection([
-            min(number(), 1),
-            max(number(), 48),
-        ]),
+        hours_to_show: optional(integer()),
         graph_color: optional(string()),
-        fill: optional(boolean()),
+        graph_mode: optional(enums(GRAPH_MODE)),
         tap_action: optional(actionConfigStruct),
         hold_action: optional(actionConfigStruct),
         double_tap_action: optional(actionConfigStruct),

@@ -9,7 +9,7 @@ import { getPath } from "../../utils/lovelace/graph/utils";
 export class MushroomGraphBase extends LitElement {
     @property() public coordinates?: any;
     @property() public graphColor?: string;
-    @property() public fill?: boolean;
+    @property() public graphMode?: string;
 
     @state() private _path?: string;
 
@@ -24,7 +24,7 @@ export class MushroomGraphBase extends LitElement {
                 ? svg`<svg width="100%" height="100%" viewBox="0 0 500 100">
             <g>
             ${
-                this.fill
+                this.graphMode === "fill"
                     ? svg`<mask id="fill">
                               <path
                                   class="fill"

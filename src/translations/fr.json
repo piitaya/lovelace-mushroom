@@ -87,6 +87,13 @@
             },
             "vacuum": {
                 "commands": "Commandes"
+            },
+            "graph": {
+                "graph_mode": "Mode",
+                "mode_type" : {
+                    "fill": "Remplissage",
+                    "line": "Ligne"
+                }
             }
         },
         "chip": {
