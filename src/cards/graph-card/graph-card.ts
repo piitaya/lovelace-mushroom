@@ -232,6 +232,7 @@ export class GraphCard extends LitElement implements LovelaceCard {
             css`
                 mushroom-state-item {
                     padding: var(--spacing);
+                    margin-bottom: 0;
                 }
                 ha-card {
                     cursor: pointer;
