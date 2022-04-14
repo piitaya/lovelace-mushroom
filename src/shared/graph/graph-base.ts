@@ -4,6 +4,7 @@ import { GRAPH_STROKE_WIDTH } from "../../ha/data/graph";
 import { computeRgbColor } from "../../utils/colors";
 import { getPath } from "../../utils/lovelace/graph/utils";
 
+// FROM : https://github.com/home-assistant/frontend/blob/dev/src/panels/lovelace/components/hui-graph-base.ts
 @customElement("mushroom-graph-base")
 export class MushroomGraphBase extends LitElement {
     @property() public coordinates?: any;

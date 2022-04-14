@@ -1,3 +1,5 @@
+// FROM : https://github.com/home-assistant/frontend/blob/dev/src/panels/lovelace/common/graph/coordinates.ts
+
 import { GRAPH_STROKE_WIDTH } from "../../ha/data/graph";
 
 const average = (items: any[]): number =>
