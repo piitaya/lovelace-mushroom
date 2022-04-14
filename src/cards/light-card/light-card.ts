@@ -11,7 +11,7 @@ import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult }
 import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
-import { isActive } from "../../ha/data/entity";
+import { isActive, isAvailable } from "../../ha/data/entity";
 import { LightEntity } from "../../ha/data/light";
 import "../../shared/badge-icon";
 import "../../shared/button";
@@ -210,7 +210,7 @@ export class LightCard extends LitElement implements LovelaceCard {
                         .icon=${icon}
                         style=${styleMap(iconStyle)}
                     ></mushroom-shape-icon>
-                    ${entity.state === "unavailable"
+                    ${!isAvailable(entity)
                         ? html`
                               <mushroom-badge-icon
                                   class="unavailable"

@@ -130,7 +130,7 @@ export class PersonCard extends LitElement implements LovelaceCard {
                         ${
                             isAvailable(entity)
                                 ? this.renderStateBadge(stateIcon, stateColor)
-                                : this.renderUnvailableBadge()
+                                : this.renderUnavailableBadge()
                         }
                         <mushroom-state-info
                             slot="info"
@@ -155,7 +155,7 @@ export class PersonCard extends LitElement implements LovelaceCard {
         `;
     }
 
-    renderUnvailableBadge() {
+    renderUnavailableBadge() {
         return html`
             <mushroom-badge-icon
                 class="unavailable"

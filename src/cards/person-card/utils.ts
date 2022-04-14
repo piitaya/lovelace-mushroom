@@ -1,8 +1,9 @@
 import { HassEntity } from "home-assistant-js-websocket";
+import { UNKNOWN } from "../../ha/data/entity";
 
 export function getStateIcon(entity: HassEntity, zones: HassEntity[]) {
     const state = entity.state;
-    if (state === "unknown") {
+    if (state === UNKNOWN) {
         return "mdi:help";
     } else if (state === "home") {
         return "mdi:home";
@@ -16,7 +17,7 @@ export function getStateIcon(entity: HassEntity, zones: HassEntity[]) {
 
 export function getStateColor(entity: HassEntity, zones: HassEntity[]) {
     const state = entity.state;
-    if (state === "unknown") {
+    if (state === UNKNOWN) {
         return "var(--rgb-state-person-unknown)";
     } else if (state === "home") {
         return "var(--rgb-state-person-home)";
