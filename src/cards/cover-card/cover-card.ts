@@ -11,7 +11,7 @@ import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult }
 import { customElement, property, state } from "lit/decorators.js";
 import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
 import { CoverEntity } from "../../ha/data/cover";
-import { isActive } from "../../ha/data/entity";
+import { isActive, isAvailable } from "../../ha/data/entity";
 import "../../shared/badge-icon";
 import "../../shared/button";
 import "../../shared/card";
@@ -175,7 +175,7 @@ export class CoverCard extends LitElement implements LovelaceCard {
                         .disabled=${!isActive(entity)}
                         .icon=${icon}
                     ></mushroom-shape-icon>
-                    ${entity.state === "unavailable"
+                    ${!isAvailable(entity)
                         ? html`
                               <mushroom-badge-icon
                                   class="unavailable"

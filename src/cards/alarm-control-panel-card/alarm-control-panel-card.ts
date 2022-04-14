@@ -38,6 +38,7 @@ import {
     isDisarmed,
     shouldPulse,
 } from "./utils";
+import { isAvailable } from "../../ha/data/entity";
 
 registerCustomCard({
     type: ALARM_CONTROl_PANEL_CARD_NAME,
@@ -206,7 +207,7 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                             })}
                             .icon=${icon}
                         ></mushroom-shape-icon>
-                        ${entity.state === "unavailable"
+                        ${!isAvailable(entity)
                             ? html`
                                   <mushroom-badge-icon
                                       class="unavailable"
