@@ -2,7 +2,7 @@ import { HomeAssistant } from "custom-card-helpers";
 import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { isActive } from "../../../ha/data/entity";
+import { isActive, isAvailable } from "../../../ha/data/entity";
 import "../../../shared/slider";
 import { getPercentage } from "../utils";
 
@@ -37,7 +37,8 @@ export class FanPercentageControl extends LitElement {
         return html`
             <mushroom-slider
                 .value=${percentage}
-                .disabled=${!isActive(this.entity)}
+                .disabled=${!isAvailable(this.entity)}
+                .inactive=${!isActive(this.entity)}
                 .showActive=${true}
                 @change=${this.onChange}
                 @current-change=${this.onCurrentChange}
