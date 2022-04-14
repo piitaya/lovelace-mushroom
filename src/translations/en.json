@@ -87,6 +87,10 @@
             },
             "vacuum": {
                 "commands": "Commands"
+            },
+            "media-player": {
+                "show_buttons_control": "Buttons control?",
+                "show_volume_control": "Volume control?"
             }
         },
         "chip": {

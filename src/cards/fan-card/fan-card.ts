@@ -1,5 +1,6 @@
 import {
     ActionHandlerEvent,
+    computeRTL,
     handleAction,
     hasAction,
     HomeAssistant,
@@ -139,9 +140,12 @@ export class FanCard extends LitElement implements LovelaceCard {
             stateValue += ` - ${this.percentage}%`;
         }
 
+        const rtl = computeRTL(this.hass);
+
         return html`
-            <mushroom-card .layout=${layout}>
+            <mushroom-card .layout=${layout} ?rtl=${rtl}>
                 <mushroom-state-item
+                    ?rtl=${rtl}
                     .layout=${layout}
                     @action=${this._handleAction}
                     .actionHandler=${actionHandler({
@@ -175,7 +179,7 @@ export class FanCard extends LitElement implements LovelaceCard {
                 </mushroom-state-item>
                 ${this._config.show_percentage_control || this._config.show_oscillate_control
                     ? html`
-                          <div class="actions">
+                          <div class="actions" ?rtl=${rtl}>
                               ${this._config.show_percentage_control
                                   ? html`
                                         <mushroom-fan-percentage-control

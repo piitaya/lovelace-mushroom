@@ -87,6 +87,10 @@
             },
             "vacuum": {
                 "commands": "Commandes"
+            },
+            "media-player": {
+                "show_buttons_control": "Contrôle avec boutons ?",
+                "show_volume_control": "Contrôle du volume ?"
             }
         },
         "chip": {

@@ -1,5 +1,6 @@
 import {
     ActionHandlerEvent,
+    computeRTL,
     computeStateDisplay,
     handleAction,
     hasAction,
@@ -100,10 +101,13 @@ export class PersonCard extends LitElement implements LovelaceCard {
 
         const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
+        const rtl = computeRTL(this.hass);
+
         return html`
-            <mushroom-card .layout=${layout}>
+            <mushroom-card .layout=${layout} ?rtl=${rtl}>
                 <div class="container">
                     <mushroom-state-item
+                        ?rtl=${rtl}
                         .layout=${layout}
                         @action=${this._handleAction}
                         .actionHandler=${actionHandler({
@@ -111,27 +115,23 @@ export class PersonCard extends LitElement implements LovelaceCard {
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        ${
-                            picture
-                                ? html`
-                                      <mushroom-shape-avatar
-                                          slot="icon"
-                                          .picture_url=${picture}
-                                      ></mushroom-shape-avatar>
-                                  `
-                                : html`
-                                      <mushroom-shape-icon
-                                          slot="icon"
-                                          .icon=${icon}
-                                          .disabled=${!isActive(entity)}
-                                      ></mushroom-shape-icon>
-                                  `
-                        }
-                        ${
-                            isAvailable(entity)
-                                ? this.renderStateBadge(stateIcon, stateColor)
-                                : this.renderUnvailableBadge()
-                        }
+                        ${picture
+                            ? html`
+                                  <mushroom-shape-avatar
+                                      slot="icon"
+                                      .picture_url=${picture}
+                                  ></mushroom-shape-avatar>
+                              `
+                            : html`
+                                  <mushroom-shape-icon
+                                      slot="icon"
+                                      .icon=${icon}
+                                      .disabled=${!isActive(entity)}
+                                  ></mushroom-shape-icon>
+                              `}
+                        ${isAvailable(entity)
+                            ? this.renderStateBadge(stateIcon, stateColor)
+                            : this.renderUnavailableBadge()}
                         <mushroom-state-info
                             slot="info"
                             .primary=${!hideName ? name : undefined}
@@ -139,7 +139,7 @@ export class PersonCard extends LitElement implements LovelaceCard {
                         ></mushroom-state-info>
                     </mushroom-state-item>
                 </div>
-            </ha-card>
+            </mushroom-card>
         `;
     }
 
@@ -155,7 +155,7 @@ export class PersonCard extends LitElement implements LovelaceCard {
         `;
     }
 
-    renderUnvailableBadge() {
+    renderUnavailableBadge() {
         return html`
             <mushroom-badge-icon
                 class="unavailable"

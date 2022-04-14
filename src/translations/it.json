@@ -58,7 +58,7 @@
                 "show_oscillate_control": "Controllo oscillazione"
             },
             "cover": {
-                "show_buttons_control": "Controllo",
+                "show_buttons_control": "Pulsanti di controllo",
                 "show_position_control": "Controllo percentuale apertura"
             },
             "alarm_control_panel": {
@@ -81,6 +81,12 @@
             "weather": {
                 "show_conditions": "Condizioni",
                 "show_temperature": "Temperatura"
+            },
+            "update": {
+                "show_buttons_control": "Pulsanti di controllo"
+            },
+            "vacuum": {
+                "commands": "Comandi"
             }
         },
         "chip": {

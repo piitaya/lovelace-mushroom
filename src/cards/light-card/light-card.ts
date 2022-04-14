@@ -1,5 +1,6 @@
 import {
     ActionHandlerEvent,
+    computeRTL,
     handleAction,
     hasAction,
     HomeAssistant,
@@ -11,7 +12,7 @@ import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult }
 import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
-import { isActive } from "../../ha/data/entity";
+import { isActive, isAvailable } from "../../ha/data/entity";
 import { LightEntity } from "../../ha/data/light";
 import "../../shared/badge-icon";
 import "../../shared/button";
@@ -194,9 +195,12 @@ export class LightCard extends LitElement implements LovelaceCard {
             }
         }
 
+        const rtl = computeRTL(this.hass);
+
         return html`
-            <mushroom-card .layout=${layout}>
+            <mushroom-card .layout=${layout} ?rtl=${rtl}>
                 <mushroom-state-item
+                    ?rtl=${rtl}
                     .layout=${layout}
                     @action=${this._handleAction}
                     .actionHandler=${actionHandler({
@@ -210,7 +214,7 @@ export class LightCard extends LitElement implements LovelaceCard {
                         .icon=${icon}
                         style=${styleMap(iconStyle)}
                     ></mushroom-shape-icon>
-                    ${entity.state === "unavailable"
+                    ${!isAvailable(entity)
                         ? html`
                               <mushroom-badge-icon
                                   class="unavailable"
@@ -227,7 +231,7 @@ export class LightCard extends LitElement implements LovelaceCard {
                 </mushroom-state-item>
                 ${this._controls.length > 0
                     ? html`
-                          <div class="actions">
+                          <div class="actions" ?rtl=${rtl}>
                               ${this.renderActiveControl(entity)} ${this.renderOtherControls()}
                           </div>
                       `

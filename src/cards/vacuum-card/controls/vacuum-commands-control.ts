@@ -1,4 +1,4 @@
-import { HomeAssistant } from "custom-card-helpers";
+import { computeRTL, HomeAssistant } from "custom-card-helpers";
 import { html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { supportsFeature } from "../../../ha/common/entity/supports-feature";
@@ -105,8 +105,10 @@ export class CoverButtonsControl extends LitElement {
     }
 
     protected render(): TemplateResult {
+        const rtl = computeRTL(this.hass);
+
         return html`
-            <mushroom-button-group .fill=${this.fill}>
+            <mushroom-button-group .fill=${this.fill} .?tl=${rtl}>
                 ${VACUUM_BUTTONS.filter((item) => item.isVisible(this.entity, this.commands)).map(
                     (item) => html`
                         <mushroom-button

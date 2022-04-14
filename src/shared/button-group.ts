@@ -6,6 +6,8 @@ import { classMap } from "lit/directives/class-map.js";
 export class MushroomButtonGroup extends LitElement {
     @property() public fill: boolean = false;
 
+    @property() public rtl: boolean = false;
+
     protected render(): TemplateResult {
         return html`
             <div
@@ -34,6 +36,10 @@ export class MushroomButtonGroup extends LitElement {
             }
             .container ::slotted(*:not(:last-child)) {
                 margin-right: var(--spacing);
+            }
+            :host([rtl]) .container ::slotted(*:not(:last-child)) {
+                margin-right: initial;
+                margin-left: var(--spacing);
             }
             .container.fill > ::slotted(*) {
                 flex: 1;

@@ -3,8 +3,6 @@ import { HassEntity } from "home-assistant-js-websocket";
 export const UNAVAILABLE = "unavailable";
 export const UNKNOWN = "unknown";
 
-export const UNAVAILABLE_STATES = [UNAVAILABLE, UNKNOWN];
-
 export const ON = "on";
 export const OFF = "off";
 
@@ -34,12 +32,7 @@ export function isActive(entity: HassEntity) {
 }
 
 export function isAvailable(entity: HassEntity) {
-    const domain = entity.entity_id.split(".")[0];
-
-    if (["button", "input_button", "scene"].includes(domain)) {
-        return entity.state !== UNAVAILABLE;
-    }
-    return !UNAVAILABLE_STATES.includes(entity.state);
+    return entity.state !== UNAVAILABLE;
 }
 
 export function isUnknown(entity: HassEntity) {
