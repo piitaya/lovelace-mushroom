@@ -1,4 +1,4 @@
-import { HomeAssistant } from "custom-card-helpers";
+import { computeRTL, HomeAssistant } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { isActive, isAvailable } from "../../../ha/data/entity";
@@ -44,8 +44,10 @@ export class UpdateButtonsControl extends LitElement {
     }
 
     protected render(): TemplateResult {
+        const rtl = computeRTL(this.hass);
+
         return html`
-            <mushroom-button-group .fill=${this.fill}>
+            <mushroom-button-group .fill=${this.fill} ?rtl=${rtl}>
                 <mushroom-button
                     icon="mdi:cancel"
                     .disabled=${this.skipDisabled}

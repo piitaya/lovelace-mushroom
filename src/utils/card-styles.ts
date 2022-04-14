@@ -42,6 +42,10 @@ export const cardStyle = css`
     .actions *:not(:last-child) {
         margin-right: var(--spacing);
     }
+    .actions[rtl] *:not(:last-child) {
+        margin-right: initial;
+        margin-left: var(--spacing);
+    }
     .unavailable {
         --main-color: var(--warning-color);
     }

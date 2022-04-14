@@ -1,5 +1,6 @@
 import {
     ActionHandlerEvent,
+    computeRTL,
     formatNumber,
     handleAction,
     hasAction,
@@ -72,8 +73,11 @@ export class WeatherChip extends LitElement implements LovelaceChip {
             displayLabels.push(temperatureDisplay);
         }
 
+        const rtl = computeRTL(this.hass);
+
         return html`
             <mushroom-chip
+                ?rtl=${rtl}
                 @action=${this._handleAction}
                 .actionHandler=${actionHandler({
                     hasHold: hasAction(this._config.hold_action),

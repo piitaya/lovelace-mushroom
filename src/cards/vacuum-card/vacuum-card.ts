@@ -1,5 +1,6 @@
 import {
     ActionHandlerEvent,
+    computeRTL,
     handleAction,
     hasAction,
     HomeAssistant,
@@ -94,9 +95,12 @@ export class VacuumCard extends LitElement implements LovelaceCard {
 
         const commands = this._config?.commands ?? [];
 
+        const rtl = computeRTL(this.hass);
+
         return html`
-            <mushroom-card .layout=${layout}>
+            <mushroom-card .layout=${layout} ?rtl=${rtl}>
                 <mushroom-state-item
+                    ?rtl=${rtl}
                     .layout=${layout}
                     @action=${this._handleAction}
                     .actionHandler=${actionHandler({
@@ -126,7 +130,7 @@ export class VacuumCard extends LitElement implements LovelaceCard {
                 </mushroom-state-item>
                 ${isCommandsControlVisible(entity, commands)
                     ? html`
-                          <div class="actions">
+                          <div class="actions" ?rtl=${rtl}>
                               <mushroom-vacuum-commands-control
                                   .hass=${this.hass}
                                   .entity=${entity}
