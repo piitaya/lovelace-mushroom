@@ -14,6 +14,7 @@ export { PersonCard } from "./cards/person-card/person-card";
 export { TemplateCard } from "./cards/template-card/template-card";
 export { TitleCard } from "./cards/title-card/title-card";
 export { UpdateCard } from "./cards/update-card/update-card";
+export { MediaPlayerCard } from "./cards/media-player-card/media-player-card";
 export { VacuumCard } from "./cards/vacuum-card/vacuum-card";
 export { GraphCard } from "./cards/graph-card/graph-card";
 

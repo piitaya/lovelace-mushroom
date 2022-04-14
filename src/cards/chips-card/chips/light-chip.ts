@@ -1,4 +1,10 @@
-import { ActionHandlerEvent, handleAction, hasAction, HomeAssistant } from "custom-card-helpers";
+import {
+    ActionHandlerEvent,
+    computeRTL,
+    handleAction,
+    hasAction,
+    HomeAssistant,
+} from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
@@ -91,8 +97,11 @@ export class LightChip extends LitElement implements LovelaceChip {
             this.hass
         );
 
+        const rtl = computeRTL(this.hass);
+
         return html`
             <mushroom-chip
+                ?rtl=${rtl}
                 @action=${this._handleAction}
                 .actionHandler=${actionHandler({
                     hasHold: hasAction(this._config.hold_action),

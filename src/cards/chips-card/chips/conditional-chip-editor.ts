@@ -1,5 +1,11 @@
 import type { MDCTabBarActivatedEvent } from "@material/tab-bar";
-import { fireEvent, HASSDomEvent, HomeAssistant, LovelaceConfig } from "custom-card-helpers";
+import {
+    computeRTL,
+    fireEvent,
+    HASSDomEvent,
+    HomeAssistant,
+    LovelaceConfig,
+} from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import setupCustomlocalize from "../../../localize";
@@ -48,6 +54,8 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
         }
 
         const customLocalize = setupCustomlocalize(this.hass);
+
+        const rtl = computeRTL(this.hass);
 
         return html`
             <mwc-tab-bar
@@ -121,7 +129,7 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
                           )}
                           ${this._config.conditions.map(
                               (cond, idx) => html`
-                                  <div class="condition">
+                                  <div class="condition" ?rtl=${rtl}>
                                       <div class="entity">
                                           <ha-entity-picker
                                               .hass=${this.hass}
@@ -329,6 +337,10 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
                 .condition .state mushroom-select {
                     margin-right: 16px;
                 }
+                .condition[rtl] .state mushroom-select {
+                    margin-right: initial;
+                    margin-left: 16px;
+                }
                 .card {
                     margin-top: 8px;
                     border: 1px solid var(--divider-color);
@@ -355,8 +367,4 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
             `,
         ];
     }
-}
-
-function capitalizeFirstLetter(string: string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
 }

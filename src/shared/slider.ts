@@ -176,9 +176,6 @@ export class SliderItem extends LitElement {
                 flex-direction: row;
                 height: 42px;
             }
-            .container > *:not(:last-child) {
-                margin-right: var(--spacing);
-            }
             .slider {
                 position: relative;
                 height: 100%;

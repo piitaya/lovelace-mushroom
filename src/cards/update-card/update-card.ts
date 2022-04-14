@@ -1,5 +1,6 @@
 import {
     ActionHandlerEvent,
+    computeRTL,
     handleAction,
     hasAction,
     HomeAssistant,
@@ -98,9 +99,12 @@ export class UpdateCard extends LitElement implements LovelaceCard {
 
         let stateValue = `${stateDisplay}`;
 
+        const rtl = computeRTL(this.hass);
+
         return html`
-            <mushroom-card .layout=${layout}>
+            <mushroom-card .layout=${layout} ?rtl=${rtl}>
                 <mushroom-state-item
+                    ?rtl=${rtl}
                     .layout=${layout}
                     @action=${this._handleAction}
                     .actionHandler=${actionHandler({
@@ -134,7 +138,7 @@ export class UpdateCard extends LitElement implements LovelaceCard {
                 ${this._config.show_buttons_control &&
                 supportsFeature(entity, UPDATE_SUPPORT_INSTALL)
                     ? html`
-                          <div class="actions">
+                          <div class="actions" ?rtl=${rtl}>
                               <mushroom-update-buttons-control
                                   .hass=${this.hass}
                                   .entity=${entity}

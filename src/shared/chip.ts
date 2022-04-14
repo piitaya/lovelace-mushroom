@@ -54,6 +54,10 @@ export class BadgeIcon extends LitElement {
             ::slotted(*:not(:last-child)) {
                 margin-right: 0.5em;
             }
+            :host([rtl]) ::slotted(*:not(:last-child)) {
+                margin-right: initial;
+                margin-left: 0.5em;
+            }
         `;
     }
 }

@@ -88,6 +88,10 @@
             "vacuum": {
                 "commands": "Commands"
             },
+            "media-player": {
+                "show_buttons_control": "Buttons control?",
+                "show_volume_control": "Volume control?"
+            },
             "graph": {
                 "graph_mode": "Mode",
                 "mode_type" : {

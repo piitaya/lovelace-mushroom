@@ -88,13 +88,17 @@
             "vacuum": {
                 "commands": "Commandes"
             },
+            "media-player": {
+                "show_buttons_control": "Contrôle avec boutons ?",
+                "show_volume_control": "Contrôle du volume ?"
+            },
             "graph": {
                 "graph_mode": "Mode",
                 "mode_type" : {
                     "fill": "Remplissage",
                     "line": "Ligne"
                 }
-            }
+            }            
         },
         "chip": {
             "sub_element_editor": {

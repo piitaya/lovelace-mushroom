@@ -1,4 +1,5 @@
 import {
+    computeRTL,
     HomeAssistant,
     LovelaceCard,
     LovelaceCardConfig,
@@ -70,8 +71,10 @@ export class ChipsCard extends LitElement implements LovelaceCard {
             alignment = `align-${this._config.alignment}`;
         }
 
+        const rtl = computeRTL(this._hass);
+
         return html`
-            <div class="chip-container ${alignment}">
+            <div class="chip-container ${alignment}" ?rtl=${rtl}>
                 ${this._config.chips.map((chip) => this.renderChip(chip))}
             </div>
         `;
@@ -114,6 +117,10 @@ export class ChipsCard extends LitElement implements LovelaceCard {
                 }
                 .chip-container *:not(:last-child) {
                     margin-right: var(--chip-spacing);
+                }
+                .chip-container[rtl] *:not(:last-child) {
+                    margin-right: initial;
+                    margin-left: var(--chip-spacing);
                 }
             `,
         ];

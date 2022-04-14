@@ -79,8 +79,8 @@ Different cards are available for differents entities :
 -   🧹 [Vacuum card](docs/cards/vacuum.md)
  
 Some cards are on the todo list :
--   🌡 Climate card
 -   📺 Media card
+-   🌡 Climate card
 
 ### Theme customization
 
