@@ -58,6 +58,11 @@ export class Card extends LitElement {
                 margin-right: var(--spacing);
                 margin-bottom: 0;
             }
+            :host([rtl]) .container.horizontal > ::slotted(*:not(:last-child)) {
+                margin-right: initial;
+                margin-left: var(--spacing);
+                margin-bottom: 0;
+            }
         `;
     }
 }

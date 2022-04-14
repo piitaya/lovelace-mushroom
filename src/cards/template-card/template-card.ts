@@ -1,5 +1,6 @@
 import {
     ActionHandlerEvent,
+    computeRTL,
     handleAction,
     hasAction,
     HomeAssistant,
@@ -125,9 +126,12 @@ export class TemplateCard extends LitElement implements LovelaceCard {
             iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
         }
 
+        const rtl = computeRTL(this.hass);
+
         return html`
-            <mushroom-card .layout=${layout}>
+            <mushroom-card .layout=${layout} ?rtl=${rtl}>
                 <mushroom-state-item
+                    ?rtl=${rtl}
                     .layout=${layout}
                     @action=${this._handleAction}
                     .actionHandler=${actionHandler({

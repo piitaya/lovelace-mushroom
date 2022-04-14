@@ -1,5 +1,6 @@
 import {
     ActionHandlerEvent,
+    computeRTL,
     handleAction,
     hasAction,
     HomeAssistant,
@@ -188,10 +189,13 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
             "--shape-color": `rgba(${color}, 0.2)`,
         };
 
+        const rtl = computeRTL(this.hass);
+
         return html`
             <ha-card>
-                <mushroom-card .layout=${layout} no-card-style>
+                <mushroom-card .layout=${layout} no-card-style ?rtl=${rtl}>
                     <mushroom-state-item
+                        ?rtl=${rtl}
                         .layout=${layout}
                         @action=${this._handleAction}
                         .actionHandler=${actionHandler({
@@ -224,7 +228,7 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                     </mushroom-state-item>
                     ${actions.length > 0
                         ? html`
-                              <mushroom-button-group .fill="${layout !== "horizontal"},">
+                              <mushroom-button-group .fill="${layout !== "horizontal"}" ?rtl=${rtl}>
                                   ${actions.map(
                                       (action) => html`
                                           <mushroom-button

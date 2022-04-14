@@ -1,4 +1,4 @@
-import { fireEvent, HomeAssistant } from "custom-card-helpers";
+import { computeRTL, fireEvent, HomeAssistant } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { actionHandler } from "../../../utils/directives/action-handler-directive";
@@ -43,8 +43,14 @@ export class MenuChip extends LitElement implements LovelaceChip {
 
         const icon = this._config.icon || DEFAULT_MENU_ICON;
 
+        const rtl = computeRTL(this.hass);
+
         return html`
-            <mushroom-chip @action=${this._handleAction} .actionHandler=${actionHandler()}>
+            <mushroom-chip
+                ?rtl=${rtl}
+                @action=${this._handleAction}
+                .actionHandler=${actionHandler()}
+            >
                 <ha-icon .icon=${icon}></ha-icon>
             </mushroom-chip>
         `;
