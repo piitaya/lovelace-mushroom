@@ -177,21 +177,22 @@ export class GraphCard extends LitElement implements LovelaceCard {
         const active = isActive(entity);
 
         let iconStyle = {};
-        if(graphColor) {
+        if (graphColor) {
             const iconRgbColor = computeRgbColor(graphColor);
             iconStyle["--icon-color"] = `rgb(${iconRgbColor})`;
             iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
         }
 
         return html` <ha-card>
-            <mushroom-card no-card-style>
-                <mushroom-state-item
-                    @action=${this._handleAction}
-                    .actionHandler=${actionHandler({
-                        hasHold: hasAction(this._config.hold_action),
-                        hasDoubleClick: hasAction(this._config.double_tap_action),
-                    })}
-                >
+            <mushroom-card
+                no-card-style
+                @action=${this._handleAction}
+                .actionHandler=${actionHandler({
+                    hasHold: hasAction(this._config.hold_action),
+                    hasDoubleClick: hasAction(this._config.double_tap_action),
+                })}
+            >
+                <mushroom-state-item>
                     <mushroom-shape-icon
                         slot="icon"
                         style=${styleMap(iconStyle)}
@@ -213,7 +214,12 @@ export class GraphCard extends LitElement implements LovelaceCard {
                         .secondary=${name}
                     ></mushroom-state-info>
                 </mushroom-state-item>
-                <mushroom-graph-base .coordinates=${this._coordinates} .graphColor=${graphColor} .graphMode=${graphMode}> </mushroom-graph-base>
+                <mushroom-graph-base
+                    .coordinates=${this._coordinates}
+                    .graphColor=${graphColor}
+                    .graphMode=${graphMode}
+                >
+                </mushroom-graph-base>
             </mushroom-card>
         </ha-card>`;
 
@@ -226,6 +232,9 @@ export class GraphCard extends LitElement implements LovelaceCard {
             css`
                 mushroom-state-item {
                     padding: var(--spacing);
+                }
+                ha-card {
+                    cursor: pointer;
                 }
             `,
         ];
