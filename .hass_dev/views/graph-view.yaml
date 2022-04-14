@@ -1,0 +1,29 @@
+title: Graph
+icon: mdi:chart-areaspline
+cards:
+  - type: grid
+    title: Graph
+    columns: 2
+    square: false
+    cards:
+      - type: custom:mushroom-graph-card
+        entity: sensor.outside_temperature
+      - type: custom:mushroom-graph-card
+        entity: sensor.outside_temperature
+        name: Temperature
+      - type: custom:mushroom-graph-card
+        entity: sensor.outside_temperature
+        icon: mdi:chart-areaspline
+      - type: custom:mushroom-graph-card
+        entity: sensor.outside_temperature
+        graph_color: pink
+  - type: horizontal-stack
+    title: Display mode
+    cards:
+      - type: custom:mushroom-graph-card
+        entity: sensor.outside_temperature
+        display_mode: standard
+      - type: custom:mushroom-graph-card
+        entity: sensor.outside_temperature
+        display_mode: compact
+    square: false

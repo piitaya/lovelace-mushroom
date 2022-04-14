@@ -11,12 +11,12 @@ const calcPoints = (
     history: any,
     hours: number,
     width: number,
+    height: number,
     detail: number,
     min: number,
     max: number
 ): number[][] => {
     const coords = [] as number[][];
-    const height = 80;
     let yRatio = (max - min) / height;
     yRatio = yRatio !== 0 ? yRatio : height;
     let xRatio = width / (hours - (detail === 1 ? 1 : 0));
@@ -55,6 +55,7 @@ export const coordinates = (
     history: any,
     hours: number,
     width: number,
+    height: number,
     detail: number,
     limits?: { min?: number; max?: number }
 ): number[][] | undefined => {
@@ -95,5 +96,5 @@ export const coordinates = (
         return undefined;
     }
 
-    return calcPoints(history, hours, width, detail, min, max);
+    return calcPoints(history, hours, width, height, detail, min, max);
 };

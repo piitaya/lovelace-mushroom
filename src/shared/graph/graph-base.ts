@@ -10,6 +10,7 @@ export class MushroomGraphBase extends LitElement {
     @property() public coordinates?: any;
     @property() public graphColor?: string;
     @property() public graphMode?: string;
+    @property() public graphHeight?: number = 100;
 
     @state() private _path?: string;
 
@@ -21,7 +22,7 @@ export class MushroomGraphBase extends LitElement {
 
         return html`
             ${this._path
-                ? svg`<svg width="100%" height="100%" viewBox="0 0 500 100">
+                ? svg`<svg width="100%" height="100%" viewBox="0 0 500 ${this.graphHeight}">
             <g>
             ${
                 this.graphMode === "fill"

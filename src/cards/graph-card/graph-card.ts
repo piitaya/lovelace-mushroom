@@ -20,6 +20,10 @@ import {
     GRAPH_CARD_NAME,
     GRAPH_DEFAULT_HOURS,
     GRAPH_ENTITY_DOMAINS,
+    GRAPH_HEIGHT_COMPACT,
+    GRAPH_HEIGHT_COMPACT_MARGIN,
+    GRAPH_HEIGHT_STANDARD,
+    GRAPH_HEIGHT_STANDARD_MARGIN,
     GRAPH_HOUR,
     GRAPH_MINUTE,
 } from "./const";
@@ -29,6 +33,7 @@ import { fetchRecent } from "../../ha/data/history";
 import { coordinates } from "../../shared/graph/coordinates";
 import "../../shared/graph/graph-base";
 import { computeRgbColor } from "../../utils/colors";
+import { number } from "superstruct";
 
 registerCustomCard({
     type: GRAPH_CARD_NAME,
@@ -71,6 +76,8 @@ export class GraphCard extends LitElement implements LovelaceCard {
     setConfig(config: GraphCardConfig): void {
         this._config = {
             hours_to_show: GRAPH_DEFAULT_HOURS,
+            graph_mode: "fill",
+            display_mode: "standard",
             tap_action: {
                 action: "more-info",
             },
@@ -151,6 +158,9 @@ export class GraphCard extends LitElement implements LovelaceCard {
                 this._stateHistory,
                 this._config!.hours_to_show!,
                 500,
+                this._config!.display_mode === "standard"
+                    ? GRAPH_HEIGHT_STANDARD
+                    : GRAPH_HEIGHT_COMPACT,
                 this._config!.detail!,
                 this._config!.limits
             ) || [];
@@ -171,6 +181,12 @@ export class GraphCard extends LitElement implements LovelaceCard {
         const icon = this._config.icon || stateIcon(entity);
         const graphColor = this._config.graph_color;
         const graphMode = this._config.graph_mode;
+        
+        let graphHeight: number = GRAPH_HEIGHT_STANDARD + GRAPH_HEIGHT_STANDARD_MARGIN;
+
+        if (this._config.display_mode !== "standard") {
+            graphHeight = GRAPH_HEIGHT_COMPACT + GRAPH_HEIGHT_COMPACT_MARGIN;
+        }
 
         const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
@@ -218,6 +234,7 @@ export class GraphCard extends LitElement implements LovelaceCard {
                     .coordinates=${this._coordinates}
                     .graphColor=${graphColor}
                     .graphMode=${graphMode}
+                    .graphHeight=${graphHeight}
                 >
                 </mushroom-graph-base>
             </mushroom-card>

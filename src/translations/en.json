@@ -93,10 +93,15 @@
                 "show_volume_control": "Volume control?"
             },
             "graph": {
-                "graph_mode": "Mode",
-                "mode_type" : {
+                "graph_mode": "Graph mode",
+                "display_mode": "Display mode",
+                "graph_mode_type" : {
                     "fill": "Fill",
                     "line": "Line"
+                },
+                "display_mode_type" : {
+                    "standard": "Standard",
+                    "compact": "Compact"
                 }
             }
         },

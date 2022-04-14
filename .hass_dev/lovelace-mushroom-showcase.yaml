@@ -12,3 +12,4 @@ views:
   - !include views/update-view.yaml
   - !include views/media-player-view.yaml
   - !include views/vacuum-view.yaml
+  - !include views/graph-view.yaml

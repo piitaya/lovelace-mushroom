@@ -15,6 +15,7 @@ import { GENERIC_FIELDS } from "../../utils/form/fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { loadHaComponents } from "../../utils/loader";
 import {
+    DISPLAY_MODE,
     GRAPH_CARD_EDITOR_NAME,
     GRAPH_DEFAULT_HOURS,
     GRAPH_ENTITY_DOMAINS,
@@ -25,7 +26,7 @@ import { assert } from "superstruct";
 import { SelectOption } from "../../utils/form/ha-selector";
 
 const actions: Action[] = ["more-info", "call-service", "none"];
-const GRAPH_FIELDS = ["graph_mode"];
+const GRAPH_FIELDS = ["graph_mode", "display_mode"];
 
 const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: GRAPH_ENTITY_DOMAINS } } },
@@ -60,9 +61,29 @@ const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaForm
                             (mode) =>
                                 <SelectOption>{
                                     value: mode,
-                                    label: localize(`editor.card.graph.mode_type.${mode}`) || mode,
+                                    label:
+                                        localize(`editor.card.graph.graph_mode_type.${mode}`) ||
+                                        mode,
                                 }
                         ) as SelectOption[],
+                        mode: "dropdown",
+                    },
+                },
+            },
+            {
+                name: "display_mode",
+                selector: {
+                    select: {
+                        options: DISPLAY_MODE.map(
+                            (mode) =>
+                                <SelectOption>{
+                                    value: `${mode}`,
+                                    label:
+                                        localize(`editor.card.graph.display_mode_type.${mode}`) ||
+                                        mode,
+                                }
+                        ) as SelectOption[],
+                        mode: "dropdown",
                     },
                 },
             },

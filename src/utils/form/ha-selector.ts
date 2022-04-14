@@ -152,6 +152,7 @@ export interface SelectOption {
 
 export interface SelectSelector {
     select: {
+        mode?: "list" | "dropdown";
         options: string[] | SelectOption[];
     };
 }
