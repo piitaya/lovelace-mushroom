@@ -35,6 +35,10 @@ export function isAvailable(entity: HassEntity) {
     return entity.state !== UNAVAILABLE;
 }
 
+export function isOff(entity: HassEntity) {
+    return entity.state === OFF;
+}
+
 export function isUnknown(entity: HassEntity) {
     return entity.state === UNKNOWN;
 }

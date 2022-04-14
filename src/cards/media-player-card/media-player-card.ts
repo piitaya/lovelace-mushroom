@@ -10,28 +10,34 @@ import {
 import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
+import { supportsFeature } from "../../ha/common/entity/supports-feature";
 import { isActive } from "../../ha/data/entity";
-import { MediaPlayerEntity } from "../../ha/data/media-player";
+import {
+    MediaPlayerEntity,
+    MEDIA_PLAYER_SUPPORT_VOLUME_BUTTONS,
+    MEDIA_PLAYER_SUPPORT_VOLUME_MUTE,
+    MEDIA_PLAYER_SUPPORT_VOLUME_SET,
+} from "../../ha/data/media-player";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
-import { getLayoutFromConfig } from "../../utils/layout";
-import { MEDIA_PLAYER_CARD_EDITOR_NAME, MEDIA_PLAYER_CARD_NAME } from "./const";
-import "./controls/media-player-buttons-control";
-import "./controls/media-player-volume-control";
-import { MediaPlayerCardConfig } from "./media-player-card-config";
+import { getLayoutFromConfig, Layout } from "../../utils/layout";
 import {
-    computeIcon,
-    computeSupportMediaPlayerControls,
-    getCardName,
-    getStateDisplay,
-    supportsVolumeSet,
-} from "./utils";
+    MEDIA_PLAYER_CARD_EDITOR_NAME,
+    MEDIA_PLAYER_CARD_NAME,
+    MEDIA_PLAYER_ENTITY_DOMAINS,
+} from "./const";
+import "./controls/media-player-commands-control";
+import { isCommandsControlVisible } from "./controls/media-player-commands-control";
+import "./controls/media-player-volume-control";
+import { isVolumeControlVisible } from "./controls/media-player-volume-control";
+import { MediaPlayerCardConfig } from "./media-player-card-config";
+import { computeIcon, getCardName, getStateDisplay } from "./utils";
 
-type MediaPlayerCardControl = "buttons_control" | "volume_control";
+type MediaPlayerCardControl = "commands_control" | "volume_control";
 
 const CONTROLS_ICONS: Record<MediaPlayerCardControl, string> = {
-    buttons_control: "mdi:play-pause",
+    commands_control: "mdi:play-pause",
     volume_control: "mdi:volume-high",
 };
 
@@ -46,6 +52,17 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./media-player-card-editor");
         return document.createElement(MEDIA_PLAYER_CARD_EDITOR_NAME) as LovelaceCardEditor;
+    }
+
+    public static async getStubConfig(hass: HomeAssistant): Promise<MediaPlayerCardConfig> {
+        const entities = Object.keys(hass.states);
+        const mediaPlayers = entities.filter((e) =>
+            MEDIA_PLAYER_ENTITY_DOMAINS.includes(e.split(".")[0])
+        );
+        return {
+            type: `custom:${MEDIA_PLAYER_CARD_NAME}`,
+            entity: mediaPlayers[0],
+        };
     }
 
     @property({ attribute: false }) public hass!: HomeAssistant;
@@ -93,15 +110,16 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
 
         const entity_id = this._config.entity;
         const entity = this.hass.states[entity_id] as MediaPlayerEntity;
+        const commands = this._config?.commands ?? [];
 
         if (!entity) return;
 
         const controls: MediaPlayerCardControl[] = [];
 
-        if (this._config.show_buttons_control && computeSupportMediaPlayerControls(entity)) {
-            controls.push("buttons_control");
+        if (isCommandsControlVisible(entity, commands)) {
+            controls.push("commands_control");
         }
-        if (this._config.show_volume_control && supportsVolumeSet(entity)) {
+        if (isVolumeControlVisible(entity, this._config.volume_controls)) {
             controls.push("volume_control");
         }
 
@@ -170,7 +188,8 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
                 ${this._controls.length > 0
                     ? html`
                           <div class="actions" ?rtl=${rtl}>
-                              ${this.renderActiveControl(entity)} ${this.renderOtherControls()}
+                              ${this.renderActiveControl(entity, layout)}
+                              ${this.renderOtherControls()}
                           </div>
                       `
                     : null}
@@ -193,19 +212,29 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
         `;
     }
 
-    private renderActiveControl(entity: MediaPlayerEntity): TemplateResult | null {
+    private renderActiveControl(entity: MediaPlayerEntity, layout: Layout): TemplateResult | null {
+        const commands = this._config?.commands ?? [];
+        const volume_controls = this._config?.volume_controls ?? "none";
+
         switch (this._activeControl) {
-            case "buttons_control":
+            case "commands_control":
                 return html`
-                    <mushroom-media-player-buttons-control
+                    <mushroom-media-player-commands-control
                         .hass=${this.hass}
                         .entity=${entity}
-                        .fill=${this._config?.layout !== "horizontal"}
-                    />
+                        .commands=${commands}
+                        .fill=${layout !== "horizontal"}
+                    >
+                    </mushroom-media-player-commands-control>
                 `;
             case "volume_control":
                 return html`
-                    <mushroom-media-player-volume-control .hass=${this.hass} .entity="${entity}" />
+                    <mushroom-media-player-volume-control
+                        .hass=${this.hass}
+                        .entity=${entity}
+                        .volume_controls=${volume_controls}
+                        .fill=${layout !== "horizontal"}
+                    />
                 `;
             default:
                 return null;
@@ -219,8 +248,7 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
                 mushroom-state-item {
                     cursor: pointer;
                 }
-
-                mushroom-media-player-buttons-control,
+                mushroom-media-player-commands-control,
                 mushroom-media-player-volume-control {
                     flex: 1;
                 }
