@@ -27,6 +27,7 @@ import { getInfo } from "../../utils/info";
 import { getLayoutFromConfig } from "../../utils/layout";
 import { LOCK_CARD_EDITOR_NAME, LOCK_CARD_NAME } from "./const";
 import { LockCardConfig } from "./lock-card-config";
+import "./controls/lock-buttons-control";
 
 registerCustomCard({
     type: LOCK_CARD_NAME,
@@ -123,12 +124,23 @@ export class LockCard extends LitElement implements LovelaceCard {
                         .secondary=${!hideState && stateDisplay}
                     ></mushroom-state-info>
                 </mushroom-state-item>
+                <div class="actions" ?rtl=${rtl}>
+                    <mushroom-lock-buttons-control
+                        .hass=${this.hass}
+                        .entity=${entity}
+                        .fill=${layout !== "horizontal"}
+                    >
+                    </mushroom-lock-buttons-control>
+                </div>
             </mushroom-card>
         `;
     }
 
     renderIcon(icon: string, iconColor: string | undefined, active: boolean): TemplateResult {
-        const iconStyle = {};
+        const iconStyle = {
+            "--icon-color": "rgb(var(--rgb-state-lock))",
+            "--shape-color": "rgba(var(--rgb-state-lock), 0.2)",
+        };
         if (iconColor) {
             const iconRgbColor = computeRgbColor(iconColor);
             iconStyle["--icon-color"] = `rgb(${iconRgbColor})`;
@@ -151,9 +163,8 @@ export class LockCard extends LitElement implements LovelaceCard {
                 mushroom-state-item {
                     cursor: pointer;
                 }
-                mushroom-shape-icon {
-                    --icon-color: rgb(var(--rgb-state-lock));
-                    --shape-color: rgba(var(--rgb-state-lock), 0.2);
+                mushroom-lock-buttons-control {
+                    flex: 1;
                 }
             `,
         ];

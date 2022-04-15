@@ -3,6 +3,7 @@ import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
+import { LOCK_ENTITY_DOMAINS } from "../../ha/data/lock";
 import setupCustomlocalize from "../../localize";
 import { configElementStyle } from "../../utils/editor-styles";
 import { GENERIC_FIELDS } from "../../utils/form/fields";
@@ -13,7 +14,7 @@ import { LOCK_CARD_EDITOR_NAME } from "./const";
 import { LockCardConfig, lockCardConfigStruct } from "./lock-card-config";
 
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
-    { name: "entity", selector: { entity: {} } },
+    { name: "entity", selector: { entity: { domain : LOCK_ENTITY_DOMAINS} } },
     { name: "name", selector: { text: {} } },
     {
         type: "grid",

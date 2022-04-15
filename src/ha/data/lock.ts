@@ -9,6 +9,11 @@ interface LockEntityAttributes extends HassEntityAttributeBase {
     is_unlocking?: boolean;
 }
 
+export type LockCommand =
+    | typeof LOCK_SERVICE_LOCK
+    | typeof LOCK_SERVICE_OPEN
+    | typeof LOCK_SERVICE_UNLOCK;
+
 export type LOCK_STATES =
     | typeof LOCK_STATE_JAMMED
     | typeof LOCK_STATE_LOCKED
