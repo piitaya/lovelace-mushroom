@@ -1,9 +1,8 @@
 import { computeRTL, HomeAssistant } from "custom-card-helpers";
 import { html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { supportsFeature } from "../../../ha/common/entity/supports-feature";
 import { isAvailable } from "../../../ha/data/entity";
-import { LockEntity, LOCK_SUPPORT_OPEN } from "../../../ha/data/lock";
+import { LockEntity } from "../../../ha/data/lock";
 import { isActionPending, isLocked, isUnlocked } from "../utils";
 
 interface LockButton {
@@ -53,7 +52,7 @@ export class LockButtonsControl extends LitElement {
         const rtl = computeRTL(this.hass);
 
         return html`
-            <mushroom-button-group .fill=${this.fill} .?tl=${rtl}
+            <mushroom-button-group .fill=${this.fill} .?rtl=${rtl}
                 >${LOCK_BUTTONS.filter((item) => item.isVisible(this.entity)).map(
                     (item) => html`
                         <mushroom-button

@@ -23,7 +23,6 @@ import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
 import { stateIcon } from "../../utils/icons/state-icon";
-import { getInfo } from "../../utils/info";
 import { getLayoutFromConfig } from "../../utils/layout";
 import { LOCK_CARD_EDITOR_NAME, LOCK_CARD_NAME } from "./const";
 import { LockCardConfig } from "./lock-card-config";
