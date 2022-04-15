@@ -110,7 +110,7 @@ export const colorCss = css`
     --rgb-state-light: var(--mush-rgb-state-light, var(--rgb-orange));
     --rgb-state-entity: var(--mush-rgb-state-entity, var(--rgb-blue));
     --rgb-state-switch: var(--mush-rgb-state-switch, var(--rgb-blue));
-    --rgb-state-media-player: var(--mush-rgb-state-media-player, var(--rgb-blue));
+    --rgb-state-media-player: var(--mush-rgb-state-media-player, var(--rgb-indigo));
     --rgb-state-lock: var(--mush-rgb-state-lock, var(--rgb-blue));
 
     /* State alarm colors */

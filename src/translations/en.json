@@ -89,6 +89,8 @@
                 "commands": "Commands"
             },
             "media-player": {
+                "use_media_info": "Use media info",
+                "use_media_artwork": "Use media artwork",
                 "media_controls": "Media controls",
                 "media_controls_list": {
                     "on_off": "Turn on/off",
