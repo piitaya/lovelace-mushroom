@@ -3,6 +3,7 @@ import "./utils/form/custom/ha-selector-mushroom-action";
 import "./utils/form/custom/ha-selector-mushroom-color";
 import "./utils/form/custom/ha-selector-mushroom-info";
 import "./utils/form/custom/ha-selector-mushroom-layout";
+import "./utils/form/custom/ha-selector-mushroom-alignment";
 
 export { AlarmControlPanelCard } from "./cards/alarm-control-panel-card/alarm-control-panel-card";
 export { ChipsCard } from "./cards/chips-card/chips-card";
@@ -16,6 +17,7 @@ export { TitleCard } from "./cards/title-card/title-card";
 export { UpdateCard } from "./cards/update-card/update-card";
 export { MediaPlayerCard } from "./cards/media-player-card/media-player-card";
 export { VacuumCard } from "./cards/vacuum-card/vacuum-card";
+export { LockCard } from "./cards/lock-card/lock-card";
 export { GraphCard } from "./cards/graph-card/graph-card";
 
 console.info(`%c🍄 Mushroom 🍄 - ${version}`, "color: #ef5350; font-weight: 700;");

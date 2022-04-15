@@ -87,6 +87,25 @@
             },
             "vacuum": {
                 "commands": "指令"
+            },
+            "media-player": {
+                "use_media_info": "使用媒體資訊",
+                "use_media_artwork": "使用媒體插圖",
+                "media_controls": "媒體控制",
+                "media_controls_list": {
+                    "on_off": " 開啟、關閉",
+                    "shuffle": "隨機播放",
+                    "previous": "上一首",
+                    "play_pause_stop": "播放、暫停、停止",
+                    "next": "下一首",
+                    "repeat": "重複播放"
+                },
+                "volume_controls": "音量控制",
+                "volume_controls_list": {
+                    "volume_buttons": "音量按鈕",
+                    "volume_set": "音量等級",
+                    "volume_mute": "靜音"
+                }
             }
         },
         "chip": {

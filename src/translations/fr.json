@@ -89,6 +89,8 @@
                 "commands": "Commandes"
             },
             "media-player": {
+                "use_media_info": "Utiliser les informations du media",
+                "use_media_artwork": "Utiliser l'illustration du media",
                 "media_controls": "Contrôles du media",
                 "media_controls_list": {
                     "on_off": "Allumer/Éteindre",
@@ -105,18 +107,23 @@
                     "volume_mute": "Muet"
                 }
             },
+            "lock": {
+                "lock": "Verrouiller",
+                "unlock": "Déverrouiller",
+                "open": "Ouvrir"
+            },
             "graph": {
                 "graph_mode": "Mode graphique",
                 "display_mode": "Mode d'affichage",
-                "graph_mode_type" : {
+                "graph_mode_type": {
                     "fill": "Remplissage",
                     "line": "Ligne"
                 },
-                "display_mode_type" : {
+                "display_mode_type": {
                     "standard": "Standard",
                     "compact": "Compact"
                 }
-            }            
+            }
         },
         "chip": {
             "sub_element_editor": {

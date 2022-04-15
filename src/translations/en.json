@@ -89,6 +89,8 @@
                 "commands": "Commands"
             },
             "media-player": {
+                "use_media_info": "Use media info",
+                "use_media_artwork": "Use media artwork",
                 "media_controls": "Media controls",
                 "media_controls_list": {
                     "on_off": "Turn on/off",
@@ -105,14 +107,19 @@
                     "volume_mute": "Mute"
                 }
             },
+            "lock": {
+                "lock": "Lock",
+                "unlock": "Unlock",
+                "open": "Open"
+            },
             "graph": {
                 "graph_mode": "Graph mode",
                 "display_mode": "Display mode",
-                "graph_mode_type" : {
+                "graph_mode_type": {
                     "fill": "Fill",
                     "line": "Line"
                 },
-                "display_mode_type" : {
+                "display_mode_type": {
                     "standard": "Standard",
                     "compact": "Compact"
                 }
