@@ -39,6 +39,8 @@ cards:
         entity: media_player.walkman
         show_buttons_control: true
         show_volume_control: true
+    columns: 2
+    square: false
   - type: custom:mushroom-media-player-card
     entity: media_player.kitchen
     name: Multiple controls

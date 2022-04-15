@@ -11,6 +11,7 @@ export const VACUUM_COMMANDS = [
     "clean_spot",
     "return_home",
 ] as const;
+
 export type VacuumCommand = typeof VACUUM_COMMANDS[number];
 
 export interface VacuumCardConfig extends LovelaceCardConfig {
@@ -33,11 +34,6 @@ export const vacuumCardConfigStruct = assign(
         icon: optional(string()),
         layout: optional(layoutStruct),
         hide_state: optional(boolean()),
-        show_start_pause_control: optional(boolean()),
-        show_stop_control: optional(boolean()),
-        show_locate_control: optional(boolean()),
-        show_clean_spot_control: optional(boolean()),
-        show_return_home_control: optional(boolean()),
         commands: optional(array(string())),
         tap_action: optional(actionConfigStruct),
         hold_action: optional(actionConfigStruct),
