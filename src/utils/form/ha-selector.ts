@@ -2,6 +2,7 @@ import { MushActionSelector } from "./custom/ha-selector-mushroom-action";
 import { MushColorSelector } from "./custom/ha-selector-mushroom-color";
 import { MushInfoSelector } from "./custom/ha-selector-mushroom-info";
 import { MushLayoutSelector } from "./custom/ha-selector-mushroom-layout";
+import { MushAlignementSelector } from "./custom/ha-selector-mushroom-alignment";
 
 export type Selector =
     | AddonSelector
@@ -24,7 +25,8 @@ export type Selector =
     | MushColorSelector
     | MushLayoutSelector
     | MushInfoSelector
-    | MushActionSelector;
+    | MushActionSelector
+    | MushAlignementSelector;
 
 export interface EntitySelector {
     entity: {
@@ -152,6 +154,9 @@ export interface SelectOption {
 
 export interface SelectSelector {
     select: {
+        multiple?: boolean;
+        custom_value?: boolean;
+        mode?: "list" | "dropdown";
         options: string[] | SelectOption[];
     };
 }

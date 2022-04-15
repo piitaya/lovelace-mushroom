@@ -1,4 +1,4 @@
-import { fireEvent, HomeAssistant, LovelaceCardEditor } from "custom-card-helpers";
+import { fireEvent, HomeAssistant, LocalizeFunc, LovelaceCardEditor } from "custom-card-helpers";
 import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
@@ -10,14 +10,21 @@ import { HaFormSchema } from "../../utils/form/ha-form";
 import { loadHaComponents } from "../../utils/loader";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { MEDIA_PLAYER_CARD_EDITOR_NAME, MEDIA_PLAYER_ENTITY_DOMAINS } from "./const";
-import { MediaPlayerCardConfig, mediaPlayerCardConfigStruct } from "./media-player-card-config";
+import {
+    MediaPlayerCardConfig,
+    mediaPlayerCardConfigStruct,
+    MEDIA_LAYER_MEDIA_CONTROLS,
+    MEDIA_PLAYER_VOLUME_CONTROLS,
+} from "./media-player-card-config";
 
 export const MEDIA_FIELDS = [
-    "show_buttons_control",
-    "show_volume_control"
+    "use_media_info",
+    "use_media_artwork",
+    "media_controls",
+    "volume_controls",
 ];
 
-const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
+const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: MEDIA_PLAYER_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
     {
@@ -28,16 +35,50 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     {
         type: "grid",
         name: "",
+        schema: [{ name: "layout", selector: { "mush-layout": {} } }],
+    },
+    {
+        type: "grid",
+        name: "",
         schema: [
-            { name: "layout", selector: { "mush-layout": {} } },
+            { name: "use_media_info", selector: { boolean: {} } },
+            { name: "use_media_artwork", selector: { boolean: {} } },
         ],
     },
     {
         type: "grid",
         name: "",
         schema: [
-            { name: "show_buttons_control", selector: { boolean: {} } },
-            { name: "show_volume_control", selector: { boolean: {} } },
+            {
+                name: "volume_controls",
+                selector: {
+                    select: {
+                        options: MEDIA_PLAYER_VOLUME_CONTROLS.map((control) => ({
+                            value: control,
+                            label: localize(
+                                `editor.card.media-player.volume_controls_list.${control}`
+                            ),
+                        })),
+                        mode: "list",
+                        multiple: true,
+                    },
+                },
+            },
+            {
+                name: "media_controls",
+                selector: {
+                    select: {
+                        options: MEDIA_LAYER_MEDIA_CONTROLS.map((control) => ({
+                            value: control,
+                            label: localize(
+                                `editor.card.media-player.media_controls_list.${control}`
+                            ),
+                        })),
+                        mode: "list",
+                        multiple: true,
+                    },
+                },
+            },
         ],
     },
     { name: "tap_action", selector: { "mush-action": {} } },
@@ -81,7 +122,9 @@ export class MediaCardEditor extends LitElement implements LovelaceCardEditor {
         const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
         const entityIcon = entityState ? stateIcon(entityState) : undefined;
         const icon = this._config.icon || entityIcon;
-        const schema = computeSchema(icon);
+
+        const customLocalize = setupCustomlocalize(this.hass!);
+        const schema = computeSchema(customLocalize, icon);
 
         return html`
             <ha-form
