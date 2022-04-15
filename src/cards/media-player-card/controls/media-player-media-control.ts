@@ -2,21 +2,21 @@ import { computeRTL, HomeAssistant } from "custom-card-helpers";
 import { html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { MediaPlayerEntity } from "../../../ha/data/media-player";
-import { MediaPlayerCommand } from "../media-player-card-config";
+import { MediaPlayerMediaControl } from "../media-player-card-config";
 import { computeMediaControls, handleMediaControlClick } from "../utils";
 
-export const isCommandsControlVisible = (
+export const isMediaControlVisible = (
     entity: MediaPlayerEntity,
-    commands: MediaPlayerCommand[]
-) => computeMediaControls(entity, commands).length > 0;
+    controls?: MediaPlayerMediaControl[]
+) => computeMediaControls(entity, controls ?? []).length > 0;
 
-@customElement("mushroom-media-player-commands-control")
-export class MediaPlayerCommandsControl extends LitElement {
+@customElement("mushroom-media-player-media-control")
+export class MediaPlayerMediaControls extends LitElement {
     @property({ attribute: false }) public hass!: HomeAssistant;
 
     @property({ attribute: false }) public entity!: MediaPlayerEntity;
 
-    @property({ attribute: false }) public commands!: MediaPlayerCommand[];
+    @property({ attribute: false }) public controls!: MediaPlayerMediaControl[];
 
     @property() public fill: boolean = false;
 
@@ -29,7 +29,7 @@ export class MediaPlayerCommandsControl extends LitElement {
     protected render(): TemplateResult {
         const rtl = computeRTL(this.hass);
 
-        const controls = computeMediaControls(this.entity, this.commands);
+        const controls = computeMediaControls(this.entity, this.controls);
 
         return html`
             <mushroom-button-group .fill=${this.fill} ?rtl=${rtl}>

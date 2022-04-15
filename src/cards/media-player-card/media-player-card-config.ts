@@ -1,10 +1,10 @@
 import { ActionConfig, LovelaceCardConfig } from "custom-card-helpers";
-import { array, assign, boolean, enums, object, optional, string } from "superstruct";
+import { array, assign, enums, object, optional, string } from "superstruct";
 import { actionConfigStruct } from "../../utils/action-struct";
 import { baseLovelaceCardConfig } from "../../utils/editor-styles";
 import { Layout, layoutStruct } from "../../utils/layout";
 
-export const MEDIA_PLAYER_COMMANDS = [
+export const MEDIA_LAYER_MEDIA_CONTROLS = [
     "on_off",
     "shuffle",
     "previous",
@@ -13,7 +13,7 @@ export const MEDIA_PLAYER_COMMANDS = [
     "repeat",
 ] as const;
 
-export type MediaPlayerCommand = typeof MEDIA_PLAYER_COMMANDS[number];
+export type MediaPlayerMediaControl = typeof MEDIA_LAYER_MEDIA_CONTROLS[number];
 
 export const MEDIA_PLAYER_VOLUME_CONTROLS = [
     "volume_mute",
@@ -21,14 +21,14 @@ export const MEDIA_PLAYER_VOLUME_CONTROLS = [
     "volume_buttons",
 ] as const;
 
-export type MediaPlayerVolumeControlMode = typeof MEDIA_PLAYER_VOLUME_CONTROLS[number];
+export type MediaPlayerVolumeControl = typeof MEDIA_PLAYER_VOLUME_CONTROLS[number];
 
 export interface MediaPlayerCardConfig extends LovelaceCardConfig {
     entity?: string;
     name?: string;
     icon?: string;
-    volume_controls?: MediaPlayerVolumeControlMode[];
-    commands?: MediaPlayerCommand[];
+    volume_controls?: MediaPlayerVolumeControl[];
+    media_controls?: MediaPlayerMediaControl[];
     layout?: Layout;
     tap_action?: ActionConfig;
     hold_action?: ActionConfig;
@@ -42,7 +42,7 @@ export const mediaPlayerCardConfigStruct = assign(
         icon: optional(string()),
         name: optional(string()),
         volume_controls: optional(array(enums(MEDIA_PLAYER_VOLUME_CONTROLS))),
-        commands: optional(array(enums(MEDIA_PLAYER_COMMANDS))),
+        media_controls: optional(array(enums(MEDIA_LAYER_MEDIA_CONTROLS))),
         layout: optional(layoutStruct),
         tap_action: optional(actionConfigStruct),
         hold_action: optional(actionConfigStruct),

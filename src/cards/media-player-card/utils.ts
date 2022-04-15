@@ -16,7 +16,7 @@ import {
     MEDIA_PLAYER_SUPPORT_TURN_ON,
     MEDIA_PLAYER_SUPPORT_VOLUME_SET,
 } from "../../ha/data/media-player";
-import { MediaPlayerCardConfig, MediaPlayerCommand } from "./media-player-card-config";
+import { MediaPlayerCardConfig, MediaPlayerMediaControl } from "./media-player-card-config";
 
 export function callService(
     e: MouseEvent,
@@ -87,7 +87,7 @@ export interface ControlButton {
 
 export const computeMediaControls = (
     stateObj: MediaPlayerEntity,
-    commands: MediaPlayerCommand[]
+    controls: MediaPlayerMediaControl[]
 ): ControlButton[] => {
     if (!stateObj) {
         return [];
@@ -97,7 +97,7 @@ export const computeMediaControls = (
 
     if (state === "off") {
         return supportsFeature(stateObj, MEDIA_PLAYER_SUPPORT_TURN_ON) &&
-            commands.includes("on_off")
+            controls.includes("on_off")
             ? [
                   {
                       icon: "mdi:power",
@@ -109,7 +109,7 @@ export const computeMediaControls = (
 
     const buttons: ControlButton[] = [];
 
-    if (supportsFeature(stateObj, MEDIA_PLAYER_SUPPORT_TURN_OFF) && commands.includes("on_off")) {
+    if (supportsFeature(stateObj, MEDIA_PLAYER_SUPPORT_TURN_OFF) && controls.includes("on_off")) {
         buttons.push({
             icon: "mdi:power",
             action: "turn_off",
@@ -122,7 +122,7 @@ export const computeMediaControls = (
     if (
         (state === "playing" || state === "paused" || assumedState) &&
         supportsFeature(stateObj, MEDIA_PLAYER_SUPPORT_SHUFFLE_SET) &&
-        commands.includes("shuffle")
+        controls.includes("shuffle")
     ) {
         buttons.push({
             icon: stateAttr.shuffle === true ? "mdi:shuffle" : "mdi:shuffle-disabled",
@@ -133,7 +133,7 @@ export const computeMediaControls = (
     if (
         (state === "playing" || state === "paused" || assumedState) &&
         supportsFeature(stateObj, MEDIA_PLAYER_SUPPORT_PREVIOUS_TRACK) &&
-        commands.includes("previous")
+        controls.includes("previous")
     ) {
         buttons.push({
             icon: "mdi:skip-previous",
@@ -151,7 +151,7 @@ export const computeMediaControls = (
             (state === "on" &&
                 (supportsFeature(stateObj, MEDIA_PLAYER_SUPPORT_PLAY) ||
                     supportsFeature(stateObj, MEDIA_PLAYER_SUPPORT_PAUSE)))) &&
-        commands.includes("play_pause_stop")
+        controls.includes("play_pause_stop")
     ) {
         buttons.push({
             icon:
@@ -174,7 +174,7 @@ export const computeMediaControls = (
     if (
         assumedState &&
         supportsFeature(stateObj, MEDIA_PLAYER_SUPPORT_PLAY) &&
-        commands.includes("play_pause_stop")
+        controls.includes("play_pause_stop")
     ) {
         buttons.push({
             icon: "mdi:play",
@@ -185,7 +185,7 @@ export const computeMediaControls = (
     if (
         assumedState &&
         supportsFeature(stateObj, MEDIA_PLAYER_SUPPORT_PAUSE) &&
-        commands.includes("play_pause_stop")
+        controls.includes("play_pause_stop")
     ) {
         buttons.push({
             icon: "mdi:pause",
@@ -196,7 +196,7 @@ export const computeMediaControls = (
     if (
         assumedState &&
         supportsFeature(stateObj, MEDIA_PLAYER_SUPPORT_STOP) &&
-        commands.includes("play_pause_stop")
+        controls.includes("play_pause_stop")
     ) {
         buttons.push({
             icon: "mdi:stop",
@@ -207,7 +207,7 @@ export const computeMediaControls = (
     if (
         (state === "playing" || state === "paused" || assumedState) &&
         supportsFeature(stateObj, MEDIA_PLAYER_SUPPORT_NEXT_TRACK) &&
-        commands.includes("next")
+        controls.includes("next")
     ) {
         buttons.push({
             icon: "mdi:skip-next",
@@ -218,7 +218,7 @@ export const computeMediaControls = (
     if (
         (state === "playing" || state === "paused" || assumedState) &&
         supportsFeature(stateObj, MEDIA_PLAYER_SUPPORT_REPEAT_SET) &&
-        commands.includes("repeat")
+        controls.includes("repeat")
     ) {
         buttons.push({
             icon:
@@ -293,7 +293,6 @@ export const handleMediaControlClick = (
         };
     }
 
-    console.log(action, parameters);
     hass.callService("media_player", action, {
         entity_id: stateObj!.entity_id,
         ...parameters,

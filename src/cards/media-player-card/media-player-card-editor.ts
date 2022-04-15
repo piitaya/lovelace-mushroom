@@ -13,11 +13,11 @@ import { MEDIA_PLAYER_CARD_EDITOR_NAME, MEDIA_PLAYER_ENTITY_DOMAINS } from "./co
 import {
     MediaPlayerCardConfig,
     mediaPlayerCardConfigStruct,
-    MEDIA_PLAYER_COMMANDS,
+    MEDIA_LAYER_MEDIA_CONTROLS,
     MEDIA_PLAYER_VOLUME_CONTROLS,
 } from "./media-player-card-config";
 
-export const MEDIA_FIELDS = ["commands", "volume_controls"];
+export const MEDIA_FIELDS = ["media_controls", "volume_controls"];
 
 const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: MEDIA_PLAYER_ENTITY_DOMAINS } } },
@@ -52,12 +52,14 @@ const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaForm
                 },
             },
             {
-                name: "commands",
+                name: "media_controls",
                 selector: {
                     select: {
-                        options: MEDIA_PLAYER_COMMANDS.map((command) => ({
-                            value: command,
-                            label: localize(`editor.card.media-player.commands_list.${command}`),
+                        options: MEDIA_LAYER_MEDIA_CONTROLS.map((control) => ({
+                            value: control,
+                            label: localize(
+                                `editor.card.media-player.media_controls_list.${control}`
+                            ),
                         })),
                         mode: "list",
                         multiple: true,

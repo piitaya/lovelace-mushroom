@@ -9,29 +9,28 @@ import {
     MEDIA_PLAYER_SUPPORT_VOLUME_MUTE,
     MEDIA_PLAYER_SUPPORT_VOLUME_SET,
 } from "../../../ha/data/media-player";
-import { MediaPlayerVolumeControlMode } from "../media-player-card-config";
+import { MediaPlayerVolumeControl } from "../media-player-card-config";
 import { getVolumeLevel, handleMediaControlClick } from "../utils";
 
 export const isVolumeControlVisible = (
     entity: MediaPlayerEntity,
-    volume_controls?: MediaPlayerVolumeControlMode[]
+    controls?: MediaPlayerVolumeControl[]
 ) =>
-    (volume_controls?.includes("volume_buttons") &&
+    (controls?.includes("volume_buttons") &&
         supportsFeature(entity, MEDIA_PLAYER_SUPPORT_VOLUME_BUTTONS)) ||
-    (volume_controls?.includes("volume_mute") &&
+    (controls?.includes("volume_mute") &&
         supportsFeature(entity, MEDIA_PLAYER_SUPPORT_VOLUME_MUTE)) ||
-    (volume_controls?.includes("volume_set") &&
-        supportsFeature(entity, MEDIA_PLAYER_SUPPORT_VOLUME_SET));
+    (controls?.includes("volume_set") && supportsFeature(entity, MEDIA_PLAYER_SUPPORT_VOLUME_SET));
 
 @customElement("mushroom-media-player-volume-control")
-export class MediaPlayerVolumeControlComponent extends LitElement {
+export class MediaPlayerVolumeControls extends LitElement {
     @property({ attribute: false }) public hass!: HomeAssistant;
 
     @property({ attribute: false }) public entity!: MediaPlayerEntity;
 
     @property() public fill: boolean = false;
 
-    @property({ attribute: false }) public volume_controls!: MediaPlayerVolumeControlMode[];
+    @property({ attribute: false }) public controls!: MediaPlayerVolumeControl[];
 
     private handleSliderChange(e: CustomEvent<{ value: number }>): void {
         const value = e.detail.value;
@@ -44,7 +43,6 @@ export class MediaPlayerVolumeControlComponent extends LitElement {
     private handleClick(e: MouseEvent): void {
         e.stopPropagation();
         const action = (e.target! as any).action as string;
-        console.log(action);
         handleMediaControlClick(this.hass, this.entity, action!);
     }
 
@@ -56,15 +54,15 @@ export class MediaPlayerVolumeControlComponent extends LitElement {
         const rtl = computeRTL(this.hass);
 
         const displayVolumeSet =
-            this.volume_controls?.includes("volume_set") &&
+            this.controls?.includes("volume_set") &&
             supportsFeature(this.entity, MEDIA_PLAYER_SUPPORT_VOLUME_SET);
 
         const displayVolumeMute =
-            this.volume_controls?.includes("volume_mute") &&
+            this.controls?.includes("volume_mute") &&
             supportsFeature(this.entity, MEDIA_PLAYER_SUPPORT_VOLUME_MUTE);
 
         const displayVolumeButtons =
-            this.volume_controls?.includes("volume_buttons") &&
+            this.controls?.includes("volume_buttons") &&
             supportsFeature(this.entity, MEDIA_PLAYER_SUPPORT_VOLUME_BUTTONS);
 
         return html`

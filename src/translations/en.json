@@ -89,8 +89,8 @@
                 "commands": "Commands"
             },
             "media-player": {
-                "commands": "Commands",
-                "commands_list": {
+                "media_controls": "Media controls",
+                "media_controls_list": {
                     "on_off": "Turn on/off",
                     "shuffle": "Shuffle",
                     "previous": "Previous track",
@@ -98,7 +98,7 @@
                     "next": "Next track",
                     "repeat": "Repeat mode"
                 },
-                "volume_controls": "Volume control",
+                "volume_controls": "Volume controls",
                 "volume_controls_list": {
                     "volume_buttons": "Volume buttons",
                     "volume_set": "Volume level",

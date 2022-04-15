@@ -89,8 +89,8 @@
                 "commands": "Commandes"
             },
             "media-player": {
-                "commands": "Commandes",
-                "commands_list": {
+                "media_controls": "Contrôles du media",
+                "media_controls_list": {
                     "on_off": "Allumer/Éteindre",
                     "shuffle": "Lecture aléatoire",
                     "previous": "Précédent",
@@ -98,7 +98,7 @@
                     "next": "Suivant",
                     "repeat": "Mode de répétition"
                 },
-                "volume_controls": "Contrôle du volume",
+                "volume_controls": "Contrôles du volume",
                 "volume_controls_list": {
                     "volume_buttons": "Bouton de volume",
                     "volume_set": "Niveau de volume",
