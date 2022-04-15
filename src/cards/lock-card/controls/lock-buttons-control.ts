@@ -39,7 +39,7 @@ export const LOCK_BUTTONS: LockButton[] = [
         icon: "mdi:door-open",
         title: "open",
         serviceName: "open",
-        isVisible: (entity) => supportsFeature(entity, LOCK_SUPPORT_OPEN),
+        isVisible: (entity) => supportsFeature(entity, LOCK_SUPPORT_OPEN) && isUnlocked(entity),
         isDisabled: (entity) => isActionPending(entity),
     },
 ];
