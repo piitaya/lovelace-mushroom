@@ -254,6 +254,10 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
                 mushroom-state-item {
                     cursor: pointer;
                 }
+                mushroom-shape-icon {
+                    --icon-color: rgb(var(--rgb-state-media-player));
+                    --shape-color: rgba(var(--rgb-state-media-player), 0.2);
+                }
                 mushroom-media-player-media-control,
                 mushroom-media-player-volume-control {
                     flex: 1;

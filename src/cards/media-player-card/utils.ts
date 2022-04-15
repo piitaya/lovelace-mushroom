@@ -286,7 +286,7 @@ export const handleMediaControlClick = (
         parameters = {
             shuffle: !stateObj!.attributes.shuffle,
         };
-    } else if (action === "shuffle_set") {
+    } else if (action === "repeat_set") {
         parameters = {
             repeat:
                 stateObj!.attributes.repeat === "all"
