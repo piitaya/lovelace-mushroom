@@ -22,6 +22,8 @@ nav:
       - Entity: "cards/entity.md"
       - Fan: "cards/fan.md"
       - Light: "cards/light.md"
+      - Lock: "cards/lock.md"
+      - "Media Player": "cards/media-player.md"
       - Person: "cards/person.md"
       - Template: "cards/template.md"
       - Title: "cards/title.md"

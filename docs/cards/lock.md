@@ -1,3 +1,9 @@
+---
+title: Lock
+hide:
+  - toc
+---
+
 # Lock card
 
 ![Lock light](../images/lock-light.png)

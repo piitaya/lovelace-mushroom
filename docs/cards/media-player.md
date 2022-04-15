@@ -1,3 +1,9 @@
+---
+title: Media Player
+hide:
+  - toc
+---
+
 # Media Player card
 
 ![Media Player light](../images/media-player-light.png)
