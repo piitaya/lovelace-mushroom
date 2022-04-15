@@ -3,6 +3,7 @@ import "./utils/form/custom/ha-selector-mushroom-action";
 import "./utils/form/custom/ha-selector-mushroom-color";
 import "./utils/form/custom/ha-selector-mushroom-info";
 import "./utils/form/custom/ha-selector-mushroom-layout";
+import "./utils/form/custom/ha-selector-mushroom-alignment";
 
 export { AlarmControlPanelCard } from "./cards/alarm-control-panel-card/alarm-control-panel-card";
 export { ChipsCard } from "./cards/chips-card/chips-card";
