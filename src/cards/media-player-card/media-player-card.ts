@@ -1,5 +1,6 @@
 import {
     ActionHandlerEvent,
+    computeRTL,
     handleAction,
     hasAction,
     HomeAssistant,
@@ -14,23 +15,23 @@ import { MediaPlayerEntity } from "../../ha/data/media-player";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
-import { getLayoutFromConfig } from "../../utils/layout";
-import { MEDIA_PLAYER_CARD_EDITOR_NAME, MEDIA_PLAYER_CARD_NAME } from "./const";
-import "./controls/media-player-buttons-control";
-import "./controls/media-player-volume-control";
-import { MediaPlayerCardConfig } from "./media-player-card-config";
+import { getLayoutFromConfig, Layout } from "../../utils/layout";
 import {
-    computeIcon,
-    computeSupportMediaPlayerControls,
-    getCardName,
-    getStateDisplay,
-    supportsVolumeSet,
-} from "./utils";
+    MEDIA_PLAYER_CARD_EDITOR_NAME,
+    MEDIA_PLAYER_CARD_NAME,
+    MEDIA_PLAYER_ENTITY_DOMAINS,
+} from "./const";
+import "./controls/media-player-media-control";
+import { isMediaControlVisible } from "./controls/media-player-media-control";
+import "./controls/media-player-volume-control";
+import { isVolumeControlVisible } from "./controls/media-player-volume-control";
+import { MediaPlayerCardConfig } from "./media-player-card-config";
+import { computeIcon, getCardName, getStateDisplay } from "./utils";
 
-type MediaPlayerCardControl = "buttons_control" | "volume_control";
+type MediaPlayerCardControl = "media_control" | "volume_control";
 
 const CONTROLS_ICONS: Record<MediaPlayerCardControl, string> = {
-    buttons_control: "mdi:play-pause",
+    media_control: "mdi:play-pause",
     volume_control: "mdi:volume-high",
 };
 
@@ -45,6 +46,17 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./media-player-card-editor");
         return document.createElement(MEDIA_PLAYER_CARD_EDITOR_NAME) as LovelaceCardEditor;
+    }
+
+    public static async getStubConfig(hass: HomeAssistant): Promise<MediaPlayerCardConfig> {
+        const entities = Object.keys(hass.states);
+        const mediaPlayers = entities.filter((e) =>
+            MEDIA_PLAYER_ENTITY_DOMAINS.includes(e.split(".")[0])
+        );
+        return {
+            type: `custom:${MEDIA_PLAYER_CARD_NAME}`,
+            entity: mediaPlayers[0],
+        };
     }
 
     @property({ attribute: false }) public hass!: HomeAssistant;
@@ -97,13 +109,10 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
 
         const controls: MediaPlayerCardControl[] = [];
 
-        if (
-            this._config.show_buttons_control &&
-            computeSupportMediaPlayerControls(entity)
-        ) {
-            controls.push("buttons_control");
+        if (isMediaControlVisible(entity, this._config?.media_controls)) {
+            controls.push("media_control");
         }
-        if (this._config.show_volume_control && supportsVolumeSet(entity)) {
+        if (isVolumeControlVisible(entity, this._config.volume_controls)) {
             controls.push("volume_control");
         }
 
@@ -135,22 +144,26 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
         let nameDisplay = getCardName(this._config, entity);
         let stateDisplay = getStateDisplay(entity, this.hass);
 
-        return html`<mushroom-card .layout=${layout}>
-            <mushroom-state-item
-                .layout=${layout}
-                @action=${this._handleAction}
-                .actionHandler=${actionHandler({
-                    hasHold: hasAction(this._config.hold_action),
-                    hasDoubleClick: hasAction(this._config.double_tap_action),
-                })}
-            >
-                <mushroom-shape-icon
-                    slot="icon"
-                    .disabled=${!active}
-                    .icon="${icon}"
-                    style=${styleMap(iconStyle)}
-                ></mushroom-shape-icon>
-                ${entity.state === "unavailable"
+        const rtl = computeRTL(this.hass);
+
+        return html`
+            <mushroom-card .layout=${layout} ?rtl=${rtl}>
+                <mushroom-state-item
+                    ?rtl=${rtl}
+                    .layout=${layout}
+                    @action=${this._handleAction}
+                    .actionHandler=${actionHandler({
+                        hasHold: hasAction(this._config.hold_action),
+                        hasDoubleClick: hasAction(this._config.double_tap_action),
+                    })}
+                >
+                    <mushroom-shape-icon
+                        slot="icon"
+                        .disabled=${!active}
+                        .icon="${icon}"
+                        style=${styleMap(iconStyle)}
+                    ></mushroom-shape-icon>
+                    ${entity.state === "unavailable"
                         ? html`
                               <mushroom-badge-icon
                                   class="unavailable"
@@ -159,20 +172,22 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
                               ></mushroom-badge-icon>
                           `
                         : null}
-                <mushroom-state-info
-                    slot="info"
-                    .primary=${nameDisplay}
-                    .secondary=${stateDisplay}
-                ></mushroom-state-info>
-            </mushroom-state-item>
-            ${this._controls.length > 0
-                ? html`
-                      <div class="actions">
-                          ${this.renderActiveControl(entity)} ${this.renderOtherControls()}
-                      </div>
-                  `
-                : null}
-        </mushroom-card>`;
+                    <mushroom-state-info
+                        slot="info"
+                        .primary=${nameDisplay}
+                        .secondary=${stateDisplay}
+                    ></mushroom-state-info>
+                </mushroom-state-item>
+                ${this._controls.length > 0
+                    ? html`
+                          <div class="actions" ?rtl=${rtl}>
+                              ${this.renderActiveControl(entity, layout)}
+                              ${this.renderOtherControls()}
+                          </div>
+                      `
+                    : null}
+            </mushroom-card>
+        `;
     }
 
     private renderOtherControls(): TemplateResult | null {
@@ -190,19 +205,29 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
         `;
     }
 
-    private renderActiveControl(entity: MediaPlayerEntity): TemplateResult | null {
+    private renderActiveControl(entity: MediaPlayerEntity, layout: Layout): TemplateResult | null {
+        const media_controls = this._config?.media_controls ?? [];
+        const volume_controls = this._config?.volume_controls ?? [];
+
         switch (this._activeControl) {
-            case "buttons_control":
+            case "media_control":
                 return html`
-                    <mushroom-media-player-buttons-control
+                    <mushroom-media-player-media-control
                         .hass=${this.hass}
                         .entity=${entity}
-                        .fill=${this._config?.layout !== "horizontal"}
-                    />
+                        .controls=${media_controls}
+                        .fill=${layout !== "horizontal"}
+                    >
+                    </mushroom-media-player-media-control>
                 `;
             case "volume_control":
                 return html`
-                    <mushroom-media-player-volume-control .hass=${this.hass} .entity="${entity}" />
+                    <mushroom-media-player-volume-control
+                        .hass=${this.hass}
+                        .entity=${entity}
+                        .controls=${volume_controls}
+                        .fill=${layout !== "horizontal"}
+                    />
                 `;
             default:
                 return null;
@@ -216,8 +241,7 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
                 mushroom-state-item {
                     cursor: pointer;
                 }
-
-                mushroom-media-player-buttons-control,
+                mushroom-media-player-media-control,
                 mushroom-media-player-volume-control {
                     flex: 1;
                 }

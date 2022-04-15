@@ -152,6 +152,11 @@ export interface SelectOption {
 
 export interface SelectSelector {
     select: {
+<<<<<<< HEAD
+=======
+        multiple?: boolean;
+        custom_value?: boolean;
+>>>>>>> main
         mode?: "list" | "dropdown";
         options: string[] | SelectOption[];
     };

@@ -89,8 +89,21 @@
                 "commands": "Commandes"
             },
             "media-player": {
-                "show_buttons_control": "Contrôle avec boutons ?",
-                "show_volume_control": "Contrôle du volume ?"
+                "media_controls": "Contrôles du media",
+                "media_controls_list": {
+                    "on_off": "Allumer/Éteindre",
+                    "shuffle": "Lecture aléatoire",
+                    "previous": "Précédent",
+                    "play_pause_stop": "Lecture/pause/stop",
+                    "next": "Suivant",
+                    "repeat": "Mode de répétition"
+                },
+                "volume_controls": "Contrôles du volume",
+                "volume_controls_list": {
+                    "volume_buttons": "Bouton de volume",
+                    "volume_set": "Niveau de volume",
+                    "volume_mute": "Muet"
+                }
             },
             "graph": {
                 "graph_mode": "Mode graphique",

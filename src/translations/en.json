@@ -89,8 +89,21 @@
                 "commands": "Commands"
             },
             "media-player": {
-                "show_buttons_control": "Buttons control?",
-                "show_volume_control": "Volume control?"
+                "media_controls": "Media controls",
+                "media_controls_list": {
+                    "on_off": "Turn on/off",
+                    "shuffle": "Shuffle",
+                    "previous": "Previous track",
+                    "play_pause_stop": "Play/pause/stop",
+                    "next": "Next track",
+                    "repeat": "Repeat mode"
+                },
+                "volume_controls": "Volume controls",
+                "volume_controls_list": {
+                    "volume_buttons": "Volume buttons",
+                    "volume_set": "Volume level",
+                    "volume_mute": "Mute"
+                }
             },
             "graph": {
                 "graph_mode": "Graph mode",
