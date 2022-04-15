@@ -71,6 +71,14 @@
                 "entity_extra": "Used in templates and actions",
                 "content": "Content"
             },
+            "thermostat": {
+                "use_action_color": "Icon action color?",
+                "use_action_icon": "Icon action?",
+                "show_mode_control": "Mode control?",
+                "show_temp_control": "Temperature control?",
+                "show_temp_indicators": "Temperature control indicators?",
+                "temperature_gap": "Energy Efficient Gap"
+            },
             "title": {
                 "title": "Title",
                 "subtitle": "Subtitle"

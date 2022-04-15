@@ -1,0 +1,55 @@
+title: Thermostat
+icon: mdi:thermostat
+cards:
+  - type: grid
+    title: Simple
+    cards:
+      - type: custom:mushroom-thermostat-card
+        entity: climate.ecobee
+      - type: custom:mushroom-thermostat-card
+        entity: climate.ecobee
+        name: Custom name and icon
+        icon: mdi:format-paint
+    columns: 2
+    square: false
+  - type: grid
+    title: Controls
+    cards:
+      - type: custom:mushroom-thermostat-card
+        entity: climate.ecobee
+        name: Temperature control
+        show_temp_control: true
+      - type: custom:mushroom-thermostat-card
+        entity: climate.ecobee
+        name: Mode control
+        show_mode_control: true
+    columns: 2
+    square: false
+  - type: custom:mushroom-thermostat-card
+    entity: climate.ecobee
+    name: Multiple controls
+    show_temp_control: true
+    show_mode_control: true
+    show_temp_indicators: true
+  - type: vertical-stack
+    title: Layout
+    cards:
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:mushroom-thermostat-card
+            entity: climate.ecobee
+            show_temp_control: true
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:mushroom-thermostat-card
+            entity: climate.ecobee
+            show_temp_control: true
+            layout: "vertical"
+      - type: custom:mushroom-thermostat-card
+        entity: climate.ecobee
+        show_temp_control: true
+        layout: "horizontal"
