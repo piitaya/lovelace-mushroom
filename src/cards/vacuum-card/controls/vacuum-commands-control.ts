@@ -108,7 +108,7 @@ export class CoverButtonsControl extends LitElement {
         const rtl = computeRTL(this.hass);
 
         return html`
-            <mushroom-button-group .fill=${this.fill} .?tl=${rtl}>
+            <mushroom-button-group .fill=${this.fill} .?rtl=${rtl}>
                 ${VACUUM_BUTTONS.filter((item) => item.isVisible(this.entity, this.commands)).map(
                     (item) => html`
                         <mushroom-button
