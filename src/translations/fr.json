@@ -89,6 +89,7 @@
                 "commands": "Commandes"
             },
             "media-player": {
+                "show_media_info": "Montrer les informations sur le media",
                 "media_controls": "Contrôles du media",
                 "media_controls_list": {
                     "on_off": "Allumer/Éteindre",
