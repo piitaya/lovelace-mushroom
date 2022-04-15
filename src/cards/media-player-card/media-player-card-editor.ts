@@ -17,7 +17,12 @@ import {
     MEDIA_PLAYER_VOLUME_CONTROLS,
 } from "./media-player-card-config";
 
-export const MEDIA_FIELDS = ["show_media_info", "media_controls", "volume_controls"];
+export const MEDIA_FIELDS = [
+    "show_media_info",
+    "use_media_artwork",
+    "media_controls",
+    "volume_controls",
+];
 
 const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: MEDIA_PLAYER_ENTITY_DOMAINS } } },
@@ -35,7 +40,10 @@ const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaForm
     {
         type: "grid",
         name: "",
-        schema: [{ name: "show_media_info", selector: { boolean: {} } }],
+        schema: [
+            { name: "show_media_info", selector: { boolean: {} } },
+            { name: "use_media_artwork", selector: { boolean: {} } },
+        ],
     },
     {
         type: "grid",
