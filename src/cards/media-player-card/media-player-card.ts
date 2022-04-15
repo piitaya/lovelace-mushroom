@@ -26,7 +26,11 @@ import { isMediaControlVisible } from "./controls/media-player-media-control";
 import "./controls/media-player-volume-control";
 import { isVolumeControlVisible } from "./controls/media-player-volume-control";
 import { MediaPlayerCardConfig } from "./media-player-card-config";
-import { computeIcon, getCardName, getStateDisplay } from "./utils";
+import { computeMediaIcon, computeMediaNameDisplay, computeMediaStateDisplay } from "./utils";
+import "../../shared/badge-icon";
+import "../../shared/card";
+import "../../shared/shape-avatar";
+import "../../shared/shape-icon";
 
 type MediaPlayerCardControl = "media_control" | "volume_control";
 
@@ -135,16 +139,17 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
         const entity_id = this._config.entity;
         const entity = this.hass.states[entity_id] as MediaPlayerEntity;
 
-        const icon = computeIcon(this._config, entity);
+        const icon = computeMediaIcon(this._config, entity);
         const layout = getLayoutFromConfig(this._config);
-        const active = isActive(entity);
 
-        let iconStyle = {};
-
-        let nameDisplay = getCardName(this._config, entity);
-        let stateDisplay = getStateDisplay(entity, this.hass);
+        let nameDisplay = computeMediaNameDisplay(this._config, entity);
+        let stateDisplay = computeMediaStateDisplay(this._config, entity, this.hass);
 
         const rtl = computeRTL(this.hass);
+
+        const artwork = this._config.use_media_artwork
+            ? entity.attributes.entity_picture
+            : undefined;
 
         return html`
             <mushroom-card .layout=${layout} ?rtl=${rtl}>
@@ -157,12 +162,20 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
                         hasDoubleClick: hasAction(this._config.double_tap_action),
                     })}
                 >
-                    <mushroom-shape-icon
-                        slot="icon"
-                        .disabled=${!active}
-                        .icon="${icon}"
-                        style=${styleMap(iconStyle)}
-                    ></mushroom-shape-icon>
+                    ${artwork
+                        ? html`
+                              <mushroom-shape-avatar
+                                  slot="icon"
+                                  .picture_url=${artwork}
+                              ></mushroom-shape-avatar>
+                          `
+                        : html`
+                              <mushroom-shape-icon
+                                  slot="icon"
+                                  .icon=${icon}
+                                  .disabled=${!isActive(entity)}
+                              ></mushroom-shape-icon>
+                          `}
                     ${entity.state === "unavailable"
                         ? html`
                               <mushroom-badge-icon

@@ -30,9 +30,12 @@ export function callService(
     });
 }
 
-export function getCardName(config: MediaPlayerCardConfig, entity: MediaPlayerEntity): string {
+export function computeMediaNameDisplay(
+    config: MediaPlayerCardConfig,
+    entity: MediaPlayerEntity
+): string {
     let name = config.name || entity.attributes.friendly_name || "";
-    if (![UNAVAILABLE, UNKNOWN, OFF].includes(entity.state)) {
+    if (![UNAVAILABLE, UNKNOWN, OFF].includes(entity.state) && config.show_media_info) {
         if (entity.attributes.media_title) {
             name = entity.attributes.media_title;
         }
@@ -40,9 +43,13 @@ export function getCardName(config: MediaPlayerCardConfig, entity: MediaPlayerEn
     return name;
 }
 
-export function getStateDisplay(entity: MediaPlayerEntity, hass: HomeAssistant): string {
+export function computeMediaStateDisplay(
+    config: MediaPlayerCardConfig,
+    entity: MediaPlayerEntity,
+    hass: HomeAssistant
+): string {
     let state = computeStateDisplay(hass.localize, entity, hass.locale);
-    if (![UNAVAILABLE, UNKNOWN, OFF].includes(entity.state)) {
+    if (![UNAVAILABLE, UNKNOWN, OFF].includes(entity.state) && config.show_media_info) {
         return computeMediaDescription(entity) || state;
     }
     return state;
@@ -54,30 +61,31 @@ export function getVolumeLevel(entity: MediaPlayerEntity) {
         : undefined;
 }
 
-export function computeIcon(config: MediaPlayerCardConfig, entity: MediaPlayerEntity): string {
+export function computeMediaIcon(config: MediaPlayerCardConfig, entity: MediaPlayerEntity): string {
     var icon = config.icon || stateIcon(entity);
 
-    if (!entity.attributes.app_name) return icon;
-
-    var app = entity.attributes.app_name.toLowerCase();
-    switch (app) {
-        case "spotify":
-            return "mdi:spotify";
-        case "google podcasts":
-            return "mdi:google-podcast";
-        case "plex":
-            return "mdi:plex";
-        case "soundcloud":
-            return "mdi:soundcloud";
-        case "youtube":
-            return "mdi:youtube";
-        case "oto music":
-            return "mdi:music-circle";
-        case "netflix":
-            return "mdi:netflix";
-        default:
-            return icon;
+    if (![UNAVAILABLE, UNKNOWN, OFF].includes(entity.state) && config.show_media_info) {
+        var app = entity.attributes.app_name?.toLowerCase();
+        switch (app) {
+            case "spotify":
+                return "mdi:spotify";
+            case "google podcasts":
+                return "mdi:google-podcast";
+            case "plex":
+                return "mdi:plex";
+            case "soundcloud":
+                return "mdi:soundcloud";
+            case "youtube":
+                return "mdi:youtube";
+            case "oto music":
+                return "mdi:music-circle";
+            case "netflix":
+                return "mdi:netflix";
+            default:
+                return icon;
+        }
     }
+    return icon;
 }
 
 export interface ControlButton {
