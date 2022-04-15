@@ -89,7 +89,7 @@
                 "commands": "Commandes"
             },
             "media-player": {
-                "show_media_info": "Montrer les informations sur le media",
+                "use_media_info": "Utiliser les informations du media",
                 "use_media_artwork": "Utiliser l'illustration du media",
                 "media_controls": "Contrôles du media",
                 "media_controls_list": {
