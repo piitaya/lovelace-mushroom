@@ -4,11 +4,12 @@ import { property, customElement } from "lit/decorators.js";
 @customElement("mushroom-button")
 export class Button extends LitElement {
     @property() public icon: string = "";
+    @property() public title: string = "";
     @property({ type: Boolean }) public disabled: boolean = false;
 
     protected render(): TemplateResult {
         return html`
-            <button type="button" class="button" .disabled=${this.disabled}>
+            <button type="button" class="button" .title=${this.title} .disabled=${this.disabled}>
                 <ha-icon .icon=${this.icon} />
             </button>
         `;

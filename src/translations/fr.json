@@ -106,6 +106,11 @@
                     "volume_set": "Niveau de volume",
                     "volume_mute": "Muet"
                 }
+            },
+            "lock": {
+                "lock": "Verrouiller",
+                "unlock": "Déverrouiller",
+                "open": "Ouvrir"
             }
         },
         "chip": {
