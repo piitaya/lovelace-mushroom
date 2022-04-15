@@ -14,6 +14,7 @@ const TITLE_FIELDS = ["title", "subtitle"];
 const SCHEMA: HaFormSchema[] = [
     { name: "title", selector: { text: { multiline: true } } },
     { name: "subtitle", selector: { text: { multiline: true } } },
+    { name: "alignment", selector: { "mush-alignment": {} } },
 ];
 
 @customElement(TITLE_CARD_EDITOR_NAME)

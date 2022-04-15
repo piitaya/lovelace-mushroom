@@ -5,6 +5,7 @@ import { baseLovelaceCardConfig } from "../../utils/editor-styles";
 export interface TitleCardConfig extends LovelaceCardConfig {
     title?: string;
     subtitle?: string;
+    alignment?: string;
 }
 
 export const titleCardConfigStruct = assign(
@@ -12,5 +13,6 @@ export const titleCardConfigStruct = assign(
     object({
         title: optional(string()),
         subtitle: optional(string()),
+        alignment: optional(string()),
     })
 );
