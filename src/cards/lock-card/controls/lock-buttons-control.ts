@@ -65,7 +65,7 @@ export class LockButtonsControl extends LitElement {
         const customLocalize = setupCustomlocalize(this.hass!);
 
         return html`
-            <mushroom-button-group .fill=${this.fill} .?rtl=${rtl}
+            <mushroom-button-group .fill=${this.fill} ?rtl=${rtl}
                 >${LOCK_BUTTONS.filter((item) => item.isVisible(this.entity)).map(
                     (item) => html`
                         <mushroom-button
