@@ -67,7 +67,7 @@
             "template": {
                 "primary": "Information principale",
                 "secondary": "Information secondaire",
-                "multiline_secondary": "Information secondaire sur plusieurs lignes?",
+                "multiline_secondary": "Information secondaire sur plusieurs lignes ?",
                 "entity_extra": "Utilisée pour les templates et les actions",
                 "content": "Contenu"
             },

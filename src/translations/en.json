@@ -58,7 +58,7 @@
                 "show_oscillate_control": "Oscillate control?"
             },
             "cover": {
-                "show_buttons_control": "Buttons control?",
+                "show_buttons_control": "Control buttons?",
                 "show_position_control": "Position control?"
             },
             "alarm_control_panel": {
@@ -83,7 +83,7 @@
                 "show_temperature": "Temperature?"
             },
             "update": {
-                "show_buttons_control": "Buttons control?"
+                "show_buttons_control": "Control buttons?"
             },
             "vacuum": {
                 "commands": "Commands"

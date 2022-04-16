@@ -22,7 +22,7 @@ export function shouldPulse(state: string): boolean {
 }
 
 export function isActionsAvailable(entity: HassEntity) {
-    return UNAVAILABLE === entity.state;
+    return UNAVAILABLE !== entity.state;
 }
 
 export function isDisarmed(entity: HassEntity) {

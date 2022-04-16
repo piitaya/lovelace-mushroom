@@ -77,9 +77,11 @@ Different cards are available for differents entities :
 -   ✏️ [Title card](docs/cards/title.md)
 -   📦 [Update card](docs/cards/update.md)
 -   🧹 [Vacuum card](docs/cards/vacuum.md)
- 
-Some cards are on the todo list :
--   📺 Media card
+-   📺 [Media card](docs/cards/media-player.md)
+-   🔒 [Lock card](docs/cards/lock.md)
+
+Cards on the todo list :
+
 -   🌡 Climate card
 
 ### Theme customization
