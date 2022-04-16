@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+      "dbaeumer.vscode-eslint",
+      "esbenp.prettier-vscode",
+      "bierner.lit-html",
+      "runem.lit-plugin"
+    ]
+  }
+  

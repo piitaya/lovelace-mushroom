@@ -1,0 +1,15 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+        {
+			"type": "npm",
+			"script": "start:hass",
+			"label": "Start Hassio",
+		},
+		{
+			"type": "npm",
+			"script": "start",
+			"label": "Start",
+		}
+	]
+}

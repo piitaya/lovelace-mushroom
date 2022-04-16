@@ -7,7 +7,8 @@
     "start": "rollup -c --watch",
     "build": "rollup -c",
     "format": "prettier --write .",
-    "start:hass": "docker run --rm -p8123:8123 -v ${PWD}/.hass_dev:/config homeassistant/home-assistant:beta"
+    "start:hass": "docker run --rm -p8123:8123 -v ${PWD}/.hass_dev:/config homeassistant/home-assistant:beta",
+    "prepare": "husky install"
   },
   "author": "",
   "license": "ISC",
@@ -24,6 +25,8 @@
     "superstruct": "^0.15.4"
   },
   "devDependencies": {
+    "@commitlint/cli": "^16.2.3",
+    "@commitlint/config-conventional": "^16.2.1",
     "@babel/core": "^7.17.5",
     "@babel/preset-typescript": "^7.16.7",
     "@material/mwc-ripple": "^0.25.3",
@@ -36,10 +39,17 @@
     "@types/color": "^3.0.3",
     "@types/hammerjs": "^2.0.41",
     "eslint": "^8.10.0",
+    "husky": "^7.0.4",
     "prettier": "^2.5.1",
     "rollup": "^2.69.0",
     "rollup-plugin-serve": "^1.1.0",
     "rollup-plugin-terser": "^7.0.2",
-    "typescript": "^4.6.2"
+    "typescript": "^4.6.2",
+    "lint-staged": "^12.3.8"
+  },
+  "lint-staged": {
+    "*.{ts,json,yml,yaml,md}": [
+      "prettier --check"
+    ]
   }
 }
