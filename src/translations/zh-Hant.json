@@ -106,6 +106,11 @@
                     "volume_set": "音量等級",
                     "volume_mute": "靜音"
                 }
+            },
+            "lock": {
+                "lock": "上鎖",
+                "unlock": "解鎖",
+                "open": "打開"
             }
         },
         "chip": {
