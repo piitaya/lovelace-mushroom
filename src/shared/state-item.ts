@@ -80,6 +80,10 @@ export class StateItem extends LitElement {
                 margin-right: 0;
                 margin-left: 0;
             }
+            :host([rtl]) .container.vertical > *:not(:last-child) {
+                margin-right: initial;
+                margin-left: initial;
+            }
             .container.vertical .info {
                 text-align: center;
             }
