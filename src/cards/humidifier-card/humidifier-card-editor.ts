@@ -12,7 +12,7 @@ import { loadHaComponents } from "../../utils/loader";
 import { HUMIDIFIER_CARD_EDITOR_NAME, HUMIDIFIER_ENTITY_DOMAINS } from "./const";
 import { HumidifierCardConfig, humidifierCardConfigStruct } from "./humidifier-card-config";
 
-const HUMIDIFIER_FIELDS = ["show_target_humidity_control"];
+const HUMIDIFIER_FIELDS = ["show_target_humidity_control", "show_buttons_control"];
 
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: HUMIDIFIER_ENTITY_DOMAINS } } },
@@ -31,7 +31,13 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
         schema: [
             { name: "layout", selector: { "mush-layout": {} } },
             { name: "hide_state", selector: { boolean: {} } },
+        ],
+    },{
+        type: "grid",
+        name: "",
+        schema: [
             { name: "show_target_humidity_control", selector: { boolean: {} } },
+            { name: "show_buttons_control", selector: { boolean: {} } },
         ],
     },
     { name: "tap_action", selector: { "mush-action": {} } },

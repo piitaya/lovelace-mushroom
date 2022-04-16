@@ -7,13 +7,11 @@ import {
     LovelaceCard,
     LovelaceCardEditor,
 } from "custom-card-helpers";
-import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
 import { isActive, isAvailable } from "../../ha/data/entity";
-import { HumidifierEntity } from "../../ha/data/humidifier";
 import "../../shared/badge-icon";
 import "../../shared/button";
 import "../../shared/card";
@@ -32,8 +30,8 @@ import {
     HUMIDIFIER_ENTITY_DOMAINS,
 } from "./const";
 import "./controls/humidifier-humidity-control";
+import "./controls/humidifier-buttons-control";
 import { HumidifierCardConfig } from "./humidifier-card-config";
-import { getHumidity } from "./utils";
 
 registerCustomCard({
     type: HUMIDIFIER_CARD_NAME,
@@ -132,15 +130,26 @@ export class HumidifierCard extends LitElement implements LovelaceCard {
                         .secondary=${!hideState && stateDisplay}
                     ></mushroom-state-info>
                 </mushroom-state-item>
-                ${this._config.show_target_humidity_control
-                    ? html`
-                          <div class="actions" ?rtl=${rtl}>
-                              <mushroom-humidifier-humidity-control
-                                  .hass=${this.hass}
-                                  .entity=${entity}
-                              ></mushroom-humidifier-humidity-control>
-                          </div>
-                      `
+                ${this._config.show_target_humidity_control || this._config.show_buttons_control
+                    ? html`<div class="actions" ?rtl=${rtl}>
+                          ${this._config.show_target_humidity_control
+                              ? html` 
+                                    <mushroom-humidifier-humidity-control
+                                        .hass=${this.hass}
+                                        .entity=${entity}
+                                        .color=${iconColor}
+                                    ></mushroom-humidifier-humidity-control>
+                                </div>`
+                              : null}
+                          ${this._config.show_buttons_control
+                              ? html`
+                                    <mushroom-humidifier-buttons-control
+                                        .hass=${this.hass}
+                                        .entity=${entity}
+                                    ></mushroom-humidifier-buttons-control>
+                                `
+                              : null}
+                      </div>`
                     : null}
             </mushroom-card>
         `;
@@ -172,7 +181,7 @@ export class HumidifierCard extends LitElement implements LovelaceCard {
             css`
                 mushroom-state-item {
                     cursor: pointer;
-                }                
+                }
                 mushroom-humidifier-humidity-control {
                     flex: 1;
                 }

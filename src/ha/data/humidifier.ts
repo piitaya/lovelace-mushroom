@@ -12,5 +12,8 @@ export type HumidifierEntity = HassEntityBase & {
 
 export const HUMIDIFIER_SUPPORT_MODES = 1;
 
+export const HUMIDIFIER_STATE_ON = "on";
+export const HUMIDIFIER_STATE_OFF = "off";
+
 export const HUMIDIFIER_DEVICE_CLASS_HUMIDIFIER = "humidifier";
 export const HUMIDIFIER_DEVICE_CLASS_DEHUMIDIFIER = "dehumidifier";

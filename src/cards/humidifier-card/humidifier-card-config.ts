@@ -12,6 +12,7 @@ export interface HumidifierCardConfig extends LovelaceCardConfig {
     layout?: Layout;
     hide_state?: boolean;
     show_target_humidity_control?: boolean;
+    show_buttons_control?: boolean;
     tap_action?: ActionConfig;
     hold_action?: ActionConfig;
     double_tap_action?: ActionConfig;
@@ -27,6 +28,7 @@ export const humidifierCardConfigStruct = assign(
         layout: optional(layoutStruct),
         hide_state: optional(boolean()),
         show_target_humidity_control: optional(boolean()),
+        show_buttons_control: optional(boolean()),
         tap_action: optional(actionConfigStruct),
         hold_action: optional(actionConfigStruct),
         double_tap_action: optional(actionConfigStruct),
