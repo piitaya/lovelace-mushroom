@@ -25,7 +25,7 @@
             },
             "alignment_picker": {
                 "values": {
-                    "default": "Standard (start)",
+                    "default": "Standard",
                     "start": "Anfang",
                     "end": "Ende",
                     "center": "Mitte",
