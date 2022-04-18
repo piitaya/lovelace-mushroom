@@ -91,10 +91,10 @@
             "media-player": {
                 "use_media_info": "Medieninfos verwenden",
                 "use_media_artwork": "Mediengrafik verwenden",
-                "media_controls": "Media controls",
+                "media_controls": "Mediensteuerung",
                 "media_controls_list": {
                     "on_off": "Ein/Aus",
-                    "shuffle": "Shuffle",
+                    "shuffle": "Zufällige Wiedergabe",
                     "previous": "Vorheriger Titel",
                     "play_pause_stop": "Play/Pause/Stop",
                     "next": "Nächster Titel",
@@ -108,9 +108,9 @@
                 }
             },
             "lock": {
-                "lock": "Lock",
-                "unlock": "Unlock",
-                "open": "Open"
+                "lock": "Verriegeln",
+                "unlock": "Entriegeln",
+                "open": "Öffnen"
             }
         },
         "chip": {
@@ -128,7 +128,7 @@
                 "clear": "Löschen",
                 "select": "Chip auswählen",
                 "types": {
-                    "action": "Action",
+                    "action": "Aktion",
                     "alarm-control-panel": "Alarm",
                     "back": "Zurück",
                     "conditional": "Bedingung",
