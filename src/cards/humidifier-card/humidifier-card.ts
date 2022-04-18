@@ -61,6 +61,8 @@ export class HumidifierCard extends LitElement implements LovelaceCard {
 
     @state() private _config?: HumidifierCardConfig;
 
+    @state() private humidity?: number;
+
     getCardSize(): number | Promise<number> {
         return 1;
     }
@@ -84,6 +86,12 @@ export class HumidifierCard extends LitElement implements LovelaceCard {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
+    private onCurrentHumidityChange(e: CustomEvent<{ value?: number }>): void {
+        if (e.detail.value != null) {
+            this.humidity = e.detail.value;
+        }
+    }
+
     protected render(): TemplateResult {
         if (!this._config || !this.hass || !this._config.entity) {
             return html``;
@@ -102,6 +110,11 @@ export class HumidifierCard extends LitElement implements LovelaceCard {
         const iconColor = this._config.icon_color;
 
         const rtl = computeRTL(this.hass);
+
+        let stateValue = `${stateDisplay}`;
+        if (this.humidity) {
+            stateValue = `${this.humidity} %`;
+        }
 
         return html`
             <mushroom-card .layout=${layout} ?rtl=${rtl}>
@@ -127,7 +140,7 @@ export class HumidifierCard extends LitElement implements LovelaceCard {
                     <mushroom-state-info
                         slot="info"
                         .primary=${name}
-                        .secondary=${!hideState && stateDisplay}
+                        .secondary=${!hideState && stateValue}
                     ></mushroom-state-info>
                 </mushroom-state-item>
                 ${this._config.show_target_humidity_control || this._config.show_buttons_control
@@ -138,6 +151,7 @@ export class HumidifierCard extends LitElement implements LovelaceCard {
                                         .hass=${this.hass}
                                         .entity=${entity}
                                         .color=${iconColor}
+                                        @current-change=${this.onCurrentHumidityChange}
                                     ></mushroom-humidifier-humidity-control>
                                 </div>`
                               : null}

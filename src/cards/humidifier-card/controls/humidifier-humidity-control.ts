@@ -23,6 +23,17 @@ export class HumidifierHumidityControl extends LitElement {
         });
     }
 
+    onCurrentChange(e: CustomEvent<{ value?: number }>): void {
+        const value = e.detail.value;
+        this.dispatchEvent(
+            new CustomEvent("current-change", {
+                detail: {
+                    value,
+                },
+            })
+        );
+    }
+
     protected render(): TemplateResult {
         const max = this.entity.attributes.max_humidity || 100;
         const min = this.entity.attributes.min_humidity || 0;
@@ -47,6 +58,7 @@ export class HumidifierHumidityControl extends LitElement {
             .max=${max}
             @change=${this.onChange}
             style=${styleMap(sliderStyle)}
+            @current-change=${this.onCurrentChange}
         />`;
     }
 }
