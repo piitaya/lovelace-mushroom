@@ -22,7 +22,7 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `hold_action`       | action  | `more-info` | Home assistant action to perform on hold                                  |
 | `double_tap_action` | action  | `more-info` | Home assistant action to perform on double_tap                            |
 
-## Override themes variables
+## Override theme variables
 
 | Name                             | Type   | Default        | Description                 |
 | :------------------------------- | :----- | :------------- | :-------------------------- |
