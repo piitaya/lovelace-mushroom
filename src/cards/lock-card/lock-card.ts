@@ -12,7 +12,7 @@ import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { isActive, isAvailable } from "../../ha/data/entity";
-import { LOCK_ENTITY_DOMAINS } from "../../ha/data/lock";
+import { LockEntity, LOCK_ENTITY_DOMAINS } from "../../ha/data/lock";
 import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-icon";
@@ -27,6 +27,7 @@ import { getLayoutFromConfig } from "../../utils/layout";
 import { LOCK_CARD_EDITOR_NAME, LOCK_CARD_NAME } from "./const";
 import { LockCardConfig } from "./lock-card-config";
 import "./controls/lock-buttons-control";
+import { isActionPending, isLocked, isUnlocked } from "./utils";
 
 registerCustomCard({
     type: LOCK_CARD_NAME,
@@ -83,7 +84,7 @@ export class LockCard extends LitElement implements LovelaceCard {
         }
 
         const entityId = this._config.entity;
-        const entity = this.hass.states[entityId];
+        const entity = this.hass.states[entityId] as LockEntity;
 
         const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
@@ -92,7 +93,11 @@ export class LockCard extends LitElement implements LovelaceCard {
 
         const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
-        const iconColor = this._config.icon_color;
+        const iconColorLocked = this._config.icon_color_locked || "green";
+        const iconColorUnlocked = this._config.icon_color_unlocked || "red";
+        const iconColorPendingAction = "yellow";
+        
+        const available = isAvailable(entity);
 
         const rtl = computeRTL(this.hass);
 
@@ -107,8 +112,8 @@ export class LockCard extends LitElement implements LovelaceCard {
                         hasDoubleClick: hasAction(this._config.double_tap_action),
                     })}
                 >
-                    ${this.renderIcon(icon, iconColor, isActive(entity))}
-                    ${!isAvailable(entity)
+                    ${this.renderIcon(entity, icon, iconColorLocked, iconColorUnlocked, iconColorPendingAction, available)}
+                    ${!available
                         ? html`
                               <mushroom-badge-icon
                                   class="unavailable"
@@ -135,20 +140,37 @@ export class LockCard extends LitElement implements LovelaceCard {
         `;
     }
 
-    renderIcon(icon: string, iconColor: string | undefined, active: boolean): TemplateResult {
+    renderIcon(
+        entity: LockEntity,
+        icon: string,
+        iconColorLocked: string,
+        iconColorUnlocked: string,
+        iconColorPendingAction: string,
+        available: boolean
+    ): TemplateResult {
         const iconStyle = {
-            "--icon-color": "rgb(var(--rgb-state-lock))",
+            "--icon-color": `"rgb(var(--rgb-state-lock))"`,
             "--shape-color": "rgba(var(--rgb-state-lock), 0.2)",
         };
-        if (iconColor) {
-            const iconRgbColor = computeRgbColor(iconColor);
+
+        if (isLocked(entity)) {
+            const iconRgbColor = computeRgbColor(iconColorLocked);
+            iconStyle["--icon-color"] = `rgb(${iconRgbColor})`;
+            iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
+        } else if (isUnlocked(entity)) {
+            const iconRgbColor = computeRgbColor(iconColorUnlocked);
+            iconStyle["--icon-color"] = `rgb(${iconRgbColor})`;
+            iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
+        } else if (isActionPending(entity)) {
+            const iconRgbColor = computeRgbColor(iconColorPendingAction);
             iconStyle["--icon-color"] = `rgb(${iconRgbColor})`;
             iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
         }
+
         return html`
             <mushroom-shape-icon
                 slot="icon"
-                .disabled=${!active}
+                .disabled=${!available}
                 .icon=${icon}
                 style=${styleMap(iconStyle)}
             ></mushroom-shape-icon>

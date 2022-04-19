@@ -110,7 +110,9 @@
             "lock": {
                 "lock": "Lock",
                 "unlock": "Unlock",
-                "open": "Open"
+                "open": "Open",
+                "icon_color_locked": "Locked",
+                "icon_color_unlocked": "Unlocked"
             }
         },
         "chip": {
