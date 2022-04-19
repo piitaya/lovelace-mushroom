@@ -110,9 +110,7 @@
             "lock": {
                 "lock": "Verrouiller",
                 "unlock": "Déverrouiller",
-                "open": "Ouvrir",
-                "icon_color_locked": "Verrouillé",
-                "icon_color_unlocked": "Déverrouillé"
+                "open": "Ouvrir"
             }
         },
         "chip": {

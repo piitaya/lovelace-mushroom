@@ -93,10 +93,6 @@ export class LockCard extends LitElement implements LovelaceCard {
 
         const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
-        const iconColorLocked = this._config.icon_color_locked || "green";
-        const iconColorUnlocked = this._config.icon_color_unlocked || "red";
-        const iconColorPendingAction = "yellow";
-        
         const available = isAvailable(entity);
 
         const rtl = computeRTL(this.hass);
@@ -112,7 +108,7 @@ export class LockCard extends LitElement implements LovelaceCard {
                         hasDoubleClick: hasAction(this._config.double_tap_action),
                     })}
                 >
-                    ${this.renderIcon(entity, icon, iconColorLocked, iconColorUnlocked, iconColorPendingAction, available)}
+                    ${this.renderIcon(entity, icon, available)}
                     ${!available
                         ? html`
                               <mushroom-badge-icon
@@ -140,31 +136,21 @@ export class LockCard extends LitElement implements LovelaceCard {
         `;
     }
 
-    renderIcon(
-        entity: LockEntity,
-        icon: string,
-        iconColorLocked: string,
-        iconColorUnlocked: string,
-        iconColorPendingAction: string,
-        available: boolean
-    ): TemplateResult {
+    renderIcon(entity: LockEntity, icon: string, available: boolean): TemplateResult {
         const iconStyle = {
-            "--icon-color": `"rgb(var(--rgb-state-lock))"`,
+            "--icon-color": "rgb(var(--rgb-state-lock))",
             "--shape-color": "rgba(var(--rgb-state-lock), 0.2)",
         };
 
         if (isLocked(entity)) {
-            const iconRgbColor = computeRgbColor(iconColorLocked);
-            iconStyle["--icon-color"] = `rgb(${iconRgbColor})`;
-            iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
+            iconStyle["--icon-color"] = `rgb(var(--rgb-state-lock-locked))`;
+            iconStyle["--shape-color"] = `rgba(var(--rgb-state-lock-locked), 0.2)`;
         } else if (isUnlocked(entity)) {
-            const iconRgbColor = computeRgbColor(iconColorUnlocked);
-            iconStyle["--icon-color"] = `rgb(${iconRgbColor})`;
-            iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
+            iconStyle["--icon-color"] = `rgb(var(--rgb-state-lock-unlocked))`;
+            iconStyle["--shape-color"] = `rgba(var(--rgb-state-lock-unlocked), 0.2)`;
         } else if (isActionPending(entity)) {
-            const iconRgbColor = computeRgbColor(iconColorPendingAction);
-            iconStyle["--icon-color"] = `rgb(${iconRgbColor})`;
-            iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
+            iconStyle["--icon-color"] = `rgb(var(--rgb-state-lock-pending))`;
+            iconStyle["--shape-color"] = `rgba(var(--rgb-state-lock-pending), 0.2)`;
         }
 
         return html`

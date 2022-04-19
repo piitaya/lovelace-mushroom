@@ -13,20 +13,10 @@ import { loadHaComponents } from "../../utils/loader";
 import { LOCK_CARD_EDITOR_NAME } from "./const";
 import { LockCardConfig, lockCardConfigStruct } from "./lock-card-config";
 
-const LOCK_FIELDS = ["icon_color_locked", "icon_color_unlocked"];
-
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain : LOCK_ENTITY_DOMAINS} } },
     { name: "name", selector: { text: {} } },
     { name: "icon", selector: { icon: { placeholder: icon } } },
-    {
-        type: "grid",
-        name: "",
-        schema: [            
-            { name: "icon_color_locked", selector: { "mush-color": {} } },
-            { name: "icon_color_unlocked", selector: { "mush-color": {} } },
-        ],
-    },
     {
         type: "grid",
         name: "",
@@ -61,9 +51,6 @@ export class LockCardEditor extends LitElement implements LovelaceCardEditor {
 
         if (GENERIC_FIELDS.includes(schema.name)) {
             return customLocalize(`editor.card.generic.${schema.name}`);
-        }
-        if (LOCK_FIELDS.includes(schema.name)) {
-            return customLocalize(`editor.card.lock.${schema.name}`);
         }
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
     };
