@@ -36,4 +36,5 @@ Different cards are available for differents entities :
 -   ✏️ [Title card](https://piitaya.github.io/lovelace-mushroom/cards/title.md)
 -   📦 [Update card](https://piitaya.github.io/lovelace-mushroom/cards/update.md)
 -   🧹 [Vacuum card](https://piitaya.github.io/lovelace-mushroom/cards/vacuum.md)
+-   🔒 [Lock card](https://piitaya.github.io/lovelace-mushroom/cards/lock.md)
 
