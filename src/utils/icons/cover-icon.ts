@@ -1,4 +1,5 @@
 import { HassEntity } from "home-assistant-js-websocket";
+import { state } from "lit/decorators";
 
 export const coverIcon = (state?: string, entity?: HassEntity): string => {
     const open = state !== "closed";
@@ -91,6 +92,7 @@ export const coverIcon = (state?: string, entity?: HassEntity): string => {
 export const computeOpenIcon = (stateObj: HassEntity): string => {
     switch (stateObj.attributes.device_class) {
         case "awning":
+        case "curtain":
         case "door":
         case "gate":
             return "mdi:arrow-expand-horizontal";
@@ -100,8 +102,10 @@ export const computeOpenIcon = (stateObj: HassEntity): string => {
 };
 
 export const computeCloseIcon = (stateObj: HassEntity): string => {
+    console.log(stateObj.attributes);
     switch (stateObj.attributes.device_class) {
         case "awning":
+        case "curtain":
         case "door":
         case "gate":
             return "mdi:arrow-collapse-horizontal";
