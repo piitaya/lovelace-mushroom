@@ -122,7 +122,7 @@ export class TitleCard extends LitElement implements LovelaceCard {
 
         try {
             const sub = subscribeRenderTemplate(
-                this.hass.connection,
+                this.hass.connection as any as Connection,
                 (result) => {
                     this._templateResults = {
                         ...this._templateResults,

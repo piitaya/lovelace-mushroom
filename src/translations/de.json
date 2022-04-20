@@ -81,7 +81,7 @@
             "weather": {
                 "show_conditions": "Bedingungen?",
                 "show_temperature": "Temperatur?"
-            }
+            },
             "update": {
                 "show_buttons_control": "Schaltflächensteuerung?"
             },
