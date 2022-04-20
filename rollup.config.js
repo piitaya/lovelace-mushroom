@@ -37,8 +37,8 @@ const plugins = [
         declaration: false,
     }),
     nodeResolve(),
-    commonjs(),
     json(),
+    commonjs(),
     babel({
         exclude: "node_modules/**",
         babelHelpers: "bundled",
