@@ -61,9 +61,6 @@
                 "show_buttons_control": "Düğme kontrolleri",
                 "show_position_control": "Pozisyon kontrolü"
             },
-            "alarm_control_panel": {
-                "displayed_states": "Görüntülenen durum"
-            },
             "template": {
                 "primary": "Birinci bilgi",
                 "secondary": "İkinci bilgi",
