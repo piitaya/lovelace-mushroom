@@ -87,6 +87,30 @@
             },
             "vacuum": {
                 "commands": "Comandi"
+            },
+            "media-player": {
+                "use_media_info": "Mostra le Informazioni Sorgente",
+                "use_media_artwork": "Usa la copertina della Sorgente",
+                "media_controls": "Controlli Media",
+                "media_controls_list": {
+                    "on_off": "Accendi/Spegni",
+                    "shuffle": "Riproduzione Casuale",
+                    "previous": "Traccia Precedente",
+                    "play_pause_stop": "Play/Pausa/Stop",
+                    "next": "Traccia Successiva",
+                    "repeat": "Loop"
+                },
+                "volume_controls": "Controlli del Volume",
+                "volume_controls_list": {
+                    "volume_buttons": "Bottoni del Volume",
+                    "volume_set": "Livello del Volume",
+                    "volume_mute": "Silenzia"
+                }
+            },
+            "lock": {
+                "lock": "Blocca",
+                "unlock": "Sblocca",
+                "open": "Aperto"
             }
         },
         "chip": {
