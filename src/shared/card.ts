@@ -35,12 +35,15 @@ export class Card extends LitElement {
                 height: 100%;
                 box-sizing: border-box;
                 padding: var(--spacing);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
             }
             .container {
                 display: flex;
                 flex-direction: column;
-                width: 100%;
-                height: 100%;
+                flex-shrink: 0;
+                flex-grow: 0;
                 box-sizing: border-box;
                 justify-content: center;
             }
