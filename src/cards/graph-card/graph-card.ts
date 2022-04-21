@@ -34,6 +34,7 @@ import { coordinates } from "../../shared/graph/coordinates";
 import "../../shared/graph/graph-base";
 import { computeRgbColor } from "../../utils/colors";
 import { number } from "superstruct";
+import { getInfo } from "../../utils/info";
 
 registerCustomCard({
     type: GRAPH_CARD_NAME,
@@ -177,7 +178,7 @@ export class GraphCard extends LitElement implements LovelaceCard {
         const entity_id = this._config.entity;
         const entity = this.hass.states[entity_id];
 
-        const name = this._config.name || entity.attributes.friendly_name;
+        const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
         const graphColor = this._config.graph_color;
         const graphMode = this._config.graph_mode;
@@ -190,7 +191,23 @@ export class GraphCard extends LitElement implements LovelaceCard {
 
         const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
-        const active = isActive(entity);
+        const active = isActive(entity);        
+
+        const primary = getInfo(
+            this._config.primary_info ?? "state",
+            name,
+            stateDisplay,
+            entity,
+            this.hass
+        );
+        
+        const secondary = getInfo(
+            this._config.secondary_info ?? "name",
+            name,
+            stateDisplay,
+            entity,
+            this.hass
+        );
 
         let iconStyle = {};
         if (graphColor) {
@@ -226,8 +243,8 @@ export class GraphCard extends LitElement implements LovelaceCard {
                         : null}
                     <mushroom-state-info
                         slot="info"
-                        .primary=${stateDisplay}
-                        .secondary=${name}
+                        .primary=${primary}
+                        .secondary=${secondary}
                     ></mushroom-state-info>
                 </mushroom-state-item>
                 <mushroom-graph-base

@@ -38,6 +38,15 @@ const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaForm
             { name: "icon", selector: { icon: { placeholder: icon } } },
         ],
     },
+    
+    {
+        type: "grid",
+        name: "",
+        schema: [
+            { name: "primary_info", selector: { "mush-info": {} } },
+            { name: "secondary_info", selector: { "mush-info": {} } },
+        ],
+    },
     {
         type: "grid",
         name: "",
