@@ -101,7 +101,6 @@ export const computeOpenIcon = (stateObj: HassEntity): string => {
 };
 
 export const computeCloseIcon = (stateObj: HassEntity): string => {
-    console.log(stateObj.attributes);
     switch (stateObj.attributes.device_class) {
         case "awning":
         case "curtain":
