@@ -91,6 +91,7 @@ export const coverIcon = (state?: string, entity?: HassEntity): string => {
 export const computeOpenIcon = (stateObj: HassEntity): string => {
     switch (stateObj.attributes.device_class) {
         case "awning":
+        case "curtain":
         case "door":
         case "gate":
             return "mdi:arrow-expand-horizontal";
@@ -102,6 +103,7 @@ export const computeOpenIcon = (stateObj: HassEntity): string => {
 export const computeCloseIcon = (stateObj: HassEntity): string => {
     switch (stateObj.attributes.device_class) {
         case "awning":
+        case "curtain":
         case "door":
         case "gate":
             return "mdi:arrow-collapse-horizontal";
