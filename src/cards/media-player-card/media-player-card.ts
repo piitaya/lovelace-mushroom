@@ -26,7 +26,7 @@ import { isMediaControlVisible } from "./controls/media-player-media-control";
 import "./controls/media-player-volume-control";
 import { isVolumeControlVisible } from "./controls/media-player-volume-control";
 import { MediaPlayerCardConfig } from "./media-player-card-config";
-import { computeMediaIcon, computeMediaNameDisplay, computeMediaStateDisplay } from "./utils";
+import { computeMediaIcon, computeMediaNameDisplay, computeMediaStateDisplay, getVolumeLevel } from "./utils";
 import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-avatar";
@@ -94,12 +94,35 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
             ...config,
         };
         this.updateControls();
+        this.updateVolume();
     }
 
     protected updated(changedProperties: PropertyValues) {
         super.updated(changedProperties);
         if (this.hass && changedProperties.has("hass")) {
             this.updateControls();
+            this.updateVolume();
+        }
+    }
+
+    @state()
+    private volume?: number;
+
+    updateVolume() {
+        this.volume = undefined;
+        if (!this._config || !this.hass || !this._config.entity) return;
+
+        const entity_id = this._config.entity;
+        const entity = this.hass.states[entity_id] as MediaPlayerEntity;
+
+        if (!entity) return;
+        const volume = getVolumeLevel(entity);
+        this.volume = volume != null ? Math.round(volume) : volume;
+    }
+
+    private onCurrentVolumeChange(e: CustomEvent<{ value?: number }>): void {
+        if (e.detail.value != null) {
+            this.volume = e.detail.value;
         }
     }
 
@@ -143,7 +166,8 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
         const layout = getLayoutFromConfig(this._config);
 
         let nameDisplay = computeMediaNameDisplay(this._config, entity);
-        let stateDisplay = computeMediaStateDisplay(this._config, entity, this.hass);
+        const stateDisplay = computeMediaStateDisplay(this._config, entity, this.hass);
+        const stateValue = this.volume != null ? `${stateDisplay} - ${this.volume}%` : stateDisplay;
 
         const rtl = computeRTL(this.hass);
 
@@ -188,7 +212,7 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
                     <mushroom-state-info
                         slot="info"
                         .primary=${nameDisplay}
-                        .secondary=${stateDisplay}
+                        .secondary=${stateValue}
                     ></mushroom-state-info>
                 </mushroom-state-item>
                 ${this._controls.length > 0
@@ -240,6 +264,7 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
                         .entity=${entity}
                         .controls=${volume_controls}
                         .fill=${layout !== "horizontal"}
+                        @current-change=${this.onCurrentVolumeChange}
                     />
                 `;
             default:
