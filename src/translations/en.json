@@ -62,7 +62,7 @@
                 "show_position_control": "Position control?"
             },
             "alarm_control_panel": {
-                "displayed_states": "Displayed states"
+                "show_keypad": "Show keypad"
             },
             "template": {
                 "primary": "Primary information",

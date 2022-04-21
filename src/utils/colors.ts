@@ -128,4 +128,9 @@ export const colorCss = css`
     --rgb-state-update-on: var(--mush-rgb-state-update-on, var(--rgb-orange));
     --rgb-state-update-off: var(--mush-rgb-update-off, var(--rgb-green));
     --rgb-state-update-installing: var(--mush-rgb-update-installing, var(--rgb-blue));
+
+    /* State lock colors */
+    --rgb-state-lock-locked: var(--mush-rgb-state-lock-locked, var(--rgb-green));
+    --rgb-state-lock-unlocked: var(--mush-rgb-state-lock-unlocked, var(--rgb-red));
+    --rgb-state-lock-pending: var(--mush-rgb-state-lock-pending, var(--rgb-orange));
 `;

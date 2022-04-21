@@ -25,7 +25,8 @@
             },
             "alignment_picker": {
                 "values": {
-                    "default": "Standard (start)",
+                    "default": "Standard",
+                    "start": "Anfang",
                     "end": "Ende",
                     "center": "Mitte",
                     "justify": "Ausrichten"
@@ -41,6 +42,7 @@
                 "layout": "Layout",
                 "primary_info": "Primäre Information",
                 "secondary_info": "Sekundäre Information",
+                "content_info": "Inhalt",
                 "use_entity_picture": "Entitätsbild verwenden?"
             },
             "light": {
@@ -59,13 +61,11 @@
                 "show_buttons_control": "Schaltflächensteuerung?",
                 "show_position_control": "Positionssteuerung?"
             },
-            "alarm_control_panel": {
-                "displayed_states": "Angezeigte Zustände"
-            },
             "template": {
                 "primary": "Primäre Information",
                 "secondary": "Sekundäre Information",
                 "multiline_secondary": "Mehrzeilig sekundär?",
+                "entity_extra": "Wird in Vorlagen und Aktionen verwendet",
                 "content": "Inhalt"
             },
             "title": {
@@ -78,6 +78,36 @@
             "weather": {
                 "show_conditions": "Bedingungen?",
                 "show_temperature": "Temperatur?"
+            },
+            "update": {
+                "show_buttons_control": "Schaltflächensteuerung?"
+            },
+            "vacuum": {
+                "commands": "Befehle"
+            },
+            "media-player": {
+                "use_media_info": "Medieninfos verwenden",
+                "use_media_artwork": "Mediengrafik verwenden",
+                "media_controls": "Mediensteuerung",
+                "media_controls_list": {
+                    "on_off": "Ein/Aus",
+                    "shuffle": "Zufällige Wiedergabe",
+                    "previous": "Vorheriger Titel",
+                    "play_pause_stop": "Play/Pause/Stop",
+                    "next": "Nächster Titel",
+                    "repeat": "Wiederholen"
+                },
+                "volume_controls": "Lautstärkesteuerung",
+                "volume_controls_list": {
+                    "volume_buttons": "Lautstärke Buttons",
+                    "volume_set": "Lautstärke Level",
+                    "volume_mute": "Stumm"
+                }
+            },
+            "lock": {
+                "lock": "Verriegeln",
+                "unlock": "Entriegeln",
+                "open": "Öffnen"
             }
         },
         "chip": {
@@ -95,7 +125,7 @@
                 "clear": "Löschen",
                 "select": "Chip auswählen",
                 "types": {
-                    "action": "Action",
+                    "action": "Aktion",
                     "alarm-control-panel": "Alarm",
                     "back": "Zurück",
                     "conditional": "Bedingung",

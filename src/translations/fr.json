@@ -62,7 +62,7 @@
                 "show_position_control": "Contrôle de la position ?"
             },
             "alarm_control_panel": {
-                "displayed_states": "États affichés"
+                "show_keypad": "Afficher le clavier"
             },
             "template": {
                 "primary": "Information principale",
