@@ -1,5 +1,4 @@
 import { HassEntity } from "home-assistant-js-websocket";
-import { state } from "lit/decorators";
 
 export const coverIcon = (state?: string, entity?: HassEntity): string => {
     const open = state !== "closed";
