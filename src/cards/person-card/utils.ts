@@ -23,6 +23,8 @@ export function getStateColor(entity: HassEntity, zones: HassEntity[]) {
     const state = entity.state;
     if (state === UNKNOWN) {
         return "var(--rgb-state-person-unknown)";
+    } else if (state === "not_home"){
+        return "var(--rgb-state-person-not-home)";
     } else if (state === "home") {
         return "var(--rgb-state-person-home)";
     }
@@ -30,5 +32,5 @@ export function getStateColor(entity: HassEntity, zones: HassEntity[]) {
     if (isInZone) {
         return "var(--rgb-state-person-zone)";
     }
-    return "var(--rgb-state-person-not-home)";
+    return "var(--rgb-state-person-home)";
 }
