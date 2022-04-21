@@ -61,9 +61,6 @@
                 "show_buttons_control": "Bediening middels knoppen",
                 "show_position_control": "Bediening middels positie"
             },
-            "alarm_control_panel": {
-                "displayed_states": "Weergegeven staten"
-            },
             "template": {
                 "primary": "Primaire informatie",
                 "secondary": "Secundaire informatie",

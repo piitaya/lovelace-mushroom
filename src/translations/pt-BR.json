@@ -59,9 +59,6 @@
                 "show_buttons_control": "Mostrar botões?",
                 "show_position_control": "Mostrar controle de posição?"
             },
-            "alarm_control_panel": {
-                "displayed_states": "Estados exibidos"
-            },
             "template": {
                 "primary": "Informações primárias",
                 "secondary": "Informações secundárias",
