@@ -49,8 +49,16 @@ export function computeMediaStateDisplay(
     hass: HomeAssistant
 ): string {
     let state = computeStateDisplay(hass.localize, entity, hass.locale);
-    if (![UNAVAILABLE, UNKNOWN, OFF].includes(entity.state) && config.use_media_info) {
-        return computeMediaDescription(entity) || state;
+    if (![UNAVAILABLE, UNKNOWN, OFF].includes(entity.state)) {
+        const volume = getVolumeLevel(entity);
+        if (volume !== undefined) {
+            state = `${state} - ${Math.round(volume)}%`;
+        }
+        if (config.use_media_info) {
+            return computeMediaDescription(entity) || state;
+        } else {
+            return state;
+        }
     }
     return state;
 }
