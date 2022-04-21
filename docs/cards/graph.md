@@ -13,7 +13,7 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 
 | Name                | Type   | Default     | Description                                    |
 | :------------------ | :----- | :---------- | :--------------------------------------------- |
-| `entity`            | string | Required    | Vacuum entity                                  |
+| `entity`            | string | Required    | Entity                                         |
 | `name`              | string | Optional    | Custom name                                    |
 | `icon`              | string | Optional    | Custom icon                                    |
 | `hours_to_show`     | number | Optional    | Number of hours to show in the history         |
