@@ -19,11 +19,17 @@ const strAnimations = {
         to {
             transform: rotate(360deg);
         }
-    }`
+    }`,
 };
 
 export const animation = {
-    pulse: css`${unsafeCSS(strAnimations.pulse)}`,
-    spin: css`${unsafeCSS(strAnimations.spin)}`
+    pulse: css`
+        ${unsafeCSS(strAnimations.pulse)}
+    `,
+    spin: css`
+        ${unsafeCSS(strAnimations.spin)}
+    `,
 };
-export const animations = css`${unsafeCSS(Object.values(strAnimations).join("\n"))}`;
+export const animations = css`
+    ${unsafeCSS(Object.values(strAnimations).join("\n"))}
+`;

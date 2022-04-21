@@ -14,7 +14,7 @@ import { LOCK_CARD_EDITOR_NAME } from "./const";
 import { LockCardConfig, lockCardConfigStruct } from "./lock-card-config";
 
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
-    { name: "entity", selector: { entity: { domain : LOCK_ENTITY_DOMAINS} } },
+    { name: "entity", selector: { entity: { domain: LOCK_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
     { name: "icon", selector: { icon: { placeholder: icon } } },
     {
