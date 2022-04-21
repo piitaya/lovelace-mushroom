@@ -61,9 +61,6 @@
                 "show_buttons_control": "Schaltflächensteuerung?",
                 "show_position_control": "Positionssteuerung?"
             },
-            "alarm_control_panel": {
-                "displayed_states": "Angezeigte Zustände"
-            },
             "template": {
                 "primary": "Primäre Information",
                 "secondary": "Sekundäre Information",

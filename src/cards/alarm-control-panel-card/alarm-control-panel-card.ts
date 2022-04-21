@@ -152,7 +152,7 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
         const entity_id = this._config?.entity;
         if (entity_id) {
             const entity = this.hass.states[entity_id];
-            return hasCode(entity);
+            return hasCode(entity) && (this._config?.show_keypad ?? false);
         }
         return false;
     }
@@ -293,6 +293,9 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                     height: 100%;
                     box-sizing: border-box;
                     padding: var(--spacing);
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
                 }
                 mushroom-state-item {
                     cursor: pointer;

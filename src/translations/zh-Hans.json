@@ -58,9 +58,6 @@
                 "show_buttons_control": "按钮控制?",
                 "show_position_control": "位置控制?"
             },
-            "alarm_control_panel": {
-                "displayed_states": "显示的状态"
-            },
             "template": {
                 "primary": "首要信息",
                 "secondary": "次要信息",

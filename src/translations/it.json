@@ -61,9 +61,6 @@
                 "show_buttons_control": "Pulsanti di controllo",
                 "show_position_control": "Controllo percentuale apertura"
             },
-            "alarm_control_panel": {
-                "displayed_states": "Mostra stati"
-            },
             "template": {
                 "primary": "Informazione primaria",
                 "secondary": "Informazione secondaria",
