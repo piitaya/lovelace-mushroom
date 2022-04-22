@@ -62,7 +62,7 @@
                 "show_position_control": "Bediening middels positie"
             },
             "alarm_control_panel": {
-                "displayed_states": "Weergegeven staten"
+                "show_keypad": "Toon toetsenbord"
             },
             "template": {
                 "primary": "Primaire informatie",
@@ -81,7 +81,37 @@
             "weather": {
                 "show_conditions": "Weerbeeld",
                 "show_temperature": "Temperatuur"
-            }
+            },
+            "update": {
+                "show_buttons_control": "Bedieningsknoppen?"
+            },
+            "vacuum": {
+                "commands": "Commando's"
+            },
+            "media-player": {
+                "use_media_info": "Gebruik media informatie",
+                "use_media_artwork": "Gebruik media omslag",
+                "media_controls": "Mediabediening",
+                "media_controls_list": {
+                    "on_off": "zet aan/uit",
+                    "shuffle": "Shuffle",
+                    "previous": "Vorige nummer",
+                    "play_pause_stop": "Speel/pauze/stop",
+                    "next": "Volgende nummer",
+                    "repeat": "Herhaal modes"
+                },
+                "volume_controls": "Volumeregeling",
+                "volume_controls_list": {
+                    "volume_buttons": "Volume knoppen",
+                    "volume_set": "Volumeniveau",
+                    "volume_mute": "Demp"
+                }
+            },
+            "lock": {
+                "lock": "Vergrendel",
+                "unlock": "Ontgrendel",
+                "open": "Open"
+                }
         },
         "chip": {
             "sub_element_editor": {

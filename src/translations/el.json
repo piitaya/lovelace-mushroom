@@ -61,9 +61,6 @@
                 "show_buttons_control": "Έλεγχος κουμπιών;",
                 "show_position_control": "Έλεγχος θέσης;"
             },
-            "alarm_control_panel": {
-                "displayed_states": "Εμφανιζόμενες καταστάσεις"
-            },
             "template": {
                 "primary": "Πρωτεύουσες πληροφορίες",
                 "secondary": "Δευτερεύουσες πληροφορίες",

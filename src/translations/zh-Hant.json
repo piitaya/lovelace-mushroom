@@ -61,9 +61,6 @@
                 "show_buttons_control": "按鈕控制?",
                 "show_position_control": "位置控制?"
             },
-            "alarm_control_panel": {
-                "displayed_states": "顯示的狀態"
-            },
             "template": {
                 "primary": "主要訊息",
                 "secondary": "次要訊息",

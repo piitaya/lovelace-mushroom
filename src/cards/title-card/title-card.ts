@@ -1,5 +1,5 @@
 import { HomeAssistant, LovelaceCard, LovelaceCardEditor } from "custom-card-helpers";
-import { UnsubscribeFunc } from "home-assistant-js-websocket";
+import { Connection, UnsubscribeFunc } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import "../../shared/shape-icon";
@@ -122,7 +122,7 @@ export class TitleCard extends LitElement implements LovelaceCard {
 
         try {
             const sub = subscribeRenderTemplate(
-                this.hass.connection,
+                this.hass.connection as any as Connection,
                 (result) => {
                     this._templateResults = {
                         ...this._templateResults,
