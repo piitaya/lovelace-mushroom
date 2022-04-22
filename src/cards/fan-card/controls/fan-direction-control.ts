@@ -6,7 +6,7 @@ import { isActive } from "../../../ha/data/entity";
 import "../../../shared/slider";
 
 @customElement("mushroom-fan-direction-control")
-export class FanPercentageControl extends LitElement {
+export class FanDirectionControl extends LitElement {
     @property({ attribute: false }) public hass!: HomeAssistant;
 
     @property({ attribute: false }) public entity!: HassEntity;

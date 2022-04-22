@@ -184,7 +184,7 @@ export class FanCard extends LitElement implements LovelaceCard {
                         .secondary=${!hideState && stateValue}
                     ></mushroom-state-info>
                 </mushroom-state-item>
-                ${this._config.show_percentage_control || this._config.show_oscillate_control
+                ${this._config.show_percentage_control || this._config.show_oscillate_control || this._config.show_direction_control
                     ? html`
                           <div class="actions" ?rtl=${rtl}>
                               ${this._config.show_percentage_control

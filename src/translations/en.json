@@ -55,7 +55,8 @@
             "fan": {
                 "icon_animation": "Animate icon when active?",
                 "show_percentage_control": "Percentage control?",
-                "show_oscillate_control": "Oscillate control?"
+                "show_oscillate_control": "Oscillate control?",
+                "show_direction_control": "Direction control?"
             },
             "cover": {
                 "show_buttons_control": "Control buttons?",
