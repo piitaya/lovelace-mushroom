@@ -136,9 +136,9 @@ export class FanCard extends LitElement implements LovelaceCard {
                 iconStyle["--animation-duration"] = `1s`;
             }
             if (direction === "forward") {
-                iconStyle["--animation-direction"] = "spin"
+                iconStyle["--animation-direction"] = "normal"
             } else {
-                iconStyle["--animation-direction"] = "spinReverse"
+                iconStyle["--animation-direction"] = "reverse"
             }
         }
 
@@ -231,7 +231,7 @@ export class FanCard extends LitElement implements LovelaceCard {
                     --shape-color: rgba(var(--rgb-state-fan), 0.2);
                 }
                 mushroom-shape-icon.spin {
-                    --icon-animation: var(--animation-duration) infinite linear var(--animation-direction);
+                    --icon-animation: var(--animation-duration) infinite linear spin var(--animation-direction);
                 }
                 mushroom-shape-icon ha-icon {
                     color: red !important;
