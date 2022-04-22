@@ -26,6 +26,7 @@ cards:
       - type: custom:mushroom-fan-card
         entity: fan.living_room_fan
         name: Multiple controls
+        icon_animation: true
         show_percentage_control: true
         show_oscillate_control: true
         show_direction_control: true
