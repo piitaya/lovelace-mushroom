@@ -20,6 +20,14 @@ const strAnimations = {
             transform: rotate(360deg);
         }
     }`,
+    spinReverse: `@keyframes spinReverse {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(-360deg);
+        }
+    }`,
 };
 
 export const animation = {
