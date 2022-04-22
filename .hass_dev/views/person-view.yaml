@@ -66,6 +66,15 @@ cards:
             dev_id: demo_anne_therese
             location_name: unknown
       - type: button
+        name: Living Room
+        icon: mdi:sofa
+        tap_action:
+          action: call-service
+          service: device_tracker.see
+          service_data:
+            dev_id: demo_anne_therese
+            location_name: Living Room
+      - type: button
         name: Office
         icon: mdi:office-building
         tap_action:
