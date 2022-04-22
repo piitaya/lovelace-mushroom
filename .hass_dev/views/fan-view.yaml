@@ -28,6 +28,7 @@ cards:
         name: Multiple controls
         show_percentage_control: true
         show_oscillate_control: true
+        show_direction_control: true
     columns: 2
     square: false
   - type: vertical-stack
