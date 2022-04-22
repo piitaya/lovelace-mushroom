@@ -27,6 +27,7 @@ import { getLayoutFromConfig } from "../../utils/layout";
 import { FAN_CARD_EDITOR_NAME, FAN_CARD_NAME, FAN_ENTITY_DOMAINS } from "./const";
 import "./controls/fan-oscillate-control";
 import "./controls/fan-percentage-control";
+import "./controls/fan-direction-control";
 import { FanCardConfig } from "./fan-card-config";
 import { getPercentage } from "./utils";
 
@@ -123,6 +124,7 @@ export class FanCard extends LitElement implements LovelaceCard {
         const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
         const active = isActive(entity);
+        const direction = entity.attributes.direction;
 
         let iconStyle = {};
         const percentage = getPercentage(entity);
@@ -132,6 +134,11 @@ export class FanCard extends LitElement implements LovelaceCard {
                 iconStyle["--animation-duration"] = `${1 / speed}s`;
             } else {
                 iconStyle["--animation-duration"] = `1s`;
+            }
+            if (direction === "forward") {
+                iconStyle["--animation-direction"] = "spin"
+            } else {
+                iconStyle["--animation-direction"] = "spinReverse"
             }
         }
 
@@ -177,7 +184,7 @@ export class FanCard extends LitElement implements LovelaceCard {
                         .secondary=${!hideState && stateValue}
                     ></mushroom-state-info>
                 </mushroom-state-item>
-                ${this._config.show_percentage_control || this._config.show_oscillate_control
+                ${this._config.show_percentage_control || this._config.show_oscillate_control || this._config.show_direction_controll
                     ? html`
                           <div class="actions" ?rtl=${rtl}>
                               ${this._config.show_percentage_control
@@ -195,6 +202,14 @@ export class FanCard extends LitElement implements LovelaceCard {
                                             .hass=${this.hass}
                                             .entity=${entity}
                                         ></mushroom-fan-oscillate-control>
+                                    `
+                                  : null}
+                              ${this._config.show_direction_control
+                                  ? html`
+                                        <mushroom-fan-direction-control
+                                            .hass=${this.hass}
+                                            .entity=${entity}
+                                        ></mushroom-fan-direction-control>
                                     `
                                   : null}
                           </div>
@@ -216,7 +231,7 @@ export class FanCard extends LitElement implements LovelaceCard {
                     --shape-color: rgba(var(--rgb-state-fan), 0.2);
                 }
                 mushroom-shape-icon.spin {
-                    --icon-animation: var(--animation-duration) infinite linear spin;
+                    --icon-animation: var(--animation-duration) infinite linear var(--animation-direction);
                 }
                 mushroom-shape-icon ha-icon {
                     color: red !important;
