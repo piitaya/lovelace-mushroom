@@ -59,7 +59,8 @@
             },
             "cover": {
                 "show_buttons_control": "Control buttons?",
-                "show_position_control": "Position control?"
+                "show_position_control": "Position control?",
+                "inverse_icon_state": "Inverse icon state?"
             },
             "alarm_control_panel": {
                 "show_keypad": "Show keypad"

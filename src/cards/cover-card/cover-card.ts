@@ -22,6 +22,7 @@ import "../../shared/state-item";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
+import { computeActiveState } from "../../utils/icons/cover-icon"
 import { stateIcon } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig, Layout } from "../../utils/layout";
 import { COVER_CARD_EDITOR_NAME, COVER_CARD_NAME, COVER_ENTITY_DOMAINS } from "./const";
@@ -176,7 +177,7 @@ export class CoverCard extends LitElement implements LovelaceCard {
                 >
                     <mushroom-shape-icon
                         slot="icon"
-                        .disabled=${!isActive(entity)}
+                        .disabled=${!computeActiveState(entity)}
                         .icon=${icon}
                     ></mushroom-shape-icon>
                     ${!isAvailable(entity)

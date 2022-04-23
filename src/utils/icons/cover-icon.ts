@@ -1,75 +1,78 @@
 import { HassEntity } from "home-assistant-js-websocket";
 
+import { UNAVAILABLE, UNKNOWN, OFF } from "../../ha/data/entity";
+import { DeviceClasses, States } from "../../ha/data/cover";
+
 export const coverIcon = (state?: string, entity?: HassEntity): string => {
-    const open = state !== "closed";
+    const open = state !== States.CLOSED;
 
     switch (entity?.attributes.device_class) {
-        case "garage":
+        case DeviceClasses.GARAGE:
             switch (state) {
-                case "opening":
+                case States.OPENING:
                     return "mdi:arrow-up-box";
-                case "closing":
+                case States.CLOSING:
                     return "mdi:arrow-down-box";
-                case "closed":
+                case States.CLOSED:
                     return "mdi:garage";
                 default:
                     return "mdi:garage-open";
             }
-        case "gate":
+        case DeviceClasses.GATE:
             switch (state) {
-                case "opening":
-                case "closing":
+                case States.OPENING:
+                case States.CLOSING:
                     return "mdi:gate-arrow-right";
-                case "closed":
+                case States.CLOSED:
                     return "mdi:gate";
                 default:
                     return "mdi:gate-open";
             }
-        case "door":
+        case DeviceClasses.DOOR:
             return open ? "mdi:door-open" : "mdi:door-closed";
-        case "damper":
+        case DeviceClasses.DAMPER:
             return open ? "md:circle" : "mdi:circle-slice-8";
-        case "shutter":
+        case DeviceClasses.SHUTTER:
             switch (state) {
-                case "opening":
+                case States.OPENING:
                     return "mdi:arrow-up-box";
-                case "closing":
+                case States.CLOSING:
                     return "mdi:arrow-down-box";
-                case "closed":
+                case States.CLOSED:
                     return "mdi:window-shutter";
                 default:
                     return "mdi:window-shutter-open";
             }
-        case "curtain":
+        case DeviceClasses.CURTAIN:
             switch (state) {
-                case "opening":
+                case States.OPENING:
                     return "mdi:arrow-split-vertical";
-                case "closing":
+                case States.CLOSING:
                     return "mdi:arrow-collapse-horizontal";
-                case "closed":
+                case States.CLOSED:
                     return "mdi:curtains-closed";
                 default:
                     return "mdi:curtains";
             }
-        case "blind":
-        case "shade":
+        case DeviceClasses.BLIND:
+        case DeviceClasses.SHADE:
             switch (state) {
-                case "opening":
+                case States.OPENING:
                     return "mdi:arrow-up-box";
-                case "closing":
+                case States.CLOSING:
                     return "mdi:arrow-down-box";
-                case "closed":
+                case States.CLOSED:
                     return "mdi:blinds";
                 default:
                     return "mdi:blinds-open";
             }
-        case "window":
+        case DeviceClasses.WINDOW:
             switch (state) {
-                case "opening":
+                case States.OPENING:
                     return "mdi:arrow-up-box";
-                case "closing":
+                case States.CLOSING:
                     return "mdi:arrow-down-box";
-                case "closed":
+                case States.CLOSED:
                     return "mdi:window-closed";
                 default:
                     return "mdi:window-open";
@@ -77,11 +80,11 @@ export const coverIcon = (state?: string, entity?: HassEntity): string => {
     }
 
     switch (state) {
-        case "opening":
+        case States.OPENING:
             return "mdi:arrow-up-box";
-        case "closing":
+        case States.CLOSING:
             return "mdi:arrow-down-box";
-        case "closed":
+        case States.CLOSED:
             return "mdi:window-closed";
         default:
             return "mdi:window-open";
@@ -90,10 +93,10 @@ export const coverIcon = (state?: string, entity?: HassEntity): string => {
 
 export const computeOpenIcon = (stateObj: HassEntity): string => {
     switch (stateObj.attributes.device_class) {
-        case "awning":
-        case "curtain":
-        case "door":
-        case "gate":
+        case DeviceClasses.AWNING:
+        case DeviceClasses.CURTAIN:
+        case DeviceClasses.DOOR:
+        case DeviceClasses.GATE:
             return "mdi:arrow-expand-horizontal";
         default:
             return "mdi:arrow-up";
@@ -102,12 +105,28 @@ export const computeOpenIcon = (stateObj: HassEntity): string => {
 
 export const computeCloseIcon = (stateObj: HassEntity): string => {
     switch (stateObj.attributes.device_class) {
-        case "awning":
-        case "curtain":
-        case "door":
-        case "gate":
+        case DeviceClasses.AWNING:
+        case DeviceClasses.CURTAIN:
+        case DeviceClasses.DOOR:
+        case DeviceClasses.GATE:
             return "mdi:arrow-collapse-horizontal";
         default:
             return "mdi:arrow-down";
     }
 };
+
+export const computeActiveState = (stateObj: HassEntity): boolean => {
+    const state = stateObj.state
+    if (state === UNAVAILABLE || state === UNKNOWN || state === OFF) return false;
+
+    switch (stateObj.attributes.device_class) {
+        case DeviceClasses.AWNING:
+        case DeviceClasses.BLIND:
+        case DeviceClasses.CURTAIN:
+        case DeviceClasses.SHADE:
+        case DeviceClasses.SHUTTER:
+            return stateObj.state === States.CLOSING || stateObj.state === States.CLOSED;
+        default:
+            return stateObj.state === States.OPENING || stateObj.state === States.OPEN;
+    }
+}
