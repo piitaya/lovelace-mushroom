@@ -14,6 +14,7 @@ import { computeStateDisplay } from "../../ha/common/entity/compute-state-displa
 import { isActive, isAvailable } from "../../ha/data/entity";
 import "../../shared/badge-icon";
 import "../../shared/card";
+import "../../shared/shape-avatar";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
@@ -88,6 +89,10 @@ export class EntityCard extends LitElement implements LovelaceCard {
         const hideIcon = !!this._config.hide_icon;
         const layout = getLayoutFromConfig(this._config);
 
+        const picture = this._config.use_entity_picture
+            ? entity.attributes.entity_picture
+            : undefined;
+
         const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
         const primary = getInfo(
@@ -122,7 +127,14 @@ export class EntityCard extends LitElement implements LovelaceCard {
                     .hide_info=${primary == null && secondary == null}
                     .hide_icon=${hideIcon}
                 >
-                    ${!hideIcon ? this.renderIcon(icon, iconColor, isActive(entity)) : undefined}
+                    ${picture
+                        ? html`
+                              <mushroom-shape-avatar
+                                  slot="icon"
+                                  .picture_url=${picture}
+                              ></mushroom-shape-avatar>
+                          `
+                        : this.renderIcon(icon, iconColor, isActive(entity))}
                     ${!isAvailable(entity)
                         ? html`
                               <mushroom-badge-icon

@@ -97,7 +97,7 @@ export class EntityChip extends LitElement implements LovelaceChip {
                 })}
                 avatar=${picture}
             >
-                ${!picture && icon ? this.renderIcon(icon, iconColor, active) : null}
+                ${!picture ? this.renderIcon(icon, iconColor, active) : null}
                 ${content ? html`<span>${content}</span>` : null}
             </mushroom-chip>
         `;
