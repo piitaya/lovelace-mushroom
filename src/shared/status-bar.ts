@@ -19,7 +19,7 @@ export class StatusBar extends LitElement {
 
         return html` <div class="attribute">
             <ha-icon .icon="${this.icon}"></ha-icon>
-            <div>
+            <div class="container">
                 <div class="meter red">
                     <span
                         class="${available
@@ -48,10 +48,17 @@ export class StatusBar extends LitElement {
 
     static get styles(): CSSResultGroup {
         return css`
+            .container {
+                width: 100%;
+            }
             .attribute {
-                display: inline-block;
-                width: 50%;
+                display: flex;
+                width: 100%;
                 white-space: normal;
+            }
+            .attribute ha-icon {
+                float: left;
+                margin-right: 4px;
             }
             .meter {
                 height: 8px;

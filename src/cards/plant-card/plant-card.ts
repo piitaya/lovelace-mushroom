@@ -162,8 +162,6 @@ export class PlantCard extends LitElement implements LovelaceCard {
                             .min=${limits["min_brightness"]}
                             .max=${limits["max_brightness"]}
                         ></mushroom-status-bar>
-                    </div>
-                    <div class="attributes">
                         <mushroom-status-bar
                             .entity=${entity}
                             icon="mdi:water-percent"
@@ -216,6 +214,9 @@ export class PlantCard extends LitElement implements LovelaceCard {
                 .attributes {
                     white-space: nowrap;
                     padding-top: 10px;
+                    display: grid;
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                    grid-template-rows: repeat(2, minmax(0, 1fr));
                 }
             `,
         ];
