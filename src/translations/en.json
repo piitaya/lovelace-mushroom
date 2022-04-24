@@ -113,7 +113,15 @@
                 "open": "Open"
             },
             "plant": {
-                "use_plantbook_picture": "Use Plantbook picture?"
+                "use_plantbook_picture": "Use Plantbook picture?",
+                "min_temperature": "Minimum Temperature",
+                "max_temperature": "Maximum Temperature",
+                "min_moisture": "Minimum Moisture",
+                "max_moisture": "Maximum Moisture",
+                "min_conductivity": "Minimum Conductivity",
+                "max_conductivity": "Maximum Moisture",
+                "min_brightness": "Minimum Brightness",
+                "max_brightness": "Maximum Brightness"
             }
         },
         "chip": {
