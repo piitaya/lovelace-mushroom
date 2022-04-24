@@ -11,19 +11,9 @@ import { HaFormSchema } from "../../utils/form/ha-form";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { loadHaComponents } from "../../utils/loader";
 import { PLANT_CARD_EDITOR_NAME, PLANT_ENTITY_DOMAINS } from "./const";
-import { PlantCardConfig, flowerCardConfigStruct } from "./plant-card-config";
+import { PlantCardConfig, plantCardConfigStruct } from "./plant-card-config";
 
-const FLOWER_CARD_FIELDS = [
-    "use_plantbook_picture",
-    "min_temperature",
-    "max_temperature",
-    "min_moisture",
-    "max_moisture",
-    "min_conductivity",
-    "max_conductivity",
-    "min_brightness",
-    "max_brightness",
-];
+const FLOWER_CARD_FIELDS = ["use_entity_picture"];
 
 const actions: Action[] = ["more-info", "navigate", "url", "call-service", "none"];
 
@@ -42,23 +32,9 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
             { name: "layout", selector: { "mush-layout": {} } },
             { name: "hide_state", selector: { boolean: {} } },
             { name: "hide_name", selector: { boolean: {} } },
-            { name: "use_plantbook_picture", selector: { boolean: {} } },
+            { name: "use_entity_picture", selector: { boolean: {} } },
         ],
     },
-    // {
-    //     type: "grid",
-    //     name: "",
-    //     schema: [
-    //         { name: "min_temperature", selector: { number: { mode: "box" } }, default: 3 },
-    //         { name: "max_temperature", selector: { number: { mode: "box" } }, default: 35 },
-    //         { name: "min_moisture", selector: { number: { mode: "box" } }, default: 20 },
-    //         { name: "max_moisture", selector: { number: { mode: "box" } }, default: 60 },
-    //         { name: "min_conductivity", selector: { number: { mode: "box" } }, default: 500 },
-    //         { name: "max_conductivity", selector: { number: { mode: "box" } }, default: 3000 },
-    //         { name: "min_brightness", selector: { number: { mode: "box" } }, default: 2500 },
-    //         { name: "max_brightness", selector: { number: { mode: "box" } }, default: 30000 },
-    //     ],
-    // },
     { name: "tap_action", selector: { "mush-action": { actions } } },
     { name: "hold_action", selector: { "mush-action": { actions } } },
     { name: "double_tap_action", selector: { "mush-action": { actions } } },
@@ -76,7 +52,7 @@ export class PlantCardEditor extends LitElement implements LovelaceCardEditor {
     }
 
     public setConfig(config: PlantCardConfig): void {
-        assert(config, flowerCardConfigStruct);
+        assert(config, plantCardConfigStruct);
         this._config = config;
     }
 

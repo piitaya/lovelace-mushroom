@@ -12,7 +12,7 @@ cards:
         icon: mdi:sprout
       - type: custom:mushroom-plant-card
         entity: plant.tulip
-        name: Use Plantbook picture
+        name: Use entity picture
         use_entity_picture: true
     columns: 2
     square: false

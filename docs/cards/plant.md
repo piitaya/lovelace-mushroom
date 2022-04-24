@@ -1,4 +1,4 @@
-# Flower card
+# Plant card
 
 ![Plant light](../images/plant-light.png)
 ![Plant dark](../images/plant-dark.png)
@@ -17,14 +17,6 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `icon`                    | string  | Optional    | Custom icon                                                               |
 | `name`                    | string  | Optional    | Custom name                                                               |
 | `use_entity_picture`      | boolean | Optional    | Use entity image                                                          |
-| `min_temperature`         | number  | 3           | Minimum Temperature                                                       |
-| `max_temperature`         | number  | 35          | Maximum Temperature                                                       |
-| `min_moisture`            | number  | 20          | Minimum Moisture Percentage                                               |
-| `max_moisture`            | number  | 60          | Maximum Moisture Percentage                                               |
-| `min_conductivity`        | number  | 500         | Minimum Soil Conductivity                                                 |
-| `max_conductivity`        | number  | 3000        | Maximum Soil Conductivity                                                 |
-| `min_brightness`          | number  | 2500        | Minimum Brightness                                                        |
-| `max_brightness`          | number  | 30000       | Maximum Brightness                                                        |
 | `layout`                  | string  | Optional    | Layout of the card. Vertical, horizontal and default layout are supported |
 | `hide_state`              | boolean | `false`     | Hide the entity state                                                     |
 | `tap_action`              | action  | `toggle`    | Home assistant action to perform on tap                                   |
@@ -43,4 +35,35 @@ homeassistant:
     customize:
       plant.tulip:
         entity_picture: "/local/mushrooms.jpeg"
+```
+
+As the default `plant` integration does not expose the min/max parameters set in the `plant` entity. Therefore, the below 
+values are what the Plant Card will use by default:
+
+| Parameter                      | Value    |
+| :------------------------      | :------  |
+| `min_temperature`              | 5        |
+| `max_temperature`              | 35       |
+| `min_moisture`                 | 20       |
+| `max_moisture`                 | 60       |
+| `min_conductivity`             | 500      |
+| `max_conductivity`             | 3000     |
+| `min_brightness`               | 2500     |
+| `min_brightness`               | 30000    |
+
+If you wish to over-ride these, you will need to add them to the customize section of your `configuration.yaml`:
+
+```yaml
+homeassistant:
+  customize:
+    plant.tulip:
+      limits:
+        max_brightness: 60000
+        max_conductivity: 2000
+        max_moisture: 75
+        max_temperature: 35
+        min_brightness: 3000
+        min_conductivity: 425
+        min_moisture: 16
+        min_temperature: 8
 ```

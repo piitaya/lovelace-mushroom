@@ -5,6 +5,17 @@ homeassistant:
   customize:
     person.anne_therese:
       entity_picture: "/local/mushrooms.jpeg"
+    plant.tulip:
+      entity_picture: "/local/mushrooms.jpeg"
+      limits:
+        max_brightness: 60000
+        max_conductivity: 2000
+        max_moisture: 75
+        max_temperature: 35
+        min_brightness: 3000
+        min_conductivity: 425
+        min_moisture: 16
+        min_temperature: 8
 
 # Text to speech
 tts:

@@ -84,15 +84,16 @@ export class PlantCard extends LitElement implements LovelaceCard {
 
         const name = this._config.name || entity.attributes.friendly_name;
         const icon = this._config.icon || stateIconHelper(entity);
+
         const limits = entity.attributes?.limits || {
-            min_temperature: this._config.min_temperature || 3,
-            max_temperature: this._config.max_temperature || 35,
-            min_moisture: this._config.min_moisture || 20,
-            max_moisture: this._config.max_moisture || 60,
-            min_conductivity: this._config.min_conductivity || 500,
-            max_conductivity: this._config.min_conductivity || 3000,
-            min_brightness: this._config.min_brightness || 2500,
-            max_brightness: this._config.min_brightness || 30000,
+            min_temperature: 5,
+            max_temperature: 35,
+            min_moisture: 20,
+            max_moisture: 60,
+            min_conductivity: 500,
+            max_conductivity: 3000,
+            min_brightness: 2500,
+            max_brightness: 30000,
         };
 
         const picture = this._config.use_entity_picture
