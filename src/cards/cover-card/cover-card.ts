@@ -257,11 +257,19 @@ export class CoverCard extends LitElement implements LovelaceCard {
                     />
                 `;
             case "position_control":
+                const currentState = this.getCurrentState(entity as CoverEntity);
+                const style = {}
+                if (currentState) {
+                    style["--slider-color"] = `rgb(var(--rgb-state-cover-${currentState}))`;
+                    style["--slider-bg-color"] = `rgba(var(--rgb-state-cover-${currentState}), 0.2)`;
+                }
+
                 return html`
                     <mushroom-cover-position-control
                         .hass=${this.hass}
                         .entity=${entity}
                         @current-change=${this.onCurrentPositionChange}
+                        style=${styleMap(style)}
                     />
                 `;
             default:
