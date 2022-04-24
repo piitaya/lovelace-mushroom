@@ -45,7 +45,7 @@ fan:
 
 lock:
   - platform: demo
-  
+
 person:
   - name: Anne Therese
     id: anne_therese
@@ -64,7 +64,7 @@ vacuum:
 
 update:
   - platform: demo
-  
+
 alarm_control_panel:
   - platform: manual
     name: Alarm panel 1
@@ -103,6 +103,33 @@ alarm_control_panel:
             entity_id:
               - alarm_control_panel.alarm_panel_1
               - alarm_control_panel.alarm_panel_2
+
+plant:
+  sunflower:
+    sensors:
+      moisture: sensor.plant_moisture
+      battery: sensor.plant_battery
+      temperature: sensor.plant_temperature
+      conductivity: sensor.plant_conductivity
+      brightness: sensor.plant_brightness
+
+template:
+  - sensor:
+      - name: "Plant Moisture"
+        unit_of_measurement: "%"
+        state: 65
+      - name: "Plant Battery"
+        unit_of_measurement: "%"
+        state: 98
+      - name: "Plant Temperature"
+        unit_of_measurement: "°C"
+        state: 19
+      - name: "Plant Conductivity"
+        unit_of_measurement: "µS/cm"
+        state: 450
+      - name: "Plant Brightness"
+        unit_of_measurement: "Lux"
+        state: 32
 
 lovelace: !include ui-lovelace.yaml
 
