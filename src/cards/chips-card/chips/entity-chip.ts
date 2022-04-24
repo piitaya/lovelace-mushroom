@@ -62,6 +62,7 @@ export class EntityChip extends LitElement implements LovelaceChip {
         const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
         const iconColor = this._config.icon_color;
+
         const picture = this._config.use_entity_picture
             ? entity.attributes.entity_picture
             : undefined;
@@ -94,25 +95,26 @@ export class EntityChip extends LitElement implements LovelaceChip {
                     hasHold: hasAction(this._config.hold_action),
                     hasDoubleClick: hasAction(this._config.double_tap_action),
                 })}
+                avatar=${picture}
             >
-                ${ picture ?
-                    html`
-                        <img 
-                            src="${picture}"
-                            class="mushroom-chip-entity-picture"
-                        />
-                    `
-                    :
-                    html`
-                        <ha-icon
-                            .icon=${icon}
-                            style=${styleMap(iconStyle)}
-                            class=${classMap({ active })}
-                        ></ha-icon>
-                    `
-                }
+                ${!picture && icon ? this.renderIcon(icon, iconColor, active) : null}
                 ${content ? html`<span>${content}</span>` : null}
             </mushroom-chip>
+        `;
+    }
+
+    renderIcon(icon: string, iconColor: string | undefined, active: boolean): TemplateResult {
+        const iconStyle = {};
+        if (iconColor) {
+            const iconRgbColor = computeRgbColor(iconColor);
+            iconStyle["--color"] = `rgb(${iconRgbColor})`;
+        }
+        return html`
+            <ha-icon
+                .icon=${icon}
+                style=${styleMap(iconStyle)}
+                class=${classMap({ active })}
+            ></ha-icon>
         `;
     }
 
@@ -123,11 +125,6 @@ export class EntityChip extends LitElement implements LovelaceChip {
             }
             ha-icon.active {
                 color: var(--color);
-            }
-            .mushroom-chip-entity-picture {
-                border-radius: var(--chip-entity-picture-border-radius);
-                height: var(--chip-entity-picture-size);
-                width: var(--chip-entity-picture-size);
             }
         `;
     }
