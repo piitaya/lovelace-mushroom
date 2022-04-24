@@ -105,7 +105,13 @@ alarm_control_panel:
               - alarm_control_panel.alarm_panel_2
 
 plant:
-  sunflower:
+  openplantbook:
+    client_id: !secret plantbook_id
+    secret: !secret plantbook_secret
+
+  tulip:
+    image: openplantbook
+    species: Tulipa 'fernanda'
     sensors:
       moisture: sensor.plant_moisture
       battery: sensor.plant_battery
