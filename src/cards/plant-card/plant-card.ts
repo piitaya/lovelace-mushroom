@@ -15,6 +15,7 @@ import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-avatar";
 import "../../shared/shape-icon";
+import "../../shared/status-bar";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
@@ -84,7 +85,7 @@ export class PlantCard extends LitElement implements LovelaceCard {
         const name = this._config.name || entity.attributes.friendly_name;
         const icon = this._config.icon || stateIconHelper(entity);
 
-        const picture = this._config.use_entity_picture ? entity.attributes.image : undefined;
+        const picture = this._config.use_plantbook_picture ? entity.attributes.image : undefined;
 
         const layout = getLayoutFromConfig(this._config);
         const hideState = !!this._config.hide_state;
@@ -120,7 +121,6 @@ export class PlantCard extends LitElement implements LovelaceCard {
                                   <mushroom-shape-icon
                                       slot="icon"
                                       .icon=${icon}
-                                      .disabled=${!isActive(entity)}
                                   ></mushroom-shape-icon>
                               `}
                         ${isAvailable(entity)
@@ -134,6 +134,7 @@ export class PlantCard extends LitElement implements LovelaceCard {
                             .secondary=${!hideState && stateDisplay}
                         ></mushroom-state-info>
                     </mushroom-state-item>
+                    <mushroom-status-bar .entity=${entity}></mushroom-status-bar>
                 </div>
             </mushroom-card>
         `;
