@@ -19,27 +19,29 @@ export class StatusBar extends LitElement {
 
         return html` <div class="attribute">
             <ha-icon .icon="${this.icon}"></ha-icon>
-            <div class="meter red">
-                <span
-                    class="${available
-                        ? value < this.min || value > this.max
-                            ? "bad"
-                            : "good"
-                        : "unavailable"}"
-                    style="width: 100%;"
-                ></span>
-            </div>
-            <div class="meter green">
-                <span
-                    class="${available ? (value > this.max ? "bad" : "good") : "unavailable"}"
-                    style="width:${available ? pct : "0"}%;"
-                ></span>
-            </div>
-            <div class="meter red">
-                <span
-                    class="bad"
-                    style="width:${available ? (value > this.max ? 100 : 0) : "0"}%;"
-                ></span>
+            <div>
+                <div class="meter red">
+                    <span
+                        class="${available
+                            ? value < this.min || value > this.max
+                                ? "bad"
+                                : "good"
+                            : "unavailable"}"
+                        style="width: 100%;"
+                    ></span>
+                </div>
+                <div class="meter green">
+                    <span
+                        class="${available ? (value > this.max ? "bad" : "good") : "unavailable"}"
+                        style="width:${available ? pct : "0"}%;"
+                    ></span>
+                </div>
+                <div class="meter red">
+                    <span
+                        class="bad"
+                        style="width:${available ? (value > this.max ? 100 : 0) : "0"}%;"
+                    ></span>
+                </div>
             </div>
         </div>`;
     }
@@ -62,7 +64,7 @@ export class StatusBar extends LitElement {
                 width: 10%;
             }
             .meter.green {
-                width: 45%;
+                width: 50%;
             }
             .meter > span {
                 grid-row: 1;
