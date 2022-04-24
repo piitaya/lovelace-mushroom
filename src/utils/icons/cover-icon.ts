@@ -1,6 +1,5 @@
 import { HassEntity } from "home-assistant-js-websocket";
 
-import { UNAVAILABLE, UNKNOWN, OFF } from "../../ha/data/entity";
 import { DeviceClasses, States } from "../../ha/data/cover";
 
 export const coverIcon = (state?: string, entity?: HassEntity): string => {
