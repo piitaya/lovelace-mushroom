@@ -104,13 +104,7 @@ alarm_control_panel:
               - alarm_control_panel.alarm_panel_1
               - alarm_control_panel.alarm_panel_2
 plant:
-  openplantbook:
-    client_id: !secret plantbook_client_id
-    secret: !secret plantbook_secret
-
   Tulip:
-    species: champagne mini rose
-    entity_picture: openplantbook
     sensors:
       moisture: sensor.plant_moisture
       battery: sensor.plant_battery
