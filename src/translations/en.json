@@ -111,6 +111,9 @@
                 "lock": "Lock",
                 "unlock": "Unlock",
                 "open": "Open"
+            },
+            "plant": {
+                "use_plantbook_picture": "Use Plantbook picture?"
             }
         },
         "chip": {

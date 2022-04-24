@@ -123,6 +123,9 @@ export const colorCss = css`
     --rgb-state-person-zone: var(--mush-rgb-state-person-zone, var(--rgb-info));
     --rgb-state-person-unknown: var(--mush-rgb-state-person-unknown, var(--rgb-grey));
 
+    /* State flower colors */
+    --rgb-state-plant-problem: var(--mush-rgb-state-plant-problem, var(--rgb-danger));
+
     /* State update colors */
     --rgb-state-update-on: var(--mush-rgb-state-update-on, var(--rgb-orange));
     --rgb-state-update-off: var(--mush-rgb-update-off, var(--rgb-green));

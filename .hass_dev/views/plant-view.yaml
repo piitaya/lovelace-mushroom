@@ -1,0 +1,62 @@
+title: Plant
+icon: mdi:flower
+cards:
+  - type: grid
+    title: Simple
+    cards:
+      - type: custom:mushroom-plant-card
+        entity: plant.tulip
+      - type: custom:mushroom-plant-card
+        entity: plant.tulip
+        name: Custom name and icon
+        icon: mdi:sprout
+      - type: custom:mushroom-plant-card
+        entity: plant.tulip
+        name: Use Plantbook picture
+        use_entity_picture: true
+    columns: 2
+    square: false
+  - type: vertical-stack
+    title: Layout
+    cards:
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:mushroom-plant-card
+            entity: plant.tulip
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:mushroom-plant-card
+            entity: plant.tulip
+            layout: "vertical"
+      - type: custom:mushroom-plant-card
+        entity: plant.tulip
+        layout: "horizontal"
+  - type: grid
+    title: Demo controls
+    cards:
+      - type: button
+        name: OK
+        icon: mdi:thumb-up
+        tap_action:
+          action: call-service
+          service: input_number.set_value
+          service_data:
+            value: 50
+          target:
+            entity_id: input_number.moisture
+      - type: button
+        name: Problem
+        icon: mdi:exclamation-thick
+        tap_action:
+          action: call-service
+          service: input_number.set_value
+          service_data:
+            value: 0
+          target:
+            entity_id: input_number.moisture
+    columns: 2
+    square: false

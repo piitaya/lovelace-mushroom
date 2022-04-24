@@ -105,13 +105,7 @@ alarm_control_panel:
               - alarm_control_panel.alarm_panel_2
 
 plant:
-  openplantbook:
-    client_id: !secret plantbook_id
-    secret: !secret plantbook_secret
-
-  tulip:
-    image: openplantbook
-    species: Tulipa 'fernanda'
+  Tulip:
     sensors:
       moisture: sensor.plant_moisture
       battery: sensor.plant_battery
@@ -119,23 +113,45 @@ plant:
       conductivity: sensor.plant_conductivity
       brightness: sensor.plant_brightness
 
+input_number:
+  moisture:
+    initial: 55
+    min: 0 #15
+    max: 100 #60
+  battery:
+    initial: 98
+    min: 0
+    max: 100
+  temperature:
+    initial: 19
+    min: 0 #6
+    max: 40 #32
+  conductivity:
+    initial: 550
+    min: 0 #500
+    max: 3000 #2000
+  brightness:
+    initial: 3000
+    min: 0 #2500
+    max: 40000 #30000
+
 template:
   - sensor:
       - name: "Plant Moisture"
         unit_of_measurement: "%"
-        state: 65
+        state: "{{ states('input_number.moisture') }}"
       - name: "Plant Battery"
         unit_of_measurement: "%"
-        state: 98
+        state: "{{ states('input_number.battery') }}"
       - name: "Plant Temperature"
         unit_of_measurement: "°C"
-        state: 19
+        state: "{{ states('input_number.temperature') }}"
       - name: "Plant Conductivity"
         unit_of_measurement: "µS/cm"
-        state: 450
+        state: "{{ states('input_number.conductivity') }}"
       - name: "Plant Brightness"
         unit_of_measurement: "Lux"
-        state: 32
+        state: "{{ states('input_number.brightness') }}"
 
 lovelace: !include ui-lovelace.yaml
 
