@@ -5,7 +5,7 @@
 
 ## Description
 
-A flower card to display a plant entity. Also supports additional data from the [patched plant](https://github.com/Olen/homeassistant-plant) component.
+A plant card to display a plant entity. Also supports additional data from the [patched plant](https://github.com/Olen/homeassistant-plant) component.
 
 ## Configuration variables
 

@@ -13,7 +13,7 @@ import { loadHaComponents } from "../../utils/loader";
 import { PLANT_CARD_EDITOR_NAME, PLANT_ENTITY_DOMAINS } from "./const";
 import { PlantCardConfig, plantCardConfigStruct } from "./plant-card-config";
 
-const FLOWER_CARD_FIELDS = ["use_entity_picture"];
+const PLANT_CARD_FIELDS = ["use_entity_picture"];
 
 const actions: Action[] = ["more-info", "navigate", "url", "call-service", "none"];
 
@@ -62,7 +62,7 @@ export class PlantCardEditor extends LitElement implements LovelaceCardEditor {
         if (GENERIC_FIELDS.includes(schema.name)) {
             return customLocalize(`editor.card.generic.${schema.name}`);
         }
-        if (FLOWER_CARD_FIELDS.includes(schema.name)) {
+        if (PLANT_CARD_FIELDS.includes(schema.name)) {
             return customLocalize(`editor.card.plant.${schema.name}`);
         }
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
