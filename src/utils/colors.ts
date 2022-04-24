@@ -132,4 +132,10 @@ export const colorCss = css`
     --rgb-state-lock-locked: var(--mush-rgb-state-lock-locked, var(--rgb-green));
     --rgb-state-lock-unlocked: var(--mush-rgb-state-lock-unlocked, var(--rgb-red));
     --rgb-state-lock-pending: var(--mush-rgb-state-lock-pending, var(--rgb-orange));
+
+    /* State cover colors */
+    --rgb-state-cover-open: var(--mush-rgb-state-cover-open, var(--rgb-state-cover));
+    --rgb-state-cover-opening: var(--mush-rgb-state-cover-opening, var(--rgb-state-cover));
+    --rgb-state-cover-closed: var(--mush-rgb-state-cover-closed, var(--rgb-grey));
+    --rgb-state-cover-closing: var(--mush-rgb-state-cover-closing, var(--rgb-grey));
 `;

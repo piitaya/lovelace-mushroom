@@ -114,19 +114,3 @@ export const computeCloseIcon = (stateObj: HassEntity): string => {
             return "mdi:arrow-down";
     }
 };
-
-export const computeActiveState = (stateObj: HassEntity): boolean => {
-    const state = stateObj.state
-    if (state === UNAVAILABLE || state === UNKNOWN || state === OFF) return false;
-
-    switch (stateObj.attributes.device_class) {
-        case DeviceClasses.AWNING:
-        case DeviceClasses.BLIND:
-        case DeviceClasses.CURTAIN:
-        case DeviceClasses.SHADE:
-        case DeviceClasses.SHUTTER:
-            return stateObj.state === States.CLOSING || stateObj.state === States.CLOSED;
-        default:
-            return stateObj.state === States.OPENING || stateObj.state === States.OPEN;
-    }
-}
