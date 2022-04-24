@@ -79,6 +79,7 @@ Different cards are available for differents entities :
 -   🧹 [Vacuum card](docs/cards/vacuum.md)
 -   📺 [Media card](docs/cards/media-player.md)
 -   🔒 [Lock card](docs/cards/lock.md)
+-   🌱 [Plant card](docs/cards/plant.md)
 
 Cards on the todo list :
 
@@ -122,13 +123,6 @@ Once both Home Assistant and mushroom are running, you have to add a resource to
 
     _Configuration_ → _Lovelace Dashboards_ → _Resources Tab_ → Click Plus button → Set _Url_ as `http://localhost:5000/mushroom.js` → Set _Resource type_ as `JavaScript Module`.
 
-#### Flower Card
-
-As the flower card has a dependency on the [Plant](https://github.com/Olen/homeassistant-plant) component, you must provide 
-your Plantbook `client_id` and `secret`.
-
-- Create a `secrets.yaml` under `.hass_dev`
-- Add fields `plantbook_id` and `plantbook_secret`
 
 ### Build
 

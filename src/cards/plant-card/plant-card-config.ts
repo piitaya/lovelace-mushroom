@@ -8,7 +8,7 @@ export interface PlantCardConfig extends LovelaceCardConfig {
     entity?: string;
     name?: string;
     icon?: string;
-    use_plantbook_picture?: boolean;
+    use_entity_picture?: boolean;
     min_temperature?: number;
     max_temperature?: number;
     min_moisture?: number;

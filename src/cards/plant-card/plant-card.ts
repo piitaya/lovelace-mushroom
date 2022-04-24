@@ -84,7 +84,6 @@ export class PlantCard extends LitElement implements LovelaceCard {
 
         const name = this._config.name || entity.attributes.friendly_name;
         const icon = this._config.icon || stateIconHelper(entity);
-        console.log(this._config);
         const limits = entity.attributes?.limits || {
             min_temperature: this._config.min_temperature || 3,
             max_temperature: this._config.max_temperature || 35,
@@ -96,7 +95,9 @@ export class PlantCard extends LitElement implements LovelaceCard {
             max_brightness: this._config.min_brightness || 30000,
         };
 
-        const picture = this._config.use_plantbook_picture ? entity.attributes.image : undefined;
+        const picture = this._config.use_entity_picture
+            ? entity.attributes.image || entity.attributes.entity_picture
+            : undefined;
 
         const layout = getLayoutFromConfig(this._config);
         const hideState = !!this._config.hide_state;
