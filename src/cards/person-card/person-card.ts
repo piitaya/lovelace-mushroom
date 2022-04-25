@@ -114,6 +114,7 @@ export class PersonCard extends LitElement implements LovelaceCard {
                             hasHold: hasAction(this._config.hold_action),
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
+                        hide_info=${hideName && hideState}
                     >
                         ${picture
                             ? html`
