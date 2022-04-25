@@ -98,7 +98,14 @@ You can run a demo instance of Home Assistant with docker by running:
 npm run start:hass
 ```
 
-Once it's done, go to home assitant instance [http://localhost:8123](http://localhost:8123) and start configuration.
+Once it's done, go to Home Assistant instance [http://localhost:8123](http://localhost:8123) and start configuration.
+
+
+#### Windows Users 
+If you are on Windows, either run the above command in Powershell, or use the below if using Command Prompt:
+```sh
+npm run start:hass-cmd
+```
 
 ### Development
 
