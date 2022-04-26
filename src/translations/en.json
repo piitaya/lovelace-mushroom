@@ -122,7 +122,6 @@
             },
             "chip-picker": {
                 "chips": "Chips",
-                "details": "Show details by clicking the edit button",
                 "add": "Add chip",
                 "edit": "Edit",
                 "clear": "Clear",

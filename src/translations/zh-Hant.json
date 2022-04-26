@@ -122,7 +122,6 @@
             },
             "chip-picker": {
                 "chips": "Chips",
-                "details": "點擊編輯按鈕來查看詳細訊息",
                 "add": "新增 chip",
                 "edit": "編輯",
                 "clear": "清除",

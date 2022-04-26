@@ -85,7 +85,6 @@
             },
             "chip-picker": {
                 "chips": "Chips",
-                "details": "点击编辑按钮查看",
                 "add": "添加 chip",
                 "edit": "编辑",
                 "clear": "清除",
