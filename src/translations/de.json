@@ -119,7 +119,6 @@
             },
             "chip-picker": {
                 "chips": "Chips",
-                "details": "Zum Anzeigen von Details die Schaltfläche Bearbeiten auswählen",
                 "add": "Chip hinzufügen",
                 "edit": "Editieren",
                 "clear": "Löschen",

@@ -86,7 +86,6 @@
             },
             "chip-picker": {
                 "chips": "Fichas",
-                "details": "Mostrar detalhes clicando no botão editar",
                 "add": "Adicionar ficha",
                 "edit": "Editar",
                 "clear": "Limpar",

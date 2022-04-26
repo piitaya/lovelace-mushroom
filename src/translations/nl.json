@@ -111,7 +111,7 @@
                 "lock": "Vergrendel",
                 "unlock": "Ontgrendel",
                 "open": "Open"
-                }
+            }
         },
         "chip": {
             "sub_element_editor": {
@@ -122,7 +122,6 @@
             },
             "chip-picker": {
                 "chips": "Chips",
-                "details": "Om meer details te tonen klik de edit knop",
                 "add": "Toevoegen chip",
                 "edit": "Bewerk",
                 "clear": "Maak leeg",

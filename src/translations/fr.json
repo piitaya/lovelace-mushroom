@@ -122,7 +122,6 @@
             },
             "chip-picker": {
                 "chips": "\"Chips\"",
-                "details": "Affichez les détails en cliquant sur le bouton Modifier",
                 "add": "Ajouter une \"chip\"",
                 "edit": "Modifier",
                 "clear": "Effacer",
