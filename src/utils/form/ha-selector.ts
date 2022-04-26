@@ -14,6 +14,7 @@ export type Selector =
     | TargetSelector
     | NumberSelector
     | BooleanSelector
+    | TemplateSelector
     | TimeSelector
     | ActionSelector
     | StringSelector
@@ -109,6 +110,11 @@ export interface NumberSelector {
 export interface BooleanSelector {
     // eslint-disable-next-line @typescript-eslint/ban-types
     boolean: {};
+}
+
+export interface TemplateSelector {
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    template: {};
 }
 
 export interface TimeSelector {

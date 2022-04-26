@@ -9,16 +9,33 @@ import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chi
 import { TemplateChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { TEMPLATE_FIELDS } from "../../template-card/template-card-editor";
+import { atLeastHaVersion } from "../../../ha/util";
+import memoizeOne from "memoize-one";
 
-const SCHEMA: HaFormSchema[] = [
+const computeSchema = memoizeOne((version: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: {} } },
-    { name: "icon", selector: { text: { multiline: true } } },
-    { name: "icon_color", selector: { text: { multiline: true } } },
-    { name: "content", selector: { text: { multiline: true } } },
+    {
+        name: "icon",
+        selector: atLeastHaVersion(version, 2022, 5)
+            ? { template: {} }
+            : { text: { multiline: true } },
+    },
+    {
+        name: "icon_color",
+        selector: atLeastHaVersion(version, 2022, 5)
+            ? { template: {} }
+            : { text: { multiline: true } },
+    },
+    {
+        name: "content",
+        selector: atLeastHaVersion(version, 2022, 5)
+            ? { template: {} }
+            : { text: { multiline: true } },
+    },
     { name: "tap_action", selector: { "mush-action": {} } },
     { name: "hold_action", selector: { "mush-action": {} } },
     { name: "double_tap_action", selector: { "mush-action": {} } },
-];
+]);
 
 @customElement(computeChipEditorComponentName("template"))
 export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
@@ -56,7 +73,7 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
             <ha-form
                 .hass=${this.hass}
                 .data=${this._config}
-                .schema=${SCHEMA}
+                .schema=${computeSchema(this.hass!.connection.haVersion)}
                 .computeLabel=${this._computeLabelCallback}
                 @value-changed=${this._valueChanged}
             ></ha-form>
