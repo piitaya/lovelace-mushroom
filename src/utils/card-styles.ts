@@ -2,12 +2,12 @@ import { css } from "lit";
 
 export const cardStyle = css`
     ha-card {
-        height: 100%;
         box-sizing: border-box;
         padding: var(--spacing);
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: var(--layout-align);
+        height: var(--layout-height);
     }
     .actions {
         display: flex;

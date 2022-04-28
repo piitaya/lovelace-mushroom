@@ -30,6 +30,9 @@ export const themeVariables = css`
     --chip-avatar-border-radius: var(--mush-chip-avatar-border-radius, 50%);
     /* Slider */
     --slider-threshold: var(--mush-slider-threshold);
+    /* Layout */
+    --layout-align: var(--mush-layout-align, start);
+    --layout-height: var(--mush-layout-height, 100%);
 `;
 
 export const themeColorCss = css`
