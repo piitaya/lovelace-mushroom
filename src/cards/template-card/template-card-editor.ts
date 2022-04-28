@@ -1,16 +1,17 @@
-import { fireEvent, HomeAssistant, LovelaceCardEditor } from "custom-card-helpers";
-import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { fireEvent, LovelaceCardEditor } from "custom-card-helpers";
+import { CSSResultGroup, html, TemplateResult } from "lit";
+import { customElement, state } from "lit/decorators.js";
+import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
+import { atLeastHaVersion } from "../../ha/util";
 import setupCustomlocalize from "../../localize";
+import { MushroomBaseElement } from "../../utils/base-element";
 import { configElementStyle } from "../../utils/editor-styles";
 import { GENERIC_FIELDS } from "../../utils/form/fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { loadHaComponents } from "../../utils/loader";
 import { TEMPLATE_CARD_EDITOR_NAME } from "./const";
 import { TemplateCardConfig, templateCardConfigStruct } from "./template-card-config";
-import { atLeastHaVersion } from "../../ha/util";
-import memoizeOne from "memoize-one";
 
 export const TEMPLATE_FIELDS = ["content", "primary", "secondary", "multiline_secondary"];
 
@@ -54,9 +55,7 @@ const computeSchema = memoizeOne((version: string): HaFormSchema[] => [
 ]);
 
 @customElement(TEMPLATE_CARD_EDITOR_NAME)
-export class TemplateCardEditor extends LitElement implements LovelaceCardEditor {
-    @property({ attribute: false }) public hass?: HomeAssistant;
-
+export class TemplateCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
     @state() private _config?: TemplateCardConfig;
 
     connectedCallback() {
@@ -107,6 +106,6 @@ export class TemplateCardEditor extends LitElement implements LovelaceCardEditor
     }
 
     static get styles(): CSSResultGroup {
-        return configElementStyle;
+        return [super.styles, configElementStyle];
     }
 }

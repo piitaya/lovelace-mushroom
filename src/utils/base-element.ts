@@ -10,13 +10,21 @@ import "../shared/state-item";
 import { defaultColorCss, defaultDarkColorCss } from "./colors";
 import { themeVariables, themeColorCss } from "./theme";
 
+function computeDarkMode(hass?: HomeAssistant): boolean {
+    if (!hass) return false;
+    return (hass.themes as any).darkMode as boolean;
+}
 export class MushroomBaseElement extends LitElement {
-    @property({ attribute: false }) public hass?: HomeAssistant;
+    @property({ attribute: false }) public hass!: HomeAssistant;
 
     protected updated(changedProps: PropertyValues): void {
+        super.updated(changedProps);
         if (changedProps.has("hass") && this.hass) {
-            const darkMode = (this.hass.themes as any).darkMode as boolean;
-            this.toggleAttribute("dark-mode", darkMode);
+            const currentDarkMode = computeDarkMode(changedProps.get("hass"));
+            const newDarkMode = computeDarkMode(this.hass);
+            if (currentDarkMode !== newDarkMode) {
+                this.toggleAttribute("dark-mode", newDarkMode);
+            }
         }
     }
 

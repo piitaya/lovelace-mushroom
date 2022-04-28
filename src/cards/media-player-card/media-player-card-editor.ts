@@ -16,6 +16,7 @@ import {
     MEDIA_LAYER_MEDIA_CONTROLS,
     MEDIA_PLAYER_VOLUME_CONTROLS,
 } from "./media-player-card-config";
+import { MushroomBaseElement } from "../../utils/base-element";
 
 export const MEDIA_FIELDS = [
     "use_media_info",
@@ -87,9 +88,7 @@ const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaForm
 ]);
 
 @customElement(MEDIA_PLAYER_CARD_EDITOR_NAME)
-export class MediaCardEditor extends LitElement implements LovelaceCardEditor {
-    @property({ attribute: false }) public hass?: HomeAssistant;
-
+export class MediaCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
     @state() private _config?: MediaPlayerCardConfig;
 
     connectedCallback() {
@@ -142,6 +141,6 @@ export class MediaCardEditor extends LitElement implements LovelaceCardEditor {
     }
 
     static get styles(): CSSResultGroup {
-        return [configElementStyle];
+        return [super.styles, configElementStyle];
     }
 }

@@ -2,7 +2,6 @@ import { css } from "lit";
 import * as Color from "color";
 
 export const COLORS = [
-    "disabled",
     "red",
     "pink",
     "purple",
@@ -24,6 +23,7 @@ export const COLORS = [
     "blue-grey",
     "black",
     "white",
+    "disabled",
 ];
 
 export function computeRgbColor(color: string): string {

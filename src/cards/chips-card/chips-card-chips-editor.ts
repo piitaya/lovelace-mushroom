@@ -9,6 +9,7 @@ import { CHIP_LIST, LovelaceChipConfig } from "../../utils/lovelace/chip/types";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { sortableStyles } from "../../utils/sortable-styles";
 import "../../shared/form/mushroom-select";
+import { MushroomBaseElement } from "../../utils/base-element";
 
 let Sortable;
 
@@ -21,9 +22,7 @@ declare global {
 }
 
 @customElement("mushroom-chips-card-chips-editor")
-export class ChipsCardEditorChips extends LitElement {
-    @property({ attribute: false }) protected hass?: HomeAssistant;
-
+export class ChipsCardEditorChips extends MushroomBaseElement {
     @property({ attribute: false }) protected chips?: LovelaceChipConfig[];
 
     @property() protected label?: string;
@@ -268,6 +267,7 @@ export class ChipsCardEditorChips extends LitElement {
 
     static get styles(): CSSResultGroup {
         return [
+            super.styles,
             sortableStyles,
             css`
                 .chip {
