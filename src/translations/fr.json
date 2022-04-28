@@ -43,7 +43,8 @@
                 "primary_info": "Information principale",
                 "secondary_info": "Information secondaire",
                 "content_info": "Contenu",
-                "use_entity_picture": "Utiliser l'image de l'entité ?"
+                "use_entity_picture": "Utiliser l'image de l'entité ?",
+                "collapsible_controls": "Reduire les contrôles quand éteint"
             },
             "light": {
                 "show_brightness_control": "Contrôle de luminosité ?",

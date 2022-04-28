@@ -8,4 +8,5 @@ export const GENERIC_FIELDS = [
     "secondary_info",
     "content_info",
     "use_entity_picture",
+    "collapsible_controls",
 ];

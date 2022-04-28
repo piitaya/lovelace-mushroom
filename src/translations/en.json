@@ -43,14 +43,14 @@
                 "primary_info": "Primary information",
                 "secondary_info": "Secondary information",
                 "content_info": "Content",
-                "use_entity_picture": "Use entity picture?"
+                "use_entity_picture": "Use entity picture?",
+                "collapsible_controls": "Collapse controls when off"
             },
             "light": {
                 "show_brightness_control": "Brightness control?",
                 "use_light_color": "Use light color",
                 "show_color_temp_control": "Temperature color control?",
                 "show_color_control": "Color control?",
-                "collapsible_controls": "Collapse controls when off",
                 "incompatible_controls": "Some controls may not be displayed if your light does not support the feature."
             },
             "fan": {

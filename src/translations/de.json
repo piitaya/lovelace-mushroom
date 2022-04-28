@@ -43,14 +43,14 @@
                 "primary_info": "Primäre Information",
                 "secondary_info": "Sekundäre Information",
                 "content_info": "Inhalt",
-                "use_entity_picture": "Entitätsbild verwenden?"
+                "use_entity_picture": "Entitätsbild verwenden?",
+                "collapsible_controls": "Schieberegler einklappen, wenn aus"
             },
             "light": {
                 "show_brightness_control": "Helligkeitsregelung?",
                 "use_light_color": "Farbsteuerung verwenden",
                 "show_color_temp_control": "Farbtemperatursteuerung?",
                 "show_color_control": "Farbsteuerung?",
-                "collapsible_controls": "Schieberegler einklappen, wenn aus",
                 "incompatible_controls": "Einige Steuerelemente werden möglicherweise nicht angezeigt, wenn Ihr Licht diese Funktion nicht unterstützt."
             },
             "fan": {

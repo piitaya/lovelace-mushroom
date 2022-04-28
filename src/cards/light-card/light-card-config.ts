@@ -27,7 +27,6 @@ export const lightCardConfigStruct = assign(
         icon: optional(string()),
         name: optional(string()),
         layout: optional(layoutStruct),
-        layout_fill: optional(boolean()),
         hide_state: optional(boolean()),
         show_brightness_control: optional(boolean()),
         show_color_temp_control: optional(boolean()),
