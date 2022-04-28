@@ -19,9 +19,9 @@ export class Button extends LitElement {
         return css`
             :host {
                 --icon-color: var(--primary-text-color);
-                --icon-color-disabled: var(--disabled-text-color);
+                --icon-color-disabled: rgb(var(--rgb-disabled));
                 --bg-color: rgba(var(--rgb-primary-text-color), 0.05);
-                --bg-color-disabled: rgba(var(--rgb-primary-text-color), 0.05);
+                --bg-color-disabled: rgba(var(--rgb-disabled), 0.2);
                 width: 42px;
                 height: 42px;
                 flex: none;
