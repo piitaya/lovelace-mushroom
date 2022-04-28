@@ -298,13 +298,6 @@ export class LightCard extends LitElement implements LovelaceCard {
         return [
             cardStyle,
             css`
-                ha-card {
-                    box-sizing: border-box;
-                    padding: var(--spacing);
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                }
                 mushroom-state-item {
                     cursor: pointer;
                 }
