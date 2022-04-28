@@ -141,7 +141,7 @@ export class LightCard extends LitElement implements LovelaceCard {
         if (!entity) return;
 
         const controls: LightCardControl[] = [];
-        if (!this._config.enable_collapse || entity.state == 'on'){
+        if (!this._config.collapse_controls || entity.state == 'on'){
             if (this._config.show_brightness_control && supportsBrightnessControl(entity)) {
                 controls.push("brightness_control");
             }

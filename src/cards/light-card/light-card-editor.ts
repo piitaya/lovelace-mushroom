@@ -17,7 +17,7 @@ export const LIGHT_FIELDS = [
     "use_light_color",
     "show_color_temp_control",
     "show_color_control",
-    "enable_collapse",
+    "collapse_controls",
 ];
 
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
@@ -44,7 +44,7 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
             { name: "show_brightness_control", selector: { boolean: {} } },
             { name: "show_color_temp_control", selector: { boolean: {} } },
             { name: "show_color_control", selector: { boolean: {} } },
-            { name: "enable_collapse", selector: { boolean: {} } },
+            { name: "collapse_controls", selector: { boolean: {} } },
         ],
     },
     { name: "tap_action", selector: { "mush-action": {} } },
