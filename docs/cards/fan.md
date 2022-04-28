@@ -21,6 +21,7 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `icon_animation`          | boolean | `false`     | Animate the icon when fan is `on`                                         |
 | `show_percentage_control` | boolean | `false`     | Show a slider to control speed                                            |
 | `show_oscillate_control`  | boolean | `false`     | Show a button to control oscillation                                      |
+| `show_direction_control`  | boolean | `false`     | Show a button to control direction                                        |
 | `tap_action`              | action  | `toggle`    | Home assistant action to perform on tap                                   |
 | `hold_action`             | action  | `more-info` | Home assistant action to perform on hold                                  |
 | `double_tap_action`       | action  | `more-info` | Home assistant action to perform on double_tap                            |
