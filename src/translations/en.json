@@ -50,7 +50,7 @@
                 "use_light_color": "Use light color",
                 "show_color_temp_control": "Temperature color control?",
                 "show_color_control": "Color control?",
-                "collapse_controls": "Collapse controls when off",
+                "collapsible_controls": "Collapse controls when off",
                 "incompatible_controls": "Some controls may not be displayed if your light does not support the feature."
             },
             "fan": {

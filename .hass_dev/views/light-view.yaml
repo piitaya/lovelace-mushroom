@@ -12,26 +12,33 @@ cards:
         icon: mdi:robot-outline
     columns: 2
     square: false
-  - type: grid
-    title: Controls
+  - type: vertical-stack
     cards:
+      - type: grid
+        title: Controls
+        cards:
+          - type: custom:mushroom-light-card
+            entity: light.bed_light
+            name: Brightness control
+            show_brightness_control: true
+          - type: custom:mushroom-light-card
+            entity: light.bed_light
+            name: Color temperature control
+            show_color_temp_control: true
+        columns: 2
+        square: false
       - type: custom:mushroom-light-card
-        entity: light.bed_light
-        name: Brightness control
+        entity: light.kitchen_lights
+        name: Multiple controls
         show_brightness_control: true
+        show_color_temp_control: true
+        show_color_control: true
+        use_light_color: true
       - type: custom:mushroom-light-card
         entity: light.bed_light
-        name: Color temperature control
-        show_color_temp_control: true
-    columns: 2
-    square: false
-  - type: custom:mushroom-light-card
-    entity: light.kitchen_lights
-    name: Multiple controls
-    show_brightness_control: true
-    show_color_temp_control: true
-    show_color_control: true
-    use_light_color: true
+        name: Collapsible control
+        collapsible_controls: true
+        show_brightness_control: true
   - type: vertical-stack
     title: Layout
     cards:

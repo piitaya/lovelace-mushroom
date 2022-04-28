@@ -50,7 +50,7 @@
                 "use_light_color": "Farbsteuerung verwenden",
                 "show_color_temp_control": "Farbtemperatursteuerung?",
                 "show_color_control": "Farbsteuerung?",
-                "collapse_controls": "Schieberegler einklappen, wenn aus",
+                "collapsible_controls": "Schieberegler einklappen, wenn aus",
                 "incompatible_controls": "Einige Steuerelemente werden möglicherweise nicht angezeigt, wenn Ihr Licht diese Funktion nicht unterstützt."
             },
             "fan": {
