@@ -31,6 +31,7 @@ import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-avatar";
 import "../../shared/shape-icon";
+import { MushroomBaseElement } from "../../utils/base-element";
 
 type MediaPlayerCardControl = "media_control" | "volume_control";
 
@@ -46,7 +47,7 @@ registerCustomCard({
 });
 
 @customElement(MEDIA_PLAYER_CARD_NAME)
-export class MediaPlayerCard extends LitElement implements LovelaceCard {
+export class MediaPlayerCard extends MushroomBaseElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./media-player-card-editor");
         return document.createElement(MEDIA_PLAYER_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -62,8 +63,6 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
             entity: mediaPlayers[0],
         };
     }
-
-    @property({ attribute: false }) public hass!: HomeAssistant;
 
     @state() private _config?: MediaPlayerCardConfig;
 
@@ -249,6 +248,7 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
 
     static get styles(): CSSResultGroup {
         return [
+            super.styles,
             cardStyle,
             css`
                 mushroom-state-item {

@@ -5,6 +5,7 @@ import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import { LOCK_ENTITY_DOMAINS } from "../../ha/data/lock";
 import setupCustomlocalize from "../../localize";
+import { MushroomBaseElement } from "../../utils/base-element";
 import { configElementStyle } from "../../utils/editor-styles";
 import { GENERIC_FIELDS } from "../../utils/form/fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
@@ -31,9 +32,7 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
 ]);
 
 @customElement(LOCK_CARD_EDITOR_NAME)
-export class LockCardEditor extends LitElement implements LovelaceCardEditor {
-    @property({ attribute: false }) public hass?: HomeAssistant;
-
+export class LockCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
     @state() private _config?: LockCardConfig;
 
     connectedCallback() {
@@ -81,6 +80,6 @@ export class LockCardEditor extends LitElement implements LovelaceCardEditor {
     }
 
     static get styles(): CSSResultGroup {
-        return configElementStyle;
+        return [super.styles, configElementStyle];
     }
 }

@@ -7,8 +7,8 @@ import {
     LovelaceCard,
     LovelaceCardEditor,
 } from "custom-card-helpers";
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { css, CSSResultGroup, html, TemplateResult } from "lit";
+import { customElement, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
 import { isActive, isAvailable } from "../../ha/data/entity";
@@ -18,6 +18,7 @@ import "../../shared/shape-avatar";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
+import { MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
 import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
@@ -35,7 +36,7 @@ registerCustomCard({
 });
 
 @customElement(ENTITY_CARD_NAME)
-export class EntityCard extends LitElement implements LovelaceCard {
+export class EntityCard extends MushroomBaseElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./entity-card-editor");
         return document.createElement(ENTITY_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -48,8 +49,6 @@ export class EntityCard extends LitElement implements LovelaceCard {
             entity: entities[0],
         };
     }
-
-    @property({ attribute: false }) public hass!: HomeAssistant;
 
     @state() private _config?: EntityCardConfig;
 
@@ -173,6 +172,7 @@ export class EntityCard extends LitElement implements LovelaceCard {
 
     static get styles(): CSSResultGroup {
         return [
+            super.styles,
             cardStyle,
             css`
                 mushroom-state-item {

@@ -1,16 +1,17 @@
-import { fireEvent, HomeAssistant, LocalizeFunc, LovelaceCardEditor } from "custom-card-helpers";
-import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { fireEvent, LocalizeFunc, LovelaceCardEditor } from "custom-card-helpers";
+import { CSSResultGroup, html, TemplateResult } from "lit";
+import { customElement, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import setupCustomlocalize from "../../localize";
+import { MushroomBaseElement } from "../../utils/base-element";
 import { configElementStyle } from "../../utils/editor-styles";
 import { GENERIC_FIELDS } from "../../utils/form/fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { loadHaComponents } from "../../utils/loader";
 import { VACUUM_CARD_EDITOR_NAME, VACUUM_ENTITY_DOMAINS } from "./const";
-import { VACUUM_COMMANDS, VacuumCardConfig, vacuumCardConfigStruct } from "./vacuum-card-config";
+import { VacuumCardConfig, vacuumCardConfigStruct, VACUUM_COMMANDS } from "./vacuum-card-config";
 
 const VACUUM_FIELDS = ["commands"];
 
@@ -44,9 +45,7 @@ const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaForm
 ]);
 
 @customElement(VACUUM_CARD_EDITOR_NAME)
-export class VacuumCardEditor extends LitElement implements LovelaceCardEditor {
-    @property({ attribute: false }) public hass?: HomeAssistant;
-
+export class VacuumCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
     @state() private _config?: VacuumCardConfig;
 
     connectedCallback() {
@@ -97,6 +96,6 @@ export class VacuumCardEditor extends LitElement implements LovelaceCardEditor {
     }
 
     static get styles(): CSSResultGroup {
-        return configElementStyle;
+        return [super.styles, configElementStyle];
     }
 }
