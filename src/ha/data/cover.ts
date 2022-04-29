@@ -10,39 +10,18 @@ export const COVER_SUPPORT_CLOSE_TILT = 32;
 export const COVER_SUPPORT_STOP_TILT = 64;
 export const COVER_SUPPORT_SET_TILT_POSITION = 128;
 
-export const enum DeviceClasses {
-    NONE = "none",
-    AWNING = "awning",
-    BLIND = "blind",
-    CURTAIN = "curtain",
-    DAMPER = "damper",
-    DOOR = "door",
-    GARAGE = "garage",
-    GATE = "gate",
-    SHADE = "shade",
-    SHUTTER = "shutter",
-    WINDOW = "windows",
-}
-
-export const enum States {
-    OPEN = "open",
-    OPENING = "opening",
-    CLOSED = "closed",
-    CLOSING = "closing",
-}
-
 export function isFullyOpen(stateObj: CoverEntity) {
     if (stateObj.attributes.current_position !== undefined) {
         return stateObj.attributes.current_position === 100;
     }
-    return stateObj.state === States.OPEN;
+    return stateObj.state === "open";
 }
 
 export function isFullyClosed(stateObj: CoverEntity) {
     if (stateObj.attributes.current_position !== undefined) {
         return stateObj.attributes.current_position === 0;
     }
-    return stateObj.state === States.CLOSED;
+    return stateObj.state === "closed";
 }
 
 export function isFullyOpenTilt(stateObj: CoverEntity) {
@@ -54,11 +33,11 @@ export function isFullyClosedTilt(stateObj: CoverEntity) {
 }
 
 export function isOpening(stateObj: CoverEntity) {
-    return stateObj.state === States.OPENING;
+    return stateObj.state === "opening";
 }
 
 export function isClosing(stateObj: CoverEntity) {
-    return stateObj.state === States.CLOSING;
+    return stateObj.state === "closing";
 }
 
 export function isTiltOnly(stateObj: CoverEntity) {
