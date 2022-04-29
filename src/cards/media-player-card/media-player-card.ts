@@ -151,54 +151,56 @@ export class MediaPlayerCard extends MushroomBaseElement implements LovelaceCard
             : undefined;
 
         return html`
-            <mushroom-card .layout=${layout} ?rtl=${rtl}>
-                <mushroom-state-item
-                    ?rtl=${rtl}
-                    .layout=${layout}
-                    @action=${this._handleAction}
-                    .actionHandler=${actionHandler({
-                        hasHold: hasAction(this._config.hold_action),
-                        hasDoubleClick: hasAction(this._config.double_tap_action),
-                    })}
-                >
-                    ${artwork
+            <ha-card>
+                <mushroom-card .layout=${layout} ?rtl=${rtl}>
+                    <mushroom-state-item
+                        ?rtl=${rtl}
+                        .layout=${layout}
+                        @action=${this._handleAction}
+                        .actionHandler=${actionHandler({
+                            hasHold: hasAction(this._config.hold_action),
+                            hasDoubleClick: hasAction(this._config.double_tap_action),
+                        })}
+                    >
+                        ${artwork
+                            ? html`
+                                  <mushroom-shape-avatar
+                                      slot="icon"
+                                      .picture_url=${artwork}
+                                  ></mushroom-shape-avatar>
+                              `
+                            : html`
+                                  <mushroom-shape-icon
+                                      slot="icon"
+                                      .icon=${icon}
+                                      .disabled=${!isActive(entity)}
+                                  ></mushroom-shape-icon>
+                              `}
+                        ${entity.state === "unavailable"
+                            ? html`
+                                  <mushroom-badge-icon
+                                      class="unavailable"
+                                      slot="badge"
+                                      icon="mdi:help"
+                                  ></mushroom-badge-icon>
+                              `
+                            : null}
+                        <mushroom-state-info
+                            slot="info"
+                            .primary=${nameDisplay}
+                            .secondary=${stateDisplay}
+                        ></mushroom-state-info>
+                    </mushroom-state-item>
+                    ${this._controls.length > 0
                         ? html`
-                              <mushroom-shape-avatar
-                                  slot="icon"
-                                  .picture_url=${artwork}
-                              ></mushroom-shape-avatar>
-                          `
-                        : html`
-                              <mushroom-shape-icon
-                                  slot="icon"
-                                  .icon=${icon}
-                                  .disabled=${!isActive(entity)}
-                              ></mushroom-shape-icon>
-                          `}
-                    ${entity.state === "unavailable"
-                        ? html`
-                              <mushroom-badge-icon
-                                  class="unavailable"
-                                  slot="badge"
-                                  icon="mdi:help"
-                              ></mushroom-badge-icon>
+                              <div class="actions" ?rtl=${rtl}>
+                                  ${this.renderActiveControl(entity, layout)}
+                                  ${this.renderOtherControls()}
+                              </div>
                           `
                         : null}
-                    <mushroom-state-info
-                        slot="info"
-                        .primary=${nameDisplay}
-                        .secondary=${stateDisplay}
-                    ></mushroom-state-info>
-                </mushroom-state-item>
-                ${this._controls.length > 0
-                    ? html`
-                          <div class="actions" ?rtl=${rtl}>
-                              ${this.renderActiveControl(entity, layout)}
-                              ${this.renderOtherControls()}
-                          </div>
-                      `
-                    : null}
-            </mushroom-card>
+                </mushroom-card>
+            </ha-card>
         `;
     }
 
