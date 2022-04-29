@@ -1,9 +1,10 @@
-import { fireEvent, HomeAssistant, LovelaceCardEditor } from "custom-card-helpers";
-import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { fireEvent, LovelaceCardEditor } from "custom-card-helpers";
+import { CSSResultGroup, html, TemplateResult } from "lit";
+import { customElement, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import setupCustomlocalize from "../../localize";
+import { MushroomBaseElement } from "../../utils/base-element";
 import { configElementStyle } from "../../utils/editor-styles";
 import { GENERIC_FIELDS } from "../../utils/form/fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
@@ -17,6 +18,7 @@ export const LIGHT_FIELDS = [
     "use_light_color",
     "show_color_temp_control",
     "show_color_control",
+    "collapse_controls",
 ];
 
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
@@ -43,6 +45,7 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
             { name: "show_brightness_control", selector: { boolean: {} } },
             { name: "show_color_temp_control", selector: { boolean: {} } },
             { name: "show_color_control", selector: { boolean: {} } },
+            { name: "collapse_controls", selector: { boolean: {} } },
         ],
     },
     { name: "tap_action", selector: { "mush-action": {} } },
@@ -51,9 +54,7 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
 ]);
 
 @customElement(LIGHT_CARD_EDITOR_NAME)
-export class LightCardEditor extends LitElement implements LovelaceCardEditor {
-    @property({ attribute: false }) public hass?: HomeAssistant;
-
+export class LightCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
     @state() private _config?: LightCardConfig;
 
     connectedCallback() {
@@ -104,6 +105,6 @@ export class LightCardEditor extends LitElement implements LovelaceCardEditor {
     }
 
     static get styles(): CSSResultGroup {
-        return [configElementStyle];
+        return [super.styles, configElementStyle];
     }
 }

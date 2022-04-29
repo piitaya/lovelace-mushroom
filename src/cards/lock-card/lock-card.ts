@@ -8,25 +8,25 @@ import {
     LovelaceCard,
     LovelaceCardEditor,
 } from "custom-card-helpers";
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { css, CSSResultGroup, html, TemplateResult } from "lit";
+import { customElement, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
-import { isActive, isAvailable } from "../../ha/data/entity";
+import { isAvailable } from "../../ha/data/entity";
 import { LockEntity, LOCK_ENTITY_DOMAINS } from "../../ha/data/lock";
 import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
+import { MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
-import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig } from "../../utils/layout";
 import { LOCK_CARD_EDITOR_NAME, LOCK_CARD_NAME } from "./const";
-import { LockCardConfig } from "./lock-card-config";
 import "./controls/lock-buttons-control";
+import { LockCardConfig } from "./lock-card-config";
 import { isActionPending, isLocked, isUnlocked } from "./utils";
 
 registerCustomCard({
@@ -36,7 +36,7 @@ registerCustomCard({
 });
 
 @customElement(LOCK_CARD_NAME)
-export class LockCard extends LitElement implements LovelaceCard {
+export class LockCard extends MushroomBaseElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./lock-card-editor");
         return document.createElement(LOCK_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -50,8 +50,6 @@ export class LockCard extends LitElement implements LovelaceCard {
             entity: locks[0],
         };
     }
-
-    @property({ attribute: false }) public hass!: HomeAssistant;
 
     @state() private _config?: LockCardConfig;
 
@@ -165,6 +163,7 @@ export class LockCard extends LitElement implements LovelaceCard {
 
     static get styles(): CSSResultGroup {
         return [
+            super.styles,
             cardStyle,
             css`
                 mushroom-state-item {

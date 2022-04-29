@@ -8,9 +8,9 @@ import {
     LovelaceCardEditor,
 } from "custom-card-helpers";
 import { HassEntity } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
 import { styleMap } from "lit/directives/style-map.js";
-import { customElement, property, state } from "lit/decorators.js";
+import { customElement, state } from "lit/decorators.js";
 import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
 import { CoverEntity, isClosing, isFullyClosed, isFullyOpen, isOpening, States } from "../../ha/data/cover";
 import { isAvailable } from "../../ha/data/entity";
@@ -20,6 +20,7 @@ import "../../shared/card";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
+import { MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
@@ -45,7 +46,7 @@ registerCustomCard({
 });
 
 @customElement(COVER_CARD_NAME)
-export class CoverCard extends LitElement implements LovelaceCard {
+export class CoverCard extends MushroomBaseElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./cover-card-editor");
         return document.createElement(COVER_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -59,8 +60,6 @@ export class CoverCard extends LitElement implements LovelaceCard {
             entity: covers[0],
         };
     }
-
-    @property({ attribute: false }) public hass!: HomeAssistant;
 
     @state() private _config?: CoverCardConfig;
 
@@ -216,7 +215,7 @@ export class CoverCard extends LitElement implements LovelaceCard {
             iconStyle["--icon-color"] = `rgb(var(--rgb-state-cover-${currentState}))`;
             iconStyle["--shape-color"] = `rgba(var(--rgb-state-cover-${currentState}), 0.2)`;
         }
-        
+
         return html`
             <mushroom-shape-icon
                 slot="icon"
@@ -279,6 +278,7 @@ export class CoverCard extends LitElement implements LovelaceCard {
 
     static get styles(): CSSResultGroup {
         return [
+            super.styles,
             cardStyle,
             css`
                 mushroom-state-item {

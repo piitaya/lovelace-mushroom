@@ -1,11 +1,7 @@
 import { css } from "lit";
 import { any, object, string } from "superstruct";
-import { colorCss } from "./colors";
 
 export const configElementStyle = css`
-    :host {
-        ${colorCss}
-    }
     ha-switch {
         padding: 16px 6px;
     }

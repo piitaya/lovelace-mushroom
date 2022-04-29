@@ -8,12 +8,13 @@ import {
     LovelaceCardEditor,
 } from "custom-card-helpers";
 import { Connection, UnsubscribeFunc } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
+import { customElement, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
+import { MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
 import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
@@ -33,7 +34,7 @@ const TEMPLATE_KEYS = ["icon", "icon_color", "primary", "secondary"] as const;
 type TemplateKey = typeof TEMPLATE_KEYS[number];
 
 @customElement(TEMPLATE_CARD_NAME)
-export class TemplateCard extends LitElement implements LovelaceCard {
+export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./template-card-editor");
         return document.createElement(TEMPLATE_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -47,8 +48,6 @@ export class TemplateCard extends LitElement implements LovelaceCard {
             icon: "mdi:home",
         };
     }
-
-    @property({ attribute: false }) public hass!: HomeAssistant;
 
     @state() private _config?: TemplateCardConfig;
 
@@ -259,6 +258,7 @@ export class TemplateCard extends LitElement implements LovelaceCard {
 
     static get styles(): CSSResultGroup {
         return [
+            super.styles,
             cardStyle,
             css`
                 mushroom-state-item {

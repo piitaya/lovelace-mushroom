@@ -63,6 +63,10 @@ export class EntityChip extends LitElement implements LovelaceChip {
         const icon = this._config.icon || stateIcon(entity);
         const iconColor = this._config.icon_color;
 
+        const picture = this._config.use_entity_picture
+            ? entity.attributes.entity_picture
+            : undefined;
+
         const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
         const active = isActive(entity);
@@ -91,14 +95,26 @@ export class EntityChip extends LitElement implements LovelaceChip {
                     hasHold: hasAction(this._config.hold_action),
                     hasDoubleClick: hasAction(this._config.double_tap_action),
                 })}
+                avatar=${picture}
             >
-                <ha-icon
-                    .icon=${icon}
-                    style=${styleMap(iconStyle)}
-                    class=${classMap({ active })}
-                ></ha-icon>
+                ${!picture ? this.renderIcon(icon, iconColor, active) : null}
                 ${content ? html`<span>${content}</span>` : null}
             </mushroom-chip>
+        `;
+    }
+
+    renderIcon(icon: string, iconColor: string | undefined, active: boolean): TemplateResult {
+        const iconStyle = {};
+        if (iconColor) {
+            const iconRgbColor = computeRgbColor(iconColor);
+            iconStyle["--color"] = `rgb(${iconRgbColor})`;
+        }
+        return html`
+            <ha-icon
+                .icon=${icon}
+                style=${styleMap(iconStyle)}
+                class=${classMap({ active })}
+            ></ha-icon>
         `;
     }
 
