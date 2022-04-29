@@ -1,8 +1,11 @@
-import { fireEvent, HomeAssistant, LovelaceCardEditor } from "custom-card-helpers";
-import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { fireEvent, LovelaceCardEditor } from "custom-card-helpers";
+import { CSSResultGroup, html, TemplateResult } from "lit";
+import { customElement, state } from "lit/decorators.js";
+import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
+import { atLeastHaVersion } from "../../ha/util";
 import setupCustomlocalize from "../../localize";
+import { MushroomBaseElement } from "../../utils/base-element";
 import { configElementStyle } from "../../utils/editor-styles";
 import { GENERIC_FIELDS } from "../../utils/form/fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
@@ -12,12 +15,32 @@ import { TemplateCardConfig, templateCardConfigStruct } from "./template-card-co
 
 export const TEMPLATE_FIELDS = ["content", "primary", "secondary", "multiline_secondary"];
 
-const SCHEMA: HaFormSchema[] = [
+const computeSchema = memoizeOne((version: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: {} } },
-    { name: "icon", selector: { text: { multiline: true } } },
-    { name: "icon_color", selector: { text: { multiline: true } } },
-    { name: "primary", selector: { text: { multiline: true } } },
-    { name: "secondary", selector: { text: { multiline: true } } },
+    {
+        name: "icon",
+        selector: atLeastHaVersion(version, 2022, 5)
+            ? { template: {} }
+            : { text: { multiline: true } },
+    },
+    {
+        name: "icon_color",
+        selector: atLeastHaVersion(version, 2022, 5)
+            ? { template: {} }
+            : { text: { multiline: true } },
+    },
+    {
+        name: "primary",
+        selector: atLeastHaVersion(version, 2022, 5)
+            ? { template: {} }
+            : { text: { multiline: true } },
+    },
+    {
+        name: "secondary",
+        selector: atLeastHaVersion(version, 2022, 5)
+            ? { template: {} }
+            : { text: { multiline: true } },
+    },
     {
         type: "grid",
         name: "",
@@ -29,12 +52,10 @@ const SCHEMA: HaFormSchema[] = [
     { name: "tap_action", selector: { "mush-action": {} } },
     { name: "hold_action", selector: { "mush-action": {} } },
     { name: "double_tap_action", selector: { "mush-action": {} } },
-];
+]);
 
 @customElement(TEMPLATE_CARD_EDITOR_NAME)
-export class TemplateCardEditor extends LitElement implements LovelaceCardEditor {
-    @property({ attribute: false }) public hass?: HomeAssistant;
-
+export class TemplateCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
     @state() private _config?: TemplateCardConfig;
 
     connectedCallback() {
@@ -73,7 +94,7 @@ export class TemplateCardEditor extends LitElement implements LovelaceCardEditor
             <ha-form
                 .hass=${this.hass}
                 .data=${this._config}
-                .schema=${SCHEMA}
+                .schema=${computeSchema(this.hass!.connection.haVersion)}
                 .computeLabel=${this._computeLabelCallback}
                 @value-changed=${this._valueChanged}
             ></ha-form>
@@ -85,6 +106,6 @@ export class TemplateCardEditor extends LitElement implements LovelaceCardEditor
     }
 
     static get styles(): CSSResultGroup {
-        return configElementStyle;
+        return [super.styles, configElementStyle];
     }
 }

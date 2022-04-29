@@ -6,6 +6,7 @@ dist
 !.hass_dev/lovelace-mushroom-showcase.yaml
 !.hass_dev/views
 !.hass_dev/www
+.hass_dev/www/community/*
 
 # Mac OS
 .DS_Store

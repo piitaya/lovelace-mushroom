@@ -61,6 +61,9 @@
                 "show_buttons_control": "按鈕控制?",
                 "show_position_control": "位置控制?"
             },
+            "alarm_control_panel": {
+                "show_keypad": "顯示鍵盤"
+            },
             "template": {
                 "primary": "主要訊息",
                 "secondary": "次要訊息",
@@ -119,7 +122,6 @@
             },
             "chip-picker": {
                 "chips": "Chips",
-                "details": "點擊編輯按鈕來查看詳細訊息",
                 "add": "新增 chip",
                 "edit": "編輯",
                 "clear": "清除",

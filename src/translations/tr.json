@@ -95,7 +95,6 @@
             },
             "chip-picker": {
                 "chips": "Chips",
-                "details": "Düzenleme butonuna basıldığında detaylar görüntülenir",
                 "add": "Chip ekle",
                 "edit": "Düzenle",
                 "clear": "Temizle",

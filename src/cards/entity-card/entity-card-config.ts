@@ -10,6 +10,7 @@ export interface EntityCardConfig extends LovelaceCardConfig {
     icon?: string;
     name?: string;
     icon_color?: string;
+    use_entity_picture?: boolean;
     hide_icon?: boolean;
     layout?: Layout;
     primary_info?: Info;
@@ -26,6 +27,7 @@ export const entityCardConfigStruct = assign(
         icon: optional(string()),
         name: optional(string()),
         icon_color: optional(string()),
+        use_entity_picture: optional(boolean()),
         hide_icon: optional(boolean()),
         layout: optional(layoutStruct),
         primary_info: optional(enums(INFOS)),

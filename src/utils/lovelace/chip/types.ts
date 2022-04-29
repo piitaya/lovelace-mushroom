@@ -41,6 +41,7 @@ export type EntityChipConfig = {
     content_info?: Info;
     icon?: string;
     icon_color?: string;
+    use_entity_picture?: boolean;
     tap_action?: ActionConfig;
     hold_action?: ActionConfig;
     double_tap_action?: ActionConfig;

@@ -16,6 +16,7 @@ export type HaFormSchema =
     | HaFormBooleanSchema
     | HaFormSelectSchema
     | HaFormMultiSelectSchema
+    | HaFormTemplateSchema
     | HaFormTimeSchema
     | HaFormSelector
     | HaFormGridSchema;
@@ -79,6 +80,10 @@ export interface HaFormBooleanSchema extends HaFormBaseSchema {
     type: "boolean";
 }
 
+export interface HaFormTemplateSchema extends HaFormBaseSchema {
+    type: "template";
+}
+
 export interface HaFormTimeSchema extends HaFormBaseSchema {
     type: "positive_time_period_dict";
 }
@@ -94,6 +99,7 @@ export type HaFormData =
     | HaFormBooleanData
     | HaFormSelectData
     | HaFormMultiSelectData
+    | HaFormTemplateData
     | HaFormTimeData;
 
 export type HaFormStringData = string;
@@ -102,6 +108,7 @@ export type HaFormFloatData = number;
 export type HaFormBooleanData = boolean;
 export type HaFormSelectData = string;
 export type HaFormMultiSelectData = string[];
+export type HaFormTemplateData = string;
 export type HaFormTimeData = HaDurationData;
 
 export interface HaFormElement extends LitElement {

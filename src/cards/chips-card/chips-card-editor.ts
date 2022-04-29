@@ -1,6 +1,6 @@
-import { fireEvent, HASSDomEvent, HomeAssistant, LovelaceCardEditor } from "custom-card-helpers";
-import { html, LitElement, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { fireEvent, HASSDomEvent, LovelaceCardEditor } from "custom-card-helpers";
+import { html, TemplateResult } from "lit";
+import { customElement, state } from "lit/decorators.js";
 import {
     any,
     array,
@@ -17,6 +17,7 @@ import {
 import setupCustomlocalize from "../../localize";
 import "../../shared/editor/alignment-picker";
 import { actionConfigStruct } from "../../utils/action-struct";
+import { MushroomBaseElement } from "../../utils/base-element";
 import { baseLovelaceCardConfig } from "../../utils/editor-styles";
 import { loadHaComponents } from "../../utils/loader";
 import { LovelaceChipConfig } from "../../utils/lovelace/chip/types";
@@ -52,6 +53,7 @@ const entityChipConfigStruct = object({
     content_info: optional(string()),
     icon: optional(string()),
     icon_color: optional(string()),
+    use_entity_picture: optional(boolean()),
     tap_action: optional(actionConfigStruct),
     hold_action: optional(actionConfigStruct),
     double_tap_action: optional(actionConfigStruct),
@@ -142,9 +144,7 @@ const cardConfigStruct = assign(
 );
 
 @customElement(CHIPS_CARD_EDITOR_NAME)
-export class ChipsCardEditor extends LitElement implements LovelaceCardEditor {
-    @property({ attribute: false }) public hass?: HomeAssistant;
-
+export class ChipsCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
     @state() private _config?: ChipsCardConfig;
 
     @state() private _subElementEditorConfig?: SubElementEditorConfig;

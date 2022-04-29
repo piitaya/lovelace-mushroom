@@ -1,9 +1,10 @@
-import { fireEvent, HomeAssistant, LocalizeFunc, LovelaceCardEditor } from "custom-card-helpers";
-import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { fireEvent, LocalizeFunc, LovelaceCardEditor } from "custom-card-helpers";
+import { CSSResultGroup, html, TemplateResult } from "lit";
+import { customElement, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import setupCustomlocalize from "../../localize";
+import { MushroomBaseElement } from "../../utils/base-element";
 import { configElementStyle } from "../../utils/editor-styles";
 import { Action } from "../../utils/form/custom/ha-selector-mushroom-action";
 import { GENERIC_FIELDS } from "../../utils/form/fields";
@@ -53,9 +54,7 @@ const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaForm
 ]);
 
 @customElement(ALARM_CONTROl_PANEL_CARD_EDITOR_NAME)
-export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
-    @property({ attribute: false }) public hass?: HomeAssistant;
-
+export class SwitchCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
     @state() private _config?: AlarmControlPanelCardConfig;
 
     connectedCallback() {
@@ -112,6 +111,6 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
     }
 
     static get styles(): CSSResultGroup {
-        return [configElementStyle];
+        return [super.styles, configElementStyle];
     }
 }
