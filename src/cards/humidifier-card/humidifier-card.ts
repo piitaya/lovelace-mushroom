@@ -32,6 +32,7 @@ import {
 import "./controls/humidifier-humidity-control";
 import "./controls/humidifier-buttons-control";
 import { HumidifierCardConfig } from "./humidifier-card-config";
+import { MushroomBaseElement } from "../../utils/base-element";
 
 registerCustomCard({
     type: HUMIDIFIER_CARD_NAME,
@@ -40,7 +41,7 @@ registerCustomCard({
 });
 
 @customElement(HUMIDIFIER_CARD_NAME)
-export class HumidifierCard extends LitElement implements LovelaceCard {
+export class HumidifierCard extends MushroomBaseElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./humidifier-card-editor");
         return document.createElement(HUMIDIFIER_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -56,8 +57,6 @@ export class HumidifierCard extends LitElement implements LovelaceCard {
             entity: humidifiers[0],
         };
     }
-
-    @property({ attribute: false }) public hass!: HomeAssistant;
 
     @state() private _config?: HumidifierCardConfig;
 
@@ -191,6 +190,7 @@ export class HumidifierCard extends LitElement implements LovelaceCard {
 
     static get styles(): CSSResultGroup {
         return [
+            super.styles,
             cardStyle,
             css`
                 mushroom-state-item {

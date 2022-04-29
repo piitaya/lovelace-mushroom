@@ -4,6 +4,7 @@ import { customElement, property, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import setupCustomlocalize from "../../localize";
+import { MushroomBaseElement } from "../../utils/base-element";
 import { configElementStyle } from "../../utils/editor-styles";
 import { GENERIC_FIELDS } from "../../utils/form/fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
@@ -46,8 +47,7 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
 ]);
 
 @customElement(HUMIDIFIER_CARD_EDITOR_NAME)
-export class HumidifierCardEditor extends LitElement implements LovelaceCardEditor {
-    @property({ attribute: false }) public hass?: HomeAssistant;
+export class HumidifierCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
 
     @state() private _config?: HumidifierCardConfig;
 
@@ -99,6 +99,6 @@ export class HumidifierCardEditor extends LitElement implements LovelaceCardEdit
     }
 
     static get styles(): CSSResultGroup {
-        return configElementStyle;
+        return [super.styles, configElementStyle];
     }
 }

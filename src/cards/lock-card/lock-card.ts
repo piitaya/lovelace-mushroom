@@ -14,6 +14,7 @@ import { styleMap } from "lit/directives/style-map.js";
 import { isAvailable } from "../../ha/data/entity";
 import { LockEntity, LOCK_ENTITY_DOMAINS } from "../../ha/data/lock";
 import "../../shared/badge-icon";
+import "../../shared/button";
 import "../../shared/card";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
