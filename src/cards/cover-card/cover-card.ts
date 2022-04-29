@@ -12,7 +12,7 @@ import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
 import { styleMap } from "lit/directives/style-map.js";
 import { customElement, state } from "lit/decorators.js";
 import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
-import { CoverEntity, isClosing, isFullyClosed, isFullyOpen, isOpening, States } from "../../ha/data/cover";
+import { CoverEntity, isClosing, isFullyClosed, isFullyOpen, isOpening } from "../../ha/data/cover";
 import { isAvailable } from "../../ha/data/entity";
 import "../../shared/badge-icon";
 import "../../shared/button";
@@ -210,7 +210,7 @@ export class CoverCard extends MushroomBaseElement implements LovelaceCard {
             "--shape-color": "rgba(var(--rgb-state-cover), 0.2)",
         };
 
-        const currentState = this.getCurrentState(entity);
+        const currentState = this.getStyleState(entity);
         if (currentState) {
             iconStyle["--icon-color"] = `rgb(var(--rgb-state-cover-${currentState}))`;
             iconStyle["--shape-color"] = `rgba(var(--rgb-state-cover-${currentState}), 0.2)`;
@@ -226,11 +226,9 @@ export class CoverCard extends MushroomBaseElement implements LovelaceCard {
         `;
     }
 
-    private getCurrentState(entity: CoverEntity): string | null {
-        if (isFullyOpen(entity)) return States.OPEN
-        if (isFullyClosed(entity)) return States.CLOSED
-        if (isOpening(entity)) return States.OPENING
-        if (isClosing(entity)) return States.CLOSING
+    private getStyleState(entity: CoverEntity): string | null {
+        if (isFullyOpen(entity) || isOpening(entity)) return "open"
+        if (isFullyClosed(entity) || isClosing(entity)) return "closed"
         return null;
     }
 
@@ -256,7 +254,7 @@ export class CoverCard extends MushroomBaseElement implements LovelaceCard {
                     />
                 `;
             case "position_control":
-                const currentState = this.getCurrentState(entity as CoverEntity);
+                const currentState = this.getStyleState(entity as CoverEntity);
                 const style = {}
                 if (currentState) {
                     style["--slider-color"] = `rgb(var(--rgb-state-cover-${currentState}))`;
