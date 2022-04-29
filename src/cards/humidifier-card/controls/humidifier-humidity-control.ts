@@ -1,5 +1,5 @@
 import { HomeAssistant } from "custom-card-helpers";
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { isActive, isAvailable } from "../../../ha/data/entity";

@@ -7,8 +7,8 @@ import {
     LovelaceCard,
     LovelaceCardEditor,
 } from "custom-card-helpers";
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { css, CSSResultGroup, html, TemplateResult } from "lit";
+import { customElement, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
 import { isActive, isAvailable } from "../../ha/data/entity";
