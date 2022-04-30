@@ -67,9 +67,6 @@ export class UpdateCard extends MushroomBaseElement implements LovelaceCard {
             hold_action: {
                 action: "more-info",
             },
-            double_tap_action: {
-                action: "more-info",
-            },
             ...config,
         };
     }

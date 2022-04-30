@@ -97,9 +97,6 @@ export class AlarmControlPanelCard extends MushroomBaseElement implements Lovela
             hold_action: {
                 action: "more-info",
             },
-            double_tap_action: {
-                action: "more-info",
-            },
             ...config,
         };
         this.loadComponents();

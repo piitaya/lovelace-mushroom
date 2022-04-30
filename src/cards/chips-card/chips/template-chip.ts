@@ -60,9 +60,6 @@ export class TemplateChip extends LitElement implements LovelaceChip {
             hold_action: {
                 action: "more-info",
             },
-            double_tap_action: {
-                action: "more-info",
-            },
             ...config,
         };
     }

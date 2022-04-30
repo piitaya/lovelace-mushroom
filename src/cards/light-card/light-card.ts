@@ -94,9 +94,6 @@ export class LightCard extends MushroomBaseElement implements LovelaceCard {
             hold_action: {
                 action: "more-info",
             },
-            double_tap_action: {
-                action: "more-info",
-            },
             ...config,
         };
         this.updateControls();
