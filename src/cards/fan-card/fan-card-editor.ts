@@ -6,14 +6,14 @@ import { assert } from "superstruct";
 import setupCustomlocalize from "../../localize";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { configElementStyle } from "../../utils/editor-styles";
-import { GENERIC_FIELDS } from "../../utils/form/fields";
+import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { loadHaComponents } from "../../utils/loader";
 import { FAN_CARD_EDITOR_NAME, FAN_ENTITY_DOMAINS } from "./const";
 import { FanCardConfig, fanCardConfigStruct } from "./fan-card-config";
 
-const FAN_FIELDS = ["icon_animation", "show_percentage_control", "show_oscillate_control"];
+const FAN_LABELS = ["icon_animation", "show_percentage_control", "show_oscillate_control"];
 
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: FAN_ENTITY_DOMAINS } } },
@@ -63,13 +63,13 @@ export class FanCardEditor extends MushroomBaseElement implements LovelaceCardEd
         this._config = config;
     }
 
-    private _computeLabelCallback = (schema: HaFormSchema) => {
+    private _computeLabel = (schema: HaFormSchema) => {
         const customLocalize = setupCustomlocalize(this.hass!);
 
-        if (GENERIC_FIELDS.includes(schema.name)) {
+        if (GENERIC_LABELS.includes(schema.name)) {
             return customLocalize(`editor.card.generic.${schema.name}`);
         }
-        if (FAN_FIELDS.includes(schema.name)) {
+        if (FAN_LABELS.includes(schema.name)) {
             return customLocalize(`editor.card.fan.${schema.name}`);
         }
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
@@ -90,7 +90,7 @@ export class FanCardEditor extends MushroomBaseElement implements LovelaceCardEd
                 .hass=${this.hass}
                 .data=${this._config}
                 .schema=${schema}
-                .computeLabel=${this._computeLabelCallback}
+                .computeLabel=${this._computeLabel}
                 @value-changed=${this._valueChanged}
             ></ha-form>
         `;

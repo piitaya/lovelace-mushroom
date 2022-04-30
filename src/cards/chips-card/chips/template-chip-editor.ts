@@ -3,12 +3,12 @@ import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import setupCustomlocalize from "../../../localize";
 import { configElementStyle } from "../../../utils/editor-styles";
-import { GENERIC_FIELDS } from "../../../utils/form/fields";
+import { GENERIC_LABELS } from "../../../utils/form/generic-fields";
 import { HaFormSchema } from "../../../utils/form/ha-form";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
 import { TemplateChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
-import { TEMPLATE_FIELDS } from "../../template-card/template-card-editor";
+import { TEMPLATE_LABELS } from "../../template-card/template-card-editor";
 import { atLeastHaVersion } from "../../../ha/util";
 import memoizeOne from "memoize-one";
 
@@ -47,7 +47,7 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
         this._config = config;
     }
 
-    private _computeLabelCallback = (schema: HaFormSchema) => {
+    private _computeLabel = (schema: HaFormSchema) => {
         const customLocalize = setupCustomlocalize(this.hass!);
 
         if (schema.name === "entity") {
@@ -55,10 +55,10 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
                 "ui.panel.lovelace.editor.card.generic.entity"
             )} (${customLocalize("editor.card.template.entity_extra")})`;
         }
-        if (GENERIC_FIELDS.includes(schema.name)) {
+        if (GENERIC_LABELS.includes(schema.name)) {
             return customLocalize(`editor.card.generic.${schema.name}`);
         }
-        if (TEMPLATE_FIELDS.includes(schema.name)) {
+        if (TEMPLATE_LABELS.includes(schema.name)) {
             return customLocalize(`editor.card.template.${schema.name}`);
         }
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
@@ -74,7 +74,7 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
                 .hass=${this.hass}
                 .data=${this._config}
                 .schema=${computeSchema(this.hass!.connection.haVersion)}
-                .computeLabel=${this._computeLabelCallback}
+                .computeLabel=${this._computeLabel}
                 @value-changed=${this._valueChanged}
             ></ha-form>
         `;

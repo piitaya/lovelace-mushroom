@@ -10,7 +10,7 @@ import { loadHaComponents } from "../../utils/loader";
 import { TITLE_CARD_EDITOR_NAME } from "./const";
 import { TitleCardConfig, titleCardConfigStruct } from "./title-card-config";
 
-const TITLE_FIELDS = ["title", "subtitle"];
+const TITLE_LABELS = ["title", "subtitle"];
 
 const SCHEMA: HaFormSchema[] = [
     { name: "title", selector: { text: { multiline: true } } },
@@ -32,10 +32,10 @@ export class TitleCardEditor extends MushroomBaseElement implements LovelaceCard
         this._config = config;
     }
 
-    private _computeLabelCallback = (schema: HaFormSchema) => {
+    private _computeLabel = (schema: HaFormSchema) => {
         const customLocalize = setupCustomlocalize(this.hass!);
 
-        if (TITLE_FIELDS.includes(schema.name)) {
+        if (TITLE_LABELS.includes(schema.name)) {
             return customLocalize(`editor.card.title.${schema.name}`);
         }
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
@@ -51,7 +51,7 @@ export class TitleCardEditor extends MushroomBaseElement implements LovelaceCard
                 .hass=${this.hass}
                 .data=${this._config}
                 .schema=${SCHEMA}
-                .computeLabel=${this._computeLabelCallback}
+                .computeLabel=${this._computeLabel}
                 @value-changed=${this._valueChanged}
             ></ha-form>
         `;
