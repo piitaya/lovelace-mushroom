@@ -12,6 +12,7 @@ export interface TemplateCardConfig extends LovelaceCardConfig {
     secondary?: string;
     multiline_secondary?: boolean;
     layout?: Layout;
+    fill_container?: boolean;
     tap_action?: ActionConfig;
     hold_action?: ActionConfig;
     double_tap_action?: ActionConfig;
@@ -28,6 +29,7 @@ export const templateCardConfigStruct = assign(
         secondary: optional(string()),
         multiline_secondary: optional(boolean()),
         layout: optional(layoutStruct),
+        fill_container: optional(boolean()),
         tap_action: optional(actionConfigStruct),
         hold_action: optional(actionConfigStruct),
         double_tap_action: optional(actionConfigStruct),

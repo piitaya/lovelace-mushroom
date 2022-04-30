@@ -9,11 +9,12 @@ export interface LightCardConfig extends LovelaceCardConfig {
     icon?: string;
     name?: string;
     layout?: Layout;
+    fill_container?: boolean;
     hide_state?: boolean;
     show_brightness_control?: boolean;
     show_color_temp_control?: boolean;
     show_color_control?: boolean;
-    collapse_controls?: boolean;
+    collapsible_controls?: boolean;
     use_light_color?: boolean;
     tap_action?: ActionConfig;
     hold_action?: ActionConfig;
@@ -26,13 +27,14 @@ export const lightCardConfigStruct = assign(
         entity: optional(string()),
         icon: optional(string()),
         name: optional(string()),
+        use_light_color: optional(boolean()),
         layout: optional(layoutStruct),
+        fill_container: optional(boolean()),
         hide_state: optional(boolean()),
         show_brightness_control: optional(boolean()),
         show_color_temp_control: optional(boolean()),
         show_color_control: optional(boolean()),
-        collapse_controls: optional(boolean()),
-        use_light_color: optional(boolean()),
+        collapsible_controls: optional(boolean()),
         tap_action: optional(actionConfigStruct),
         hold_action: optional(actionConfigStruct),
         double_tap_action: optional(actionConfigStruct),

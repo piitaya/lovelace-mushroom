@@ -13,7 +13,7 @@ import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
 import { supportsFeature } from "../../ha/common/entity/supports-feature";
-import { isAvailable } from "../../ha/data/entity";
+import { isActive, isAvailable } from "../../ha/data/entity";
 import { UpdateEntity, updateIsInstalling, UPDATE_SUPPORT_INSTALL } from "../../ha/data/update";
 import "../../shared/badge-icon";
 import "../../shared/card";
@@ -100,8 +100,13 @@ export class UpdateCard extends MushroomBaseElement implements LovelaceCard {
 
         const rtl = computeRTL(this.hass);
 
+        const displayControls =
+            (!this._config.collapsible_controls || isActive(entity)) &&
+            this._config.show_buttons_control &&
+            supportsFeature(entity, UPDATE_SUPPORT_INSTALL);
+
         return html`
-            <ha-card>
+            <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
                 <mushroom-card .layout=${layout} ?rtl=${rtl}>
                     <mushroom-state-item
                         ?rtl=${rtl}
@@ -135,8 +140,7 @@ export class UpdateCard extends MushroomBaseElement implements LovelaceCard {
                             .secondary=${stateValue}
                         ></mushroom-state-info>
                     </mushroom-state-item>
-                    ${this._config.show_buttons_control &&
-                    supportsFeature(entity, UPDATE_SUPPORT_INSTALL)
+                    ${displayControls
                         ? html`
                               <div class="actions" ?rtl=${rtl}>
                                   <mushroom-update-buttons-control

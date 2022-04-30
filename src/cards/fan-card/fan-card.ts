@@ -8,7 +8,7 @@ import {
     LovelaceCardEditor,
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
@@ -141,8 +141,12 @@ export class FanCard extends MushroomBaseElement implements LovelaceCard {
 
         const rtl = computeRTL(this.hass);
 
+        const displayControls =
+            (!this._config.collapsible_controls || isActive(entity)) &&
+            (this._config.show_percentage_control || this._config.show_oscillate_control);
+
         return html`
-            <ha-card>
+            <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
                 <mushroom-card .layout=${layout} ?rtl=${rtl}>
                     <mushroom-state-item
                         ?rtl=${rtl}
@@ -177,7 +181,7 @@ export class FanCard extends MushroomBaseElement implements LovelaceCard {
                             .secondary=${!hideState && stateValue}
                         ></mushroom-state-info>
                     </mushroom-state-item>
-                    ${this._config.show_percentage_control || this._config.show_oscillate_control
+                    ${displayControls
                         ? html`
                               <div class="actions" ?rtl=${rtl}>
                                   ${this._config.show_percentage_control

@@ -31,6 +31,7 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
         name: "",
         schema: [
             { name: "layout", selector: { "mush-layout": {} } },
+            { name: "fill_container", selector: { boolean: {} } },
             { name: "hide_state", selector: { boolean: {} } },
         ],
     },
@@ -40,6 +41,7 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
         schema: [
             { name: "show_percentage_control", selector: { boolean: {} } },
             { name: "show_oscillate_control", selector: { boolean: {} } },
+            { name: "collapsible_controls", selector: { boolean: {} } },
         ],
     },
     { name: "tap_action", selector: { "mush-action": {} } },

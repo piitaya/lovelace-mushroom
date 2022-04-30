@@ -65,6 +65,17 @@ cards:
           - volume_mute
           - volume_set
           - volume_buttons
+      - type: custom:mushroom-media-player-card
+        entity: media_player.kitchen
+        name: Collapsible controls
+        media_controls:
+          - shuffle
+          - previous
+          - play_pause_stop
+          - next
+          - repeat
+          - on_off
+        collapsible_controls: true
   - type: vertical-stack
     title: Layout
     cards:
