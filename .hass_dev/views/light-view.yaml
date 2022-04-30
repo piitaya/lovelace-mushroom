@@ -36,7 +36,7 @@ cards:
         use_light_color: true
       - type: custom:mushroom-light-card
         entity: light.bed_light
-        name: Collapsible control
+        name: Collapsible controls
         collapsible_controls: true
         show_brightness_control: true
   - type: vertical-stack
