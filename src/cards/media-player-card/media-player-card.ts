@@ -111,12 +111,13 @@ export class MediaPlayerCard extends MushroomBaseElement implements LovelaceCard
         if (!entity) return;
 
         const controls: MediaPlayerCardControl[] = [];
-
-        if (isMediaControlVisible(entity, this._config?.media_controls)) {
-            controls.push("media_control");
-        }
-        if (isVolumeControlVisible(entity, this._config.volume_controls)) {
-            controls.push("volume_control");
+        if (!this._config.collapsible_controls || isActive(entity)) {
+            if (isMediaControlVisible(entity, this._config?.media_controls)) {
+                controls.push("media_control");
+            }
+            if (isVolumeControlVisible(entity, this._config.volume_controls)) {
+                controls.push("volume_control");
+            }
         }
 
         this._controls = controls;

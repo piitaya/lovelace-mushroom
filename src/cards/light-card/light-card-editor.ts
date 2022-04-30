@@ -41,11 +41,11 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
         type: "grid",
         name: "",
         schema: [
-            { name: "collapsible_controls", selector: { boolean: {} } },
             { name: "use_light_color", selector: { boolean: {} } },
             { name: "show_brightness_control", selector: { boolean: {} } },
             { name: "show_color_temp_control", selector: { boolean: {} } },
             { name: "show_color_control", selector: { boolean: {} } },
+            { name: "collapsible_controls", selector: { boolean: {} } },
         ],
     },
     { name: "tap_action", selector: { "mush-action": {} } },

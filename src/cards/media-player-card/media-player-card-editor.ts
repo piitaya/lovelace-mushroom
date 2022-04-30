@@ -83,6 +83,7 @@ const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaForm
                     },
                 },
             },
+            { name: "collapsible_controls", selector: { boolean: {} } },
         ],
     },
     { name: "tap_action", selector: { "mush-action": {} } },
