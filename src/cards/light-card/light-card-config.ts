@@ -9,6 +9,7 @@ export interface LightCardConfig extends LovelaceCardConfig {
     icon?: string;
     name?: string;
     layout?: Layout;
+    fill_container?: boolean;
     hide_state?: boolean;
     show_brightness_control?: boolean;
     show_color_temp_control?: boolean;
@@ -27,6 +28,7 @@ export const lightCardConfigStruct = assign(
         icon: optional(string()),
         name: optional(string()),
         layout: optional(layoutStruct),
+        fill_container: optional(boolean()),
         hide_state: optional(boolean()),
         show_brightness_control: optional(boolean()),
         show_color_temp_control: optional(boolean()),

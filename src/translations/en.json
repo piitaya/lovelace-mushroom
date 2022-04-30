@@ -40,6 +40,7 @@
                 "hide_icon": "Hide icon?",
                 "icon_color": "Icon color",
                 "layout": "Layout",
+                "fill_container": "Fill container",
                 "primary_info": "Primary information",
                 "secondary_info": "Secondary information",
                 "content_info": "Content",

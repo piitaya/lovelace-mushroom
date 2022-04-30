@@ -31,8 +31,7 @@ export const themeVariables = css`
     /* Slider */
     --slider-threshold: var(--mush-slider-threshold);
     /* Layout */
-    --layout-align: var(--mush-layout-align, start);
-    --layout-height: var(--mush-layout-height, 100%);
+    --layout-align: var(--mush-layout-align, center);
 `;
 
 export const themeColorCss = css`

@@ -7,7 +7,10 @@ export const cardStyle = css`
         display: flex;
         flex-direction: column;
         justify-content: var(--layout-align);
-        height: var(--layout-height);
+        height: auto;
+    }
+    ha-card.fill-container {
+        height: 100%;
     }
     .actions {
         display: flex;

@@ -40,6 +40,7 @@
                 "hide_icon": "Cacher l'icône ?",
                 "icon_color": "Couleur de l'icône",
                 "layout": "Disposition",
+                "fill_container": "Remplir le conteneur",
                 "primary_info": "Information principale",
                 "secondary_info": "Information secondaire",
                 "content_info": "Contenu",

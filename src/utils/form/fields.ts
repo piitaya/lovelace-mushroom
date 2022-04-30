@@ -4,6 +4,7 @@ export const GENERIC_FIELDS = [
     "hide_icon",
     "icon_color",
     "layout",
+    "fill_container",
     "primary_info",
     "secondary_info",
     "content_info",
