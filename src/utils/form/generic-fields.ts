@@ -1,4 +1,4 @@
-export const GENERIC_FIELDS = [
+export const GENERIC_LABELS = [
     "hide_name",
     "hide_state",
     "hide_icon",

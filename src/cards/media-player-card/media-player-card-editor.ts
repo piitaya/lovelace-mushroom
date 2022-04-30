@@ -1,14 +1,14 @@
-import { fireEvent, HomeAssistant, LocalizeFunc, LovelaceCardEditor } from "custom-card-helpers";
-import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { fireEvent, LocalizeFunc, LovelaceCardEditor } from "custom-card-helpers";
+import { html, TemplateResult } from "lit";
+import { customElement, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import setupCustomlocalize from "../../localize";
-import { configElementStyle } from "../../utils/editor-styles";
-import { GENERIC_FIELDS } from "../../utils/form/fields";
+import { MushroomBaseElement } from "../../utils/base-element";
+import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
-import { loadHaComponents } from "../../utils/loader";
 import { stateIcon } from "../../utils/icons/state-icon";
+import { loadHaComponents } from "../../utils/loader";
 import { MEDIA_PLAYER_CARD_EDITOR_NAME, MEDIA_PLAYER_ENTITY_DOMAINS } from "./const";
 import {
     MediaPlayerCardConfig,
@@ -16,9 +16,8 @@ import {
     MEDIA_LAYER_MEDIA_CONTROLS,
     MEDIA_PLAYER_VOLUME_CONTROLS,
 } from "./media-player-card-config";
-import { MushroomBaseElement } from "../../utils/base-element";
 
-export const MEDIA_FIELDS = [
+export const MEDIA_LABELS = [
     "use_media_info",
     "use_media_artwork",
     "media_controls",
@@ -105,13 +104,13 @@ export class MediaCardEditor extends MushroomBaseElement implements LovelaceCard
         this._config = config;
     }
 
-    private _computeLabelCallback = (schema: HaFormSchema) => {
+    private _computeLabel = (schema: HaFormSchema) => {
         const customLocalize = setupCustomlocalize(this.hass!);
 
-        if (GENERIC_FIELDS.includes(schema.name)) {
+        if (GENERIC_LABELS.includes(schema.name)) {
             return customLocalize(`editor.card.generic.${schema.name}`);
         }
-        if (MEDIA_FIELDS.includes(schema.name)) {
+        if (MEDIA_LABELS.includes(schema.name)) {
             return customLocalize(`editor.card.media-player.${schema.name}`);
         }
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
@@ -134,7 +133,7 @@ export class MediaCardEditor extends MushroomBaseElement implements LovelaceCard
                 .hass=${this.hass}
                 .data=${this._config}
                 .schema=${schema}
-                .computeLabel=${this._computeLabelCallback}
+                .computeLabel=${this._computeLabel}
                 @value-changed=${this._valueChanged}
             ></ha-form>
         `;
@@ -142,9 +141,5 @@ export class MediaCardEditor extends MushroomBaseElement implements LovelaceCard
 
     private _valueChanged(ev: CustomEvent): void {
         fireEvent(this, "config-changed", { config: ev.detail.value });
-    }
-
-    static get styles(): CSSResultGroup {
-        return [super.styles, configElementStyle];
     }
 }

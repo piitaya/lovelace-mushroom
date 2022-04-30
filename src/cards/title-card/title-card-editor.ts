@@ -1,16 +1,15 @@
 import { fireEvent, LovelaceCardEditor } from "custom-card-helpers";
-import { CSSResultGroup, html, TemplateResult } from "lit";
+import { html, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { assert } from "superstruct";
 import setupCustomlocalize from "../../localize";
 import { MushroomBaseElement } from "../../utils/base-element";
-import { configElementStyle } from "../../utils/editor-styles";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { loadHaComponents } from "../../utils/loader";
 import { TITLE_CARD_EDITOR_NAME } from "./const";
 import { TitleCardConfig, titleCardConfigStruct } from "./title-card-config";
 
-const TITLE_FIELDS = ["title", "subtitle"];
+const TITLE_LABELS = ["title", "subtitle"];
 
 const SCHEMA: HaFormSchema[] = [
     { name: "title", selector: { text: { multiline: true } } },
@@ -32,10 +31,10 @@ export class TitleCardEditor extends MushroomBaseElement implements LovelaceCard
         this._config = config;
     }
 
-    private _computeLabelCallback = (schema: HaFormSchema) => {
+    private _computeLabel = (schema: HaFormSchema) => {
         const customLocalize = setupCustomlocalize(this.hass!);
 
-        if (TITLE_FIELDS.includes(schema.name)) {
+        if (TITLE_LABELS.includes(schema.name)) {
             return customLocalize(`editor.card.title.${schema.name}`);
         }
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
@@ -51,7 +50,7 @@ export class TitleCardEditor extends MushroomBaseElement implements LovelaceCard
                 .hass=${this.hass}
                 .data=${this._config}
                 .schema=${SCHEMA}
-                .computeLabel=${this._computeLabelCallback}
+                .computeLabel=${this._computeLabel}
                 @value-changed=${this._valueChanged}
             ></ha-form>
         `;
@@ -59,9 +58,5 @@ export class TitleCardEditor extends MushroomBaseElement implements LovelaceCard
 
     private _valueChanged(ev: CustomEvent): void {
         fireEvent(this, "config-changed", { config: ev.detail.value });
-    }
-
-    static get styles(): CSSResultGroup {
-        return [super.styles, configElementStyle];
     }
 }

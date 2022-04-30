@@ -11,7 +11,6 @@ import { customElement, property, query, state } from "lit/decorators.js";
 import setupCustomlocalize from "../../../localize";
 import "../../../shared/form/mushroom-select";
 import "../../../shared/form/mushroom-textfield";
-import { configElementStyle } from "../../../utils/editor-styles";
 import { getChipElementClass } from "../../../utils/lovelace/chip-element-editor";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
 import {
@@ -316,55 +315,52 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
     }
 
     static get styles(): CSSResultGroup {
-        return [
-            configElementStyle,
-            css`
-                mwc-tab-bar {
-                    border-bottom: 1px solid var(--divider-color);
-                }
-                .conditions {
-                    margin-top: 8px;
-                }
+        return css`
+            mwc-tab-bar {
+                border-bottom: 1px solid var(--divider-color);
+            }
+            .conditions {
+                margin-top: 8px;
+            }
+            .condition {
+                margin-top: 8px;
+                border: 1px solid var(--divider-color);
+                padding: 12px;
+            }
+            .condition .state {
+                display: flex;
+                align-items: flex-end;
+            }
+            .condition .state mushroom-select {
+                margin-right: 16px;
+            }
+            .condition[rtl] .state mushroom-select {
+                margin-right: initial;
+                margin-left: 16px;
+            }
+            .card {
+                margin-top: 8px;
+                border: 1px solid var(--divider-color);
+                padding: 12px;
+            }
+            .card mushroom-select {
+                width: 100%;
+                margin-top: 0px;
+            }
+            @media (max-width: 450px) {
+                .card,
                 .condition {
-                    margin-top: 8px;
-                    border: 1px solid var(--divider-color);
-                    padding: 12px;
+                    margin: 8px -12px 0;
                 }
-                .condition .state {
-                    display: flex;
-                    align-items: flex-end;
-                }
-                .condition .state mushroom-select {
-                    margin-right: 16px;
-                }
-                .condition[rtl] .state mushroom-select {
-                    margin-right: initial;
-                    margin-left: 16px;
-                }
-                .card {
-                    margin-top: 8px;
-                    border: 1px solid var(--divider-color);
-                    padding: 12px;
-                }
-                .card mushroom-select {
-                    width: 100%;
-                    margin-top: 0px;
-                }
-                @media (max-width: 450px) {
-                    .card,
-                    .condition {
-                        margin: 8px -12px 0;
-                    }
-                }
-                .card .card-options {
-                    display: flex;
-                    justify-content: flex-end;
-                    width: 100%;
-                }
-                .gui-mode-button {
-                    margin-right: auto;
-                }
-            `,
-        ];
+            }
+            .card .card-options {
+                display: flex;
+                justify-content: flex-end;
+                width: 100%;
+            }
+            .gui-mode-button {
+                margin-right: auto;
+            }
+        `;
     }
 }
