@@ -192,7 +192,7 @@ export class AlarmControlPanelCard extends MushroomBaseElement implements Lovela
 
         return html`
             <ha-card>
-                <mushroom-card .layout=${layout} no-card-style ?rtl=${rtl}>
+                <mushroom-card .layout=${layout} ?rtl=${rtl}>
                     <mushroom-state-item
                         ?rtl=${rtl}
                         .layout=${layout}
@@ -288,14 +288,6 @@ export class AlarmControlPanelCard extends MushroomBaseElement implements Lovela
             super.styles,
             cardStyle,
             css`
-                ha-card {
-                    height: 100%;
-                    box-sizing: border-box;
-                    padding: var(--spacing);
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                }
                 mushroom-state-item {
                     cursor: pointer;
                 }

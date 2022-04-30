@@ -101,52 +101,54 @@ export class UpdateCard extends MushroomBaseElement implements LovelaceCard {
         const rtl = computeRTL(this.hass);
 
         return html`
-            <mushroom-card .layout=${layout} ?rtl=${rtl}>
-                <mushroom-state-item
-                    ?rtl=${rtl}
-                    .layout=${layout}
-                    @action=${this._handleAction}
-                    .actionHandler=${actionHandler({
-                        hasHold: hasAction(this._config.hold_action),
-                        hasDoubleClick: hasAction(this._config.double_tap_action),
-                    })}
-                >
-                    ${picture
+            <ha-card>
+                <mushroom-card .layout=${layout} ?rtl=${rtl}>
+                    <mushroom-state-item
+                        ?rtl=${rtl}
+                        .layout=${layout}
+                        @action=${this._handleAction}
+                        .actionHandler=${actionHandler({
+                            hasHold: hasAction(this._config.hold_action),
+                            hasDoubleClick: hasAction(this._config.double_tap_action),
+                        })}
+                    >
+                        ${picture
+                            ? html`
+                                  <mushroom-shape-avatar
+                                      slot="icon"
+                                      .picture_url=${picture}
+                                  ></mushroom-shape-avatar>
+                              `
+                            : this.renderShapeIcon(entity, icon)}
+                        ${!isAvailable(entity)
+                            ? html`
+                                  <mushroom-badge-icon
+                                      class="unavailable"
+                                      slot="badge"
+                                      icon="mdi:help"
+                                  ></mushroom-badge-icon>
+                              `
+                            : null}
+                        <mushroom-state-info
+                            slot="info"
+                            .primary=${name}
+                            .secondary=${stateValue}
+                        ></mushroom-state-info>
+                    </mushroom-state-item>
+                    ${this._config.show_buttons_control &&
+                    supportsFeature(entity, UPDATE_SUPPORT_INSTALL)
                         ? html`
-                              <mushroom-shape-avatar
-                                  slot="icon"
-                                  .picture_url=${picture}
-                              ></mushroom-shape-avatar>
-                          `
-                        : this.renderShapeIcon(entity, icon)}
-                    ${!isAvailable(entity)
-                        ? html`
-                              <mushroom-badge-icon
-                                  class="unavailable"
-                                  slot="badge"
-                                  icon="mdi:help"
-                              ></mushroom-badge-icon>
+                              <div class="actions" ?rtl=${rtl}>
+                                  <mushroom-update-buttons-control
+                                      .hass=${this.hass}
+                                      .entity=${entity}
+                                      .fill=${layout !== "horizontal"}
+                                  />
+                              </div>
                           `
                         : null}
-                    <mushroom-state-info
-                        slot="info"
-                        .primary=${name}
-                        .secondary=${stateValue}
-                    ></mushroom-state-info>
-                </mushroom-state-item>
-                ${this._config.show_buttons_control &&
-                supportsFeature(entity, UPDATE_SUPPORT_INSTALL)
-                    ? html`
-                          <div class="actions" ?rtl=${rtl}>
-                              <mushroom-update-buttons-control
-                                  .hass=${this.hass}
-                                  .entity=${entity}
-                                  .fill=${layout !== "horizontal"}
-                              />
-                          </div>
-                      `
-                    : null}
-            </mushroom-card>
+                </mushroom-card>
+            </ha-card>
         `;
     }
 

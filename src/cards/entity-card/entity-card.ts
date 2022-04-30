@@ -114,42 +114,44 @@ export class EntityCard extends MushroomBaseElement implements LovelaceCard {
         const rtl = computeRTL(this.hass);
 
         return html`
-            <mushroom-card .layout=${layout} ?rtl=${rtl}>
-                <mushroom-state-item
-                    ?rtl=${rtl}
-                    .layout=${layout}
-                    @action=${this._handleAction}
-                    .actionHandler=${actionHandler({
-                        hasHold: hasAction(this._config.hold_action),
-                        hasDoubleClick: hasAction(this._config.double_tap_action),
-                    })}
-                    .hide_info=${primary == null && secondary == null}
-                    .hide_icon=${hideIcon}
-                >
-                    ${picture
-                        ? html`
-                              <mushroom-shape-avatar
-                                  slot="icon"
-                                  .picture_url=${picture}
-                              ></mushroom-shape-avatar>
-                          `
-                        : this.renderIcon(icon, iconColor, isActive(entity))}
-                    ${!isAvailable(entity)
-                        ? html`
-                              <mushroom-badge-icon
-                                  class="unavailable"
-                                  slot="badge"
-                                  icon="mdi:help"
-                              ></mushroom-badge-icon>
-                          `
-                        : null}
-                    <mushroom-state-info
-                        slot="info"
-                        .primary=${primary}
-                        .secondary=${secondary}
-                    ></mushroom-state-info>
-                </mushroom-state-item>
-            </mushroom-card>
+            <ha-card>
+                <mushroom-card .layout=${layout} ?rtl=${rtl}>
+                    <mushroom-state-item
+                        ?rtl=${rtl}
+                        .layout=${layout}
+                        @action=${this._handleAction}
+                        .actionHandler=${actionHandler({
+                            hasHold: hasAction(this._config.hold_action),
+                            hasDoubleClick: hasAction(this._config.double_tap_action),
+                        })}
+                        .hide_info=${primary == null && secondary == null}
+                        .hide_icon=${hideIcon}
+                    >
+                        ${picture
+                            ? html`
+                                  <mushroom-shape-avatar
+                                      slot="icon"
+                                      .picture_url=${picture}
+                                  ></mushroom-shape-avatar>
+                              `
+                            : this.renderIcon(icon, iconColor, isActive(entity))}
+                        ${!isAvailable(entity)
+                            ? html`
+                                  <mushroom-badge-icon
+                                      class="unavailable"
+                                      slot="badge"
+                                      icon="mdi:help"
+                                  ></mushroom-badge-icon>
+                              `
+                            : null}
+                        <mushroom-state-info
+                            slot="info"
+                            .primary=${primary}
+                            .secondary=${secondary}
+                        ></mushroom-state-info>
+                    </mushroom-state-item>
+                </mushroom-card>
+            </ha-card>
         `;
     }
 

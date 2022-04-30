@@ -139,7 +139,7 @@ export class LightCard extends MushroomBaseElement implements LovelaceCard {
         if (!entity) return;
 
         const controls: LightCardControl[] = [];
-        if (!this._config.collapse_controls || entity.state == 'on'){
+        if (!this._config.collapse_controls || entity.state == "on") {
             if (this._config.show_brightness_control && supportsBrightnessControl(entity)) {
                 controls.push("brightness_control");
             }
@@ -198,45 +198,47 @@ export class LightCard extends MushroomBaseElement implements LovelaceCard {
         const rtl = computeRTL(this.hass);
 
         return html`
-            <mushroom-card .layout=${layout} ?rtl=${rtl}>
-                <mushroom-state-item
-                    ?rtl=${rtl}
-                    .layout=${layout}
-                    @action=${this._handleAction}
-                    .actionHandler=${actionHandler({
-                        hasHold: hasAction(this._config.hold_action),
-                        hasDoubleClick: hasAction(this._config.double_tap_action),
-                    })}
-                >
-                    <mushroom-shape-icon
-                        slot="icon"
-                        .disabled=${!active}
-                        .icon=${icon}
-                        style=${styleMap(iconStyle)}
-                    ></mushroom-shape-icon>
-                    ${!isAvailable(entity)
+            <ha-card>
+                <mushroom-card .layout=${layout} ?rtl=${rtl}>
+                    <mushroom-state-item
+                        ?rtl=${rtl}
+                        .layout=${layout}
+                        @action=${this._handleAction}
+                        .actionHandler=${actionHandler({
+                            hasHold: hasAction(this._config.hold_action),
+                            hasDoubleClick: hasAction(this._config.double_tap_action),
+                        })}
+                    >
+                        <mushroom-shape-icon
+                            slot="icon"
+                            .disabled=${!active}
+                            .icon=${icon}
+                            style=${styleMap(iconStyle)}
+                        ></mushroom-shape-icon>
+                        ${!isAvailable(entity)
+                            ? html`
+                                  <mushroom-badge-icon
+                                      class="unavailable"
+                                      slot="badge"
+                                      icon="mdi:help"
+                                  ></mushroom-badge-icon>
+                              `
+                            : null}
+                        <mushroom-state-info
+                            slot="info"
+                            .primary=${name}
+                            .secondary=${!hideState && stateValue}
+                        ></mushroom-state-info>
+                    </mushroom-state-item>
+                    ${this._controls.length > 0
                         ? html`
-                              <mushroom-badge-icon
-                                  class="unavailable"
-                                  slot="badge"
-                                  icon="mdi:help"
-                              ></mushroom-badge-icon>
+                              <div class="actions" ?rtl=${rtl}>
+                                  ${this.renderActiveControl(entity)} ${this.renderOtherControls()}
+                              </div>
                           `
                         : null}
-                    <mushroom-state-info
-                        slot="info"
-                        .primary=${name}
-                        .secondary=${!hideState && stateValue}
-                    ></mushroom-state-info>
-                </mushroom-state-item>
-                ${this._controls.length > 0
-                    ? html`
-                          <div class="actions" ?rtl=${rtl}>
-                              ${this.renderActiveControl(entity)} ${this.renderOtherControls()}
-                          </div>
-                      `
-                    : null}
-            </mushroom-card>
+                </mushroom-card>
+            </ha-card>
         `;
     }
 
