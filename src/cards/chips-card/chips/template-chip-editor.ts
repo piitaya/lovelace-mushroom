@@ -1,16 +1,15 @@
 import { fireEvent, HomeAssistant } from "custom-card-helpers";
-import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import memoizeOne from "memoize-one";
+import { atLeastHaVersion } from "../../../ha/util";
 import setupCustomlocalize from "../../../localize";
-import { configElementStyle } from "../../../utils/editor-styles";
 import { GENERIC_LABELS } from "../../../utils/form/generic-fields";
 import { HaFormSchema } from "../../../utils/form/ha-form";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
 import { TemplateChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { TEMPLATE_LABELS } from "../../template-card/template-card-editor";
-import { atLeastHaVersion } from "../../../ha/util";
-import memoizeOne from "memoize-one";
 
 const computeSchema = memoizeOne((version: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: {} } },
@@ -82,9 +81,5 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
 
     private _valueChanged(ev: CustomEvent): void {
         fireEvent(this, "config-changed", { config: ev.detail.value });
-    }
-
-    static get styles(): CSSResultGroup {
-        return configElementStyle;
     }
 }

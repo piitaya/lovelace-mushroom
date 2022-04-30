@@ -1,12 +1,11 @@
-import { fireEvent, HomeAssistant, LovelaceCardEditor } from "custom-card-helpers";
-import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { fireEvent, LovelaceCardEditor } from "custom-card-helpers";
+import { html, TemplateResult } from "lit";
+import { customElement, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import { LOCK_ENTITY_DOMAINS } from "../../ha/data/lock";
 import setupCustomlocalize from "../../localize";
 import { MushroomBaseElement } from "../../utils/base-element";
-import { configElementStyle } from "../../utils/editor-styles";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { stateIcon } from "../../utils/icons/state-icon";
@@ -78,9 +77,5 @@ export class LockCardEditor extends MushroomBaseElement implements LovelaceCardE
 
     private _valueChanged(ev: CustomEvent): void {
         fireEvent(this, "config-changed", { config: ev.detail.value });
-    }
-
-    static get styles(): CSSResultGroup {
-        return [super.styles, configElementStyle];
     }
 }

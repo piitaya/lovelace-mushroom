@@ -1,14 +1,14 @@
-import { fireEvent, HomeAssistant, LocalizeFunc, LovelaceCardEditor } from "custom-card-helpers";
-import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { fireEvent, LocalizeFunc, LovelaceCardEditor } from "custom-card-helpers";
+import { html, TemplateResult } from "lit";
+import { customElement, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import setupCustomlocalize from "../../localize";
-import { configElementStyle } from "../../utils/editor-styles";
+import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
-import { loadHaComponents } from "../../utils/loader";
 import { stateIcon } from "../../utils/icons/state-icon";
+import { loadHaComponents } from "../../utils/loader";
 import { MEDIA_PLAYER_CARD_EDITOR_NAME, MEDIA_PLAYER_ENTITY_DOMAINS } from "./const";
 import {
     MediaPlayerCardConfig,
@@ -16,7 +16,6 @@ import {
     MEDIA_LAYER_MEDIA_CONTROLS,
     MEDIA_PLAYER_VOLUME_CONTROLS,
 } from "./media-player-card-config";
-import { MushroomBaseElement } from "../../utils/base-element";
 
 export const MEDIA_LABELS = [
     "use_media_info",
@@ -142,9 +141,5 @@ export class MediaCardEditor extends MushroomBaseElement implements LovelaceCard
 
     private _valueChanged(ev: CustomEvent): void {
         fireEvent(this, "config-changed", { config: ev.detail.value });
-    }
-
-    static get styles(): CSSResultGroup {
-        return [super.styles, configElementStyle];
     }
 }

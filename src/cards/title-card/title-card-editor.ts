@@ -1,10 +1,9 @@
 import { fireEvent, LovelaceCardEditor } from "custom-card-helpers";
-import { CSSResultGroup, html, TemplateResult } from "lit";
+import { html, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { assert } from "superstruct";
 import setupCustomlocalize from "../../localize";
 import { MushroomBaseElement } from "../../utils/base-element";
-import { configElementStyle } from "../../utils/editor-styles";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { loadHaComponents } from "../../utils/loader";
 import { TITLE_CARD_EDITOR_NAME } from "./const";
@@ -59,9 +58,5 @@ export class TitleCardEditor extends MushroomBaseElement implements LovelaceCard
 
     private _valueChanged(ev: CustomEvent): void {
         fireEvent(this, "config-changed", { config: ev.detail.value });
-    }
-
-    static get styles(): CSSResultGroup {
-        return [super.styles, configElementStyle];
     }
 }

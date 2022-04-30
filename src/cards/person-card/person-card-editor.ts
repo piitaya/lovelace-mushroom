@@ -1,11 +1,10 @@
 import { fireEvent, LovelaceCardEditor } from "custom-card-helpers";
-import { CSSResultGroup, html, TemplateResult } from "lit";
+import { html, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import setupCustomlocalize from "../../localize";
 import { MushroomBaseElement } from "../../utils/base-element";
-import { configElementStyle } from "../../utils/editor-styles";
 import { Action } from "../../utils/form/custom/ha-selector-mushroom-action";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
@@ -88,9 +87,5 @@ export class SwitchCardEditor extends MushroomBaseElement implements LovelaceCar
 
     private _valueChanged(ev: CustomEvent): void {
         fireEvent(this, "config-changed", { config: ev.detail.value });
-    }
-
-    static get styles(): CSSResultGroup {
-        return [super.styles, configElementStyle];
     }
 }
