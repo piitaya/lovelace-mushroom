@@ -32,6 +32,7 @@ export interface MediaPlayerCardConfig extends LovelaceCardConfig {
     volume_controls?: MediaPlayerVolumeControl[];
     media_controls?: MediaPlayerMediaControl[];
     layout?: Layout;
+    fill_container?: boolean;
     tap_action?: ActionConfig;
     hold_action?: ActionConfig;
     double_tap_action?: ActionConfig;
@@ -48,6 +49,7 @@ export const mediaPlayerCardConfigStruct = assign(
         volume_controls: optional(array(enums(MEDIA_PLAYER_VOLUME_CONTROLS))),
         media_controls: optional(array(enums(MEDIA_LAYER_MEDIA_CONTROLS))),
         layout: optional(layoutStruct),
+        fill_container: optional(boolean()),
         tap_action: optional(actionConfigStruct),
         hold_action: optional(actionConfigStruct),
         double_tap_action: optional(actionConfigStruct),

@@ -7,8 +7,9 @@ import {
     LovelaceCard,
     LovelaceCardEditor,
 } from "custom-card-helpers";
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { css, CSSResultGroup, html, TemplateResult } from "lit";
+import { customElement, state } from "lit/decorators.js";
+import { classMap } from "lit/directives/class-map.js";
 import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
 import { isActive, isAvailable } from "../../ha/data/entity";
 import { VacuumEntity } from "../../ha/data/vacuum";
@@ -97,7 +98,7 @@ export class VacuumCard extends MushroomBaseElement implements LovelaceCard {
         const rtl = computeRTL(this.hass);
 
         return html`
-            <ha-card>
+            <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
                 <mushroom-card .layout=${layout} ?rtl=${rtl}>
                     <mushroom-state-item
                         ?rtl=${rtl}

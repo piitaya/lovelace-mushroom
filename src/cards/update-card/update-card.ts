@@ -101,7 +101,7 @@ export class UpdateCard extends MushroomBaseElement implements LovelaceCard {
         const rtl = computeRTL(this.hass);
 
         return html`
-            <ha-card>
+            <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
                 <mushroom-card .layout=${layout} ?rtl=${rtl}>
                     <mushroom-state-item
                         ?rtl=${rtl}

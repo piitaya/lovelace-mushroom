@@ -9,6 +9,7 @@ export interface FanCardConfig extends LovelaceCardConfig {
     icon?: string;
     name?: string;
     layout?: Layout;
+    fill_container?: boolean;
     hide_state?: boolean;
     icon_animation?: boolean;
     show_percentage_control?: boolean;
@@ -26,6 +27,7 @@ export const fanCardConfigStruct = assign(
         icon: optional(string()),
         icon_animation: optional(boolean()),
         layout: optional(layoutStruct),
+        fill_container: optional(boolean()),
         hide_state: optional(boolean()),
         show_percentage_control: optional(boolean()),
         show_oscillate_control: optional(boolean()),

@@ -10,6 +10,7 @@ import {
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
+import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { isActive, isAvailable } from "../../ha/data/entity";
 import "../../shared/badge-icon";
@@ -103,7 +104,7 @@ export class PersonCard extends MushroomBaseElement implements LovelaceCard {
         const rtl = computeRTL(this.hass);
 
         return html`
-            <ha-card>
+            <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
                 <mushroom-card .layout=${layout} ?rtl=${rtl}>
                     <div class="container">
                         <mushroom-state-item

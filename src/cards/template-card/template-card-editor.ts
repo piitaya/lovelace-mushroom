@@ -46,6 +46,7 @@ const computeSchema = memoizeOne((version: string): HaFormSchema[] => [
         name: "",
         schema: [
             { name: "layout", selector: { "mush-layout": {} } },
+            { name: "fill_container", selector: { boolean: {} } },
             { name: "multiline_secondary", selector: { boolean: {} } },
         ],
     },
