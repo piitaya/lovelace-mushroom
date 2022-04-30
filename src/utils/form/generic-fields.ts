@@ -10,4 +10,7 @@ export const GENERIC_LABELS = [
     "content_info",
     "use_entity_picture",
     "collapsible_controls",
+    "theme_variables",
 ];
+
+export const GENERIC_HELPERS = ["theme_variables"];

@@ -27,6 +27,7 @@ import { actionHandler } from "../../utils/directives/action-handler-directive";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { getInfo } from "../../utils/info";
 import { getLayoutFromConfig } from "../../utils/layout";
+import { computeThemeVariablesStyle } from "../../utils/theme";
 import { ENTITY_CARD_EDITOR_NAME, ENTITY_CARD_NAME } from "./const";
 import { EntityCardConfig } from "./entity-card-config";
 
@@ -110,9 +111,13 @@ export class EntityCard extends MushroomBaseElement implements LovelaceCard {
         const iconColor = this._config.icon_color;
 
         const rtl = computeRTL(this.hass);
+        const style = computeThemeVariablesStyle(this._config.theme_variables);
 
         return html`
-            <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
+            <ha-card
+                class=${classMap({ "fill-container": this._config.fill_container ?? false })}
+                style=${styleMap(style)}
+            >
                 <mushroom-card .layout=${layout} ?rtl=${rtl}>
                     <mushroom-state-item
                         ?rtl=${rtl}

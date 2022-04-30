@@ -5,7 +5,7 @@ import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import setupCustomlocalize from "../../localize";
 import { MushroomBaseElement } from "../../utils/base-element";
-import { GENERIC_LABELS } from "../../utils/form/generic-fields";
+import { GENERIC_HELPERS, GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { loadHaComponents } from "../../utils/loader";
@@ -44,6 +44,7 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     { name: "tap_action", selector: { "mush-action": {} } },
     { name: "hold_action", selector: { "mush-action": {} } },
     { name: "double_tap_action", selector: { "mush-action": {} } },
+    { name: "theme_variables", selector: { object: {} } },
 ]);
 
 @customElement(ENTITY_CARD_EDITOR_NAME)
@@ -69,6 +70,15 @@ export class EntityCardEditor extends MushroomBaseElement implements LovelaceCar
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
     };
 
+    private _computeHelper = (schema: HaFormSchema) => {
+        const customLocalize = setupCustomlocalize(this.hass!);
+
+        if (GENERIC_HELPERS.includes(schema.name)) {
+            return customLocalize(`editor.card.generic.${schema.name}_helper`);
+        }
+        return "";
+    };
+
     protected render(): TemplateResult {
         if (!this.hass || !this._config) {
             return html``;
@@ -85,6 +95,7 @@ export class EntityCardEditor extends MushroomBaseElement implements LovelaceCar
                 .data=${this._config}
                 .schema=${schema}
                 .computeLabel=${this._computeLabel}
+                .computeHelper=${this._computeHelper}
                 @value-changed=${this._valueChanged}
             ></ha-form>
         `;
