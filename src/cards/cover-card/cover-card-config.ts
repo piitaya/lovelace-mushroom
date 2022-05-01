@@ -9,6 +9,7 @@ export interface CoverCardConfig extends LovelaceCardConfig {
     icon?: string;
     name?: string;
     layout?: Layout;
+    fill_container?: boolean;
     hide_state?: boolean;
     show_buttons_control?: false;
     show_position_control?: false;
@@ -24,6 +25,7 @@ export const coverCardConfigStruct = assign(
         icon: optional(string()),
         name: optional(string()),
         layout: optional(layoutStruct),
+        fill_container: optional(boolean()),
         hide_state: optional(boolean()),
         show_buttons_control: optional(boolean()),
         show_position_control: optional(boolean()),

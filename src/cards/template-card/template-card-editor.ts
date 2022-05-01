@@ -1,19 +1,18 @@
 import { fireEvent, LovelaceCardEditor } from "custom-card-helpers";
-import { CSSResultGroup, html, TemplateResult } from "lit";
+import { html, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import { atLeastHaVersion } from "../../ha/util";
 import setupCustomlocalize from "../../localize";
 import { MushroomBaseElement } from "../../utils/base-element";
-import { configElementStyle } from "../../utils/editor-styles";
-import { GENERIC_FIELDS } from "../../utils/form/fields";
+import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { loadHaComponents } from "../../utils/loader";
 import { TEMPLATE_CARD_EDITOR_NAME } from "./const";
 import { TemplateCardConfig, templateCardConfigStruct } from "./template-card-config";
 
-export const TEMPLATE_FIELDS = ["content", "primary", "secondary", "multiline_secondary"];
+export const TEMPLATE_LABELS = ["content", "primary", "secondary", "multiline_secondary"];
 
 const computeSchema = memoizeOne((version: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: {} } },
@@ -46,6 +45,7 @@ const computeSchema = memoizeOne((version: string): HaFormSchema[] => [
         name: "",
         schema: [
             { name: "layout", selector: { "mush-layout": {} } },
+            { name: "fill_container", selector: { boolean: {} } },
             { name: "multiline_secondary", selector: { boolean: {} } },
         ],
     },
@@ -68,7 +68,7 @@ export class TemplateCardEditor extends MushroomBaseElement implements LovelaceC
         this._config = config;
     }
 
-    private _computeLabelCallback = (schema: HaFormSchema) => {
+    private _computeLabel = (schema: HaFormSchema) => {
         const customLocalize = setupCustomlocalize(this.hass!);
 
         if (schema.name === "entity") {
@@ -76,10 +76,10 @@ export class TemplateCardEditor extends MushroomBaseElement implements LovelaceC
                 "ui.panel.lovelace.editor.card.generic.entity"
             )} (${customLocalize("editor.card.template.entity_extra")})`;
         }
-        if (GENERIC_FIELDS.includes(schema.name)) {
+        if (GENERIC_LABELS.includes(schema.name)) {
             return customLocalize(`editor.card.generic.${schema.name}`);
         }
-        if (TEMPLATE_FIELDS.includes(schema.name)) {
+        if (TEMPLATE_LABELS.includes(schema.name)) {
             return customLocalize(`editor.card.template.${schema.name}`);
         }
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
@@ -95,7 +95,7 @@ export class TemplateCardEditor extends MushroomBaseElement implements LovelaceC
                 .hass=${this.hass}
                 .data=${this._config}
                 .schema=${computeSchema(this.hass!.connection.haVersion)}
-                .computeLabel=${this._computeLabelCallback}
+                .computeLabel=${this._computeLabel}
                 @value-changed=${this._valueChanged}
             ></ha-form>
         `;
@@ -103,9 +103,5 @@ export class TemplateCardEditor extends MushroomBaseElement implements LovelaceC
 
     private _valueChanged(ev: CustomEvent): void {
         fireEvent(this, "config-changed", { config: ev.detail.value });
-    }
-
-    static get styles(): CSSResultGroup {
-        return [super.styles, configElementStyle];
     }
 }
