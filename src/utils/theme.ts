@@ -96,7 +96,5 @@ export const themeColorCss = css`
 
     /* State cover colors */
     --rgb-state-cover-open: var(--mush-rgb-state-cover-open, var(--rgb-state-cover));
-    --rgb-state-cover-opening: var(--mush-rgb-state-cover-opening, var(--rgb-state-cover));
     --rgb-state-cover-closed: var(--mush-rgb-state-cover-closed, var(--rgb-disabled));
-    --rgb-state-cover-closing: var(--mush-rgb-state-cover-closing, var(--rgb-disabled));
 `;
