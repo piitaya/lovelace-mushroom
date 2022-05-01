@@ -33,6 +33,7 @@ import "./controls/humidifier-humidity-control";
 import "./controls/humidifier-buttons-control";
 import { HumidifierCardConfig } from "./humidifier-card-config";
 import { MushroomBaseElement } from "../../utils/base-element";
+import { classMap } from "lit/directives/class-map.js";
 
 registerCustomCard({
     type: HUMIDIFIER_CARD_NAME,
@@ -74,9 +75,6 @@ export class HumidifierCard extends MushroomBaseElement implements LovelaceCard 
             hold_action: {
                 action: "more-info",
             },
-            double_tap_action: {
-                action: "more-info",
-            },
             ...config,
         };
     }
@@ -115,8 +113,13 @@ export class HumidifierCard extends MushroomBaseElement implements LovelaceCard 
             stateValue = `${this.humidity} %`;
         }
 
+        const displayControls =
+            !this._config.collapsible_controls ||
+            (isActive(entity) &&
+                (this._config.show_target_humidity_control || this._config.show_buttons_control));
+
         return html`
-            <ha-card>
+            <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
                 <mushroom-card .layout=${layout} ?rtl=${rtl}>
                     <mushroom-state-item
                         ?rtl=${rtl}
@@ -143,7 +146,7 @@ export class HumidifierCard extends MushroomBaseElement implements LovelaceCard 
                             .secondary=${!hideState && stateValue}
                         ></mushroom-state-info>
                     </mushroom-state-item>
-                    ${this._config.show_target_humidity_control || this._config.show_buttons_control
+                    ${displayControls
                         ? html`<div class="actions" ?rtl=${rtl}>
                               ${this._config.show_target_humidity_control
                                   ? html` 

@@ -23,6 +23,12 @@ cards:
         entity: humidifier.humidifier
         name: Humidity control
         show_target_humidity_control: true
+      - type: custom:mushroom-humidifier-card
+        entity: humidifier.humidifier
+        name: Collapsible controls
+        collapsible_controls: true
+        show_target_humidity_control: true
+        show_buttons_control: true
     columns: 2
     square: false
   - type: custom:mushroom-humidifier-card

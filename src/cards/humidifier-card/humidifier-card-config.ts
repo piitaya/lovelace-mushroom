@@ -10,6 +10,7 @@ export interface HumidifierCardConfig extends LovelaceCardConfig {
     icon_color?: string;
     name?: string;
     layout?: Layout;
+    fill_container?: boolean;
     hide_state?: boolean;
     show_target_humidity_control?: boolean;
     show_buttons_control?: boolean;
@@ -26,6 +27,7 @@ export const humidifierCardConfigStruct = assign(
         icon_color: optional(string()),
         name: optional(string()),
         layout: optional(layoutStruct),
+        fill_container: optional(boolean()),
         hide_state: optional(boolean()),
         show_target_humidity_control: optional(boolean()),
         show_buttons_control: optional(boolean()),
