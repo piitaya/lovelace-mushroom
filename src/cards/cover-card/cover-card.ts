@@ -12,7 +12,7 @@ import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
 import { styleMap } from "lit/directives/style-map.js";
 import { customElement, state } from "lit/decorators.js";
 import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
-import { CoverEntity, isClosing, isFullyClosed, isFullyOpen, isOpening } from "../../ha/data/cover";
+import { CoverEntity } from "../../ha/data/cover";
 import { isAvailable } from "../../ha/data/entity";
 import "../../shared/badge-icon";
 import "../../shared/button";
@@ -227,8 +227,8 @@ export class CoverCard extends MushroomBaseElement implements LovelaceCard {
     }
 
     private getStyleState(entity: CoverEntity): string | null {
-        if (isFullyOpen(entity) || isOpening(entity)) return "open"
-        if (isFullyClosed(entity) || isClosing(entity)) return "closed"
+        if (entity.state === "open" || entity.state === "opening") return "open"
+        if (entity.state === "closed" || entity.state === "closing") return "closed"
         return null;
     }
 
