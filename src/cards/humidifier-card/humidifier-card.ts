@@ -116,36 +116,37 @@ export class HumidifierCard extends MushroomBaseElement implements LovelaceCard 
         }
 
         return html`
-            <mushroom-card .layout=${layout} ?rtl=${rtl}>
-                <mushroom-state-item
-                    ?rtl=${rtl}
-                    .layout=${layout}
-                    @action=${this._handleAction}
-                    .actionHandler=${actionHandler({
-                        hasHold: hasAction(this._config.hold_action),
-                        hasDoubleClick: hasAction(this._config.double_tap_action),
-                    })}
-                >
-                    ${this.renderIcon(icon, iconColor, isActive(entity))}
-                    ${!isAvailable(entity)
-                        ? html`
-                              <mushroom-badge-icon
-                                  class="unavailable"
-                                  slot="badge"
-                                  icon="mdi:help"
-                              ></mushroom-badge-icon>
-                          `
-                        : null}
-                    <mushroom-state-info
-                        slot="info"
-                        .primary=${name}
-                        .secondary=${!hideState && stateValue}
-                    ></mushroom-state-info>
-                </mushroom-state-item>
-                ${this._config.show_target_humidity_control || this._config.show_buttons_control
-                    ? html`<div class="actions" ?rtl=${rtl}>
-                          ${this._config.show_target_humidity_control
-                              ? html` 
+            <ha-card>
+                <mushroom-card .layout=${layout} ?rtl=${rtl}>
+                    <mushroom-state-item
+                        ?rtl=${rtl}
+                        .layout=${layout}
+                        @action=${this._handleAction}
+                        .actionHandler=${actionHandler({
+                            hasHold: hasAction(this._config.hold_action),
+                            hasDoubleClick: hasAction(this._config.double_tap_action),
+                        })}
+                    >
+                        ${this.renderIcon(icon, iconColor, isActive(entity))}
+                        ${!isAvailable(entity)
+                            ? html`
+                                  <mushroom-badge-icon
+                                      class="unavailable"
+                                      slot="badge"
+                                      icon="mdi:help"
+                                  ></mushroom-badge-icon>
+                              `
+                            : null}
+                        <mushroom-state-info
+                            slot="info"
+                            .primary=${name}
+                            .secondary=${!hideState && stateValue}
+                        ></mushroom-state-info>
+                    </mushroom-state-item>
+                    ${this._config.show_target_humidity_control || this._config.show_buttons_control
+                        ? html`<div class="actions" ?rtl=${rtl}>
+                              ${this._config.show_target_humidity_control
+                                  ? html` 
                                     <mushroom-humidifier-humidity-control
                                         .hass=${this.hass}
                                         .entity=${entity}
@@ -153,18 +154,19 @@ export class HumidifierCard extends MushroomBaseElement implements LovelaceCard 
                                         @current-change=${this.onCurrentHumidityChange}
                                     ></mushroom-humidifier-humidity-control>
                                 </div>`
-                              : null}
-                          ${this._config.show_buttons_control
-                              ? html`
-                                    <mushroom-humidifier-buttons-control
-                                        .hass=${this.hass}
-                                        .entity=${entity}
-                                    ></mushroom-humidifier-buttons-control>
-                                `
-                              : null}
-                      </div>`
-                    : null}
-            </mushroom-card>
+                                  : null}
+                              ${this._config.show_buttons_control
+                                  ? html`
+                                        <mushroom-humidifier-buttons-control
+                                            .hass=${this.hass}
+                                            .entity=${entity}
+                                        ></mushroom-humidifier-buttons-control>
+                                    `
+                                  : null}
+                          </div>`
+                        : null}
+                </mushroom-card>
+            </ha-card>
         `;
     }
 
