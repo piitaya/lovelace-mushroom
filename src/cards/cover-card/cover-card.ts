@@ -9,11 +9,12 @@ import {
 } from "custom-card-helpers";
 import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
+import { styleMap } from "lit/directives/style-map.js";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
 import { CoverEntity } from "../../ha/data/cover";
-import { isActive, isAvailable } from "../../ha/data/entity";
+import { isAvailable } from "../../ha/data/entity";
 import "../../shared/badge-icon";
 import "../../shared/button";
 import "../../shared/card";
@@ -158,6 +159,8 @@ export class CoverCard extends MushroomBaseElement implements LovelaceCard {
             stateValue += ` - ${this.position}%`;
         }
 
+        const available = isAvailable(entity);
+
         const rtl = computeRTL(this.hass);
 
         return html`
@@ -172,12 +175,8 @@ export class CoverCard extends MushroomBaseElement implements LovelaceCard {
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        <mushroom-shape-icon
-                            slot="icon"
-                            .disabled=${!isActive(entity)}
-                            .icon=${icon}
-                        ></mushroom-shape-icon>
-                        ${!isAvailable(entity)
+                        ${this.renderIcon(entity as CoverEntity, icon, available)}
+                        ${!available
                             ? html`
                                   <mushroom-badge-icon
                                       class="unavailable"
@@ -205,6 +204,34 @@ export class CoverCard extends MushroomBaseElement implements LovelaceCard {
         `;
     }
 
+    private renderIcon(entity: CoverEntity, icon: string, available: boolean): TemplateResult {
+        const iconStyle = {
+            "--icon-color": "rgb(var(--rgb-state-cover))",
+            "--shape-color": "rgba(var(--rgb-state-cover), 0.2)",
+        };
+
+        const currentState = this.getStyleState(entity);
+        if (currentState) {
+            iconStyle["--icon-color"] = `rgb(var(--rgb-state-cover-${currentState}))`;
+            iconStyle["--shape-color"] = `rgba(var(--rgb-state-cover-${currentState}), 0.2)`;
+        }
+
+        return html`
+            <mushroom-shape-icon
+                slot="icon"
+                .disabled=${!available}
+                .icon=${icon}
+                style=${styleMap(iconStyle)}
+            ></mushroom-shape-icon>
+        `;
+    }
+
+    private getStyleState(entity: CoverEntity): string | null {
+        if (entity.state === "open" || entity.state === "opening") return "open"
+        if (entity.state === "closed" || entity.state === "closing") return "closed"
+        return null;
+    }
+
     private renderNextControlButton(): TemplateResult | null {
         if (!this._nextControl || this._nextControl == this._activeControl) return null;
 
@@ -227,11 +254,19 @@ export class CoverCard extends MushroomBaseElement implements LovelaceCard {
                     />
                 `;
             case "position_control":
+                const currentState = this.getStyleState(entity as CoverEntity);
+                const style = {}
+                if (currentState) {
+                    style["--slider-color"] = `rgb(var(--rgb-state-cover-${currentState}))`;
+                    style["--slider-bg-color"] = `rgba(var(--rgb-state-cover-${currentState}), 0.2)`;
+                }
+
                 return html`
                     <mushroom-cover-position-control
                         .hass=${this.hass}
                         .entity=${entity}
                         @current-change=${this.onCurrentPositionChange}
+                        style=${styleMap(style)}
                     />
                 `;
             default:

@@ -2,7 +2,7 @@ import { HomeAssistant } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { CoverEntity } from "../../../ha/data/cover";
-import { isActive, isAvailable } from "../../../ha/data/entity";
+import { isAvailable } from "../../../ha/data/entity";
 import "../../../shared/slider";
 import { getPosition } from "../utils";
 
@@ -39,7 +39,6 @@ export class CoverPositionControl extends LitElement {
             <mushroom-slider
                 .value=${position}
                 .disabled=${!isAvailable(this.entity)}
-                .inactive=${!isActive(this.entity)}
                 .showActive=${true}
                 @change=${this.onChange}
                 @current-change=${this.onCurrentChange}
@@ -49,9 +48,13 @@ export class CoverPositionControl extends LitElement {
 
     static get styles(): CSSResultGroup {
         return css`
+            :host {
+                --slider-color: rgb(var(--rgb-state-cover));
+                --slider-bg-color: rgba(var(--rgb-state-cover), 0.2);
+            }
             mushroom-slider {
-                --main-color: rgb(var(--rgb-state-cover));
-                --bg-color: rgba(var(--rgb-state-cover), 0.2);
+                --main-color: var(--slider-color);
+                --bg-color: var(--slider-bg-color);
             }
         `;
     }
