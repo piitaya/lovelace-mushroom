@@ -1,20 +1,19 @@
 import { fireEvent, LovelaceCardEditor } from "custom-card-helpers";
-import { CSSResultGroup, html, TemplateResult } from "lit";
+import { html, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import setupCustomlocalize from "../../localize";
 import { MushroomBaseElement } from "../../utils/base-element";
-import { configElementStyle } from "../../utils/editor-styles";
 import { Action } from "../../utils/form/custom/ha-selector-mushroom-action";
-import { GENERIC_FIELDS } from "../../utils/form/fields";
+import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { loadHaComponents } from "../../utils/loader";
 import { UPDATE_CARD_EDITOR_NAME, UPDATE_ENTITY_DOMAINS } from "./const";
 import { UpdateCardConfig, updateCardConfigStruct } from "./update-card-config";
 
-const UPDATE_FIELDS = ["show_buttons_control"];
+const UPDATE_LABELS = ["show_buttons_control"];
 
 const actions: Action[] = ["more-info", "navigate", "url", "call-service", "none"];
 
@@ -32,12 +31,18 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     {
         type: "grid",
         name: "",
-        schema: [{ name: "layout", selector: { "mush-layout": {} } }],
+        schema: [
+            { name: "layout", selector: { "mush-layout": {} } },
+            { name: "fill_container", selector: { boolean: {} } },
+        ],
     },
     {
         type: "grid",
         name: "",
-        schema: [{ name: "show_buttons_control", selector: { boolean: {} } }],
+        schema: [
+            { name: "show_buttons_control", selector: { boolean: {} } },
+            { name: "collapsible_controls", selector: { boolean: {} } },
+        ],
     },
     { name: "tap_action", selector: { "mush-action": { actions } } },
     { name: "hold_action", selector: { "mush-action": { actions } } },
@@ -58,13 +63,13 @@ export class UpdateCardEditor extends MushroomBaseElement implements LovelaceCar
         this._config = config;
     }
 
-    private _computeLabelCallback = (schema: HaFormSchema) => {
+    private _computeLabel = (schema: HaFormSchema) => {
         const customLocalize = setupCustomlocalize(this.hass!);
 
-        if (GENERIC_FIELDS.includes(schema.name)) {
+        if (GENERIC_LABELS.includes(schema.name)) {
             return customLocalize(`editor.card.generic.${schema.name}`);
         }
-        if (UPDATE_FIELDS.includes(schema.name)) {
+        if (UPDATE_LABELS.includes(schema.name)) {
             return customLocalize(`editor.card.update.${schema.name}`);
         }
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
@@ -85,7 +90,7 @@ export class UpdateCardEditor extends MushroomBaseElement implements LovelaceCar
                 .hass=${this.hass}
                 .data=${this._config}
                 .schema=${schema}
-                .computeLabel=${this._computeLabelCallback}
+                .computeLabel=${this._computeLabel}
                 @value-changed=${this._valueChanged}
             ></ha-form>
         `;
@@ -93,9 +98,5 @@ export class UpdateCardEditor extends MushroomBaseElement implements LovelaceCar
 
     private _valueChanged(ev: CustomEvent): void {
         fireEvent(this, "config-changed", { config: ev.detail.value });
-    }
-
-    static get styles(): CSSResultGroup {
-        return [super.styles, configElementStyle];
     }
 }

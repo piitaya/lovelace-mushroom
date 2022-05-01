@@ -10,6 +10,7 @@ import {
 import { Connection, UnsubscribeFunc } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
+import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
@@ -74,9 +75,6 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
             hold_action: {
                 action: "more-info",
             },
-            double_tap_action: {
-                action: "more-info",
-            },
             ...config,
         };
     }
@@ -128,27 +126,29 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
         const rtl = computeRTL(this.hass);
 
         return html`
-            <mushroom-card .layout=${layout} ?rtl=${rtl}>
-                <mushroom-state-item
-                    ?rtl=${rtl}
-                    .layout=${layout}
-                    @action=${this._handleAction}
-                    .actionHandler=${actionHandler({
-                        hasHold: hasAction(this._config.hold_action),
-                        hasDoubleClick: hasAction(this._config.double_tap_action),
-                    })}
-                    .hide_info=${!primary && !secondary}
-                    .hide_icon=${hideIcon}
-                >
-                    ${!hideIcon ? this.renderIcon(icon, iconColor) : undefined}
-                    <mushroom-state-info
-                        slot="info"
-                        .primary=${primary}
-                        .secondary=${secondary}
-                        .multiline_secondary=${multiline_secondary}
-                    ></mushroom-state-info>
-                </mushroom-state-item>
-            </mushroom-card>
+            <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
+                <mushroom-card .layout=${layout} ?rtl=${rtl}>
+                    <mushroom-state-item
+                        ?rtl=${rtl}
+                        .layout=${layout}
+                        @action=${this._handleAction}
+                        .actionHandler=${actionHandler({
+                            hasHold: hasAction(this._config.hold_action),
+                            hasDoubleClick: hasAction(this._config.double_tap_action),
+                        })}
+                        .hide_info=${!primary && !secondary}
+                        .hide_icon=${hideIcon}
+                    >
+                        ${!hideIcon ? this.renderIcon(icon, iconColor) : undefined}
+                        <mushroom-state-info
+                            slot="info"
+                            .primary=${primary}
+                            .secondary=${secondary}
+                            .multiline_secondary=${multiline_secondary}
+                        ></mushroom-state-info>
+                    </mushroom-state-item>
+                </mushroom-card>
+            </ha-card>
         `;
     }
 

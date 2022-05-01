@@ -6,6 +6,7 @@ export const layoutStruct = union([literal("horizontal"), literal("vertical"), l
 
 type ConfigWithLayout = {
     layout?: Layout;
+    fill_container?: boolean;
     [key: string]: any;
 };
 export function getLayoutFromConfig(config: ConfigWithLayout): Layout {

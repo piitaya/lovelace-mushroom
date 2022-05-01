@@ -10,6 +10,7 @@ import {
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
+import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { isAvailable } from "../../ha/data/entity";
 import { LockEntity, LOCK_ENTITY_DOMAINS } from "../../ha/data/lock";
@@ -65,9 +66,6 @@ export class LockCard extends MushroomBaseElement implements LovelaceCard {
             hold_action: {
                 action: "more-info",
             },
-            double_tap_action: {
-                action: "more-info",
-            },
             ...config,
         };
     }
@@ -96,41 +94,43 @@ export class LockCard extends MushroomBaseElement implements LovelaceCard {
         const rtl = computeRTL(this.hass);
 
         return html`
-            <mushroom-card .layout=${layout} ?rtl=${rtl}>
-                <mushroom-state-item
-                    ?rtl=${rtl}
-                    .layout=${layout}
-                    @action=${this._handleAction}
-                    .actionHandler=${actionHandler({
-                        hasHold: hasAction(this._config.hold_action),
-                        hasDoubleClick: hasAction(this._config.double_tap_action),
-                    })}
-                >
-                    ${this.renderIcon(entity, icon, available)}
-                    ${!available
-                        ? html`
-                              <mushroom-badge-icon
-                                  class="unavailable"
-                                  slot="badge"
-                                  icon="mdi:help"
-                              ></mushroom-badge-icon>
-                          `
-                        : null}
-                    <mushroom-state-info
-                        slot="info"
-                        .primary=${name}
-                        .secondary=${!hideState && stateDisplay}
-                    ></mushroom-state-info>
-                </mushroom-state-item>
-                <div class="actions" ?rtl=${rtl}>
-                    <mushroom-lock-buttons-control
-                        .hass=${this.hass}
-                        .entity=${entity}
-                        .fill=${layout !== "horizontal"}
+            <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
+                <mushroom-card .layout=${layout} ?rtl=${rtl}>
+                    <mushroom-state-item
+                        ?rtl=${rtl}
+                        .layout=${layout}
+                        @action=${this._handleAction}
+                        .actionHandler=${actionHandler({
+                            hasHold: hasAction(this._config.hold_action),
+                            hasDoubleClick: hasAction(this._config.double_tap_action),
+                        })}
                     >
-                    </mushroom-lock-buttons-control>
-                </div>
-            </mushroom-card>
+                        ${this.renderIcon(entity, icon, available)}
+                        ${!available
+                            ? html`
+                                  <mushroom-badge-icon
+                                      class="unavailable"
+                                      slot="badge"
+                                      icon="mdi:help"
+                                  ></mushroom-badge-icon>
+                              `
+                            : null}
+                        <mushroom-state-info
+                            slot="info"
+                            .primary=${name}
+                            .secondary=${!hideState && stateDisplay}
+                        ></mushroom-state-info>
+                    </mushroom-state-item>
+                    <div class="actions" ?rtl=${rtl}>
+                        <mushroom-lock-buttons-control
+                            .hass=${this.hass}
+                            .entity=${entity}
+                            .fill=${layout !== "horizontal"}
+                        >
+                        </mushroom-lock-buttons-control>
+                    </div>
+                </mushroom-card>
+            </ha-card>
         `;
     }
 

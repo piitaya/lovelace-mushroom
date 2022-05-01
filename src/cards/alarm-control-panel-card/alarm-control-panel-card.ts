@@ -97,9 +97,6 @@ export class AlarmControlPanelCard extends MushroomBaseElement implements Lovela
             hold_action: {
                 action: "more-info",
             },
-            double_tap_action: {
-                action: "more-info",
-            },
             ...config,
         };
         this.loadComponents();
@@ -191,8 +188,8 @@ export class AlarmControlPanelCard extends MushroomBaseElement implements Lovela
         const rtl = computeRTL(this.hass);
 
         return html`
-            <ha-card>
-                <mushroom-card .layout=${layout} no-card-style ?rtl=${rtl}>
+            <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
+                <mushroom-card .layout=${layout} ?rtl=${rtl}>
                     <mushroom-state-item
                         ?rtl=${rtl}
                         .layout=${layout}
@@ -288,14 +285,6 @@ export class AlarmControlPanelCard extends MushroomBaseElement implements Lovela
             super.styles,
             cardStyle,
             css`
-                ha-card {
-                    height: 100%;
-                    box-sizing: border-box;
-                    padding: var(--spacing);
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                }
                 mushroom-state-item {
                     cursor: pointer;
                 }

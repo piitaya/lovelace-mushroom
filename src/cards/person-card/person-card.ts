@@ -10,6 +10,7 @@ import {
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
+import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { isActive, isAvailable } from "../../ha/data/entity";
 import "../../shared/badge-icon";
@@ -62,9 +63,6 @@ export class PersonCard extends MushroomBaseElement implements LovelaceCard {
             hold_action: {
                 action: "more-info",
             },
-            double_tap_action: {
-                action: "more-info",
-            },
             ...config,
         };
     }
@@ -103,43 +101,45 @@ export class PersonCard extends MushroomBaseElement implements LovelaceCard {
         const rtl = computeRTL(this.hass);
 
         return html`
-            <mushroom-card .layout=${layout} ?rtl=${rtl}>
-                <div class="container">
-                    <mushroom-state-item
-                        ?rtl=${rtl}
-                        .layout=${layout}
-                        @action=${this._handleAction}
-                        .actionHandler=${actionHandler({
-                            hasHold: hasAction(this._config.hold_action),
-                            hasDoubleClick: hasAction(this._config.double_tap_action),
-                        })}
-                        hide_info=${hideName && hideState}
-                    >
-                        ${picture
-                            ? html`
-                                  <mushroom-shape-avatar
-                                      slot="icon"
-                                      .picture_url=${picture}
-                                  ></mushroom-shape-avatar>
-                              `
-                            : html`
-                                  <mushroom-shape-icon
-                                      slot="icon"
-                                      .icon=${icon}
-                                      .disabled=${!isActive(entity)}
-                                  ></mushroom-shape-icon>
-                              `}
-                        ${isAvailable(entity)
-                            ? this.renderStateBadge(stateIcon, stateColor)
-                            : this.renderUnavailableBadge()}
-                        <mushroom-state-info
-                            slot="info"
-                            .primary=${!hideName ? name : undefined}
-                            .secondary=${!hideState && stateDisplay}
-                        ></mushroom-state-info>
-                    </mushroom-state-item>
-                </div>
-            </mushroom-card>
+            <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
+                <mushroom-card .layout=${layout} ?rtl=${rtl}>
+                    <div class="container">
+                        <mushroom-state-item
+                            ?rtl=${rtl}
+                            .layout=${layout}
+                            @action=${this._handleAction}
+                            .actionHandler=${actionHandler({
+                                hasHold: hasAction(this._config.hold_action),
+                                hasDoubleClick: hasAction(this._config.double_tap_action),
+                            })}
+                            hide_info=${hideName && hideState}
+                        >
+                            ${picture
+                                ? html`
+                                      <mushroom-shape-avatar
+                                          slot="icon"
+                                          .picture_url=${picture}
+                                      ></mushroom-shape-avatar>
+                                  `
+                                : html`
+                                      <mushroom-shape-icon
+                                          slot="icon"
+                                          .icon=${icon}
+                                          .disabled=${!isActive(entity)}
+                                      ></mushroom-shape-icon>
+                                  `}
+                            ${isAvailable(entity)
+                                ? this.renderStateBadge(stateIcon, stateColor)
+                                : this.renderUnavailableBadge()}
+                            <mushroom-state-info
+                                slot="info"
+                                .primary=${!hideName ? name : undefined}
+                                .secondary=${!hideState && stateDisplay}
+                            ></mushroom-state-info>
+                        </mushroom-state-item>
+                    </div>
+                </mushroom-card>
+            </ha-card>
         `;
     }
 
