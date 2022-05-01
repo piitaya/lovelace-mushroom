@@ -9,9 +9,9 @@ import {
 } from "custom-card-helpers";
 import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
-import { styleMap } from "lit/directives/style-map.js";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
+import { styleMap } from "lit/directives/style-map.js";
 import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
 import { CoverEntity } from "../../ha/data/cover";
 import { isAvailable } from "../../ha/data/entity";
@@ -31,7 +31,7 @@ import { COVER_CARD_EDITOR_NAME, COVER_CARD_NAME, COVER_ENTITY_DOMAINS } from ".
 import "./controls/cover-buttons-control";
 import "./controls/cover-position-control";
 import { CoverCardConfig } from "./cover-card-config";
-import { getPosition } from "./utils";
+import { getPosition, getStateColor } from "./utils";
 
 type CoverCardControl = "buttons_control" | "position_control";
 
@@ -205,16 +205,11 @@ export class CoverCard extends MushroomBaseElement implements LovelaceCard {
     }
 
     private renderIcon(entity: CoverEntity, icon: string, available: boolean): TemplateResult {
-        const iconStyle = {
-            "--icon-color": "rgb(var(--rgb-state-cover))",
-            "--shape-color": "rgba(var(--rgb-state-cover), 0.2)",
-        };
-
-        const currentState = this.getStyleState(entity);
-        if (currentState) {
-            iconStyle["--icon-color"] = `rgb(var(--rgb-state-cover-${currentState}))`;
-            iconStyle["--shape-color"] = `rgba(var(--rgb-state-cover-${currentState}), 0.2)`;
-        }
+        const iconStyle = {};
+        const color = getStateColor(entity);
+        console.log(color);
+        iconStyle["--icon-color"] = `rgb(${color})`;
+        iconStyle["--shape-color"] = `rgba(${color}, 0.2)`;
 
         return html`
             <mushroom-shape-icon
@@ -224,12 +219,6 @@ export class CoverCard extends MushroomBaseElement implements LovelaceCard {
                 style=${styleMap(iconStyle)}
             ></mushroom-shape-icon>
         `;
-    }
-
-    private getStyleState(entity: CoverEntity): string | null {
-        if (entity.state === "open" || entity.state === "opening") return "open"
-        if (entity.state === "closed" || entity.state === "closing") return "closed"
-        return null;
     }
 
     private renderNextControlButton(): TemplateResult | null {
@@ -254,19 +243,17 @@ export class CoverCard extends MushroomBaseElement implements LovelaceCard {
                     />
                 `;
             case "position_control":
-                const currentState = this.getStyleState(entity as CoverEntity);
-                const style = {}
-                if (currentState) {
-                    style["--slider-color"] = `rgb(var(--rgb-state-cover-${currentState}))`;
-                    style["--slider-bg-color"] = `rgba(var(--rgb-state-cover-${currentState}), 0.2)`;
-                }
+                const color = getStateColor(entity as CoverEntity);
+                const sliderStyle = {};
+                sliderStyle["--slider-color"] = `rgb(${color})`;
+                sliderStyle["--slider-bg-color"] = `rgba(${color}, 0.2)`;
 
                 return html`
                     <mushroom-cover-position-control
                         .hass=${this.hass}
                         .entity=${entity}
                         @current-change=${this.onCurrentPositionChange}
-                        style=${styleMap(style)}
+                        style=${styleMap(sliderStyle)}
                     />
                 `;
             default:
