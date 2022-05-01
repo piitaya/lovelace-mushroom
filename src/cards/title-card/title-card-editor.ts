@@ -27,7 +27,7 @@ const computeSchema = memoizeOne((version: string): HaFormSchema[] => [
             : { text: { multiline: true } },
     },
     { name: "alignment", selector: { "mush-alignment": {} } },
-];
+]);
 
 @customElement(TITLE_CARD_EDITOR_NAME)
 export class TitleCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
