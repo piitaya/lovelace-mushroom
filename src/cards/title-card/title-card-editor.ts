@@ -1,7 +1,9 @@
 import { fireEvent, LovelaceCardEditor } from "custom-card-helpers";
 import { html, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
+import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
+import { atLeastHaVersion } from "../../ha/util";
 import setupCustomlocalize from "../../localize";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { HaFormSchema } from "../../utils/form/ha-form";
@@ -11,9 +13,19 @@ import { TitleCardConfig, titleCardConfigStruct } from "./title-card-config";
 
 const TITLE_LABELS = ["title", "subtitle"];
 
-const SCHEMA: HaFormSchema[] = [
-    { name: "title", selector: { text: { multiline: true } } },
-    { name: "subtitle", selector: { text: { multiline: true } } },
+const computeSchema = memoizeOne((version: string): HaFormSchema[] => [
+    {
+        name: "title",
+        selector: atLeastHaVersion(version, 2022, 5)
+            ? { template: {} }
+            : { text: { multiline: true } },
+    },
+    {
+        name: "subtitle",
+        selector: atLeastHaVersion(version, 2022, 5)
+            ? { template: {} }
+            : { text: { multiline: true } },
+    },
     { name: "alignment", selector: { "mush-alignment": {} } },
 ];
 
@@ -49,7 +61,7 @@ export class TitleCardEditor extends MushroomBaseElement implements LovelaceCard
             <ha-form
                 .hass=${this.hass}
                 .data=${this._config}
-                .schema=${SCHEMA}
+                .schema=${computeSchema(this.hass!.connection.haVersion)}
                 .computeLabel=${this._computeLabel}
                 @value-changed=${this._valueChanged}
             ></ha-form>
