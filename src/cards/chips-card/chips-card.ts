@@ -5,14 +5,14 @@ import {
     LovelaceCardConfig,
     LovelaceCardEditor,
 } from "custom-card-helpers";
-import { css, CSSResultGroup, html, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import "../../shared/chip";
-import { MushroomBaseElement } from "../../utils/base-element";
+import { computeDarkMode, MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { createChipElement } from "../../utils/lovelace/chip/chip-element";
-import { LovelaceChipConfig } from "../../utils/lovelace/chip/types";
+import { LovelaceChip, LovelaceChipConfig } from "../../utils/lovelace/chip/types";
 import "./chips";
 import { EntityChip } from "./chips";
 import { CHIPS_CARD_EDITOR_NAME, CHIPS_CARD_NAME } from "./const";
@@ -29,7 +29,7 @@ registerCustomCard({
 });
 
 @customElement(CHIPS_CARD_NAME)
-export class ChipsCard extends MushroomBaseElement implements LovelaceCard {
+export class ChipsCard extends LitElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./chips-card-editor");
         return document.createElement(CHIPS_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -45,6 +45,20 @@ export class ChipsCard extends MushroomBaseElement implements LovelaceCard {
 
     @state() private _config?: ChipsCardConfig;
 
+    private _hass?: HomeAssistant;
+
+    set hass(hass: HomeAssistant) {
+        const currentDarkMode = computeDarkMode(this._hass);
+        const newDarkMode = computeDarkMode(hass);
+        if (currentDarkMode !== newDarkMode) {
+            this.toggleAttribute("dark-mode", newDarkMode);
+        }
+        this._hass = hass;
+        this.shadowRoot?.querySelectorAll("div > *").forEach((element: unknown) => {
+            (element as LovelaceChip).hass = hass;
+        });
+    }
+
     getCardSize(): number | Promise<number> {
         return 1;
     }
@@ -54,7 +68,7 @@ export class ChipsCard extends MushroomBaseElement implements LovelaceCard {
     }
 
     protected render(): TemplateResult {
-        if (!this._config || !this.hass) {
+        if (!this._config || !this._hass) {
             return html``;
         }
 
@@ -63,7 +77,7 @@ export class ChipsCard extends MushroomBaseElement implements LovelaceCard {
             alignment = `align-${this._config.alignment}`;
         }
 
-        const rtl = computeRTL(this.hass);
+        const rtl = computeRTL(this._hass);
 
         return html`
             <div class="chip-container ${alignment}" ?rtl=${rtl}>
@@ -77,15 +91,15 @@ export class ChipsCard extends MushroomBaseElement implements LovelaceCard {
         if (!element) {
             return html``;
         }
-        if (this.hass) {
-            element.hass = this.hass;
+        if (this._hass) {
+            element.hass = this._hass;
         }
         return html`${element}`;
     }
 
     static get styles(): CSSResultGroup {
         return [
-            super.styles,
+            MushroomBaseElement.styles,
             cardStyle,
             css`
                 .chip-container {
