@@ -10,7 +10,7 @@ import {
 import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
-import { isActive } from "../../ha/data/entity";
+import { getEntityPicture, isActive } from "../../ha/data/entity";
 import { MediaPlayerEntity } from "../../ha/data/media-player";
 import "../../shared/badge-icon";
 import "../../shared/card";
@@ -144,9 +144,7 @@ export class MediaPlayerCard extends MushroomBaseElement implements LovelaceCard
 
         const rtl = computeRTL(this.hass);
 
-        const artwork = this._config.use_media_artwork
-            ? entity.attributes.entity_picture
-            : undefined;
+        const artwork = this._config.use_media_artwork ? getEntityPicture(entity) : undefined;
 
         return html`
             <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>

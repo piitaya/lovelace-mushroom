@@ -12,7 +12,7 @@ import { css, CSSResultGroup, html, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
-import { isActive, isAvailable } from "../../ha/data/entity";
+import { getEntityPicture, isActive, isAvailable } from "../../ha/data/entity";
 import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-avatar";
@@ -82,9 +82,7 @@ export class PersonCard extends MushroomBaseElement implements LovelaceCard {
         const name = this._config.name || entity.attributes.friendly_name;
         const icon = this._config.icon || stateIconHelper(entity);
 
-        const picture = this._config.use_entity_picture
-            ? entity.attributes.entity_picture
-            : undefined;
+        const picture = this._config.use_entity_picture ? getEntityPicture(entity) : undefined;
 
         const layout = getLayoutFromConfig(this._config);
         const hideState = !!this._config.hide_state;
