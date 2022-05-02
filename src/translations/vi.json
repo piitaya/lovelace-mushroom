@@ -1,0 +1,145 @@
+{
+    "editor": {
+        "form": {
+            "color_picker": {
+                "values": {
+                    "default": "Màu mặc định"
+                }
+            },
+            "info_picker": {
+                "values": {
+                    "default": "Thông tin mặc định",
+                    "name": "Tên",
+                    "state": "Trạng thái",
+                    "last-changed": "Lần cuối thay đổi",
+                    "last-updated": "Lần cuối cập nhập",
+                    "none": "Rỗng"
+                }
+            },
+            "layout_picker": {
+                "values": {
+                    "default": "Bố cục mặc định",
+                    "vertical": "Bố cục dọc",
+                    "horizontal": "Bố cục ngang"
+                }
+            },
+            "alignment_picker": {
+                "values": {
+                    "default": "Căn chỉnh mặc định",
+                    "start": "Căn đầu",
+                    "end": "Căn cuối",
+                    "center": "Căn giữa",
+                    "justify": "Căn hai bên"
+                }
+            }
+        },
+        "card": {
+            "generic": {
+                "hide_name": "Ẩn tên?",
+                "hide_state": "Ẩn trạng thái?",
+                "hide_icon": "Ẩn biểu tượng?",
+                "icon_color": "màu biểu tượng",
+                "layout": "Bố cục",
+                "fill_container": "Làm đầy",
+                "primary_info": "Thông tin chính",
+                "secondary_info": "Thông tin phụ",
+                "content_info": "Nội dung",
+                "use_entity_picture": "Dùng ảnh của thực thể?",
+                "collapsible_controls": "Thu nhỏ điều kiển khi tắt"
+            },
+            "light": {
+                "show_brightness_control": "Điều khiển độ sáng?",
+                "use_light_color": "Dùng ánh sáng màu",
+                "show_color_temp_control": "Điều khiển nhiệt độ màu?",
+                "show_color_control": "Điều khiển màu sắc?",
+                "incompatible_controls": "Một số màu sẽ không được hiển thị nếu đèn của bạn không hỗ trợ tính năng này."
+            },
+            "fan": {
+                "icon_animation": "Biểu tượng hoạt ảnh khi hoạt động?",
+                "show_percentage_control": "Điều khiển dạng phần trăm?",
+                "show_oscillate_control": "Oscillate control?"
+            },
+            "cover": {
+                "show_buttons_control": "Nút điều khiển?",
+                "show_position_control": "Position control?"
+            },
+            "alarm_control_panel": {
+                "show_keypad": "Hiện bàn phím"
+            },
+            "template": {
+                "primary": "Thông tin chính",
+                "secondary": "Thông tin phụ",
+                "multiline_secondary": "Nhiều dòng thông tin phụ?",
+                "entity_extra": "Được sử dụng trong mẫu và hành động",
+                "content": "Nội dung"
+            },
+            "title": {
+                "title": "Tiêu đề",
+                "subtitle": "Phụ đề"
+            },
+            "chips": {
+                "alignment": "Căn chỉnh"
+            },
+            "weather": {
+                "show_conditions": "Điều khiện?",
+                "show_temperature": "Nhiệt độ?"
+            },
+            "update": {
+                "show_buttons_control": "Nút điều khiển?"
+            },
+            "vacuum": {
+                "commands": "Mệnh lệnh"
+            },
+            "media-player": {
+                "use_media_info": "Dùng thông tin đa phương tiện",
+                "use_media_artwork": "Dùng ảnh đa phương tiện",
+                "media_controls": "Điều khiển đa phương tiện",
+                "media_controls_list": {
+                    "on_off": "Bật/Tắt",
+                    "shuffle": "Xáo trộn",
+                    "previous": "Bài trước",
+                    "play_pause_stop": "Phát/Tạm dừng/Dừng",
+                    "next": "Bài tiếp theo",
+                    "repeat": "Chế độ lặp lại"
+                },
+                "volume_controls": "Điều khiển âm lượng",
+                "volume_controls_list": {
+                    "volume_buttons": "Nút âm lượng",
+                    "volume_set": "Mức âm lượng",
+                    "volume_mute": "Im lặng"
+                }
+            },
+            "lock": {
+                "lock": "Khóa",
+                "unlock": "Mở khóa",
+                "open": "Mở"
+            }
+        },
+        "chip": {
+            "sub_element_editor": {
+                "title": "Chỉnh sửa Chip"
+            },
+            "conditional": {
+                "chip": "Chip"
+            },
+            "chip-picker": {
+                "chips": "Chips",
+                "add": "Thêm chip",
+                "edit": "Chỉnh sửa",
+                "clear": "Làm mới",
+                "select": "Chọn chip",
+                "types": {
+                    "action": "Hành động",
+                    "alarm-control-panel": "Báo động",
+                    "back": "Quay về",
+                    "conditional": "Điều kiện",
+                    "entity": "Thực thể",
+                    "light": "Đèn",
+                    "menu": "Menu",
+                    "template": "Mẫu",
+                    "weather": "Thời tiết"
+                }
+            }
+        }
+    }
+}
