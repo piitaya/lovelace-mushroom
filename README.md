@@ -150,7 +150,7 @@ The design is inspired by [7ahang’s work][7ahang] on Behance and [Ui Lovelace 
 
 <!-- Badges -->
 
-[hacs-url]: https://github.com/custom-components/hacs
+[hacs-url]: https://github.com/hacs/integration
 [hacs-badge]: https://img.shields.io/badge/hacs-default-orange.svg?style=flat-square
 [release-badge]: https://img.shields.io/github/v/release/piitaya/lovelace-mushroom?style=flat-square
 [downloads-badge]: https://img.shields.io/github/downloads/piitaya/lovelace-mushroom/total?style=flat-square
