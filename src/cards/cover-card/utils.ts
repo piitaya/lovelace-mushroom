@@ -14,5 +14,5 @@ export function getStateColor(entity: CoverEntity) {
     if (state === "closed" || state === "closing") {
         return "var(--rgb-state-cover-closed)";
     }
-    return "var(--rgb-state-cover-disabled)";
+    return "var(--rgb-state-disabled)";
 }
