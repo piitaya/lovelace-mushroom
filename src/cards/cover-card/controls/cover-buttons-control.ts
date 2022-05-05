@@ -1,26 +1,28 @@
-import { HomeAssistant } from "custom-card-helpers";
-import { HassEntity } from "home-assistant-js-websocket";
+import { computeRTL, HomeAssistant } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
-import "../../../shared/button";
-import { UNAVAILABLE } from "../../../utils/entity";
-import { computeCloseIcon, computeOpenIcon } from "../../../utils/icons/cover-icon";
+import { supportsFeature } from "../../../ha/common/entity/supports-feature";
 import {
+    CoverEntity,
+    COVER_SUPPORT_CLOSE,
+    COVER_SUPPORT_OPEN,
+    COVER_SUPPORT_STOP,
     isClosing,
     isFullyClosed,
     isFullyOpen,
     isOpening,
-    supportsClose,
-    supportsOpen,
-    supportsStop,
-} from "../utils";
+} from "../../../ha/data/cover";
+import { isAvailable } from "../../../ha/data/entity";
+import "../../../shared/button";
+import "../../../shared/button-group";
+import { computeCloseIcon, computeOpenIcon } from "../../../utils/icons/cover-icon";
 
 @customElement("mushroom-cover-buttons-control")
 export class CoverButtonsControl extends LitElement {
     @property({ attribute: false }) public hass!: HomeAssistant;
 
-    @property({ attribute: false }) public entity!: HassEntity;
+    @property({ attribute: false }) public entity!: CoverEntity;
 
     @property() public fill: boolean = false;
 
@@ -46,79 +48,48 @@ export class CoverButtonsControl extends LitElement {
     }
 
     private get openDisabled(): boolean {
-        if (this.entity.state === UNAVAILABLE) return true;
         const assumedState = this.entity.attributes.assumed_state === true;
         return (isFullyOpen(this.entity) || isOpening(this.entity)) && !assumedState;
     }
 
     private get closedDisabled(): boolean {
-        if (this.entity.state === UNAVAILABLE) return true;
         const assumedState = this.entity.attributes.assumed_state === true;
         return (isFullyClosed(this.entity) || isClosing(this.entity)) && !assumedState;
     }
 
-    private get pauseDisabled(): boolean {
-        return this.entity.state === UNAVAILABLE;
-    }
-
     protected render(): TemplateResult {
+        const rtl = computeRTL(this.hass);
+
         return html`
-            <div
-                class=${classMap({
-                    container: true,
-                    fill: this.fill,
-                })}
-            >
-                ${supportsClose(this.entity)
+            <mushroom-button-group .fill=${this.fill} ?rtl=${rtl}>
+                ${supportsFeature(this.entity, COVER_SUPPORT_CLOSE)
                     ? html`
                           <mushroom-button
                               .icon=${computeCloseIcon(this.entity)}
-                              .disabled=${this.closedDisabled}
+                              .disabled=${!isAvailable(this.entity) || this.closedDisabled}
                               @click=${this._onCloseTap}
                           ></mushroom-button>
                       `
                     : undefined}
-                ${supportsStop(this.entity)
+                ${supportsFeature(this.entity, COVER_SUPPORT_STOP)
                     ? html`
                           <mushroom-button
                               icon="mdi:pause"
-                              .disabled=${this.pauseDisabled}
+                              .disabled=${!isAvailable(this.entity)}
                               @click=${this._onStopTap}
                           ></mushroom-button>
                       `
                     : undefined}
-                ${supportsOpen(this.entity)
+                ${supportsFeature(this.entity, COVER_SUPPORT_OPEN)
                     ? html`
                           <mushroom-button
                               .icon=${computeOpenIcon(this.entity)}
-                              .disabled=${this.openDisabled}
+                              .disabled=${!isAvailable(this.entity) || this.openDisabled}
                               @click=${this._onOpenTap}
                           ></mushroom-button>
                       `
                     : undefined}
-            </div>
-        `;
-    }
-
-    static get styles(): CSSResultGroup {
-        return css`
-            :host {
-                display: flex;
-                flex-direction: row;
-                width: 100%;
-            }
-            :host *:not(:last-child) {
-                margin-right: var(--spacing);
-            }
-            .container {
-                width: 100%;
-                display: flex;
-                flex-direction: row;
-                justify-content: flex-end;
-            }
-            .container.fill mushroom-button {
-                flex: 1;
-            }
+            </mushroom-button-group>
         `;
     }
 }

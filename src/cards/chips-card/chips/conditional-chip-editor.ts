@@ -1,11 +1,16 @@
 import type { MDCTabBarActivatedEvent } from "@material/tab-bar";
-import { fireEvent, HASSDomEvent, HomeAssistant, LovelaceConfig } from "custom-card-helpers";
+import {
+    computeRTL,
+    fireEvent,
+    HASSDomEvent,
+    HomeAssistant,
+    LovelaceConfig,
+} from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import setupCustomlocalize from "../../../localize";
 import "../../../shared/form/mushroom-select";
 import "../../../shared/form/mushroom-textfield";
-import { configElementStyle } from "../../../utils/editor-styles";
 import { getChipElementClass } from "../../../utils/lovelace/chip-element-editor";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
 import {
@@ -48,6 +53,8 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
         }
 
         const customLocalize = setupCustomlocalize(this.hass);
+
+        const rtl = computeRTL(this.hass);
 
         return html`
             <mwc-tab-bar
@@ -121,7 +128,7 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
                           )}
                           ${this._config.conditions.map(
                               (cond, idx) => html`
-                                  <div class="condition">
+                                  <div class="condition" ?rtl=${rtl}>
                                       <div class="entity">
                                           <ha-entity-picker
                                               .hass=${this.hass}
@@ -308,55 +315,52 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
     }
 
     static get styles(): CSSResultGroup {
-        return [
-            configElementStyle,
-            css`
-                mwc-tab-bar {
-                    border-bottom: 1px solid var(--divider-color);
-                }
-                .conditions {
-                    margin-top: 8px;
-                }
+        return css`
+            mwc-tab-bar {
+                border-bottom: 1px solid var(--divider-color);
+            }
+            .conditions {
+                margin-top: 8px;
+            }
+            .condition {
+                margin-top: 8px;
+                border: 1px solid var(--divider-color);
+                padding: 12px;
+            }
+            .condition .state {
+                display: flex;
+                align-items: flex-end;
+            }
+            .condition .state mushroom-select {
+                margin-right: 16px;
+            }
+            .condition[rtl] .state mushroom-select {
+                margin-right: initial;
+                margin-left: 16px;
+            }
+            .card {
+                margin-top: 8px;
+                border: 1px solid var(--divider-color);
+                padding: 12px;
+            }
+            .card mushroom-select {
+                width: 100%;
+                margin-top: 0px;
+            }
+            @media (max-width: 450px) {
+                .card,
                 .condition {
-                    margin-top: 8px;
-                    border: 1px solid var(--divider-color);
-                    padding: 12px;
+                    margin: 8px -12px 0;
                 }
-                .condition .state {
-                    display: flex;
-                    align-items: flex-end;
-                }
-                .condition .state mushroom-select {
-                    margin-right: 16px;
-                }
-                .card {
-                    margin-top: 8px;
-                    border: 1px solid var(--divider-color);
-                    padding: 12px;
-                }
-                .card mushroom-select {
-                    width: 100%;
-                    margin-top: 0px;
-                }
-                @media (max-width: 450px) {
-                    .card,
-                    .condition {
-                        margin: 8px -12px 0;
-                    }
-                }
-                .card .card-options {
-                    display: flex;
-                    justify-content: flex-end;
-                    width: 100%;
-                }
-                .gui-mode-button {
-                    margin-right: auto;
-                }
-            `,
-        ];
+            }
+            .card .card-options {
+                display: flex;
+                justify-content: flex-end;
+                width: 100%;
+            }
+            .gui-mode-button {
+                margin-right: auto;
+            }
+        `;
     }
-}
-
-function capitalizeFirstLetter(string: string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
 }

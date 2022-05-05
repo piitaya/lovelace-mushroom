@@ -4,7 +4,7 @@ import { css, unsafeCSS, CSSResultGroup, html, LitElement, TemplateResult } from
 import { customElement, property } from "lit/decorators.js";
 import * as Color from "color";
 import "../../../shared/slider";
-import { isActive, isAvailable } from "../../../utils/entity";
+import { isActive, isAvailable } from "../../../ha/data/entity";
 
 const GRADIENT = [
     [0, "#f00"],

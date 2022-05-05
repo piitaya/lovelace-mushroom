@@ -40,10 +40,12 @@
                 "hide_icon": "Cacher l'icône ?",
                 "icon_color": "Couleur de l'icône",
                 "layout": "Disposition",
+                "fill_container": "Remplir le conteneur",
                 "primary_info": "Information principale",
                 "secondary_info": "Information secondaire",
                 "content_info": "Contenu",
-                "use_entity_picture": "Utiliser l'image de l'entité ?"
+                "use_entity_picture": "Utiliser l'image de l'entité ?",
+                "collapsible_controls": "Reduire les contrôles quand éteint"
             },
             "light": {
                 "show_brightness_control": "Contrôle de luminosité ?",
@@ -62,12 +64,12 @@
                 "show_position_control": "Contrôle de la position ?"
             },
             "alarm_control_panel": {
-                "displayed_states": "États affichés"
+                "show_keypad": "Afficher le clavier"
             },
             "template": {
                 "primary": "Information principale",
                 "secondary": "Information secondaire",
-                "multiline_secondary": "Information secondaire sur plusieurs lignes?",
+                "multiline_secondary": "Information secondaire sur plusieurs lignes ?",
                 "entity_extra": "Utilisée pour les templates et les actions",
                 "content": "Contenu"
             },
@@ -84,6 +86,33 @@
             },
             "update": {
                 "show_buttons_control": "Contrôle avec boutons ?"
+            },
+            "vacuum": {
+                "commands": "Commandes"
+            },
+            "media-player": {
+                "use_media_info": "Utiliser les informations du media",
+                "use_media_artwork": "Utiliser l'illustration du media",
+                "media_controls": "Contrôles du media",
+                "media_controls_list": {
+                    "on_off": "Allumer/Éteindre",
+                    "shuffle": "Lecture aléatoire",
+                    "previous": "Précédent",
+                    "play_pause_stop": "Lecture/pause/stop",
+                    "next": "Suivant",
+                    "repeat": "Mode de répétition"
+                },
+                "volume_controls": "Contrôles du volume",
+                "volume_controls_list": {
+                    "volume_buttons": "Bouton de volume",
+                    "volume_set": "Niveau de volume",
+                    "volume_mute": "Muet"
+                }
+            },
+            "lock": {
+                "lock": "Verrouiller",
+                "unlock": "Déverrouiller",
+                "open": "Ouvrir"
             }
         },
         "chip": {
@@ -95,7 +124,6 @@
             },
             "chip-picker": {
                 "chips": "\"Chips\"",
-                "details": "Affichez les détails en cliquant sur le bouton Modifier",
                 "add": "Ajouter une \"chip\"",
                 "edit": "Modifier",
                 "clear": "Effacer",

@@ -1,11 +1,18 @@
-import { ActionHandlerEvent, handleAction, hasAction, HomeAssistant } from "custom-card-helpers";
+import {
+    ActionHandlerEvent,
+    computeRTL,
+    handleAction,
+    hasAction,
+    HomeAssistant,
+} from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
-import { computeStateDisplay } from "../../../utils/compute-state-display";
+import { computeStateDisplay } from "../../../ha/common/entity/compute-state-display";
+import { isActive } from "../../../ha/data/entity";
+import { LightEntity } from "../../../ha/data/light";
 import { actionHandler } from "../../../utils/directives/action-handler-directive";
-import { isActive } from "../../../utils/entity";
 import { stateIcon } from "../../../utils/icons/state-icon";
 import { getInfo } from "../../../utils/info";
 import {
@@ -14,7 +21,7 @@ import {
 } from "../../../utils/lovelace/chip/chip-element";
 import { LightChipConfig, LovelaceChip } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
-import { getRGBColor, isSuperLight } from "../../light-card/utils";
+import { getRGBColor, isColorSuperLight } from "../../light-card/utils";
 
 @customElement(computeChipComponentName("light"))
 export class LightChip extends LitElement implements LovelaceChip {
@@ -46,9 +53,6 @@ export class LightChip extends LitElement implements LovelaceChip {
             hold_action: {
                 action: "more-info",
             },
-            double_tap_action: {
-                action: "more-info",
-            },
             ...config,
         };
     }
@@ -63,7 +67,7 @@ export class LightChip extends LitElement implements LovelaceChip {
         }
 
         const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id];
+        const entity = this.hass.states[entity_id] as LightEntity;
 
         const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
@@ -77,7 +81,7 @@ export class LightChip extends LitElement implements LovelaceChip {
         if (lightRgbColor && this._config?.use_light_color) {
             const color = lightRgbColor.join(",");
             iconStyle["--color"] = `rgb(${color})`;
-            if (isSuperLight(lightRgbColor)) {
+            if (isColorSuperLight(lightRgbColor)) {
                 iconStyle["--color"] = `rgba(var(--rgb-primary-text-color), 0.2)`;
             }
         }
@@ -90,8 +94,11 @@ export class LightChip extends LitElement implements LovelaceChip {
             this.hass
         );
 
+        const rtl = computeRTL(this.hass);
+
         return html`
             <mushroom-chip
+                ?rtl=${rtl}
                 @action=${this._handleAction}
                 .actionHandler=${actionHandler({
                     hasHold: hasAction(this._config.hold_action),

@@ -1,32 +1,35 @@
 import {
     ActionHandlerEvent,
+    computeRTL,
     handleAction,
     hasAction,
     HomeAssistant,
     LovelaceCard,
     LovelaceCardEditor,
 } from "custom-card-helpers";
-import { HassEntity } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { css, CSSResultGroup, html, TemplateResult } from "lit";
+import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
+import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
+import { supportsFeature } from "../../ha/common/entity/supports-feature";
+import { isActive, isAvailable } from "../../ha/data/entity";
+import { UpdateEntity, updateIsInstalling, UPDATE_SUPPORT_INSTALL } from "../../ha/data/update";
 import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
+import { MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
-import { computeStateDisplay } from "../../utils/compute-state-display";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
-import { isAvailable, supportsFeature } from "../../utils/entity";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig } from "../../utils/layout";
 import { UPDATE_CARD_EDITOR_NAME, UPDATE_CARD_NAME, UPDATE_ENTITY_DOMAINS } from "./const";
 import "./controls/update-buttons-control";
 import { UpdateCardConfig } from "./update-card-config";
-import { getStateColor, UpdateEntity, updateIsInstalling, UPDATE_SUPPORT_INSTALL } from "./utils";
+import { getStateColor } from "./utils";
 
 registerCustomCard({
     type: UPDATE_CARD_NAME,
@@ -35,7 +38,7 @@ registerCustomCard({
 });
 
 @customElement(UPDATE_CARD_NAME)
-export class UpdateCard extends LitElement implements LovelaceCard {
+export class UpdateCard extends MushroomBaseElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./update-card-editor");
         return document.createElement(UPDATE_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -49,7 +52,6 @@ export class UpdateCard extends LitElement implements LovelaceCard {
             entity: updates[0],
         };
     }
-    @property({ attribute: false }) public hass!: HomeAssistant;
 
     @state() private _config?: UpdateCardConfig;
 
@@ -63,9 +65,6 @@ export class UpdateCard extends LitElement implements LovelaceCard {
                 action: "more-info",
             },
             hold_action: {
-                action: "more-info",
-            },
-            double_tap_action: {
                 action: "more-info",
             },
             ...config,
@@ -82,7 +81,7 @@ export class UpdateCard extends LitElement implements LovelaceCard {
         }
 
         const entityId = this._config.entity;
-        const entity = this.hass.states[entityId];
+        const entity = this.hass.states[entityId] as UpdateEntity;
 
         const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
@@ -96,57 +95,66 @@ export class UpdateCard extends LitElement implements LovelaceCard {
 
         let stateValue = `${stateDisplay}`;
 
+        const rtl = computeRTL(this.hass);
+
+        const displayControls =
+            (!this._config.collapsible_controls || isActive(entity)) &&
+            this._config.show_buttons_control &&
+            supportsFeature(entity, UPDATE_SUPPORT_INSTALL);
+
         return html`
-            <mushroom-card .layout=${layout}>
-                <mushroom-state-item
-                    .layout=${layout}
-                    @action=${this._handleAction}
-                    .actionHandler=${actionHandler({
-                        hasHold: hasAction(this._config.hold_action),
-                        hasDoubleClick: hasAction(this._config.double_tap_action),
-                    })}
-                >
-                    ${picture
+            <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
+                <mushroom-card .layout=${layout} ?rtl=${rtl}>
+                    <mushroom-state-item
+                        ?rtl=${rtl}
+                        .layout=${layout}
+                        @action=${this._handleAction}
+                        .actionHandler=${actionHandler({
+                            hasHold: hasAction(this._config.hold_action),
+                            hasDoubleClick: hasAction(this._config.double_tap_action),
+                        })}
+                    >
+                        ${picture
+                            ? html`
+                                  <mushroom-shape-avatar
+                                      slot="icon"
+                                      .picture_url=${picture}
+                                  ></mushroom-shape-avatar>
+                              `
+                            : this.renderShapeIcon(entity, icon)}
+                        ${!isAvailable(entity)
+                            ? html`
+                                  <mushroom-badge-icon
+                                      class="unavailable"
+                                      slot="badge"
+                                      icon="mdi:help"
+                                  ></mushroom-badge-icon>
+                              `
+                            : null}
+                        <mushroom-state-info
+                            slot="info"
+                            .primary=${name}
+                            .secondary=${stateValue}
+                        ></mushroom-state-info>
+                    </mushroom-state-item>
+                    ${displayControls
                         ? html`
-                              <mushroom-shape-avatar
-                                  slot="icon"
-                                  .picture_url=${picture}
-                              ></mushroom-shape-avatar>
-                          `
-                        : this.renderShapeIcon(entity, icon)}
-                    ${!isAvailable(entity)
-                        ? html`
-                              <mushroom-badge-icon
-                                  class="unavailable"
-                                  slot="badge"
-                                  icon="mdi:help"
-                              ></mushroom-badge-icon>
+                              <div class="actions" ?rtl=${rtl}>
+                                  <mushroom-update-buttons-control
+                                      .hass=${this.hass}
+                                      .entity=${entity}
+                                      .fill=${layout !== "horizontal"}
+                                  />
+                              </div>
                           `
                         : null}
-                    <mushroom-state-info
-                        slot="info"
-                        .primary=${name}
-                        .secondary=${stateValue}
-                    ></mushroom-state-info>
-                </mushroom-state-item>
-                ${this._config.show_buttons_control &&
-                supportsFeature(entity, UPDATE_SUPPORT_INSTALL)
-                    ? html`
-                          <div class="actions">
-                              <mushroom-update-buttons-control
-                                  .hass=${this.hass}
-                                  .entity=${entity}
-                                  .fill=${layout !== "horizontal"}
-                              />
-                          </div>
-                      `
-                    : null}
-            </mushroom-card>
+                </mushroom-card>
+            </ha-card>
         `;
     }
 
-    protected renderShapeIcon(entity: HassEntity, icon: string): TemplateResult {
-        const isInstalling = updateIsInstalling(entity as UpdateEntity);
+    protected renderShapeIcon(entity: UpdateEntity, icon: string): TemplateResult {
+        const isInstalling = updateIsInstalling(entity);
 
         const color = getStateColor(entity.state, isInstalling);
 
@@ -170,6 +178,7 @@ export class UpdateCard extends LitElement implements LovelaceCard {
 
     static get styles(): CSSResultGroup {
         return [
+            super.styles,
             cardStyle,
             css`
                 mushroom-state-item {

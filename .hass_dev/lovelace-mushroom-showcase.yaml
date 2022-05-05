@@ -10,3 +10,6 @@ views:
   - !include views/chips-view.yaml
   - !include views/title-view.yaml
   - !include views/update-view.yaml
+  - !include views/media-player-view.yaml
+  - !include views/vacuum-view.yaml
+  - !include views/lock-view.yaml

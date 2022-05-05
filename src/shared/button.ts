@@ -2,13 +2,14 @@ import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { property, customElement } from "lit/decorators.js";
 
 @customElement("mushroom-button")
-export class BadgeIcon extends LitElement {
+export class Button extends LitElement {
     @property() public icon: string = "";
+    @property() public title: string = "";
     @property({ type: Boolean }) public disabled: boolean = false;
 
     protected render(): TemplateResult {
         return html`
-            <button type="button" class="button" .disabled=${this.disabled}>
+            <button type="button" class="button" .title=${this.title} .disabled=${this.disabled}>
                 <ha-icon .icon=${this.icon} />
             </button>
         `;
@@ -18,9 +19,9 @@ export class BadgeIcon extends LitElement {
         return css`
             :host {
                 --icon-color: var(--primary-text-color);
-                --icon-color-disabled: var(--disabled-text-color);
+                --icon-color-disabled: rgb(var(--rgb-disabled));
                 --bg-color: rgba(var(--rgb-primary-text-color), 0.05);
-                --bg-color-disabled: rgba(var(--rgb-primary-text-color), 0.05);
+                --bg-color-disabled: rgba(var(--rgb-disabled), 0.2);
                 width: 42px;
                 height: 42px;
                 flex: none;
@@ -30,8 +31,8 @@ export class BadgeIcon extends LitElement {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                height: 100%;
                 width: 100%;
+                height: 100%;
                 border-radius: var(--control-border-radius);
                 border: none;
                 background-color: var(--bg-color);

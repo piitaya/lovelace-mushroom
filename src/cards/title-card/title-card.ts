@@ -1,10 +1,11 @@
 import { HomeAssistant, LovelaceCard, LovelaceCardEditor } from "custom-card-helpers";
-import { UnsubscribeFunc } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { Connection, UnsubscribeFunc } from "home-assistant-js-websocket";
+import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
+import { customElement, state } from "lit/decorators.js";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
+import { MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { RenderTemplateResult, subscribeRenderTemplate } from "../../utils/ws-templates";
@@ -21,7 +22,7 @@ const TEMPLATE_KEYS = ["title", "subtitle"] as const;
 type TemplateKey = typeof TEMPLATE_KEYS[number];
 
 @customElement(TITLE_CARD_NAME)
-export class TitleCard extends LitElement implements LovelaceCard {
+export class TitleCard extends MushroomBaseElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./title-card-editor");
         return document.createElement(TITLE_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -33,8 +34,6 @@ export class TitleCard extends LitElement implements LovelaceCard {
             title: "Hello, {{ user }} !",
         };
     }
-
-    @property({ attribute: false }) public hass!: HomeAssistant;
 
     @state() private _config?: TitleCardConfig;
 
@@ -82,9 +81,13 @@ export class TitleCard extends LitElement implements LovelaceCard {
 
         const title = this.getValue("title");
         const subtitle = this.getValue("subtitle");
+        let alignment = "";
+        if (this._config.alignment) {
+            alignment = `align-${this._config.alignment}`;
+        }
 
         return html`
-            <div class="header">
+            <div class="header ${alignment}">
                 ${title ? html`<h1 class="title">${title}</h1>` : null}
                 ${subtitle ? html`<h2 class="subtitle">${subtitle}</h2>` : null}
             </div>
@@ -118,7 +121,7 @@ export class TitleCard extends LitElement implements LovelaceCard {
 
         try {
             const sub = subscribeRenderTemplate(
-                this.hass.connection,
+                this.hass.connection as any as Connection,
                 (result) => {
                     this._templateResults = {
                         ...this._templateResults,
@@ -180,6 +183,7 @@ export class TitleCard extends LitElement implements LovelaceCard {
 
     static get styles(): CSSResultGroup {
         return [
+            super.styles,
             cardStyle,
             css`
                 .header {
@@ -204,6 +208,18 @@ export class TitleCard extends LitElement implements LovelaceCard {
                     font-size: var(--subtitle-font-size);
                     font-weight: var(--subtitle-font-weight);
                     line-height: var(--subtitle-line-height);
+                }
+                .align-start {
+                    text-align: start;
+                }
+                .align-end {
+                    text-align: end;
+                }
+                .align-center {
+                    text-align: center;
+                }
+                .align-justify {
+                    text-align: justify;
                 }
             `,
         ];

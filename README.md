@@ -76,12 +76,13 @@ Different cards are available for differents entities :
 -   🔔 [Chips card](docs/cards/chips.md)
 -   ✏️ [Title card](docs/cards/title.md)
 -   📦 [Update card](docs/cards/update.md)
+-   🧹 [Vacuum card](docs/cards/vacuum.md)
+-   📺 [Media card](docs/cards/media-player.md)
+-   🔒 [Lock card](docs/cards/lock.md)
 
-Some cards are on the todo list :
+Cards on the todo list :
 
 -   🌡 Climate card
--   📺 Media card
--   🧹 Vacuum card
 
 ### Theme customization
 
@@ -97,7 +98,14 @@ You can run a demo instance of Home Assistant with docker by running:
 npm run start:hass
 ```
 
-Once it's done, go to home assitant instance [http://localhost:8123](http://localhost:8123) and start configuration.
+Once it's done, go to Home Assistant instance [http://localhost:8123](http://localhost:8123) and start configuration.
+
+
+#### Windows Users 
+If you are on Windows, either run the above command in Powershell, or use the below if using Command Prompt:
+```sh
+npm run start:hass-cmd
+```
 
 ### Development
 
@@ -142,7 +150,7 @@ The design is inspired by [7ahang’s work][7ahang] on Behance and [Ui Lovelace 
 
 <!-- Badges -->
 
-[hacs-url]: https://github.com/custom-components/hacs
+[hacs-url]: https://github.com/hacs/integration
 [hacs-badge]: https://img.shields.io/badge/hacs-default-orange.svg?style=flat-square
 [release-badge]: https://img.shields.io/github/v/release/piitaya/lovelace-mushroom?style=flat-square
 [downloads-badge]: https://img.shields.io/github/downloads/piitaya/lovelace-mushroom/total?style=flat-square

@@ -50,6 +50,10 @@ export class StateItem extends LitElement {
             .container > *:not(:last-child) {
                 margin-right: var(--spacing);
             }
+            :host([rtl]) .container > *:not(:last-child) {
+                margin-right: initial;
+                margin-left: var(--spacing);
+            }
             .icon {
                 position: relative;
             }
@@ -57,6 +61,10 @@ export class StateItem extends LitElement {
                 position: absolute;
                 top: -3px;
                 right: -3px;
+            }
+            :host([rtl]) .icon ::slotted(*[slot="badge"]) {
+                right: initial;
+                left: -3px;
             }
             .info {
                 min-width: 0;
@@ -70,6 +78,11 @@ export class StateItem extends LitElement {
             .container.vertical > *:not(:last-child) {
                 margin-bottom: var(--spacing);
                 margin-right: 0;
+                margin-left: 0;
+            }
+            :host([rtl]) .container.vertical > *:not(:last-child) {
+                margin-right: initial;
+                margin-left: initial;
             }
             .container.vertical .info {
                 text-align: center;
