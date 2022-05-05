@@ -20,6 +20,7 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `secondary`           | string          | Optional    | Secondary info to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                    |
 | `multiline_secondary` | boolean         | `false`     | Enables support for multiline text for the secondary info.                                                                          |
 | `layout`              | string          | Optional    | Layout of the card. Vertical, horizontal and default layout are supported                                                           |
+| `fill_container`      | boolean         | `false`     | Fill container or not. Useful when card is in a grid, vertical or horizontal layout                                                 |
 | `hide_state`          | boolean         | `false`     | Hide the entity state                                                                                                               |
 | `tap_action`          | action          | `none`      | Home assistant action to perform on tap                                                                                             |
 | `hold_action`         | action          | `none`      | Home assistant action to perform on hold                                                                                            |

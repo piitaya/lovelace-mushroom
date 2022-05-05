@@ -1,4 +1,5 @@
 import { HassEntity } from "home-assistant-js-websocket";
+import { UNAVAILABLE } from "../../ha/data/entity";
 import {
     ALARM_CONTROL_PANEL_CARD_DEFAULT_STATE_COLOR,
     ALARM_CONTROL_PANEL_CARD_STATE_COLOR,
@@ -17,11 +18,11 @@ export function getStateService(state: string): string | undefined {
 }
 
 export function shouldPulse(state: string): boolean {
-    return ["arming", "triggered", "pending", "unavailable"].indexOf(state) >= 0;
+    return ["arming", "triggered", "pending", UNAVAILABLE].indexOf(state) >= 0;
 }
 
 export function isActionsAvailable(entity: HassEntity) {
-    return !["unavailable"].includes(entity.state);
+    return UNAVAILABLE !== entity.state;
 }
 
 export function isDisarmed(entity: HassEntity) {

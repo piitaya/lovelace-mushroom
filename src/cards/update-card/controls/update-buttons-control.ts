@@ -1,10 +1,10 @@
-import { HomeAssistant } from "custom-card-helpers";
+import { computeRTL, HomeAssistant } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { classMap } from "lit/directives/class-map.js";
+import { isActive, isAvailable } from "../../../ha/data/entity";
+import { UpdateEntity, updateIsInstalling } from "../../../ha/data/update";
 import "../../../shared/button";
-import { OFF, UNAVAILABLE } from "../../../utils/entity";
-import { UpdateEntity, updateIsInstalling } from "../utils";
+import "../../../shared/button-group";
 
 @customElement("mushroom-update-buttons-control")
 export class UpdateButtonsControl extends LitElement {
@@ -28,29 +28,26 @@ export class UpdateButtonsControl extends LitElement {
     }
 
     private get installDisabled(): boolean {
-        if (this.entity.state === UNAVAILABLE) return true;
+        if (!isAvailable(this.entity)) return true;
         const skippedVersion =
             this.entity.attributes.latest_version &&
             this.entity.attributes.skipped_version === this.entity.attributes.latest_version;
-        return (this.entity.state === OFF && !skippedVersion) || updateIsInstalling(this.entity);
+        return (!isActive(this.entity) && !skippedVersion) || updateIsInstalling(this.entity);
     }
 
     private get skipDisabled(): boolean {
-        if (this.entity.state === UNAVAILABLE) return true;
+        if (!isAvailable(this.entity)) return true;
         const skippedVersion =
             this.entity.attributes.latest_version &&
             this.entity.attributes.skipped_version === this.entity.attributes.latest_version;
-        return skippedVersion || this.entity.state === OFF || updateIsInstalling(this.entity);
+        return skippedVersion || !isActive(this.entity) || updateIsInstalling(this.entity);
     }
 
     protected render(): TemplateResult {
+        const rtl = computeRTL(this.hass);
+
         return html`
-            <div
-                class=${classMap({
-                    container: true,
-                    fill: this.fill,
-                })}
-            >
+            <mushroom-button-group .fill=${this.fill} ?rtl=${rtl}>
                 <mushroom-button
                     icon="mdi:cancel"
                     .disabled=${this.skipDisabled}
@@ -61,29 +58,7 @@ export class UpdateButtonsControl extends LitElement {
                     .disabled=${this.installDisabled}
                     @click=${this._handleInstall}
                 ></mushroom-button>
-            </div>
-        `;
-    }
-
-    static get styles(): CSSResultGroup {
-        return css`
-            :host {
-                display: flex;
-                flex-direction: row;
-                width: 100%;
-            }
-            :host *:not(:last-child) {
-                margin-right: var(--spacing);
-            }
-            .container {
-                width: 100%;
-                display: flex;
-                flex-direction: row;
-                justify-content: flex-end;
-            }
-            .container.fill mushroom-button {
-                flex: 1;
-            }
+            </mushroom-button-group>
         `;
     }
 }

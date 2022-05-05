@@ -1,16 +1,16 @@
 import { HomeAssistant } from "custom-card-helpers";
-import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import { CoverEntity } from "../../../ha/data/cover";
+import { isAvailable } from "../../../ha/data/entity";
 import "../../../shared/slider";
-import { isActive } from "../../../utils/entity";
 import { getPosition } from "../utils";
 
 @customElement("mushroom-cover-position-control")
 export class CoverPositionControl extends LitElement {
     @property({ attribute: false }) public hass!: HomeAssistant;
 
-    @property({ attribute: false }) public entity!: HassEntity;
+    @property({ attribute: false }) public entity!: CoverEntity;
 
     private onChange(e: CustomEvent<{ value: number }>): void {
         const value = e.detail.value;
@@ -38,7 +38,7 @@ export class CoverPositionControl extends LitElement {
         return html`
             <mushroom-slider
                 .value=${position}
-                .disabled=${!isActive(this.entity)}
+                .disabled=${!isAvailable(this.entity)}
                 .showActive=${true}
                 @change=${this.onChange}
                 @current-change=${this.onCurrentChange}
@@ -49,8 +49,8 @@ export class CoverPositionControl extends LitElement {
     static get styles(): CSSResultGroup {
         return css`
             mushroom-slider {
-                --main-color: rgb(var(--rgb-state-cover));
-                --bg-color: rgba(var(--rgb-state-cover), 0.2);
+                --main-color: var(--slider-color);
+                --bg-color: var(--slider-bg-color);
             }
         `;
     }

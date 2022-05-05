@@ -1,5 +1,6 @@
 import {
     ActionHandlerEvent,
+    computeRTL,
     computeStateDisplay,
     handleAction,
     hasAction,
@@ -7,17 +8,19 @@ import {
     LovelaceCard,
     LovelaceCardEditor,
 } from "custom-card-helpers";
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { css, CSSResultGroup, html, TemplateResult } from "lit";
+import { customElement, state } from "lit/decorators.js";
+import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
+import { isActive, isAvailable } from "../../ha/data/entity";
 import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-avatar";
 import "../../shared/shape-icon";
+import { MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
-import { isActive } from "../../utils/entity";
 import { stateIcon as stateIconHelper } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig } from "../../utils/layout";
 import { PERSON_CARD_EDITOR_NAME, PERSON_CARD_NAME, PERSON_ENTITY_DOMAINS } from "./const";
@@ -31,7 +34,7 @@ registerCustomCard({
 });
 
 @customElement(PERSON_CARD_NAME)
-export class PersonCard extends LitElement implements LovelaceCard {
+export class PersonCard extends MushroomBaseElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./person-card-editor");
         return document.createElement(PERSON_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -46,8 +49,6 @@ export class PersonCard extends LitElement implements LovelaceCard {
         };
     }
 
-    @property({ attribute: false }) public hass!: HomeAssistant;
-
     @state() private _config?: PersonCardConfig;
 
     getCardSize(): number | Promise<number> {
@@ -60,9 +61,6 @@ export class PersonCard extends LitElement implements LovelaceCard {
                 action: "more-info",
             },
             hold_action: {
-                action: "more-info",
-            },
-            double_tap_action: {
                 action: "more-info",
             },
             ...config,
@@ -100,21 +98,23 @@ export class PersonCard extends LitElement implements LovelaceCard {
 
         const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
-        const isAvailable = entity.state !== "unavailable";
+        const rtl = computeRTL(this.hass);
 
         return html`
-            <mushroom-card .layout=${layout}>
-                <div class="container">
-                    <mushroom-state-item
-                        .layout=${layout}
-                        @action=${this._handleAction}
-                        .actionHandler=${actionHandler({
-                            hasHold: hasAction(this._config.hold_action),
-                            hasDoubleClick: hasAction(this._config.double_tap_action),
-                        })}
-                    >
-                        ${
-                            picture
+            <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
+                <mushroom-card .layout=${layout} ?rtl=${rtl}>
+                    <div class="container">
+                        <mushroom-state-item
+                            ?rtl=${rtl}
+                            .layout=${layout}
+                            @action=${this._handleAction}
+                            .actionHandler=${actionHandler({
+                                hasHold: hasAction(this._config.hold_action),
+                                hasDoubleClick: hasAction(this._config.double_tap_action),
+                            })}
+                            hide_info=${hideName && hideState}
+                        >
+                            ${picture
                                 ? html`
                                       <mushroom-shape-avatar
                                           slot="icon"
@@ -127,20 +127,18 @@ export class PersonCard extends LitElement implements LovelaceCard {
                                           .icon=${icon}
                                           .disabled=${!isActive(entity)}
                                       ></mushroom-shape-icon>
-                                  `
-                        }
-                        ${
-                            isAvailable
+                                  `}
+                            ${isAvailable(entity)
                                 ? this.renderStateBadge(stateIcon, stateColor)
-                                : this.renderUnvailableBadge()
-                        }
-                        <mushroom-state-info
-                            slot="info"
-                            .primary=${!hideName ? name : undefined}
-                            .secondary=${!hideState && stateDisplay}
-                        ></mushroom-state-info>
-                    </mushroom-state-item>
-                </div>
+                                : this.renderUnavailableBadge()}
+                            <mushroom-state-info
+                                slot="info"
+                                .primary=${!hideName ? name : undefined}
+                                .secondary=${!hideState && stateDisplay}
+                            ></mushroom-state-info>
+                        </mushroom-state-item>
+                    </div>
+                </mushroom-card>
             </ha-card>
         `;
     }
@@ -157,7 +155,7 @@ export class PersonCard extends LitElement implements LovelaceCard {
         `;
     }
 
-    renderUnvailableBadge() {
+    renderUnavailableBadge() {
         return html`
             <mushroom-badge-icon
                 class="unavailable"
@@ -169,6 +167,7 @@ export class PersonCard extends LitElement implements LovelaceCard {
 
     static get styles(): CSSResultGroup {
         return [
+            super.styles,
             cardStyle,
             css`
                 mushroom-state-item {

@@ -9,7 +9,9 @@ export interface AlarmControlPanelCardConfig extends LovelaceCardConfig {
     icon?: string;
     name?: string;
     states?: string[];
+    show_keypad?: boolean;
     layout?: Layout;
+    fill_container?: boolean;
     hide_state?: boolean;
     tap_action?: ActionConfig;
     hold_action?: ActionConfig;
@@ -23,7 +25,9 @@ export const alarmControlPanelCardCardConfigStruct = assign(
         name: optional(string()),
         icon: optional(string()),
         states: optional(array()),
+        show_keypad: optional(boolean()),
         layout: optional(layoutStruct),
+        fill_container: optional(boolean()),
         hide_state: optional(boolean()),
         tap_action: optional(actionConfigStruct),
         hold_action: optional(actionConfigStruct),

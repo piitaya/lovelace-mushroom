@@ -40,10 +40,12 @@
                 "hide_icon": "Hide icon?",
                 "icon_color": "Icon color",
                 "layout": "Layout",
+                "fill_container": "Fill container",
                 "primary_info": "Primary information",
                 "secondary_info": "Secondary information",
                 "content_info": "Content",
-                "use_entity_picture": "Use entity picture?"
+                "use_entity_picture": "Use entity picture?",
+                "collapsible_controls": "Collapse controls when off"
             },
             "light": {
                 "show_brightness_control": "Brightness control?",
@@ -60,11 +62,11 @@
                 "show_oscillate_control": "Oscillate control?"
             },
             "cover": {
-                "show_buttons_control": "Buttons control?",
+                "show_buttons_control": "Control buttons?",
                 "show_position_control": "Position control?"
             },
             "alarm_control_panel": {
-                "displayed_states": "Displayed states"
+                "show_keypad": "Show keypad"
             },
             "template": {
                 "primary": "Primary information",
@@ -85,7 +87,34 @@
                 "show_temperature": "Temperature?"
             },
             "update": {
-                "show_buttons_control": "Buttons control?"
+                "show_buttons_control": "Control buttons?"
+            },
+            "vacuum": {
+                "commands": "Commands"
+            },
+            "media-player": {
+                "use_media_info": "Use media info",
+                "use_media_artwork": "Use media artwork",
+                "media_controls": "Media controls",
+                "media_controls_list": {
+                    "on_off": "Turn on/off",
+                    "shuffle": "Shuffle",
+                    "previous": "Previous track",
+                    "play_pause_stop": "Play/pause/stop",
+                    "next": "Next track",
+                    "repeat": "Repeat mode"
+                },
+                "volume_controls": "Volume controls",
+                "volume_controls_list": {
+                    "volume_buttons": "Volume buttons",
+                    "volume_set": "Volume level",
+                    "volume_mute": "Mute"
+                }
+            },
+            "lock": {
+                "lock": "Lock",
+                "unlock": "Unlock",
+                "open": "Open"
             }
         },
         "chip": {
@@ -97,7 +126,6 @@
             },
             "chip-picker": {
                 "chips": "Chips",
-                "details": "Show details by clicking the edit button",
                 "add": "Add chip",
                 "edit": "Edit",
                 "clear": "Clear",

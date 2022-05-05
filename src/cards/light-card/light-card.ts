@@ -1,26 +1,29 @@
 import {
     ActionHandlerEvent,
+    computeRTL,
     handleAction,
     hasAction,
     HomeAssistant,
     LovelaceCard,
     LovelaceCardEditor,
 } from "custom-card-helpers";
-import { HassEntity } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
+import { customElement, state } from "lit/decorators.js";
+import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
+import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
+import { isActive, isAvailable } from "../../ha/data/entity";
+import { LightEntity } from "../../ha/data/light";
 import "../../shared/badge-icon";
 import "../../shared/button";
 import "../../shared/card";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
+import { MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
-import { computeStateDisplay } from "../../utils/compute-state-display";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
-import { isActive } from "../../utils/entity";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig } from "../../utils/layout";
 import { LIGHT_CARD_EDITOR_NAME, LIGHT_CARD_NAME, LIGHT_ENTITY_DOMAINS } from "./const";
@@ -31,8 +34,8 @@ import { LightCardConfig } from "./light-card-config";
 import {
     getBrightness,
     getRGBColor,
-    isLight,
-    isSuperLight,
+    isColorLight,
+    isColorSuperLight,
     supportsBrightnessControl,
     supportsColorControl,
     supportsColorTempControl,
@@ -53,7 +56,7 @@ registerCustomCard({
 });
 
 @customElement(LIGHT_CARD_NAME)
-export class LightCard extends LitElement implements LovelaceCard {
+export class LightCard extends MushroomBaseElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./light-card-editor");
         return document.createElement(LIGHT_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -67,8 +70,6 @@ export class LightCard extends LitElement implements LovelaceCard {
             entity: lights[0],
         };
     }
-
-    @property({ attribute: false }) public hass!: HomeAssistant;
 
     @state() private _config?: LightCardConfig;
 
@@ -93,9 +94,6 @@ export class LightCard extends LitElement implements LovelaceCard {
             hold_action: {
                 action: "more-info",
             },
-            double_tap_action: {
-                action: "more-info",
-            },
             ...config,
         };
         this.updateControls();
@@ -118,7 +116,7 @@ export class LightCard extends LitElement implements LovelaceCard {
         if (!this._config || !this.hass || !this._config.entity) return;
 
         const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id];
+        const entity = this.hass.states[entity_id] as LightEntity;
 
         if (!entity) return;
         this.brightness = getBrightness(entity);
@@ -134,19 +132,21 @@ export class LightCard extends LitElement implements LovelaceCard {
         if (!this._config || !this.hass || !this._config.entity) return;
 
         const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id];
+        const entity = this.hass.states[entity_id] as LightEntity;
 
         if (!entity) return;
 
         const controls: LightCardControl[] = [];
-        if (this._config.show_brightness_control && supportsBrightnessControl(entity)) {
-            controls.push("brightness_control");
-        }
-        if (this._config.show_color_temp_control && supportsColorTempControl(entity)) {
-            controls.push("color_temp_control");
-        }
-        if (this._config.show_color_control && supportsColorControl(entity)) {
-            controls.push("color_control");
+        if (!this._config.collapsible_controls || isActive(entity)) {
+            if (this._config.show_brightness_control && supportsBrightnessControl(entity)) {
+                controls.push("brightness_control");
+            }
+            if (this._config.show_color_temp_control && supportsColorTempControl(entity)) {
+                controls.push("color_temp_control");
+            }
+            if (this._config.show_color_control && supportsColorControl(entity)) {
+                controls.push("color_control");
+            }
         }
         this._controls = controls;
         const isActiveControlSupported = this._activeControl
@@ -165,7 +165,7 @@ export class LightCard extends LitElement implements LovelaceCard {
         }
 
         const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id];
+        const entity = this.hass.states[entity_id] as LightEntity;
 
         const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
@@ -185,53 +185,58 @@ export class LightCard extends LitElement implements LovelaceCard {
             const color = lightRgbColor.join(",");
             iconStyle["--icon-color"] = `rgb(${color})`;
             iconStyle["--shape-color"] = `rgba(${color}, 0.25)`;
-            if (isLight(lightRgbColor) && !(this.hass.themes as any).darkMode) {
+            if (isColorLight(lightRgbColor) && !(this.hass.themes as any).darkMode) {
                 iconStyle["--shape-outline-color"] = `rgba(var(--rgb-primary-text-color), 0.05)`;
-                if (isSuperLight(lightRgbColor)) {
+                if (isColorSuperLight(lightRgbColor)) {
                     iconStyle["--icon-color"] = `rgba(var(--rgb-primary-text-color), 0.2)`;
                 }
             }
         }
 
+        const rtl = computeRTL(this.hass);
+
         return html`
-            <mushroom-card .layout=${layout}>
-                <mushroom-state-item
-                    .layout=${layout}
-                    @action=${this._handleAction}
-                    .actionHandler=${actionHandler({
-                        hasHold: hasAction(this._config.hold_action),
-                        hasDoubleClick: hasAction(this._config.double_tap_action),
-                    })}
-                >
-                    <mushroom-shape-icon
-                        slot="icon"
-                        .disabled=${!active}
-                        .icon=${icon}
-                        style=${styleMap(iconStyle)}
-                    ></mushroom-shape-icon>
-                    ${entity.state === "unavailable"
+            <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
+                <mushroom-card .layout=${layout} ?rtl=${rtl}>
+                    <mushroom-state-item
+                        ?rtl=${rtl}
+                        .layout=${layout}
+                        @action=${this._handleAction}
+                        .actionHandler=${actionHandler({
+                            hasHold: hasAction(this._config.hold_action),
+                            hasDoubleClick: hasAction(this._config.double_tap_action),
+                        })}
+                    >
+                        <mushroom-shape-icon
+                            slot="icon"
+                            .disabled=${!active}
+                            .icon=${icon}
+                            style=${styleMap(iconStyle)}
+                        ></mushroom-shape-icon>
+                        ${!isAvailable(entity)
+                            ? html`
+                                  <mushroom-badge-icon
+                                      class="unavailable"
+                                      slot="badge"
+                                      icon="mdi:help"
+                                  ></mushroom-badge-icon>
+                              `
+                            : null}
+                        <mushroom-state-info
+                            slot="info"
+                            .primary=${name}
+                            .secondary=${!hideState && stateValue}
+                        ></mushroom-state-info>
+                    </mushroom-state-item>
+                    ${this._controls.length > 0
                         ? html`
-                              <mushroom-badge-icon
-                                  class="unavailable"
-                                  slot="badge"
-                                  icon="mdi:help"
-                              ></mushroom-badge-icon>
+                              <div class="actions" ?rtl=${rtl}>
+                                  ${this.renderActiveControl(entity)} ${this.renderOtherControls()}
+                              </div>
                           `
                         : null}
-                    <mushroom-state-info
-                        slot="info"
-                        .primary=${name}
-                        .secondary=${!hideState && stateValue}
-                    ></mushroom-state-info>
-                </mushroom-state-item>
-                ${this._controls.length > 0
-                    ? html`
-                          <div class="actions">
-                              ${this.renderActiveControl(entity)} ${this.renderOtherControls()}
-                          </div>
-                      `
-                    : null}
-            </mushroom-card>
+                </mushroom-card>
+            </ha-card>
         `;
     }
 
@@ -250,7 +255,7 @@ export class LightCard extends LitElement implements LovelaceCard {
         `;
     }
 
-    private renderActiveControl(entity: HassEntity): TemplateResult | null {
+    private renderActiveControl(entity: LightEntity): TemplateResult | null {
         switch (this._activeControl) {
             case "brightness_control":
                 const lightRgbColor = getRGBColor(entity);
@@ -259,7 +264,7 @@ export class LightCard extends LitElement implements LovelaceCard {
                     const color = lightRgbColor.join(",");
                     sliderStyle["--slider-color"] = `rgb(${color})`;
                     sliderStyle["--slider-bg-color"] = `rgba(${color}, 0.2)`;
-                    if (isLight(lightRgbColor) && !(this.hass.themes as any).darkMode) {
+                    if (isColorLight(lightRgbColor) && !(this.hass.themes as any).darkMode) {
                         sliderStyle[
                             "--slider-bg-color"
                         ] = `rgba(var(--rgb-primary-text-color), 0.05)`;
@@ -291,6 +296,7 @@ export class LightCard extends LitElement implements LovelaceCard {
 
     static get styles(): CSSResultGroup {
         return [
+            super.styles,
             cardStyle,
             css`
                 mushroom-state-item {

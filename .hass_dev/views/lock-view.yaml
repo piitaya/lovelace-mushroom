@@ -1,0 +1,47 @@
+title: Lock
+icon: mdi:lock
+cards:
+  - type: grid
+    title: Simple
+    cards:
+      - type: custom:mushroom-lock-card
+        entity: lock.front_door
+      - type: custom:mushroom-lock-card
+        entity: lock.front_door
+        name: Custom name and icon
+        icon: mdi:robot-outline
+    columns: 2
+    square: false
+  - type: grid
+    title: Controls
+    cards:
+      - type: custom:mushroom-lock-card
+        entity: lock.front_door
+        name: Buttons control
+      - type: custom:mushroom-lock-card
+        entity: lock.front_door
+        name: Position control
+    columns: 2
+    square: false
+  - type: custom:mushroom-lock-card
+    entity: lock.front_door
+    name: Multiple controls
+  - type: vertical-stack
+    title: Layout
+    cards:
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:mushroom-lock-card
+            entity: lock.front_door
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:mushroom-lock-card
+            entity: lock.front_door
+            layout: "vertical"
+      - type: custom:mushroom-lock-card
+        entity: lock.front_door
+        layout: "horizontal"
