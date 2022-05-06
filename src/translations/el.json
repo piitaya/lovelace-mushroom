@@ -61,9 +61,6 @@
                 "show_buttons_control": "Έλεγχος κουμπιών;",
                 "show_position_control": "Έλεγχος θέσης;"
             },
-            "alarm_control_panel": {
-                "displayed_states": "Εμφανιζόμενες καταστάσεις"
-            },
             "template": {
                 "primary": "Πρωτεύουσες πληροφορίες",
                 "secondary": "Δευτερεύουσες πληροφορίες",
@@ -117,7 +114,6 @@
             },
             "chip-picker": {
                 "chips": "Chips",
-                "details": "Εμφάνιση λεπτομερειών κάνοντας κλικ στο κουμπί επεξεργασίας",
                 "add": "Προσθήκη chip",
                 "edit": "Επεξεργασία",
                 "clear": "Καθαρισμός",

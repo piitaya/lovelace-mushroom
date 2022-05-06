@@ -1,11 +1,10 @@
 import { fireEvent, HomeAssistant } from "custom-card-helpers";
-import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import setupCustomlocalize from "../../../localize";
-import { configElementStyle } from "../../../utils/editor-styles";
 import { Action } from "../../../utils/form/custom/ha-selector-mushroom-action";
-import { GENERIC_FIELDS } from "../../../utils/form/fields";
+import { GENERIC_LABELS } from "../../../utils/form/generic-fields";
 import { HaFormSchema } from "../../../utils/form/ha-form";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
 import { ActionChipConfig } from "../../../utils/lovelace/chip/types";
@@ -38,10 +37,10 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
         this._config = config;
     }
 
-    private _computeLabelCallback = (schema: HaFormSchema) => {
+    private _computeLabel = (schema: HaFormSchema) => {
         const customLocalize = setupCustomlocalize(this.hass!);
 
-        if (GENERIC_FIELDS.includes(schema.name)) {
+        if (GENERIC_LABELS.includes(schema.name)) {
             return customLocalize(`editor.card.generic.${schema.name}`);
         }
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
@@ -60,7 +59,7 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
                 .hass=${this.hass}
                 .data=${this._config}
                 .schema=${schema}
-                .computeLabel=${this._computeLabelCallback}
+                .computeLabel=${this._computeLabel}
                 @value-changed=${this._valueChanged}
             ></ha-form>
         `;
@@ -68,9 +67,5 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
 
     private _valueChanged(ev: CustomEvent): void {
         fireEvent(this, "config-changed", { config: ev.detail.value });
-    }
-
-    static get styles(): CSSResultGroup {
-        return configElementStyle;
     }
 }

@@ -40,10 +40,12 @@
                 "hide_icon": "Hide icon?",
                 "icon_color": "Icon color",
                 "layout": "Layout",
+                "fill_container": "Fill container",
                 "primary_info": "Primary information",
                 "secondary_info": "Secondary information",
                 "content_info": "Content",
-                "use_entity_picture": "Use entity picture?"
+                "use_entity_picture": "Use entity picture?",
+                "collapsible_controls": "Collapse controls when off"
             },
             "light": {
                 "show_brightness_control": "Brightness control?",
@@ -62,7 +64,7 @@
                 "show_position_control": "Position control?"
             },
             "alarm_control_panel": {
-                "displayed_states": "Displayed states"
+                "show_keypad": "Show keypad"
             },
             "template": {
                 "primary": "Primary information",
@@ -122,7 +124,6 @@
             },
             "chip-picker": {
                 "chips": "Chips",
-                "details": "Show details by clicking the edit button",
                 "add": "Add chip",
                 "edit": "Edit",
                 "clear": "Clear",

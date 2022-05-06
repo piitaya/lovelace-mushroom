@@ -1,12 +1,12 @@
-import { fireEvent, HomeAssistant, LovelaceCardEditor } from "custom-card-helpers";
-import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { fireEvent, LovelaceCardEditor } from "custom-card-helpers";
+import { html, TemplateResult } from "lit";
+import { customElement, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import { LOCK_ENTITY_DOMAINS } from "../../ha/data/lock";
 import setupCustomlocalize from "../../localize";
-import { configElementStyle } from "../../utils/editor-styles";
-import { GENERIC_FIELDS } from "../../utils/form/fields";
+import { MushroomBaseElement } from "../../utils/base-element";
+import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { loadHaComponents } from "../../utils/loader";
@@ -14,21 +14,15 @@ import { LOCK_CARD_EDITOR_NAME } from "./const";
 import { LockCardConfig, lockCardConfigStruct } from "./lock-card-config";
 
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
-    { name: "entity", selector: { entity: { domain : LOCK_ENTITY_DOMAINS} } },
+    { name: "entity", selector: { entity: { domain: LOCK_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
-    {
-        type: "grid",
-        name: "",
-        schema: [
-            { name: "icon", selector: { icon: { placeholder: icon } } },
-            { name: "icon_color", selector: { "mush-color": {} } },
-        ],
-    },
+    { name: "icon", selector: { icon: { placeholder: icon } } },
     {
         type: "grid",
         name: "",
         schema: [
             { name: "layout", selector: { "mush-layout": {} } },
+            { name: "fill_container", selector: { boolean: {} } },
             { name: "hide_state", selector: { boolean: {} } },
         ],
     },
@@ -38,9 +32,7 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
 ]);
 
 @customElement(LOCK_CARD_EDITOR_NAME)
-export class LockCardEditor extends LitElement implements LovelaceCardEditor {
-    @property({ attribute: false }) public hass?: HomeAssistant;
-
+export class LockCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
     @state() private _config?: LockCardConfig;
 
     connectedCallback() {
@@ -53,10 +45,10 @@ export class LockCardEditor extends LitElement implements LovelaceCardEditor {
         this._config = config;
     }
 
-    private _computeLabelCallback = (schema: HaFormSchema) => {
+    private _computeLabel = (schema: HaFormSchema) => {
         const customLocalize = setupCustomlocalize(this.hass!);
 
-        if (GENERIC_FIELDS.includes(schema.name)) {
+        if (GENERIC_LABELS.includes(schema.name)) {
             return customLocalize(`editor.card.generic.${schema.name}`);
         }
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
@@ -77,7 +69,7 @@ export class LockCardEditor extends LitElement implements LovelaceCardEditor {
                 .hass=${this.hass}
                 .data=${this._config}
                 .schema=${schema}
-                .computeLabel=${this._computeLabelCallback}
+                .computeLabel=${this._computeLabel}
                 @value-changed=${this._valueChanged}
             ></ha-form>
         `;
@@ -85,9 +77,5 @@ export class LockCardEditor extends LitElement implements LovelaceCardEditor {
 
     private _valueChanged(ev: CustomEvent): void {
         fireEvent(this, "config-changed", { config: ev.detail.value });
-    }
-
-    static get styles(): CSSResultGroup {
-        return configElementStyle;
     }
 }

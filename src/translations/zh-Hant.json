@@ -40,10 +40,12 @@
                 "hide_icon": "隱藏圖示?",
                 "icon_color": "圖示顏色",
                 "layout": "佈局",
+                "fill_container": "填滿容器",
                 "primary_info": "主要訊息",
                 "secondary_info": "次要訊息",
                 "content_info": "內容",
-                "use_entity_picture": "使用實體圖片?"
+                "use_entity_picture": "使用實體圖片?",
+                "collapsible_controls": "關閉時隱藏控制項"
             },
             "light": {
                 "show_brightness_control": "亮度控制?",
@@ -62,7 +64,7 @@
                 "show_position_control": "位置控制?"
             },
             "alarm_control_panel": {
-                "displayed_states": "顯示的狀態"
+                "show_keypad": "顯示鍵盤"
             },
             "template": {
                 "primary": "主要訊息",
@@ -122,7 +124,6 @@
             },
             "chip-picker": {
                 "chips": "Chips",
-                "details": "點擊編輯按鈕來查看詳細訊息",
                 "add": "新增 chip",
                 "edit": "編輯",
                 "clear": "清除",

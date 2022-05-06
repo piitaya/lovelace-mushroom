@@ -59,9 +59,6 @@
                 "show_buttons_control": "Visa kontrollknappar?",
                 "show_position_control": "Visa positionskontroll?"
             },
-            "alarm_control_panel": {
-                "displayed_states": "Status som visas"
-            },
             "template": {
                 "primary": "Primär information",
                 "secondary": "Sekundär information",
@@ -89,7 +86,6 @@
             },
             "chip-picker": {
                 "chips": "Chips",
-                "details": "Visa detaljer genom att klicka på knappen Redigera",
                 "add": "Lägg till chip",
                 "edit": "Redigera",
                 "clear": "Rensa",

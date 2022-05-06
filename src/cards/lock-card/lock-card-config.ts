@@ -8,8 +8,8 @@ export interface LockCardConfig extends LovelaceCardConfig {
     entity?: string;
     icon?: string;
     name?: string;
-    icon_color?: string;
     layout?: Layout;
+    fill_container?: boolean;
     hide_state?: boolean;
     tap_action?: ActionConfig;
     hold_action?: ActionConfig;
@@ -22,8 +22,8 @@ export const lockCardConfigStruct = assign(
         entity: optional(string()),
         name: optional(string()),
         icon: optional(string()),
-        icon_color: optional(string()),
         layout: optional(layoutStruct),
+        fill_container: optional(boolean()),
         hide_state: optional(boolean()),
         tap_action: optional(actionConfigStruct),
         hold_action: optional(actionConfigStruct),

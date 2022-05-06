@@ -61,9 +61,6 @@
                 "show_buttons_control": "Kontollere med knapper?",
                 "show_position_control": "Posisjonskontroll?"
             },
-            "alarm_control_panel": {
-                "displayed_states": "Viste tilstander"
-            },
             "template": {
                 "primary": "Primærinformasjon",
                 "secondary": "Sekundærinformasjon",
@@ -92,7 +89,6 @@
             },
             "chip-picker": {
                 "chips": "Chips",
-                "details": "Vis detaljer ved å klikke på rediger-knappen",
                 "add": "Legg til chip",
                 "edit": "Endre",
                 "clear": "Klare",
