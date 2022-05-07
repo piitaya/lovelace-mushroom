@@ -12,7 +12,7 @@
                     "name": "Tên",
                     "state": "Trạng thái",
                     "last-changed": "Lần cuối thay đổi",
-                    "last-updated": "Lần cuối cập nhập",
+                    "last-updated": "Lần cuối cập nhật",
                     "none": "Rỗng"
                 }
             },
@@ -38,7 +38,7 @@
                 "hide_name": "Ẩn tên?",
                 "hide_state": "Ẩn trạng thái?",
                 "hide_icon": "Ẩn biểu tượng?",
-                "icon_color": "màu biểu tượng",
+                "icon_color": "Màu biểu tượng",
                 "layout": "Bố cục",
                 "fill_container": "Làm đầy",
                 "primary_info": "Thông tin chính",
@@ -57,11 +57,11 @@
             "fan": {
                 "icon_animation": "Biểu tượng hoạt ảnh khi hoạt động?",
                 "show_percentage_control": "Điều khiển dạng phần trăm?",
-                "show_oscillate_control": "Oscillate control?"
+                "show_oscillate_control": "Điều khiển xoay?"
             },
             "cover": {
                 "show_buttons_control": "Nút điều khiển?",
-                "show_position_control": "Position control?"
+                "show_position_control": "Điều khiển vị trí?"
             },
             "alarm_control_panel": {
                 "show_keypad": "Hiện bàn phím"
@@ -81,7 +81,7 @@
                 "alignment": "Căn chỉnh"
             },
             "weather": {
-                "show_conditions": "Điều khiện?",
+                "show_conditions": "Điều kiện?",
                 "show_temperature": "Nhiệt độ?"
             },
             "update": {
@@ -117,13 +117,13 @@
         },
         "chip": {
             "sub_element_editor": {
-                "title": "Chỉnh sửa Chip"
+                "title": "Chỉnh sửa chip"
             },
             "conditional": {
                 "chip": "Chip"
             },
             "chip-picker": {
-                "chips": "Chips",
+                "chips": "Các chip",
                 "add": "Thêm chip",
                 "edit": "Chỉnh sửa",
                 "clear": "Làm mới",
