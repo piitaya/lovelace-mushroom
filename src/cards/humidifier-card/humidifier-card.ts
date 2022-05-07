@@ -69,7 +69,7 @@ export class HumidifierCard extends MushroomBaseElement implements LovelaceCard 
     setConfig(config: HumidifierCardConfig): void {
         this._config = {
             tap_action: {
-                action: "more-info",
+                action: "toggle",
             },
             hold_action: {
                 action: "more-info",
