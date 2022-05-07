@@ -7,9 +7,11 @@ import {
     LovelaceCard,
     LovelaceCardEditor,
 } from "custom-card-helpers";
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
+import { classMap } from "lit/directives/class-map.js";
+
 import { isActive, isAvailable } from "../../ha/data/entity";
 import "../../shared/badge-icon";
 import "../../shared/card";
@@ -24,6 +26,7 @@ import { getLayoutFromConfig } from "../../utils/layout";
 import { PLANT_CARD_EDITOR_NAME, PLANT_CARD_NAME, PLANT_ENTITY_DOMAINS } from "./const";
 import { PlantCardConfig } from "./plant-card-config";
 import { computePlantState } from "./utils";
+import { MushroomBaseElement } from "../../utils/base-element";
 
 registerCustomCard({
     type: PLANT_CARD_NAME,
@@ -32,7 +35,7 @@ registerCustomCard({
 });
 
 @customElement(PLANT_CARD_NAME)
-export class PlantCard extends LitElement implements LovelaceCard {
+export class PlantCard extends MushroomBaseElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./plant-card-editor");
         return document.createElement(PLANT_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -40,10 +43,10 @@ export class PlantCard extends LitElement implements LovelaceCard {
 
     public static async getStubConfig(hass: HomeAssistant): Promise<PlantCardConfig> {
         const entities = Object.keys(hass.states);
-        const people = entities.filter((e) => PLANT_ENTITY_DOMAINS.includes(e.split(".")[0]));
+        const plant = entities.filter((e) => PLANT_ENTITY_DOMAINS.includes(e.split(".")[0]));
         return {
             type: `custom:${PLANT_CARD_NAME}`,
-            entity: people[0],
+            entity: plant[0],
         };
     }
 
@@ -112,73 +115,75 @@ export class PlantCard extends LitElement implements LovelaceCard {
         const rtl = computeRTL(this.hass);
 
         return html`
-            <mushroom-card .layout=${layout} ?rtl=${rtl}>
-                <div class="container">
-                    <mushroom-state-item
-                        ?rtl=${rtl}
-                        .layout=${layout}
-                        @action=${this._handleAction}
-                        .actionHandler=${actionHandler({
-                            hasHold: hasAction(this._config.hold_action),
-                            hasDoubleClick: hasAction(this._config.double_tap_action),
-                        })}
-                    >
-                        ${picture
-                            ? html`
-                                  <mushroom-shape-avatar
-                                      slot="icon"
-                                      .picture_url=${picture}
-                                  ></mushroom-shape-avatar>
-                              `
-                            : html`
-                                  <mushroom-shape-icon
-                                      slot="icon"
-                                      .icon=${icon}
-                                  ></mushroom-shape-icon>
-                              `}
-                        ${isAvailable(entity)
-                            ? isActive(entity)
-                                ? this.renderStateBadge(problemIcon, stateColor)
-                                : null
-                            : this.renderUnavailableBadge()}
-                        <mushroom-state-info
-                            slot="info"
-                            .primary=${!hideName ? name : undefined}
-                            .secondary=${!hideState && stateDisplay}
-                        ></mushroom-state-info>
-                    </mushroom-state-item>
-                    <div class="attributes">
-                        <mushroom-status-bar
-                            .entity=${entity}
-                            icon="mdi:thermometer"
-                            attr="temperature"
-                            .min=${limits["min_temperature"]}
-                            .max=${limits["max_temperature"]}
-                        ></mushroom-status-bar>
-                        <mushroom-status-bar
-                            .entity=${entity}
-                            icon="mdi:white-balance-sunny"
-                            attr="brightness"
-                            .min=${limits["min_brightness"]}
-                            .max=${limits["max_brightness"]}
-                        ></mushroom-status-bar>
-                        <mushroom-status-bar
-                            .entity=${entity}
-                            icon="mdi:water-percent"
-                            attr="moisture"
-                            .min=${limits["min_moisture"]}
-                            .max=${limits["max_moisture"]}
-                        ></mushroom-status-bar>
-                        <mushroom-status-bar
-                            .entity=${entity}
-                            icon="mdi:leaf"
-                            attr="conductivity"
-                            .min=${limits["min_conductivity"]}
-                            .max=${limits["max_conductivity"]}
-                        ></mushroom-status-bar>
+            <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
+                <mushroom-card .layout=${layout} ?rtl=${rtl}>
+                    <div class="container">
+                        <mushroom-state-item
+                            ?rtl=${rtl}
+                            .layout=${layout}
+                            @action=${this._handleAction}
+                            .actionHandler=${actionHandler({
+                                hasHold: hasAction(this._config.hold_action),
+                                hasDoubleClick: hasAction(this._config.double_tap_action),
+                            })}
+                        >
+                            ${picture
+                                ? html`
+                                      <mushroom-shape-avatar
+                                          slot="icon"
+                                          .picture_url=${picture}
+                                      ></mushroom-shape-avatar>
+                                  `
+                                : html`
+                                      <mushroom-shape-icon
+                                          slot="icon"
+                                          .icon=${icon}
+                                      ></mushroom-shape-icon>
+                                  `}
+                            ${isAvailable(entity)
+                                ? isActive(entity)
+                                    ? this.renderStateBadge(problemIcon, stateColor)
+                                    : null
+                                : this.renderUnavailableBadge()}
+                            <mushroom-state-info
+                                slot="info"
+                                .primary=${!hideName ? name : undefined}
+                                .secondary=${!hideState && stateDisplay}
+                            ></mushroom-state-info>
+                        </mushroom-state-item>
+                        <div class="attributes">
+                            <mushroom-status-bar
+                                .entity=${entity}
+                                icon="mdi:thermometer"
+                                attr="temperature"
+                                .min=${limits["min_temperature"]}
+                                .max=${limits["max_temperature"]}
+                            ></mushroom-status-bar>
+                            <mushroom-status-bar
+                                .entity=${entity}
+                                icon="mdi:white-balance-sunny"
+                                attr="brightness"
+                                .min=${limits["min_brightness"]}
+                                .max=${limits["max_brightness"]}
+                            ></mushroom-status-bar>
+                            <mushroom-status-bar
+                                .entity=${entity}
+                                icon="mdi:water-percent"
+                                attr="moisture"
+                                .min=${limits["min_moisture"]}
+                                .max=${limits["max_moisture"]}
+                            ></mushroom-status-bar>
+                            <mushroom-status-bar
+                                .entity=${entity}
+                                icon="mdi:leaf"
+                                attr="conductivity"
+                                .min=${limits["min_conductivity"]}
+                                .max=${limits["max_conductivity"]}
+                            ></mushroom-status-bar>
+                        </div>
                     </div>
-                </div>
-            </mushroom-card>
+                </mushroom-card>
+            </ha-card>
         `;
     }
 
@@ -206,11 +211,9 @@ export class PlantCard extends LitElement implements LovelaceCard {
 
     static get styles(): CSSResultGroup {
         return [
+            super.styles,
             cardStyle,
             css`
-                mushroom-state-item {
-                    cursor: pointer;
-                }
                 .attributes {
                     white-space: nowrap;
                     padding-top: 10px;
