@@ -117,17 +117,17 @@
         },
         "chip": {
             "sub_element_editor": {
-                "title": "Chỉnh sửa Chip"
+                "title": "Chỉnh sửa chip"
             },
             "conditional": {
                 "chip": "Chip"
             },
             "chip-picker": {
-                "chips": "Các Chip",
+                "chips": "Các chip",
                 "add": "Thêm chip",
                 "edit": "Chỉnh sửa",
                 "clear": "Làm mới",
-                "select": "Chọn Chip",
+                "select": "Chọn chip",
                 "types": {
                     "action": "Hành động",
                     "alarm-control-panel": "Báo động",
