@@ -13,7 +13,7 @@ import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
 import { supportsFeature } from "../../ha/common/entity/supports-feature";
-import { isActive, isAvailable } from "../../ha/data/entity";
+import { getEntityPicture, isActive, isAvailable } from "../../ha/data/entity";
 import { UpdateEntity, updateIsInstalling, UPDATE_SUPPORT_INSTALL } from "../../ha/data/update";
 import "../../shared/badge-icon";
 import "../../shared/card";
@@ -85,9 +85,7 @@ export class UpdateCard extends MushroomBaseElement implements LovelaceCard {
 
         const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
-        const picture = this._config.use_entity_picture
-            ? entity.attributes.entity_picture
-            : undefined;
+        const picture = this._config.use_entity_picture ? getEntityPicture(entity) : undefined;
 
         const layout = getLayoutFromConfig(this._config);
 

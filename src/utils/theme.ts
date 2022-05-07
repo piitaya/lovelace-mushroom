@@ -67,7 +67,6 @@ export const themeColorCss = css`
     --rgb-danger: var(--mush-rgb-danger, var(--rgb-red));
 
     /* State colors */
-    --rgb-state-cover: var(--mush-rgb-state-cover, var(--rgb-blue));
     --rgb-state-vacuum: var(--mush-rgb-state-vacuum, var(--rgb-teal));
     --rgb-state-fan: var(--mush-rgb-state-fan, var(--rgb-green));
     --rgb-state-light: var(--mush-rgb-state-light, var(--rgb-orange));
@@ -96,4 +95,8 @@ export const themeColorCss = css`
     --rgb-state-lock-locked: var(--mush-rgb-state-lock-locked, var(--rgb-green));
     --rgb-state-lock-unlocked: var(--mush-rgb-state-lock-unlocked, var(--rgb-red));
     --rgb-state-lock-pending: var(--mush-rgb-state-lock-pending, var(--rgb-orange));
+
+    /* State cover colors */
+    --rgb-state-cover-open: var(--mush-rgb-state-cover-open, var(--rgb-blue));
+    --rgb-state-cover-closed: var(--mush-rgb-state-cover-closed, var(--rgb-disabled));
 `;

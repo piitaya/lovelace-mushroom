@@ -10,7 +10,7 @@ import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { computeStateDisplay } from "../../../ha/common/entity/compute-state-display";
-import { isActive } from "../../../ha/data/entity";
+import { getEntityPicture, isActive } from "../../../ha/data/entity";
 import { computeRgbColor } from "../../../utils/colors";
 import { actionHandler } from "../../../utils/directives/action-handler-directive";
 import { stateIcon } from "../../../utils/icons/state-icon";
@@ -63,9 +63,7 @@ export class EntityChip extends LitElement implements LovelaceChip {
         const icon = this._config.icon || stateIcon(entity);
         const iconColor = this._config.icon_color;
 
-        const picture = this._config.use_entity_picture
-            ? entity.attributes.entity_picture
-            : undefined;
+        const picture = this._config.use_entity_picture ? getEntityPicture(entity) : undefined;
 
         const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
