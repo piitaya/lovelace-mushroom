@@ -39,7 +39,6 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
         name: "",
         schema: [
             { name: "show_target_humidity_control", selector: { boolean: {} } },
-            { name: "show_buttons_control", selector: { boolean: {} } },
         ],
     },
     { name: "tap_action", selector: { "mush-action": {} } },

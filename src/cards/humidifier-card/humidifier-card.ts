@@ -30,7 +30,6 @@ import {
     HUMIDIFIER_ENTITY_DOMAINS,
 } from "./const";
 import "./controls/humidifier-humidity-control";
-import "./controls/humidifier-buttons-control";
 import { HumidifierCardConfig } from "./humidifier-card-config";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { classMap } from "lit/directives/class-map.js";
@@ -115,8 +114,7 @@ export class HumidifierCard extends MushroomBaseElement implements LovelaceCard 
 
         const displayControls =
             !this._config.collapsible_controls ||
-            (isActive(entity) &&
-                (this._config.show_target_humidity_control || this._config.show_buttons_control));
+            (isActive(entity) && this._config.show_target_humidity_control);
 
         return html`
             <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
@@ -157,14 +155,6 @@ export class HumidifierCard extends MushroomBaseElement implements LovelaceCard 
                                         @current-change=${this.onCurrentHumidityChange}
                                     ></mushroom-humidifier-humidity-control>
                                 </div>`
-                                  : null}
-                              ${this._config.show_buttons_control
-                                  ? html`
-                                        <mushroom-humidifier-buttons-control
-                                            .hass=${this.hass}
-                                            .entity=${entity}
-                                        ></mushroom-humidifier-buttons-control>
-                                    `
                                   : null}
                           </div>`
                         : null}
