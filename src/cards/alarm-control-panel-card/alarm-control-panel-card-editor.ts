@@ -1,12 +1,12 @@
-import { fireEvent, HomeAssistant, LocalizeFunc, LovelaceCardEditor } from "custom-card-helpers";
-import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { fireEvent, LocalizeFunc, LovelaceCardEditor } from "custom-card-helpers";
+import { html, TemplateResult } from "lit";
+import { customElement, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import setupCustomlocalize from "../../localize";
-import { configElementStyle } from "../../utils/editor-styles";
+import { MushroomBaseElement } from "../../utils/base-element";
 import { Action } from "../../utils/form/custom/ha-selector-mushroom-action";
-import { GENERIC_FIELDS } from "../../utils/form/fields";
+import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { loadHaComponents } from "../../utils/loader";
@@ -20,7 +20,7 @@ const actions: Action[] = ["more-info", "navigate", "url", "call-service", "none
 
 const states = ["armed_home", "armed_away", "armed_night", "armed_vacation", "armed_custom_bypass"];
 
-const ALARM_CONTROL_PANEL_FIELDS = ["show_keypad"];
+const ALARM_CONTROL_PANEL_LABELS = ["show_keypad"];
 
 const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: ALARM_CONTROl_PANEL_ENTITY_DOMAINS } } },
@@ -35,6 +35,7 @@ const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaForm
         name: "",
         schema: [
             { name: "layout", selector: { "mush-layout": {} } },
+            { name: "fill_container", selector: { boolean: {} } },
             { name: "hide_state", selector: { boolean: {} } },
         ],
     },
@@ -53,9 +54,7 @@ const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaForm
 ]);
 
 @customElement(ALARM_CONTROl_PANEL_CARD_EDITOR_NAME)
-export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
-    @property({ attribute: false }) public hass?: HomeAssistant;
-
+export class SwitchCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
     @state() private _config?: AlarmControlPanelCardConfig;
 
     connectedCallback() {
@@ -83,19 +82,19 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
                 .hass=${this.hass}
                 .data=${this._config}
                 .schema=${schema}
-                .computeLabel=${this._computeLabelCallback}
+                .computeLabel=${this._computeLabel}
                 @value-changed=${this._valueChanged}
             ></ha-form>
         `;
     }
 
-    private _computeLabelCallback = (schema: HaFormSchema) => {
+    private _computeLabel = (schema: HaFormSchema) => {
         const customLocalize = setupCustomlocalize(this.hass!);
 
-        if (GENERIC_FIELDS.includes(schema.name)) {
+        if (GENERIC_LABELS.includes(schema.name)) {
             return customLocalize(`editor.card.generic.${schema.name}`);
         }
-        if (ALARM_CONTROL_PANEL_FIELDS.includes(schema.name)) {
+        if (ALARM_CONTROL_PANEL_LABELS.includes(schema.name)) {
             return customLocalize(`editor.card.alarm_control_panel.${schema.name}`);
         }
         if (schema.name === "states") {
@@ -109,9 +108,5 @@ export class SwitchCardEditor extends LitElement implements LovelaceCardEditor {
 
     private _valueChanged(ev: CustomEvent): void {
         fireEvent(this, "config-changed", { config: ev.detail.value });
-    }
-
-    static get styles(): CSSResultGroup {
-        return [configElementStyle];
     }
 }

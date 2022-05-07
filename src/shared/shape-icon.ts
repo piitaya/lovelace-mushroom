@@ -26,10 +26,10 @@ export class ShapeIcon extends LitElement {
         return css`
             :host {
                 --icon-color: var(--primary-text-color);
-                --icon-color-disabled: var(--disabled-text-color);
+                --icon-color-disabled: rgb(var(--rgb-disabled));
                 --icon-animation: none;
                 --shape-color: rgba(var(--rgb-primary-text-color), 0.05);
-                --shape-color-disabled: rgba(var(--rgb-primary-text-color), 0.05);
+                --shape-color-disabled: rgba(var(--rgb-disabled), 0.2);
                 --shape-animation: none;
                 --shape-outline-color: transparent;
                 --shape-outline-size: 1px;

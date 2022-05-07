@@ -9,6 +9,7 @@ import { CHIP_LIST, LovelaceChipConfig } from "../../utils/lovelace/chip/types";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { sortableStyles } from "../../utils/sortable-styles";
 import "../../shared/form/mushroom-select";
+import { MushroomBaseElement } from "../../utils/base-element";
 
 let Sortable;
 
@@ -21,9 +22,7 @@ declare global {
 }
 
 @customElement("mushroom-chips-card-chips-editor")
-export class ChipsCardEditorChips extends LitElement {
-    @property({ attribute: false }) protected hass?: HomeAssistant;
-
+export class ChipsCardEditorChips extends MushroomBaseElement {
     @property({ attribute: false }) protected chips?: LovelaceChipConfig[];
 
     @property() protected label?: string;
@@ -69,11 +68,9 @@ export class ChipsCardEditorChips extends LitElement {
                                       ${html`
                                           <div class="special-row">
                                               <div>
-                                                  <span> ${this._renderChipLabel(chipConf)} </span>
+                                                  <span> ${this._renderChipLabel(chipConf)}</span>
                                                   <span class="secondary"
-                                                      >${customLocalize(
-                                                          "editor.chip.chip-picker.details"
-                                                      )}</span
+                                                      >${this._renderChipSecondary(chipConf)}</span
                                                   >
                                               </div>
                                           </div>
@@ -235,14 +232,42 @@ export class ChipsCardEditorChips extends LitElement {
     private _renderChipLabel(chipConf: LovelaceChipConfig): string {
         const customLocalize = setupCustomlocalize(this.hass);
         let label = customLocalize(`editor.chip.chip-picker.types.${chipConf.type}`);
-        if ("entity" in chipConf && chipConf.entity) {
-            label += ` - ${chipConf.entity}`;
+        if (chipConf.type === "conditional" && chipConf.conditions.length > 0) {
+            const condition = chipConf.conditions[0];
+            const entity = this.getEntityName(condition.entity) ?? condition.entity;
+            label += ` - ${entity} ${
+                condition.state
+                    ? `= ${condition.state}`
+                    : condition.state_not
+                    ? `≠ ${condition.state_not}`
+                    : null
+            }`;
         }
         return label;
     }
 
+    private _renderChipSecondary(chipConf: LovelaceChipConfig): string | undefined {
+        const customLocalize = setupCustomlocalize(this.hass);
+        if ("entity" in chipConf && chipConf.entity) {
+            return `${this.getEntityName(chipConf.entity) ?? chipConf.entity}`;
+        }
+        if ("chip" in chipConf && chipConf.chip) {
+            const label = customLocalize(`editor.chip.chip-picker.types.${chipConf.chip.type}`);
+            return `${this._renderChipSecondary(chipConf.chip)} (via ${label})`;
+        }
+        return undefined;
+    }
+
+    private getEntityName(entity_id: string): string | undefined {
+        if (!this.hass) return undefined;
+        const entity = this.hass.states[entity_id];
+        if (!entity) return undefined;
+        return entity.attributes.friendly_name;
+    }
+
     static get styles(): CSSResultGroup {
         return [
+            super.styles,
             sortableStyles,
             css`
                 .chip {

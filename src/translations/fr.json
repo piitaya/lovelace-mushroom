@@ -40,10 +40,12 @@
                 "hide_icon": "Cacher l'icône ?",
                 "icon_color": "Couleur de l'icône",
                 "layout": "Disposition",
+                "fill_container": "Remplir le conteneur",
                 "primary_info": "Information principale",
                 "secondary_info": "Information secondaire",
                 "content_info": "Contenu",
-                "use_entity_picture": "Utiliser l'image de l'entité ?"
+                "use_entity_picture": "Utiliser l'image de l'entité ?",
+                "collapsible_controls": "Reduire les contrôles quand éteint"
             },
             "light": {
                 "show_brightness_control": "Contrôle de luminosité ?",
@@ -122,7 +124,6 @@
             },
             "chip-picker": {
                 "chips": "\"Chips\"",
-                "details": "Affichez les détails en cliquant sur le bouton Modifier",
                 "add": "Ajouter une \"chip\"",
                 "edit": "Modifier",
                 "clear": "Effacer",

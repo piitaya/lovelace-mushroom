@@ -40,10 +40,12 @@
                 "hide_icon": "Nascondi icona",
                 "icon_color": "Colore dell'icona",
                 "layout": "Disposizione",
+                "fill_container": "Riempi il contenitore",
                 "primary_info": "Informazione primaria",
                 "secondary_info": "Informazione secondaria",
                 "content_info": "Contenuto",
-                "use_entity_picture": "Usa l'immagine dell'entità"
+                "use_entity_picture": "Usa l'immagine dell'entità",
+                "collapsible_controls": "Nascondi i controlli quando spento"
             },
             "light": {
                 "use_light_color": "Usa il colore della luce",
@@ -60,6 +62,9 @@
             "cover": {
                 "show_buttons_control": "Pulsanti di controllo",
                 "show_position_control": "Controllo percentuale apertura"
+            },
+            "alarm_control_panel": {
+                "show_keypad": "Mostra il tastierino numerico"
             },
             "template": {
                 "primary": "Informazione primaria",
@@ -119,7 +124,6 @@
             },
             "chip-picker": {
                 "chips": "Chips",
-                "details": "Mostra i dettagli cliccando sul bottone di modifica",
                 "add": "Aggiungi chip",
                 "edit": "Modifica",
                 "clear": "Rimuovi",

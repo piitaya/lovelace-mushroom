@@ -7,16 +7,19 @@ import {
     LovelaceCard,
     LovelaceCardEditor,
 } from "custom-card-helpers";
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { css, CSSResultGroup, html, TemplateResult } from "lit";
+import { customElement, state } from "lit/decorators.js";
+import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
-import { isActive, isAvailable } from "../../ha/data/entity";
+import { getEntityPicture, isActive, isAvailable } from "../../ha/data/entity";
 import "../../shared/badge-icon";
 import "../../shared/card";
+import "../../shared/shape-avatar";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
+import { MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
 import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
@@ -34,7 +37,7 @@ registerCustomCard({
 });
 
 @customElement(ENTITY_CARD_NAME)
-export class EntityCard extends LitElement implements LovelaceCard {
+export class EntityCard extends MushroomBaseElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./entity-card-editor");
         return document.createElement(ENTITY_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -48,8 +51,6 @@ export class EntityCard extends LitElement implements LovelaceCard {
         };
     }
 
-    @property({ attribute: false }) public hass!: HomeAssistant;
-
     @state() private _config?: EntityCardConfig;
 
     getCardSize(): number | Promise<number> {
@@ -62,9 +63,6 @@ export class EntityCard extends LitElement implements LovelaceCard {
                 action: "more-info",
             },
             hold_action: {
-                action: "more-info",
-            },
-            double_tap_action: {
                 action: "more-info",
             },
             ...config,
@@ -88,6 +86,8 @@ export class EntityCard extends LitElement implements LovelaceCard {
         const hideIcon = !!this._config.hide_icon;
         const layout = getLayoutFromConfig(this._config);
 
+        const picture = this._config.use_entity_picture ? getEntityPicture(entity) : undefined;
+
         const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
         const primary = getInfo(
@@ -110,35 +110,44 @@ export class EntityCard extends LitElement implements LovelaceCard {
         const rtl = computeRTL(this.hass);
 
         return html`
-            <mushroom-card .layout=${layout} ?rtl=${rtl}>
-                <mushroom-state-item
-                    ?rtl=${rtl}
-                    .layout=${layout}
-                    @action=${this._handleAction}
-                    .actionHandler=${actionHandler({
-                        hasHold: hasAction(this._config.hold_action),
-                        hasDoubleClick: hasAction(this._config.double_tap_action),
-                    })}
-                    .hide_info=${primary == null && secondary == null}
-                    .hide_icon=${hideIcon}
-                >
-                    ${!hideIcon ? this.renderIcon(icon, iconColor, isActive(entity)) : undefined}
-                    ${!isAvailable(entity)
-                        ? html`
-                              <mushroom-badge-icon
-                                  class="unavailable"
-                                  slot="badge"
-                                  icon="mdi:help"
-                              ></mushroom-badge-icon>
-                          `
-                        : null}
-                    <mushroom-state-info
-                        slot="info"
-                        .primary=${primary}
-                        .secondary=${secondary}
-                    ></mushroom-state-info>
-                </mushroom-state-item>
-            </mushroom-card>
+            <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
+                <mushroom-card .layout=${layout} ?rtl=${rtl}>
+                    <mushroom-state-item
+                        ?rtl=${rtl}
+                        .layout=${layout}
+                        @action=${this._handleAction}
+                        .actionHandler=${actionHandler({
+                            hasHold: hasAction(this._config.hold_action),
+                            hasDoubleClick: hasAction(this._config.double_tap_action),
+                        })}
+                        .hide_info=${primary == null && secondary == null}
+                        .hide_icon=${hideIcon}
+                    >
+                        ${picture
+                            ? html`
+                                  <mushroom-shape-avatar
+                                      slot="icon"
+                                      .picture_url=${picture}
+                                  ></mushroom-shape-avatar>
+                              `
+                            : this.renderIcon(icon, iconColor, isActive(entity))}
+                        ${!isAvailable(entity)
+                            ? html`
+                                  <mushroom-badge-icon
+                                      class="unavailable"
+                                      slot="badge"
+                                      icon="mdi:help"
+                                  ></mushroom-badge-icon>
+                              `
+                            : null}
+                        <mushroom-state-info
+                            slot="info"
+                            .primary=${primary}
+                            .secondary=${secondary}
+                        ></mushroom-state-info>
+                    </mushroom-state-item>
+                </mushroom-card>
+            </ha-card>
         `;
     }
 
@@ -161,6 +170,7 @@ export class EntityCard extends LitElement implements LovelaceCard {
 
     static get styles(): CSSResultGroup {
         return [
+            super.styles,
             cardStyle,
             css`
                 mushroom-state-item {
