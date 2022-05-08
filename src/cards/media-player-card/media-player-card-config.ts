@@ -29,6 +29,7 @@ export interface MediaPlayerCardConfig extends LovelaceCardConfig {
     icon?: string;
     use_media_info?: boolean;
     use_media_artwork?: boolean;
+    show_volume_level?: boolean;
     volume_controls?: MediaPlayerVolumeControl[];
     media_controls?: MediaPlayerMediaControl[];
     collapsible_controls?: boolean;
@@ -47,6 +48,7 @@ export const mediaPlayerCardConfigStruct = assign(
         name: optional(string()),
         use_media_info: optional(boolean()),
         use_media_artwork: optional(boolean()),
+        show_volume_level: optional(boolean()),
         layout: optional(layoutStruct),
         fill_container: optional(boolean()),
         volume_controls: optional(array(enums(MEDIA_PLAYER_VOLUME_CONTROLS))),
