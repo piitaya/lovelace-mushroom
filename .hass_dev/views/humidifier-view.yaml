@@ -1,0 +1,51 @@
+title: Humidifier
+icon: mdi:air-humidifier
+cards:
+  - type: grid
+    title: Simple
+    cards:
+      - type: custom:mushroom-humidifier-card
+        entity: humidifier.humidifier
+      - type: custom:mushroom-humidifier-card
+        entity: humidifier.humidifier
+        name: Custom name and icon
+        icon: mdi:robot-outline
+    columns: 2
+    square: false
+  - type: grid
+    title: Controls
+    cards:
+      - type: custom:mushroom-humidifier-card
+        entity: humidifier.humidifier
+        name: Humidity control
+        show_target_humidity_control: true
+      - type: custom:mushroom-humidifier-card
+        entity: humidifier.humidifier
+        name: Collapsible controls
+        collapsible_controls: true
+        show_target_humidity_control: true
+    columns: 2
+    square: false
+  - type: custom:mushroom-humidifier-card
+    entity: humidifier.humidifier
+    name: Multiple controls
+    show_target_humidity_control: true
+  - type: vertical-stack
+    title: Layout
+    cards:
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:mushroom-humidifier-card
+            entity: humidifier.humidifier
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:mushroom-humidifier-card
+            entity: humidifier.humidifier
+            layout: "vertical"
+      - type: custom:mushroom-humidifier-card
+        entity: humidifier.humidifier
+        layout: "horizontal"

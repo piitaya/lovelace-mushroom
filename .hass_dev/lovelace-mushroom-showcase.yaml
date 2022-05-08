@@ -13,3 +13,4 @@ views:
   - !include views/media-player-view.yaml
   - !include views/vacuum-view.yaml
   - !include views/lock-view.yaml
+  - !include views/humidifier-view.yaml
