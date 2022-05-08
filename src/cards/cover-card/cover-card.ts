@@ -207,7 +207,6 @@ export class CoverCard extends MushroomBaseElement implements LovelaceCard {
     private renderIcon(entity: CoverEntity, icon: string, available: boolean): TemplateResult {
         const iconStyle = {};
         const color = getStateColor(entity);
-        console.log(color);
         iconStyle["--icon-color"] = `rgb(${color})`;
         iconStyle["--shape-color"] = `rgba(${color}, 0.2)`;
 
