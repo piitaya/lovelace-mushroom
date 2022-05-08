@@ -5,6 +5,17 @@ homeassistant:
   customize:
     person.anne_therese:
       entity_picture: "/local/mushrooms.jpeg"
+    plant.tulip:
+      entity_picture: "/local/mushrooms.jpeg"
+      limits:
+        max_brightness: 60000
+        max_conductivity: 2000
+        max_moisture: 75
+        max_temperature: 35
+        min_brightness: 3000
+        min_conductivity: 425
+        min_moisture: 16
+        min_temperature: 8
 
 # Text to speech
 tts:
@@ -67,7 +78,7 @@ vacuum:
 
 update:
   - platform: demo
-  
+
 alarm_control_panel:
   - platform: manual
     name: Alarm panel 1
@@ -106,6 +117,54 @@ alarm_control_panel:
             entity_id:
               - alarm_control_panel.alarm_panel_1
               - alarm_control_panel.alarm_panel_2
+plant:
+  Tulip:
+    sensors:
+      moisture: sensor.plant_moisture
+      battery: sensor.plant_battery
+      temperature: sensor.plant_temperature
+      conductivity: sensor.plant_conductivity
+      brightness: sensor.plant_brightness
+
+input_number:
+  moisture:
+    initial: 55
+    min: 0 #15
+    max: 100 #60
+  battery:
+    initial: 98
+    min: 0
+    max: 100
+  temperature:
+    initial: 19
+    min: 0 #6
+    max: 40 #32
+  conductivity:
+    initial: 550
+    min: 0 #500
+    max: 3000 #2000
+  brightness:
+    initial: 3000
+    min: 0 #2500
+    max: 40000 #30000
+
+template:
+  - sensor:
+      - name: "Plant Moisture"
+        unit_of_measurement: "%"
+        state: "{{ states('input_number.moisture') }}"
+      - name: "Plant Battery"
+        unit_of_measurement: "%"
+        state: "{{ states('input_number.battery') }}"
+      - name: "Plant Temperature"
+        unit_of_measurement: "°C"
+        state: "{{ states('input_number.temperature') }}"
+      - name: "Plant Conductivity"
+        unit_of_measurement: "µS/cm"
+        state: "{{ states('input_number.conductivity') }}"
+      - name: "Plant Brightness"
+        unit_of_measurement: "Lux"
+        state: "{{ states('input_number.brightness') }}"
 
 lovelace: !include ui-lovelace.yaml
 

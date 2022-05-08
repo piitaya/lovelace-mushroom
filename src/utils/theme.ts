@@ -99,4 +99,7 @@ export const themeColorCss = css`
     /* State cover colors */
     --rgb-state-cover-open: var(--mush-rgb-state-cover-open, var(--rgb-blue));
     --rgb-state-cover-closed: var(--mush-rgb-state-cover-closed, var(--rgb-disabled));
+
+    /* State plant colors */
+    --rgb-state-plant-problem: var(--mush-rgb-state-plant-problem, var(--rgb-danger));
 `;
