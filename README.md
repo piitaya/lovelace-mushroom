@@ -79,6 +79,7 @@ Different cards are available for differents entities :
 -   🧹 [Vacuum card](docs/cards/vacuum.md)
 -   📺 [Media card](docs/cards/media-player.md)
 -   🔒 [Lock card](docs/cards/lock.md)
+-   💧 [Humidifier card](docs/cards/humidifier.md)
 
 Cards on the todo list :
 
