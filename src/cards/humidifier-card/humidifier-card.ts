@@ -103,8 +103,6 @@ export class HumidifierCard extends MushroomBaseElement implements LovelaceCard 
 
         const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
-        const iconColor = this._config.icon_color;
-
         const rtl = computeRTL(this.hass);
 
         let stateValue = `${stateDisplay}`;
@@ -113,8 +111,8 @@ export class HumidifierCard extends MushroomBaseElement implements LovelaceCard 
         }
 
         const displayControls =
-            !this._config.collapsible_controls ||
-            (isActive(entity) && this._config.show_target_humidity_control);
+            (!this._config.collapsible_controls || isActive(entity)) &&
+            this._config.show_target_humidity_control;
 
         return html`
             <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
@@ -128,7 +126,7 @@ export class HumidifierCard extends MushroomBaseElement implements LovelaceCard 
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        ${this.renderIcon(icon, iconColor, isActive(entity))}
+                        ${this.renderIcon(icon, isActive(entity))}
                         ${!isAvailable(entity)
                             ? html`
                                   <mushroom-badge-icon
@@ -145,40 +143,27 @@ export class HumidifierCard extends MushroomBaseElement implements LovelaceCard 
                         ></mushroom-state-info>
                     </mushroom-state-item>
                     ${displayControls
-                        ? html`<div class="actions" ?rtl=${rtl}>
-                              ${this._config.show_target_humidity_control
-                                  ? html` 
-                                    <mushroom-humidifier-humidity-control
-                                        .hass=${this.hass}
-                                        .entity=${entity}
-                                        .color=${iconColor}
-                                        @current-change=${this.onCurrentHumidityChange}
-                                    ></mushroom-humidifier-humidity-control>
-                                </div>`
-                                  : null}
-                          </div>`
+                        ? html`
+                              <div class="actions" ?rtl=${rtl}>
+                                  <mushroom-humidifier-humidity-control
+                                      .hass=${this.hass}
+                                      .entity=${entity}
+                                      @current-change=${this.onCurrentHumidityChange}
+                                  ></mushroom-humidifier-humidity-control>
+                              </div>
+                          `
                         : null}
                 </mushroom-card>
             </ha-card>
         `;
     }
 
-    renderIcon(icon: string, iconColor: string | undefined, active: boolean): TemplateResult {
-        const iconStyle = {
-            "--icon-color": "rgb(var(--rgb-state-humidifier))",
-            "--shape-color": "rgba(var(--rgb-state-humidifier), 0.2)",
-        };
-        if (iconColor) {
-            const iconRgbColor = computeRgbColor(iconColor);
-            iconStyle["--icon-color"] = `rgb(${iconRgbColor})`;
-            iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
-        }
+    renderIcon(icon: string, active: boolean): TemplateResult {
         return html`
             <mushroom-shape-icon
                 slot="icon"
                 .disabled=${!active}
                 .icon=${icon}
-                style=${styleMap(iconStyle)}
             ></mushroom-shape-icon>
         `;
     }
@@ -190,6 +175,10 @@ export class HumidifierCard extends MushroomBaseElement implements LovelaceCard 
             css`
                 mushroom-state-item {
                     cursor: pointer;
+                }
+                mushroom-shape-icon {
+                    --icon-color: rgb(var(--rgb-state-humidifier));
+                    --shape-color: rgba(var(--rgb-state-humidifier), 0.2);
                 }
                 mushroom-humidifier-humidity-control {
                     flex: 1;
