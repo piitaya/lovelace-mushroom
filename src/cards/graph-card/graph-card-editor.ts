@@ -9,9 +9,7 @@ import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import setupCustomlocalize from "../../localize";
-import { configElementStyle } from "../../utils/editor-styles";
 import { Action } from "../../utils/form/custom/ha-selector-mushroom-action";
-import { GENERIC_FIELDS } from "../../utils/form/fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { loadHaComponents } from "../../utils/loader";
 import {
@@ -24,9 +22,11 @@ import {
 import { GraphCardConfig, graphCardConfigStruct } from "./graph-card-config";
 import { assert } from "superstruct";
 import { SelectOption } from "../../utils/form/ha-selector";
+import { GENERIC_LABELS } from "../../utils/form/generic-fields";
+import { MushroomBaseElement } from "../../utils/base-element";
 
 const actions: Action[] = ["more-info", "call-service", "none"];
-const GRAPH_FIELDS = ["graph_mode", "display_mode"];
+const GRAPH_LABELS = ["graph_mode", "display_mode"];
 
 const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: GRAPH_ENTITY_DOMAINS } } },
@@ -38,7 +38,7 @@ const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaForm
             { name: "icon", selector: { icon: { placeholder: icon } } },
         ],
     },
-    
+
     {
         type: "grid",
         name: "",
@@ -104,9 +104,7 @@ const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaForm
 ]);
 
 @customElement(GRAPH_CARD_EDITOR_NAME)
-export class GraphCardEditor extends LitElement implements LovelaceCardEditor {
-    @property({ attribute: false }) public hass?: HomeAssistant;
-
+export class GraphCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
     @state() private _config?: GraphCardConfig;
 
     connectedCallback() {
@@ -122,11 +120,11 @@ export class GraphCardEditor extends LitElement implements LovelaceCardEditor {
     private _computeLabelCallback = (schema: HaFormSchema) => {
         const customLocalize = setupCustomlocalize(this.hass!);
 
-        if (GENERIC_FIELDS.includes(schema.name)) {
+        if (GENERIC_LABELS.includes(schema.name)) {
             return customLocalize(`editor.card.generic.${schema.name}`);
         }
 
-        if (GRAPH_FIELDS.includes(schema.name)) {
+        if (GRAPH_LABELS.includes(schema.name)) {
             return customLocalize(`editor.card.graph.${schema.name}`);
         }
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
@@ -161,9 +159,5 @@ export class GraphCardEditor extends LitElement implements LovelaceCardEditor {
 
     private _valueChanged(ev: CustomEvent): void {
         fireEvent(this, "config-changed", { config: ev.detail.value });
-    }
-
-    static get styles(): CSSResultGroup {
-        return configElementStyle;
     }
 }

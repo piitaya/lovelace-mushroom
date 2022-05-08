@@ -1,15 +1,5 @@
 import { ActionConfig, LovelaceCardConfig } from "custom-card-helpers";
-import {
-    assign,
-    enums,
-    instance,
-    integer,
-    map,
-    object,
-    optional,
-    set,
-    string,
-} from "superstruct";
+import { assign, enums, integer, object, optional, string } from "superstruct";
 import { actionConfigStruct } from "../../utils/action-struct";
 import { baseLovelaceCardConfig } from "../../utils/editor-styles";
 import { Info, INFOS } from "../../utils/info";
@@ -40,7 +30,7 @@ export const graphCardConfigStruct = assign(
         icon: optional(string()),
         name: optional(string()),
         hours_to_show: optional(integer()),
-        graph_color: optional(string()),        
+        graph_color: optional(string()),
         primary_info: optional(enums(INFOS)),
         secondary_info: optional(enums(INFOS)),
         graph_mode: optional(enums(GRAPH_MODE)),

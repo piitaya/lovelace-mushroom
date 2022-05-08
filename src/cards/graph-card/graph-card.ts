@@ -1,5 +1,6 @@
 import {
     ActionHandlerEvent,
+    computeRTL,
     computeStateDisplay,
     handleAction,
     hasAction,
@@ -8,13 +9,22 @@ import {
     LovelaceCardEditor,
     stateIcon,
 } from "custom-card-helpers";
-import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
+import { HassEntity } from "home-assistant-js-websocket";
+import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { isActive, isAvailable } from "../../ha/data/entity";
+import { fetchRecent } from "../../ha/data/history";
+import { coordinates } from "../../shared/graph/coordinates";
+import "../../shared/graph/graph-base";
+import { MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
+import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
+import { getInfo } from "../../utils/info";
+import { getLayoutFromConfig } from "../../utils/layout";
 import {
     GRAPH_CARD_EDITOR_NAME,
     GRAPH_CARD_NAME,
@@ -28,13 +38,6 @@ import {
     GRAPH_MINUTE,
 } from "./const";
 import { GraphCardConfig } from "./graph-card-config";
-import { HassEntity } from "home-assistant-js-websocket";
-import { fetchRecent } from "../../ha/data/history";
-import { coordinates } from "../../shared/graph/coordinates";
-import "../../shared/graph/graph-base";
-import { computeRgbColor } from "../../utils/colors";
-import { number } from "superstruct";
-import { getInfo } from "../../utils/info";
 
 registerCustomCard({
     type: GRAPH_CARD_NAME,
@@ -43,7 +46,7 @@ registerCustomCard({
 });
 
 @customElement(GRAPH_CARD_NAME)
-export class GraphCard extends LitElement implements LovelaceCard {
+export class GraphCard extends MushroomBaseElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./graph-card-editor");
         return document.createElement(GRAPH_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -57,8 +60,6 @@ export class GraphCard extends LitElement implements LovelaceCard {
             entity: entity[0],
         };
     }
-
-    @property({ attribute: false }) public hass!: HomeAssistant;
 
     @state() private _config?: GraphCardConfig;
 
@@ -182,7 +183,8 @@ export class GraphCard extends LitElement implements LovelaceCard {
         const icon = this._config.icon || stateIcon(entity);
         const graphColor = this._config.graph_color;
         const graphMode = this._config.graph_mode;
-        
+        const layout = getLayoutFromConfig(this._config);
+
         let graphHeight: number = GRAPH_HEIGHT_STANDARD + GRAPH_HEIGHT_STANDARD_MARGIN;
 
         if (this._config.display_mode !== "standard") {
@@ -191,7 +193,7 @@ export class GraphCard extends LitElement implements LovelaceCard {
 
         const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
-        const active = isActive(entity);        
+        const active = isActive(entity);
 
         const primary = getInfo(
             this._config.primary_info ?? "state",
@@ -200,7 +202,7 @@ export class GraphCard extends LitElement implements LovelaceCard {
             entity,
             this.hass
         );
-        
+
         const secondary = getInfo(
             this._config.secondary_info ?? "name",
             name,
@@ -216,37 +218,42 @@ export class GraphCard extends LitElement implements LovelaceCard {
             iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
         }
 
-        return html` <ha-card>
-            <mushroom-card
-                no-card-style
-                @action=${this._handleAction}
-                .actionHandler=${actionHandler({
-                    hasHold: hasAction(this._config.hold_action),
-                    hasDoubleClick: hasAction(this._config.double_tap_action),
-                })}
-            >
-                <mushroom-state-item>
-                    <mushroom-shape-icon
-                        slot="icon"
-                        style=${styleMap(iconStyle)}
-                        .disabled=${!active}
-                        .icon=${icon}
-                    ></mushroom-shape-icon>
-                    ${!isAvailable(entity)
-                        ? html`
-                              <mushroom-badge-icon
-                                  class="unavailable"
-                                  slot="badge"
-                                  icon="mdi:help"
-                              ></mushroom-badge-icon>
-                          `
-                        : null}
-                    <mushroom-state-info
-                        slot="info"
-                        .primary=${primary}
-                        .secondary=${secondary}
-                    ></mushroom-state-info>
-                </mushroom-state-item>
+        const rtl = computeRTL(this.hass);
+
+        return html`
+            <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
+                <mushroom-card .layout=${layout} ?rtl=${rtl}>
+                    <mushroom-state-item
+                        ?rtl=${rtl}
+                        .layout=${layout}
+                        @action=${this._handleAction}
+                        .actionHandler=${actionHandler({
+                            hasHold: hasAction(this._config.hold_action),
+                            hasDoubleClick: hasAction(this._config.double_tap_action),
+                        })}
+                    >
+                        <mushroom-shape-icon
+                            slot="icon"
+                            style=${styleMap(iconStyle)}
+                            .disabled=${!active}
+                            .icon=${icon}
+                        ></mushroom-shape-icon>
+                        ${!isAvailable(entity)
+                            ? html`
+                                  <mushroom-badge-icon
+                                      class="unavailable"
+                                      slot="badge"
+                                      icon="mdi:help"
+                                  ></mushroom-badge-icon>
+                              `
+                            : null}
+                        <mushroom-state-info
+                            slot="info"
+                            .primary=${primary}
+                            .secondary=${secondary}
+                        ></mushroom-state-info>
+                    </mushroom-state-item>
+                </mushroom-card>
                 <mushroom-graph-base
                     .coordinates=${this._coordinates}
                     .graphColor=${graphColor}
@@ -254,24 +261,11 @@ export class GraphCard extends LitElement implements LovelaceCard {
                     .graphHeight=${graphHeight}
                 >
                 </mushroom-graph-base>
-            </mushroom-card>
-        </ha-card>`;
-
-        // <hui-graph-base .coordinates=${this._coordinates}></hui-graph-base>
+            </ha-card>
+        `;
     }
 
     static get styles(): CSSResultGroup {
-        return [
-            cardStyle,
-            css`
-                mushroom-state-item {
-                    padding: var(--spacing);
-                    margin-bottom: 0;
-                }
-                ha-card {
-                    cursor: pointer;
-                }
-            `,
-        ];
+        return [super.styles, cardStyle];
     }
 }
