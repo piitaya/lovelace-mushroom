@@ -20,6 +20,7 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `fill_container`       | boolean | `false`     | Fill container or not. Useful when card is in a grid, vertical or horizontal layout    |
 | `use_media_info`       | boolean | `[]`        | Use media info instead of name, state and icon when a media is playing                 |
 | `use_media_artwork`    | boolean | `[]`        | Use media artwork instead of icon when a media is playing                              |
+| `show_volume_level`    | boolean | `[]`        | Show volume level next to media state when media is playing                            |
 | `media_controls`       | list    | `[]`        | List of controls to display (on_off, shuffle, previous, play_pause_stop, next, repeat) |
 | `volume_controls`      | list    | `[]`        | List of controls to display (volume_mute, volume_set, volume_buttons)                  |
 | `collapsible_controls` | boolean | `false`     | Collapse controls when off                                                             |

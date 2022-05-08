@@ -31,6 +31,16 @@ cards:
         use_media_info: true
     columns: 2
     square: false
+  - type: grid
+    title: Volume Level
+    cards:
+      - type: custom:mushroom-media-player-card
+        entity: media_player.living_room
+        show_volume_level: true
+        volume_controls:
+          - volume_set
+    columns: 2
+    square: false
   - type: vertical-stack
     title: Controls
     cards:    

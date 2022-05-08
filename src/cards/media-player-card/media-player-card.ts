@@ -31,7 +31,12 @@ import { isMediaControlVisible } from "./controls/media-player-media-control";
 import "./controls/media-player-volume-control";
 import { isVolumeControlVisible } from "./controls/media-player-volume-control";
 import { MediaPlayerCardConfig } from "./media-player-card-config";
-import { computeMediaIcon, computeMediaNameDisplay, computeMediaStateDisplay, getVolumeLevel } from "./utils";
+import {
+    computeMediaIcon,
+    computeMediaNameDisplay,
+    computeMediaStateDisplay,
+    getVolumeLevel,
+} from "./utils";
 import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-avatar";
@@ -168,7 +173,10 @@ export class MediaPlayerCard extends MushroomBaseElement implements LovelaceCard
 
         let nameDisplay = computeMediaNameDisplay(this._config, entity);
         const stateDisplay = computeMediaStateDisplay(this._config, entity, this.hass);
-        const stateValue = this.volume != null ? `${stateDisplay} - ${this.volume}%` : stateDisplay;
+        const stateValue =
+            this.volume != null && this._config.show_volume_level
+                ? `${stateDisplay} - ${this.volume}%`
+                : stateDisplay;
 
         const rtl = computeRTL(this.hass);
 
