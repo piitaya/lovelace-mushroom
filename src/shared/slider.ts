@@ -168,8 +168,8 @@ export class SliderItem extends LitElement {
                 --main-color: rgba(var(--rgb-secondary-text-color), 1);
                 --bg-gradient: none;
                 --bg-color: rgba(var(--rgb-secondary-text-color), 0.2);
-                --main-color-inactive: var(--disabled-text-color);
-                --bg-color-inactive: rgba(var(--rgb-primary-text-color), 0.05);
+                --main-color-inactive: rgb(var(--rgb-disabled));
+                --bg-color-inactive: rgba(var(--rgb-disabled), 0.2);
             }
             .container {
                 display: flex;

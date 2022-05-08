@@ -42,3 +42,10 @@ export function isOff(entity: HassEntity) {
 export function isUnknown(entity: HassEntity) {
     return entity.state === UNKNOWN;
 }
+
+export function getEntityPicture(entity: HassEntity) {
+    return (
+        (entity.attributes.entity_picture_local as string | undefined) ||
+        entity.attributes.entity_picture
+    );
+}

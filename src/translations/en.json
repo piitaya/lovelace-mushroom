@@ -40,10 +40,12 @@
                 "hide_icon": "Hide icon?",
                 "icon_color": "Icon color",
                 "layout": "Layout",
+                "fill_container": "Fill container",
                 "primary_info": "Primary information",
                 "secondary_info": "Secondary information",
                 "content_info": "Content",
-                "use_entity_picture": "Use entity picture?"
+                "use_entity_picture": "Use entity picture?",
+                "collapsible_controls": "Collapse controls when off"
             },
             "light": {
                 "show_brightness_control": "Brightness control?",
@@ -91,6 +93,7 @@
             "media-player": {
                 "use_media_info": "Use media info",
                 "use_media_artwork": "Use media artwork",
+                "show_volume_level": "Show volume level",
                 "media_controls": "Media controls",
                 "media_controls_list": {
                     "on_off": "Turn on/off",
@@ -111,6 +114,9 @@
                 "lock": "Lock",
                 "unlock": "Unlock",
                 "open": "Open"
+            },
+            "humidifier": {
+                "show_target_humidity_control": "Humidity control?"
             },
             "graph": {
                 "graph_mode": "Graph mode",
@@ -134,7 +140,6 @@
             },
             "chip-picker": {
                 "chips": "Chips",
-                "details": "Show details by clicking the edit button",
                 "add": "Add chip",
                 "edit": "Edit",
                 "clear": "Clear",

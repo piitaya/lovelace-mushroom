@@ -10,6 +10,7 @@ export interface PersonCardConfig extends LovelaceCardConfig {
     icon?: string;
     use_entity_picture?: boolean;
     layout?: Layout;
+    fill_container?: boolean;
     hide_state?: boolean;
     hide_name?: boolean;
     tap_action?: ActionConfig;
@@ -25,6 +26,7 @@ export const personCardConfigStruct = assign(
         name: optional(string()),
         use_entity_picture: optional(boolean()),
         layout: optional(layoutStruct),
+        fill_container: optional(boolean()),
         hide_state: optional(boolean()),
         hide_name: optional(boolean()),
         tap_action: optional(actionConfigStruct),

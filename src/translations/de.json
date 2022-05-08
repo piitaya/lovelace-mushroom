@@ -43,7 +43,8 @@
                 "primary_info": "Primäre Information",
                 "secondary_info": "Sekundäre Information",
                 "content_info": "Inhalt",
-                "use_entity_picture": "Entitätsbild verwenden?"
+                "use_entity_picture": "Entitätsbild verwenden?",
+                "collapsible_controls": "Schieberegler einklappen, wenn aus"
             },
             "light": {
                 "show_brightness_control": "Helligkeitsregelung?",
@@ -119,7 +120,6 @@
             },
             "chip-picker": {
                 "chips": "Chips",
-                "details": "Zum Anzeigen von Details die Schaltfläche Bearbeiten auswählen",
                 "add": "Chip hinzufügen",
                 "edit": "Editieren",
                 "clear": "Löschen",

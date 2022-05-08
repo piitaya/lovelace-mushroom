@@ -1,24 +1,40 @@
 import { fireEvent, HomeAssistant } from "custom-card-helpers";
-import { CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import memoizeOne from "memoize-one";
+import { atLeastHaVersion } from "../../../ha/util";
 import setupCustomlocalize from "../../../localize";
-import { configElementStyle } from "../../../utils/editor-styles";
-import { GENERIC_FIELDS } from "../../../utils/form/fields";
+import { GENERIC_LABELS } from "../../../utils/form/generic-fields";
 import { HaFormSchema } from "../../../utils/form/ha-form";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
 import { TemplateChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
-import { TEMPLATE_FIELDS } from "../../template-card/template-card-editor";
+import { TEMPLATE_LABELS } from "../../template-card/template-card-editor";
 
-const SCHEMA: HaFormSchema[] = [
+const computeSchema = memoizeOne((version: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: {} } },
-    { name: "icon", selector: { text: { multiline: true } } },
-    { name: "icon_color", selector: { text: { multiline: true } } },
-    { name: "content", selector: { text: { multiline: true } } },
+    {
+        name: "icon",
+        selector: atLeastHaVersion(version, 2022, 5)
+            ? { template: {} }
+            : { text: { multiline: true } },
+    },
+    {
+        name: "icon_color",
+        selector: atLeastHaVersion(version, 2022, 5)
+            ? { template: {} }
+            : { text: { multiline: true } },
+    },
+    {
+        name: "content",
+        selector: atLeastHaVersion(version, 2022, 5)
+            ? { template: {} }
+            : { text: { multiline: true } },
+    },
     { name: "tap_action", selector: { "mush-action": {} } },
     { name: "hold_action", selector: { "mush-action": {} } },
     { name: "double_tap_action", selector: { "mush-action": {} } },
-];
+]);
 
 @customElement(computeChipEditorComponentName("template"))
 export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
@@ -30,7 +46,7 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
         this._config = config;
     }
 
-    private _computeLabelCallback = (schema: HaFormSchema) => {
+    private _computeLabel = (schema: HaFormSchema) => {
         const customLocalize = setupCustomlocalize(this.hass!);
 
         if (schema.name === "entity") {
@@ -38,10 +54,10 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
                 "ui.panel.lovelace.editor.card.generic.entity"
             )} (${customLocalize("editor.card.template.entity_extra")})`;
         }
-        if (GENERIC_FIELDS.includes(schema.name)) {
+        if (GENERIC_LABELS.includes(schema.name)) {
             return customLocalize(`editor.card.generic.${schema.name}`);
         }
-        if (TEMPLATE_FIELDS.includes(schema.name)) {
+        if (TEMPLATE_LABELS.includes(schema.name)) {
             return customLocalize(`editor.card.template.${schema.name}`);
         }
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
@@ -56,8 +72,8 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
             <ha-form
                 .hass=${this.hass}
                 .data=${this._config}
-                .schema=${SCHEMA}
-                .computeLabel=${this._computeLabelCallback}
+                .schema=${computeSchema(this.hass!.connection.haVersion)}
+                .computeLabel=${this._computeLabel}
                 @value-changed=${this._valueChanged}
             ></ha-form>
         `;
@@ -65,9 +81,5 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
 
     private _valueChanged(ev: CustomEvent): void {
         fireEvent(this, "config-changed", { config: ev.detail.value });
-    }
-
-    static get styles(): CSSResultGroup {
-        return configElementStyle;
     }
 }

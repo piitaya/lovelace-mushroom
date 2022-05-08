@@ -7,14 +7,15 @@ import {
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
-import { registerCustomCard } from "../../utils/custom-cards";
-import { CHIPS_CARD_EDITOR_NAME, CHIPS_CARD_NAME } from "./const";
 import "../../shared/chip";
-import { EntityChip } from "./chips";
-import "./chips";
-import { LovelaceChip, LovelaceChipConfig } from "../../utils/lovelace/chip/types";
+import { computeDarkMode, MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
+import { registerCustomCard } from "../../utils/custom-cards";
 import { createChipElement } from "../../utils/lovelace/chip/chip-element";
+import { LovelaceChip, LovelaceChipConfig } from "../../utils/lovelace/chip/types";
+import "./chips";
+import { EntityChip } from "./chips";
+import { CHIPS_CARD_EDITOR_NAME, CHIPS_CARD_NAME } from "./const";
 
 export interface ChipsCardConfig extends LovelaceCardConfig {
     chips: LovelaceChipConfig[];
@@ -47,6 +48,11 @@ export class ChipsCard extends LitElement implements LovelaceCard {
     private _hass?: HomeAssistant;
 
     set hass(hass: HomeAssistant) {
+        const currentDarkMode = computeDarkMode(this._hass);
+        const newDarkMode = computeDarkMode(hass);
+        if (currentDarkMode !== newDarkMode) {
+            this.toggleAttribute("dark-mode", newDarkMode);
+        }
         this._hass = hass;
         this.shadowRoot?.querySelectorAll("div > *").forEach((element: unknown) => {
             (element as LovelaceChip).hass = hass;
@@ -93,6 +99,7 @@ export class ChipsCard extends LitElement implements LovelaceCard {
 
     static get styles(): CSSResultGroup {
         return [
+            MushroomBaseElement.styles,
             cardStyle,
             css`
                 .chip-container {
