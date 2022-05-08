@@ -57,6 +57,9 @@ fan:
 lock:
   - platform: demo
 
+humidifier:
+  - platform: demo
+  
 person:
   - name: Anne Therese
     id: anne_therese

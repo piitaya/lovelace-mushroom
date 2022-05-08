@@ -113,6 +113,9 @@
                 "lock": "Verrouiller",
                 "unlock": "Déverrouiller",
                 "open": "Ouvrir"
+            },
+            "humidifier": {
+                "show_target_humidity_control": "Contrôle d'humidité ?"
             }
         },
         "chip": {

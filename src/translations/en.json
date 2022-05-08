@@ -114,6 +114,9 @@
                 "unlock": "Unlock",
                 "open": "Open"
             },
+            "humidifier": {
+                "show_target_humidity_control": "Humidity control?"
+            },
             "plant": {
                 "use_plantbook_picture": "Use Plantbook picture?",
                 "min_temperature": "Minimum Temperature",
