@@ -26,10 +26,6 @@ cards:
         show_target_humidity_control: true
     columns: 2
     square: false
-  - type: custom:mushroom-humidifier-card
-    entity: humidifier.humidifier
-    name: Multiple controls
-    show_target_humidity_control: true
   - type: vertical-stack
     title: Layout
     cards:

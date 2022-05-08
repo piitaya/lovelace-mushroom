@@ -115,10 +115,7 @@
                 "open": "Open"
             },
             "humidifier": {
-                "show_target_humidity_control": "Humidity control?",
-                "show_buttons_control": "Control buttons?",
-                "on": "Turn on",
-                "off": "Turn off"
+                "show_target_humidity_control": "Humidity control?"
             }
         },
         "chip": {
