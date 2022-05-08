@@ -19,5 +19,6 @@ export { MediaPlayerCard } from "./cards/media-player-card/media-player-card";
 export { VacuumCard } from "./cards/vacuum-card/vacuum-card";
 export { LockCard } from "./cards/lock-card/lock-card";
 export { HumidifierCard } from "./cards/humidifier-card/humidifier-card";
+export { GraphCard } from "./cards/graph-card/graph-card";
 
 console.info(`%c🍄 Mushroom 🍄 - ${version}`, "color: #ef5350; font-weight: 700;");

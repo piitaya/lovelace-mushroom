@@ -14,3 +14,4 @@ views:
   - !include views/vacuum-view.yaml
   - !include views/lock-view.yaml
   - !include views/humidifier-view.yaml
+  - !include views/graph-view.yaml

@@ -117,6 +117,18 @@
             },
             "humidifier": {
                 "show_target_humidity_control": "Contrôle d'humidité ?"
+            },
+            "graph": {
+                "graph_mode": "Mode graphique",
+                "display_mode": "Mode d'affichage",
+                "graph_mode_type": {
+                    "fill": "Remplissage",
+                    "line": "Ligne"
+                },
+                "display_mode_type": {
+                    "standard": "Standard",
+                    "compact": "Compact"
+                }
             }
         },
         "chip": {
