@@ -114,7 +114,7 @@
                 "lock": "Verriegeln",
                 "unlock": "Entriegeln",
                 "open": "Öffnen"
-            }
+            },
             "humidifier": {
                 "show_target_humidity_control": "Luftfeuchtigkeitssteuerung?"
             }
