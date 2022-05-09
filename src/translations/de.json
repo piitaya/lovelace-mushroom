@@ -93,7 +93,7 @@
             "media-player": {
                 "use_media_info": "Medieninfos verwenden",
                 "use_media_artwork": "Mediengrafik verwenden",
-                "show_volume_level": "Lautstärke Level anzeigen",
+                "show_volume_level": "Lautstärke-Level anzeigen",
                 "media_controls": "Mediensteuerung",
                 "media_controls_list": {
                     "on_off": "Ein/Aus",
@@ -105,8 +105,8 @@
                 },
                 "volume_controls": "Lautstärkesteuerung",
                 "volume_controls_list": {
-                    "volume_buttons": "Lautstärke Buttons",
-                    "volume_set": "Lautstärke Level",
+                    "volume_buttons": "Lautstärke-Buttons",
+                    "volume_set": "Lautstärke-Level",
                     "volume_mute": "Stumm"
                 }
             },
