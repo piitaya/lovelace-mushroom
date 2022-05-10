@@ -37,8 +37,8 @@ export class ShapeIcon extends LitElement {
             }
             .shape {
                 position: relative;
-                width: 42px;
-                height: 42px;
+                width: var(--shape-size);
+                height: var(--shape-size);
                 border-radius: var(--icon-border-radius);
                 display: flex;
                 align-items: center;
@@ -52,7 +52,7 @@ export class ShapeIcon extends LitElement {
             }
             .shape ha-icon {
                 display: flex;
-                --mdc-icon-size: 20px;
+                --mdc-icon-size: var(--shape-icon-size);
                 color: var(--icon-color);
                 transition: color 280ms ease-in-out;
                 animation: var(--icon-animation);

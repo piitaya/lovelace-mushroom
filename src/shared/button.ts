@@ -22,8 +22,8 @@ export class Button extends LitElement {
                 --icon-color-disabled: rgb(var(--rgb-disabled));
                 --bg-color: rgba(var(--rgb-primary-text-color), 0.05);
                 --bg-color-disabled: rgba(var(--rgb-disabled), 0.2);
-                width: 42px;
-                height: 42px;
+                width: var(--button-size);
+                height: var(--button-size);
                 flex: none;
             }
             .button {
@@ -43,7 +43,7 @@ export class Button extends LitElement {
                 background-color: var(--bg-color-disabled);
             }
             .button ha-icon {
-                --mdc-icon-size: 20px;
+                --mdc-icon-size: var(--button-icon-size);
                 color: var(--icon-color);
                 pointer-events: none;
             }
