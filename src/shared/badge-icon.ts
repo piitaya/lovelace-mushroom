@@ -24,14 +24,14 @@ export class BadgeIcon extends LitElement {
                 align-items: center;
                 justify-content: center;
                 line-height: 10px;
-                width: 16px;
-                height: 16px;
+                width: var(--badge-size);
+                height: var(--badge-size);
                 border-radius: 50%;
                 background-color: var(--main-color);
                 transition: background-color 280ms ease-in-out;
             }
             .badge ha-icon {
-                --mdc-icon-size: 12px;
+                --mdc-icon-size: var(--badge-icon-size);
                 color: var(--icon-color);
             }
         `;

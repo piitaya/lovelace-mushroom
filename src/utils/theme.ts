@@ -2,6 +2,7 @@ import { css } from "lit";
 
 export const themeVariables = css`
     --spacing: var(--mush-spacing, 12px);
+
     /* Title */
     --title-padding: var(--mush-title-padding, 24px 12px 16px);
     --title-spacing: var(--mush-title-spacing, 12px);
@@ -11,6 +12,7 @@ export const themeVariables = css`
     --subtitle-font-size: var(--mush-subtitle-font-size, 16px);
     --subtitle-font-weight: var(--mush-subtitle-font-weight, normal);
     --subtitle-line-height: var(--mush-subtitle-line-height, 1.2);
+
     /* Card */
     --icon-border-radius: var(--mush-icon-border-radius, 50%);
     --control-border-radius: var(--mush-control-border-radius, 12px);
@@ -18,6 +20,7 @@ export const themeVariables = css`
     --card-secondary-font-size: var(--mush-card-secondary-font-size, 12px);
     --card-primary-font-weight: var(--mush-card-primary-font-weight, bold);
     --card-secondary-font-weight: var(--mush-card-secondary-font-weight, bolder);
+
     /* Chips */
     --chip-spacing: var(--mush-chip-spacing, 8px);
     --chip-padding: var(--mush-chip-padding, 0 10px);
@@ -28,10 +31,26 @@ export const themeVariables = css`
     --chip-icon-size: var(--mush-chip-icon-size, 1.5em);
     --chip-avatar-padding: var(--mush-chip-avatar-padding, 0.3em);
     --chip-avatar-border-radius: var(--mush-chip-avatar-border-radius, 50%);
+
     /* Slider */
+    --slider-height: var(--mush-slider-height, 42px);
     --slider-threshold: var(--mush-slider-threshold);
+
     /* Layout */
     --layout-align: var(--mush-layout-align, center);
+
+    /* Badge */
+    --badge-size: var(--mush-badge-size, 16px);
+    --badge-icon-size: var(--mush-badge-icon-size, 12px);
+
+    /* Button */
+    --button-size: var(--mush-button-size, 42px);
+    --button-icon-size: var(--mush-button-icon-size, 20px);
+
+    /* Shape */
+    --shape-size: var(--mush-shape-size, 42px);
+    --shape-avatar-size: var(--mush-shape-avatar-size, 42px);
+    --shape-icon-size: var(--mush-shape-icon-size, 20px);
 `;
 
 export const themeColorCss = css`
