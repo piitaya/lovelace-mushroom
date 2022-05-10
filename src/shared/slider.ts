@@ -174,7 +174,7 @@ export class SliderItem extends LitElement {
             .container {
                 display: flex;
                 flex-direction: row;
-                height: var(--slider-height);
+                height: var(--control-height);
             }
             .slider {
                 position: relative;

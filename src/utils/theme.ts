@@ -14,8 +14,6 @@ export const themeVariables = css`
     --subtitle-line-height: var(--mush-subtitle-line-height, 1.2);
 
     /* Card */
-    --icon-border-radius: var(--mush-icon-border-radius, 50%);
-    --control-border-radius: var(--mush-control-border-radius, 12px);
     --card-primary-font-size: var(--mush-card-primary-font-size, 14px);
     --card-secondary-font-size: var(--mush-card-secondary-font-size, 12px);
     --card-primary-font-weight: var(--mush-card-primary-font-weight, bold);
@@ -23,17 +21,22 @@ export const themeVariables = css`
 
     /* Chips */
     --chip-spacing: var(--mush-chip-spacing, 8px);
-    --chip-padding: var(--mush-chip-padding, 0 10px);
+    --chip-padding: var(--mush-chip-padding, 0 0.25em);
     --chip-height: var(--mush-chip-height, 36px);
     --chip-border-radius: var(--mush-chip-border-radius, 18px);
-    --chip-font-size: var(--mush-chip-font-size, 1em);
+    --chip-font-size: var(--mush-chip-font-size, 0.3em);
     --chip-font-weight: var(--mush-chip-font-weight, bold);
-    --chip-icon-size: var(--mush-chip-icon-size, 1.5em);
+    --chip-icon-size: var(--mush-chip-icon-size, 0.5em);
     --chip-avatar-padding: var(--mush-chip-avatar-padding, 0.3em);
     --chip-avatar-border-radius: var(--mush-chip-avatar-border-radius, 50%);
 
+    /* Controls */
+    --control-border-radius: var(--mush-control-border-radius, 12px);
+    --control-height: var(--mush-control-height, 42px);
+    --control-button-ratio: var(--mush-control-button-ratio, 1);
+    --control-icon-size: var(--mush-control-icon-size, 0.5em);
+
     /* Slider */
-    --slider-height: var(--mush-slider-height, 42px);
     --slider-threshold: var(--mush-slider-threshold);
 
     /* Layout */
@@ -41,16 +44,13 @@ export const themeVariables = css`
 
     /* Badge */
     --badge-size: var(--mush-badge-size, 16px);
-    --badge-icon-size: var(--mush-badge-icon-size, 12px);
+    --badge-icon-size: var(--mush-badge-icon-size, 0.75em);
+    --badge-border-radius: var(--mush-badge-border-radius, 50%);
 
-    /* Button */
-    --button-size: var(--mush-button-size, 42px);
-    --button-icon-size: var(--mush-button-icon-size, 20px);
-
-    /* Shape */
-    --shape-size: var(--mush-shape-size, 42px);
-    --shape-avatar-size: var(--mush-shape-avatar-size, 42px);
-    --shape-icon-size: var(--mush-shape-icon-size, 20px);
+    /* Icon */
+    --icon-border-radius: var(--mush-icon-border-radius, 50%);
+    --icon-size: var(--mush-icon-size, 42px);
+    --icon-symbol-size: var(--mush-icon-symbol-size, 0.5em);
 `;
 
 export const themeColorCss = css`

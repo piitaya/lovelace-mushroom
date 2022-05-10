@@ -32,13 +32,13 @@ export class ShapeIcon extends LitElement {
                 --shape-color-disabled: rgba(var(--rgb-disabled), 0.2);
                 --shape-animation: none;
                 --shape-outline-color: transparent;
-                --shape-outline-size: 1px;
                 flex: none;
             }
             .shape {
                 position: relative;
-                width: var(--shape-size);
-                height: var(--shape-size);
+                width: var(--icon-size);
+                height: var(--icon-size);
+                font-size: var(--icon-size);
                 border-radius: var(--icon-border-radius);
                 display: flex;
                 align-items: center;
@@ -48,11 +48,11 @@ export class ShapeIcon extends LitElement {
                 transition-duration: 280ms;
                 transition-timing-function: ease-out;
                 animation: var(--shape-animation);
-                box-shadow: 0 0 0 var(--shape-outline-size) var(--shape-outline-color);
+                box-shadow: 0 0 0 1px var(--shape-outline-color);
             }
             .shape ha-icon {
                 display: flex;
-                --mdc-icon-size: var(--shape-icon-size);
+                --mdc-icon-size: var(--icon-symbol-size);
                 color: var(--icon-color);
                 transition: color 280ms ease-in-out;
                 animation: var(--icon-animation);

@@ -25,8 +25,8 @@ export class ShapePicture extends LitElement {
             }
             .container {
                 position: relative;
-                width: var(--shape-size);
-                height: var(--shape-size);
+                width: var(--icon-size);
+                height: var(--icon-size);
                 flex: none;
                 display: flex;
                 align-items: center;
