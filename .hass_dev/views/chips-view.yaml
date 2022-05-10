@@ -70,6 +70,15 @@ cards:
             entity: sensor.outside_temperature
             icon: mdi:tree
             icon_color: green
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: entity
+            entity: person.anne_therese
+            use_entity_picture: true
+          - type: entity
+            entity: person.anne_therese
+            use_entity_picture: true
+            content_info: none
   - type: vertical-stack
     title: Light chips
     cards:
