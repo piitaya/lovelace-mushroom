@@ -27,7 +27,7 @@ export const themeVariables = css`
     --chip-font-size: var(--mush-chip-font-size, 0.3em);
     --chip-font-weight: var(--mush-chip-font-weight, bold);
     --chip-icon-size: var(--mush-chip-icon-size, 0.5em);
-    --chip-avatar-padding: var(--mush-chip-avatar-padding, 0.3em);
+    --chip-avatar-padding: var(--mush-chip-avatar-padding, 0.1em);
     --chip-avatar-border-radius: var(--mush-chip-avatar-border-radius, 50%);
 
     /* Controls */
