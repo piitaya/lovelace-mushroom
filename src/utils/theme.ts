@@ -49,6 +49,7 @@ export const themeVariables = css`
 
     /* Shape */
     --shape-size: var(--mush-shape-size, 42px);
+    --shape-avatar-size: var(--mush-shape-avatar-size, 42px);
     --shape-icon-size: var(--mush-shape-icon-size, 20px);
 `;
 
