@@ -26,6 +26,7 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
         type: "grid",
         name: "",
         schema: [
+            { name: "layout", selector: { "mush-layout": {} } },
             { name: "fill_container", selector: { boolean: {} } },
             { name: "hide_state", selector: { boolean: {} } },
         ],
