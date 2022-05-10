@@ -23,10 +23,11 @@ export class BadgeIcon extends LitElement {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                line-height: 10px;
+                line-height: 0;
                 width: var(--badge-size);
                 height: var(--badge-size);
-                border-radius: 50%;
+                font-size: var(--badge-size);
+                border-radius: var(--badge-border-radius);
                 background-color: var(--main-color);
                 transition: background-color 280ms ease-in-out;
             }

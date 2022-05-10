@@ -30,6 +30,7 @@ export class BadgeIcon extends LitElement {
             .chip {
                 box-sizing: border-box;
                 height: var(--chip-height);
+                font-size: var(--chip-height);
                 width: auto;
                 border-radius: var(--chip-border-radius);
                 display: flex;
@@ -55,7 +56,6 @@ export class BadgeIcon extends LitElement {
                 align-items: center;
                 justify-content: center;
                 height: 100%;
-                font-size: calc(var(--chip-height) * 0.3);
                 padding: var(--chip-padding);
                 line-height: 0;
             }
@@ -76,11 +76,11 @@ export class BadgeIcon extends LitElement {
                 color: var(--text-color);
             }
             ::slotted(*:not(:last-child)) {
-                margin-right: 0.5em;
+                margin-right: 0.15em;
             }
             :host([rtl]) ::slotted(*:not(:last-child)) {
                 margin-right: initial;
-                margin-left: 0.5em;
+                margin-left: 0.15em;
             }
         `;
     }
