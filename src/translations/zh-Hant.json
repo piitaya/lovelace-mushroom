@@ -93,6 +93,7 @@
             "media-player": {
                 "use_media_info": "使用媒體資訊",
                 "use_media_artwork": "使用媒體插圖",
+                "show_volume_level": "顯示音量大小",
                 "media_controls": "媒體控制",
                 "media_controls_list": {
                     "on_off": " 開啟、關閉",
@@ -113,6 +114,9 @@
                 "lock": "上鎖",
                 "unlock": "解鎖",
                 "open": "打開"
+            },
+            "humidifier": {
+                "show_target_humidity_control": "溼度控制?"
             }
         },
         "chip": {
