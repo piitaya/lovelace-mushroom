@@ -93,7 +93,8 @@ export class EntityChip extends LitElement implements LovelaceChip {
                     hasHold: hasAction(this._config.hold_action),
                     hasDoubleClick: hasAction(this._config.double_tap_action),
                 })}
-                avatar=${picture}
+                .avatar=${picture}
+                .avatarOnly=${picture && !content}
             >
                 ${!picture ? this.renderIcon(icon, iconColor, active) : null}
                 ${content ? html`<span>${content}</span>` : null}
