@@ -11,7 +11,7 @@
 
 ## What is mushroom ?
 
-Mushroom is a collection of cards for [Home Assistant][home-assistant] Lovelace UI.
+Mushroom is a collection of cards for [Home Assistant][home-assistant] Dashboard UI.
 
 Mushroom mission is to propose easy to use components to build your [Home Assistant][home-assistant] dashboard.
 
@@ -43,9 +43,9 @@ Mushroom is available in [HACS][hacs] (Home Assistant Community Store).
 
 1. Download `mushroom.js` file from the [latest-release].
 2. Put `mushroom.js` file into your `config/www` folder.
-3. Add reference to `mushroom.js` in Lovelace. There's two way to do that:
-    - **Using UI:** _Configuration_ → _Lovelace Dashboards_ → _Resources Tab_ → Click Plus button → Set _Url_ as `/local/mushroom.js` → Set _Resource type_ as `JavaScript Module`.
-      **Note:** If you do not see the Resources Tab, you will need to enable _Advanced Mode_ in your _User Profile_
+3. Add reference to `mushroom.js` in Dashboard. There's two way to do that:
+    - **Using UI:** _Settings_ → _Dashboards_ → _More Options icon_ → _Resources_ → _Add Resource_ → Set _Url_ as `/local/mushroom.js` → Set _Resource type_ as `JavaScript Module`.
+      **Note:** If you do not see the Resources menu, you will need to enable _Advanced Mode_ in your _User Profile_
     - **Using YAML:** Add following code to `lovelace` section.
         ```yaml
         resources:
@@ -55,10 +55,10 @@ Mushroom is available in [HACS][hacs] (Home Assistant Community Store).
 
 ## Usage
 
-All the Mushroom cards can be configured using Lovelace UI editor.
+All the Mushroom cards can be configured using Dashboard UI editor.
 
-1. In Lovelace UI, click 3 dots in top left corner.
-2. Click _Configure UI_.
+1. In Dashboard UI, click 3 dots in top right corner.
+2. Click _Edit Dashboard_.
 3. Click Plus button to add a new card.
 4. Find one of the _Custom: Mushroom_ card in the list.
 
@@ -123,12 +123,9 @@ Server will start on port `5000`.
 
 Once both Home Assistant and mushroom are running, you have to add a resource to Home Assistant UI:
 
--   Go on your profile
--   Enable `Advanced mode`
--   Then go to Lovelace resources
--   Add the ressource `http://localhost:5000/mushroom.js`:
-
-    _Configuration_ → _Lovelace Dashboards_ → _Resources Tab_ → Click Plus button → Set _Url_ as `http://localhost:5000/mushroom.js` → Set _Resource type_ as `JavaScript Module`.
+-   Enable `Advanced Mode` in your profile page
+-   Go to Dashboard Resources and add the ressource `http://localhost:5000/mushroom.js`:  
+    _Settings_ → _Dashboards_ → _More Options icon_ → _Resources_ → _Add Resource_ → Set _URL_ as `http://localhost:5000/mushroom.js` → Set _Resource type_ as `JavaScript Module`.
 
 ### Build
 
@@ -145,7 +142,7 @@ npm run build
 3. Import your file into the [`localize.ts file`](https://github.com/piitaya/lovelace-mushroom/blob/main/src/localize.ts) and add your language in the `languages` record.
 4. Don't forget to test locally with the development server by choosing the language with the Home Assistant UI in your profile.
 
-### Credits
+## Credits
 
 The design is inspired by [7ahang’s work][7ahang] on Behance and [Ui Lovelace Minimalist][ui-lovelace-minimalist].
 
