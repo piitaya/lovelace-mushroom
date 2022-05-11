@@ -167,6 +167,7 @@ export class TemplateChip extends LitElement implements LovelaceChip {
                         user: this.hass.user!.name,
                         entity: this._config.entity,
                     },
+                    strict: true,
                 }
             );
             this._unsubRenderTemplates.set(key, sub);

@@ -2,6 +2,7 @@ import { css } from "lit";
 
 export const themeVariables = css`
     --spacing: var(--mush-spacing, 12px);
+
     /* Title */
     --title-padding: var(--mush-title-padding, 24px 12px 16px);
     --title-spacing: var(--mush-title-spacing, 12px);
@@ -11,27 +12,45 @@ export const themeVariables = css`
     --subtitle-font-size: var(--mush-subtitle-font-size, 16px);
     --subtitle-font-weight: var(--mush-subtitle-font-weight, normal);
     --subtitle-line-height: var(--mush-subtitle-line-height, 1.2);
+
     /* Card */
-    --icon-border-radius: var(--mush-icon-border-radius, 50%);
-    --control-border-radius: var(--mush-control-border-radius, 12px);
     --card-primary-font-size: var(--mush-card-primary-font-size, 14px);
     --card-secondary-font-size: var(--mush-card-secondary-font-size, 12px);
     --card-primary-font-weight: var(--mush-card-primary-font-weight, bold);
     --card-secondary-font-weight: var(--mush-card-secondary-font-weight, bolder);
+
     /* Chips */
     --chip-spacing: var(--mush-chip-spacing, 8px);
-    --chip-padding: var(--mush-chip-padding, 0 10px);
+    --chip-padding: var(--mush-chip-padding, 0 0.25em);
     --chip-height: var(--mush-chip-height, 36px);
     --chip-border-radius: var(--mush-chip-border-radius, 18px);
-    --chip-font-size: var(--mush-chip-font-size, 1em);
+    --chip-font-size: var(--mush-chip-font-size, 0.3em);
     --chip-font-weight: var(--mush-chip-font-weight, bold);
-    --chip-icon-size: var(--mush-chip-icon-size, 1.5em);
-    --chip-avatar-padding: var(--mush-chip-avatar-padding, 0.3em);
+    --chip-icon-size: var(--mush-chip-icon-size, 0.5em);
+    --chip-avatar-padding: var(--mush-chip-avatar-padding, 0.1em);
     --chip-avatar-border-radius: var(--mush-chip-avatar-border-radius, 50%);
+
+    /* Controls */
+    --control-border-radius: var(--mush-control-border-radius, 12px);
+    --control-height: var(--mush-control-height, 42px);
+    --control-button-ratio: var(--mush-control-button-ratio, 1);
+    --control-icon-size: var(--mush-control-icon-size, 0.5em);
+
     /* Slider */
     --slider-threshold: var(--mush-slider-threshold);
+
     /* Layout */
     --layout-align: var(--mush-layout-align, center);
+
+    /* Badge */
+    --badge-size: var(--mush-badge-size, 16px);
+    --badge-icon-size: var(--mush-badge-icon-size, 0.75em);
+    --badge-border-radius: var(--mush-badge-border-radius, 50%);
+
+    /* Icon */
+    --icon-border-radius: var(--mush-icon-border-radius, 50%);
+    --icon-size: var(--mush-icon-size, 42px);
+    --icon-symbol-size: var(--mush-icon-symbol-size, 0.5em);
 `;
 
 export const themeColorCss = css`

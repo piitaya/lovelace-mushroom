@@ -23,15 +23,16 @@ export class BadgeIcon extends LitElement {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                line-height: 10px;
-                width: 16px;
-                height: 16px;
-                border-radius: 50%;
+                line-height: 0;
+                width: var(--badge-size);
+                height: var(--badge-size);
+                font-size: var(--badge-size);
+                border-radius: var(--badge-border-radius);
                 background-color: var(--main-color);
                 transition: background-color 280ms ease-in-out;
             }
             .badge ha-icon {
-                --mdc-icon-size: 12px;
+                --mdc-icon-size: var(--badge-icon-size);
                 color: var(--icon-color);
             }
         `;

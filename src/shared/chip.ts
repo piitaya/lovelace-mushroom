@@ -1,6 +1,5 @@
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { property, customElement } from "lit/decorators.js";
-import { animations } from "../utils/entity-styles";
 
 @customElement("mushroom-chip")
 export class BadgeIcon extends LitElement {
@@ -10,13 +9,19 @@ export class BadgeIcon extends LitElement {
 
     @property() public avatar: string = "";
 
+    @property() public avatarOnly: boolean = false;
+
     protected render(): TemplateResult {
         return html`
             <ha-card class="chip">
                 ${this.avatar ? html` <img class="avatar" src=${this.avatar} /> ` : null}
-                <div class="content">
-                    <slot></slot>
-                </div>
+                ${!this.avatarOnly
+                    ? html`
+                          <div class="content">
+                              <slot></slot>
+                          </div>
+                      `
+                    : null}
             </ha-card>
         `;
     }
@@ -30,6 +35,8 @@ export class BadgeIcon extends LitElement {
             .chip {
                 box-sizing: border-box;
                 height: var(--chip-height);
+                min-width: var(--chip-height);
+                font-size: var(--chip-height);
                 width: auto;
                 border-radius: var(--chip-border-radius);
                 display: flex;
@@ -55,7 +62,6 @@ export class BadgeIcon extends LitElement {
                 align-items: center;
                 justify-content: center;
                 height: 100%;
-                font-size: calc(var(--chip-height) * 0.3);
                 padding: var(--chip-padding);
                 line-height: 0;
             }
@@ -76,11 +82,11 @@ export class BadgeIcon extends LitElement {
                 color: var(--text-color);
             }
             ::slotted(*:not(:last-child)) {
-                margin-right: 0.5em;
+                margin-right: 0.15em;
             }
             :host([rtl]) ::slotted(*:not(:last-child)) {
                 margin-right: initial;
-                margin-left: 0.5em;
+                margin-left: 0.15em;
             }
         `;
     }
