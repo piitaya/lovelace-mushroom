@@ -211,6 +211,7 @@ export class TemplateCard extends LitElement implements LovelaceCard {
                         user: this.hass.user!.name,
                         entity: this._config.entity,
                     },
+                    strict: true,
                 }
             );
             this._unsubRenderTemplates.set(key, sub);

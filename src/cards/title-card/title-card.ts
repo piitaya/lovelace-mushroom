@@ -136,6 +136,7 @@ export class TitleCard extends LitElement implements LovelaceCard {
                         config: this._config,
                         user: this.hass.user!.name,
                     },
+                    strict: true,
                 }
             );
             this._unsubRenderTemplates.set(key, sub);
