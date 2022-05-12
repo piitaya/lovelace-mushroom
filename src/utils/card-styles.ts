@@ -17,7 +17,8 @@ export const cardStyle = css`
         flex-direction: row;
         align-items: flex-start;
         justify-content: flex-start;
-        overflow-y: auto;
+        overflow-x: auto;
+        overflow-y: hidden;
         scrollbar-width: none; /* Firefox */
         -ms-overflow-style: none; /* IE 10+ */
     }

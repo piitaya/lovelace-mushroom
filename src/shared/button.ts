@@ -24,7 +24,6 @@ export class Button extends LitElement {
                 --bg-color-disabled: rgba(var(--rgb-disabled), 0.2);
                 height: var(--control-height);
                 width: calc(var(--control-height) * var(--control-button-ratio));
-                font-size: var(--control-height);
                 flex: none;
             }
             .button {
@@ -38,7 +37,10 @@ export class Button extends LitElement {
                 border: none;
                 background-color: var(--bg-color);
                 transition: background-color 280ms ease-in-out;
-                font-size: 1em;
+                font-size: var(--control-height);
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
                 line-height: 0;
             }
             .button:disabled {
