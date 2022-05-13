@@ -29,6 +29,7 @@ nav:
       - Title: "cards/title.md"
       - Update: "cards/update.md"
       - Vacuum: "cards/vacuum.md"
+      - Humidifier: "cards/humidifier.md"
   - Development:
       - Setup: "development/setup.md"
       - Translations: "development/translations.md"
