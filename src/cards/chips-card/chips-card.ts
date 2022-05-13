@@ -7,7 +7,6 @@ import {
 } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
-import { styleMap } from "lit/directives/style-map.js";
 import "../../shared/chip";
 import { computeDarkMode, MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
