@@ -7,18 +7,20 @@ import {
     LovelaceCard,
     LovelaceCardEditor,
 } from "custom-card-helpers";
-import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
-import { customElement, property, query, state } from "lit/decorators.js";
+import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
+import { customElement, query, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
+import { isAvailable } from "../../ha/data/entity";
 import "../../shared/badge-icon";
+import "../../shared/button";
+import "../../shared/button-group";
 import "../../shared/card";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
-import "../../shared/button";
-import "../../shared/button-group";
+import { MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
@@ -39,7 +41,6 @@ import {
     isDisarmed,
     shouldPulse,
 } from "./utils";
-import { isAvailable } from "../../ha/data/entity";
 
 registerCustomCard({
     type: ALARM_CONTROl_PANEL_CARD_NAME,
@@ -62,7 +63,7 @@ const BUTTONS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "", "0", "clear"];
  */
 
 @customElement(ALARM_CONTROl_PANEL_CARD_NAME)
-export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
+export class AlarmControlPanelCard extends MushroomBaseElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./alarm-control-panel-card-editor");
         return document.createElement(ALARM_CONTROl_PANEL_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -80,8 +81,6 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
         };
     }
 
-    @property({ attribute: false }) public hass!: HomeAssistant;
-
     @state() private _config?: AlarmControlPanelCardConfig;
 
     @query("#alarmCode") private _input?: HaTextField;
@@ -96,9 +95,6 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
                 action: "more-info",
             },
             hold_action: {
-                action: "more-info",
-            },
-            double_tap_action: {
                 action: "more-info",
             },
             ...config,
@@ -192,8 +188,8 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
         const rtl = computeRTL(this.hass);
 
         return html`
-            <ha-card>
-                <mushroom-card .layout=${layout} no-card-style ?rtl=${rtl}>
+            <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
+                <mushroom-card .layout=${layout} ?rtl=${rtl}>
                     <mushroom-state-item
                         ?rtl=${rtl}
                         .layout=${layout}
@@ -285,18 +281,10 @@ export class AlarmControlPanelCard extends LitElement implements LovelaceCard {
     }
 
     static get styles(): CSSResultGroup {
-        // Default colors are RGB values of HASS --label-badge-*
         return [
+            super.styles,
             cardStyle,
             css`
-                ha-card {
-                    height: 100%;
-                    box-sizing: border-box;
-                    padding: var(--spacing);
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                }
                 mushroom-state-item {
                     cursor: pointer;
                 }

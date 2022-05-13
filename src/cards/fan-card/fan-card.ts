@@ -7,8 +7,8 @@ import {
     LovelaceCard,
     LovelaceCardEditor,
 } from "custom-card-helpers";
-import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
+import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
@@ -19,6 +19,7 @@ import "../../shared/card";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
+import { MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
@@ -37,7 +38,7 @@ registerCustomCard({
 });
 
 @customElement(FAN_CARD_NAME)
-export class FanCard extends LitElement implements LovelaceCard {
+export class FanCard extends MushroomBaseElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./fan-card-editor");
         return document.createElement(FAN_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -52,8 +53,6 @@ export class FanCard extends LitElement implements LovelaceCard {
         };
     }
 
-    @property({ attribute: false }) public hass!: HomeAssistant;
-
     @state() private _config?: FanCardConfig;
 
     getCardSize(): number | Promise<number> {
@@ -66,9 +65,6 @@ export class FanCard extends LitElement implements LovelaceCard {
                 action: "toggle",
             },
             hold_action: {
-                action: "more-info",
-            },
-            double_tap_action: {
                 action: "more-info",
             },
             ...config,
@@ -142,70 +138,77 @@ export class FanCard extends LitElement implements LovelaceCard {
 
         const rtl = computeRTL(this.hass);
 
+        const displayControls =
+            (!this._config.collapsible_controls || isActive(entity)) &&
+            (this._config.show_percentage_control || this._config.show_oscillate_control);
+
         return html`
-            <mushroom-card .layout=${layout} ?rtl=${rtl}>
-                <mushroom-state-item
-                    ?rtl=${rtl}
-                    .layout=${layout}
-                    @action=${this._handleAction}
-                    .actionHandler=${actionHandler({
-                        hasHold: hasAction(this._config.hold_action),
-                        hasDoubleClick: hasAction(this._config.double_tap_action),
-                    })}
-                >
-                    <mushroom-shape-icon
-                        slot="icon"
-                        class=${classMap({
-                            spin: active && !!this._config.icon_animation,
+            <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
+                <mushroom-card .layout=${layout} ?rtl=${rtl}>
+                    <mushroom-state-item
+                        ?rtl=${rtl}
+                        .layout=${layout}
+                        @action=${this._handleAction}
+                        .actionHandler=${actionHandler({
+                            hasHold: hasAction(this._config.hold_action),
+                            hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
-                        style=${styleMap(iconStyle)}
-                        .disabled=${!active}
-                        .icon=${icon}
-                    ></mushroom-shape-icon>
-                    ${!isAvailable(entity)
+                    >
+                        <mushroom-shape-icon
+                            slot="icon"
+                            class=${classMap({
+                                spin: active && !!this._config.icon_animation,
+                            })}
+                            style=${styleMap(iconStyle)}
+                            .disabled=${!active}
+                            .icon=${icon}
+                        ></mushroom-shape-icon>
+                        ${!isAvailable(entity)
+                            ? html`
+                                  <mushroom-badge-icon
+                                      class="unavailable"
+                                      slot="badge"
+                                      icon="mdi:help"
+                                  ></mushroom-badge-icon>
+                              `
+                            : null}
+                        <mushroom-state-info
+                            slot="info"
+                            .primary=${name}
+                            .secondary=${!hideState && stateValue}
+                        ></mushroom-state-info>
+                    </mushroom-state-item>
+                    ${displayControls
                         ? html`
-                              <mushroom-badge-icon
-                                  class="unavailable"
-                                  slot="badge"
-                                  icon="mdi:help"
-                              ></mushroom-badge-icon>
+                              <div class="actions" ?rtl=${rtl}>
+                                  ${this._config.show_percentage_control
+                                      ? html`
+                                            <mushroom-fan-percentage-control
+                                                .hass=${this.hass}
+                                                .entity=${entity}
+                                                @current-change=${this.onCurrentPercentageChange}
+                                            ></mushroom-fan-percentage-control>
+                                        `
+                                      : null}
+                                  ${this._config.show_oscillate_control
+                                      ? html`
+                                            <mushroom-fan-oscillate-control
+                                                .hass=${this.hass}
+                                                .entity=${entity}
+                                            ></mushroom-fan-oscillate-control>
+                                        `
+                                      : null}
+                              </div>
                           `
                         : null}
-                    <mushroom-state-info
-                        slot="info"
-                        .primary=${name}
-                        .secondary=${!hideState && stateValue}
-                    ></mushroom-state-info>
-                </mushroom-state-item>
-                ${this._config.show_percentage_control || this._config.show_oscillate_control
-                    ? html`
-                          <div class="actions" ?rtl=${rtl}>
-                              ${this._config.show_percentage_control
-                                  ? html`
-                                        <mushroom-fan-percentage-control
-                                            .hass=${this.hass}
-                                            .entity=${entity}
-                                            @current-change=${this.onCurrentPercentageChange}
-                                        ></mushroom-fan-percentage-control>
-                                    `
-                                  : null}
-                              ${this._config.show_oscillate_control
-                                  ? html`
-                                        <mushroom-fan-oscillate-control
-                                            .hass=${this.hass}
-                                            .entity=${entity}
-                                        ></mushroom-fan-oscillate-control>
-                                    `
-                                  : null}
-                          </div>
-                      `
-                    : null}
-            </mushroom-card>
+                </mushroom-card>
+            </ha-card>
         `;
     }
 
     static get styles(): CSSResultGroup {
         return [
+            super.styles,
             cardStyle,
             css`
                 mushroom-state-item {

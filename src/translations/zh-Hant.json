@@ -40,10 +40,12 @@
                 "hide_icon": "隱藏圖示?",
                 "icon_color": "圖示顏色",
                 "layout": "佈局",
+                "fill_container": "填滿容器",
                 "primary_info": "主要訊息",
                 "secondary_info": "次要訊息",
                 "content_info": "內容",
-                "use_entity_picture": "使用實體圖片?"
+                "use_entity_picture": "使用實體圖片?",
+                "collapsible_controls": "關閉時隱藏控制項"
             },
             "light": {
                 "show_brightness_control": "亮度控制?",
@@ -60,6 +62,9 @@
             "cover": {
                 "show_buttons_control": "按鈕控制?",
                 "show_position_control": "位置控制?"
+            },
+            "alarm_control_panel": {
+                "show_keypad": "顯示鍵盤"
             },
             "template": {
                 "primary": "主要訊息",
@@ -88,6 +93,7 @@
             "media-player": {
                 "use_media_info": "使用媒體資訊",
                 "use_media_artwork": "使用媒體插圖",
+                "show_volume_level": "顯示音量大小",
                 "media_controls": "媒體控制",
                 "media_controls_list": {
                     "on_off": " 開啟、關閉",
@@ -108,6 +114,9 @@
                 "lock": "上鎖",
                 "unlock": "解鎖",
                 "open": "打開"
+            },
+            "humidifier": {
+                "show_target_humidity_control": "溼度控制?"
             }
         },
         "chip": {
@@ -119,7 +128,6 @@
             },
             "chip-picker": {
                 "chips": "Chips",
-                "details": "點擊編輯按鈕來查看詳細訊息",
                 "add": "新增 chip",
                 "edit": "編輯",
                 "clear": "清除",

@@ -40,6 +40,17 @@ export class MediaPlayerVolumeControls extends LitElement {
         });
     }
 
+    handleSliderCurrentChange(e: CustomEvent<{ value?: number }>): void {
+        let value = e.detail.value;
+        this.dispatchEvent(
+            new CustomEvent("current-change", {
+                detail: {
+                    value,
+                },
+            })
+        );
+    }
+
     private handleClick(e: MouseEvent): void {
         e.stopPropagation();
         const action = (e.target! as any).action as string;
@@ -76,6 +87,7 @@ export class MediaPlayerVolumeControls extends LitElement {
                           .min=${0}
                           .max=${100}
                           @change=${this.handleSliderChange}
+                          @current-change=${this.handleSliderCurrentChange}
                       />`
                     : null}
                 ${displayVolumeMute

@@ -7,8 +7,9 @@ import {
     LovelaceCard,
     LovelaceCardEditor,
 } from "custom-card-helpers";
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { css, CSSResultGroup, html, TemplateResult } from "lit";
+import { customElement, state } from "lit/decorators.js";
+import { classMap } from "lit/directives/class-map.js";
 import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
 import { isActive, isAvailable } from "../../ha/data/entity";
 import { VacuumEntity } from "../../ha/data/vacuum";
@@ -17,6 +18,7 @@ import "../../shared/card";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
+import { MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
@@ -34,7 +36,7 @@ registerCustomCard({
 });
 
 @customElement(VACUUM_CARD_NAME)
-export class VacuumCard extends LitElement implements LovelaceCard {
+export class VacuumCard extends MushroomBaseElement implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./vacuum-card-editor");
         return document.createElement(VACUUM_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -49,8 +51,6 @@ export class VacuumCard extends LitElement implements LovelaceCard {
         };
     }
 
-    @property({ attribute: false }) public hass!: HomeAssistant;
-
     @state() private _config?: VacuumCardConfig;
 
     getCardSize(): number | Promise<number> {
@@ -63,9 +63,6 @@ export class VacuumCard extends LitElement implements LovelaceCard {
                 action: "more-info",
             },
             hold_action: {
-                action: "more-info",
-            },
-            double_tap_action: {
                 action: "more-info",
             },
             ...config,
@@ -98,55 +95,58 @@ export class VacuumCard extends LitElement implements LovelaceCard {
         const rtl = computeRTL(this.hass);
 
         return html`
-            <mushroom-card .layout=${layout} ?rtl=${rtl}>
-                <mushroom-state-item
-                    ?rtl=${rtl}
-                    .layout=${layout}
-                    @action=${this._handleAction}
-                    .actionHandler=${actionHandler({
-                        hasHold: hasAction(this._config.hold_action),
-                        hasDoubleClick: hasAction(this._config.double_tap_action),
-                    })}
-                >
-                    <mushroom-shape-icon
-                        slot="icon"
-                        .disabled=${!active}
-                        .icon=${icon}
-                    ></mushroom-shape-icon>
-                    ${!isAvailable(entity)
+            <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
+                <mushroom-card .layout=${layout} ?rtl=${rtl}>
+                    <mushroom-state-item
+                        ?rtl=${rtl}
+                        .layout=${layout}
+                        @action=${this._handleAction}
+                        .actionHandler=${actionHandler({
+                            hasHold: hasAction(this._config.hold_action),
+                            hasDoubleClick: hasAction(this._config.double_tap_action),
+                        })}
+                    >
+                        <mushroom-shape-icon
+                            slot="icon"
+                            .disabled=${!active}
+                            .icon=${icon}
+                        ></mushroom-shape-icon>
+                        ${!isAvailable(entity)
+                            ? html`
+                                  <mushroom-badge-icon
+                                      class="unavailable"
+                                      slot="badge"
+                                      icon="mdi:help"
+                                  ></mushroom-badge-icon>
+                              `
+                            : null}
+                        <mushroom-state-info
+                            slot="info"
+                            .primary=${name}
+                            .secondary=${!hideState && stateValue}
+                        ></mushroom-state-info>
+                    </mushroom-state-item>
+                    ${isCommandsControlVisible(entity, commands)
                         ? html`
-                              <mushroom-badge-icon
-                                  class="unavailable"
-                                  slot="badge"
-                                  icon="mdi:help"
-                              ></mushroom-badge-icon>
+                              <div class="actions" ?rtl=${rtl}>
+                                  <mushroom-vacuum-commands-control
+                                      .hass=${this.hass}
+                                      .entity=${entity}
+                                      .commands=${commands}
+                                      .fill=${layout !== "horizontal"}
+                                  >
+                                  </mushroom-vacuum-commands-control>
+                              </div>
                           `
                         : null}
-                    <mushroom-state-info
-                        slot="info"
-                        .primary=${name}
-                        .secondary=${!hideState && stateValue}
-                    ></mushroom-state-info>
-                </mushroom-state-item>
-                ${isCommandsControlVisible(entity, commands)
-                    ? html`
-                          <div class="actions" ?rtl=${rtl}>
-                              <mushroom-vacuum-commands-control
-                                  .hass=${this.hass}
-                                  .entity=${entity}
-                                  .commands=${commands}
-                                  .fill=${layout !== "horizontal"}
-                              >
-                              </mushroom-vacuum-commands-control>
-                          </div>
-                      `
-                    : null}
-            </mushroom-card>
+                </mushroom-card>
+            </ha-card>
         `;
     }
 
     static get styles(): CSSResultGroup {
         return [
+            super.styles,
             cardStyle,
             css`
                 mushroom-state-item {

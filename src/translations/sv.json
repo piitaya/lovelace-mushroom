@@ -86,7 +86,6 @@
             },
             "chip-picker": {
                 "chips": "Chips",
-                "details": "Visa detaljer genom att klicka på knappen Redigera",
                 "add": "Lägg till chip",
                 "edit": "Redigera",
                 "clear": "Rensa",

@@ -18,15 +18,15 @@ export class ShapePicture extends LitElement {
         return css`
             :host {
                 --main-color: var(--primary-text-color);
-                --main-color-disabled: var(--disabled-text-color);
+                --icon-color-disabled: rgb(var(--rgb-disabled));
                 --shape-color: rgba(var(--rgb-primary-text-color), 0.05);
-                --shape-color-disabled: rgba(var(--rgb-primary-text-color), 0.05);
+                --shape-color-disabled: rgba(var(--rgb-disabled), 0.2);
                 flex: none;
             }
             .container {
                 position: relative;
-                width: 42px;
-                height: 42px;
+                width: var(--icon-size);
+                height: var(--icon-size);
                 flex: none;
                 display: flex;
                 align-items: center;

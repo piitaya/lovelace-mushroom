@@ -19,11 +19,11 @@ export class Button extends LitElement {
         return css`
             :host {
                 --icon-color: var(--primary-text-color);
-                --icon-color-disabled: var(--disabled-text-color);
+                --icon-color-disabled: rgb(var(--rgb-disabled));
                 --bg-color: rgba(var(--rgb-primary-text-color), 0.05);
-                --bg-color-disabled: rgba(var(--rgb-primary-text-color), 0.05);
-                width: 42px;
-                height: 42px;
+                --bg-color-disabled: rgba(var(--rgb-disabled), 0.2);
+                height: var(--control-height);
+                width: calc(var(--control-height) * var(--control-button-ratio));
                 flex: none;
             }
             .button {
@@ -37,13 +37,18 @@ export class Button extends LitElement {
                 border: none;
                 background-color: var(--bg-color);
                 transition: background-color 280ms ease-in-out;
+                font-size: var(--control-height);
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                line-height: 0;
             }
             .button:disabled {
                 cursor: not-allowed;
                 background-color: var(--bg-color-disabled);
             }
             .button ha-icon {
-                --mdc-icon-size: 20px;
+                --mdc-icon-size: var(--control-icon-size);
                 color: var(--icon-color);
                 pointer-events: none;
             }

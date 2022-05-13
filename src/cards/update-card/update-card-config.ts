@@ -10,7 +10,9 @@ export interface UpdateCardConfig extends LovelaceCardConfig {
     icon?: string;
     use_entity_picture?: boolean;
     layout?: Layout;
-    show_buttons_control?: false;
+    fill_container?: boolean;
+    show_buttons_control?: boolean;
+    collapsible_controls?: boolean;
     tap_action?: ActionConfig;
     hold_action?: ActionConfig;
     double_tap_action?: ActionConfig;
@@ -24,7 +26,9 @@ export const updateCardConfigStruct = assign(
         icon: optional(string()),
         use_entity_picture: optional(boolean()),
         layout: optional(layoutStruct),
+        fill_container: optional(boolean()),
         show_buttons_control: optional(boolean()),
+        collapsible_controls: optional(boolean()),
         tap_action: optional(actionConfigStruct),
         hold_action: optional(actionConfigStruct),
         double_tap_action: optional(actionConfigStruct),
