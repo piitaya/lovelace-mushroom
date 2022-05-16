@@ -17,6 +17,8 @@ import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-avatar";
 import "../../shared/shape-icon";
+import "../../shared/state-info";
+import "../../shared/state-item";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
@@ -132,7 +134,7 @@ export class PersonCard extends MushroomBaseElement implements LovelaceCard {
                             <mushroom-state-info
                                 slot="info"
                                 .primary=${!hideName ? name : undefined}
-                                .secondary=${!hideState && stateDisplay}
+                                .secondary=${!hideState ? stateDisplay : undefined}
                             ></mushroom-state-info>
                         </mushroom-state-item>
                     </div>
