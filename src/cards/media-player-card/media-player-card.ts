@@ -198,7 +198,7 @@ export class MediaPlayerCard extends MushroomBaseElement implements LovelaceCard
                             ? html`
                                   <mushroom-shape-avatar
                                       slot="icon"
-                                      .picture_url=${artwork}
+                                      .picture_url=${(this.hass as any).hassUrl(artwork)}
                                   ></mushroom-shape-avatar>
                               `
                             : html`
