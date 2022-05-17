@@ -80,9 +80,11 @@ export class ChipsCard extends LitElement implements LovelaceCard {
         const rtl = computeRTL(this._hass);
 
         return html`
-            <div class="chip-container ${alignment}" ?rtl=${rtl}>
-                ${this._config.chips.map((chip) => this.renderChip(chip))}
-            </div>
+            <ha-card>
+                <div class="chip-container ${alignment}" ?rtl=${rtl}>
+                    ${this._config.chips.map((chip) => this.renderChip(chip))}
+                </div>
+            </ha-card>
         `;
     }
 
@@ -102,6 +104,11 @@ export class ChipsCard extends LitElement implements LovelaceCard {
             MushroomBaseElement.styles,
             cardStyle,
             css`
+                ha-card {
+                    background: none;
+                    box-shadow: none;
+                    border-radius: 0;
+                }
                 .chip-container {
                     display: flex;
                     flex-direction: row;
