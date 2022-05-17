@@ -34,6 +34,7 @@ export class StateItem extends LitElement {
             .primary {
                 font-weight: var(--card-primary-font-weight);
                 font-size: var(--card-primary-font-size);
+                line-height: var(--card-primary-line-height);
                 color: var(--primary-text-color);
                 text-overflow: ellipsis;
                 overflow: hidden;
@@ -42,6 +43,7 @@ export class StateItem extends LitElement {
             .secondary {
                 font-weight: var(--card-secondary-font-weight);
                 font-size: var(--card-secondary-font-size);
+                line-height: var(--card-secondary-line-height);
                 color: var(--secondary-text-color);
                 text-overflow: ellipsis;
                 overflow: hidden;
