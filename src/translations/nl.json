@@ -44,6 +44,7 @@
                 "secondary_info": "Secundaire informatie",
                 "content_info": "Inhoud",
                 "use_entity_picture": "Gebruik entiteit afbeelding"
+                "collapsible_controls": "Bedieningselementen verbergen wanneer uitgeschakeld"
             },
             "light": {
                 "show_brightness_control": "Bediening helderheid",
@@ -91,6 +92,7 @@
             "media-player": {
                 "use_media_info": "Gebruik media informatie",
                 "use_media_artwork": "Gebruik media omslag",
+                "show_volume_level": "Toon volumeniveau",
                 "media_controls": "Mediabediening",
                 "media_controls_list": {
                     "on_off": "zet aan/uit",
