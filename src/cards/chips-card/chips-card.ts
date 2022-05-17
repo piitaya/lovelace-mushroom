@@ -108,11 +108,6 @@ export class ChipsCard extends LitElement implements LovelaceCard {
                     box-shadow: none;
                     border-radius: 0;
                 }
-                :host-context(ha-card) {
-                    --ha-card-background: none;
-                    --ha-card-box-shadow: none;
-                    --chip-spacing: 0;
-                }
                 .chip-container {
                     display: flex;
                     flex-direction: row;
