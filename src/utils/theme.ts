@@ -30,7 +30,7 @@ export const themeVariables = css`
     --chip-avatar-padding: var(--mush-chip-avatar-padding, 0.1em);
     --chip-avatar-border-radius: var(--mush-chip-avatar-border-radius, 50%);
     --chip-box-shadow: var(
-        --mush-chip-avatar-border-radius,
+        --mush-chip-box-shadow,
         var(
             --ha-card-box-shadow,
             0px 2px 1px -1px rgba(0, 0, 0, 0.2),
