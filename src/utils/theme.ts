@@ -18,6 +18,8 @@ export const themeVariables = css`
     --card-secondary-font-size: var(--mush-card-secondary-font-size, 12px);
     --card-primary-font-weight: var(--mush-card-primary-font-weight, bold);
     --card-secondary-font-weight: var(--mush-card-secondary-font-weight, bolder);
+    --card-primary-line-height: var(--mush-card-primary-line-height, 1.5);
+    --card-secondary-line-height: var(--mush-card-secondary-line-height, 1.5);
 
     /* Chips */
     --chip-spacing: var(--mush-chip-spacing, 8px);
