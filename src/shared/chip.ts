@@ -2,7 +2,7 @@ import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { property, customElement } from "lit/decorators.js";
 
 @customElement("mushroom-chip")
-export class BadgeIcon extends LitElement {
+export class Chip extends LitElement {
     @property() public icon: string = "";
 
     @property() public label: string = "";
@@ -13,7 +13,7 @@ export class BadgeIcon extends LitElement {
 
     protected render(): TemplateResult {
         return html`
-            <ha-card class="chip">
+            <div class="chip">
                 ${this.avatar ? html` <img class="avatar" src=${this.avatar} /> ` : null}
                 ${!this.avatarOnly
                     ? html`
@@ -22,7 +22,7 @@ export class BadgeIcon extends LitElement {
                           </div>
                       `
                     : null}
-            </ha-card>
+            </div>
         `;
     }
 
@@ -42,6 +42,13 @@ export class BadgeIcon extends LitElement {
                 display: flex;
                 flex-direction: row;
                 align-items: center;
+                box-shadow: var(
+                    --ha-card-box-shadow,
+                    0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+                    0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+                    0px 1px 3px 0px rgba(0, 0, 0, 0.12)
+                );
+                background: var(--ha-card-background, var(--card-background-color, white));
             }
             .avatar {
                 --avatar-size: calc(var(--chip-height) - 2 * var(--chip-avatar-padding));
