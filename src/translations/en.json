@@ -144,6 +144,9 @@
                     "weather": "Weather"
                 }
             }
+        },
+        "stack": {
+            "styles": "Styles"
         }
     }
 }

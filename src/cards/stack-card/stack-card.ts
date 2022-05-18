@@ -74,7 +74,7 @@ export class StackCard extends MushroomBaseElement implements LovelaceCard {
 
     private async _createStack() {
         let _mode = "vertical";
-        if (this._config!.horizontal == true) _mode = "horizontal";
+        if (this._config!.layout == "horizontal") _mode = "horizontal";
         this._card = await this._createCardElement({
             type: `${_mode}-stack`,
             cards: this._config!.cards,
