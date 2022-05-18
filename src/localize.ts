@@ -7,6 +7,7 @@ import * as el from "./translations/el.json";
 import * as en from "./translations/en.json";
 import * as es from "./translations/en.json";
 import * as fr from "./translations/fr.json";
+import * as he from "./translations/he.json";
 import * as it from "./translations/it.json";
 import * as nb from "./translations/nb.json";
 import * as nl from "./translations/nl.json";
@@ -24,6 +25,7 @@ const languages: Record<string, unknown> = {
     en,
     es,
     fr,
+    he,
     it,
     nb,
     nl,
