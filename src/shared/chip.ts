@@ -13,7 +13,7 @@ export class Chip extends LitElement {
 
     protected render(): TemplateResult {
         return html`
-            <div class="chip">
+            <ha-card>
                 ${this.avatar ? html` <img class="avatar" src=${this.avatar} /> ` : null}
                 ${!this.avatarOnly
                     ? html`
@@ -22,7 +22,7 @@ export class Chip extends LitElement {
                           </div>
                       `
                     : null}
-            </div>
+            </ha-card>
         `;
     }
 
@@ -32,7 +32,7 @@ export class Chip extends LitElement {
                 --icon-color: var(--primary-text-color);
                 --text-color: var(--primary-text-color);
             }
-            .chip {
+            ha-card {
                 box-sizing: border-box;
                 height: var(--chip-height);
                 min-width: var(--chip-height);
