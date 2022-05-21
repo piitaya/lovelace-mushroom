@@ -43,6 +43,7 @@ export class MushroomButtonGroup extends LitElement {
             }
             .container.fill > ::slotted(*) {
                 flex: 1;
+                width: 0;
             }
         `;
     }

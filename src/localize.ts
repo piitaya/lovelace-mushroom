@@ -5,11 +5,15 @@ import { HomeAssistant } from "custom-card-helpers";
 import * as de from "./translations/de.json";
 import * as el from "./translations/el.json";
 import * as en from "./translations/en.json";
+import * as es from "./translations/en.json";
 import * as fr from "./translations/fr.json";
+import * as he from "./translations/he.json";
 import * as it from "./translations/it.json";
 import * as nb from "./translations/nb.json";
 import * as nl from "./translations/nl.json";
+import * as pl from "./translations/pl.json";
 import * as pt_BR from "./translations/pt-BR.json";
+import * as pt_PT from "./translations/pt-PT.json";
 import * as sv from "./translations/sv.json";
 import * as tr from "./translations/tr.json";
 import * as vi from "./translations/vi.json";
@@ -20,11 +24,15 @@ const languages: Record<string, unknown> = {
     de,
     el,
     en,
+    es,
     fr,
+    he,
     it,
     nb,
     nl,
+    pl,
     "pt-BR": pt_BR,
+    "pt-PT": pt_PT,
     sv,
     tr,
     vi,

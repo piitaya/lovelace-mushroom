@@ -93,6 +93,7 @@
             "media-player": {
                 "use_media_info": "Mostra le Informazioni Sorgente",
                 "use_media_artwork": "Usa la copertina della Sorgente",
+                "show_volume_level": "Mostra Volume",
                 "media_controls": "Controlli Media",
                 "media_controls_list": {
                     "on_off": "Accendi/Spegni",
@@ -113,6 +114,9 @@
                 "lock": "Blocca",
                 "unlock": "Sblocca",
                 "open": "Aperto"
+            },
+            "humidifier": {
+                "show_target_humidity_control": "Controllo umidità"
             }
         },
         "chip": {

@@ -127,7 +127,7 @@ export class EntityCard extends MushroomBaseElement implements LovelaceCard {
                             ? html`
                                   <mushroom-shape-avatar
                                       slot="icon"
-                                      .picture_url=${picture}
+                                      .picture_url=${(this.hass as any).hassUrl(picture)}
                                   ></mushroom-shape-avatar>
                               `
                             : this.renderIcon(icon, iconColor, isActive(entity))}

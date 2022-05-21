@@ -18,6 +18,8 @@ export const themeVariables = css`
     --card-secondary-font-size: var(--mush-card-secondary-font-size, 12px);
     --card-primary-font-weight: var(--mush-card-primary-font-weight, bold);
     --card-secondary-font-weight: var(--mush-card-secondary-font-weight, bolder);
+    --card-primary-line-height: var(--mush-card-primary-line-height, 1.5);
+    --card-secondary-line-height: var(--mush-card-secondary-line-height, 1.5);
 
     /* Chips */
     --chip-spacing: var(--mush-chip-spacing, 8px);
@@ -29,7 +31,19 @@ export const themeVariables = css`
     --chip-icon-size: var(--mush-chip-icon-size, 0.5em);
     --chip-avatar-padding: var(--mush-chip-avatar-padding, 0.1em);
     --chip-avatar-border-radius: var(--mush-chip-avatar-border-radius, 50%);
-
+    --chip-box-shadow: var(
+        --mush-chip-box-shadow,
+        var(
+            --ha-card-box-shadow,
+            0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+            0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+            0px 1px 3px 0px rgba(0, 0, 0, 0.12)
+        )
+    );
+    --chip-background: var(
+        --mush-chip-background,
+        var(--ha-card-background, var(--card-background-color, white))
+    );
     /* Controls */
     --control-border-radius: var(--mush-control-border-radius, 12px);
     --control-height: var(--mush-control-height, 42px);
