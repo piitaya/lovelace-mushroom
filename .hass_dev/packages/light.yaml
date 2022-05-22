@@ -1,0 +1,4 @@
+light:
+  - platform: switch
+    name: Christmas Tree Lights
+    entity_id: switch.decorative_lights

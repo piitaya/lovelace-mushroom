@@ -1,0 +1,17 @@
+person:
+  - name: Anne Therese
+    id: anne_therese
+    device_trackers:
+      - device_tracker.demo_anne_therese
+
+zone:
+  - name: Office
+    latitude: 52.37451608362128
+    longitude: 4.888106097860146
+    radius: 50
+    icon: mdi:office-building
+
+homeassistant:
+  customize:
+    person.anne_therese:
+      entity_picture: "/local/mushrooms.jpeg"
