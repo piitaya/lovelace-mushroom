@@ -7,7 +7,7 @@ const TIMESTAMP_STATE_DOMAINS = ["button", "input_button", "scene"];
 
 export type Info = typeof INFOS[number];
 
-export function getInfo(
+export function computeInfoDisplay(
     info: Info,
     name: string,
     state: string,

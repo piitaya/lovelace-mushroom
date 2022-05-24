@@ -27,7 +27,7 @@ import { cardStyle } from "../../utils/card-styles";
 import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { stateIcon } from "../../utils/icons/state-icon";
-import { getInfo } from "../../utils/info";
+import { computeInfoDisplay } from "../../utils/info";
 import { getLayoutFromConfig } from "../../utils/layout";
 import { ENTITY_CARD_EDITOR_NAME, ENTITY_CARD_NAME } from "./const";
 import { EntityCardConfig } from "./entity-card-config";
@@ -92,14 +92,14 @@ export class EntityCard extends MushroomBaseElement implements LovelaceCard {
 
         const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
-        const primary = getInfo(
+        const primary = computeInfoDisplay(
             this._config.primary_info ?? "name",
             name,
             stateDisplay,
             entity,
             this.hass
         );
-        const secondary = getInfo(
+        const secondary = computeInfoDisplay(
             this._config.secondary_info ?? "state",
             name,
             stateDisplay,
