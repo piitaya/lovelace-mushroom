@@ -4,7 +4,7 @@ import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { isActive, isAvailable } from "../../../ha/data/entity";
 import "../../../shared/slider";
-import { getPercentage } from "../utils";
+import { computePercentageStep, getPercentage } from "../utils";
 
 @customElement("mushroom-fan-percentage-control")
 export class FanPercentageControl extends LitElement {
@@ -42,6 +42,7 @@ export class FanPercentageControl extends LitElement {
                 .showActive=${true}
                 @change=${this.onChange}
                 @current-change=${this.onCurrentChange}
+                step=${computePercentageStep(this.entity)}
             />
         `;
     }
