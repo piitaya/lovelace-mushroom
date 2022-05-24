@@ -2,10 +2,13 @@ import { HassEntity } from "home-assistant-js-websocket";
 import { html } from "lit";
 import { HomeAssistant, isAvailable, isUnknown } from "../ha";
 
-export const INFOS = ["name", "state", "last-changed", "last-updated", "none"] as const;
 const TIMESTAMP_STATE_DOMAINS = ["button", "input_button", "scene"];
 
+export const INFOS = ["name", "state", "last-changed", "last-updated", "none"] as const;
 export type Info = typeof INFOS[number];
+
+export const ICON_INFOS = ["icon", "entity-picture", "none"] as const;
+export type IconInfo = typeof INFOS[number];
 
 export function computeInfoDisplay(
     info: Info,
