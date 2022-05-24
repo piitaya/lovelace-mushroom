@@ -95,7 +95,7 @@ export class FanCard extends MushroomBaseElement implements LovelaceCard {
 
     private onCurrentPercentageChange(e: CustomEvent<{ value?: number }>): void {
         if (e.detail.value != null) {
-            this.percentage = e.detail.value;
+            this.percentage = Math.round(e.detail.value);
         }
     }
 

@@ -9,3 +9,10 @@ export function getPercentage(entity: HassEntity) {
 export function isOscillating(entity: HassEntity) {
     return entity.attributes.oscillating != null ? Boolean(entity.attributes.oscillating) : false;
 }
+
+export function computePercentageStep(entity: HassEntity) {
+    if (entity.attributes.percentage_step) {
+        return entity.attributes.percentage_step;
+    }
+    return 1;
+}

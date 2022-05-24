@@ -1,5 +1,5 @@
 import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
-import { customElement, property, query } from "lit/decorators.js";
+import { customElement, property, query, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import "hammerjs";
@@ -34,12 +34,17 @@ export class SliderItem extends LitElement {
     public value?: number;
 
     @property({ type: Number })
+    public step: number = 1;
+
+    @property({ type: Number })
     public min: number = 0;
 
     @property({ type: Number })
     public max: number = 100;
 
     private _mc?: HammerManager;
+
+    @state() controlled: boolean = false;
 
     valueToPercentage(value: number) {
         return (value - this.min) / (this.max - this.min);
@@ -84,10 +89,12 @@ export class SliderItem extends LitElement {
             let savedValue;
             this._mc.on("panstart", () => {
                 if (this.disabled) return;
+                this.controlled = true;
                 savedValue = this.value;
             });
             this._mc.on("pancancel", () => {
                 if (this.disabled) return;
+                this.controlled = false;
                 this.value = savedValue;
             });
             this._mc.on("panmove", (e) => {
@@ -97,13 +104,14 @@ export class SliderItem extends LitElement {
                 this.dispatchEvent(
                     new CustomEvent("current-change", {
                         detail: {
-                            value: Math.round(this.value),
+                            value: Math.round(this.value / this.step) * this.step,
                         },
                     })
                 );
             });
             this._mc.on("panend", (e) => {
                 if (this.disabled) return;
+                this.controlled = false;
                 const percentage = getPercentageFromEvent(e);
                 this.value = this.percentageToValue(percentage);
                 this.dispatchEvent(
@@ -116,7 +124,7 @@ export class SliderItem extends LitElement {
                 this.dispatchEvent(
                     new CustomEvent("change", {
                         detail: {
-                            value: Math.round(this.value),
+                            value: Math.round(this.value / this.step) * this.step,
                         },
                     })
                 );
@@ -129,7 +137,7 @@ export class SliderItem extends LitElement {
                 this.dispatchEvent(
                     new CustomEvent("change", {
                         detail: {
-                            value: Math.round(this.value),
+                            value: Math.round(this.value / this.step) * this.step,
                         },
                     })
                 );
@@ -146,7 +154,13 @@ export class SliderItem extends LitElement {
 
     protected render(): TemplateResult {
         return html`
-            <div class=${classMap({ container: true, inactive: this.inactive || this.disabled })}>
+            <div
+                class=${classMap({
+                    container: true,
+                    inactive: this.inactive || this.disabled,
+                    controlled: this.controlled,
+                })}
+            >
                 <div
                     id="slider"
                     class="slider"
@@ -206,6 +220,7 @@ export class SliderItem extends LitElement {
                 transform: scale3d(var(--value, 0), 1, 1);
                 transform-origin: left;
                 background-color: var(--main-color);
+                transition: transform 180ms ease-in-out;
             }
             .slider .slider-track-indicator {
                 position: absolute;
@@ -216,6 +231,7 @@ export class SliderItem extends LitElement {
                 border-radius: 3px;
                 background-color: white;
                 box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+                transition: left 180ms ease-in-out;
             }
             .slider .slider-track-indicator:after {
                 display: block;
@@ -240,6 +256,12 @@ export class SliderItem extends LitElement {
             }
             .inactive .slider .slider-track-active {
                 background-color: var(--main-color-inactive);
+            }
+            .controlled .slider .slider-track-active {
+                transition: none;
+            }
+            .controlled .slider .slider-track-indicator {
+                transition: none;
             }
         `;
     }
