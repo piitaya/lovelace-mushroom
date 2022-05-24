@@ -1,36 +1,25 @@
-import { ActionConfig, LovelaceCardConfig } from "custom-card-helpers";
-import { assign, boolean, object, optional, string } from "superstruct";
-import { actionConfigStruct } from "../../utils/action-struct";
-import { baseLovelaceCardConfig } from "../../utils/editor-styles";
-import { Layout, layoutStruct } from "../../utils/layout";
+import { LovelaceCardConfig } from "custom-card-helpers";
+import { assign, boolean, object, optional } from "superstruct";
+import { actionsSharedConfigStruct, ActionsSharedConfig } from "../../shared/config/actions-config";
+import { layoutSharedConfigStruct, LayoutSharedConfig } from "../../shared/config/layout-config";
+import { entitySharedConfigStruct, EntitySharedConfig } from "../../shared/config/entity-config";
+import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-config";
 
-export interface HumidifierCardConfig extends LovelaceCardConfig {
-    entity?: string;
-    icon?: string;
-    name?: string;
-    layout?: Layout;
-    fill_container?: boolean;
-    hide_state?: boolean;
-    show_target_humidity_control?: boolean;
-    collapsible_controls?: boolean;
-    tap_action?: ActionConfig;
-    hold_action?: ActionConfig;
-    double_tap_action?: ActionConfig;
-}
+export type HumidifierCardConfig = LovelaceCardConfig &
+    EntitySharedConfig &
+    LayoutSharedConfig &
+    ActionsSharedConfig & {
+        hide_state?: boolean;
+        show_target_humidity_control?: boolean;
+        collapsible_controls?: boolean;
+    };
 
 export const humidifierCardConfigStruct = assign(
-    baseLovelaceCardConfig,
+    lovelaceCardConfigStruct,
+    assign(entitySharedConfigStruct, layoutSharedConfigStruct, actionsSharedConfigStruct),
     object({
-        entity: optional(string()),
-        icon: optional(string()),
-        name: optional(string()),
-        layout: optional(layoutStruct),
-        fill_container: optional(boolean()),
         hide_state: optional(boolean()),
         show_target_humidity_control: optional(boolean()),
         collapsible_controls: optional(boolean()),
-        tap_action: optional(actionConfigStruct),
-        hold_action: optional(actionConfigStruct),
-        double_tap_action: optional(actionConfigStruct),
     })
 );

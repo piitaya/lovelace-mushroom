@@ -1,8 +1,9 @@
-import { ActionConfig, LovelaceCardConfig } from "custom-card-helpers";
-import { array, assign, boolean, enums, object, optional, string } from "superstruct";
-import { actionConfigStruct } from "../../utils/action-struct";
-import { baseLovelaceCardConfig } from "../../utils/editor-styles";
-import { Layout, layoutStruct } from "../../utils/layout";
+import { LovelaceCardConfig } from "custom-card-helpers";
+import { array, assign, boolean, enums, object, optional } from "superstruct";
+import { actionsSharedConfigStruct, ActionsSharedConfig } from "../../shared/config/actions-config";
+import { layoutSharedConfigStruct, LayoutSharedConfig } from "../../shared/config/layout-config";
+import { entitySharedConfigStruct, EntitySharedConfig } from "../../shared/config/entity-config";
+import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-config";
 
 export const MEDIA_LAYER_MEDIA_CONTROLS = [
     "on_off",
@@ -23,39 +24,27 @@ export const MEDIA_PLAYER_VOLUME_CONTROLS = [
 
 export type MediaPlayerVolumeControl = typeof MEDIA_PLAYER_VOLUME_CONTROLS[number];
 
-export interface MediaPlayerCardConfig extends LovelaceCardConfig {
-    entity?: string;
-    name?: string;
-    icon?: string;
-    use_media_info?: boolean;
-    use_media_artwork?: boolean;
-    show_volume_level?: boolean;
-    volume_controls?: MediaPlayerVolumeControl[];
-    media_controls?: MediaPlayerMediaControl[];
-    collapsible_controls?: boolean;
-    layout?: Layout;
-    fill_container?: boolean;
-    tap_action?: ActionConfig;
-    hold_action?: ActionConfig;
-    double_tap_action?: ActionConfig;
-}
+export type MediaPlayerCardConfig = LovelaceCardConfig &
+    EntitySharedConfig &
+    LayoutSharedConfig &
+    ActionsSharedConfig & {
+        use_media_info?: boolean;
+        use_media_artwork?: boolean;
+        show_volume_level?: boolean;
+        volume_controls?: MediaPlayerVolumeControl[];
+        media_controls?: MediaPlayerMediaControl[];
+        collapsible_controls?: boolean;
+    };
 
 export const mediaPlayerCardConfigStruct = assign(
-    baseLovelaceCardConfig,
+    lovelaceCardConfigStruct,
+    assign(entitySharedConfigStruct, layoutSharedConfigStruct, actionsSharedConfigStruct),
     object({
-        entity: optional(string()),
-        icon: optional(string()),
-        name: optional(string()),
         use_media_info: optional(boolean()),
         use_media_artwork: optional(boolean()),
         show_volume_level: optional(boolean()),
-        layout: optional(layoutStruct),
-        fill_container: optional(boolean()),
         volume_controls: optional(array(enums(MEDIA_PLAYER_VOLUME_CONTROLS))),
         media_controls: optional(array(enums(MEDIA_LAYER_MEDIA_CONTROLS))),
         collapsible_controls: optional(boolean()),
-        tap_action: optional(actionConfigStruct),
-        hold_action: optional(actionConfigStruct),
-        double_tap_action: optional(actionConfigStruct),
     })
 );

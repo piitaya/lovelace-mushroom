@@ -1,41 +1,32 @@
-import { ActionConfig, LovelaceCardConfig } from "custom-card-helpers";
-import { assign, boolean, enums, object, optional, string } from "superstruct";
-import { actionConfigStruct } from "../../utils/action-struct";
-import { baseLovelaceCardConfig } from "../../utils/editor-styles";
-import { Info, INFOS } from "../../utils/info";
-import { Layout, layoutStruct } from "../../utils/layout";
+import { LovelaceCardConfig } from "custom-card-helpers";
+import { assign, boolean, object, optional, string } from "superstruct";
+import { ActionsSharedConfig, actionsSharedConfigStruct } from "../../shared/config/actions-config";
+import { layoutSharedConfigStruct, LayoutSharedConfig } from "../../shared/config/layout-config";
+import { entitySharedConfigStruct, EntitySharedConfig } from "../../shared/config/entity-config";
+import { infosSharedConfigStruct, InfosSharedConfig } from "../../shared/config/infos-config";
+import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-config";
 
-export interface EntityCardConfig extends LovelaceCardConfig {
-    entity?: string;
-    icon?: string;
-    name?: string;
-    icon_color?: string;
-    use_entity_picture?: boolean;
-    hide_icon?: boolean;
-    layout?: Layout;
-    fill_container?: boolean;
-    primary_info?: Info;
-    secondary_info?: Info;
-    tap_action?: ActionConfig;
-    hold_action?: ActionConfig;
-    double_tap_action?: ActionConfig;
-}
+export type EntityCardConfig = LovelaceCardConfig &
+    EntitySharedConfig &
+    LayoutSharedConfig &
+    ActionsSharedConfig &
+    InfosSharedConfig & {
+        icon_color?: string;
+        hide_icon?: boolean;
+        use_entity_picture?: boolean;
+    };
 
 export const entityCardConfigStruct = assign(
-    baseLovelaceCardConfig,
+    lovelaceCardConfigStruct,
+    assign(
+        entitySharedConfigStruct,
+        layoutSharedConfigStruct,
+        actionsSharedConfigStruct,
+        infosSharedConfigStruct
+    ),
     object({
-        entity: optional(string()),
-        icon: optional(string()),
-        name: optional(string()),
         icon_color: optional(string()),
         use_entity_picture: optional(boolean()),
         hide_icon: optional(boolean()),
-        layout: optional(layoutStruct),
-        fill_container: optional(boolean()),
-        primary_info: optional(enums(INFOS)),
-        secondary_info: optional(enums(INFOS)),
-        tap_action: optional(actionConfigStruct),
-        hold_action: optional(actionConfigStruct),
-        double_tap_action: optional(actionConfigStruct),
     })
 );

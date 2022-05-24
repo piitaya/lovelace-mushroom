@@ -1,26 +1,24 @@
-import { ActionConfig, LovelaceCardConfig } from "custom-card-helpers";
+import { LovelaceCardConfig } from "custom-card-helpers";
 import { array, assign, boolean, object, optional, string, union } from "superstruct";
-import { actionConfigStruct } from "../../utils/action-struct";
-import { baseLovelaceCardConfig } from "../../utils/editor-styles";
-import { Layout, layoutStruct } from "../../utils/layout";
+import { actionsSharedConfigStruct, ActionsSharedConfig } from "../../shared/config/actions-config";
+import { layoutSharedConfigStruct, LayoutSharedConfig } from "../../shared/config/layout-config";
+import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-config";
 
-export interface TemplateCardConfig extends LovelaceCardConfig {
-    entity?: string;
-    icon?: string;
-    icon_color?: string;
-    primary?: string;
-    secondary?: string;
-    multiline_secondary?: boolean;
-    layout?: Layout;
-    fill_container?: boolean;
-    tap_action?: ActionConfig;
-    hold_action?: ActionConfig;
-    double_tap_action?: ActionConfig;
-    entity_id?: string | string[];
-}
+export type TemplateCardConfig = LovelaceCardConfig &
+    LayoutSharedConfig &
+    ActionsSharedConfig & {
+        entity?: string;
+        icon?: string;
+        icon_color?: string;
+        primary?: string;
+        secondary?: string;
+        multiline_secondary?: boolean;
+        entity_id?: string | string[];
+    };
 
 export const templateCardConfigStruct = assign(
-    baseLovelaceCardConfig,
+    lovelaceCardConfigStruct,
+    assign(layoutSharedConfigStruct, actionsSharedConfigStruct),
     object({
         entity: optional(string()),
         icon: optional(string()),
@@ -28,11 +26,6 @@ export const templateCardConfigStruct = assign(
         primary: optional(string()),
         secondary: optional(string()),
         multiline_secondary: optional(boolean()),
-        layout: optional(layoutStruct),
-        fill_container: optional(boolean()),
-        tap_action: optional(actionConfigStruct),
-        hold_action: optional(actionConfigStruct),
-        double_tap_action: optional(actionConfigStruct),
         entity_id: optional(union([string(), array(string())])),
     })
 );
