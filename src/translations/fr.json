@@ -45,7 +45,9 @@
                 "secondary_info": "Information secondaire",
                 "content_info": "Contenu",
                 "use_entity_picture": "Utiliser l'image de l'entité ?",
-                "collapsible_controls": "Reduire les contrôles quand éteint"
+                "collapsible_controls": "Reduire les contrôles quand éteint",
+                "theme_variables": "Variables du thème",
+                "theme_variables_helper": "Vous pouvez redéfinir toutes les variables du theme Mushroom ici"
             },
             "light": {
                 "show_brightness_control": "Contrôle de luminosité ?",

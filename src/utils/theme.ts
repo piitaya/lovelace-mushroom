@@ -1,4 +1,6 @@
+import * as Color from "color";
 import { css } from "lit";
+import memoizeOne from "memoize-one";
 
 export const themeVariables = css`
     --spacing: var(--mush-spacing, 12px);
@@ -133,3 +135,33 @@ export const themeColorCss = css`
     --rgb-state-cover-open: var(--mush-rgb-state-cover-open, var(--rgb-blue));
     --rgb-state-cover-closed: var(--mush-rgb-state-cover-closed, var(--rgb-disabled));
 `;
+
+export const computeThemeVariablesStyle = memoizeOne((themeVariables?: any) => {
+    const styles = {};
+    for (const key of Object.keys(themeVariables || {})) {
+        const prefixedKey = `--${key}`;
+        const value = String(themeVariables[key]);
+        styles[prefixedKey] = value;
+
+        // Try to create a rgb value for this key if it is not a var
+        if (!value.startsWith("#")) {
+            // Can't convert non hex value
+            continue;
+        }
+
+        const rgbKey = `rgb-${key}`;
+        if (themeVariables[rgbKey] !== undefined) {
+            // Theme has it's own rgb value
+            continue;
+        }
+
+        try {
+            const rgbValue = Color.rgb(value).rgb().array().join(",");
+            const prefixedRgbKey = `--${rgbKey}`;
+            styles[prefixedRgbKey] = rgbValue;
+        } catch (err: any) {
+            continue;
+        }
+    }
+    return styles;
+});

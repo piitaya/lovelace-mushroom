@@ -1,5 +1,5 @@
 import { ActionConfig, LovelaceCardConfig } from "custom-card-helpers";
-import { assign, boolean, enums, object, optional, string } from "superstruct";
+import { any, assign, boolean, enums, object, optional, string } from "superstruct";
 import { actionConfigStruct } from "../../utils/action-struct";
 import { baseLovelaceCardConfig } from "../../utils/editor-styles";
 import { Info, INFOS } from "../../utils/info";
@@ -19,6 +19,7 @@ export interface EntityCardConfig extends LovelaceCardConfig {
     tap_action?: ActionConfig;
     hold_action?: ActionConfig;
     double_tap_action?: ActionConfig;
+    theme_variables?: any;
 }
 
 export const entityCardConfigStruct = assign(
@@ -37,5 +38,6 @@ export const entityCardConfigStruct = assign(
         tap_action: optional(actionConfigStruct),
         hold_action: optional(actionConfigStruct),
         double_tap_action: optional(actionConfigStruct),
+        theme_variables: optional(any()),
     })
 );
