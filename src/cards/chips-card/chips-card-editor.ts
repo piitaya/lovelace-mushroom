@@ -15,10 +15,10 @@ import {
     union,
 } from "superstruct";
 import setupCustomlocalize from "../../localize";
+import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-config";
 import "../../shared/editor/alignment-picker";
 import { actionConfigStruct } from "../../utils/action-struct";
 import { MushroomBaseElement } from "../../utils/base-element";
-import { baseLovelaceCardConfig } from "../../utils/editor-styles";
 import { loadHaComponents } from "../../utils/loader";
 import { LovelaceChipConfig } from "../../utils/lovelace/chip/types";
 import {
@@ -136,7 +136,7 @@ const chipsConfigStruct = dynamic<any>((value) => {
 });
 
 const cardConfigStruct = assign(
-    baseLovelaceCardConfig,
+    lovelaceCardConfigStruct,
     object({
         chips: array(chipsConfigStruct),
         alignment: optional(string()),
