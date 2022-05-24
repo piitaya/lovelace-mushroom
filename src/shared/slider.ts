@@ -231,6 +231,7 @@ export class SliderItem extends LitElement {
                 border-radius: 3px;
                 background-color: white;
                 box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+                transition: left 180ms ease-in-out;
             }
             .slider .slider-track-indicator:after {
                 display: block;
@@ -257,6 +258,9 @@ export class SliderItem extends LitElement {
                 background-color: var(--main-color-inactive);
             }
             .controlled .slider .slider-track-active {
+                transition: none;
+            }
+            .controlled .slider .slider-track-indicator {
                 transition: none;
             }
         `;
