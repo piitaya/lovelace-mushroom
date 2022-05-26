@@ -50,7 +50,7 @@
             "light": {
                 "show_brightness_control": "Sterowanie jasnością?",
                 "use_light_color": "Użyj koloru światła",
-                "show_color_temp_control": "Sterowanie temperaturą kolorów?",
+                "show_color_temp_control": "Sterowanie temperaturą światła?",
                 "show_color_control": "Sterowanie kolorami?",
                 "incompatible_controls": "Niektóre funkcje są niewidoczne, jeśli światło ich nie obsługuje."
             },
@@ -93,7 +93,7 @@
             "media-player": {
                 "use_media_info": "Użyj informacji o multimediach",
                 "use_media_artwork": "Użyj okładek multimediów",
-                "show_volume_level": "Wyświetl sterowanie głośnością",
+                "show_volume_level": "Wyświetl poziom głośności",
                 "media_controls": "Sterowanie multimediami",
                 "media_controls_list": {
                     "on_off": "Włącz/wyłącz",
@@ -128,7 +128,7 @@
             },
             "chip-picker": {
                 "chips": "Czipy",
-                "add": "",
+                "add": "Dodaj czip",
                 "edit": "Edytuj",
                 "clear": "Wyczyść",
                 "select": "Wybierz czip",
