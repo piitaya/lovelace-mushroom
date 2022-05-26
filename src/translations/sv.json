@@ -11,6 +11,7 @@
                     "default": "Förvald information",
                     "name": "Namn",
                     "state": "Status",
+                    "name-and-state": "Namn och status",
                     "last-changed": "Sist ändrad",
                     "last-updated": "Sist uppdaterad",
                     "none": "Ingen"

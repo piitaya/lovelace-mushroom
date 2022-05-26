@@ -11,6 +11,7 @@
                     "default": "Default information",
                     "name": "Name",
                     "state": "State",
+                    "name-and-state": "Name and state",
                     "last-changed": "Last Changed",
                     "last-updated": "Last Updated",
                     "none": "None"
