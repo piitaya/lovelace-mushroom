@@ -21,11 +21,13 @@ import "../../shared/card";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
+import { computeAppearance } from "../../utils/appearance";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { alarmPanelIconAction } from "../../utils/icons/alarm-panel-icon";
 import { stateIcon } from "../../utils/icons/state-icon";
+import { computeEntityPicture, computeInfoDisplay } from "../../utils/info";
 import { getLayoutFromConfig } from "../../utils/layout";
 import { AlarmControlPanelCardConfig } from "./alarm-control-panel-card-config";
 import {
@@ -162,12 +164,11 @@ export class AlarmControlPanelCard extends MushroomBaseElement implements Lovela
 
         const entity = this.hass.states[entity_id];
 
-        const name = this._config.name || entity.attributes.friendly_name;
+        const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
         const color = getStateColor(entity.state);
         const shapePulse = shouldPulse(entity.state);
-        const layout = getLayoutFromConfig(this._config);
-        const hideState = this._config.hide_state;
+        const appearance = computeAppearance(this._config);
 
         const actions: ActionButtonType[] =
             this._config.states && this._config.states.length > 0
@@ -180,51 +181,54 @@ export class AlarmControlPanelCard extends MushroomBaseElement implements Lovela
 
         const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
-        const iconStyle = {
-            "--icon-color": `rgb(${color})`,
-            "--shape-color": `rgba(${color}, 0.2)`,
-        };
+        const picture = computeEntityPicture(entity, appearance.icon_info);
+
+        const primary = computeInfoDisplay(
+            appearance.primary_info,
+            name,
+            stateDisplay,
+            entity,
+            this.hass
+        );
+
+        const secondary = computeInfoDisplay(
+            appearance.secondary_info,
+            name,
+            stateDisplay,
+            entity,
+            this.hass
+        );
 
         const rtl = computeRTL(this.hass);
 
         return html`
-            <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
-                <mushroom-card .layout=${layout} ?rtl=${rtl}>
+            <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
+                <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
                     <mushroom-state-item
                         ?rtl=${rtl}
-                        .layout=${layout}
+                        .appearance=${appearance}
                         @action=${this._handleAction}
                         .actionHandler=${actionHandler({
                             hasHold: hasAction(this._config.hold_action),
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        <mushroom-shape-icon
-                            slot="icon"
-                            style=${styleMap(iconStyle)}
-                            class=${classMap({
-                                pulse: shapePulse,
-                            })}
-                            .icon=${icon}
-                        ></mushroom-shape-icon>
-                        ${!isAvailable(entity)
-                            ? html`
-                                  <mushroom-badge-icon
-                                      class="unavailable"
-                                      slot="badge"
-                                      icon="mdi:help"
-                                  ></mushroom-badge-icon>
-                              `
-                            : null}
+                        ${picture
+                            ? this.renderPicture(picture)
+                            : this.renderIcon(icon, color, shapePulse)}
+                        ${this.renderBadge(isAvailable(entity))}
                         <mushroom-state-info
                             slot="info"
-                            .primary=${name}
-                            .secondary=${!hideState && stateDisplay}
+                            .primary=${primary}
+                            .secondary=${secondary}
                         ></mushroom-state-info>
                     </mushroom-state-item>
                     ${actions.length > 0
                         ? html`
-                              <mushroom-button-group .fill="${layout !== "horizontal"}" ?rtl=${rtl}>
+                              <mushroom-button-group
+                                  .fill="${appearance.layout !== "horizontal"}"
+                                  ?rtl=${rtl}
+                              >
                                   ${actions.map(
                                       (action) => html`
                                           <mushroom-button
@@ -278,6 +282,44 @@ export class AlarmControlPanelCard extends MushroomBaseElement implements Lovela
                       `}
             </ha-card>
         `;
+    }
+
+    renderPicture(picture: string): TemplateResult {
+        return html`
+            <mushroom-shape-avatar
+                slot="icon"
+                .picture_url=${(this.hass as any).hassUrl(picture)}
+            ></mushroom-shape-avatar>
+        `;
+    }
+
+    renderIcon(icon: string, color: string, shapePulse: boolean): TemplateResult {
+        const iconStyle = {
+            "--icon-color": `rgb(${color})`,
+            "--shape-color": `rgba(${color}, 0.2)`,
+        };
+        return html`
+            <mushroom-shape-icon
+                slot="icon"
+                style=${styleMap(iconStyle)}
+                class=${classMap({
+                    pulse: shapePulse,
+                })}
+                .icon=${icon}
+            ></mushroom-shape-icon>
+        `;
+    }
+
+    renderBadge(available: boolean): TemplateResult | null {
+        return !available
+            ? html`
+                  <mushroom-badge-icon
+                      class="unavailable"
+                      slot="badge"
+                      icon="mdi:help"
+                  ></mushroom-badge-icon>
+              `
+            : null;
     }
 
     static get styles(): CSSResultGroup {
