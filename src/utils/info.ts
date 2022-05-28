@@ -8,7 +8,7 @@ export const INFOS = ["name", "state", "last-changed", "last-updated", "none"] a
 export type Info = typeof INFOS[number];
 
 export const ICON_INFOS = ["icon", "entity-picture", "none"] as const;
-export type IconInfo = typeof INFOS[number];
+export type IconInfo = typeof ICON_INFOS[number];
 
 export function computeInfoDisplay(
     info: Info,

@@ -1,13 +1,15 @@
 import { MushActionSelector } from "./custom/ha-selector-mushroom-action";
+import { MushAlignementSelector } from "./custom/ha-selector-mushroom-alignment";
 import { MushColorSelector } from "./custom/ha-selector-mushroom-color";
+import { MushIconInfoSelector } from "./custom/ha-selector-mushroom-icon-info";
 import { MushInfoSelector } from "./custom/ha-selector-mushroom-info";
 import { MushLayoutSelector } from "./custom/ha-selector-mushroom-layout";
-import { MushAlignementSelector } from "./custom/ha-selector-mushroom-alignment";
 
 type MushSelector =
     | MushColorSelector
     | MushLayoutSelector
     | MushInfoSelector
+    | MushIconInfoSelector
     | MushActionSelector
     | MushAlignementSelector;
 

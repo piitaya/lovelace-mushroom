@@ -1,11 +1,14 @@
 import { array, assign, boolean, object, optional, string, union } from "superstruct";
 import { LovelaceCardConfig } from "../../ha";
 import { ActionsSharedConfig, actionsSharedConfigStruct } from "../../shared/config/actions-config";
-import { LayoutSharedConfig, layoutSharedConfigStruct } from "../../shared/config/layout-config";
+import {
+    AppearanceSharedConfig,
+    appearanceSharedConfigStruct,
+} from "../../shared/config/appearance-config";
 import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-config";
 
 export type TemplateCardConfig = LovelaceCardConfig &
-    LayoutSharedConfig &
+    AppearanceSharedConfig &
     ActionsSharedConfig & {
         entity?: string;
         icon?: string;
@@ -20,7 +23,7 @@ export type TemplateCardConfig = LovelaceCardConfig &
 
 export const templateCardConfigStruct = assign(
     lovelaceCardConfigStruct,
-    assign(layoutSharedConfigStruct, actionsSharedConfigStruct),
+    assign(appearanceSharedConfigStruct, actionsSharedConfigStruct),
     object({
         entity: optional(string()),
         icon: optional(string()),

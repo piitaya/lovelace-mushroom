@@ -16,6 +16,14 @@
                     "none": "None"
                 }
             },
+            "icon_info_picker": {
+                "values": {
+                    "default": "Default",
+                    "icon": "Icon",
+                    "entity-picture": "Entity picture",
+                    "none": "None"
+                }
+            },
             "layout_picker": {
                 "values": {
                     "default": "Default layout",
@@ -43,6 +51,7 @@
                 "fill_container": "Fill container",
                 "primary_info": "Primary information",
                 "secondary_info": "Secondary information",
+                "icon_info": "Icon information",
                 "content_info": "Content",
                 "use_entity_picture": "Use entity picture?",
                 "collapsible_controls": "Collapse controls when off"

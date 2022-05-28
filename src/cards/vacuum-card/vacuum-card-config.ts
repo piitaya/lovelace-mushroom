@@ -1,8 +1,11 @@
 import { array, assign, boolean, object, optional, string } from "superstruct";
 import { LovelaceCardConfig } from "../../ha";
 import { ActionsSharedConfig, actionsSharedConfigStruct } from "../../shared/config/actions-config";
+import {
+    AppearanceSharedConfig,
+    appearanceSharedConfigStruct,
+} from "../../shared/config/appearance-config";
 import { EntitySharedConfig, entitySharedConfigStruct } from "../../shared/config/entity-config";
-import { LayoutSharedConfig, layoutSharedConfigStruct } from "../../shared/config/layout-config";
 import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-config";
 
 export const VACUUM_COMMANDS = [
@@ -17,7 +20,7 @@ export type VacuumCommand = typeof VACUUM_COMMANDS[number];
 
 export type VacuumCardConfig = LovelaceCardConfig &
     EntitySharedConfig &
-    LayoutSharedConfig &
+    AppearanceSharedConfig &
     ActionsSharedConfig & {
         hide_state?: boolean;
         commands?: VacuumCommand[];
@@ -25,7 +28,7 @@ export type VacuumCardConfig = LovelaceCardConfig &
 
 export const vacuumCardConfigStruct = assign(
     lovelaceCardConfigStruct,
-    assign(entitySharedConfigStruct, layoutSharedConfigStruct, actionsSharedConfigStruct),
+    assign(entitySharedConfigStruct, appearanceSharedConfigStruct, actionsSharedConfigStruct),
     object({
         hide_state: optional(boolean()),
         commands: optional(array(string())),
