@@ -1,22 +1,18 @@
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { property, customElement } from "lit/decorators.js";
+import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
-import { Layout } from "../utils/layout";
+import { Appearance } from "./config/appearance-config";
 
 @customElement("mushroom-card")
 export class Card extends LitElement {
-    @property() public layout: Layout = "default";
+    @property() public appearance?: Appearance;
 
     protected render(): TemplateResult {
-        return this.renderContent();
-    }
-
-    renderContent() {
         return html`
             <div
                 class=${classMap({
                     container: true,
-                    horizontal: this.layout === "horizontal",
+                    horizontal: this.appearance?.layout === "horizontal",
                 })}
             >
                 <slot></slot>

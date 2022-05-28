@@ -1,6 +1,6 @@
 import { HassEntity } from "home-assistant-js-websocket";
 import { html } from "lit";
-import { HomeAssistant, isAvailable, isUnknown } from "../ha";
+import { getEntityPicture, HomeAssistant, isAvailable, isUnknown } from "../ha";
 
 const TIMESTAMP_STATE_DOMAINS = ["button", "input_button", "scene"];
 
@@ -57,4 +57,8 @@ export function computeInfoDisplay(
         case "none":
             return undefined;
     }
+}
+
+export function computeEntityPicture(entity: HassEntity, iconInfo: IconInfo) {
+    return iconInfo === "entity-picture" ? getEntityPicture(entity) : undefined;
 }
