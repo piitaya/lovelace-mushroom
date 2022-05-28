@@ -7,7 +7,6 @@ import {
     ActionHandlerEvent,
     computeRTL,
     computeStateDisplay,
-    getEntityPicture,
     handleAction,
     hasAction,
     HomeAssistant,
@@ -22,13 +21,13 @@ import "../../shared/shape-avatar";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
+import { computeAppearance } from "../../utils/appearance";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
 import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { stateIcon } from "../../utils/icons/state-icon";
-import { computeInfoDisplay } from "../../utils/info";
-import { getLayoutFromConfig } from "../../utils/layout";
+import { computeEntityPicture, computeInfoDisplay } from "../../utils/info";
 import { ENTITY_CARD_EDITOR_NAME, ENTITY_CARD_NAME } from "./const";
 import { EntityCardConfig } from "./entity-card-config";
 
@@ -85,22 +84,22 @@ export class EntityCard extends MushroomBaseElement implements LovelaceCard {
 
         const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
-        const hideIcon = !!this._config.hide_icon;
-        const layout = getLayoutFromConfig(this._config);
-
-        const picture = this._config.use_entity_picture ? getEntityPicture(entity) : undefined;
+        const appearance = computeAppearance(this._config);
 
         const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
+        const picture = computeEntityPicture(entity, appearance.icon_info);
+
         const primary = computeInfoDisplay(
-            this._config.primary_info ?? "name",
+            appearance.primary_info,
             name,
             stateDisplay,
             entity,
             this.hass
         );
+
         const secondary = computeInfoDisplay(
-            this._config.secondary_info ?? "state",
+            appearance.secondary_info,
             name,
             stateDisplay,
             entity,
@@ -112,26 +111,19 @@ export class EntityCard extends MushroomBaseElement implements LovelaceCard {
         const rtl = computeRTL(this.hass);
 
         return html`
-            <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
-                <mushroom-card .layout=${layout} ?rtl=${rtl}>
+            <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
+                <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
                     <mushroom-state-item
                         ?rtl=${rtl}
-                        .layout=${layout}
+                        .appearance=${appearance}
                         @action=${this._handleAction}
                         .actionHandler=${actionHandler({
                             hasHold: hasAction(this._config.hold_action),
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
-                        .hide_info=${primary == null && secondary == null}
-                        .hide_icon=${hideIcon}
                     >
                         ${picture
-                            ? html`
-                                  <mushroom-shape-avatar
-                                      slot="icon"
-                                      .picture_url=${(this.hass as any).hassUrl(picture)}
-                                  ></mushroom-shape-avatar>
-                              `
+                            ? this.renderPicture(picture)
                             : this.renderIcon(icon, iconColor, isActive(entity))}
                         ${!isAvailable(entity)
                             ? html`
@@ -150,6 +142,15 @@ export class EntityCard extends MushroomBaseElement implements LovelaceCard {
                     </mushroom-state-item>
                 </mushroom-card>
             </ha-card>
+        `;
+    }
+
+    renderPicture(picture: string): TemplateResult {
+        return html`
+            <mushroom-shape-avatar
+                slot="icon"
+                .picture_url=${(this.hass as any).hassUrl(picture)}
+            ></mushroom-shape-avatar>
         `;
     }
 

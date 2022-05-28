@@ -13,8 +13,6 @@ export type EntityCardConfig = LovelaceCardConfig &
     AppearanceSharedConfig &
     ActionsSharedConfig & {
         icon_color?: string;
-        hide_icon?: boolean;
-        use_entity_picture?: boolean;
     };
 
 export const entityCardConfigStruct = assign(
@@ -22,7 +20,5 @@ export const entityCardConfigStruct = assign(
     assign(entitySharedConfigStruct, appearanceSharedConfigStruct, actionsSharedConfigStruct),
     object({
         icon_color: optional(string()),
-        use_entity_picture: optional(boolean()),
-        hide_icon: optional(boolean()),
     })
 );
