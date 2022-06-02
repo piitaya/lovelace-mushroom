@@ -8,7 +8,7 @@ import {
     MessageBase,
 } from "home-assistant-js-websocket";
 import { LocalizeFunc } from "./common/translations/localize";
-import { FrontendLocaleData } from "./data/translation";
+import { FrontendLocaleData, TranslationCategory } from "./data/translation";
 import { Themes } from "./data/ws-themes";
 
 export interface ThemeSettings {
@@ -134,4 +134,11 @@ export interface HomeAssistant {
     fetchWithAuth(path: string, init?: Record<string, any>): Promise<Response>;
     sendWS(msg: MessageBase): void;
     callWS<T>(msg: MessageBase): Promise<T>;
+    loadBackendTranslation(
+        category: TranslationCategory,
+        integration?: string | string[],
+        configFlow?: boolean
+    ): Promise<LocalizeFunc>;
 }
+
+export type Constructor<T = any> = new (...args: any[]) => T;
