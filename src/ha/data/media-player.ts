@@ -1,6 +1,5 @@
-import { HomeAssistant } from "custom-card-helpers";
 import type { HassEntityAttributeBase, HassEntityBase } from "home-assistant-js-websocket";
-import { supportsFeature } from "../common/entity/supports-feature";
+import { HomeAssistant } from "../types";
 
 interface MediaPlayerEntityAttributes extends HassEntityAttributeBase {
     media_content_id?: string;

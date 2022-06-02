@@ -3,7 +3,6 @@ import {
     computeRTL,
     handleAction,
     hasAction,
-    HomeAssistant,
     LovelaceCard,
     LovelaceCardEditor,
 } from "custom-card-helpers";
@@ -33,6 +32,7 @@ import "./controls/humidifier-humidity-control";
 import { HumidifierCardConfig } from "./humidifier-card-config";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { classMap } from "lit/directives/class-map.js";
+import { HomeAssistant } from "../../ha/types";
 
 registerCustomCard({
     type: HUMIDIFIER_CARD_NAME,

@@ -1,5 +1,5 @@
-import { HomeAssistant } from "custom-card-helpers";
 import { StructError } from "superstruct";
+import { HomeAssistant } from "../ha/types";
 
 export const handleStructError = (
     hass: HomeAssistant,

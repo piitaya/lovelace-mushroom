@@ -1,8 +1,8 @@
-import { HomeAssistant } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { isActive, isAvailable } from "../../../ha/data/entity";
 import { HumidifierEntity } from "../../../ha/data/humidifier";
+import { HomeAssistant } from "../../../ha/types";
 import "../../../shared/slider";
 
 @customElement("mushroom-humidifier-humidity-control")

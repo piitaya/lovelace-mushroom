@@ -1,7 +1,8 @@
-import { fireEvent, HomeAssistant } from "custom-card-helpers";
+import { fireEvent } from "custom-card-helpers";
 import { html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
+import { HomeAssistant } from "../../../ha/types";
 import setupCustomlocalize from "../../../localize";
 import { GENERIC_LABELS } from "../../../utils/form/generic-fields";
 import { HaFormSchema } from "../../../utils/form/ha-form";

@@ -1,4 +1,4 @@
-import { computeRTL, HomeAssistant } from "custom-card-helpers";
+import { computeRTL } from "custom-card-helpers";
 import { html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { supportsFeature } from "../../../ha/common/entity/supports-feature";
@@ -12,6 +12,7 @@ import {
     VACUUM_SUPPORT_START,
     VACUUM_SUPPORT_STOP,
 } from "../../../ha/data/vacuum";
+import { HomeAssistant } from "../../../ha/types";
 import { isCleaning, isReturningHome, isStopped } from "../utils";
 import { VacuumCommand } from "../vacuum-card-config";
 

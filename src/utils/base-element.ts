@@ -1,6 +1,6 @@
-import { HomeAssistant } from "custom-card-helpers";
 import { css, CSSResultGroup, LitElement, PropertyValues } from "lit";
 import { property } from "lit/decorators.js";
+import { HomeAssistant } from "../ha/types";
 import "../shared/badge-icon";
 import "../shared/card";
 import "../shared/shape-avatar";

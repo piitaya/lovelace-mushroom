@@ -3,7 +3,6 @@ import {
     computeRTL,
     handleAction,
     hasAction,
-    HomeAssistant,
     LovelaceCard,
     LovelaceCardEditor,
 } from "custom-card-helpers";
@@ -13,6 +12,7 @@ import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
 import { isAvailable } from "../../ha/data/entity";
+import { HomeAssistant } from "../../ha/types";
 import "../../shared/badge-icon";
 import "../../shared/button";
 import "../../shared/button-group";

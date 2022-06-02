@@ -3,7 +3,6 @@ import {
     computeRTL,
     handleAction,
     hasAction,
-    HomeAssistant,
     LovelaceCard,
     LovelaceCardEditor,
 } from "custom-card-helpers";
@@ -41,6 +40,7 @@ import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-avatar";
 import "../../shared/shape-icon";
+import { HomeAssistant } from "../../ha/types";
 
 type MediaPlayerCardControl = "media_control" | "volume_control";
 

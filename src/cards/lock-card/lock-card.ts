@@ -4,7 +4,6 @@ import {
     computeStateDisplay,
     handleAction,
     hasAction,
-    HomeAssistant,
     LovelaceCard,
     LovelaceCardEditor,
 } from "custom-card-helpers";
@@ -14,6 +13,7 @@ import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { isAvailable } from "../../ha/data/entity";
 import { LockEntity, LOCK_ENTITY_DOMAINS } from "../../ha/data/lock";
+import { HomeAssistant } from "../../ha/types";
 import "../../shared/badge-icon";
 import "../../shared/button";
 import "../../shared/card";

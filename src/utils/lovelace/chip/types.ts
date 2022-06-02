@@ -1,4 +1,5 @@
-import { ActionConfig, HomeAssistant } from "custom-card-helpers";
+import { ActionConfig } from "custom-card-helpers";
+import { HomeAssistant } from "../../../ha/types";
 import { Condition } from "../../conditional/validate-condition";
 import { Info } from "../../info";
 

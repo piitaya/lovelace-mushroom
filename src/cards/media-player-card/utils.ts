@@ -1,4 +1,4 @@
-import { computeStateDisplay, HomeAssistant, stateIcon } from "custom-card-helpers";
+import { computeStateDisplay, stateIcon } from "custom-card-helpers";
 import { HassEntity } from "home-assistant-js-websocket";
 import { supportsFeature } from "../../ha/common/entity/supports-feature";
 import { OFF, UNAVAILABLE, UNKNOWN } from "../../ha/data/entity";
@@ -14,8 +14,8 @@ import {
     MEDIA_PLAYER_SUPPORT_STOP,
     MEDIA_PLAYER_SUPPORT_TURN_OFF,
     MEDIA_PLAYER_SUPPORT_TURN_ON,
-    MEDIA_PLAYER_SUPPORT_VOLUME_SET,
 } from "../../ha/data/media-player";
+import { HomeAssistant } from "../../ha/types";
 import { MediaPlayerCardConfig, MediaPlayerMediaControl } from "./media-player-card-config";
 
 export function callService(

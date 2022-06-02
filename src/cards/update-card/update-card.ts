@@ -3,7 +3,6 @@ import {
     computeRTL,
     handleAction,
     hasAction,
-    HomeAssistant,
     LovelaceCard,
     LovelaceCardEditor,
 } from "custom-card-helpers";
@@ -15,6 +14,7 @@ import { computeStateDisplay } from "../../ha/common/entity/compute-state-displa
 import { supportsFeature } from "../../ha/common/entity/supports-feature";
 import { getEntityPicture, isActive, isAvailable } from "../../ha/data/entity";
 import { UpdateEntity, updateIsInstalling, UPDATE_SUPPORT_INSTALL } from "../../ha/data/update";
+import { HomeAssistant } from "../../ha/types";
 import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-icon";

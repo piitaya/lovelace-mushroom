@@ -1,8 +1,8 @@
-import { HomeAssistant } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { CoverEntity } from "../../../ha/data/cover";
 import { isAvailable } from "../../../ha/data/entity";
+import { HomeAssistant } from "../../../ha/types";
 import "../../../shared/slider";
 import { getPosition } from "../utils";
 

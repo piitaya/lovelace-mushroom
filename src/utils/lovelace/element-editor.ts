@@ -3,17 +3,12 @@ import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult }
 import { property, state, query } from "lit/decorators.js";
 import { LovelaceGenericElementEditor } from "./types";
 import { deepEqual } from "../deep-equal";
-import {
-    computeRTL,
-    fireEvent,
-    HomeAssistant,
-    LovelaceCardConfig,
-    LovelaceConfig,
-} from "custom-card-helpers";
+import { computeRTL, fireEvent, LovelaceCardConfig, LovelaceConfig } from "custom-card-helpers";
 import { LovelaceChipConfig } from "./chip/types";
 import { EditSubElementEvent, GUIModeChangedEvent } from "./editor/types";
 import { GUISupportError } from "./gui-support-error";
 import { handleStructError } from "../error-struct";
+import { HomeAssistant } from "../../ha/types";
 
 export interface ConfigChangedEvent {
     config: LovelaceCardConfig | LovelaceChipConfig;

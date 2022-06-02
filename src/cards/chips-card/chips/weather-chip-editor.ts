@@ -1,6 +1,7 @@
-import { fireEvent, HomeAssistant } from "custom-card-helpers";
+import { fireEvent } from "custom-card-helpers";
 import { html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import { HomeAssistant } from "../../../ha/types";
 import setupCustomlocalize from "../../../localize";
 import { Action } from "../../../utils/form/custom/ha-selector-mushroom-action";
 import { GENERIC_LABELS } from "../../../utils/form/generic-fields";

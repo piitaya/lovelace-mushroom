@@ -1,4 +1,5 @@
-import { HomeAssistant, LovelaceCardConfig, LovelaceConfig } from "custom-card-helpers";
+import { LovelaceCardConfig, LovelaceConfig } from "custom-card-helpers";
+import { HomeAssistant } from "../../ha/types";
 import { Condition } from "../conditional/validate-condition";
 import { LovelaceChipConfig } from "./chip/types";
 

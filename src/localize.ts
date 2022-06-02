@@ -1,7 +1,4 @@
-// Borrowed from:
-// https://github.com/custom-cards/boilerplate-card/blob/master/src/localize/localize.ts
-
-import { HomeAssistant } from "custom-card-helpers";
+import { HomeAssistant } from "./ha/types";
 import * as de from "./translations/de.json";
 import * as el from "./translations/el.json";
 import * as en from "./translations/en.json";

@@ -1,4 +1,4 @@
-import { computeRTL, HomeAssistant } from "custom-card-helpers";
+import { computeRTL } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { supportsFeature } from "../../../ha/common/entity/supports-feature";
@@ -9,6 +9,7 @@ import {
     MEDIA_PLAYER_SUPPORT_VOLUME_MUTE,
     MEDIA_PLAYER_SUPPORT_VOLUME_SET,
 } from "../../../ha/data/media-player";
+import { HomeAssistant } from "../../../ha/types";
 import { MediaPlayerVolumeControl } from "../media-player-card-config";
 import { getVolumeLevel, handleMediaControlClick } from "../utils";
 

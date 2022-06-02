@@ -1,4 +1,4 @@
-import { HomeAssistant } from "custom-card-helpers";
+import { HomeAssistant } from "../../ha/types";
 
 export interface Condition {
     entity: string;

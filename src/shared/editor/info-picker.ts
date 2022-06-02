@@ -1,6 +1,6 @@
-import { HomeAssistant } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import { HomeAssistant } from "../../ha/types";
 import setupCustomlocalize from "../../localize";
 import { Info, INFOS } from "../../utils/info";
 import "./../form/mushroom-select";

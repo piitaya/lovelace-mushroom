@@ -1,4 +1,4 @@
-import { fireEvent, HASSDomEvent, HomeAssistant } from "custom-card-helpers";
+import { fireEvent, HASSDomEvent } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state, query } from "lit/decorators.js";
 import { LovelaceChipConfig } from "./chip/types";
@@ -6,6 +6,7 @@ import { GUIModeChangedEvent, SubElementEditorConfig } from "./editor/types";
 import type { MushroomElementEditor } from "./element-editor";
 import "./chip-element-editor";
 import setupCustomlocalize from "../../localize";
+import { HomeAssistant } from "../../ha/types";
 
 declare global {
     interface HASSDomEvents {

@@ -1,6 +1,7 @@
-import { fireEvent, HomeAssistant } from "custom-card-helpers";
+import { fireEvent } from "custom-card-helpers";
 import { html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import { HomeAssistant } from "../../../ha/types";
 import "../../../shared/editor/info-picker";
 import { Info } from "../../info";
 
