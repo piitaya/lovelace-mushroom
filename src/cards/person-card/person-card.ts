@@ -22,7 +22,7 @@ import "../../shared/state-item";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { actionHandler } from "../../utils/directives/action-handler-directive";
+import { actionHandler } from "../../ha/panels/lovelace/common/directives/action-handler-directive";
 import { stateIcon as stateIconHelper } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig } from "../../utils/layout";
 import { PERSON_CARD_EDITOR_NAME, PERSON_CARD_NAME, PERSON_ENTITY_DOMAINS } from "./const";

@@ -4,7 +4,7 @@ import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { HomeAssistant } from "../../../ha/types";
 import { computeRgbColor } from "../../../utils/colors";
-import { actionHandler } from "../../../utils/directives/action-handler-directive";
+import { actionHandler } from "../../../ha/panels/lovelace/common/directives/action-handler-directive";
 import {
     computeChipComponentName,
     computeChipEditorComponentName,

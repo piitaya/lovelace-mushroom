@@ -6,7 +6,7 @@ import { styleMap } from "lit/directives/style-map.js";
 import { computeStateDisplay } from "../../../ha/common/entity/compute-state-display";
 import { HomeAssistant } from "../../../ha/types";
 import { computeRgbColor } from "../../../utils/colors";
-import { actionHandler } from "../../../utils/directives/action-handler-directive";
+import { actionHandler } from "../../../ha/panels/lovelace/common/directives/action-handler-directive";
 import { animation } from "../../../utils/entity-styles";
 import { stateIcon } from "../../../utils/icons/state-icon";
 import { getInfo } from "../../../utils/info";

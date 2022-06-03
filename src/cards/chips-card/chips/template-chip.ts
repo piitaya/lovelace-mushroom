@@ -6,7 +6,7 @@ import { styleMap } from "lit/directives/style-map.js";
 import { RenderTemplateResult, subscribeRenderTemplate } from "../../../ha/data/ws-templates";
 import { HomeAssistant } from "../../../ha/types";
 import { computeRgbColor } from "../../../utils/colors";
-import { actionHandler } from "../../../utils/directives/action-handler-directive";
+import { actionHandler } from "../../../ha/panels/lovelace/common/directives/action-handler-directive";
 import {
     computeChipComponentName,
     computeChipEditorComponentName,

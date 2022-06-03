@@ -7,7 +7,7 @@ import { computeStateDisplay } from "../../../ha/common/entity/compute-state-dis
 import { isActive } from "../../../ha/data/entity";
 import { LightEntity } from "../../../ha/data/light";
 import { HomeAssistant } from "../../../ha/types";
-import { actionHandler } from "../../../utils/directives/action-handler-directive";
+import { actionHandler } from "../../../ha/panels/lovelace/common/directives/action-handler-directive";
 import { stateIcon } from "../../../utils/icons/state-icon";
 import { getInfo } from "../../../utils/info";
 import {

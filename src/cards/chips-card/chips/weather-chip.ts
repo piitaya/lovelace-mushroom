@@ -9,7 +9,7 @@ import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { computeStateDisplay } from "../../../ha/common/entity/compute-state-display";
 import { HomeAssistant } from "../../../ha/types";
-import { actionHandler } from "../../../utils/directives/action-handler-directive";
+import { actionHandler } from "../../../ha/panels/lovelace/common/directives/action-handler-directive";
 import {
     computeChipComponentName,
     computeChipEditorComponentName,

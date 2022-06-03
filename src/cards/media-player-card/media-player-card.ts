@@ -18,7 +18,7 @@ import "../../shared/shape-icon";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { actionHandler } from "../../utils/directives/action-handler-directive";
+import { actionHandler } from "../../ha/panels/lovelace/common/directives/action-handler-directive";
 import { getLayoutFromConfig, Layout } from "../../utils/layout";
 import {
     MEDIA_PLAYER_CARD_EDITOR_NAME,
