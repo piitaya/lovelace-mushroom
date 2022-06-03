@@ -1,6 +1,6 @@
 import { ActionConfig } from "custom-card-helpers";
+import { Condition } from "../../../ha/panels/lovelace/common/validate-condition";
 import { HomeAssistant } from "../../../ha/types";
-import { Condition } from "../../conditional/validate-condition";
 import { Info } from "../../info";
 
 export interface LovelaceChip extends HTMLElement {
