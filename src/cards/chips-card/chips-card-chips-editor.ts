@@ -9,7 +9,7 @@ import { MushroomBaseElement } from "../../utils/base-element";
 import { getChipElementClass } from "../../utils/lovelace/chip-element-editor";
 import { CHIP_LIST, LovelaceChipConfig } from "../../utils/lovelace/chip/types";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
-import { sortableStyles } from "../../utils/sortable-styles";
+import { sortableStyles } from "../../ha/resources/ha-sortable-styles";
 
 let Sortable;
 
