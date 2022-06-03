@@ -6,11 +6,12 @@ import {
     LovelaceCard,
     LovelaceCardEditor,
 } from "custom-card-helpers";
-import { Connection, UnsubscribeFunc } from "home-assistant-js-websocket";
+import { UnsubscribeFunc } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
+import { RenderTemplateResult, subscribeRenderTemplate } from "../../ha/data/ws-templates";
 import { HomeAssistant } from "../../ha/types";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
@@ -21,7 +22,6 @@ import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { actionHandler } from "../../utils/directives/action-handler-directive";
 import { getLayoutFromConfig } from "../../utils/layout";
-import { RenderTemplateResult, subscribeRenderTemplate } from "../../utils/ws-templates";
 import { TEMPLATE_CARD_EDITOR_NAME, TEMPLATE_CARD_NAME } from "./const";
 import { TemplateCardConfig } from "./template-card-config";
 
@@ -195,7 +195,7 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
 
         try {
             const sub = subscribeRenderTemplate(
-                this.hass.connection as any as Connection,
+                this.hass.connection,
                 (result) => {
                     this._templateResults = {
                         ...this._templateResults,

@@ -1,8 +1,9 @@
 import { ActionHandlerEvent, computeRTL, handleAction, hasAction } from "custom-card-helpers";
-import { Connection, UnsubscribeFunc } from "home-assistant-js-websocket";
+import { UnsubscribeFunc } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
+import { RenderTemplateResult, subscribeRenderTemplate } from "../../../ha/data/ws-templates";
 import { HomeAssistant } from "../../../ha/types";
 import { computeRgbColor } from "../../../utils/colors";
 import { actionHandler } from "../../../utils/directives/action-handler-directive";
@@ -12,7 +13,6 @@ import {
 } from "../../../utils/lovelace/chip/chip-element";
 import { LovelaceChip, TemplateChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
-import { RenderTemplateResult, subscribeRenderTemplate } from "../../../utils/ws-templates";
 
 const TEMPLATE_KEYS = ["content", "icon", "icon_color"] as const;
 type TemplateKey = typeof TEMPLATE_KEYS[number];
@@ -147,7 +147,7 @@ export class TemplateChip extends LitElement implements LovelaceChip {
 
         try {
             const sub = subscribeRenderTemplate(
-                this.hass.connection as any as Connection,
+                this.hass.connection,
                 (result) => {
                     this._templateResults = {
                         ...this._templateResults,

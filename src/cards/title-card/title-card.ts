@@ -1,7 +1,8 @@
 import { LovelaceCard, LovelaceCardEditor } from "custom-card-helpers";
-import { Connection, UnsubscribeFunc } from "home-assistant-js-websocket";
+import { UnsubscribeFunc } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
+import { RenderTemplateResult, subscribeRenderTemplate } from "../../ha/data/ws-templates";
 import { HomeAssistant } from "../../ha/types";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
@@ -9,7 +10,6 @@ import "../../shared/state-item";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { RenderTemplateResult, subscribeRenderTemplate } from "../../utils/ws-templates";
 import { TITLE_CARD_EDITOR_NAME, TITLE_CARD_NAME } from "./const";
 import { TitleCardConfig } from "./title-card-config";
 
@@ -122,7 +122,7 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
 
         try {
             const sub = subscribeRenderTemplate(
-                this.hass.connection as any as Connection,
+                this.hass.connection,
                 (result) => {
                     this._templateResults = {
                         ...this._templateResults,

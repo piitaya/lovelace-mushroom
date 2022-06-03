@@ -7,8 +7,8 @@ import { computeRTL, fireEvent, LovelaceCardConfig, LovelaceConfig } from "custo
 import { LovelaceChipConfig } from "./chip/types";
 import { EditSubElementEvent, GUIModeChangedEvent } from "./editor/types";
 import { GUISupportError } from "./gui-support-error";
-import { handleStructError } from "../error-struct";
 import { HomeAssistant } from "../../ha/types";
+import { handleStructError } from "../../ha/common/structs/handle-errors";
 
 export interface ConfigChangedEvent {
     config: LovelaceCardConfig | LovelaceChipConfig;
