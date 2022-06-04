@@ -1,10 +1,10 @@
-import { LovelaceCardConfig } from "custom-card-helpers";
 import { assign, boolean, object, optional, string } from "superstruct";
 import { ActionsSharedConfig, actionsSharedConfigStruct } from "../../shared/config/actions-config";
 import { layoutSharedConfigStruct, LayoutSharedConfig } from "../../shared/config/layout-config";
 import { entitySharedConfigStruct, EntitySharedConfig } from "../../shared/config/entity-config";
 import { infosSharedConfigStruct, InfosSharedConfig } from "../../shared/config/infos-config";
 import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-config";
+import { LovelaceCardConfig } from "../../ha";
 
 export type EntityCardConfig = LovelaceCardConfig &
     EntitySharedConfig &
