@@ -1,18 +1,20 @@
-import {
-    ActionHandlerEvent,
-    computeRTL,
-    handleAction,
-    hasAction,
-    LovelaceCard,
-    LovelaceCardEditor,
-} from "custom-card-helpers";
 import { UnsubscribeFunc } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
-import { RenderTemplateResult, subscribeRenderTemplate } from "../../ha/data/ws-templates";
-import { HomeAssistant } from "../../ha/types";
+import {
+    actionHandler,
+    ActionHandlerEvent,
+    computeRTL,
+    handleAction,
+    hasAction,
+    HomeAssistant,
+    LovelaceCard,
+    LovelaceCardEditor,
+    RenderTemplateResult,
+    subscribeRenderTemplate,
+} from "../../ha";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
@@ -20,7 +22,6 @@ import { MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
 import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { actionHandler } from "../../ha/panels/lovelace/common/directives/action-handler-directive";
 import { getLayoutFromConfig } from "../../utils/layout";
 import { TEMPLATE_CARD_EDITOR_NAME, TEMPLATE_CARD_NAME } from "./const";
 import { TemplateCardConfig } from "./template-card-config";
