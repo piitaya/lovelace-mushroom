@@ -1,26 +1,28 @@
-import {
-    ActionHandlerEvent,
-    computeRTL,
-    handleAction,
-    hasAction,
-    LovelaceCard,
-    LovelaceCardEditor,
-} from "custom-card-helpers";
 import { css, CSSResultGroup, html, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
-import { styleMap } from "lit/directives/style-map.js";
-import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
-import { isActive, isAvailable } from "../../ha/data/entity";
+import { classMap } from "lit/directives/class-map.js";
+import {
+    actionHandler,
+    ActionHandlerEvent,
+    computeRTL,
+    computeStateDisplay,
+    handleAction,
+    hasAction,
+    HomeAssistant,
+    isActive,
+    isAvailable,
+    LovelaceCard,
+    LovelaceCardEditor,
+} from "../../ha";
 import "../../shared/badge-icon";
 import "../../shared/button";
 import "../../shared/card";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
+import { MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
-import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { actionHandler } from "../../ha/panels/lovelace/common/directives/action-handler-directive";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig } from "../../utils/layout";
 import {
@@ -30,9 +32,6 @@ import {
 } from "./const";
 import "./controls/humidifier-humidity-control";
 import { HumidifierCardConfig } from "./humidifier-card-config";
-import { MushroomBaseElement } from "../../utils/base-element";
-import { classMap } from "lit/directives/class-map.js";
-import { HomeAssistant } from "../../ha/types";
 
 registerCustomCard({
     type: HUMIDIFIER_CARD_NAME,
