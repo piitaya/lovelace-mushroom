@@ -1,6 +1,6 @@
 import type { Ripple } from "@material/mwc-ripple";
 import { noChange } from "lit";
-import { AttributePart, directive, Directive, DirectiveParameters } from "lit/directive";
+import { AttributePart, directive, Directive, DirectiveParameters } from "lit/directive.js";
 import { fireEvent } from "../../../../common/dom/fire_event";
 import { deepEqual } from "../../../../common/util/deep-equal";
 import { ActionHandlerDetail, ActionHandlerOptions } from "../../../../data/lovelace";
@@ -218,8 +218,6 @@ class ActionHandler extends HTMLElement implements ActionHandler {
         this.style.display = "none";
     }
 }
-
-customElements.define("action-handler", ActionHandler);
 
 const getActionHandler = (): ActionHandler => {
     const body = document.body;
