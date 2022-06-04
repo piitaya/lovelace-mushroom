@@ -2,7 +2,7 @@ import { SelectBase } from "@material/mwc-select/mwc-select-base";
 import { styles } from "@material/mwc-select/mwc-select.css";
 import { html, nothing } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { debounce } from "../../ha/common/util/debounce";
+import { debounce } from "../../ha";
 import { nextRender } from "../../utils/render-status";
 
 @customElement("mushroom-select")

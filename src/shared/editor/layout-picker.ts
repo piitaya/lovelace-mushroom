@@ -1,6 +1,6 @@
 import { css, CSSResultGroup, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { HomeAssistant } from "../../ha/types";
+import { HomeAssistant } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import "./../form/mushroom-select";
 

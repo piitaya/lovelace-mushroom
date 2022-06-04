@@ -1,6 +1,5 @@
 import { object, optional } from "superstruct";
-import { ActionConfig } from "../../ha/data/lovelace";
-import { actionConfigStruct } from "../../ha/panels/lovelace/editor/structs/action-struct";
+import { ActionConfig, actionConfigStruct } from "../../ha";
 
 export const actionsSharedConfigStruct = object({
     tap_action: optional(actionConfigStruct),
