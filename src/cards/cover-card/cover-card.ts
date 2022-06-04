@@ -4,6 +4,7 @@ import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import {
+    actionHandler,
     ActionHandlerEvent,
     computeRTL,
     computeStateDisplay,
@@ -15,7 +16,6 @@ import {
     LovelaceCard,
     LovelaceCardEditor,
 } from "../../ha";
-import { actionHandler } from "../../ha/panels/lovelace/common/directives/action-handler-directive";
 import "../../shared/badge-icon";
 import "../../shared/button";
 import "../../shared/card";

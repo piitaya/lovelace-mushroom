@@ -3,6 +3,7 @@ import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import {
+    actionHandler,
     ActionHandlerEvent,
     computeRTL,
     computeStateDisplay,
@@ -10,7 +11,6 @@ import {
     hasAction,
     HomeAssistant,
 } from "../../../ha";
-import { actionHandler } from "../../../ha/panels/lovelace/common/directives/action-handler-directive";
 import { computeRgbColor } from "../../../utils/colors";
 import { animation } from "../../../utils/entity-styles";
 import { stateIcon } from "../../../utils/icons/state-icon";

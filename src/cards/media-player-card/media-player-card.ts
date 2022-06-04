@@ -8,12 +8,12 @@ import {
     getEntityPicture,
     handleAction,
     hasAction,
+    HomeAssistant,
     isActive,
     LovelaceCard,
     LovelaceCardEditor,
     MediaPlayerEntity,
 } from "../../ha";
-import { HomeAssistant } from "../../ha/types";
 import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-avatar";

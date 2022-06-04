@@ -1,5 +1,5 @@
-import { computeDomain } from "custom-card-helpers";
 import { HassEntity } from "home-assistant-js-websocket";
+import { computeDomain } from "../../ha";
 import { domainIcon } from "./domain-icon";
 
 export function stateIcon(entity: HassEntity): string {

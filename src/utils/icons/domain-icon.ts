@@ -1,5 +1,5 @@
 import { HassEntity } from "home-assistant-js-websocket";
-import { UpdateEntity, updateIsInstalling } from "../../ha/data/update";
+import { UpdateEntity, updateIsInstalling } from "../../ha";
 import { alarmPanelIcon } from "./alarm-panel-icon";
 import { binarySensorIcon } from "./binary-sensor-icon";
 import { coverIcon } from "./cover-icon";

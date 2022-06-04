@@ -3,6 +3,7 @@ import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import {
+    actionHandler,
     ActionHandlerEvent,
     computeRTL,
     computeStateDisplay,
@@ -19,7 +20,6 @@ import {
     updateIsInstalling,
     UPDATE_SUPPORT_INSTALL,
 } from "../../ha";
-import { actionHandler } from "../../ha/panels/lovelace/common/directives/action-handler-directive";
 import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-icon";
