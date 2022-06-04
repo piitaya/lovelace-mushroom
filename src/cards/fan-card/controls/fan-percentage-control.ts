@@ -1,8 +1,7 @@
 import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { isActive, isAvailable } from "../../../ha/data/entity";
-import { HomeAssistant } from "../../../ha/types";
+import { HomeAssistant, isActive, isAvailable } from "../../../ha";
 import "../../../shared/slider";
 import { computePercentageStep, getPercentage } from "../utils";
 
