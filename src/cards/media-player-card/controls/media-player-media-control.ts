@@ -1,8 +1,6 @@
-import { computeRTL } from "custom-card-helpers";
 import { html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { MediaPlayerEntity } from "../../../ha/data/media-player";
-import { HomeAssistant } from "../../../ha/types";
+import { computeRTL, HomeAssistant, MediaPlayerEntity } from "../../../ha";
 import { MediaPlayerMediaControl } from "../media-player-card-config";
 import { computeMediaControls, handleMediaControlClick } from "../utils";
 

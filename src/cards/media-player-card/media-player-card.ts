@@ -1,16 +1,19 @@
-import {
-    ActionHandlerEvent,
-    computeRTL,
-    handleAction,
-    hasAction,
-    LovelaceCard,
-    LovelaceCardEditor,
-} from "custom-card-helpers";
 import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
-import { getEntityPicture, isActive } from "../../ha/data/entity";
-import { MediaPlayerEntity } from "../../ha/data/media-player";
+import {
+    actionHandler,
+    ActionHandlerEvent,
+    computeRTL,
+    getEntityPicture,
+    handleAction,
+    hasAction,
+    isActive,
+    LovelaceCard,
+    LovelaceCardEditor,
+    MediaPlayerEntity,
+} from "../../ha";
+import { HomeAssistant } from "../../ha/types";
 import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-avatar";
@@ -18,7 +21,6 @@ import "../../shared/shape-icon";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { actionHandler } from "../../ha/panels/lovelace/common/directives/action-handler-directive";
 import { getLayoutFromConfig, Layout } from "../../utils/layout";
 import {
     MEDIA_PLAYER_CARD_EDITOR_NAME,
@@ -36,11 +38,6 @@ import {
     computeMediaStateDisplay,
     getVolumeLevel,
 } from "./utils";
-import "../../shared/badge-icon";
-import "../../shared/card";
-import "../../shared/shape-avatar";
-import "../../shared/shape-icon";
-import { HomeAssistant } from "../../ha/types";
 
 type MediaPlayerCardControl = "media_control" | "volume_control";
 
