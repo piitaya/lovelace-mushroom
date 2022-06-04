@@ -1,7 +1,7 @@
-import { fireEvent, HomeAssistant } from "custom-card-helpers";
 import { html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
+import { fireEvent, HomeAssistant } from "../../../ha";
 import { HaFormSchema } from "../../../utils/form/ha-form";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
 import { EntityChipConfig } from "../../../utils/lovelace/chip/types";

@@ -1,6 +1,6 @@
-import { fireEvent, HomeAssistant } from "custom-card-helpers";
 import { html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import { fireEvent, HomeAssistant } from "../../../ha";
 import "../../../shared/editor/layout-picker";
 
 export type MushLayoutSelector = {

@@ -1,9 +1,13 @@
-import { HomeAssistant, LovelaceCard } from "custom-card-helpers";
 import { PropertyValues, ReactiveElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import {
+    checkConditionsMet,
+    HomeAssistant,
+    LovelaceCard,
+    validateConditionalConfig,
+} from "../../ha";
 import { ConditionalChipConfig, LovelaceChip } from "../lovelace/chip/types";
 import { ConditionalCardConfig } from "../lovelace/types";
-import { checkConditionsMet, validateConditionalConfig } from "./validate-condition";
 
 @customElement("mushroom-conditional-base")
 export class ConditionalBase extends ReactiveElement {

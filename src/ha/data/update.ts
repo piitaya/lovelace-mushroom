@@ -1,6 +1,6 @@
-import { HomeAssistant } from "custom-card-helpers";
 import type { HassEntityAttributeBase, HassEntityBase } from "home-assistant-js-websocket";
 import { supportsFeature } from "../common/entity/supports-feature";
+import { HomeAssistant } from "../types";
 import { ON } from "./entity";
 
 export const UPDATE_SUPPORT_INSTALL = 1;

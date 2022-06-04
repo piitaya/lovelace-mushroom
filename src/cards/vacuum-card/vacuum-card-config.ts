@@ -1,8 +1,8 @@
-import { LovelaceCardConfig } from "custom-card-helpers";
 import { array, assign, boolean, object, optional, string } from "superstruct";
-import { actionsSharedConfigStruct, ActionsSharedConfig } from "../../shared/config/actions-config";
-import { layoutSharedConfigStruct, LayoutSharedConfig } from "../../shared/config/layout-config";
-import { entitySharedConfigStruct, EntitySharedConfig } from "../../shared/config/entity-config";
+import { LovelaceCardConfig } from "../../ha";
+import { ActionsSharedConfig, actionsSharedConfigStruct } from "../../shared/config/actions-config";
+import { EntitySharedConfig, entitySharedConfigStruct } from "../../shared/config/entity-config";
+import { LayoutSharedConfig, layoutSharedConfigStruct } from "../../shared/config/layout-config";
 import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-config";
 
 export const VACUUM_COMMANDS = [

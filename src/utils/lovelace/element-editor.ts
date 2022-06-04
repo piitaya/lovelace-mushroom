@@ -1,19 +1,19 @@
 import { dump, load } from "js-yaml";
 import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
-import { property, state, query } from "lit/decorators.js";
-import { LovelaceGenericElementEditor } from "./types";
-import { deepEqual } from "../deep-equal";
+import { property, query, state } from "lit/decorators.js";
 import {
     computeRTL,
+    deepEqual,
     fireEvent,
+    handleStructError,
     HomeAssistant,
     LovelaceCardConfig,
     LovelaceConfig,
-} from "custom-card-helpers";
+} from "../../ha";
 import { LovelaceChipConfig } from "./chip/types";
 import { EditSubElementEvent, GUIModeChangedEvent } from "./editor/types";
 import { GUISupportError } from "./gui-support-error";
-import { handleStructError } from "../error-struct";
+import { LovelaceGenericElementEditor } from "./types";
 
 export interface ConfigChangedEvent {
     config: LovelaceCardConfig | LovelaceChipConfig;

@@ -1,9 +1,8 @@
-import { fireEvent, LovelaceCardEditor } from "custom-card-helpers";
 import { html, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
-import { atLeastHaVersion } from "../../ha/util";
+import { atLeastHaVersion, fireEvent, LovelaceCardEditor } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { HaFormSchema } from "../../utils/form/ha-form";

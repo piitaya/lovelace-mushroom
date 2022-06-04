@@ -1,6 +1,6 @@
-import { ActionConfig, HomeAssistant } from "custom-card-helpers";
 import { html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import { ActionConfig, HomeAssistant } from "../../ha";
 
 const DEFAULT_ACTIONS = ["toggle", "more-info", "navigate", "url", "call-service", "none"];
 

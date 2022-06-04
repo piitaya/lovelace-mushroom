@@ -1,18 +1,20 @@
-import {
-    ActionHandlerEvent,
-    computeRTL,
-    handleAction,
-    hasAction,
-    HomeAssistant,
-    LovelaceCard,
-    LovelaceCardEditor,
-} from "custom-card-helpers";
 import { css, CSSResultGroup, html, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
-import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
-import { isActive, isAvailable } from "../../ha/data/entity";
-import { VacuumEntity } from "../../ha/data/vacuum";
+import {
+    actionHandler,
+    ActionHandlerEvent,
+    computeRTL,
+    computeStateDisplay,
+    handleAction,
+    hasAction,
+    HomeAssistant,
+    isActive,
+    isAvailable,
+    LovelaceCard,
+    LovelaceCardEditor,
+    VacuumEntity,
+} from "../../ha";
 import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-icon";
@@ -21,7 +23,6 @@ import "../../shared/state-item";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { actionHandler } from "../../utils/directives/action-handler-directive";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig } from "../../utils/layout";
 import { VACUUM_CARD_EDITOR_NAME, VACUUM_CARD_NAME, VACUUM_ENTITY_DOMAINS } from "./const";

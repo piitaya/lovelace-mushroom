@@ -1,10 +1,9 @@
-import { HomeAssistant } from "custom-card-helpers";
-import { HassEntity } from "home-assistant-js-websocket";
-import { css, unsafeCSS, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { customElement, property } from "lit/decorators.js";
 import * as Color from "color";
+import { HassEntity } from "home-assistant-js-websocket";
+import { css, CSSResultGroup, html, LitElement, TemplateResult, unsafeCSS } from "lit";
+import { customElement, property } from "lit/decorators.js";
+import { HomeAssistant, isActive, isAvailable } from "../../../ha";
 import "../../../shared/slider";
-import { isActive, isAvailable } from "../../../ha/data/entity";
 
 const GRADIENT = [
     [0, "#f00"],
