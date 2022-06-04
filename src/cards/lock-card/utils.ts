@@ -4,7 +4,7 @@ import {
     LOCK_STATE_LOCKING,
     LOCK_STATE_UNLOCKED,
     LOCK_STATE_UNLOCKING,
-} from "../../ha/data/lock";
+} from "../../ha";
 
 export function isUnlocked(entity: LockEntity) {
     return entity.state === LOCK_STATE_UNLOCKED;
