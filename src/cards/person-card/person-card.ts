@@ -1,18 +1,21 @@
-import {
-    ActionHandlerEvent,
-    computeRTL,
-    computeStateDisplay,
-    handleAction,
-    hasAction,
-    LovelaceCard,
-    LovelaceCardEditor,
-} from "custom-card-helpers";
 import { css, CSSResultGroup, html, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
-import { getEntityPicture, isActive, isAvailable } from "../../ha/data/entity";
-import { HomeAssistant } from "../../ha/types";
+import {
+    actionHandler,
+    ActionHandlerEvent,
+    computeRTL,
+    computeStateDisplay,
+    getEntityPicture,
+    handleAction,
+    hasAction,
+    HomeAssistant,
+    isActive,
+    isAvailable,
+    LovelaceCard,
+    LovelaceCardEditor,
+} from "../../ha";
 import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-avatar";
@@ -22,7 +25,6 @@ import "../../shared/state-item";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { actionHandler } from "../../ha/panels/lovelace/common/directives/action-handler-directive";
 import { stateIcon as stateIconHelper } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig } from "../../utils/layout";
 import { PERSON_CARD_EDITOR_NAME, PERSON_CARD_NAME, PERSON_ENTITY_DOMAINS } from "./const";
