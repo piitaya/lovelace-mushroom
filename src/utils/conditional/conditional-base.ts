@@ -1,11 +1,11 @@
-import { LovelaceCard } from "custom-card-helpers";
 import { PropertyValues, ReactiveElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import {
     checkConditionsMet,
+    HomeAssistant,
+    LovelaceCard,
     validateConditionalConfig,
-} from "../../ha/panels/lovelace/common/validate-condition";
-import { HomeAssistant } from "../../ha/types";
+} from "../../ha";
 import { ConditionalChipConfig, LovelaceChip } from "../lovelace/chip/types";
 import { ConditionalCardConfig } from "../lovelace/types";
 

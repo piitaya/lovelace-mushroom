@@ -13,6 +13,7 @@ export * from "./common/translations/localize";
 export * from "./common/util/compute_rtl";
 export * from "./common/util/debounce";
 export * from "./common/util/deep-equal";
+export * from "./common/util/render-status";
 export * from "./data/climate";
 export * from "./data/cover";
 export * from "./data/entity";

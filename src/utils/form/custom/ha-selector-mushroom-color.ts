@@ -1,7 +1,6 @@
-import { fireEvent } from "custom-card-helpers";
 import { html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { HomeAssistant } from "../../../ha/types";
+import { fireEvent, HomeAssistant } from "../../../ha";
 import "../../../shared/editor/color-picker";
 
 export type MushColorSelector = {

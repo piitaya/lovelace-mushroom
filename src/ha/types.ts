@@ -11,6 +11,44 @@ import { LocalizeFunc } from "./common/translations/localize";
 import { FrontendLocaleData, TranslationCategory } from "./data/translation";
 import { Themes } from "./data/ws-themes";
 
+declare global {
+    /* eslint-disable no-var, no-redeclare */
+    var __DEV__: boolean;
+    var __DEMO__: boolean;
+    var __BUILD__: "latest" | "es5";
+    var __VERSION__: string;
+    var __STATIC_PATH__: string;
+    var __BACKWARDS_COMPAT__: boolean;
+    var __SUPERVISOR__: boolean;
+    /* eslint-enable no-var, no-redeclare */
+
+    interface Window {
+        // Custom panel entry point url
+        customPanelJS: string;
+        ShadyCSS: {
+            nativeCss: boolean;
+            nativeShadow: boolean;
+            prepareTemplate(templateElement, elementName, elementExtension);
+            styleElement(element);
+            styleSubtree(element, overrideProperties);
+            styleDocument(overrideProperties);
+            getComputedStyleValue(element, propertyName);
+        };
+    }
+    // for fire event
+    interface HASSDomEvents {
+        "value-changed": {
+            value: unknown;
+        };
+        change: undefined;
+    }
+
+    // For loading workers in webpack
+    interface ImportMeta {
+        url: string;
+    }
+}
+
 export interface ThemeSettings {
     theme: string;
     // Radio box selection for theme picker. Do not use in Lovelace rendering as

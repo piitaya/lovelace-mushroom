@@ -1,7 +1,6 @@
-import { ActionConfig, fireEvent } from "custom-card-helpers";
 import { html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { HomeAssistant } from "../../../ha/types";
+import { ActionConfig, fireEvent, HomeAssistant } from "../../../ha";
 import "../../../shared/editor/action-picker";
 
 export type Action = ActionConfig["action"];

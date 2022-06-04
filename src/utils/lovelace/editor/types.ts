@@ -1,10 +1,4 @@
-import {
-    ActionConfig,
-    EntityConfig,
-    LovelaceCardConfig,
-    LovelaceViewConfig,
-    ShowViewConfig,
-} from "custom-card-helpers";
+import { ActionConfig, LovelaceCardConfig, LovelaceViewConfig, ShowViewConfig } from "../../../ha";
 import { LovelaceChipConfig } from "../chip/types";
 
 export interface YamlChangedEvent extends Event {
@@ -36,6 +30,14 @@ export interface ConfigValue {
 export interface ConfigError {
     type: string;
     message: string;
+}
+
+export interface EntityConfig {
+    entity: string;
+    type?: string;
+    name?: string;
+    icon?: string;
+    image?: string;
 }
 
 export interface EntitiesEditorEvent {

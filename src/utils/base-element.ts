@@ -1,6 +1,6 @@
 import { css, CSSResultGroup, LitElement, PropertyValues } from "lit";
 import { property } from "lit/decorators.js";
-import { HomeAssistant } from "../ha/types";
+import { HomeAssistant } from "../ha";
 import "../shared/badge-icon";
 import "../shared/card";
 import "../shared/shape-avatar";
