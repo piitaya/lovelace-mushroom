@@ -1,12 +1,12 @@
+import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { customElement, state } from "lit/decorators.js";
 import {
     computeRTL,
+    HomeAssistant,
     LovelaceCard,
     LovelaceCardConfig,
     LovelaceCardEditor,
-} from "custom-card-helpers";
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { customElement, state } from "lit/decorators.js";
-import { HomeAssistant } from "../../ha/types";
+} from "../../ha";
 import "../../shared/chip";
 import { computeDarkMode, MushroomBaseElement } from "../../utils/base-element";
 import { registerCustomCard } from "../../utils/custom-cards";

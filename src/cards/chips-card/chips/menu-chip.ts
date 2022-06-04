@@ -1,8 +1,6 @@
-import { computeRTL, fireEvent } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { HomeAssistant } from "../../../ha/types";
-import { actionHandler } from "../../../ha/panels/lovelace/common/directives/action-handler-directive";
+import { actionHandler, computeRTL, fireEvent, HomeAssistant } from "../../../ha";
 import {
     computeChipComponentName,
     computeChipEditorComponentName,

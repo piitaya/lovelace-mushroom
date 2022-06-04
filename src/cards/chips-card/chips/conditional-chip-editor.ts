@@ -1,8 +1,7 @@
 import type { MDCTabBarActivatedEvent } from "@material/tab-bar";
-import { computeRTL, fireEvent, HASSDomEvent, LovelaceConfig } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
-import { HomeAssistant } from "../../../ha/types";
+import { computeRTL, fireEvent, HASSDomEvent, HomeAssistant, LovelaceConfig } from "../../../ha";
 import setupCustomlocalize from "../../../localize";
 import "../../../shared/form/mushroom-select";
 import "../../../shared/form/mushroom-textfield";

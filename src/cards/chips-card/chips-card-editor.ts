@@ -1,4 +1,3 @@
-import { fireEvent, HASSDomEvent, LovelaceCardEditor } from "custom-card-helpers";
 import { html, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import {
@@ -14,10 +13,10 @@ import {
     string,
     union,
 } from "superstruct";
+import { actionConfigStruct, fireEvent, HASSDomEvent, LovelaceCardEditor } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-config";
 import "../../shared/editor/alignment-picker";
-import { actionConfigStruct } from "../../utils/action-struct";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { loadHaComponents } from "../../utils/loader";
 import { LovelaceChipConfig } from "../../utils/lovelace/chip/types";

@@ -1,10 +1,15 @@
-import { ActionHandlerEvent, computeRTL, handleAction, hasAction } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
-import { HomeAssistant } from "../../../ha/types";
+import {
+    actionHandler,
+    ActionHandlerEvent,
+    computeRTL,
+    handleAction,
+    hasAction,
+    HomeAssistant,
+} from "../../../ha";
 import { computeRgbColor } from "../../../utils/colors";
-import { actionHandler } from "../../../ha/panels/lovelace/common/directives/action-handler-directive";
 import {
     computeChipComponentName,
     computeChipEditorComponentName,
