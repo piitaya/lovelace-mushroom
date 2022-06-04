@@ -6,7 +6,7 @@ import {
     STATE_OFF,
     STATE_ON,
     STATE_RETURNING,
-} from "../../ha/data/vacuum";
+} from "../../ha";
 
 export function isCleaning(entity: HassEntity): boolean {
     switch (entity.state) {
