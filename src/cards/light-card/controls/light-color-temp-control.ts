@@ -1,8 +1,6 @@
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { isActive, isAvailable } from "../../../ha/data/entity";
-import { LightEntity } from "../../../ha/data/light";
-import { HomeAssistant } from "../../../ha/types";
+import { HomeAssistant, isActive, isAvailable, LightEntity } from "../../../ha";
 import "../../../shared/slider";
 import { getColorTemp } from "../utils";
 
