@@ -1,5 +1,5 @@
-import { LovelaceCardConfig } from "custom-card-helpers";
 import { assign, object, optional, string } from "superstruct";
+import { LovelaceCardConfig } from "../../ha";
 import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-config";
 
 export interface TitleCardConfig extends LovelaceCardConfig {
