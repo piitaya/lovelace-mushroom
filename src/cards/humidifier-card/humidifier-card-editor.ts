@@ -17,18 +17,22 @@ const HUMIDIFIER_FIELDS = ["show_target_humidity_control"];
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: HUMIDIFIER_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
-    {
-        type: "grid",
-        name: "",
-        schema: [{ name: "icon", selector: { icon: { placeholder: icon } } }],
-    },
+    { name: "icon", selector: { icon: { placeholder: icon } } },
     {
         type: "grid",
         name: "",
         schema: [
             { name: "layout", selector: { "mush-layout": {} } },
             { name: "fill_container", selector: { boolean: {} } },
-            { name: "hide_state", selector: { boolean: {} } },
+        ],
+    },
+    {
+        type: "grid",
+        name: "",
+        schema: [
+            { name: "primary_info", selector: { "mush-info": {} } },
+            { name: "secondary_info", selector: { "mush-info": {} } },
+            { name: "icon_info", selector: { "mush-icon-info": {} } },
         ],
     },
     {

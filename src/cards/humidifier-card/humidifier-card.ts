@@ -10,21 +10,22 @@ import {
     hasAction,
     HomeAssistant,
     isActive,
-    isAvailable,
     LovelaceCard,
     LovelaceCardEditor,
 } from "../../ha";
 import "../../shared/badge-icon";
 import "../../shared/button";
 import "../../shared/card";
+import "../../shared/shape-avatar";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
-import { MushroomBaseElement } from "../../utils/base-element";
+import { computeAppearance } from "../../utils/appearance";
+import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { stateIcon } from "../../utils/icons/state-icon";
-import { getLayoutFromConfig } from "../../utils/layout";
+import { computeEntityPicture, computeInfoDisplay } from "../../utils/info";
 import {
     HUMIDIFIER_CARD_EDITOR_NAME,
     HUMIDIFIER_CARD_NAME,
@@ -40,7 +41,7 @@ registerCustomCard({
 });
 
 @customElement(HUMIDIFIER_CARD_NAME)
-export class HumidifierCard extends MushroomBaseElement implements LovelaceCard {
+export class HumidifierCard extends MushroomBaseCard implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./humidifier-card-editor");
         return document.createElement(HUMIDIFIER_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -97,48 +98,57 @@ export class HumidifierCard extends MushroomBaseElement implements LovelaceCard 
 
         const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
-        const layout = getLayoutFromConfig(this._config);
-        const hideState = this._config.hide_state || false;
+        const appearance = computeAppearance(this._config);
 
         const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
-
-        const rtl = computeRTL(this.hass);
 
         let stateValue = `${stateDisplay}`;
         if (this.humidity) {
             stateValue = `${this.humidity} %`;
         }
 
+        const picture = computeEntityPicture(entity, appearance.icon_info);
+
+        const primary = computeInfoDisplay(
+            appearance.primary_info,
+            name,
+            stateValue,
+            entity,
+            this.hass
+        );
+
+        const secondary = computeInfoDisplay(
+            appearance.secondary_info,
+            name,
+            stateValue,
+            entity,
+            this.hass
+        );
+
+        const rtl = computeRTL(this.hass);
+
         const displayControls =
             (!this._config.collapsible_controls || isActive(entity)) &&
             this._config.show_target_humidity_control;
 
         return html`
-            <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
-                <mushroom-card .layout=${layout} ?rtl=${rtl}>
+            <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
+                <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
                     <mushroom-state-item
                         ?rtl=${rtl}
-                        .layout=${layout}
+                        .appearance=${appearance}
                         @action=${this._handleAction}
                         .actionHandler=${actionHandler({
                             hasHold: hasAction(this._config.hold_action),
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        ${this.renderIcon(icon, isActive(entity))}
-                        ${!isAvailable(entity)
-                            ? html`
-                                  <mushroom-badge-icon
-                                      class="unavailable"
-                                      slot="badge"
-                                      icon="mdi:help"
-                                  ></mushroom-badge-icon>
-                              `
-                            : null}
+                        ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
+                        ${this.renderBadge(entity)}
                         <mushroom-state-info
                             slot="info"
-                            .primary=${name}
-                            .secondary=${!hideState && stateValue}
+                            .primary=${primary}
+                            .secondary=${secondary}
                         ></mushroom-state-info>
                     </mushroom-state-item>
                     ${displayControls
@@ -154,16 +164,6 @@ export class HumidifierCard extends MushroomBaseElement implements LovelaceCard 
                         : null}
                 </mushroom-card>
             </ha-card>
-        `;
-    }
-
-    renderIcon(icon: string, active: boolean): TemplateResult {
-        return html`
-            <mushroom-shape-icon
-                slot="icon"
-                .disabled=${!active}
-                .icon=${icon}
-            ></mushroom-shape-icon>
         `;
     }
 

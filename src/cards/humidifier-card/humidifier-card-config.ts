@@ -12,7 +12,6 @@ export type HumidifierCardConfig = LovelaceCardConfig &
     EntitySharedConfig &
     AppearanceSharedConfig &
     ActionsSharedConfig & {
-        hide_state?: boolean;
         show_target_humidity_control?: boolean;
         collapsible_controls?: boolean;
     };
@@ -21,7 +20,6 @@ export const humidifierCardConfigStruct = assign(
     lovelaceCardConfigStruct,
     assign(entitySharedConfigStruct, appearanceSharedConfigStruct, actionsSharedConfigStruct),
     object({
-        hide_state: optional(boolean()),
         show_target_humidity_control: optional(boolean()),
         collapsible_controls: optional(boolean()),
     })
