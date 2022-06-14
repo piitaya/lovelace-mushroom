@@ -17,11 +17,7 @@ const COVER_LABELS = ["show_buttons_control", "show_position_control"];
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: COVER_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
-    {
-        type: "grid",
-        name: "",
-        schema: [{ name: "icon", selector: { icon: { placeholder: icon } } }],
-    },
+    { name: "icon", selector: { icon: { placeholder: icon } } },
     {
         type: "grid",
         name: "",
