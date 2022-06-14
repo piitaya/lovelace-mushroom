@@ -11,7 +11,6 @@ import {
     hasAction,
     HomeAssistant,
     isActive,
-    isAvailable,
     LightEntity,
     LovelaceCard,
     LovelaceCardEditor,
@@ -19,17 +18,16 @@ import {
 import "../../shared/badge-icon";
 import "../../shared/button";
 import "../../shared/card";
-import "../../shared/shape-icon";
 import "../../shared/shape-avatar";
+import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
 import { computeAppearance } from "../../utils/appearance";
-import { MushroomBaseElement } from "../../utils/base-element";
+import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { computeEntityPicture, computeInfoDisplay } from "../../utils/info";
-import { getLayoutFromConfig } from "../../utils/layout";
 import { LIGHT_CARD_EDITOR_NAME, LIGHT_CARD_NAME, LIGHT_ENTITY_DOMAINS } from "./const";
 import "./controls/light-brightness-control";
 import "./controls/light-color-control";
@@ -60,7 +58,7 @@ registerCustomCard({
 });
 
 @customElement(LIGHT_CARD_NAME)
-export class LightCard extends MushroomBaseElement implements LovelaceCard {
+export class LightCard extends MushroomBaseCard implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./light-card-editor");
         return document.createElement(LIGHT_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -196,8 +194,6 @@ export class LightCard extends MushroomBaseElement implements LovelaceCard {
             this.hass
         );
 
-        const lightRgbColor = getRGBColor(entity);
-
         const rtl = computeRTL(this.hass);
 
         return html`
@@ -212,10 +208,8 @@ export class LightCard extends MushroomBaseElement implements LovelaceCard {
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        ${picture
-                            ? this.renderPicture(picture)
-                            : this.renderIcon(icon, lightRgbColor, isActive(entity))}
-                        ${this.renderBadge(isAvailable(entity))}
+                        ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
+                        ${this.renderBadge(entity)}
                         <mushroom-state-info
                             slot="info"
                             .primary=${primary}
@@ -234,16 +228,9 @@ export class LightCard extends MushroomBaseElement implements LovelaceCard {
         `;
     }
 
-    renderPicture(picture: string): TemplateResult {
-        return html`
-            <mushroom-shape-avatar
-                slot="icon"
-                .picture_url=${(this.hass as any).hassUrl(picture)}
-            ></mushroom-shape-avatar>
-        `;
-    }
-
-    renderIcon(icon: string, lightRgbColor: number[] | undefined, active: boolean): TemplateResult {
+    protected renderIcon(entity: LightEntity, icon: string): TemplateResult {
+        const lightRgbColor = getRGBColor(entity);
+        const active = isActive(entity);
         const iconStyle = {};
         if (lightRgbColor && this._config?.use_light_color) {
             const color = lightRgbColor.join(",");
@@ -264,18 +251,6 @@ export class LightCard extends MushroomBaseElement implements LovelaceCard {
                 style=${styleMap(iconStyle)}
             ></mushroom-shape-icon>
         `;
-    }
-
-    renderBadge(available: boolean): TemplateResult | null {
-        return !available
-            ? html`
-                  <mushroom-badge-icon
-                      class="unavailable"
-                      slot="badge"
-                      icon="mdi:help"
-                  ></mushroom-badge-icon>
-              `
-            : null;
     }
 
     private renderOtherControls(): TemplateResult | null {
