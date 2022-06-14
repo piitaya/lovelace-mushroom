@@ -12,7 +12,6 @@ import {
     hasAction,
     HomeAssistant,
     isActive,
-    isAvailable,
     LovelaceCard,
     LovelaceCardEditor,
 } from "../../ha";
@@ -24,7 +23,7 @@ import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
 import { computeAppearance } from "../../utils/appearance";
-import { MushroomBaseElement } from "../../utils/base-element";
+import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { stateIcon } from "../../utils/icons/state-icon";
@@ -42,7 +41,7 @@ registerCustomCard({
 });
 
 @customElement(FAN_CARD_NAME)
-export class FanCard extends MushroomBaseElement implements LovelaceCard {
+export class FanCard extends MushroomBaseCard implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./fan-card-editor");
         return document.createElement(FAN_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -211,16 +210,7 @@ export class FanCard extends MushroomBaseElement implements LovelaceCard {
         `;
     }
 
-    private renderPicture(picture: string): TemplateResult {
-        return html`
-            <mushroom-shape-avatar
-                slot="icon"
-                .picture_url=${(this.hass as any).hassUrl(picture)}
-            ></mushroom-shape-avatar>
-        `;
-    }
-
-    private renderIcon(entity: HassEntity, icon: string): TemplateResult {
+    protected renderIcon(entity: HassEntity, icon: string): TemplateResult {
         let iconStyle = {};
         const percentage = getPercentage(entity);
         const active = isActive(entity);
@@ -244,19 +234,6 @@ export class FanCard extends MushroomBaseElement implements LovelaceCard {
                 .icon=${icon}
             ></mushroom-shape-icon>
         `;
-    }
-
-    renderBadge(entity: HassEntity): TemplateResult | null {
-        const unavailable = !isAvailable(entity);
-        return unavailable
-            ? html`
-                  <mushroom-badge-icon
-                      class="unavailable"
-                      slot="badge"
-                      icon="mdi:help"
-                  ></mushroom-badge-icon>
-              `
-            : null;
     }
 
     static get styles(): CSSResultGroup {

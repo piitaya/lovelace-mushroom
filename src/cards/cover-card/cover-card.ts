@@ -24,7 +24,7 @@ import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
 import { computeAppearance } from "../../utils/appearance";
-import { MushroomBaseElement } from "../../utils/base-element";
+import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { stateIcon } from "../../utils/icons/state-icon";
@@ -50,7 +50,7 @@ registerCustomCard({
 });
 
 @customElement(COVER_CARD_NAME)
-export class CoverCard extends MushroomBaseElement implements LovelaceCard {
+export class CoverCard extends MushroomBaseCard implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./cover-card-editor");
         return document.createElement(COVER_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -214,16 +214,7 @@ export class CoverCard extends MushroomBaseElement implements LovelaceCard {
         `;
     }
 
-    private renderPicture(picture: string): TemplateResult {
-        return html`
-            <mushroom-shape-avatar
-                slot="icon"
-                .picture_url=${(this.hass as any).hassUrl(picture)}
-            ></mushroom-shape-avatar>
-        `;
-    }
-
-    private renderIcon(entity: CoverEntity, icon: string): TemplateResult {
+    protected renderIcon(entity: CoverEntity, icon: string): TemplateResult {
         const iconStyle = {};
         const available = isAvailable(entity);
         const color = getStateColor(entity);
@@ -238,19 +229,6 @@ export class CoverCard extends MushroomBaseElement implements LovelaceCard {
                 style=${styleMap(iconStyle)}
             ></mushroom-shape-icon>
         `;
-    }
-
-    renderBadge(entity: HassEntity): TemplateResult | null {
-        const unavailable = !isAvailable(entity);
-        return unavailable
-            ? html`
-                  <mushroom-badge-icon
-                      class="unavailable"
-                      slot="badge"
-                      icon="mdi:help"
-                  ></mushroom-badge-icon>
-              `
-            : null;
     }
 
     private renderNextControlButton(): TemplateResult | null {

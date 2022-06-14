@@ -1,3 +1,4 @@
+import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
 import { customElement, query, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
@@ -10,7 +11,6 @@ import {
     handleAction,
     hasAction,
     HomeAssistant,
-    isAvailable,
     LovelaceCard,
     LovelaceCardEditor,
 } from "../../ha";
@@ -22,13 +22,12 @@ import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
 import { computeAppearance } from "../../utils/appearance";
-import { MushroomBaseElement } from "../../utils/base-element";
+import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { alarmPanelIconAction } from "../../utils/icons/alarm-panel-icon";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { computeEntityPicture, computeInfoDisplay } from "../../utils/info";
-import { getLayoutFromConfig } from "../../utils/layout";
 import { AlarmControlPanelCardConfig } from "./alarm-control-panel-card-config";
 import {
     ALARM_CONTROl_PANEL_CARD_EDITOR_NAME,
@@ -65,7 +64,7 @@ const BUTTONS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "", "0", "clear"];
  */
 
 @customElement(ALARM_CONTROl_PANEL_CARD_NAME)
-export class AlarmControlPanelCard extends MushroomBaseElement implements LovelaceCard {
+export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./alarm-control-panel-card-editor");
         return document.createElement(ALARM_CONTROl_PANEL_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -166,8 +165,6 @@ export class AlarmControlPanelCard extends MushroomBaseElement implements Lovela
 
         const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
-        const color = getStateColor(entity.state);
-        const shapePulse = shouldPulse(entity.state);
         const appearance = computeAppearance(this._config);
 
         const actions: ActionButtonType[] =
@@ -213,10 +210,8 @@ export class AlarmControlPanelCard extends MushroomBaseElement implements Lovela
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        ${picture
-                            ? this.renderPicture(picture)
-                            : this.renderIcon(icon, color, shapePulse)}
-                        ${this.renderBadge(isAvailable(entity))}
+                        ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
+                        ${this.renderBadge(entity)}
                         <mushroom-state-info
                             slot="info"
                             .primary=${primary}
@@ -284,16 +279,9 @@ export class AlarmControlPanelCard extends MushroomBaseElement implements Lovela
         `;
     }
 
-    renderPicture(picture: string): TemplateResult {
-        return html`
-            <mushroom-shape-avatar
-                slot="icon"
-                .picture_url=${(this.hass as any).hassUrl(picture)}
-            ></mushroom-shape-avatar>
-        `;
-    }
-
-    renderIcon(icon: string, color: string, shapePulse: boolean): TemplateResult {
+    protected renderIcon(entity: HassEntity, icon: string): TemplateResult {
+        const color = getStateColor(entity.state);
+        const shapePulse = shouldPulse(entity.state);
         const iconStyle = {
             "--icon-color": `rgb(${color})`,
             "--shape-color": `rgba(${color}, 0.2)`,
@@ -308,18 +296,6 @@ export class AlarmControlPanelCard extends MushroomBaseElement implements Lovela
                 .icon=${icon}
             ></mushroom-shape-icon>
         `;
-    }
-
-    renderBadge(available: boolean): TemplateResult | null {
-        return !available
-            ? html`
-                  <mushroom-badge-icon
-                      class="unavailable"
-                      slot="badge"
-                      icon="mdi:help"
-                  ></mushroom-badge-icon>
-              `
-            : null;
     }
 
     static get styles(): CSSResultGroup {
