@@ -1,4 +1,4 @@
-import { fireEvent, HomeAssistant } from "custom-card-helpers";
+import { fireEvent, HomeAssistant } from "../../../ha";
 import { html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import "../../../shared/editor/icon-info-picker";
