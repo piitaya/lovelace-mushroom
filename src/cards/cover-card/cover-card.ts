@@ -22,10 +22,12 @@ import "../../shared/card";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
+import { computeAppearance } from "../../utils/appearance";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { stateIcon } from "../../utils/icons/state-icon";
+import { computeEntityPicture, computeInfoDisplay } from "../../utils/info";
 import { getLayoutFromConfig, Layout } from "../../utils/layout";
 import { COVER_CARD_EDITOR_NAME, COVER_CARD_NAME, COVER_ENTITY_DOMAINS } from "./const";
 import "./controls/cover-buttons-control";
@@ -147,10 +149,9 @@ export class CoverCard extends MushroomBaseElement implements LovelaceCard {
         const entity_id = this._config.entity;
         const entity = this.hass.states[entity_id];
 
-        const name = this._config.name || entity.attributes.friendly_name;
+        const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
-        const layout = getLayoutFromConfig(this._config);
-        const hideState = this._config.hide_state;
+        const appearance = computeAppearance(this._config);
 
         const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
@@ -161,21 +162,38 @@ export class CoverCard extends MushroomBaseElement implements LovelaceCard {
 
         const available = isAvailable(entity);
 
+        const picture = computeEntityPicture(entity, appearance.icon_info);
+
+        const primary = computeInfoDisplay(
+            appearance.primary_info,
+            name,
+            stateValue,
+            entity,
+            this.hass
+        );
+
+        const secondary = computeInfoDisplay(
+            appearance.secondary_info,
+            name,
+            stateValue,
+            entity,
+            this.hass
+        );
+
         const rtl = computeRTL(this.hass);
 
         return html`
             <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
-                <mushroom-card .layout=${layout} ?rtl=${rtl}>
+                <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
                     <mushroom-state-item
                         ?rtl=${rtl}
-                        .layout=${layout}
+                        .appearance=${appearance}
                         @action=${this._handleAction}
                         .actionHandler=${actionHandler({
                             hasHold: hasAction(this._config.hold_action),
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        ${this.renderIcon(entity as CoverEntity, icon, available)}
                         ${!available
                             ? html`
                                   <mushroom-badge-icon
@@ -185,22 +203,35 @@ export class CoverCard extends MushroomBaseElement implements LovelaceCard {
                                   ></mushroom-badge-icon>
                               `
                             : null}
+                        ${picture
+                            ? this.renderPicture(picture)
+                            : this.renderIcon(entity as CoverEntity, icon, available)}
+                        ${this.renderBadge(isAvailable(entity))}
                         <mushroom-state-info
                             slot="info"
-                            .primary=${name}
-                            .secondary=${!hideState && stateValue}
+                            .primary=${primary}
+                            .secondary=${secondary}
                         ></mushroom-state-info>
                     </mushroom-state-item>
                     ${this._controls.length > 0
                         ? html`
                               <div class="actions" ?rtl=${rtl}>
-                                  ${this.renderActiveControl(entity, layout)}
+                                  ${this.renderActiveControl(entity, appearance.layout)}
                                   ${this.renderNextControlButton()}
                               </div>
                           `
                         : null}
                 </mushroom-card>
             </ha-card>
+        `;
+    }
+
+    renderPicture(picture: string): TemplateResult {
+        return html`
+            <mushroom-shape-avatar
+                slot="icon"
+                .picture_url=${(this.hass as any).hassUrl(picture)}
+            ></mushroom-shape-avatar>
         `;
     }
 
@@ -218,6 +249,18 @@ export class CoverCard extends MushroomBaseElement implements LovelaceCard {
                 style=${styleMap(iconStyle)}
             ></mushroom-shape-icon>
         `;
+    }
+
+    renderBadge(available: boolean): TemplateResult | null {
+        return !available
+            ? html`
+                  <mushroom-badge-icon
+                      class="unavailable"
+                      slot="badge"
+                      icon="mdi:help"
+                  ></mushroom-badge-icon>
+              `
+            : null;
     }
 
     private renderNextControlButton(): TemplateResult | null {

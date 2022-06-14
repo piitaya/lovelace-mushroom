@@ -12,7 +12,6 @@ export type CoverCardConfig = LovelaceCardConfig &
     EntitySharedConfig &
     AppearanceSharedConfig &
     ActionsSharedConfig & {
-        hide_state?: boolean;
         show_buttons_control?: false;
         show_position_control?: false;
     };
@@ -21,7 +20,6 @@ export const coverCardConfigStruct = assign(
     lovelaceCardConfigStruct,
     assign(entitySharedConfigStruct, appearanceSharedConfigStruct, actionsSharedConfigStruct),
     object({
-        hide_state: optional(boolean()),
         show_buttons_control: optional(boolean()),
         show_position_control: optional(boolean()),
     })
