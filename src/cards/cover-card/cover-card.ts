@@ -19,6 +19,7 @@ import {
 import "../../shared/badge-icon";
 import "../../shared/button";
 import "../../shared/card";
+import "../../shared/shape-avatar";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
@@ -28,7 +29,7 @@ import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { computeEntityPicture, computeInfoDisplay } from "../../utils/info";
-import { getLayoutFromConfig, Layout } from "../../utils/layout";
+import { Layout } from "../../utils/layout";
 import { COVER_CARD_EDITOR_NAME, COVER_CARD_NAME, COVER_ENTITY_DOMAINS } from "./const";
 import "./controls/cover-buttons-control";
 import "./controls/cover-position-control";
@@ -147,7 +148,7 @@ export class CoverCard extends MushroomBaseElement implements LovelaceCard {
         }
 
         const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id];
+        const entity = this.hass.states[entity_id] as CoverEntity;
 
         const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
@@ -159,8 +160,6 @@ export class CoverCard extends MushroomBaseElement implements LovelaceCard {
         if (this.position) {
             stateValue += ` - ${this.position}%`;
         }
-
-        const available = isAvailable(entity);
 
         const picture = computeEntityPicture(entity, appearance.icon_info);
 
@@ -183,7 +182,7 @@ export class CoverCard extends MushroomBaseElement implements LovelaceCard {
         const rtl = computeRTL(this.hass);
 
         return html`
-            <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
+            <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
                 <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
                     <mushroom-state-item
                         ?rtl=${rtl}
@@ -194,19 +193,8 @@ export class CoverCard extends MushroomBaseElement implements LovelaceCard {
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        ${!available
-                            ? html`
-                                  <mushroom-badge-icon
-                                      class="unavailable"
-                                      slot="badge"
-                                      icon="mdi:help"
-                                  ></mushroom-badge-icon>
-                              `
-                            : null}
-                        ${picture
-                            ? this.renderPicture(picture)
-                            : this.renderIcon(entity as CoverEntity, icon, available)}
-                        ${this.renderBadge(isAvailable(entity))}
+                        ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
+                        ${this.renderBadge(entity)}
                         <mushroom-state-info
                             slot="info"
                             .primary=${primary}
@@ -226,7 +214,7 @@ export class CoverCard extends MushroomBaseElement implements LovelaceCard {
         `;
     }
 
-    renderPicture(picture: string): TemplateResult {
+    private renderPicture(picture: string): TemplateResult {
         return html`
             <mushroom-shape-avatar
                 slot="icon"
@@ -235,8 +223,9 @@ export class CoverCard extends MushroomBaseElement implements LovelaceCard {
         `;
     }
 
-    private renderIcon(entity: CoverEntity, icon: string, available: boolean): TemplateResult {
+    private renderIcon(entity: CoverEntity, icon: string): TemplateResult {
         const iconStyle = {};
+        const available = isAvailable(entity);
         const color = getStateColor(entity);
         iconStyle["--icon-color"] = `rgb(${color})`;
         iconStyle["--shape-color"] = `rgba(${color}, 0.2)`;
@@ -251,8 +240,9 @@ export class CoverCard extends MushroomBaseElement implements LovelaceCard {
         `;
     }
 
-    renderBadge(available: boolean): TemplateResult | null {
-        return !available
+    renderBadge(entity: HassEntity): TemplateResult | null {
+        const unavailable = !isAvailable(entity);
+        return unavailable
             ? html`
                   <mushroom-badge-icon
                       class="unavailable"
