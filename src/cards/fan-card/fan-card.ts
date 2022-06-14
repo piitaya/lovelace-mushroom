@@ -120,19 +120,6 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
 
         const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
-        const active = isActive(entity);
-
-        let iconStyle = {};
-        const percentage = getPercentage(entity);
-        if (active) {
-            if (percentage) {
-                const speed = 1.5 * (percentage / 100) ** 0.5;
-                iconStyle["--animation-duration"] = `${1 / speed}s`;
-            } else {
-                iconStyle["--animation-duration"] = `1s`;
-            }
-        }
-
         let stateValue = `${stateDisplay}`;
         if (this.percentage) {
             stateValue += ` - ${this.percentage}%`;
