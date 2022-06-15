@@ -184,9 +184,9 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
         }
         return html`
             <mushroom-badge-icon
-                style=${styleMap(badgeStyle)}
                 slot="badge"
                 .icon=${badge}
+                style=${styleMap(badgeStyle)}
             ></mushroom-badge-icon>
         `;
     }
