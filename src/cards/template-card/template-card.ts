@@ -111,6 +111,8 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
         const iconColor = this.getValue("icon_color");
         const primary = this.getValue("primary");
         const secondary = this.getValue("secondary");
+        const stateIcon = this.getValue("stateIcon");
+        const stateColor = this.getValue("stateColor");
 
         const hideIcon = !icon;
 
@@ -141,6 +143,7 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
                         .hide_icon=${hideIcon}
                     >
                         ${!hideIcon ? this.renderIcon(icon, iconColor) : undefined}
+                        ${!hideIcon ? this.renderStateBadge(stateIcon, stateColor) : undefined}
                         <mushroom-state-info
                             slot="info"
                             .primary=${primary}
@@ -166,6 +169,24 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
                 slot="icon"
                 .icon=${icon}
             ></mushroom-shape-icon>
+        `;
+    }
+
+    renderStateBadge(icon: string, color: string) {
+        if (icon == "") {
+            return html``;
+        }
+        if (color == "") {
+            color = "red";
+        }
+        return html`
+            <mushroom-badge-icon
+                slot="badge"
+                .icon=${icon}
+                style=${styleMap({
+                    "--main-color": `rgb(${color})`,
+                })}
+            ></mushroom-badge-icon>
         `;
     }
 
