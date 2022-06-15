@@ -32,7 +32,7 @@ registerCustomCard({
     description: "Card for custom rendering with templates",
 });
 
-const TEMPLATE_KEYS = ["icon", "icon_color", "primary", "secondary"] as const;
+const TEMPLATE_KEYS = ["icon", "icon_color", "badge_icon_color", "badge_icon", "primary", "secondary"] as const;
 type TemplateKey = typeof TEMPLATE_KEYS[number];
 
 @customElement(TEMPLATE_CARD_NAME)
@@ -48,6 +48,8 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
             primary: "Hello, {{user}}",
             secondary: "How are you?",
             icon: "mdi:home",
+            badge_icon: "mdi:hand-okay",
+            badge_icon_color: "red",
         };
     }
 
@@ -109,12 +111,13 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
 
         const icon = this.getValue("icon");
         const iconColor = this.getValue("icon_color");
+        const badgeIcon = this.getValue("badge_icon");
+        const badgeIconColor = this.getValue("badge_icon_color");
         const primary = this.getValue("primary");
         const secondary = this.getValue("secondary");
-        const stateIcon = this.getValue("stateIcon");
-        const stateColor = this.getValue("stateColor");
 
         const hideIcon = !icon;
+        const hideBadgeIcon = !badgeIcon;
 
         const layout = getLayoutFromConfig(this._config);
         const multiline_secondary = this._config.multiline_secondary;
@@ -143,7 +146,7 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
                         .hide_icon=${hideIcon}
                     >
                         ${!hideIcon ? this.renderIcon(icon, iconColor) : undefined}
-                        ${!hideIcon ? this.renderStateBadge(stateIcon, stateColor) : undefined}
+                        ${!hideIcon || !hideBadgeIcon ? this.renderBadgeIcon(badgeIcon, badgeIconColor) : undefined}
                         <mushroom-state-info
                             slot="info"
                             .primary=${primary}
@@ -172,20 +175,18 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
         `;
     }
 
-    renderStateBadge(icon: string, color: string) {
-        if (icon == "") {
-            return html``;
-        }
-        if (color == "") {
-            color = "red";
+    renderBadgeIcon(badge: string, badgeColor: string) {
+        const badgeStyle = {};
+        if (badgeColor) {
+            const iconRgbColor = computeRgbColor(badgeColor);
+            badgeStyle["--icon-color"] = `rgb(${iconRgbColor})`;
+            badgeStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
         }
         return html`
             <mushroom-badge-icon
+                style=${styleMap(badgeStyle)}
                 slot="badge"
-                .icon=${icon}
-                style=${styleMap({
-                    "--main-color": `rgb(${color})`,
-                })}
+                .icon=${badge}
             ></mushroom-badge-icon>
         `;
     }
