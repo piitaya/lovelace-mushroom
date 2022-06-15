@@ -28,18 +28,6 @@ const computeSchema = memoizeOne((version: string): HaFormSchema[] => [
             : { text: { multiline: true } },
     },
     {
-        name: "badge_icon",
-        selector: atLeastHaVersion(version, 2022, 5)
-            ? { template: {} }
-            : { text: { multiline: true } },
-    },
-    {
-        name: "badge_icon_color",
-        selector: atLeastHaVersion(version, 2022, 5)
-            ? { template: {} }
-            : { text: { multiline: true } },
-    },
-    {
         name: "primary",
         selector: atLeastHaVersion(version, 2022, 5)
             ? { template: {} }
