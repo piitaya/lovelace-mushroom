@@ -1,7 +1,13 @@
+---
+title: Lock
+hide:
+  - toc
+---
+
 # Lock card
 
-![Lock light](../images/lock-light.png)
-![Lock dark](../images/lock-dark.png)
+![Lock light](../assets/images/lock-light.png)
+![Lock dark](../assets/images/lock-dark.png)
 
 ## Description
 

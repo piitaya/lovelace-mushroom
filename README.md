@@ -15,7 +15,7 @@ Mushroom is a collection of cards for [Home Assistant][home-assistant] Dashboard
 
 Mushroom mission is to propose easy to use components to build your [Home Assistant][home-assistant] dashboard.
 
-### Features
+## Installation and update
 
 -   🛠 Editor for **all cards** and and **all options** (no need to edit `yaml`)
 -   😍 Icon picker
@@ -156,10 +156,3 @@ The design is inspired by [7ahang’s work][7ahang] on Behance and [Ui Lovelace 
 
 <!-- References -->
 
-[home-assistant]: https://www.home-assistant.io/
-[home-assitant-theme-docs]: https://www.home-assistant.io/integrations/frontend/#defining-themes
-[hacs]: https://hacs.xyz
-[ui-lovelace-minimalist]: https://ui-lovelace-minimalist.github.io/UI/
-[button-card]: https://github.com/custom-cards/button-card
-[7ahang]: https://www.behance.net/gallery/88433905/Redesign-Smart-Home
-[release-url]: https://github.com/piitaya/lovelace-mushroom/releases

@@ -1,7 +1,13 @@
+---
+title: Media Player
+hide:
+  - toc
+---
+
 # Media Player card
 
-![Media Player light](../images/media-player-light.png)
-![Media Player dark](../images/media-player-dark.png)
+![Media Player light](../assets/images/media-player-light.png)
+![Media Player dark](../assets/images/media-player-dark.png)
 
 ## Description
 

@@ -1,7 +1,7 @@
 # Humidifier card
 
-![Humidifier light](../images/humidifier-light.png)
-![Humidifier dark](../images/humidifier-dark.png)
+![Humidifier light](../assets/images/humidifier-light.png)
+![Humidifier dark](../assets/images/humidifier-dark.png)
 
 ## Description
 

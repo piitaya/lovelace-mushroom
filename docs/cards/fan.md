@@ -1,7 +1,13 @@
+---
+title: Fan
+hide:
+  - toc
+---
+
 # Fan card
 
-![Fan light](../images/fan-light.png)
-![Fan dark](../images/fan-dark.png)
+![Fan light](../assets/images/fan-light.png)
+![Fan dark](../assets/images/fan-dark.png)
 
 ## Description
 

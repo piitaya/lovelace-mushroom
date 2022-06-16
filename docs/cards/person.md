@@ -1,7 +1,13 @@
+---
+title: Person
+hide:
+  - toc
+---
+
 # Person card
 
-![Person light](../images/person-light.png)
-![Person dark](../images/person-dark.png)
+![Person light](../assets/images/person-light.png)
+![Person dark](../assets/images/person-dark.png)
 
 ## Description
 
