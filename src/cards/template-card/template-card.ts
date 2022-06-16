@@ -173,7 +173,7 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
         `;
     }
 
-    renderBadgeIcon(badge: string|undefined, badgeColor: string|undefined) {
+    renderBadgeIcon(badge: string, badgeColor?: string) {
         const badgeStyle = {};
         if (badgeColor) {
             const iconRgbColor = computeRgbColor(badgeColor);
