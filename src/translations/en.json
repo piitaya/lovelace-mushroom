@@ -71,7 +71,9 @@
                 "secondary": "Secondary information",
                 "multiline_secondary": "Multiline secondary?",
                 "entity_extra": "Used in templates and actions",
-                "content": "Content"
+                "content": "Content",
+                "badge_icon": "Badge icon",
+                "badge_color": "Badge color"
             },
             "title": {
                 "title": "Title",
