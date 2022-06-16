@@ -1,13 +1,15 @@
 import { HassEntity } from "home-assistant-js-websocket";
 import { html, TemplateResult } from "lit";
-import { HomeAssistant, isActive, isAvailable } from "../ha";
+import { computeStateDisplay, HomeAssistant, isActive, isAvailable } from "../ha";
 import "../shared/badge-icon";
 import "../shared/card";
+import { Appearance } from "../shared/config/appearance-config";
 import "../shared/shape-avatar";
 import "../shared/shape-icon";
 import "../shared/state-info";
 import "../shared/state-item";
 import { MushroomBaseElement } from "./base-element";
+import { computeEntityPicture, computeInfoDisplay } from "./info";
 
 export function computeDarkMode(hass?: HomeAssistant): boolean {
     if (!hass) return false;
@@ -45,5 +47,33 @@ export class MushroomBaseCard extends MushroomBaseElement {
                   ></mushroom-badge-icon>
               `
             : null;
+    }
+
+    protected renderStateInfo(
+        entity: HassEntity,
+        appearance: Appearance,
+        name: string,
+        customState?: string
+    ): TemplateResult | null {
+        const defaultState = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
+        const state = customState ?? defaultState;
+
+        const primary = computeInfoDisplay(appearance.primary_info, name, state, entity, this.hass);
+
+        const secondary = computeInfoDisplay(
+            appearance.secondary_info,
+            name,
+            state,
+            entity,
+            this.hass
+        );
+
+        return html`
+            <mushroom-state-info
+                slot="info"
+                .primary=${primary}
+                .secondary=${secondary}
+            ></mushroom-state-info>
+        `;
     }
 }

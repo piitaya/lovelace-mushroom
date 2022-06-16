@@ -25,7 +25,7 @@ import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { stateIcon } from "../../utils/icons/state-icon";
-import { computeEntityPicture, computeInfoDisplay } from "../../utils/info";
+import { computeEntityPicture } from "../../utils/info";
 import {
     HUMIDIFIER_CARD_EDITOR_NAME,
     HUMIDIFIER_CARD_NAME,
@@ -99,31 +99,12 @@ export class HumidifierCard extends MushroomBaseCard implements LovelaceCard {
         const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
         const appearance = computeAppearance(this._config);
-
-        const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
-
-        let stateValue = `${stateDisplay}`;
-        if (this.humidity) {
-            stateValue = `${this.humidity} %`;
-        }
-
         const picture = computeEntityPicture(entity, appearance.icon_info);
 
-        const primary = computeInfoDisplay(
-            appearance.primary_info,
-            name,
-            stateValue,
-            entity,
-            this.hass
-        );
-
-        const secondary = computeInfoDisplay(
-            appearance.secondary_info,
-            name,
-            stateValue,
-            entity,
-            this.hass
-        );
+        let stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
+        if (this.humidity) {
+            stateDisplay = `${this.humidity} %`;
+        }
 
         const rtl = computeRTL(this.hass);
 
@@ -145,11 +126,7 @@ export class HumidifierCard extends MushroomBaseCard implements LovelaceCard {
                     >
                         ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
                         ${this.renderBadge(entity)}
-                        <mushroom-state-info
-                            slot="info"
-                            .primary=${primary}
-                            .secondary=${secondary}
-                        ></mushroom-state-info>
+                        ${this.renderStateInfo(entity, appearance, name, stateDisplay)};
                     </mushroom-state-item>
                     ${displayControls
                         ? html`

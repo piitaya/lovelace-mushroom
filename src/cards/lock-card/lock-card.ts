@@ -6,7 +6,6 @@ import {
     actionHandler,
     ActionHandlerEvent,
     computeRTL,
-    computeStateDisplay,
     handleAction,
     hasAction,
     HomeAssistant,
@@ -23,12 +22,10 @@ import "../../shared/state-info";
 import "../../shared/state-item";
 import { computeAppearance } from "../../utils/appearance";
 import { MushroomBaseCard } from "../../utils/base-card";
-import { MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { stateIcon } from "../../utils/icons/state-icon";
-import { computeEntityPicture, computeInfoDisplay } from "../../utils/info";
-import { getLayoutFromConfig } from "../../utils/layout";
+import { computeEntityPicture } from "../../utils/info";
 import { LOCK_CARD_EDITOR_NAME, LOCK_CARD_NAME, LOCK_ENTITY_DOMAINS } from "./const";
 import "./controls/lock-buttons-control";
 import { LockCardConfig } from "./lock-card-config";
@@ -89,26 +86,7 @@ export class LockCard extends MushroomBaseCard implements LovelaceCard {
         const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
         const appearance = computeAppearance(this._config);
-
-        const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
-
         const picture = computeEntityPicture(entity, appearance.icon_info);
-
-        const primary = computeInfoDisplay(
-            appearance.primary_info,
-            name,
-            stateDisplay,
-            entity,
-            this.hass
-        );
-
-        const secondary = computeInfoDisplay(
-            appearance.secondary_info,
-            name,
-            stateDisplay,
-            entity,
-            this.hass
-        );
 
         const rtl = computeRTL(this.hass);
 
@@ -126,11 +104,7 @@ export class LockCard extends MushroomBaseCard implements LovelaceCard {
                     >
                         ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
                         ${this.renderBadge(entity)}
-                        <mushroom-state-info
-                            slot="info"
-                            .primary=${primary}
-                            .secondary=${secondary}
-                        ></mushroom-state-info>
+                        ${this.renderStateInfo(entity, appearance, name)};
                     </mushroom-state-item>
                     <div class="actions" ?rtl=${rtl}>
                         <mushroom-lock-buttons-control

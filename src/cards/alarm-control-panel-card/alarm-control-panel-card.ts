@@ -166,6 +166,7 @@ export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceC
         const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
         const appearance = computeAppearance(this._config);
+        const picture = computeEntityPicture(entity, appearance.icon_info);
 
         const actions: ActionButtonType[] =
             this._config.states && this._config.states.length > 0
@@ -175,26 +176,6 @@ export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceC
                 : [];
 
         const isActionEnabled = isActionsAvailable(entity);
-
-        const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
-
-        const picture = computeEntityPicture(entity, appearance.icon_info);
-
-        const primary = computeInfoDisplay(
-            appearance.primary_info,
-            name,
-            stateDisplay,
-            entity,
-            this.hass
-        );
-
-        const secondary = computeInfoDisplay(
-            appearance.secondary_info,
-            name,
-            stateDisplay,
-            entity,
-            this.hass
-        );
 
         const rtl = computeRTL(this.hass);
 
@@ -212,11 +193,7 @@ export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceC
                     >
                         ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
                         ${this.renderBadge(entity)}
-                        <mushroom-state-info
-                            slot="info"
-                            .primary=${primary}
-                            .secondary=${secondary}
-                        ></mushroom-state-info>
+                        ${this.renderStateInfo(entity, appearance, name)};
                     </mushroom-state-item>
                     ${actions.length > 0
                         ? html`

@@ -172,27 +172,12 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
         const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
         const appearance = computeAppearance(this._config);
-
-        const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
-        const stateValue = this.brightness != null ? `${this.brightness}%` : stateDisplay;
-
         const picture = computeEntityPicture(entity, appearance.icon_info);
 
-        const primary = computeInfoDisplay(
-            appearance.primary_info,
-            name,
-            stateValue,
-            entity,
-            this.hass
-        );
-
-        const secondary = computeInfoDisplay(
-            appearance.secondary_info,
-            name,
-            stateValue,
-            entity,
-            this.hass
-        );
+        let stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
+        if (this.brightness != null) {
+            stateDisplay = `${this.brightness}%`;
+        }
 
         const rtl = computeRTL(this.hass);
 
@@ -210,11 +195,7 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
                     >
                         ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
                         ${this.renderBadge(entity)}
-                        <mushroom-state-info
-                            slot="info"
-                            .primary=${primary}
-                            .secondary=${secondary}
-                        ></mushroom-state-info>
+                        ${this.renderStateInfo(entity, appearance, name, stateDisplay)};
                     </mushroom-state-item>
                     ${this._controls.length > 0
                         ? html`
