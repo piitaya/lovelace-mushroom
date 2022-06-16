@@ -32,7 +32,7 @@ registerCustomCard({
     description: "Card for custom rendering with templates",
 });
 
-const TEMPLATE_KEYS = ["icon", "icon_color", "badge_icon_color", "badge_icon", "primary", "secondary"] as const;
+const TEMPLATE_KEYS = ["icon", "icon_color", "badge_color", "badge_icon", "primary", "secondary"] as const;
 type TemplateKey = typeof TEMPLATE_KEYS[number];
 
 @customElement(TEMPLATE_CARD_NAME)
@@ -110,7 +110,7 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
         const icon = this.getValue("icon");
         const iconColor = this.getValue("icon_color");
         const badgeIcon = this.getValue("badge_icon");
-        const badgeIconColor = this.getValue("badge_icon_color");
+        const badgeColor = this.getValue("badge_color");
         const primary = this.getValue("primary");
         const secondary = this.getValue("secondary");
 
@@ -144,7 +144,7 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
                         .hide_icon=${hideIcon}
                     >
                         ${!hideIcon ? this.renderIcon(icon, iconColor) : undefined}
-                        ${!hideIcon && !hideBadgeIcon ? this.renderBadgeIcon(badgeIcon, badgeIconColor) : undefined}
+                        ${!hideIcon && !hideBadgeIcon ? this.renderBadgeIcon(badgeIcon, badgeColor) : undefined}
                         <mushroom-state-info
                             slot="info"
                             .primary=${primary}

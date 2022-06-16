@@ -16,7 +16,7 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `icon`                | string          | Optional    | Icon to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                              |
 | `icon_color`          | string          | Optional    | Icon color to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                        |
 | `badge_icon`          | string          | Optional    | Badge icon to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                        |
-| `badge_icon_color`    | string          | Optional    | Badge icon color to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                  |
+| `badge_color`         | string          | Optional    | Badge icon color to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                  |
 | `hide_icon`           | boolean         | `false`     | Hide the icon                                                                                                                       |
 | `primary`             | string          | Optional    | Primary info to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                      |
 | `secondary`           | string          | Optional    | Secondary info to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                    |

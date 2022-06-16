@@ -73,7 +73,7 @@
                 "entity_extra": "Utilisée pour les templates et les actions",
                 "content": "Contenu",
                 "badge_icon": "Icône du badge",
-                "badge_icon_color": "Couleur du badge"
+                "badge_color": "Couleur du badge"
             },
             "title": {
                 "title": "Titre",

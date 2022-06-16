@@ -11,7 +11,7 @@ export type TemplateCardConfig = LovelaceCardConfig &
         icon?: string;
         icon_color?: string;
         badge_icon?: string;
-        badge_icon_color?: string;
+        badge_color?: string;
         primary?: string;
         secondary?: string;
         multiline_secondary?: boolean;
@@ -26,7 +26,7 @@ export const templateCardConfigStruct = assign(
         icon: optional(string()),
         icon_color: optional(string()),
         badge_icon: optional(string()),
-        badge_icon_color: optional(string()),
+        badge_color: optional(string()),
         primary: optional(string()),
         secondary: optional(string()),
         multiline_secondary: optional(boolean()),
