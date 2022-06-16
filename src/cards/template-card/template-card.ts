@@ -48,8 +48,6 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
             primary: "Hello, {{user}}",
             secondary: "How are you?",
             icon: "mdi:home",
-            badge_icon: "mdi:hand-okay",
-            badge_icon_color: "red",
         };
     }
 
