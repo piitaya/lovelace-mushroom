@@ -16,8 +16,8 @@ export class BadgeIcon extends LitElement {
     static get styles(): CSSResultGroup {
         return css`
             :host {
-                --main-color: var(--state-unknown-color);
-                --icon-color: var(--text-primary-color);
+                --main-color: rgb(var(--rgb-grey));
+                --icon-color: rgb(var(--rgb-white));
             }
             .badge {
                 display: flex;
