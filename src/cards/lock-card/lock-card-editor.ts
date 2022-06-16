@@ -2,14 +2,14 @@ import { html, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
-import { fireEvent, LOCK_ENTITY_DOMAINS, LovelaceCardEditor } from "../../ha";
+import { fireEvent, LovelaceCardEditor } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { loadHaComponents } from "../../utils/loader";
-import { LOCK_CARD_EDITOR_NAME } from "./const";
+import { LOCK_CARD_EDITOR_NAME, LOCK_ENTITY_DOMAINS } from "./const";
 import { LockCardConfig, lockCardConfigStruct } from "./lock-card-config";
 
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
@@ -22,7 +22,15 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
         schema: [
             { name: "layout", selector: { "mush-layout": {} } },
             { name: "fill_container", selector: { boolean: {} } },
-            { name: "hide_state", selector: { boolean: {} } },
+        ],
+    },
+    {
+        type: "grid",
+        name: "",
+        schema: [
+            { name: "primary_info", selector: { "mush-info": {} } },
+            { name: "secondary_info", selector: { "mush-info": {} } },
+            { name: "icon_info", selector: { "mush-icon-info": {} } },
         ],
     },
     { name: "tap_action", selector: { "mush-action": {} } },

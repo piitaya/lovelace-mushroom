@@ -11,14 +11,9 @@ import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-conf
 export type LockCardConfig = LovelaceCardConfig &
     EntitySharedConfig &
     AppearanceSharedConfig &
-    ActionsSharedConfig & {
-        hide_state?: boolean;
-    };
+    ActionsSharedConfig;
 
 export const lockCardConfigStruct = assign(
     lovelaceCardConfigStruct,
-    assign(entitySharedConfigStruct, appearanceSharedConfigStruct, actionsSharedConfigStruct),
-    object({
-        hide_state: optional(boolean()),
-    })
+    assign(entitySharedConfigStruct, appearanceSharedConfigStruct, actionsSharedConfigStruct)
 );
