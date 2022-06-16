@@ -32,7 +32,14 @@ registerCustomCard({
     description: "Card for custom rendering with templates",
 });
 
-const TEMPLATE_KEYS = ["icon", "icon_color", "badge_color", "badge_icon", "primary", "secondary"] as const;
+const TEMPLATE_KEYS = [
+    "icon",
+    "icon_color",
+    "badge_color",
+    "badge_icon",
+    "primary",
+    "secondary",
+] as const;
 type TemplateKey = typeof TEMPLATE_KEYS[number];
 
 @customElement(TEMPLATE_CARD_NAME)
@@ -144,7 +151,9 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
                         .hide_icon=${hideIcon}
                     >
                         ${!hideIcon ? this.renderIcon(icon, iconColor) : undefined}
-                        ${!hideIcon && !hideBadgeIcon ? this.renderBadgeIcon(badgeIcon, badgeColor) : undefined}
+                        ${!hideIcon && !hideBadgeIcon
+                            ? this.renderBadgeIcon(badgeIcon, badgeColor)
+                            : undefined}
                         <mushroom-state-info
                             slot="info"
                             .primary=${primary}
@@ -177,8 +186,7 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
         const badgeStyle = {};
         if (badgeColor) {
             const iconRgbColor = computeRgbColor(badgeColor);
-            badgeStyle["--icon-color"] = `rgb(${iconRgbColor})`;
-            badgeStyle["--main-color"] = `rgba(${iconRgbColor}, 0.2)`;
+            badgeStyle["--main-color"] = `rgba(${iconRgbColor})`;
         }
         return html`
             <mushroom-badge-icon

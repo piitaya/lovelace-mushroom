@@ -37,6 +37,17 @@ cards:
           {{ "green" if states | count > 50 else "red" }}  
     columns: 2
     square: false
+  - type: grid
+    title: Badge
+    cards:
+      - type: custom:mushroom-template-card
+        primary: Hello, {{user}}
+        secondary: How are you?
+        icon: mdi:home
+        badge_icon: mdi:fire
+        badge_color: red
+    columns: 2
+    square: false
   - type: vertical-stack
     title: Layout
     cards:
