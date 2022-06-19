@@ -72,6 +72,8 @@
                 "multiline_secondary": "Mehrzeilig sekundär?",
                 "entity_extra": "Wird in Vorlagen und Aktionen verwendet",
                 "content": "Inhalt"
+                "badge_icon": "Badge-Icon",
+                "badge_color": "Badge-Farbe"
             },
             "title": {
                 "title": "Titel",
