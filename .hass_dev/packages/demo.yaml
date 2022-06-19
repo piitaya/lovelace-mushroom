@@ -1,0 +1,41 @@
+climate:
+  - platform: demo
+
+light:
+  - platform: demo
+
+switch:
+  - platform: demo
+
+cover:
+  - platform: demo
+
+media_player:
+  - platform: demo
+
+sensor:
+  - platform: demo
+
+binary_sensor:
+  - platform: demo
+
+weather:
+  - platform: demo
+
+fan:
+  - platform: demo
+
+lock:
+  - platform: demo
+
+humidifier:
+  - platform: demo
+
+vacuum:
+  - platform: demo
+
+update:
+  - platform: demo
+
+device_tracker:
+  - platform: demo

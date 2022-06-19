@@ -1,4 +1,10 @@
+import { UnsubscribeFunc } from "home-assistant-js-websocket";
+import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
+import { customElement, state } from "lit/decorators.js";
+import { classMap } from "lit/directives/class-map.js";
+import { styleMap } from "lit/directives/style-map.js";
 import {
+    actionHandler,
     ActionHandlerEvent,
     computeRTL,
     handleAction,
@@ -6,12 +12,9 @@ import {
     HomeAssistant,
     LovelaceCard,
     LovelaceCardEditor,
-} from "custom-card-helpers";
-import { Connection, UnsubscribeFunc } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
-import { customElement, state } from "lit/decorators.js";
-import { classMap } from "lit/directives/class-map.js";
-import { styleMap } from "lit/directives/style-map.js";
+    RenderTemplateResult,
+    subscribeRenderTemplate,
+} from "../../ha";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
@@ -19,9 +22,7 @@ import { MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
 import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { actionHandler } from "../../utils/directives/action-handler-directive";
 import { getLayoutFromConfig } from "../../utils/layout";
-import { RenderTemplateResult, subscribeRenderTemplate } from "../../utils/ws-templates";
 import { TEMPLATE_CARD_EDITOR_NAME, TEMPLATE_CARD_NAME } from "./const";
 import { TemplateCardConfig } from "./template-card-config";
 
@@ -31,7 +32,14 @@ registerCustomCard({
     description: "Card for custom rendering with templates",
 });
 
-const TEMPLATE_KEYS = ["icon", "icon_color", "primary", "secondary"] as const;
+const TEMPLATE_KEYS = [
+    "icon",
+    "icon_color",
+    "badge_color",
+    "badge_icon",
+    "primary",
+    "secondary",
+] as const;
 type TemplateKey = typeof TEMPLATE_KEYS[number];
 
 @customElement(TEMPLATE_CARD_NAME)
@@ -108,10 +116,13 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
 
         const icon = this.getValue("icon");
         const iconColor = this.getValue("icon_color");
+        const badgeIcon = this.getValue("badge_icon");
+        const badgeColor = this.getValue("badge_color");
         const primary = this.getValue("primary");
         const secondary = this.getValue("secondary");
 
         const hideIcon = !icon;
+        const hideBadgeIcon = !badgeIcon;
 
         const layout = getLayoutFromConfig(this._config);
         const multiline_secondary = this._config.multiline_secondary;
@@ -140,6 +151,9 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
                         .hide_icon=${hideIcon}
                     >
                         ${!hideIcon ? this.renderIcon(icon, iconColor) : undefined}
+                        ${!hideIcon && !hideBadgeIcon
+                            ? this.renderBadgeIcon(badgeIcon, badgeColor)
+                            : undefined}
                         <mushroom-state-info
                             slot="info"
                             .primary=${primary}
@@ -165,6 +179,21 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
                 slot="icon"
                 .icon=${icon}
             ></mushroom-shape-icon>
+        `;
+    }
+
+    renderBadgeIcon(badge: string, badgeColor?: string) {
+        const badgeStyle = {};
+        if (badgeColor) {
+            const iconRgbColor = computeRgbColor(badgeColor);
+            badgeStyle["--main-color"] = `rgba(${iconRgbColor})`;
+        }
+        return html`
+            <mushroom-badge-icon
+                slot="badge"
+                .icon=${badge}
+                style=${styleMap(badgeStyle)}
+            ></mushroom-badge-icon>
         `;
     }
 
@@ -195,7 +224,7 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
 
         try {
             const sub = subscribeRenderTemplate(
-                this.hass.connection as any as Connection,
+                this.hass.connection,
                 (result) => {
                     this._templateResults = {
                         ...this._templateResults,

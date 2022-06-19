@@ -1,8 +1,9 @@
 import type { Ripple } from "@material/mwc-ripple";
-import { ActionHandlerDetail, ActionHandlerOptions, fireEvent } from "custom-card-helpers";
 import { noChange } from "lit";
 import { AttributePart, directive, Directive, DirectiveParameters } from "lit/directive.js";
-import { deepEqual } from "../deep-equal";
+import { fireEvent } from "../../../../common/dom/fire_event";
+import { deepEqual } from "../../../../common/util/deep-equal";
+import { ActionHandlerDetail, ActionHandlerOptions } from "../../../../data/lovelace";
 
 const isTouch =
     "ontouchstart" in window ||
@@ -118,9 +119,9 @@ class ActionHandler extends HTMLElement implements ActionHandler {
 
         element.actionHandler = { options };
 
-        // if (options.disabled) {
-        //     return;
-        // }
+        if (options.disabled) {
+            return;
+        }
 
         element.actionHandler.start = (ev: Event) => {
             this.cancelled = false;

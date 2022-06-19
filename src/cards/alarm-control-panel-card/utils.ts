@@ -1,5 +1,5 @@
 import { HassEntity } from "home-assistant-js-websocket";
-import { UNAVAILABLE } from "../../ha/data/entity";
+import { UNAVAILABLE } from "../../ha";
 import {
     ALARM_CONTROL_PANEL_CARD_DEFAULT_STATE_COLOR,
     ALARM_CONTROL_PANEL_CARD_STATE_COLOR,

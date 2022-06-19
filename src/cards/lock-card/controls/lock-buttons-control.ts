@@ -1,9 +1,13 @@
-import { computeRTL, HomeAssistant } from "custom-card-helpers";
 import { html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { supportsFeature } from "../../../ha/common/entity/supports-feature";
-import { isAvailable } from "../../../ha/data/entity";
-import { LockEntity, LOCK_SUPPORT_OPEN } from "../../../ha/data/lock";
+import {
+    computeRTL,
+    HomeAssistant,
+    isAvailable,
+    LockEntity,
+    LOCK_SUPPORT_OPEN,
+    supportsFeature,
+} from "../../../ha";
 import setupCustomlocalize from "../../../localize";
 import { isActionPending, isLocked, isUnlocked } from "../utils";
 

@@ -1,5 +1,5 @@
-import { UNIT_C, UNIT_F } from "custom-card-helpers";
 import { HassEntity } from "home-assistant-js-websocket";
+import { UNIT_C, UNIT_F } from "../../ha";
 
 const FIXED_DEVICE_CLASS_ICONS = {
     apparent_power: "mdi:flash",

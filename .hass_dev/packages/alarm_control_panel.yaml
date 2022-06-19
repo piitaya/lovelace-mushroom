@@ -1,0 +1,38 @@
+alarm_control_panel:
+  - platform: manual
+    name: Alarm panel 1
+    arming_time: 5
+  - platform: manual
+    name: Alarm panel 2
+    arming_time: 5
+  - platform: manual
+    name: Alarm panel code
+    code: 1234
+    arming_time: 5
+  - platform: manual
+    name: Alarm panel text code
+    code: azerty
+    arming_time: 5
+  - platform: template
+    panels:
+      templated_alarm_panel:
+        value_template: "{{ states('alarm_control_panel.alarm_panel_1') }}"
+        code_format: no_code
+        arm_away:
+          service: alarm_control_panel.alarm_arm_away
+          target:
+            entity_id:
+              - alarm_control_panel.alarm_panel_1
+              - alarm_control_panel.alarm_panel_2
+        arm_home:
+          service: alarm_control_panel.alarm_arm_home
+          target:
+            entity_id:
+              - alarm_control_panel.alarm_panel_1
+              - alarm_control_panel.alarm_panel_2
+        disarm:
+          service: alarm_control_panel.alarm_disarm
+          target:
+            entity_id:
+              - alarm_control_panel.alarm_panel_1
+              - alarm_control_panel.alarm_panel_2

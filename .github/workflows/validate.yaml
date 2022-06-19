@@ -1,6 +1,8 @@
 name: HACS validation
 on:
-    pull_request:
+    push:
+        branches:
+            - main
 jobs:
     validate:
         runs-on: ubuntu-latest

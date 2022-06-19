@@ -1,4 +1,4 @@
-import { CoverEntity } from "../../ha/data/cover";
+import { CoverEntity } from "../../ha";
 
 export function getPosition(entity: CoverEntity) {
     return entity.attributes.current_position != null

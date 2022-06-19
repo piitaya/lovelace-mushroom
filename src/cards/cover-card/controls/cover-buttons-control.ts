@@ -1,19 +1,19 @@
-import { computeRTL, HomeAssistant } from "custom-card-helpers";
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { classMap } from "lit/directives/class-map.js";
-import { supportsFeature } from "../../../ha/common/entity/supports-feature";
 import {
+    computeRTL,
     CoverEntity,
     COVER_SUPPORT_CLOSE,
     COVER_SUPPORT_OPEN,
     COVER_SUPPORT_STOP,
+    HomeAssistant,
+    isAvailable,
     isClosing,
     isFullyClosed,
     isFullyOpen,
     isOpening,
-} from "../../../ha/data/cover";
-import { isAvailable } from "../../../ha/data/entity";
+    supportsFeature,
+} from "../../../ha";
 import "../../../shared/button";
 import "../../../shared/button-group";
 import { computeCloseIcon, computeOpenIcon } from "../../../utils/icons/cover-icon";

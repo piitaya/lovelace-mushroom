@@ -1,6 +1,6 @@
 {
   "name": "mushroom-cards",
-  "version": "1.8.8",
+  "version": "1.10.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,6 @@
     "@material/mwc-select": "^0.25.3",
     "@material/mwc-textfield": "^0.25.3",
     "color": "^4.2.3",
-    "custom-card-helpers": "^1.9.0",
     "hammerjs": "^2.0.8",
     "home-assistant-js-websocket": "^7.0.3",
     "lit": "^2.2.3",

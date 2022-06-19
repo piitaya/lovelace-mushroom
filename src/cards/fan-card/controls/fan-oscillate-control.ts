@@ -1,9 +1,8 @@
-import { HomeAssistant } from "custom-card-helpers";
 import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
-import { isActive } from "../../../ha/data/entity";
+import { HomeAssistant, isActive } from "../../../ha";
 import "../../../shared/slider";
 import { isOscillating } from "../utils";
 

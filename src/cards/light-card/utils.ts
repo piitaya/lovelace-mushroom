@@ -1,11 +1,5 @@
-import { HassEntity } from "home-assistant-js-websocket";
 import * as Color from "color";
-import {
-    LightColorModes,
-    LightEntity,
-    lightSupportsColor,
-    lightSupportsDimming,
-} from "../../ha/data/light";
+import { LightColorModes, LightEntity, lightSupportsColor, lightSupportsDimming } from "../../ha";
 
 export function getBrightness(entity: LightEntity): number | undefined {
     return entity.attributes.brightness != null

@@ -1,8 +1,6 @@
-import { HomeAssistant } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { isActive, isAvailable } from "../../../ha/data/entity";
-import { LightEntity } from "../../../ha/data/light";
+import { HomeAssistant, isActive, isAvailable, LightEntity } from "../../../ha";
 import "../../../shared/slider";
 import { getBrightness } from "../utils";
 

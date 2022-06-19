@@ -1,5 +1,5 @@
 import { HassEntity } from "home-assistant-js-websocket";
-import { UpdateEntity, updateIsInstalling } from "../../ha/data/update";
+import { UpdateEntity, updateIsInstalling } from "../../ha";
 import { alarmPanelIcon } from "./alarm-panel-icon";
 import { binarySensorIcon } from "./binary-sensor-icon";
 import { coverIcon } from "./cover-icon";
@@ -48,7 +48,6 @@ const FIXED_DOMAIN_ICONS = {
     updater: "mdi:cloud-upload",
     vacuum: "mdi:robot-vacuum",
     water_heater: "mdi:thermometer",
-    weather: "mdi:weather-cloudy",
     zone: "mdi:map-marker-radius",
 };
 
@@ -112,6 +111,42 @@ export function domainIcon(domain: string, entity?: HassEntity, state?: string):
                     return state === "on" ? "mdi:toggle-switch" : "mdi:toggle-switch-off";
                 default:
                     return "mdi:flash";
+            }
+
+        case "weather":
+            switch (state) {
+                case "clear-night":
+                    return "mdi:weather-night";
+                case "cloudy":
+                    return "mdi:weather-cloudy";
+                case "exceptional":
+                    return "mdi:alert-circle-outline";
+                case "fog":
+                    return "mdi:weather-fog";
+                case "hail":
+                    return "mdi:weather-hail";
+                case "lightning":
+                    return "mdi:weather-lightning";
+                case "lightning-rainy":
+                    return "mdi:weather-lightning-rainy";
+                case "partlycloudy":
+                    return "mdi:weather-partly-cloudy";
+                case "pouring":
+                    return "mdi:weather-pouring";
+                case "rainy":
+                    return "mdi:weather-rainy";
+                case "snowy":
+                    return "mdi:weather-snowy";
+                case "snowy-rainy":
+                    return "mdi:weather-snowy-rainy";
+                case "sunny":
+                    return "mdi:weather-sunny";
+                case "windy":
+                    return "mdi:weather-windy";
+                case "windy-variant":
+                    return "mdi:weather-windy-variant";
+                default:
+                    return "mdi:weather-cloudy";
             }
 
         case "zwave":

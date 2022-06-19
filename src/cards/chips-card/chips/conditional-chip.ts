@@ -1,4 +1,3 @@
-import { HomeAssistant } from "custom-card-helpers";
 import { customElement } from "lit/decorators.js";
 import { ConditionalBase } from "../../../utils/conditional/conditional-base";
 import {

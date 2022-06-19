@@ -1,18 +1,20 @@
-import {
-    ActionHandlerEvent,
-    computeRTL,
-    handleAction,
-    hasAction,
-    HomeAssistant,
-    LovelaceCard,
-    LovelaceCardEditor,
-} from "custom-card-helpers";
 import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
-import { computeStateDisplay } from "../../ha/common/entity/compute-state-display";
-import { isActive, isAvailable } from "../../ha/data/entity";
+import {
+    actionHandler,
+    ActionHandlerEvent,
+    computeRTL,
+    computeStateDisplay,
+    handleAction,
+    hasAction,
+    HomeAssistant,
+    isActive,
+    isAvailable,
+    LovelaceCard,
+    LovelaceCardEditor,
+} from "../../ha";
 import "../../shared/badge-icon";
 import "../../shared/button";
 import "../../shared/card";
@@ -22,7 +24,6 @@ import "../../shared/state-item";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { actionHandler } from "../../utils/directives/action-handler-directive";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { getLayoutFromConfig } from "../../utils/layout";
 import { FAN_CARD_EDITOR_NAME, FAN_CARD_NAME, FAN_ENTITY_DOMAINS } from "./const";
@@ -95,7 +96,7 @@ export class FanCard extends MushroomBaseElement implements LovelaceCard {
 
     private onCurrentPercentageChange(e: CustomEvent<{ value?: number }>): void {
         if (e.detail.value != null) {
-            this.percentage = e.detail.value;
+            this.percentage = Math.round(e.detail.value);
         }
     }
 
