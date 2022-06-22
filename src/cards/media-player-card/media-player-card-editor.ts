@@ -28,11 +28,7 @@ export const MEDIA_LABELS = [
 const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: MEDIA_PLAYER_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
-    {
-        type: "grid",
-        name: "",
-        schema: [{ name: "icon", selector: { icon: { placeholder: icon } } }],
-    },
+    { name: "icon", selector: { icon: { placeholder: icon } } },
     {
         type: "grid",
         name: "",
@@ -45,8 +41,16 @@ const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaForm
         type: "grid",
         name: "",
         schema: [
+            { name: "primary_info", selector: { "mush-info": {} } },
+            { name: "secondary_info", selector: { "mush-info": {} } },
+            { name: "icon_info", selector: { "mush-icon-info": {} } },
+        ],
+    },
+    {
+        type: "grid",
+        name: "",
+        schema: [
             { name: "use_media_info", selector: { boolean: {} } },
-            { name: "use_media_artwork", selector: { boolean: {} } },
             { name: "show_volume_level", selector: { boolean: {} } },
         ],
     },

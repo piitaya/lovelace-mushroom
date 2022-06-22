@@ -32,7 +32,6 @@ export type MediaPlayerCardConfig = LovelaceCardConfig &
     AppearanceSharedConfig &
     ActionsSharedConfig & {
         use_media_info?: boolean;
-        use_media_artwork?: boolean;
         show_volume_level?: boolean;
         volume_controls?: MediaPlayerVolumeControl[];
         media_controls?: MediaPlayerMediaControl[];
@@ -44,7 +43,6 @@ export const mediaPlayerCardConfigStruct = assign(
     assign(entitySharedConfigStruct, appearanceSharedConfigStruct, actionsSharedConfigStruct),
     object({
         use_media_info: optional(boolean()),
-        use_media_artwork: optional(boolean()),
         show_volume_level: optional(boolean()),
         volume_controls: optional(array(enums(MEDIA_PLAYER_VOLUME_CONTROLS))),
         media_controls: optional(array(enums(MEDIA_LAYER_MEDIA_CONTROLS))),
