@@ -11,7 +11,14 @@ import { loadHaComponents } from "../../utils/loader";
 import { TEMPLATE_CARD_EDITOR_NAME } from "./const";
 import { TemplateCardConfig, templateCardConfigStruct } from "./template-card-config";
 
-export const TEMPLATE_LABELS = ["badge_icon", "badge_color", "content", "primary", "secondary", "multiline_secondary"];
+export const TEMPLATE_LABELS = [
+    "badge_icon",
+    "badge_color",
+    "content",
+    "primary",
+    "secondary",
+    "multiline_secondary",
+];
 
 const computeSchema = memoizeOne((version: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: {} } },

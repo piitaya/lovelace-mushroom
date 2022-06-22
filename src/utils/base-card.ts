@@ -53,17 +53,23 @@ export class MushroomBaseCard extends MushroomBaseElement {
         entity: HassEntity,
         appearance: Appearance,
         name: string,
-        customState?: string
+        state?: string
     ): TemplateResult | null {
         const defaultState = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
-        const state = customState ?? defaultState;
+        const displayState = state ?? defaultState;
 
-        const primary = computeInfoDisplay(appearance.primary_info, name, state, entity, this.hass);
+        const primary = computeInfoDisplay(
+            appearance.primary_info,
+            name,
+            displayState,
+            entity,
+            this.hass
+        );
 
         const secondary = computeInfoDisplay(
             appearance.secondary_info,
             name,
-            state,
+            displayState,
             entity,
             this.hass
         );
