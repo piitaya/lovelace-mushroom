@@ -22,7 +22,6 @@ export type VacuumCardConfig = LovelaceCardConfig &
     EntitySharedConfig &
     AppearanceSharedConfig &
     ActionsSharedConfig & {
-        hide_state?: boolean;
         commands?: VacuumCommand[];
     };
 
@@ -30,7 +29,6 @@ export const vacuumCardConfigStruct = assign(
     lovelaceCardConfigStruct,
     assign(entitySharedConfigStruct, appearanceSharedConfigStruct, actionsSharedConfigStruct),
     object({
-        hide_state: optional(boolean()),
         commands: optional(array(string())),
     })
 );
