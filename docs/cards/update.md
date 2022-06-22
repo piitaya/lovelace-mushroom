@@ -16,7 +16,6 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `entity`               | string  | Required    | Update entity                                                                       |
 | `name`                 | string  | Optional    | Custom name                                                                         |
 | `icon`                 | string  | Optional    | Custom icon                                                                         |
-| `use_entity_picture`   | boolean | `false`     | Use the picture of the update entity instead of icon                                |
 | `layout`               | string  | Optional    | Layout of the card. Vertical, horizontal and default layout are supported           |
 | `fill_container`       | boolean | `false`     | Fill container or not. Useful when card is in a grid, vertical or horizontal layout |
 | `show_buttons_control` | boolean | `false`     | Show buttons to install and skip update                                             |

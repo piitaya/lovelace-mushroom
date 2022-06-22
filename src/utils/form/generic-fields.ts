@@ -1,7 +1,4 @@
 export const GENERIC_LABELS = [
-    "hide_name",
-    "hide_state",
-    "hide_icon",
     "icon_color",
     "layout",
     "fill_container",

@@ -35,9 +35,6 @@
         },
         "card": {
             "generic": {
-                "hide_name": "Name ausblenden?",
-                "hide_state": "Zustand ausblenden?",
-                "hide_icon": "Icon ausblenden?",
                 "icon_color": "Icon-Farbe",
                 "layout": "Layout",
                 "fill_container": "Container ausfüllen",

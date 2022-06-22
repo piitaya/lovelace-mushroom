@@ -35,9 +35,6 @@
         },
         "card": {
             "generic": {
-                "hide_name": "הסתר שם?",
-                "hide_state": "החבא מצב?",
-                "hide_icon": "החבא אייקון?",
                 "icon_color": "צבע אייקון",
                 "layout": "סידור",
                 "fill_container": "מלא גבולות",

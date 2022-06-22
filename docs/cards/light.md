@@ -18,7 +18,6 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `name`                    | string  | Optional    | Custom name                                                                         |
 | `layout`                  | string  | Optional    | Layout of the card. Vertical, horizontal and default layout are supported           |
 | `fill_container`          | boolean | `false`     | Fill container or not. Useful when card is in a grid, vertical or horizontal layout |
-| `hide_state`              | boolean | `false`     | Hide the entity state                                                               |
 | `show_brightness_control` | boolean | `false`     | Show a slider to control brightness                                                 |
 | `show_color_temp_control` | boolean | `false`     | Show a slider to control temperature color                                          |
 | `show_color_control`      | boolean | `false`     | Show a slider to control RGB color                                                  |

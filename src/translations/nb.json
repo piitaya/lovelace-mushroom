@@ -35,9 +35,6 @@
         },
         "card": {
             "generic": {
-                "hide_name": "Skjule navn?",
-                "hide_state": "Skjule tilstand?",
-                "hide_icon": "Skjul ikon?",
                 "icon_color": "Ikon farge",
                 "layout": "Oppsett",
                 "primary_info": "Primærinformasjon",

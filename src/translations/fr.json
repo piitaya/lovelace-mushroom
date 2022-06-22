@@ -16,6 +16,14 @@
                     "none": "Aucune"
                 }
             },
+            "icon_info_picker": {
+                "values": {
+                    "default": "Par défaut",
+                    "icon": "Icône",
+                    "entity-picture": "Image de l'entité",
+                    "none": "Aucune"
+                }
+            },
             "layout_picker": {
                 "values": {
                     "default": "Disposition par défault",
@@ -35,14 +43,12 @@
         },
         "card": {
             "generic": {
-                "hide_name": "Cacher le nom ?",
-                "hide_state": "Cacher l'état ?",
-                "hide_icon": "Cacher l'icône ?",
                 "icon_color": "Couleur de l'icône",
                 "layout": "Disposition",
                 "fill_container": "Remplir le conteneur",
                 "primary_info": "Information principale",
                 "secondary_info": "Information secondaire",
+                "icon_info": "Contenu de l'icône",
                 "content_info": "Contenu",
                 "use_entity_picture": "Utiliser l'image de l'entité ?",
                 "collapsible_controls": "Reduire les contrôles quand éteint"

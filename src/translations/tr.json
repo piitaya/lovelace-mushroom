@@ -35,9 +35,6 @@
         },
         "card": {
             "generic": {
-                "hide_name": "İsim gizlensin",
-                "hide_state": "Durum gizlensin",
-                "hide_icon": "Simge gizlensin",
                 "icon_color": "Simge renki",
                 "layout": "Düzen",
                 "primary_info": "Birinci bilgi",

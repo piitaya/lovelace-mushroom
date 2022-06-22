@@ -35,9 +35,6 @@
         },
         "card": {
             "generic": {
-                "hide_name": "隱藏名稱?",
-                "hide_state": "隱藏狀態?",
-                "hide_icon": "隱藏圖示?",
                 "icon_color": "圖示顏色",
                 "layout": "佈局",
                 "fill_container": "填滿容器",
