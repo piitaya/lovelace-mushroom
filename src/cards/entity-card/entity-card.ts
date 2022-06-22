@@ -88,7 +88,7 @@ export class EntityCard extends MushroomBaseElement implements LovelaceCard {
 
         const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
-        const picture = computeEntityPicture(entity, appearance.icon_info);
+        const picture = computeEntityPicture(entity, appearance.icon_type);
 
         const primary = computeInfoDisplay(
             appearance.primary_info,

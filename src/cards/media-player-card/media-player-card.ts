@@ -170,7 +170,7 @@ export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
         const nameDisplay = computeMediaNameDisplay(this._config, entity);
         const stateDisplay = computeMediaStateDisplay(this._config, entity, this.hass);
         const appearance = computeAppearance(this._config);
-        const picture = computeEntityPicture(entity, appearance.icon_info);
+        const picture = computeEntityPicture(entity, appearance.icon_type);
 
         const stateValue =
             this.volume != null && this._config.show_volume_level

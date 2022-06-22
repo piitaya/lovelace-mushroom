@@ -117,7 +117,7 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
         const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
         const appearance = computeAppearance(this._config);
-        const picture = computeEntityPicture(entity, appearance.icon_info);
+        const picture = computeEntityPicture(entity, appearance.icon_type);
 
         let stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
         if (this.percentage) {

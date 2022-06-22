@@ -128,7 +128,7 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
         const appearance = computeAppearance({
             fill_container: this._config.fill_container,
             layout: this._config.layout,
-            icon_info: Boolean(icon) ? "icon" : "none",
+            icon_type: Boolean(icon) ? "icon" : "none",
             primary_info: Boolean(primary) ? "name" : "none",
             secondary_info: Boolean(secondary) ? "state" : "none",
         });

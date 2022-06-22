@@ -32,7 +32,7 @@ const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaForm
         schema: [
             { name: "primary_info", selector: { "mush-info": {} } },
             { name: "secondary_info", selector: { "mush-info": {} } },
-            { name: "icon_info", selector: { "mush-icon-info": {} } },
+            { name: "icon_type", selector: { "mush-icon-type": {} } },
         ],
     },
     {

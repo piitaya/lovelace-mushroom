@@ -7,8 +7,8 @@ const TIMESTAMP_STATE_DOMAINS = ["button", "input_button", "scene"];
 export const INFOS = ["name", "state", "last-changed", "last-updated", "none"] as const;
 export type Info = typeof INFOS[number];
 
-export const ICON_INFOS = ["icon", "entity-picture", "none"] as const;
-export type IconInfo = typeof ICON_INFOS[number];
+export const ICON_TYPES = ["icon", "entity-picture", "none"] as const;
+export type IconType = typeof ICON_TYPES[number];
 
 export function computeInfoDisplay(
     info: Info,
@@ -59,6 +59,6 @@ export function computeInfoDisplay(
     }
 }
 
-export function computeEntityPicture(entity: HassEntity, iconInfo: IconInfo) {
-    return iconInfo === "entity-picture" ? getEntityPicture(entity) : undefined;
+export function computeEntityPicture(entity: HassEntity, iconType: IconType) {
+    return iconType === "entity-picture" ? getEntityPicture(entity) : undefined;
 }

@@ -1,7 +1,7 @@
 import { HassEntity } from "home-assistant-js-websocket";
 import { getEntityPicture } from "../ha/data/entity";
 import { Appearance, AppearanceSharedConfig } from "../shared/config/appearance-config";
-import { IconInfo, Info } from "./info";
+import { IconType, Info } from "./info";
 import { Layout } from "./layout";
 
 type AdditionalConfig = { [key: string]: any };
@@ -10,7 +10,7 @@ export function computeAppearance(config: AppearanceSharedConfig & AdditionalCon
     return {
         layout: config.layout ?? getDefaultLayout(config),
         fill_container: config.fill_container ?? false,
-        icon_info: config.icon_info ?? getDefaultIconInfo(config),
+        icon_type: config.icon_type ?? getDefaultIconType(config),
         primary_info: config.primary_info ?? getDefaultPrimaryInfo(config),
         secondary_info: config.secondary_info ?? getDefaultSecondaryInfo(config),
     };
@@ -23,7 +23,7 @@ function getDefaultLayout(config: AdditionalConfig): Layout {
     return "default";
 }
 
-function getDefaultIconInfo(config: AdditionalConfig): IconInfo {
+function getDefaultIconType(config: AdditionalConfig): IconType {
     if (config.hide_icon) {
         return "none";
     }

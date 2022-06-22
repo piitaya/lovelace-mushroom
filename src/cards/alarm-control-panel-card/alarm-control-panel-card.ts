@@ -166,7 +166,7 @@ export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceC
         const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
         const appearance = computeAppearance(this._config);
-        const picture = computeEntityPicture(entity, appearance.icon_info);
+        const picture = computeEntityPicture(entity, appearance.icon_type);
 
         const actions: ActionButtonType[] =
             this._config.states && this._config.states.length > 0

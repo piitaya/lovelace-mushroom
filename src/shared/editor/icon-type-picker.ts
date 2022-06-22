@@ -2,11 +2,11 @@ import { css, CSSResultGroup, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { HomeAssistant } from "../../ha";
 import setupCustomlocalize from "../../localize";
-import { ICON_INFOS } from "../../utils/info";
-import "./../form/mushroom-select";
+import { ICON_TYPES } from "../../utils/info";
+import "../form/mushroom-select";
 
-@customElement("mushroom-icon-info-picker")
-export class IconInfoPicker extends LitElement {
+@customElement("mushroom-icon-type-picker")
+export class IconTypePicker extends LitElement {
     @property() public label = "";
 
     @property() public value?: string;
@@ -42,13 +42,13 @@ export class IconInfoPicker extends LitElement {
                 naturalMenuWidth
             >
                 <mwc-list-item value="default">
-                    ${customLocalize("editor.form.icon_info_picker.values.default")}
+                    ${customLocalize("editor.form.icon_type_picker.values.default")}
                 </mwc-list-item>
-                ${ICON_INFOS.map((iconInfo) => {
+                ${ICON_TYPES.map((iconType) => {
                     return html`
-                        <mwc-list-item .value=${iconInfo}>
-                            ${customLocalize(`editor.form.icon_info_picker.values.${iconInfo}`) ||
-                            capitalizeFirstLetter(iconInfo)}
+                        <mwc-list-item .value=${iconType}>
+                            ${customLocalize(`editor.form.icon_type_picker.values.${iconType}`) ||
+                            capitalizeFirstLetter(iconType)}
                         </mwc-list-item>
                     `;
                 })}

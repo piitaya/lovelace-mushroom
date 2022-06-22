@@ -16,7 +16,7 @@ export class StateItem extends LitElement {
                     vertical: this.appearance?.layout === "vertical",
                 })}
             >
-                ${this.appearance?.icon_info !== "none"
+                ${this.appearance?.icon_type !== "none"
                     ? html`
                           <div class="icon">
                               <slot name="icon"></slot>

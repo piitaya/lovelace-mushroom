@@ -85,7 +85,7 @@ export class PersonCard extends MushroomBaseCard implements LovelaceCard {
         const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
         const appearance = computeAppearance(this._config);
-        const picture = computeEntityPicture(entity, appearance.icon_info);
+        const picture = computeEntityPicture(entity, appearance.icon_type);
 
         const rtl = computeRTL(this.hass);
 
