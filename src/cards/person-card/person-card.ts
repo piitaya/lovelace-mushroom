@@ -1,3 +1,4 @@
+import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
@@ -6,12 +7,9 @@ import {
     actionHandler,
     ActionHandlerEvent,
     computeRTL,
-    computeStateDisplay,
-    getEntityPicture,
     handleAction,
     hasAction,
     HomeAssistant,
-    isActive,
     isAvailable,
     LovelaceCard,
     LovelaceCardEditor,
@@ -22,11 +20,12 @@ import "../../shared/shape-avatar";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
-import { MushroomBaseElement } from "../../utils/base-element";
+import { computeAppearance } from "../../utils/appearance";
+import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { stateIcon as stateIconHelper } from "../../utils/icons/state-icon";
-import { getLayoutFromConfig } from "../../utils/layout";
+import { stateIcon } from "../../utils/icons/state-icon";
+import { computeEntityPicture } from "../../utils/info";
 import { PERSON_CARD_EDITOR_NAME, PERSON_CARD_NAME, PERSON_ENTITY_DOMAINS } from "./const";
 import { PersonCardConfig } from "./person-card-config";
 import { getStateColor, getStateIcon } from "./utils";
@@ -38,7 +37,7 @@ registerCustomCard({
 });
 
 @customElement(PERSON_CARD_NAME)
-export class PersonCard extends MushroomBaseElement implements LovelaceCard {
+export class PersonCard extends MushroomBaseCard implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./person-card-editor");
         return document.createElement(PERSON_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -83,67 +82,41 @@ export class PersonCard extends MushroomBaseElement implements LovelaceCard {
         const entity_id = this._config.entity;
         const entity = this.hass.states[entity_id];
 
-        const name = this._config.name || entity.attributes.friendly_name;
-        const icon = this._config.icon || stateIconHelper(entity);
-
-        const picture = this._config.use_entity_picture ? getEntityPicture(entity) : undefined;
-
-        const layout = getLayoutFromConfig(this._config);
-        const hideState = !!this._config.hide_state;
-        const hideName = !!this._config.hide_name;
-
-        const zones = Object.values(this.hass.states).filter((entity) =>
-            entity.entity_id.startsWith("zone.")
-        );
-        const stateIcon = getStateIcon(entity, zones);
-        const stateColor = getStateColor(entity, zones);
-
-        const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
+        const name = this._config.name || entity.attributes.friendly_name || "";
+        const icon = this._config.icon || stateIcon(entity);
+        const appearance = computeAppearance(this._config);
+        const picture = computeEntityPicture(entity, appearance.icon_info);
 
         const rtl = computeRTL(this.hass);
 
         return html`
-            <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
-                <mushroom-card .layout=${layout} ?rtl=${rtl}>
+            <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
+                <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
                     <mushroom-state-item
                         ?rtl=${rtl}
-                        .layout=${layout}
+                        .appearance=${appearance}
                         @action=${this._handleAction}
                         .actionHandler=${actionHandler({
                             hasHold: hasAction(this._config.hold_action),
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
-                        .hide_info=${hideName && hideState}
                     >
-                        ${picture
-                            ? html`
-                                  <mushroom-shape-avatar
-                                      slot="icon"
-                                      .picture_url=${(this.hass as any).hassUrl(picture)}
-                                  ></mushroom-shape-avatar>
-                              `
-                            : html`
-                                  <mushroom-shape-icon
-                                      slot="icon"
-                                      .icon=${icon}
-                                      .disabled=${!isActive(entity)}
-                                  ></mushroom-shape-icon>
-                              `}
-                        ${isAvailable(entity)
-                            ? this.renderStateBadge(stateIcon, stateColor)
-                            : this.renderUnavailableBadge()}
-                        <mushroom-state-info
-                            slot="info"
-                            .primary=${!hideName ? name : undefined}
-                            .secondary=${!hideState ? stateDisplay : undefined}
-                        ></mushroom-state-info>
+                        ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
+                        ${this.renderBadge(entity)}
+                        ${this.renderStateInfo(entity, appearance, name)};
                     </mushroom-state-item>
                 </mushroom-card>
             </ha-card>
         `;
     }
 
-    renderStateBadge(icon: string, color: string) {
+    renderStateBadge(entity: HassEntity) {
+        const zones = Object.values(this.hass.states).filter((entity) =>
+            entity.entity_id.startsWith("zone.")
+        );
+        const icon = getStateIcon(entity, zones);
+        const color = getStateColor(entity, zones);
+
         return html`
             <mushroom-badge-icon
                 slot="badge"
@@ -155,14 +128,13 @@ export class PersonCard extends MushroomBaseElement implements LovelaceCard {
         `;
     }
 
-    renderUnavailableBadge() {
-        return html`
-            <mushroom-badge-icon
-                class="unavailable"
-                slot="badge"
-                icon="mdi:help"
-            ></mushroom-badge-icon>
-        `;
+    renderBadge(entity: HassEntity) {
+        const unavailable = !isAvailable(entity);
+        if (unavailable) {
+            return super.renderBadge(entity);
+        } else {
+            return this.renderStateBadge(entity);
+        }
     }
 
     static get styles(): CSSResultGroup {
