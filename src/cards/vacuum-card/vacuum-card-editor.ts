@@ -4,6 +4,8 @@ import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import { fireEvent, LocalizeFunc, LovelaceCardEditor } from "../../ha";
 import setupCustomlocalize from "../../localize";
+import { computeActionsFormSchema } from "../../shared/config/actions-config";
+import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
@@ -18,23 +20,7 @@ const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaForm
     { name: "entity", selector: { entity: { domain: VACUUM_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
     { name: "icon", selector: { icon: { placeholder: icon } } },
-    {
-        type: "grid",
-        name: "",
-        schema: [
-            { name: "layout", selector: { "mush-layout": {} } },
-            { name: "fill_container", selector: { boolean: {} } },
-        ],
-    },
-    {
-        type: "grid",
-        name: "",
-        schema: [
-            { name: "primary_info", selector: { "mush-info": {} } },
-            { name: "secondary_info", selector: { "mush-info": {} } },
-            { name: "icon_type", selector: { "mush-icon-type": {} } },
-        ],
-    },
+    ...APPEARANCE_FORM_SCHEMA,
     {
         type: "multi_select",
         name: "commands",
@@ -43,9 +29,7 @@ const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaForm
             localize(`ui.dialogs.more_info_control.vacuum.${command}`),
         ]) as [string, string][],
     },
-    { name: "tap_action", selector: { "mush-action": {} } },
-    { name: "hold_action", selector: { "mush-action": {} } },
-    { name: "double_tap_action", selector: { "mush-action": {} } },
+    ...computeActionsFormSchema(),
 ]);
 
 @customElement(VACUUM_CARD_EDITOR_NAME)

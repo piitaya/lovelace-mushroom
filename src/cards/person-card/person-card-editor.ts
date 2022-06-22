@@ -4,6 +4,8 @@ import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import { fireEvent, LovelaceCardEditor } from "../../ha";
 import setupCustomlocalize from "../../localize";
+import { computeActionsFormSchema } from "../../shared/config/actions-config";
+import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { Action } from "../../utils/form/custom/ha-selector-mushroom-action";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
@@ -19,26 +21,8 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: PERSON_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
     { name: "icon", selector: { icon: { placeholder: icon } } },
-    {
-        type: "grid",
-        name: "",
-        schema: [
-            { name: "layout", selector: { "mush-layout": {} } },
-            { name: "fill_container", selector: { boolean: {} } },
-        ],
-    },
-    {
-        type: "grid",
-        name: "",
-        schema: [
-            { name: "primary_info", selector: { "mush-info": {} } },
-            { name: "secondary_info", selector: { "mush-info": {} } },
-            { name: "icon_type", selector: { "mush-icon-type": {} } },
-        ],
-    },
-    { name: "tap_action", selector: { "mush-action": { actions } } },
-    { name: "hold_action", selector: { "mush-action": { actions } } },
-    { name: "double_tap_action", selector: { "mush-action": { actions } } },
+    ...APPEARANCE_FORM_SCHEMA,
+    ...computeActionsFormSchema(actions),
 ]);
 
 @customElement(PERSON_CARD_EDITOR_NAME)

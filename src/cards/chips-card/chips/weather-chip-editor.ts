@@ -2,6 +2,7 @@ import { html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { fireEvent, HomeAssistant } from "../../../ha";
 import setupCustomlocalize from "../../../localize";
+import { computeActionsFormSchema } from "../../../shared/config/actions-config";
 import { Action } from "../../../utils/form/custom/ha-selector-mushroom-action";
 import { GENERIC_LABELS } from "../../../utils/form/generic-fields";
 import { HaFormSchema } from "../../../utils/form/ha-form";
@@ -24,9 +25,7 @@ const SCHEMA: HaFormSchema[] = [
             { name: "show_temperature", selector: { boolean: {} } },
         ],
     },
-    { name: "tap_action", selector: { "mush-action": { actions } } },
-    { name: "hold_action", selector: { "mush-action": { actions } } },
-    { name: "double_tap_action", selector: { "mush-action": { actions } } },
+    ...computeActionsFormSchema(actions),
 ];
 
 @customElement(computeChipEditorComponentName("weather"))
