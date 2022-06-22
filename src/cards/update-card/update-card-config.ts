@@ -12,7 +12,6 @@ export type UpdateCardConfig = LovelaceCardConfig &
     EntitySharedConfig &
     AppearanceSharedConfig &
     ActionsSharedConfig & {
-        use_entity_picture?: boolean;
         show_buttons_control?: boolean;
         collapsible_controls?: boolean;
     };
@@ -21,7 +20,6 @@ export const updateCardConfigStruct = assign(
     lovelaceCardConfigStruct,
     assign(entitySharedConfigStruct, appearanceSharedConfigStruct, actionsSharedConfigStruct),
     object({
-        use_entity_picture: optional(boolean()),
         show_buttons_control: optional(boolean()),
         collapsible_controls: optional(boolean()),
     })
