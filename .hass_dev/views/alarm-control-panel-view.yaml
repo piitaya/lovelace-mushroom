@@ -1,6 +1,41 @@
 title: Alarm control panel
 icon: mdi:shield
 cards:
+  - type: grid
+    title: Basic
+    cards:
+      - type: custom:mushroom-alarm-control-panel-card
+        entity: alarm_control_panel.alarm_panel_1
+      - type: custom:mushroom-alarm-control-panel-card
+        entity: alarm_control_panel.alarm_panel_1
+        name: Custom name and icon
+        icon: mdi:robot-outline
+    columns: 2
+    square: false
+  - type: grid
+    title: Infos
+    cards:
+      - type: custom:mushroom-alarm-control-panel-card
+        entity: alarm_control_panel.alarm_panel_1
+        primary_info: state
+        secondary_info: name
+      - type: custom:mushroom-alarm-control-panel-card
+        entity: alarm_control_panel.alarm_panel_1
+        primary_info: name
+        secondary_info: last-changed
+      - type: custom:mushroom-alarm-control-panel-card
+        entity: alarm_control_panel.alarm_panel_1
+        primary_info: name
+        secondary_info: last-updated
+      - type: custom:mushroom-alarm-control-panel-card
+        entity: alarm_control_panel.alarm_panel_1
+        primary_info: name
+        secondary_info: none
+      - type: custom:mushroom-alarm-control-panel-card
+        entity: alarm_control_panel.alarm_panel_1
+        icon_type: none
+    columns: 2
+    square: false
   - type: custom:mushroom-alarm-control-panel-card
     entity: alarm_control_panel.alarm_panel_1
     states:

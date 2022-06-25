@@ -2,7 +2,7 @@ title: Entity
 icon: mdi:motion-sensor
 cards:
   - type: grid
-    title: Simple
+    title: Basic
     cards:
       - type: custom:mushroom-entity-card
         entity: sensor.power_consumption
@@ -10,40 +10,30 @@ cards:
         entity: sensor.power_consumption
         name: Custom name and icon
         icon: mdi:transmission-tower
-      - type: custom:mushroom-entity-card
-        entity: sensor.power_consumption
-        name: Hide icon
-        hide_icon: true
     columns: 2
     square: false
   - type: grid
-    title: Primary and secondary info
+    title: Infos
     cards:
       - type: custom:mushroom-entity-card
         entity: sensor.power_consumption
+        primary_info: state
         secondary_info: name
-        primary_info: state
       - type: custom:mushroom-entity-card
         entity: sensor.power_consumption
-        secondary_info: none
-      - type: custom:mushroom-entity-card
-        entity: sensor.power_consumption
-        secondary_info: last-updated
-      - type: custom:mushroom-entity-card
-        entity: sensor.power_consumption
+        primary_info: name
         secondary_info: last-changed
       - type: custom:mushroom-entity-card
         entity: sensor.power_consumption
-        primary_info: state
-        secondary_info: none
-      - type: custom:mushroom-entity-card
-        entity: sensor.power_consumption
-        primary_info: state
+        primary_info: name
         secondary_info: last-updated
       - type: custom:mushroom-entity-card
         entity: sensor.power_consumption
-        primary_info: state
-        secondary_info: last-changed
+        primary_info: name
+        secondary_info: none
+      - type: custom:mushroom-entity-card
+        entity: sensor.power_consumption
+        icon_type: none
     columns: 2
     square: false
   - type: grid
