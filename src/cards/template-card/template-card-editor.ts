@@ -19,6 +19,7 @@ export const TEMPLATE_LABELS = [
     "primary",
     "secondary",
     "multiline_secondary",
+    "picture",
 ];
 
 const computeSchema = memoizeOne((version: string): HaFormSchema[] => [
@@ -36,6 +37,18 @@ const computeSchema = memoizeOne((version: string): HaFormSchema[] => [
             : { text: { multiline: true } },
     },
     {
+        name: "primary",
+        selector: atLeastHaVersion(version, 2022, 5)
+            ? { template: {} }
+            : { text: { multiline: true } },
+    },
+    {
+        name: "secondary",
+        selector: atLeastHaVersion(version, 2022, 5)
+            ? { template: {} }
+            : { text: { multiline: true } },
+    },
+    {
         name: "badge_icon",
         selector: atLeastHaVersion(version, 2022, 5)
             ? { template: {} }
@@ -48,13 +61,7 @@ const computeSchema = memoizeOne((version: string): HaFormSchema[] => [
             : { text: { multiline: true } },
     },
     {
-        name: "primary",
-        selector: atLeastHaVersion(version, 2022, 5)
-            ? { template: {} }
-            : { text: { multiline: true } },
-    },
-    {
-        name: "secondary",
+        name: "picture",
         selector: atLeastHaVersion(version, 2022, 5)
             ? { template: {} }
             : { text: { multiline: true } },
