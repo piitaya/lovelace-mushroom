@@ -13,6 +13,10 @@ export class Card extends LitElement {
                 class=${classMap({
                     container: true,
                     horizontal: this.appearance?.layout === "horizontal",
+                    "no-info":
+                        this.appearance?.primary_info === "none" &&
+                        this.appearance?.secondary_info === "none",
+                    "no-icon": this.appearance?.icon_type === "none",
                 })}
             >
                 <slot></slot>
@@ -39,6 +43,14 @@ export class Card extends LitElement {
             .container.horizontal > ::slotted(*) {
                 flex: 1;
                 min-width: 0;
+            }
+            .container.no-info > ::slotted(mushroom-state-item) {
+                flex: none;
+            }
+            .container.no-info.no-icon > ::slotted(mushroom-state-item) {
+                margin-right: 0;
+                margin-left: 0;
+                margin-bottom: 0;
             }
             .container.horizontal > ::slotted(*:not(:last-child)) {
                 margin-right: var(--spacing);
