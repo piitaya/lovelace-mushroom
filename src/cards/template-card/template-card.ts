@@ -39,6 +39,7 @@ const TEMPLATE_KEYS = [
     "badge_icon",
     "primary",
     "secondary",
+    "picture",
 ] as const;
 type TemplateKey = typeof TEMPLATE_KEYS[number];
 
@@ -120,6 +121,7 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
         const badgeColor = this.getValue("badge_color");
         const primary = this.getValue("primary");
         const secondary = this.getValue("secondary");
+        const picture = this.getValue("picture") ?? "";
 
         const multiline_secondary = this._config.multiline_secondary;
 
@@ -128,7 +130,7 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
         const appearance = computeAppearance({
             fill_container: this._config.fill_container,
             layout: this._config.layout,
-            icon_type: Boolean(icon) ? "icon" : "none",
+            icon_type: Boolean(picture) ? "entity-picture" : Boolean(icon) ? "icon" : "none",
             primary_info: Boolean(primary) ? "name" : "none",
             secondary_info: Boolean(secondary) ? "state" : "none",
         });
@@ -145,8 +147,12 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        ${icon ? this.renderIcon(icon, iconColor) : null}
-                        ${icon && badgeIcon
+                        ${picture
+                            ? this.renderPicture(picture)
+                            : icon
+                            ? this.renderIcon(icon, iconColor)
+                            : null}
+                        ${(icon || picture) && badgeIcon
                             ? this.renderBadgeIcon(badgeIcon, badgeColor)
                             : undefined}
                         <mushroom-state-info
@@ -158,6 +164,15 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
                     </mushroom-state-item>
                 </mushroom-card>
             </ha-card>
+        `;
+    }
+
+    renderPicture(picture: string): TemplateResult {
+        return html`
+            <mushroom-shape-avatar
+                slot="icon"
+                .picture_url=${(this.hass as any).hassUrl(picture)}
+            ></mushroom-shape-avatar>
         `;
     }
 
