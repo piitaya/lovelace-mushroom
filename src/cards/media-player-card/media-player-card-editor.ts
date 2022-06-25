@@ -4,6 +4,8 @@ import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import { fireEvent, LocalizeFunc, LovelaceCardEditor } from "../../ha";
 import setupCustomlocalize from "../../localize";
+import { computeActionsFormSchema } from "../../shared/config/actions-config";
+import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
@@ -28,25 +30,13 @@ export const MEDIA_LABELS = [
 const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: MEDIA_PLAYER_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
-    {
-        type: "grid",
-        name: "",
-        schema: [{ name: "icon", selector: { icon: { placeholder: icon } } }],
-    },
-    {
-        type: "grid",
-        name: "",
-        schema: [
-            { name: "layout", selector: { "mush-layout": {} } },
-            { name: "fill_container", selector: { boolean: {} } },
-        ],
-    },
+    { name: "icon", selector: { icon: { placeholder: icon } } },
+    ...APPEARANCE_FORM_SCHEMA,
     {
         type: "grid",
         name: "",
         schema: [
             { name: "use_media_info", selector: { boolean: {} } },
-            { name: "use_media_artwork", selector: { boolean: {} } },
             { name: "show_volume_level", selector: { boolean: {} } },
         ],
     },
@@ -87,9 +77,7 @@ const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaForm
             { name: "collapsible_controls", selector: { boolean: {} } },
         ],
     },
-    { name: "tap_action", selector: { "mush-action": {} } },
-    { name: "hold_action", selector: { "mush-action": {} } },
-    { name: "double_tap_action", selector: { "mush-action": {} } },
+    ...computeActionsFormSchema(),
 ]);
 
 @customElement(MEDIA_PLAYER_CARD_EDITOR_NAME)

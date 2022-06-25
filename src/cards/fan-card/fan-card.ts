@@ -1,3 +1,4 @@
+import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
@@ -11,21 +12,22 @@ import {
     hasAction,
     HomeAssistant,
     isActive,
-    isAvailable,
     LovelaceCard,
     LovelaceCardEditor,
 } from "../../ha";
 import "../../shared/badge-icon";
 import "../../shared/button";
 import "../../shared/card";
+import "../../shared/shape-avatar";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
-import { MushroomBaseElement } from "../../utils/base-element";
+import { computeAppearance } from "../../utils/appearance";
+import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { stateIcon } from "../../utils/icons/state-icon";
-import { getLayoutFromConfig } from "../../utils/layout";
+import { computeEntityPicture } from "../../utils/info";
 import { FAN_CARD_EDITOR_NAME, FAN_CARD_NAME, FAN_ENTITY_DOMAINS } from "./const";
 import "./controls/fan-oscillate-control";
 import "./controls/fan-percentage-control";
@@ -39,7 +41,7 @@ registerCustomCard({
 });
 
 @customElement(FAN_CARD_NAME)
-export class FanCard extends MushroomBaseElement implements LovelaceCard {
+export class FanCard extends MushroomBaseCard implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./fan-card-editor");
         return document.createElement(FAN_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -112,29 +114,14 @@ export class FanCard extends MushroomBaseElement implements LovelaceCard {
         const entity_id = this._config.entity;
         const entity = this.hass.states[entity_id];
 
-        const name = this._config.name || entity.attributes.friendly_name;
+        const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
-        const layout = getLayoutFromConfig(this._config);
-        const hideState = this._config.hide_state;
+        const appearance = computeAppearance(this._config);
+        const picture = computeEntityPicture(entity, appearance.icon_type);
 
-        const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
-
-        const active = isActive(entity);
-
-        let iconStyle = {};
-        const percentage = getPercentage(entity);
-        if (active) {
-            if (percentage) {
-                const speed = 1.5 * (percentage / 100) ** 0.5;
-                iconStyle["--animation-duration"] = `${1 / speed}s`;
-            } else {
-                iconStyle["--animation-duration"] = `1s`;
-            }
-        }
-
-        let stateValue = `${stateDisplay}`;
+        let stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
         if (this.percentage) {
-            stateValue += ` - ${this.percentage}%`;
+            stateDisplay += ` - ${this.percentage}%`;
         }
 
         const rtl = computeRTL(this.hass);
@@ -144,40 +131,20 @@ export class FanCard extends MushroomBaseElement implements LovelaceCard {
             (this._config.show_percentage_control || this._config.show_oscillate_control);
 
         return html`
-            <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
-                <mushroom-card .layout=${layout} ?rtl=${rtl}>
+            <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
+                <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
                     <mushroom-state-item
                         ?rtl=${rtl}
-                        .layout=${layout}
+                        .appearance=${appearance}
                         @action=${this._handleAction}
                         .actionHandler=${actionHandler({
                             hasHold: hasAction(this._config.hold_action),
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        <mushroom-shape-icon
-                            slot="icon"
-                            class=${classMap({
-                                spin: active && !!this._config.icon_animation,
-                            })}
-                            style=${styleMap(iconStyle)}
-                            .disabled=${!active}
-                            .icon=${icon}
-                        ></mushroom-shape-icon>
-                        ${!isAvailable(entity)
-                            ? html`
-                                  <mushroom-badge-icon
-                                      class="unavailable"
-                                      slot="badge"
-                                      icon="mdi:help"
-                                  ></mushroom-badge-icon>
-                              `
-                            : null}
-                        <mushroom-state-info
-                            slot="info"
-                            .primary=${name}
-                            .secondary=${!hideState && stateValue}
-                        ></mushroom-state-info>
+                        ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
+                        ${this.renderBadge(entity)}
+                        ${this.renderStateInfo(entity, appearance, name, stateDisplay)};
                     </mushroom-state-item>
                     ${displayControls
                         ? html`
@@ -204,6 +171,32 @@ export class FanCard extends MushroomBaseElement implements LovelaceCard {
                         : null}
                 </mushroom-card>
             </ha-card>
+        `;
+    }
+
+    protected renderIcon(entity: HassEntity, icon: string): TemplateResult {
+        let iconStyle = {};
+        const percentage = getPercentage(entity);
+        const active = isActive(entity);
+        if (active) {
+            if (percentage) {
+                const speed = 1.5 * (percentage / 100) ** 0.5;
+                iconStyle["--animation-duration"] = `${1 / speed}s`;
+            } else {
+                iconStyle["--animation-duration"] = `1s`;
+            }
+        }
+
+        return html`
+            <mushroom-shape-icon
+                slot="icon"
+                class=${classMap({
+                    spin: active && Boolean(this._config?.icon_animation),
+                })}
+                style=${styleMap(iconStyle)}
+                .disabled=${!active}
+                .icon=${icon}
+            ></mushroom-shape-icon>
         `;
     }
 

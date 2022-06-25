@@ -5,7 +5,6 @@ import {
     actionHandler,
     ActionHandlerEvent,
     computeRTL,
-    getEntityPicture,
     handleAction,
     hasAction,
     HomeAssistant,
@@ -18,10 +17,12 @@ import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-avatar";
 import "../../shared/shape-icon";
-import { MushroomBaseElement } from "../../utils/base-element";
+import { computeAppearance } from "../../utils/appearance";
+import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { getLayoutFromConfig, Layout } from "../../utils/layout";
+import { computeEntityPicture } from "../../utils/info";
+import { Layout } from "../../utils/layout";
 import {
     MEDIA_PLAYER_CARD_EDITOR_NAME,
     MEDIA_PLAYER_CARD_NAME,
@@ -53,7 +54,7 @@ registerCustomCard({
 });
 
 @customElement(MEDIA_PLAYER_CARD_NAME)
-export class MediaPlayerCard extends MushroomBaseElement implements LovelaceCard {
+export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./media-player-card-editor");
         return document.createElement(MEDIA_PLAYER_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -166,10 +167,11 @@ export class MediaPlayerCard extends MushroomBaseElement implements LovelaceCard
         const entity = this.hass.states[entity_id] as MediaPlayerEntity;
 
         const icon = computeMediaIcon(this._config, entity);
-        const layout = getLayoutFromConfig(this._config);
-
-        let nameDisplay = computeMediaNameDisplay(this._config, entity);
+        const nameDisplay = computeMediaNameDisplay(this._config, entity);
         const stateDisplay = computeMediaStateDisplay(this._config, entity, this.hass);
+        const appearance = computeAppearance(this._config);
+        const picture = computeEntityPicture(entity, appearance.icon_type);
+
         const stateValue =
             this.volume != null && this._config.show_volume_level
                 ? `${stateDisplay} - ${this.volume}%`
@@ -177,53 +179,26 @@ export class MediaPlayerCard extends MushroomBaseElement implements LovelaceCard
 
         const rtl = computeRTL(this.hass);
 
-        const artwork = this._config.use_media_artwork ? getEntityPicture(entity) : undefined;
-
         return html`
-            <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
-                <mushroom-card .layout=${layout} ?rtl=${rtl}>
+            <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
+                <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
                     <mushroom-state-item
                         ?rtl=${rtl}
-                        .layout=${layout}
+                        .appearance=${appearance}
                         @action=${this._handleAction}
                         .actionHandler=${actionHandler({
                             hasHold: hasAction(this._config.hold_action),
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        ${artwork
-                            ? html`
-                                  <mushroom-shape-avatar
-                                      slot="icon"
-                                      .picture_url=${(this.hass as any).hassUrl(artwork)}
-                                  ></mushroom-shape-avatar>
-                              `
-                            : html`
-                                  <mushroom-shape-icon
-                                      slot="icon"
-                                      .icon=${icon}
-                                      .disabled=${!isActive(entity)}
-                                  ></mushroom-shape-icon>
-                              `}
-                        ${entity.state === "unavailable"
-                            ? html`
-                                  <mushroom-badge-icon
-                                      class="unavailable"
-                                      slot="badge"
-                                      icon="mdi:help"
-                                  ></mushroom-badge-icon>
-                              `
-                            : null}
-                        <mushroom-state-info
-                            slot="info"
-                            .primary=${nameDisplay}
-                            .secondary=${stateValue}
-                        ></mushroom-state-info>
+                        ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
+                        ${this.renderBadge(entity)}
+                        ${this.renderStateInfo(entity, appearance, nameDisplay, stateValue)};
                     </mushroom-state-item>
                     ${this._controls.length > 0
                         ? html`
                               <div class="actions" ?rtl=${rtl}>
-                                  ${this.renderActiveControl(entity, layout)}
+                                  ${this.renderActiveControl(entity, appearance.layout)}
                                   ${this.renderOtherControls()}
                               </div>
                           `

@@ -35,9 +35,6 @@
         },
         "card": {
             "generic": {
-                "hide_name": "Verberg naam",
-                "hide_state": "Verberg staat",
-                "hide_icon": "Verberg icoon",
                 "icon_color": "Icoon kleur",
                 "layout": "Lay-out",
                 "primary_info": "Primaire informatie",

@@ -19,14 +19,17 @@ import {
 import "../../shared/badge-icon";
 import "../../shared/button";
 import "../../shared/card";
+import "../../shared/shape-avatar";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
-import { MushroomBaseElement } from "../../utils/base-element";
+import { computeAppearance } from "../../utils/appearance";
+import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { stateIcon } from "../../utils/icons/state-icon";
-import { getLayoutFromConfig, Layout } from "../../utils/layout";
+import { computeEntityPicture } from "../../utils/info";
+import { Layout } from "../../utils/layout";
 import { COVER_CARD_EDITOR_NAME, COVER_CARD_NAME, COVER_ENTITY_DOMAINS } from "./const";
 import "./controls/cover-buttons-control";
 import "./controls/cover-position-control";
@@ -47,7 +50,7 @@ registerCustomCard({
 });
 
 @customElement(COVER_CARD_NAME)
-export class CoverCard extends MushroomBaseElement implements LovelaceCard {
+export class CoverCard extends MushroomBaseCard implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./cover-card-editor");
         return document.createElement(COVER_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -145,56 +148,40 @@ export class CoverCard extends MushroomBaseElement implements LovelaceCard {
         }
 
         const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id];
+        const entity = this.hass.states[entity_id] as CoverEntity;
 
-        const name = this._config.name || entity.attributes.friendly_name;
+        const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
-        const layout = getLayoutFromConfig(this._config);
-        const hideState = this._config.hide_state;
+        const appearance = computeAppearance(this._config);
+        const picture = computeEntityPicture(entity, appearance.icon_type);
 
-        const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
-
-        let stateValue = `${stateDisplay}`;
+        let stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
         if (this.position) {
-            stateValue += ` - ${this.position}%`;
+            stateDisplay += ` - ${this.position}%`;
         }
-
-        const available = isAvailable(entity);
 
         const rtl = computeRTL(this.hass);
 
         return html`
-            <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
-                <mushroom-card .layout=${layout} ?rtl=${rtl}>
+            <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
+                <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
                     <mushroom-state-item
                         ?rtl=${rtl}
-                        .layout=${layout}
+                        .appearance=${appearance}
                         @action=${this._handleAction}
                         .actionHandler=${actionHandler({
                             hasHold: hasAction(this._config.hold_action),
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        ${this.renderIcon(entity as CoverEntity, icon, available)}
-                        ${!available
-                            ? html`
-                                  <mushroom-badge-icon
-                                      class="unavailable"
-                                      slot="badge"
-                                      icon="mdi:help"
-                                  ></mushroom-badge-icon>
-                              `
-                            : null}
-                        <mushroom-state-info
-                            slot="info"
-                            .primary=${name}
-                            .secondary=${!hideState && stateValue}
-                        ></mushroom-state-info>
+                        ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
+                        ${this.renderBadge(entity)}
+                        ${this.renderStateInfo(entity, appearance, name, stateDisplay)};
                     </mushroom-state-item>
                     ${this._controls.length > 0
                         ? html`
                               <div class="actions" ?rtl=${rtl}>
-                                  ${this.renderActiveControl(entity, layout)}
+                                  ${this.renderActiveControl(entity, appearance.layout)}
                                   ${this.renderNextControlButton()}
                               </div>
                           `
@@ -204,8 +191,9 @@ export class CoverCard extends MushroomBaseElement implements LovelaceCard {
         `;
     }
 
-    private renderIcon(entity: CoverEntity, icon: string, available: boolean): TemplateResult {
+    protected renderIcon(entity: CoverEntity, icon: string): TemplateResult {
         const iconStyle = {};
+        const available = isAvailable(entity);
         const color = getStateColor(entity);
         iconStyle["--icon-color"] = `rgb(${color})`;
         iconStyle["--shape-color"] = `rgba(${color}, 0.2)`;

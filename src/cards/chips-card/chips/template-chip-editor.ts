@@ -3,6 +3,7 @@ import { customElement, property, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { atLeastHaVersion, fireEvent, HomeAssistant } from "../../../ha";
 import setupCustomlocalize from "../../../localize";
+import { computeActionsFormSchema } from "../../../shared/config/actions-config";
 import { GENERIC_LABELS } from "../../../utils/form/generic-fields";
 import { HaFormSchema } from "../../../utils/form/ha-form";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
@@ -30,9 +31,7 @@ const computeSchema = memoizeOne((version: string): HaFormSchema[] => [
             ? { template: {} }
             : { text: { multiline: true } },
     },
-    { name: "tap_action", selector: { "mush-action": {} } },
-    { name: "hold_action", selector: { "mush-action": {} } },
-    { name: "double_tap_action", selector: { "mush-action": {} } },
+    ...computeActionsFormSchema(),
 ]);
 
 @customElement(computeChipEditorComponentName("template"))

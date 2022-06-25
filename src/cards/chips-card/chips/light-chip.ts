@@ -14,7 +14,7 @@ import {
     LightEntity,
 } from "../../../ha";
 import { stateIcon } from "../../../utils/icons/state-icon";
-import { getInfo } from "../../../utils/info";
+import { computeInfoDisplay } from "../../../utils/info";
 import {
     computeChipComponentName,
     computeChipEditorComponentName,
@@ -86,7 +86,7 @@ export class LightChip extends LitElement implements LovelaceChip {
             }
         }
 
-        const content = getInfo(
+        const content = computeInfoDisplay(
             this._config.content_info ?? "state",
             name,
             stateDisplay,

@@ -34,9 +34,6 @@
         },
         "card": {
             "generic": {
-                "hide_name": "Göm namn",
-                "hide_state": "Göm status?",
-                "hide_icon": "Göm ikon?",
                 "icon_color": "Ikonens färg",
                 "layout": "Layout",
                 "primary_info": "Primär information",

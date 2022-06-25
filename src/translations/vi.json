@@ -35,9 +35,6 @@
         },
         "card": {
             "generic": {
-                "hide_name": "Ẩn tên?",
-                "hide_state": "Ẩn trạng thái?",
-                "hide_icon": "Ẩn biểu tượng?",
                 "icon_color": "Màu biểu tượng",
                 "layout": "Bố cục",
                 "fill_container": "Làm đầy",
