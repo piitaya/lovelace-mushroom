@@ -16,6 +16,14 @@
                     "none": "Nessuno"
                 }
             },
+            "icon_type_picker": {
+                "values": {
+                    "default": "Tipo predefinito",
+                    "icon": "Icona",
+                    "entity-picture": "Immagine dell'entità",
+                    "none": "Nessuna"
+                }
+            },
             "layout_picker": {
                 "values": {
                     "default": "Disposizione Predefinita",
@@ -40,6 +48,7 @@
                 "fill_container": "Riempi il contenitore",
                 "primary_info": "Informazione primaria",
                 "secondary_info": "Informazione secondaria",
+                "icon_type": "Tipo icona",
                 "content_info": "Contenuto",
                 "use_entity_picture": "Usa l'immagine dell'entità",
                 "collapsible_controls": "Nascondi i controlli quando spento"
@@ -70,7 +79,8 @@
                 "entity_extra": "Usato in templates ed azioni",
                 "content": "Contenuto",
                 "badge_icon": "Icona del badge",
-                "badge_color": "Colore del badge"
+                "badge_color": "Colore del badge",
+                "picture": "Immagine (sostituirà l'icona)"
             },
             "title": {
                 "title": "Titolo",
