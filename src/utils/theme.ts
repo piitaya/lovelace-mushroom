@@ -132,4 +132,14 @@ export const themeColorCss = css`
     /* State cover colors */
     --rgb-state-cover-open: var(--mush-rgb-state-cover-open, var(--rgb-blue));
     --rgb-state-cover-closed: var(--mush-rgb-state-cover-closed, var(--rgb-disabled));
+
+    /* State climate colors */
+    --rgb-state-climate-auto: var(--mush-rgb-state-climate-auto, var(--rgb-green));
+    --rgb-state-climate-cool: var(--mush-rgb-state-climate-cool, var(--rgb-blue));
+    --rgb-state-climate-dry: var(--mush-rgb-state-climate-dry, var(--rgb-orange));
+    --rgb-state-climate-fan-only: var(--mush-rgb-state-climate-fan-only, var(--rgb-blue-grey));
+    --rgb-state-climate-heat: var(--mush-rgb-state-climate-heat, var(--rgb-deep-orange));
+    --rgb-state-climate-heat-cool: var(--mush-rgb-state-climate-heat-cool, var(--rgb-green));
+    --rgb-state-climate-idle: var(--mush-rgb-state-climate-idle, var(--rgb-grey));
+    --rgb-state-climate-off: var(--mush-rgb-state-climate-off, var(--rgb-disabled));
 `;
