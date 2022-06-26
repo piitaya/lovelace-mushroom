@@ -16,6 +16,14 @@
                     "none": "無"
                 }
             },
+            "icon_type_picker": {
+                "values": {
+                    "default": "預設樣式",
+                    "icon": "圖示",
+                    "entity-picture": "實體圖片",
+                    "none": "無"
+                }
+            },
             "layout_picker": {
                 "values": {
                     "default": "預設佈局",
@@ -40,6 +48,7 @@
                 "fill_container": "填滿容器",
                 "primary_info": "主要訊息",
                 "secondary_info": "次要訊息",
+                "icon_type": "圖示樣式",
                 "content_info": "內容",
                 "use_entity_picture": "使用實體圖片?",
                 "collapsible_controls": "關閉時隱藏控制項"
@@ -71,6 +80,7 @@
                 "content": "內容",
                 "badge_icon": "角標圖示",
                 "badge_color": "角標顏色"
+                "picture": "圖片(將會取代圖示)"
             },
             "title": {
                 "title": "標題",
