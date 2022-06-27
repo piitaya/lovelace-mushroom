@@ -21,7 +21,7 @@
                     "default": "Standard-Typ",
                     "icon": "Icon",
                     "entity-picture": "Entitätsbild",
-                    "none": "Kein"
+                    "none": "Keines"
                 }
             },
             "layout_picker": {
