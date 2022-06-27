@@ -1,13 +1,16 @@
 import { HassEntity } from "home-assistant-js-websocket";
 import { html } from "lit";
-import { HomeAssistant, isAvailable, isUnknown } from "../ha";
+import { getEntityPicture, HomeAssistant, isAvailable, isUnknown } from "../ha";
 
-export const INFOS = ["name", "state", "last-changed", "last-updated", "none"] as const;
 const TIMESTAMP_STATE_DOMAINS = ["button", "input_button", "scene"];
 
+export const INFOS = ["name", "state", "last-changed", "last-updated", "none"] as const;
 export type Info = typeof INFOS[number];
 
-export function getInfo(
+export const ICON_TYPES = ["icon", "entity-picture", "none"] as const;
+export type IconType = typeof ICON_TYPES[number];
+
+export function computeInfoDisplay(
     info: Info,
     name: string,
     state: string,
@@ -54,4 +57,8 @@ export function getInfo(
         case "none":
             return undefined;
     }
+}
+
+export function computeEntityPicture(entity: HassEntity, iconType: IconType) {
+    return iconType === "entity-picture" ? getEntityPicture(entity) : undefined;
 }

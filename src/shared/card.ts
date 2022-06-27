@@ -1,22 +1,22 @@
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { property, customElement } from "lit/decorators.js";
+import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
-import { Layout } from "../utils/layout";
+import { Appearance } from "./config/appearance-config";
 
 @customElement("mushroom-card")
 export class Card extends LitElement {
-    @property() public layout: Layout = "default";
+    @property() public appearance?: Appearance;
 
     protected render(): TemplateResult {
-        return this.renderContent();
-    }
-
-    renderContent() {
         return html`
             <div
                 class=${classMap({
                     container: true,
-                    horizontal: this.layout === "horizontal",
+                    horizontal: this.appearance?.layout === "horizontal",
+                    "no-info":
+                        this.appearance?.primary_info === "none" &&
+                        this.appearance?.secondary_info === "none",
+                    "no-icon": this.appearance?.icon_type === "none",
                 })}
             >
                 <slot></slot>
@@ -43,6 +43,14 @@ export class Card extends LitElement {
             .container.horizontal > ::slotted(*) {
                 flex: 1;
                 min-width: 0;
+            }
+            .container.no-info > ::slotted(mushroom-state-item) {
+                flex: none;
+            }
+            .container.no-info.no-icon > ::slotted(mushroom-state-item) {
+                margin-right: 0;
+                margin-left: 0;
+                margin-bottom: 0;
             }
             .container.horizontal > ::slotted(*:not(:last-child)) {
                 margin-right: var(--spacing);

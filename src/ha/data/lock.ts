@@ -26,8 +26,6 @@ export interface LockEntity extends HassEntityBase {
     state: LOCK_STATES | "unavailable" | "unknown";
 }
 
-export const LOCK_ENTITY_DOMAINS = ["lock"];
-
 export const LOCK_STATE_JAMMED = "jammed";
 export const LOCK_STATE_LOCKED = "locked";
 export const LOCK_STATE_LOCKING = "locking";

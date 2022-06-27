@@ -2,18 +2,41 @@ title: Media
 icon: mdi:speaker
 cards:
   - type: grid
-    title: Simple
+    title: Basic
     cards:
-      - type: custom:mushroom-media-player-card
-        entity: media_player.bedroom
-      - type: custom:mushroom-media-player-card
-        entity: media_player.kitchen
       - type: custom:mushroom-media-player-card
         entity: media_player.living_room
       - type: custom:mushroom-media-player-card
-        entity: media_player.lounge_room
+        entity: media_player.living_room
+        name: Custom name and icon
+        icon: mdi:robot-outline
+    columns: 2
+    square: false
+  - type: grid
+    title: Infos
+    cards:
       - type: custom:mushroom-media-player-card
-        entity: media_player.walkman
+        entity: media_player.living_room
+        primary_info: state
+        secondary_info: name
+      - type: custom:mushroom-media-player-card
+        entity: media_player.living_room
+        primary_info: name
+        secondary_info: last-changed
+      - type: custom:mushroom-media-player-card
+        entity: media_player.living_room
+        primary_info: name
+        secondary_info: last-updated
+      - type: custom:mushroom-media-player-card
+        entity: media_player.living_room
+        primary_info: name
+        secondary_info: none
+      - type: custom:mushroom-media-player-card
+        entity: media_player.living_room
+        icon_type: none
+      - type: custom:mushroom-media-player-card
+        entity: media_player.living_room
+        icon_type: entity-picture
     columns: 2
     square: false
   - type: grid
@@ -22,13 +45,6 @@ cards:
       - type: custom:mushroom-media-player-card
         entity: media_player.living_room
         use_media_artwork: true
-      - type: custom:mushroom-media-player-card
-        entity: media_player.living_room
-        use_media_info: true
-      - type: custom:mushroom-media-player-card
-        entity: media_player.living_room
-        use_media_artwork: true
-        use_media_info: true
     columns: 2
     square: false
   - type: grid

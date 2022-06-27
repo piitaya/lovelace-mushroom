@@ -16,6 +16,14 @@
                     "none": "None"
                 }
             },
+            "icon_type_picker": {
+                "values": {
+                    "default": "Default type",
+                    "icon": "Icon",
+                    "entity-picture": "Entity picture",
+                    "none": "None"
+                }
+            },
             "layout_picker": {
                 "values": {
                     "default": "Default layout",
@@ -35,14 +43,12 @@
         },
         "card": {
             "generic": {
-                "hide_name": "Hide name?",
-                "hide_state": "Hide state?",
-                "hide_icon": "Hide icon?",
                 "icon_color": "Icon color",
                 "layout": "Layout",
                 "fill_container": "Fill container",
                 "primary_info": "Primary information",
                 "secondary_info": "Secondary information",
+                "icon_type": "Icon type",
                 "content_info": "Content",
                 "use_entity_picture": "Use entity picture?",
                 "collapsible_controls": "Collapse controls when off"
@@ -73,7 +79,8 @@
                 "entity_extra": "Used in templates and actions",
                 "content": "Content",
                 "badge_icon": "Badge icon",
-                "badge_color": "Badge color"
+                "badge_color": "Badge color",
+                "picture": "Picture (will replace the icon)"
             },
             "title": {
                 "title": "Title",

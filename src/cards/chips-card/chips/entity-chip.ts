@@ -15,7 +15,7 @@ import {
 } from "../../../ha";
 import { computeRgbColor } from "../../../utils/colors";
 import { stateIcon } from "../../../utils/icons/state-icon";
-import { getInfo } from "../../../utils/info";
+import { computeInfoDisplay } from "../../../utils/info";
 import {
     computeChipComponentName,
     computeChipEditorComponentName,
@@ -76,7 +76,7 @@ export class EntityChip extends LitElement implements LovelaceChip {
             iconStyle["--color"] = `rgb(${iconRgbColor})`;
         }
 
-        const content = getInfo(
+        const content = computeInfoDisplay(
             this._config.content_info ?? "state",
             name,
             stateDisplay,

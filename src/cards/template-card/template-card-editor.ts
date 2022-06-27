@@ -4,6 +4,7 @@ import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import { atLeastHaVersion, fireEvent, LovelaceCardEditor } from "../../ha";
 import setupCustomlocalize from "../../localize";
+import { computeActionsFormSchema } from "../../shared/config/actions-config";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
@@ -11,7 +12,15 @@ import { loadHaComponents } from "../../utils/loader";
 import { TEMPLATE_CARD_EDITOR_NAME } from "./const";
 import { TemplateCardConfig, templateCardConfigStruct } from "./template-card-config";
 
-export const TEMPLATE_LABELS = ["badge_icon", "badge_color", "content", "primary", "secondary", "multiline_secondary"];
+export const TEMPLATE_LABELS = [
+    "badge_icon",
+    "badge_color",
+    "content",
+    "primary",
+    "secondary",
+    "multiline_secondary",
+    "picture",
+];
 
 const computeSchema = memoizeOne((version: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: {} } },
@@ -23,18 +32,6 @@ const computeSchema = memoizeOne((version: string): HaFormSchema[] => [
     },
     {
         name: "icon_color",
-        selector: atLeastHaVersion(version, 2022, 5)
-            ? { template: {} }
-            : { text: { multiline: true } },
-    },
-    {
-        name: "badge_icon",
-        selector: atLeastHaVersion(version, 2022, 5)
-            ? { template: {} }
-            : { text: { multiline: true } },
-    },
-    {
-        name: "badge_color",
         selector: atLeastHaVersion(version, 2022, 5)
             ? { template: {} }
             : { text: { multiline: true } },
@@ -52,6 +49,24 @@ const computeSchema = memoizeOne((version: string): HaFormSchema[] => [
             : { text: { multiline: true } },
     },
     {
+        name: "badge_icon",
+        selector: atLeastHaVersion(version, 2022, 5)
+            ? { template: {} }
+            : { text: { multiline: true } },
+    },
+    {
+        name: "badge_color",
+        selector: atLeastHaVersion(version, 2022, 5)
+            ? { template: {} }
+            : { text: { multiline: true } },
+    },
+    {
+        name: "picture",
+        selector: atLeastHaVersion(version, 2022, 5)
+            ? { template: {} }
+            : { text: { multiline: true } },
+    },
+    {
         type: "grid",
         name: "",
         schema: [
@@ -60,9 +75,7 @@ const computeSchema = memoizeOne((version: string): HaFormSchema[] => [
             { name: "multiline_secondary", selector: { boolean: {} } },
         ],
     },
-    { name: "tap_action", selector: { "mush-action": {} } },
-    { name: "hold_action", selector: { "mush-action": {} } },
-    { name: "double_tap_action", selector: { "mush-action": {} } },
+    ...computeActionsFormSchema(),
 ]);
 
 @customElement(TEMPLATE_CARD_EDITOR_NAME)

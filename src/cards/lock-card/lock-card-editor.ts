@@ -2,32 +2,24 @@ import { html, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
-import { fireEvent, LOCK_ENTITY_DOMAINS, LovelaceCardEditor } from "../../ha";
+import { fireEvent, LovelaceCardEditor } from "../../ha";
 import setupCustomlocalize from "../../localize";
+import { computeActionsFormSchema } from "../../shared/config/actions-config";
+import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { loadHaComponents } from "../../utils/loader";
-import { LOCK_CARD_EDITOR_NAME } from "./const";
+import { LOCK_CARD_EDITOR_NAME, LOCK_ENTITY_DOMAINS } from "./const";
 import { LockCardConfig, lockCardConfigStruct } from "./lock-card-config";
 
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: LOCK_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
     { name: "icon", selector: { icon: { placeholder: icon } } },
-    {
-        type: "grid",
-        name: "",
-        schema: [
-            { name: "layout", selector: { "mush-layout": {} } },
-            { name: "fill_container", selector: { boolean: {} } },
-            { name: "hide_state", selector: { boolean: {} } },
-        ],
-    },
-    { name: "tap_action", selector: { "mush-action": {} } },
-    { name: "hold_action", selector: { "mush-action": {} } },
-    { name: "double_tap_action", selector: { "mush-action": {} } },
+    ...APPEARANCE_FORM_SCHEMA,
+    ...computeActionsFormSchema(),
 ]);
 
 @customElement(LOCK_CARD_EDITOR_NAME)

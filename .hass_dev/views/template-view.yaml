@@ -48,6 +48,15 @@ cards:
         badge_color: red
     columns: 2
     square: false
+  - type: grid
+    title: Picture
+    cards:
+      - type: custom:mushroom-template-card
+        primary: Hello, {{user}}
+        secondary: How are you?
+        picture: /local/mushrooms.jpeg
+    columns: 2
+    square: false
   - type: vertical-stack
     title: Layout
     cards:

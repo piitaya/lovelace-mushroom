@@ -34,9 +34,6 @@
         },
         "card": {
             "generic": {
-                "hide_name": "隐藏名称?",
-                "hide_state": "隐藏状态?",
-                "hide_icon": "隐藏图标?",
                 "icon_color": "图标颜色",
                 "primary_info": "首要信息",
                 "secondary_info": "次要信息",

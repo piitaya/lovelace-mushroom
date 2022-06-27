@@ -1,8 +1,11 @@
 import { array, assign, boolean, enums, object, optional } from "superstruct";
 import { LovelaceCardConfig } from "../../ha";
 import { ActionsSharedConfig, actionsSharedConfigStruct } from "../../shared/config/actions-config";
+import {
+    AppearanceSharedConfig,
+    appearanceSharedConfigStruct,
+} from "../../shared/config/appearance-config";
 import { EntitySharedConfig, entitySharedConfigStruct } from "../../shared/config/entity-config";
-import { LayoutSharedConfig, layoutSharedConfigStruct } from "../../shared/config/layout-config";
 import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-config";
 
 export const MEDIA_LAYER_MEDIA_CONTROLS = [
@@ -26,10 +29,9 @@ export type MediaPlayerVolumeControl = typeof MEDIA_PLAYER_VOLUME_CONTROLS[numbe
 
 export type MediaPlayerCardConfig = LovelaceCardConfig &
     EntitySharedConfig &
-    LayoutSharedConfig &
+    AppearanceSharedConfig &
     ActionsSharedConfig & {
         use_media_info?: boolean;
-        use_media_artwork?: boolean;
         show_volume_level?: boolean;
         volume_controls?: MediaPlayerVolumeControl[];
         media_controls?: MediaPlayerMediaControl[];
@@ -38,10 +40,9 @@ export type MediaPlayerCardConfig = LovelaceCardConfig &
 
 export const mediaPlayerCardConfigStruct = assign(
     lovelaceCardConfigStruct,
-    assign(entitySharedConfigStruct, layoutSharedConfigStruct, actionsSharedConfigStruct),
+    assign(entitySharedConfigStruct, appearanceSharedConfigStruct, actionsSharedConfigStruct),
     object({
         use_media_info: optional(boolean()),
-        use_media_artwork: optional(boolean()),
         show_volume_level: optional(boolean()),
         volume_controls: optional(array(enums(MEDIA_PLAYER_VOLUME_CONTROLS))),
         media_controls: optional(array(enums(MEDIA_LAYER_MEDIA_CONTROLS))),

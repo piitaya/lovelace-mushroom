@@ -4,6 +4,8 @@ import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import { fireEvent, LovelaceCardEditor } from "../../ha";
 import setupCustomlocalize from "../../localize";
+import { computeActionsFormSchema } from "../../shared/config/actions-config";
+import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { Action } from "../../utils/form/custom/ha-selector-mushroom-action";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
@@ -18,27 +20,9 @@ const actions: Action[] = ["more-info", "navigate", "url", "call-service", "none
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: PERSON_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
-    {
-        type: "grid",
-        name: "",
-        schema: [
-            { name: "icon", selector: { icon: { placeholder: icon } } },
-            { name: "use_entity_picture", selector: { boolean: {} } },
-        ],
-    },
-    {
-        type: "grid",
-        name: "",
-        schema: [
-            { name: "layout", selector: { "mush-layout": {} } },
-            { name: "fill_container", selector: { boolean: {} } },
-            { name: "hide_state", selector: { boolean: {} } },
-            { name: "hide_name", selector: { boolean: {} } },
-        ],
-    },
-    { name: "tap_action", selector: { "mush-action": { actions } } },
-    { name: "hold_action", selector: { "mush-action": { actions } } },
-    { name: "double_tap_action", selector: { "mush-action": { actions } } },
+    { name: "icon", selector: { icon: { placeholder: icon } } },
+    ...APPEARANCE_FORM_SCHEMA,
+    ...computeActionsFormSchema(actions),
 ]);
 
 @customElement(PERSON_CARD_EDITOR_NAME)

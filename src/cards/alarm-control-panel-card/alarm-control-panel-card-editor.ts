@@ -4,6 +4,8 @@ import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import { fireEvent, LocalizeFunc, LovelaceCardEditor } from "../../ha";
 import setupCustomlocalize from "../../localize";
+import { computeActionsFormSchema } from "../../shared/config/actions-config";
+import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { Action } from "../../utils/form/custom/ha-selector-mushroom-action";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
@@ -25,20 +27,8 @@ const ALARM_CONTROL_PANEL_LABELS = ["show_keypad"];
 const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: ALARM_CONTROl_PANEL_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
-    {
-        type: "grid",
-        name: "",
-        schema: [{ name: "icon", selector: { icon: { placeholder: icon } } }],
-    },
-    {
-        type: "grid",
-        name: "",
-        schema: [
-            { name: "layout", selector: { "mush-layout": {} } },
-            { name: "fill_container", selector: { boolean: {} } },
-            { name: "hide_state", selector: { boolean: {} } },
-        ],
-    },
+    { name: "icon", selector: { icon: { placeholder: icon } } },
+    ...APPEARANCE_FORM_SCHEMA,
     {
         type: "multi_select",
         name: "states",
@@ -48,9 +38,7 @@ const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaForm
         ]) as [string, string][],
     },
     { name: "show_keypad", selector: { boolean: {} } },
-    { name: "tap_action", selector: { "mush-action": { actions } } },
-    { name: "hold_action", selector: { "mush-action": { actions } } },
-    { name: "double_tap_action", selector: { "mush-action": { actions } } },
+    ...computeActionsFormSchema(actions),
 ]);
 
 @customElement(ALARM_CONTROl_PANEL_CARD_EDITOR_NAME)

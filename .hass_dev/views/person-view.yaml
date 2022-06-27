@@ -2,18 +2,41 @@ title: Person
 icon: mdi:face-man
 cards:
   - type: grid
-    title: Simple
+    title: Basic
     cards:
       - type: custom:mushroom-person-card
         entity: person.anne_therese
       - type: custom:mushroom-person-card
         entity: person.anne_therese
         name: Custom name and icon
-        icon: mdi:face-woman
+        icon: mdi:robot-outline
+    columns: 2
+    square: false
+  - type: grid
+    title: Infos
+    cards:
       - type: custom:mushroom-person-card
         entity: person.anne_therese
-        name: Use entity picture
-        use_entity_picture: true
+        primary_info: state
+        secondary_info: name
+      - type: custom:mushroom-person-card
+        entity: person.anne_therese
+        primary_info: name
+        secondary_info: last-changed
+      - type: custom:mushroom-person-card
+        entity: person.anne_therese
+        primary_info: name
+        secondary_info: last-updated
+      - type: custom:mushroom-person-card
+        entity: person.anne_therese
+        primary_info: name
+        secondary_info: none
+      - type: custom:mushroom-person-card
+        entity: person.anne_therese
+        icon_type: none
+      - type: custom:mushroom-person-card
+        entity: person.anne_therese
+        icon_type: entity-picture
     columns: 2
     square: false
   - type: vertical-stack

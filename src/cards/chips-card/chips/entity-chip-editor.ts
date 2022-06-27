@@ -3,6 +3,7 @@ import { customElement, property, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { fireEvent, HomeAssistant } from "../../../ha";
 import setupCustomlocalize from "../../../localize";
+import { computeActionsFormSchema } from "../../../shared/config/actions-config";
 import { GENERIC_LABELS } from "../../../utils/form/generic-fields";
 import { HaFormSchema } from "../../../utils/form/ha-form";
 import { stateIcon } from "../../../utils/icons/state-icon";
@@ -29,9 +30,7 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
         ],
     },
     { name: "use_entity_picture", selector: { boolean: {} } },
-    { name: "tap_action", selector: { "mush-action": {} } },
-    { name: "hold_action", selector: { "mush-action": {} } },
-    { name: "double_tap_action", selector: { "mush-action": {} } },
+    ...computeActionsFormSchema(),
 ]);
 
 @customElement(computeChipEditorComponentName("entity"))

@@ -2,7 +2,7 @@ title: Light
 icon: mdi:lightbulb
 cards:
   - type: grid
-    title: Simple
+    title: Basic
     cards:
       - type: custom:mushroom-light-card
         entity: light.bed_light
@@ -10,6 +10,30 @@ cards:
         entity: light.bed_light
         name: Custom name and icon
         icon: mdi:robot-outline
+    columns: 2
+    square: false
+  - type: grid
+    title: Infos
+    cards:
+      - type: custom:mushroom-light-card
+        entity: light.bed_light
+        primary_info: state
+        secondary_info: name
+      - type: custom:mushroom-light-card
+        entity: light.bed_light
+        primary_info: name
+        secondary_info: last-changed
+      - type: custom:mushroom-light-card
+        entity: light.bed_light
+        primary_info: name
+        secondary_info: last-updated
+      - type: custom:mushroom-light-card
+        entity: light.bed_light
+        primary_info: name
+        secondary_info: none
+      - type: custom:mushroom-light-card
+        entity: light.bed_light
+        icon_type: none
     columns: 2
     square: false
   - type: vertical-stack

@@ -4,6 +4,8 @@ import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import { fireEvent, LovelaceCardEditor } from "../../ha";
 import setupCustomlocalize from "../../localize";
+import { computeActionsFormSchema } from "../../shared/config/actions-config";
+import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
@@ -17,20 +19,8 @@ const HUMIDIFIER_FIELDS = ["show_target_humidity_control"];
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: HUMIDIFIER_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
-    {
-        type: "grid",
-        name: "",
-        schema: [{ name: "icon", selector: { icon: { placeholder: icon } } }],
-    },
-    {
-        type: "grid",
-        name: "",
-        schema: [
-            { name: "layout", selector: { "mush-layout": {} } },
-            { name: "fill_container", selector: { boolean: {} } },
-            { name: "hide_state", selector: { boolean: {} } },
-        ],
-    },
+    { name: "icon", selector: { icon: { placeholder: icon } } },
+    ...APPEARANCE_FORM_SCHEMA,
     {
         type: "grid",
         name: "",
@@ -39,9 +29,7 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
             { name: "collapsible_controls", selector: { boolean: {} } },
         ],
     },
-    { name: "tap_action", selector: { "mush-action": {} } },
-    { name: "hold_action", selector: { "mush-action": {} } },
-    { name: "double_tap_action", selector: { "mush-action": {} } },
+    ...computeActionsFormSchema(),
 ]);
 
 @customElement(HUMIDIFIER_CARD_EDITOR_NAME)

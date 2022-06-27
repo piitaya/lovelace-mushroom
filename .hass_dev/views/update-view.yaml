@@ -2,7 +2,7 @@ title: Update
 icon: mdi:package
 cards:
   - type: grid
-    title: Simple
+    title: Basic
     cards:
       - type: custom:mushroom-update-card
         entity: update.demo_update_with_progress
@@ -10,10 +10,33 @@ cards:
         entity: update.demo_update_with_progress
         name: Custom name and icon
         icon: mdi:robot-outline
+    columns: 2
+    square: false
+  - type: grid
+    title: Infos
+    cards:
       - type: custom:mushroom-update-card
         entity: update.demo_update_with_progress
-        name: Update picture
-        use_entity_picture: true
+        primary_info: state
+        secondary_info: name
+      - type: custom:mushroom-update-card
+        entity: update.demo_update_with_progress
+        primary_info: name
+        secondary_info: last-changed
+      - type: custom:mushroom-update-card
+        entity: update.demo_update_with_progress
+        primary_info: name
+        secondary_info: last-updated
+      - type: custom:mushroom-update-card
+        entity: update.demo_update_with_progress
+        primary_info: name
+        secondary_info: none
+      - type: custom:mushroom-update-card
+        entity: update.demo_update_with_progress
+        icon_type: none
+      - type: custom:mushroom-update-card
+        entity: update.demo_update_with_progress
+        icon_type: entity-picture
     columns: 2
     square: false
   - type: grid

@@ -6,13 +6,11 @@ import {
     actionHandler,
     ActionHandlerEvent,
     computeRTL,
-    computeStateDisplay,
     handleAction,
     hasAction,
     HomeAssistant,
     isAvailable,
     LockEntity,
-    LOCK_ENTITY_DOMAINS,
     LovelaceCard,
     LovelaceCardEditor,
 } from "../../ha";
@@ -22,12 +20,13 @@ import "../../shared/card";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
-import { MushroomBaseElement } from "../../utils/base-element";
+import { computeAppearance } from "../../utils/appearance";
+import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { stateIcon } from "../../utils/icons/state-icon";
-import { getLayoutFromConfig } from "../../utils/layout";
-import { LOCK_CARD_EDITOR_NAME, LOCK_CARD_NAME } from "./const";
+import { computeEntityPicture } from "../../utils/info";
+import { LOCK_CARD_EDITOR_NAME, LOCK_CARD_NAME, LOCK_ENTITY_DOMAINS } from "./const";
 import "./controls/lock-buttons-control";
 import { LockCardConfig } from "./lock-card-config";
 import { isActionPending, isLocked, isUnlocked } from "./utils";
@@ -39,7 +38,7 @@ registerCustomCard({
 });
 
 @customElement(LOCK_CARD_NAME)
-export class LockCard extends MushroomBaseElement implements LovelaceCard {
+export class LockCard extends MushroomBaseCard implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./lock-card-editor");
         return document.createElement(LOCK_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -86,48 +85,32 @@ export class LockCard extends MushroomBaseElement implements LovelaceCard {
 
         const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
-        const hideState = this._config.hide_state;
-        const layout = getLayoutFromConfig(this._config);
-
-        const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
-
-        const available = isAvailable(entity);
+        const appearance = computeAppearance(this._config);
+        const picture = computeEntityPicture(entity, appearance.icon_type);
 
         const rtl = computeRTL(this.hass);
 
         return html`
-            <ha-card class=${classMap({ "fill-container": this._config.fill_container ?? false })}>
-                <mushroom-card .layout=${layout} ?rtl=${rtl}>
+            <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
+                <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
                     <mushroom-state-item
                         ?rtl=${rtl}
-                        .layout=${layout}
+                        .appearance=${appearance}
                         @action=${this._handleAction}
                         .actionHandler=${actionHandler({
                             hasHold: hasAction(this._config.hold_action),
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        ${this.renderIcon(entity, icon, available)}
-                        ${!available
-                            ? html`
-                                  <mushroom-badge-icon
-                                      class="unavailable"
-                                      slot="badge"
-                                      icon="mdi:help"
-                                  ></mushroom-badge-icon>
-                              `
-                            : null}
-                        <mushroom-state-info
-                            slot="info"
-                            .primary=${name}
-                            .secondary=${!hideState && stateDisplay}
-                        ></mushroom-state-info>
+                        ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
+                        ${this.renderBadge(entity)}
+                        ${this.renderStateInfo(entity, appearance, name)};
                     </mushroom-state-item>
                     <div class="actions" ?rtl=${rtl}>
                         <mushroom-lock-buttons-control
                             .hass=${this.hass}
                             .entity=${entity}
-                            .fill=${layout !== "horizontal"}
+                            .fill=${appearance.layout !== "horizontal"}
                         >
                         </mushroom-lock-buttons-control>
                     </div>
@@ -136,7 +119,9 @@ export class LockCard extends MushroomBaseElement implements LovelaceCard {
         `;
     }
 
-    renderIcon(entity: LockEntity, icon: string, available: boolean): TemplateResult {
+    renderIcon(entity: LockEntity, icon: string): TemplateResult {
+        const available = isAvailable(entity);
+
         const iconStyle = {
             "--icon-color": "rgb(var(--rgb-state-lock))",
             "--shape-color": "rgba(var(--rgb-state-lock), 0.2)",
