@@ -113,7 +113,8 @@ export class SliderItem extends LitElement {
                 if (this.disabled) return;
                 this.controlled = false;
                 const percentage = getPercentageFromEvent(e);
-                this.value = this.percentageToValue(percentage);
+                // Prevent from input releasing on a value that doesn't lie on a step
+                this.value = Math.round(this.percentageToValue(percentage) / this.step) * this.step;
                 this.dispatchEvent(
                     new CustomEvent("current-change", {
                         detail: {
@@ -124,7 +125,7 @@ export class SliderItem extends LitElement {
                 this.dispatchEvent(
                     new CustomEvent("change", {
                         detail: {
-                            value: Math.round(this.value / this.step) * this.step,
+                            value: this.value,
                         },
                     })
                 );
@@ -133,11 +134,12 @@ export class SliderItem extends LitElement {
             this._mc.on("singletap", (e) => {
                 if (this.disabled) return;
                 const percentage = getPercentageFromEvent(e);
-                this.value = this.percentageToValue(percentage);
+                // Prevent from input selecting a value that doesn't lie on a step
+                this.value = Math.round(this.percentageToValue(percentage) / this.step) * this.step;
                 this.dispatchEvent(
                     new CustomEvent("change", {
                         detail: {
-                            value: Math.round(this.value / this.step) * this.step,
+                            value: this.value,
                         },
                     })
                 );
