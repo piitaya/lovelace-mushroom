@@ -39,3 +39,9 @@ export function isReturningHome(entity: HassEntity): boolean {
             return false;
     }
 }
+
+export function getCharge(entity: HassEntity) {
+    return entity.attributes.battery_level != null
+        ? Math.round(entity.attributes.battery_level)
+        : undefined;
+}

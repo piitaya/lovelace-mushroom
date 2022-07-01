@@ -68,6 +68,33 @@ export class VacuumCard extends MushroomBaseCard implements LovelaceCard {
         };
     }
 
+    protected updated(changedProperties: PropertyValues) {
+        super.updated(changedProperties);
+        if (this.hass && changedProperties.has("hass")) {
+            this.updateCharge();
+        }
+    }
+
+    @state()
+    private charge?: number;
+
+    updateCharge() {
+        this.charge = undefined;
+        if (!this._config || !this.hass || !this._config.entity) return;
+
+        const entity_id = this._config.entity;
+        const entity = this.hass.states[entity_id] as VacuumEntity;
+
+        if (!entity) return;
+        this.charge = getCharge(entity);
+    }
+
+    private onCurrentChargeChange(e: CustomEvent<{ value?: number }>): void {
+        if (e.detail.value != null) {
+            this.charge = e.detail.value;
+        }
+    }
+
     private _handleAction(ev: ActionHandlerEvent) {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
@@ -84,6 +111,11 @@ export class VacuumCard extends MushroomBaseCard implements LovelaceCard {
         const icon = this._config.icon || stateIcon(entity);
         const appearance = computeAppearance(this._config);
         const picture = computeEntityPicture(entity, appearance.icon_type);
+
+        let stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
+        if (this.charge) {
+            stateDisplay += ` - ${this.charge}%`;
+        }
 
         const rtl = computeRTL(this.hass);
 
@@ -103,7 +135,7 @@ export class VacuumCard extends MushroomBaseCard implements LovelaceCard {
                     >
                         ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
                         ${this.renderBadge(entity)}
-                        ${this.renderStateInfo(entity, appearance, name)};
+                        ${this.renderStateInfo(entity, appearance, name, stateDisplay)};
                     </mushroom-state-item>
                     ${isCommandsControlVisible(entity, commands)
                         ? html`
