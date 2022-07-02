@@ -23,6 +23,7 @@ export type VacuumCardConfig = LovelaceCardConfig &
     AppearanceSharedConfig &
     ActionsSharedConfig & {
         commands?: VacuumCommand[];
+        show_battery_charge?: false;
     };
 
 export const vacuumCardConfigStruct = assign(

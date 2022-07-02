@@ -27,6 +27,7 @@ import { VACUUM_CARD_EDITOR_NAME, VACUUM_CARD_NAME, VACUUM_ENTITY_DOMAINS } from
 import "./controls/vacuum-commands-control";
 import { isCommandsControlVisible } from "./controls/vacuum-commands-control";
 import { VacuumCardConfig } from "./vacuum-card-config";
+import { getCharge } from "./utils";
 
 registerCustomCard({
     type: VACUUM_CARD_NAME,
@@ -68,33 +69,6 @@ export class VacuumCard extends MushroomBaseCard implements LovelaceCard {
         };
     }
 
-    protected updated(changedProperties: PropertyValues) {
-        super.updated(changedProperties);
-        if (this.hass && changedProperties.has("hass")) {
-            this.updateCharge();
-        }
-    }
-
-    @state()
-    private charge?: number;
-
-    updateCharge() {
-        this.charge = undefined;
-        if (!this._config || !this.hass || !this._config.entity) return;
-
-        const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id] as VacuumEntity;
-
-        if (!entity) return;
-        this.charge = getCharge(entity);
-    }
-
-    private onCurrentChargeChange(e: CustomEvent<{ value?: number }>): void {
-        if (e.detail.value != null) {
-            this.charge = e.detail.value;
-        }
-    }
-
     private _handleAction(ev: ActionHandlerEvent) {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
@@ -113,8 +87,8 @@ export class VacuumCard extends MushroomBaseCard implements LovelaceCard {
         const picture = computeEntityPicture(entity, appearance.icon_type);
 
         let stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
-        if (this.charge) {
-            stateDisplay += ` - ${this.charge}%`;
+        if (this._config.show_battery_charge && getCharge(entity)) {
+            stateDisplay += ` - ${getCharge(entity)}%`;
         }
 
         const rtl = computeRTL(this.hass);
