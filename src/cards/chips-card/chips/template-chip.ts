@@ -20,7 +20,7 @@ import {
 import { LovelaceChip, TemplateChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 
-const TEMPLATE_KEYS = ["content", "icon", "icon_color"] as const;
+const TEMPLATE_KEYS = ["content", "icon", "icon_color", "picture"] as const;
 type TemplateKey = typeof TEMPLATE_KEYS[number];
 
 @customElement(computeChipComponentName("template"))
@@ -95,6 +95,7 @@ export class TemplateChip extends LitElement implements LovelaceChip {
         const icon = this.getValue("icon");
         const iconColor = this.getValue("icon_color");
         const content = this.getValue("content");
+        const picture = this.getValue("picture");
 
         const rtl = computeRTL(this.hass);
 
@@ -106,8 +107,10 @@ export class TemplateChip extends LitElement implements LovelaceChip {
                     hasHold: hasAction(this._config.hold_action),
                     hasDoubleClick: hasAction(this._config.double_tap_action),
                 })}
+                .avatar=${picture ? (this.hass as any).hassUrl(picture) : undefined}
+                .avatarOnly=${picture && !content}
             >
-                ${icon ? this.renderIcon(icon, iconColor) : null}
+                ${icon && !picture ? this.renderIcon(icon, iconColor) : null}
                 ${content ? this.renderContent(content) : null}
             </mushroom-chip>
         `;

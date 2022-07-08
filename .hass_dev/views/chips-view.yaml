@@ -166,6 +166,10 @@ cards:
             content: |
               {{ states | count }} entities
             icon: mdi:format-list-bulleted
+            tap_action: none
+          - type: template
+            picture: https://placekitten.com/200/200
+            tap_action: none
   - type: vertical-stack
     title: Conditional chip
     cards:

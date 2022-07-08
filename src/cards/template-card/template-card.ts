@@ -121,7 +121,7 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
         const badgeColor = this.getValue("badge_color");
         const primary = this.getValue("primary");
         const secondary = this.getValue("secondary");
-        const picture = this.getValue("picture") ?? "";
+        const picture = this.getValue("picture");
 
         const multiline_secondary = this._config.multiline_secondary;
 
