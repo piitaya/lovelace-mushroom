@@ -205,9 +205,11 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
             super.styles,
             cardStyle,
             css`
-                mushroom-state-item {
-                    cursor: pointer;
-                }
+                ${hasAction(this._config.tap_action) ||
+                    hasAction(this._config.hold_action) ||
+                    hasAction(this._config.double_tap_action)
+                        ? html`mushroom-state-item { cursor: pointer; }`
+                        : null}
                 mushroom-shape-icon {
                     --icon-color: rgb(var(--rgb-state-fan));
                     --shape-color: rgba(var(--rgb-state-fan), 0.2);

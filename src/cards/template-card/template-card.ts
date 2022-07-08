@@ -301,9 +301,11 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
             super.styles,
             cardStyle,
             css`
-                mushroom-state-item {
-                    cursor: pointer;
-                }
+                ${hasAction(this._config.tap_action) ||
+                    hasAction(this._config.hold_action) ||
+                    hasAction(this._config.double_tap_action)
+                        ? html`mushroom-state-item { cursor: pointer; }`
+                        : null}
             `,
         ];
     }
