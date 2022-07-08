@@ -2,7 +2,7 @@ import { html, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
-import { fireEvent, LovelaceCardEditor } from "../../ha";
+import { fireEvent, LocalizeFunc, LovelaceCardEditor } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { computeActionsFormSchema } from "../../shared/config/actions-config";
 import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
@@ -12,15 +12,35 @@ import { HaFormSchema } from "../../utils/form/ha-form";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { loadHaComponents } from "../../utils/loader";
 import { CLIMATE_CARD_EDITOR_NAME, CLIMATE_ENTITY_DOMAINS } from "./const";
-import { ClimateCardConfig, climateCardConfigStruct } from "./climate-card-config";
+import { ClimateCardConfig, climateCardConfigStruct, HVAC_MODES } from "./climate-card-config";
 
-const CLIMATE_LABELS = [] as string[];
+const CLIMATE_LABELS = ["hvac_modes", "show_temperature_control"] as string[];
 
-const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
+const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: CLIMATE_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
     { name: "icon", selector: { icon: { placeholder: icon } } },
     ...APPEARANCE_FORM_SCHEMA,
+    {
+        type: "grid",
+        name: "",
+        schema: [
+            {
+                name: "hvac_modes",
+                selector: {
+                    select: {
+                        options: HVAC_MODES.map((mode) => ({
+                            value: mode,
+                            label: localize(`component.climate.state._.${mode}`),
+                        })),
+                        mode: "dropdown",
+                        multiple: true,
+                    },
+                },
+            },
+            { name: "show_temperature_control", selector: { boolean: {} } },
+        ],
+    },
     ...computeActionsFormSchema(),
 ]);
 
@@ -58,7 +78,7 @@ export class ClimateCardEditor extends MushroomBaseElement implements LovelaceCa
         const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
         const entityIcon = entityState ? stateIcon(entityState) : undefined;
         const icon = this._config.icon || entityIcon;
-        const schema = computeSchema(icon);
+        const schema = computeSchema(this.hass!.localize, icon);
 
         return html`
             <ha-form

@@ -5,13 +5,17 @@ import "../../../shared/button";
 import "../../../shared/button-group";
 import "../../../shared/input-number";
 
+export const isTemperatureControlVisible = (entity: ClimateEntity) =>
+    entity.attributes.temperature != null ||
+    (entity.attributes.target_temp_low != null && entity.attributes.target_temp_high != null);
+
 @customElement("mushroom-climate-temperature-control")
 export class ClimateTemperatureControl extends LitElement {
     @property({ attribute: false }) public hass!: HomeAssistant;
 
     @property({ attribute: false }) public entity!: ClimateEntity;
 
-    @property() public fill!: boolean;
+    @property() public fill: boolean = false;
 
     onValueChange(e: CustomEvent<{ value: number }>): void {
         const value = e.detail.value;
