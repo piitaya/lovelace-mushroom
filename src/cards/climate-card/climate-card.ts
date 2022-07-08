@@ -1,4 +1,3 @@
-import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
@@ -13,9 +12,7 @@ import {
     handleAction,
     hasAction,
     HomeAssistant,
-    HvacAction,
     HvacMode,
-    isActive,
     isAvailable,
     LovelaceCard,
     LovelaceCardEditor,
@@ -35,9 +32,10 @@ import { stateIcon } from "../../utils/icons/state-icon";
 import { computeEntityPicture } from "../../utils/info";
 import { ClimateCardConfig } from "./climate-card-config";
 import { CLIMATE_CARD_EDITOR_NAME, CLIMATE_CARD_NAME, CLIMATE_ENTITY_DOMAINS } from "./const";
+import "./controls/climate-temperature-control";
 import { getHvacActionColor, getHvacActionIcon, getHvacModeColor } from "./utils";
 
-type ClimateCardControl = "buttons_control" | "position_control";
+type ClimateCardControl = "temperature_control" | "hvac_mode_control";
 
 registerCustomCard({
     type: CLIMATE_CARD_NAME,
@@ -136,6 +134,13 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
                         ${this.renderBadge(entity)}
                         ${this.renderStateInfo(entity, appearance, name, stateDisplay)};
                     </mushroom-state-item>
+                    <div class="actions" ?rtl=${rtl}>
+                        <mushroom-climate-temperature-control
+                            .hass=${this.hass}
+                            .entity=${entity}
+                            .fill=${appearance.layout !== "horizontal"}
+                        />
+                    </div>
                 </mushroom-card>
             </ha-card>
         `;
@@ -194,6 +199,9 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
             css`
                 mushroom-state-item {
                     cursor: pointer;
+                }
+                mushroom-climate-temperature-control {
+                    flex: 1;
                 }
             `,
         ];
