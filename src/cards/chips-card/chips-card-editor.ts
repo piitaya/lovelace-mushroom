@@ -107,6 +107,7 @@ const templateChipConfigStruct = object({
     content: optional(string()),
     icon: optional(string()),
     icon_color: optional(string()),
+    picture: optional(string()),
     entity_id: optional(union([string(), array(string())])),
 });
 
