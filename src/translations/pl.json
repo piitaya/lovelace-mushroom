@@ -126,6 +126,10 @@
             },
             "humidifier": {
                 "show_target_humidity_control": "Sterowanie wilgotnością?"
+            },
+            "climate": {
+                "show_temperature_control": "Sterowanie temperaturą?",
+                "hvac_modes": "Tryby urządzenia"
             }
         },
         "chip": {
