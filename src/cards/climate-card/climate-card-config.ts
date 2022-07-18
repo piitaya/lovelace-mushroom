@@ -24,6 +24,7 @@ export type ClimateCardConfig = LovelaceCardConfig &
     ActionsSharedConfig & {
         show_temperature_control?: false;
         hvac_modes?: HvacMode[];
+        collapsible_controls?: boolean;
     };
 
 export const climateCardConfigStruct = assign(
@@ -32,5 +33,6 @@ export const climateCardConfigStruct = assign(
     object({
         show_temperature_control: optional(boolean()),
         hvac_modes: optional(array(string())),
+        collapsible_controls: optional(boolean()),
     })
 );
