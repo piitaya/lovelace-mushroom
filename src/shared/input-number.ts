@@ -106,6 +106,8 @@ export class InputNumber extends LitElement {
             :host {
                 --text-color: var(--primary-text-color);
                 --text-color-disabled: rgb(var(--rgb-disabled));
+                --icon-color: var(--primary-text-color);
+                --icon-color-disabled: rgb(var(--rgb-disabled));
                 --bg-color: rgba(var(--rgb-primary-text-color), 0.05);
                 --bg-color-disabled: rgba(var(--rgb-disabled), 0.2);
                 height: var(--control-height);
@@ -144,6 +146,7 @@ export class InputNumber extends LitElement {
             .button ha-icon {
                 font-size: var(--control-height);
                 --mdc-icon-size: var(--control-icon-size);
+                color: var(--icon-color);
                 pointer-events: none;
             }
             span {
