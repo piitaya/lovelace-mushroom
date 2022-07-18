@@ -1,6 +1,6 @@
 import { html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { ClimateEntity, computeRTL, HomeAssistant, isAvailable } from "../../../ha";
+import { ClimateEntity, computeRTL, HomeAssistant, isAvailable, UNIT_F } from "../../../ha";
 import "../../../shared/button";
 import "../../../shared/button-group";
 import "../../../shared/input-number";
@@ -16,6 +16,13 @@ export class ClimateTemperatureControl extends LitElement {
     @property({ attribute: false }) public entity!: ClimateEntity;
 
     @property() public fill: boolean = false;
+
+    private get _stepSize(): number {
+        if (this.entity.attributes.target_temp_step) {
+            return this.entity.attributes.target_temp_step;
+        }
+        return this.hass!.config.unit_system.temperature === UNIT_F ? 1 : 0.5;
+    }
 
     onValueChange(e: CustomEvent<{ value: number }>): void {
         const value = e.detail.value;
@@ -49,7 +56,7 @@ export class ClimateTemperatureControl extends LitElement {
         const available = isAvailable(this.entity);
 
         const formatOptions: Intl.NumberFormatOptions =
-            this.entity.attributes.target_temp_step === 1
+            this._stepSize === 1
                 ? {
                       maximumFractionDigits: 0,
                   }
@@ -65,7 +72,7 @@ export class ClimateTemperatureControl extends LitElement {
                           <mushroom-input-number
                               .locale=${this.hass.locale}
                               .value=${this.entity.attributes.temperature}
-                              .step=${this.entity.attributes.target_temp_step}
+                              .step=${this._stepSize}
                               .min=${this.entity.attributes.min_temp}
                               .max=${this.entity.attributes.max_temp}
                               .disabled=${!available}
@@ -80,7 +87,7 @@ export class ClimateTemperatureControl extends LitElement {
                           <mushroom-input-number
                               .locale=${this.hass.locale}
                               .value=${this.entity.attributes.target_temp_low}
-                              .step=${this.entity.attributes.target_temp_step}
+                              .step=${this._stepSize}
                               .min=${this.entity.attributes.min_temp}
                               .max=${this.entity.attributes.max_temp}
                               .disabled=${!available}
@@ -90,7 +97,7 @@ export class ClimateTemperatureControl extends LitElement {
                           ><mushroom-input-number
                               .locale=${this.hass.locale}
                               .value=${this.entity.attributes.target_temp_high}
-                              .step=${this.entity.attributes.target_temp_step}
+                              .step=${this._stepSize}
                               .min=${this.entity.attributes.min_temp}
                               .max=${this.entity.attributes.max_temp}
                               .disabled=${!available}
