@@ -1,0 +1,32 @@
+climate:
+  - platform: generic_thermostat
+    name: home_thermostat
+    heater: input_boolean.home_thermostat_heater
+    target_sensor: input_number.home_thermostat_temperature
+    min_temp: 7
+    max_temp: 35
+    precision: 0.5
+    target_temp_step: 0.5
+    ac_mode: false
+
+input_boolean:
+  home_thermostat_heater:
+    name: home_thermostat_heater
+    icon: mdi:car
+
+input_number:
+  home_thermostat_temperature:
+    name: home_thermostat_temperature
+    initial: 20
+    min: 0
+    max: 35
+    step: 0.5
+
+homeassistant:
+  customize:
+    input_boolean.home_thermostat_heater:
+      friendly_name: Home Heater
+    input_number.home_thermostat_temperature:
+      friendly_name: Home Temperature
+    climate.home_thermostat:
+      friendly_name: Home Thermostat
