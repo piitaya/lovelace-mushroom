@@ -13,6 +13,7 @@ import {
     hasAction,
     HomeAssistant,
     HvacMode,
+    isActive,
     isAvailable,
     LovelaceCard,
     LovelaceCardEditor,
@@ -111,11 +112,13 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
         if (!entity) return;
 
         const controls: ClimateCardControl[] = [];
-        if (isTemperatureControlVisible(entity) && this._config.show_temperature_control) {
-            controls.push("temperature_control");
-        }
-        if (isHvacModesVisible(entity, this._config.hvac_modes)) {
-            controls.push("hvac_mode_control");
+        if (!this._config.collapsible_controls || isActive(entity)) {
+            if (isTemperatureControlVisible(entity) && this._config.show_temperature_control) {
+                controls.push("temperature_control");
+            }
+            if (isHvacModesVisible(entity, this._config.hvac_modes)) {
+                controls.push("hvac_mode_control");
+            }
         }
 
         this._controls = controls;

@@ -39,6 +39,7 @@ const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaForm
                 },
             },
             { name: "show_temperature_control", selector: { boolean: {} } },
+            { name: "collapsible_controls", selector: { boolean: {} } },
         ],
     },
     ...computeActionsFormSchema(),
