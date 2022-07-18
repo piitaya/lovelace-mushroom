@@ -26,6 +26,12 @@ const computeSchema = memoizeOne((version: string): HaFormSchema[] => [
             : { text: { multiline: true } },
     },
     {
+        name: "picture",
+        selector: atLeastHaVersion(version, 2022, 5)
+            ? { template: {} }
+            : { text: { multiline: true } },
+    },
+    {
         name: "content",
         selector: atLeastHaVersion(version, 2022, 5)
             ? { template: {} }

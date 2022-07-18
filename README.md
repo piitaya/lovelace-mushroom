@@ -80,10 +80,7 @@ Different cards are available for differents entities :
 -   📺 [Media card](docs/cards/media-player.md)
 -   🔒 [Lock card](docs/cards/lock.md)
 -   💧 [Humidifier card](docs/cards/humidifier.md)
-
-Cards on the todo list :
-
--   🌡 Climate card
+-   🌡 [Climate card](docs/cards/climate.md)
 
 ### Theme customization
 
@@ -101,9 +98,10 @@ npm run start:hass
 
 Once it's done, go to Home Assistant instance [http://localhost:8123](http://localhost:8123) and start configuration.
 
+#### Windows Users
 
-#### Windows Users 
 If you are on Windows, either run the above command in Powershell, or use the below if using Command Prompt:
+
 ```sh
 npm run start:hass-cmd
 ```

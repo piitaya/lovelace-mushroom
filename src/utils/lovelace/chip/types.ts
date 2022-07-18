@@ -70,6 +70,7 @@ export type TemplateChipConfig = {
     content?: string;
     icon?: string;
     icon_color?: string;
+    picture?: string;
     entity_id?: string | string[];
 };
 
