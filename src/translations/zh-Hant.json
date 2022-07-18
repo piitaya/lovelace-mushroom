@@ -126,6 +126,10 @@
             },
             "humidifier": {
                 "show_target_humidity_control": "溼度控制?"
+            },
+            "climate": {
+                "show_temperature_control": "溫度控制?",
+                "hvac_modes": "空調模式"
             }
         },
         "chip": {
