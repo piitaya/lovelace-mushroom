@@ -80,7 +80,7 @@ Different cards are available for differents entities :
 -   📺 [Media card](docs/cards/media-player.md)
 -   🔒 [Lock card](docs/cards/lock.md)
 -   💧 [Humidifier card](docs/cards/humidifier.md)
--   🌡 [Climate card](docs/cards/humidifier.md)
+-   🌡 [Climate card](docs/cards/climate.md)
 
 ### Theme customization
 
