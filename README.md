@@ -34,7 +34,8 @@ The goal of Mushroom is not to provide custom card for deep customization. You c
 
 Mushroom is available in [HACS][hacs] (Home Assistant Community Store).
 
-1. Open HACS
+0. Install HACS if you don't have it already
+1. Open HACS in your Home Assistant
 2. Go to "Frontend" section
 3. Click button with "+" icon
 4. Search for "Mushroom"
