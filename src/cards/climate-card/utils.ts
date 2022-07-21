@@ -32,7 +32,7 @@ export const CLIMATE_HVAC_ACTION_ICONS: Record<HvacAction, string> = {
     cooling: "mdi:snowflake",
     drying: "mdi:water-percent",
     heating: "mdi:fire",
-    idle: "mdi:timer-sand-full",
+    idle: "mdi:clock-outline",
     off: "mdi:power",
 };
 

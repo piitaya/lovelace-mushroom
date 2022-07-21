@@ -143,6 +143,6 @@ export const themeColorCss = css`
     --rgb-state-climate-fan-only: var(--mush-rgb-state-climate-fan-only, var(--rgb-blue-grey));
     --rgb-state-climate-heat: var(--mush-rgb-state-climate-heat, var(--rgb-deep-orange));
     --rgb-state-climate-heat-cool: var(--mush-rgb-state-climate-heat-cool, var(--rgb-green));
-    --rgb-state-climate-idle: var(--mush-rgb-state-climate-idle, var(--rgb-grey));
+    --rgb-state-climate-idle: var(--mush-rgb-state-climate-idle, var(--rgb-disabled));
     --rgb-state-climate-off: var(--mush-rgb-state-climate-off, var(--rgb-disabled));
 `;
