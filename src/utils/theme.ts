@@ -140,7 +140,7 @@ export const themeColorCss = css`
     --rgb-state-climate-auto: var(--mush-rgb-state-climate-auto, var(--rgb-green));
     --rgb-state-climate-cool: var(--mush-rgb-state-climate-cool, var(--rgb-blue));
     --rgb-state-climate-dry: var(--mush-rgb-state-climate-dry, var(--rgb-orange));
-    --rgb-state-climate-fan-only: var(--mush-rgb-state-climate-fan-only, var(--rgb-blue-grey));
+    --rgb-state-climate-fan-only: var(--mush-rgb-state-climate-fan-only, var(--rgb-teal));
     --rgb-state-climate-heat: var(--mush-rgb-state-climate-heat, var(--rgb-deep-orange));
     --rgb-state-climate-heat-cool: var(--mush-rgb-state-climate-heat-cool, var(--rgb-green));
     --rgb-state-climate-idle: var(--mush-rgb-state-climate-idle, var(--rgb-disabled));
