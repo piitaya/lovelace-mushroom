@@ -212,7 +212,7 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
 
     renderActionBadge(entity: ClimateEntity) {
         const hvac_action = entity.attributes.hvac_action;
-        if (!hvac_action || hvac_action == "off" || hvac_action === "idle") return null;
+        if (!hvac_action || hvac_action == "off") return null;
 
         const color = getHvacActionColor(hvac_action);
         const icon = getHvacActionIcon(hvac_action);
