@@ -93,7 +93,14 @@ export class InputNumber extends LitElement {
                 <button class="button" @click=${this._decrementValue} .disabled=${this.disabled}>
                     <ha-icon icon="mdi:minus"></ha-icon>
                 </button>
-                <span class=${classMap({ pending: this.pending })}>${value}</span>
+                <span
+                    class=${classMap({
+                        pending: this.pending,
+                        disabled: this.disabled,
+                    })}
+                >
+                    ${value}
+                </span>
                 <button class="button" @click=${this._incrementValue} .disabled=${this.disabled}>
                     <ha-icon icon="mdi:plus"></ha-icon>
                 </button>
@@ -149,8 +156,15 @@ export class InputNumber extends LitElement {
                 color: var(--icon-color);
                 pointer-events: none;
             }
+            .button:disabled ha-icon {
+                color: var(--icon-color-disabled);
+            }
             span {
                 font-weight: bold;
+                color: var(---text-color);
+            }
+            span.disabled {
+                color: var(--text-color-disabled);
             }
             span.pending {
                 opacity: 0.5;
