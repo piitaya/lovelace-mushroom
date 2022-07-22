@@ -126,6 +126,10 @@
             },
             "humidifier": {
                 "show_target_humidity_control": "Controllo umidità"
+            },
+            "climate": {
+                "show_temperature_control": "Controllo della temperatura?",
+                "hvac_modes": "Modalità del termostato"
             }
         },
         "chip": {
