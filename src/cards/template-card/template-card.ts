@@ -304,6 +304,10 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
                 mushroom-state-item {
                     cursor: pointer;
                 }
+                mushroom-shape-icon {
+                    --icon-color: rgb(var(--rgb-disabled));
+                    --shape-color: rgba(var(--rgb-disabled), 0.2);
+                }
             `,
         ];
     }
