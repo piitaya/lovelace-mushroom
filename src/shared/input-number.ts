@@ -161,7 +161,7 @@ export class InputNumber extends LitElement {
             }
             span {
                 font-weight: bold;
-                color: var(---text-color);
+                color: var(--text-color);
             }
             span.disabled {
                 color: var(--text-color-disabled);
