@@ -27,6 +27,7 @@ import { VACUUM_CARD_EDITOR_NAME, VACUUM_CARD_NAME, VACUUM_ENTITY_DOMAINS } from
 import "./controls/vacuum-commands-control";
 import { isCommandsControlVisible } from "./controls/vacuum-commands-control";
 import { VacuumCardConfig } from "./vacuum-card-config";
+import { getCharge } from "./utils";
 
 registerCustomCard({
     type: VACUUM_CARD_NAME,
@@ -85,6 +86,11 @@ export class VacuumCard extends MushroomBaseCard implements LovelaceCard {
         const appearance = computeAppearance(this._config);
         const picture = computeEntityPicture(entity, appearance.icon_type);
 
+        let stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
+        if (this._config.show_battery_charge && getCharge(entity)) {
+            stateDisplay += ` - ${getCharge(entity)}%`;
+        }
+
         const rtl = computeRTL(this.hass);
 
         const commands = this._config?.commands ?? [];
@@ -103,7 +109,7 @@ export class VacuumCard extends MushroomBaseCard implements LovelaceCard {
                     >
                         ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
                         ${this.renderBadge(entity)}
-                        ${this.renderStateInfo(entity, appearance, name)};
+                        ${this.renderStateInfo(entity, appearance, name, stateDisplay)};
                     </mushroom-state-item>
                     ${isCommandsControlVisible(entity, commands)
                         ? html`

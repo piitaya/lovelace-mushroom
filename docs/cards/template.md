@@ -11,10 +11,8 @@ A template card allow you to build custom card.
 
 All the options are available in the lovelace editor but you can use `yaml` if you want.
 
-
-
 | Name                  | Type            | Default     | Description                                                                                                                         |
-| :--                   | :--             | :--         | :--                                                                                                                                 |
+| :-------------------- | :-------------- | :---------- | :---------------------------------------------------------------------------------------------------------------------------------- |
 | `icon`                | string          | Optional    | Icon to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                              |
 | `icon_color`          | string          | Optional    | Icon color to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                        |
 | `primary`             | string          | Optional    | Primary info to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                      |
