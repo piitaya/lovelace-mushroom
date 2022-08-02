@@ -25,6 +25,7 @@ export * from "./data/entity";
 export * from "./data/fan";
 export * from "./data/haptics";
 export * from "./data/humidifier";
+export * from "./data/input-number";
 export * from "./data/integration";
 export * from "./data/light";
 export * from "./data/lock";
