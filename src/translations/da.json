@@ -3,7 +3,7 @@
         "form": {
             "color_picker": {
                 "values": {
-                    "default": "Stabdard farve"
+                    "default": "Standard farve"
                 }
             },
             "info_picker": {
