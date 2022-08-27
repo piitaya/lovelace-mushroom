@@ -151,9 +151,9 @@ export class DropdownCard extends MushroomBaseCard implements LovelaceCard {
                     </div>
                 </div>
 
-                <div class="${classMap({ "row-container": true, closed: !this.open })}">
+                <div class="${classMap({ "dropdown-container": true, closed: !this.open })}">
                     <div class="divider"></div>
-                    <div class="container">${entities.map((x) => createRow(this.hass, x))}</div>
+                    <div class="row-container">${entities.map((x) => createRow(this.hass, x))}</div>
                 </div>
             </ha-card>
         `;
@@ -194,13 +194,6 @@ export class DropdownCard extends MushroomBaseCard implements LovelaceCard {
                     --icon-color: rgb(var(--rgb-state-entity));
                     --shape-color: rgba(var(--rgb-state-entity), 0.2);
                 }
-                .row-container {
-                    display: flex;
-                    flex-direction: column;
-                }
-                .row-container.closed {
-                    display: none;
-                }
                 .toggle {
                     display: flex;
                     flex-shrink: 1;
@@ -212,11 +205,23 @@ export class DropdownCard extends MushroomBaseCard implements LovelaceCard {
                 .toggle.hidden {
                     display: none;
                 }
+                .dropdown-container {
+                    display: flex;
+                    flex-direction: column;
+                }
+                .dropdown-container.closed {
+                    display: none;
+                }
                 .divider {
                     height: 1px;
                     background-color: #727272;
                     opacity: 0.25;
                     margin: 12px -12px;
+                }
+                .row-container {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
                 }
             `,
         ];
