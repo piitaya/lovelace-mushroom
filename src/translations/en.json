@@ -51,7 +51,9 @@
                 "icon_type": "Icon type",
                 "content_info": "Content",
                 "use_entity_picture": "Use entity picture?",
-                "collapsible_controls": "Collapse controls when off"
+                "collapsible_controls": "Collapse controls when off",
+                "default_open": "Default open",
+                "hide_arrow": "Hide arrow"
             },
             "light": {
                 "show_brightness_control": "Brightness control?",

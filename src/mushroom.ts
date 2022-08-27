@@ -10,6 +10,7 @@ export { AlarmControlPanelCard } from "./cards/alarm-control-panel-card/alarm-co
 export { ChipsCard } from "./cards/chips-card/chips-card";
 export { ClimateCard } from "./cards/climate-card/climate-card";
 export { CoverCard } from "./cards/cover-card/cover-card";
+export { DropdownCard } from "./cards/dropdown-card/dropdown-card";
 export { EntityCard } from "./cards/entity-card/entity-card";
 export { FanCard } from "./cards/fan-card/fan-card";
 export { HumidifierCard } from "./cards/humidifier-card/humidifier-card";

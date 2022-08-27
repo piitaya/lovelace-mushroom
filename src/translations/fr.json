@@ -51,7 +51,9 @@
                 "icon_type": "Type d'icône",
                 "content_info": "Contenu",
                 "use_entity_picture": "Utiliser l'image de l'entité ?",
-                "collapsible_controls": "Reduire les contrôles quand éteint"
+                "collapsible_controls": "Reduire les contrôles quand éteint",
+                "default_open": "Ouvert par défaut",
+                "hide_arrow": "Masquer la flèche"
             },
             "light": {
                 "show_brightness_control": "Contrôle de luminosité ?",

@@ -1,4 +1,4 @@
-import { LovelaceCardConfig, LovelaceConfig } from "../../data/lovelace";
+import { LovelaceCardConfig, LovelaceRowConfig, LovelaceConfig } from "../../data/lovelace";
 import { FrontendLocaleData } from "../../data/translation";
 import { Constructor, HomeAssistant } from "../../types";
 
@@ -30,6 +30,11 @@ export interface LovelaceCard extends HTMLElement {
     editMode?: boolean;
     getCardSize(): number | Promise<number>;
     setConfig(config: LovelaceCardConfig): void;
+}
+
+export interface LovelaceRow extends HTMLElement {
+    hass?: HomeAssistant;
+    setConfig(config: LovelaceRowConfig): void;
 }
 
 export interface LovelaceCardConstructor extends Constructor<LovelaceCard> {

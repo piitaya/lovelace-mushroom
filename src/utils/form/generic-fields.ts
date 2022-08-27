@@ -8,4 +8,6 @@ export const GENERIC_LABELS = [
     "content_info",
     "use_entity_picture",
     "collapsible_controls",
+    "default_open",
+    "hide_arrow",
 ];
