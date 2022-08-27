@@ -22,7 +22,6 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `badge_icon`          | string          | Optional    | Badge icon to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                        |
 | `badge_color`         | string          | Optional    | Badge icon color to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                  |
 | `picture`             | string          | Optional    | Picture to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                           |
-| `badge_color`         | string          | Optional    | Badge icon color to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                  |
 | `multiline_secondary` | boolean         | `false`     | Enables support for multiline text for the secondary info.                                                                          |
 | `layout`              | string          | Optional    | Layout of the card. Vertical, horizontal and default layout are supported                                                           |
 | `fill_container`      | boolean         | `false`     | Fill container or not. Useful when card is in a grid, vertical or horizontal layout                                                 |
