@@ -20,8 +20,6 @@ import "../../shared/shape-avatar";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
-import "../../shared/dropdown/tab";
-import "../../shared/dropdown/content";
 import { computeAppearance } from "../../utils/appearance";
 import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
@@ -126,26 +124,37 @@ export class DropdownCard extends MushroomBaseCard implements LovelaceCard {
 
         return html`
             <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
-                <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
-                    <mushroom-dropdown-tab
-                        .open=${this.open}
-                        .arrow=${!this._config.hide_arrow}
-                        @action=${this._handleAction}
-                        .actionHandler=${actionHandler({
-                            hasHold: hasAction(this._config.hold_action),
-                            hasDoubleClick: hasAction(this._config.double_tap_action),
-                        })}
-                    >
+                <div
+                    class="tab-container"
+                    @action=${this._handleAction}
+                    .actionHandler=${actionHandler({
+                        hasHold: hasAction(this._config.hold_action),
+                        hasDoubleClick: hasAction(this._config.double_tap_action),
+                    })}
+                >
+                    <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
                         <mushroom-state-item ?rtl=${rtl} .appearance=${appearance}>
                             ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
                             ${this.renderBadge(entity)}
                             ${this.renderStateInfo(entity, appearance, name)};
                         </mushroom-state-item>
-                    </mushroom-dropdown-tab>
-                    <mushroom-dropdown-content .open=${this.open}>
-                        ${entities.map((x) => createRow(this.hass, x))}
-                    </mushroom-dropdown-content>
-                </mushroom-card>
+                    </mushroom-card>
+
+                    <div
+                        class="${classMap({
+                            toggle: true,
+                            closed: !this.open,
+                            hidden: this._config.hide_arrow || false,
+                        })}"
+                    >
+                        <ha-icon icon="mdi:chevron-up"></ha-icon>
+                    </div>
+                </div>
+
+                <div class="${classMap({ "row-container": true, closed: !this.open })}">
+                    <div class="divider"></div>
+                    <div class="container">${entities.map((x) => createRow(this.hass, x))}</div>
+                </div>
             </ha-card>
         `;
     }
@@ -181,6 +190,35 @@ export class DropdownCard extends MushroomBaseCard implements LovelaceCard {
                 mushroom-shape-icon {
                     --icon-color: rgb(var(--rgb-state-entity));
                     --shape-color: rgba(var(--rgb-state-entity), 0.2);
+                }
+                .tab-container {
+                    display: flex;
+                    flex-grow: 1;
+                    justify-content: space-between;
+                }
+                .row-container {
+                    display: flex;
+                    flex-direction: column;
+                }
+                .row-container.closed {
+                    display: none;
+                }
+                .toggle {
+                    display: flex;
+                    flex-shrink: 1;
+                    align-items: center;
+                }
+                .toggle.closed {
+                    transform: rotate(180deg);
+                }
+                .toggle.hidden {
+                    display: none;
+                }
+                .divider {
+                    height: 1px;
+                    background-color: #727272;
+                    opacity: 0.25;
+                    margin: 12px -12px;
                 }
             `,
         ];

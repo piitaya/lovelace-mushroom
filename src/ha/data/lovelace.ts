@@ -113,10 +113,6 @@ export interface LovelaceCardConfig {
     [key: string]: any;
 }
 
-export interface LovelaceRowConfig {
-    entity: string;
-}
-
 export interface ToggleActionConfig extends BaseActionConfig {
     action: "toggle";
 }
