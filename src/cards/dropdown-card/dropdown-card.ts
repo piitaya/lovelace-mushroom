@@ -183,18 +183,16 @@ export class DropdownCard extends MushroomBaseCard implements LovelaceCard {
             super.styles,
             cardStyle,
             css`
-                mushroom-dropdown-tab {
+                .tab-container {
+                    display: flex;
                     cursor: pointer;
-                    margin-bottom: 0;
+                }
+                mushroom-card {
+                    flex-grow: 1;
                 }
                 mushroom-shape-icon {
                     --icon-color: rgb(var(--rgb-state-entity));
                     --shape-color: rgba(var(--rgb-state-entity), 0.2);
-                }
-                .tab-container {
-                    display: flex;
-                    flex-grow: 1;
-                    justify-content: space-between;
                 }
                 .row-container {
                     display: flex;
