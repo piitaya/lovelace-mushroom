@@ -13,6 +13,8 @@ import { loadHaComponents } from "../../utils/loader";
 import { DROPDOWN_CARD_EDITOR_NAME } from "./const";
 import { DropdownCardConfig, dropdownCardConfigStruct } from "./dropdown-card-config";
 
+const DROPDOWN_CARD_FIELDS = ["default_open", "hide_arrow"];
+
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: {} } },
     { name: "name", selector: { text: {} } },
@@ -64,6 +66,9 @@ export class DropdownCardEditor extends MushroomBaseElement implements LovelaceC
 
         if (GENERIC_LABELS.includes(schema.name)) {
             return customLocalize(`editor.card.generic.${schema.name}`);
+        }
+        if (DROPDOWN_CARD_FIELDS.includes(schema.name)) {
+            return customLocalize(`editor.card.dropdown.${schema.name}`);
         }
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
     };
