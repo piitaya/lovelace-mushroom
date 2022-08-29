@@ -8,12 +8,19 @@ export interface LovelaceRow extends HTMLElement {
 
 export interface LovelaceRowConfig {
     entity: string;
+    error?: string;
 }
 
 export const createRow = (hass: HomeAssistant, entity: string) => {
-    const rowType = computeRowType(entity);
-    const element = window.document.createElement(rowType) as LovelaceRow;
-    element.setConfig({ entity });
-    element.hass = hass;
-    return element;
+    try {
+        const rowType = computeRowType(entity);
+        const row = window.document.createElement(rowType) as LovelaceRow;
+        row.setConfig({ entity });
+        row.hass = hass;
+        return row;
+    } catch (err) {
+        const error = window.document.createElement("hui-error-card") as LovelaceRow;
+        error.setConfig({ error: "Error! Can't create row from " + entity + ".", entity });
+        return error;
+    }
 };
