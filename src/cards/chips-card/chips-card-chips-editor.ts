@@ -63,7 +63,9 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
                         : this.chips!.map(
                               (chipConf, index) => html`
                                   <div class="chip">
-                                      <ha-icon class="handle" icon="mdi:drag"></ha-icon>
+                                      <div class="handle">
+                                          <ha-icon icon="mdi:drag"></ha-icon>
+                                      </div>
                                       ${html`
                                           <div class="special-row">
                                               <div>
@@ -285,6 +287,10 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
                 .chip .handle {
                     padding-right: 8px;
                     cursor: move;
+                }
+
+                .chip .handle > * {
+                    pointer-events: none;
                 }
 
                 .special-row {
