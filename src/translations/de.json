@@ -136,6 +136,14 @@
             "climate": {
                 "show_temperature_control": "Temperatursteuerung?",
                 "hvac_modes": "HVAC-Modi"
+            },
+            "shopping_list": {
+                "add_item_placeholder": "Eintrag hinzufügen …",
+                "clear_completed": "Erledigte entfernen",
+                "status": "{completed_count} von {total_count} erledigt",
+                "checked_icon": "Erledigter Eintrag Icon",
+                "unchecked_icon": "Offener Eintrag Icon",
+                "integration_missing": "'shopping_list' Integration ist nicht installiert."
             }
         },
         "chip": {

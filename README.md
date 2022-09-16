@@ -83,6 +83,7 @@ Different cards are available for differents entities :
 -   💧 [Humidifier card](docs/cards/humidifier.md)
 -   🌡 [Climate card](docs/cards/climate.md)
 -   📑 [Select card](docs/cards/select.md)
+-   🛒 [Shopping list card](docs/cards/shopping-list.md)
 
 ### Theme customization
 

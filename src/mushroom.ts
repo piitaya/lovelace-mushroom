@@ -17,6 +17,7 @@ export { LockCard } from "./cards/lock-card/lock-card";
 export { MediaPlayerCard } from "./cards/media-player-card/media-player-card";
 export { PersonCard } from "./cards/person-card/person-card";
 export { SelectCard } from "./cards/select-card/select-card";
+export { ShoppingListCard } from "./cards/shopping-list-card/shopping-list-card";
 export { TemplateCard } from "./cards/template-card/template-card";
 export { TitleCard } from "./cards/title-card/title-card";
 export { UpdateCard } from "./cards/update-card/update-card";

@@ -1,0 +1,34 @@
+title: Shopping Lists
+icon: mdi:cart
+cards:
+  - type: grid
+    title: Shopping List
+    cards:
+      - type: custom:mushroom-shopping-list
+        name: My Shopping List
+        icon: mdi:cart
+        primary_info: name
+        secondary_info: state
+    columns: 1
+    square: false
+  - type: vertical-stack
+    title: Layout
+    cards:
+      - type: custom:mushroom-shopping-list
+        name: Horizontal Shopping List
+        layout: horizontal
+        primary_info: name
+        secondary_info: state
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:mushroom-shopping-list
+            checked_icon: mdi:checkbox-blank-circle
+            unchecked_icon: mdi:checkbox-blank-circle-outline
+          - type: custom:mushroom-shopping-list
+            name: Vertical Shopping List
+            icon: mdi:arrow-down
+            layout: vertical
+            primary_info: name
+            secondary_info: state
