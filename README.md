@@ -116,15 +116,15 @@ npm install
 npm start
 ```
 
-Server will start on port `5000`.
+Server will start on port `4000`.
 
 ### Home assistant configuration
 
 Once both Home Assistant and mushroom are running, you have to add a resource to Home Assistant UI:
 
 -   Enable `Advanced Mode` in your profile page
--   Go to Dashboard Resources and add the resource `http://localhost:5000/mushroom.js`:  
-    _Settings_ → _Dashboards_ → _More Options icon_ → _Resources_ → _Add Resource_ → Set _URL_ as `http://localhost:5000/mushroom.js` → Set _Resource type_ as `JavaScript Module`.
+-   Go to Dashboard Resources and add the resource `http://localhost:4000/mushroom.js`:  
+    _Settings_ → _Dashboards_ → _More Options icon_ → _Resources_ → _Add Resource_ → Set _URL_ as `http://localhost:4000/mushroom.js` → Set _Resource type_ as `JavaScript Module`.
 
 ### Build
 
