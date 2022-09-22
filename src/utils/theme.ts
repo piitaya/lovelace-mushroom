@@ -136,6 +136,10 @@ export const themeColorCss = css`
     --rgb-state-cover-open: var(--mush-rgb-state-cover-open, var(--rgb-blue));
     --rgb-state-cover-closed: var(--mush-rgb-state-cover-closed, var(--rgb-disabled));
 
+    /* State cover tilt colors */
+    --rgb-state-cover-tilt-open: var(--mush-rgb-state-cover-tilt-open, var(--rgb-blue));
+    --rgb-state-cover-tilt-closed: var(--mush-rgb-state-cover-tilt-closed, var(--rgb-disabled));
+
     /* State climate colors */
     --rgb-state-climate-auto: var(--mush-rgb-state-climate-auto, var(--rgb-green));
     --rgb-state-climate-cool: var(--mush-rgb-state-climate-cool, var(--rgb-blue));
