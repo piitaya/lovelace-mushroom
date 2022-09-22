@@ -67,7 +67,8 @@
             },
             "cover": {
                 "show_buttons_control": "Control buttons?",
-                "show_position_control": "Position control?"
+                "show_position_control": "Position control?",
+                "show_tilt_position_control": "Tilt control?"
             },
             "alarm_control_panel": {
                 "show_keypad": "Show keypad"

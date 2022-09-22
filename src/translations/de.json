@@ -67,7 +67,8 @@
             },
             "cover": {
                 "show_buttons_control": "Schaltflächensteuerung?",
-                "show_position_control": "Positionssteuerung?"
+                "show_position_control": "Positionssteuerung?",
+                "show_tilt_position_control": "Winkelsteuerung?"
             },
             "alarm_control_panel": {
                 "show_keypad": "Keypad anzeigen"
