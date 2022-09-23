@@ -1,7 +1,7 @@
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { CoverEntity, HomeAssistant, isAvailable } from "../../../ha";
-import "../../../shared/slider";
+import "../../../shared/curved-slider";
 import { getTiltPosition } from "../utils";
 
 @customElement("mushroom-cover-tilt-position-control")
@@ -34,7 +34,7 @@ export class CoverTiltPositionControl extends LitElement {
         const tilt = getTiltPosition(this.entity);
 
         return html`
-            <mushroom-slider
+            <mushroom-curved-slider
                 .value=${tilt}
                 .disabled=${!isAvailable(this.entity)}
                 .showActive=${true}
@@ -46,7 +46,7 @@ export class CoverTiltPositionControl extends LitElement {
 
     static get styles(): CSSResultGroup {
         return css`
-            mushroom-slider {
+            mushroom-curved-slider {
                 --main-color: var(--slider-color);
                 --bg-color: var(--slider-bg-color);
             }
