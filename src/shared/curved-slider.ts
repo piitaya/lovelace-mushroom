@@ -161,8 +161,6 @@ export class SliderItem extends LitElement {
                     let width;
                     let height;
 
-                    console.log(entry)
-
                     if (entry.borderBoxSize?.length > 0) {
                         width = entry.borderBoxSize[0].inlineSize;
                         height = entry.borderBoxSize[0].blockSize;
@@ -254,7 +252,6 @@ export class SliderItem extends LitElement {
     }
 
     protected updated(changedProperties: Map<string, unknown>) {
-        console.log(`updated(). changedProps: `, changedProperties);
         if (changedProperties.has("value")) {
           this.updateCurvedSliderSVGOnValueChange();
         }
@@ -276,14 +273,15 @@ export class SliderItem extends LitElement {
                         "--value": `${this.valueToPercentage(this.value ?? 0)}`,
                     })}
                 >
-                    <svg>
+                    <svg style=${styleMap({
+                        display: this.initialized ? 'inherit' : 'none',
+                    })} >
                         <mask id="slider-track-background-mask">
                             <path class="slider-track" />
                         </mask>
                         <g class="slider-track-active-group" mask="url(#slider-track-background-mask)">
                             <rect class="slider-track-background" />
                             <path style=${styleMap({
-                                display: this.initialized ? 'inherit' : 'none',
                                 visibility: this.showActive ? 'visible' : 'hidden',
                             })} class=${classMap({
                                 'slider-track-active': true,
@@ -291,7 +289,6 @@ export class SliderItem extends LitElement {
                                 'slider-track-active-initialized': this.initialized,
                             })} /></g>
                             <circle style=${styleMap({
-                                display: this.initialized ? 'inherit' : 'none',
                                 visibility: this.showIndicator ? 'visible' : 'hidden',
                             })} class="slider-track-indicator" />
                     </svg>
