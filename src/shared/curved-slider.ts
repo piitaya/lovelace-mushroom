@@ -53,6 +53,8 @@ export class SliderItem extends LitElement {
 
     @state() controlled: boolean = false;
 
+    @state() initialized: boolean = false;
+
     valueToPercentage(value: number) {
         return (value - this.min) / (this.max - this.min);
     }
@@ -170,7 +172,7 @@ export class SliderItem extends LitElement {
                     }
 
                     const target = entry.target as HTMLElement;
-                    this.updateCurvedSliderClipPath(target, width, height);
+                    this.updateCurvedSliderSVG(target, width, height);
                 }
             });
 
@@ -190,39 +192,73 @@ export class SliderItem extends LitElement {
         }
     }
 
-    updateCurvedSliderClipPath(target: HTMLElement, width: number, height: number, 
-                               direction: CurvedSliderDirection = CurvedSliderDirection.Normal,
-                               thickness: number = 0.7) {
-
-        const circleOuterRadius = (
-            (height ** 2) * (1 + (thickness ** 2) - 2 * thickness) + ((width / 2) ** 2))
-            / (2 * height * (1 - thickness));
-
-        const circleInnerRadius = circleOuterRadius - thickness * height;
-
-        const borderRadius = parseFloat(getComputedStyle(target).getPropertyValue('--control-border-radius')) / 2;
-
-        let clipPath;
-        if (direction === CurvedSliderDirection.Normal) {
-            clipPath= `
-                M 0 ${height * (1 - thickness)}
-                A ${circleOuterRadius} ${circleOuterRadius} 0 0 1 ${width} ${height * (1 - thickness)}
-                L ${width} ${height}
-                A ${circleInnerRadius} ${circleInnerRadius} 0 0 0 0 ${height}
-                Z
-            `;
-        } else {
-            clipPath = `
-                M 0 0
-                A ${circleInnerRadius} ${circleInnerRadius} 0 0 0 ${width} 0
-                L ${width} ${height * thickness}
-                A ${circleOuterRadius} ${circleOuterRadius} 0 0 1 0 ${height * thickness}
-                Z
-            `;
-        }
-
-        target.style['clip-path'] = `path('${clipPath.replace(/\n/g, ' ')}')`;
+    updateCurvedSliderSVGOnValueChange() : void {
+        this.updateCurvedSliderSVG(this.slider, this.slider.offsetWidth, this.slider.offsetHeight);
     }
+
+    updateCurvedSliderSVG(target: HTMLElement, width: number, height: number) : void {
+
+        const strokeThickness = parseFloat(getComputedStyle(target).getPropertyValue('--control-curved-slider-thickness'));
+
+        const croppedWidth = width - strokeThickness;
+        const croppedHeight = height - strokeThickness;
+        const croppedWidthHalf = croppedWidth / 2;
+
+        const circleRadius = ((croppedWidthHalf ** 2) + (croppedHeight ** 2)) / (2 * croppedHeight);
+
+        const valuePositionX = (this.valueToPercentage(this.value ?? 0)) * croppedWidth - croppedWidthHalf;
+
+        const indicator50Position = [
+            croppedWidthHalf,
+            0,
+        ];
+
+        const backgroundTrackArc = Math.asin(croppedWidthHalf / circleRadius) * 2;
+
+        const activeValueRotation = Math.asin(-valuePositionX / circleRadius) - backgroundTrackArc / 2;
+        const activeValueRotationCenter = [
+            width / 2,
+            strokeThickness / 2 + circleRadius
+        ];
+        const activeTrackRotation = (-activeValueRotation - backgroundTrackArc) / (2 * Math.PI) * 360.0;
+        const indicatorRotation = (-activeValueRotation - backgroundTrackArc / 2) / (2 * Math.PI) * 360.0;
+        
+        const trackBackground= `
+            M ${strokeThickness / 2} ${height - strokeThickness / 2}
+            A ${circleRadius} ${circleRadius} 0 0 1 ${width - strokeThickness / 2} ${height - strokeThickness / 2}
+        `;
+
+        const svg = target.querySelector(':scope > svg');
+        svg?.setAttribute('width', width.toString());
+        svg?.setAttribute('height', height.toString());
+
+        const sliderTrackBackground = svg?.querySelector(':scope .slider-track-background')
+        sliderTrackBackground?.setAttribute('width', width.toString());
+        sliderTrackBackground?.setAttribute('height', height.toString());
+
+        const sliderTrackBackgroundMaskPath = svg?.querySelector(':scope #slider-track-background-mask path');
+        sliderTrackBackgroundMaskPath?.setAttribute('d', trackBackground);
+
+        const sliderTrackActive = svg?.querySelector(':scope .slider-track-active');
+        sliderTrackActive?.setAttribute('d', trackBackground);
+        sliderTrackActive?.setAttribute('transform', 
+            `rotate(${activeTrackRotation} ${activeValueRotationCenter[0]} ${activeValueRotationCenter[1]})`);
+
+        const sliderTrackIndicator = svg?.querySelector(':scope .slider-track-indicator');
+        sliderTrackIndicator?.setAttribute('cx', (indicator50Position[0] + strokeThickness / 2).toString());
+        sliderTrackIndicator?.setAttribute('cy', (indicator50Position[1] + + strokeThickness / 2).toString());
+        sliderTrackIndicator?.setAttribute('transform', 
+            `rotate(${indicatorRotation} ${activeValueRotationCenter[0]} ${activeValueRotationCenter[1]})`);
+        
+        this.initialized = true;
+    }
+
+    protected updated(changedProperties: Map<string, unknown>) {
+        console.log(`updated(). changedProps: `, changedProperties);
+        if (changedProperties.has("value")) {
+          this.updateCurvedSliderSVGOnValueChange();
+        }
+      }
 
     protected render(): TemplateResult {
         return html`
@@ -240,9 +276,25 @@ export class SliderItem extends LitElement {
                         "--value": `${this.valueToPercentage(this.value ?? 0)}`,
                     })}
                 >
-                    <div class="slider-track-background curved-slider-track-background"></div>
-                    ${this.showActive ? html`<div class="slider-track-active"></div>` : null}
-                    ${this.showIndicator ? html`<div class="slider-track-indicator"></div>` : null}
+                    <svg>
+                        <mask id="slider-track-background-mask">
+                            <path class="slider-track" />
+                        </mask>
+                        <g class="slider-track-active-group" mask="url(#slider-track-background-mask)">
+                            <rect class="slider-track-background" />
+                            <path style=${styleMap({
+                                display: this.initialized ? 'inherit' : 'none',
+                                visibility: this.showActive ? 'visible' : 'hidden',
+                            })} class=${classMap({
+                                'slider-track-active': true,
+                                'slider-track': true,
+                                'slider-track-active-initialized': this.initialized,
+                            })} /></g>
+                            <circle style=${styleMap({
+                                display: this.initialized ? 'inherit' : 'none',
+                                visibility: this.showIndicator ? 'visible' : 'hidden',
+                            })} class="slider-track-indicator" />
+                    </svg>
                 </div>
             </div>
         `;
@@ -266,71 +318,43 @@ export class SliderItem extends LitElement {
                 position: relative;
                 height: 100%;
                 width: 100%;
-                border-radius: var(--control-border-radius);
                 transform: translateZ(0);
                 overflow: hidden;
                 cursor: pointer;
             }
-            .slider.curved-slider {
-                border-radius: unset;
-            }
             .slider * {
                 pointer-events: none;
             }
+            .slider .slider-track {
+                fill: transparent;
+                stroke-width: var(--control-curved-slider-thickness);
+                stroke-linecap: round;
+            }
             .slider .slider-track-background {
-                position: absolute;
-                top: 0;
-                left: 0;
-                height: 100%;
-                width: 100%;
-                background-color: var(--bg-color);
+                fill: var(--bg-color);
                 background-image: var(--gradient);
             }
+            .slider #slider-track-background-mask path {
+                stroke: white;
+            }
             .slider .slider-track-active {
-                position: absolute;
-                top: 0;
-                left: 0;
-                height: 100%;
-                width: 100%;
-                transform: scale3d(var(--value, 0), 1, 1);
-                transform-origin: left;
-                background-color: var(--main-color);
+                stroke: var(--main-color);
                 transition: transform 180ms ease-in-out;
             }
             .slider .slider-track-indicator {
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                left: calc(var(--value, 0) * (100% - 10px));
-                width: 10px;
-                border-radius: 3px;
-                background-color: white;
-                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
-                transition: left 180ms ease-in-out;
-            }
-            .slider .slider-track-indicator:after {
-                display: block;
-                content: "";
-                background-color: var(--main-color);
-                position: absolute;
-                top: 0;
-                left: 0;
-                bottom: 0;
-                right: 0;
-                margin: auto;
-                height: 20px;
-                width: 2px;
-                border-radius: 1px;
+                r: calc(var(--control-curved-slider-thickness) / 2 - 1px);
+                fill: white;
+                filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.12));
+                transition: transform 180ms ease-in-out;
             }
             .inactive .slider .slider-track-background {
-                background-color: var(--bg-color-inactive);
-                background-image: none;
+                fill: var(--bg-color-inactive);
             }
-            .inactive .slider .slider-track-indicator:after {
-                background-color: var(--main-color-inactive);
+            .inactive .slider .slider-track-indicator {
+                color: var(--main-color-inactive);
             }
             .inactive .slider .slider-track-active {
-                background-color: var(--main-color-inactive);
+                stroke: var(--main-color-inactive);
             }
             .controlled .slider .slider-track-active {
                 transition: none;

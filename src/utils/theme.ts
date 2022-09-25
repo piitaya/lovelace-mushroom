@@ -53,6 +53,9 @@ export const themeVariables = css`
     /* Slider */
     --slider-threshold: var(--mush-slider-threshold);
 
+    /* Curved Slider */
+    --control-curved-slider-thickness: var(--mush-control-curved-slider-thickness, 12px);
+
     /* Input Number */
     --input-number-debounce: var(--mush-input-number-debounce);
 
