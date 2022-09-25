@@ -10,9 +10,10 @@ enum CurvedSliderDirection {
 }
 
 const getPercentageFromEvent = (e: HammerInput) => {
+    const strokeThickness = parseFloat(getComputedStyle(e.target).getPropertyValue('--control-curved-slider-thickness'));
     const x = e.center.x;
-    const offset = e.target.getBoundingClientRect().left;
-    const total = e.target.clientWidth;
+    const offset = e.target.getBoundingClientRect().left + strokeThickness / 2;
+    const total = e.target.clientWidth - strokeThickness;
     return Math.max(Math.min(1, (x - offset) / total), 0);
 };
 
