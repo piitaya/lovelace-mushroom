@@ -1,8 +1,27 @@
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, LitElement, TemplateResult, unsafeCSS } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { CoverEntity, HomeAssistant, isAvailable } from "../../../ha";
-import "../../../shared/curved-slider";
+import "../../../shared/slider";
 import { getTiltPosition } from "../utils";
+
+
+function createTiltSliderTrackBackgroundGradient(count: number = 24, minStrokeWidth: number = 0.2) {
+    const gradient: [number, string][] = []
+
+    for (let i = 0; i < count; i++) {
+        const stopOffset1 = i / count;
+        const stopOffset2 = stopOffset1 + (i / (count ** 2)) * (1 - minStrokeWidth) + minStrokeWidth / count;
+
+        if (i !== 0) {
+            gradient.push([stopOffset1, 'transparent']);
+        }
+        gradient.push([stopOffset1, 'rgba(255,255,255,0.05)']);
+        gradient.push([stopOffset2, 'rgba(255,255,255,0.05)']);
+        gradient.push([stopOffset2, 'transparent']);
+    }
+
+    return gradient;
+}
 
 @customElement("mushroom-cover-tilt-position-control")
 export class CoverTiltPositionControl extends LitElement {
@@ -34,10 +53,10 @@ export class CoverTiltPositionControl extends LitElement {
         const tilt = getTiltPosition(this.entity);
 
         return html`
-            <mushroom-curved-slider
+            <mushroom-slider
                 .value=${tilt}
                 .disabled=${!isAvailable(this.entity)}
-                .showActive=${true}
+                .showIndicator=${true}
                 @change=${this.onChange}
                 @current-change=${this.onCurrentChange}
             />
@@ -45,10 +64,14 @@ export class CoverTiltPositionControl extends LitElement {
     }
 
     static get styles(): CSSResultGroup {
+        const gradient = createTiltSliderTrackBackgroundGradient().map(
+            ([stop, color]) => `${color} ${(stop as number) * 100}%`
+        ).join(", ");
         return css`
-            mushroom-curved-slider {
+            mushroom-slider {
                 --main-color: var(--slider-color);
                 --bg-color: var(--slider-bg-color);
+                --gradient: -webkit-linear-gradient(left, ${unsafeCSS(gradient)});
             }
         `;
     }
