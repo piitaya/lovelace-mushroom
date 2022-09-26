@@ -15,8 +15,8 @@ function createTiltSliderTrackBackgroundGradient(count: number = 24, minStrokeWi
         if (i !== 0) {
             gradient.push([stopOffset1, 'transparent']);
         }
-        gradient.push([stopOffset1, 'rgba(255,255,255,0.05)']);
-        gradient.push([stopOffset2, 'rgba(255,255,255,0.05)']);
+        gradient.push([stopOffset1, 'var(--slider-bg-color)']);
+        gradient.push([stopOffset2, 'var(--slider-bg-color)']);
         gradient.push([stopOffset2, 'transparent']);
     }
 
