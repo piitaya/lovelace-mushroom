@@ -1,4 +1,4 @@
-import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, svg, LitElement, PropertyValues, TemplateResult } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -47,6 +47,9 @@ export class SliderItem extends LitElement {
 
     @property({ type: Number })
     public max: number = 100;
+
+    @property({ type: [[Number, String]] })
+    public gradient: [number, string][] = [];
 
     private _mc?: HammerManager;
 
@@ -277,11 +280,20 @@ export class SliderItem extends LitElement {
                     <svg style=${styleMap({
                         display: this.initialized ? 'inherit' : 'none',
                     })} >
+                        <defs>
+                            <linearGradient id="slider-gradient">
+                                ${this.gradient.map((stop) =>
+                                svg`<stop offset="${stop[0] * 100.0}%" stop-color="${stop[1]}" />`
+                              )}
+                            </linearGradient>
+                        </defs>
                         <mask id="slider-track-background-mask">
                             <path class="slider-track" />
                         </mask>
                         <g class="slider-track-active-group" mask="url(#slider-track-background-mask)">
-                            <rect class="slider-track-background" />
+                            <rect class="slider-track-background" style=${styleMap({
+                                fill: this.gradient ? "url(#slider-gradient)" : null,
+                            })}/>
                             <path style=${styleMap({
                                 visibility: this.showActive ? 'visible' : 'hidden',
                             })} class=${classMap({
@@ -330,7 +342,6 @@ export class SliderItem extends LitElement {
             }
             .slider .slider-track-background {
                 fill: var(--bg-color);
-                background-image: var(--gradient);
             }
             .slider #slider-track-background-mask path {
                 stroke: white;
