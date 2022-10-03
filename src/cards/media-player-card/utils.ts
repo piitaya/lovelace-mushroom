@@ -64,29 +64,41 @@ export function getVolumeLevel(entity: MediaPlayerEntity) {
         : undefined;
 }
 
+const mediaIconMapping = {
+    app_name: {
+        spotify: "mdi:spotify",
+        "google podcasts": "mdi:google-podcast",
+        plex: "mdi:plex",
+        soundcloud: "mdi:soundcloud",
+        youtube: "mdi:youtube",
+        "oto music": "mdi:music-circle",
+        netflix: "mdi:netflix",
+    },
+    source: {
+        "google podcasts": "mdi:google-podcast",
+        "oto music": "mdi:music-circle",
+        netflix: "mdi:netflix",
+        ps5: "mdi:sony-playstation",
+        ps4: "mdi:sony-playstation",
+        playstation: "mdi:sony-playstation",
+        plex: "mdi:plex",
+        soundcloud: "mdi:soundcloud",
+        spotify: "mdi:spotify",
+        twitch: "mdi:twitch",
+        youtube: "mdi:youtube",
+    },
+};
+
 export function computeMediaIcon(config: MediaPlayerCardConfig, entity: MediaPlayerEntity): string {
     var icon = config.icon || stateIcon(entity);
 
     if (![UNAVAILABLE, UNKNOWN, OFF].includes(entity.state) && config.use_media_info) {
-        var app = entity.attributes.app_name?.toLowerCase();
-        switch (app) {
-            case "spotify":
-                return "mdi:spotify";
-            case "google podcasts":
-                return "mdi:google-podcast";
-            case "plex":
-                return "mdi:plex";
-            case "soundcloud":
-                return "mdi:soundcloud";
-            case "youtube":
-                return "mdi:youtube";
-            case "oto music":
-                return "mdi:music-circle";
-            case "netflix":
-                return "mdi:netflix";
-            default:
-                return icon;
-        }
+        Object.keys(mediaIconMapping).forEach((attribute) => {
+            var app = entity.attributes[attribute]?.toLowerCase();
+            if (app) {
+                icon = mediaIconMapping[attribute][app];
+            }
+        });
     }
     return icon;
 }
