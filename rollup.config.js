@@ -9,7 +9,6 @@ import ignore from "./rollup-plugins/rollup-ignore-plugin.js";
 
 const IGNORED_FILES = [
     "@material/mwc-notched-outline/mwc-notched-outline.js",
-    "@material/mwc-ripple/mwc-ripple.js",
     "@material/mwc-list/mwc-list.js",
     "@material/mwc-list/mwc-list-item.js",
     "@material/mwc-menu/mwc-menu.js",
