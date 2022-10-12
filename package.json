@@ -26,7 +26,6 @@
   "devDependencies": {
     "@babel/core": "^7.17.10",
     "@babel/preset-typescript": "^7.16.7",
-    "@material/mwc-ripple": "^0.25.3",
     "@material/tab-bar": "^14.0.0",
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-commonjs": "^22.0.0",
