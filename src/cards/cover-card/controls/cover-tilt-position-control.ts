@@ -23,6 +23,8 @@ function createTiltSliderTrackBackgroundGradient(count: number = 24, minStrokeWi
     return gradient;
 }
 
+const GRADIENT = createTiltSliderTrackBackgroundGradient();
+
 @customElement("mushroom-cover-tilt-position-control")
 export class CoverTiltPositionControl extends LitElement {
     @property({ attribute: false }) public hass!: HomeAssistant;
@@ -64,7 +66,7 @@ export class CoverTiltPositionControl extends LitElement {
     }
 
     static get styles(): CSSResultGroup {
-        const gradient = createTiltSliderTrackBackgroundGradient().map(
+        const gradient = GRADIENT.map(
             ([stop, color]) => `${color} ${(stop as number) * 100}%`
         ).join(", ");
         return css`

@@ -35,7 +35,7 @@ import "./controls/cover-buttons-control";
 import "./controls/cover-position-control";
 import "./controls/cover-tilt-position-control";
 import { CoverCardConfig } from "./cover-card-config";
-import { getPosition, getTiltPosition, getStateColor, getTiltStateColor } from "./utils";
+import { getPosition, getStateColor } from "./utils";
 
 type CoverCardControl = "buttons_control" | "position_control" | "tilt_position_control";
 
@@ -114,7 +114,6 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
         this._controls = controls;
         this._activeControl = controls[0];
         this.updatePosition();
-        this.updateTiltPosition();
     }
 
     protected updated(changedProperties: PropertyValues) {
@@ -127,9 +126,6 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
     @state()
     private position?: number;
 
-    @state()
-    private tilt_position?: number;
-
     updatePosition() {
         this.position = undefined;
         if (!this._config || !this.hass || !this._config.entity) return;
@@ -141,26 +137,9 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
         this.position = getPosition(entity);
     }
 
-    updateTiltPosition() {
-        this.tilt_position = undefined;
-        if (!this._config || !this.hass || !this._config.entity) return;
-
-        const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id] as CoverEntity;
-
-        if (!entity) return;
-        this.tilt_position = getTiltPosition(entity);
-    }
-
     private onCurrentPositionChange(e: CustomEvent<{ value?: number }>): void {
         if (e.detail.value != null) {
             this.position = e.detail.value;
-        }
-    }
-
-    private onCurrentTiltChange(e: CustomEvent<{ value?: number }>): void {
-        if (e.detail.value != null) {
-            this.tilt_position = e.detail.value;
         }
     }
 
@@ -271,7 +250,7 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
                     `;
                 }
             case "tilt_position_control": {
-                const color = getTiltStateColor(entity as CoverEntity);
+                const color = getStateColor(entity as CoverEntity);
                 const sliderStyle = {};
                 sliderStyle["--slider-color"] = `rgb(${color})`;
                 sliderStyle["--slider-bg-color"] = `rgba(${color}, 0.2)`;
@@ -280,7 +259,6 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
                     <mushroom-cover-tilt-position-control
                         .hass=${this.hass}
                         .entity=${entity}
-                        @current-change=${this.onCurrentTiltChange}
                         style=${styleMap(sliderStyle)}
                     />
                 `;

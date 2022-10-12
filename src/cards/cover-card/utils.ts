@@ -22,13 +22,3 @@ export function getStateColor(entity: CoverEntity) {
     }
     return "var(--rgb-disabled)";
 }
-
-export function getTiltStateColor(entity: CoverEntity) {
-    const tilt = entity.attributes.current_tilt_position;
-    if (tilt > 0) {
-        return "var(--rgb-state-cover-tilt-open)";
-    }
-    else {
-        return "var(--rgb-state-cover-tilt-closed)";
-    }
-}
