@@ -1,6 +1,6 @@
-import type { Ripple } from "@material/mwc-ripple";
 import { noChange } from "lit";
 import { AttributePart, directive, Directive, DirectiveParameters } from "lit/directive.js";
+import { customElement } from "lit/decorators.js";
 import { fireEvent } from "../../../../common/dom/fire_event";
 import { deepEqual } from "../../../../common/util/deep-equal";
 import { ActionHandlerDetail, ActionHandlerOptions } from "../../../../data/lovelace";
@@ -33,10 +33,11 @@ declare global {
     }
 }
 
-class ActionHandler extends HTMLElement implements ActionHandler {
-    public holdTime = 500;
+const voidMethod = () => {};
 
-    public ripple: Ripple;
+@customElement("mush-action-handler")
+export class MushActionHandler extends HTMLElement implements ActionHandler {
+    public holdTime = 400;
 
     protected timer?: number;
 
@@ -46,9 +47,14 @@ class ActionHandler extends HTMLElement implements ActionHandler {
 
     private dblClickTimeout?: number;
 
-    constructor() {
-        super();
-        this.ripple = document.createElement("mwc-ripple");
+    private unscale = voidMethod;
+
+    private cleanup() {
+        this.unscale();
+        if (this.timer) {
+            clearTimeout(this.timer);
+            this.timer = undefined;
+        }
     }
 
     public connectedCallback() {
@@ -60,9 +66,6 @@ class ActionHandler extends HTMLElement implements ActionHandler {
             pointerEvents: "none",
             zIndex: "999",
         });
-
-        this.appendChild(this.ripple);
-        this.ripple.primary = true;
 
         [
             "touchcancel",
@@ -77,11 +80,7 @@ class ActionHandler extends HTMLElement implements ActionHandler {
                 ev,
                 () => {
                     this.cancelled = true;
-                    if (this.timer) {
-                        this.stopAnimation();
-                        clearTimeout(this.timer);
-                        this.timer = undefined;
-                    }
+                    this.cleanup();
                 },
                 { passive: true }
             );
@@ -123,24 +122,38 @@ class ActionHandler extends HTMLElement implements ActionHandler {
             return;
         }
 
-        element.actionHandler.start = (ev: Event) => {
+        element.actionHandler.start = () => {
+            this.unscale();
             this.cancelled = false;
-            let x;
-            let y;
-            if ((ev as TouchEvent).touches) {
-                x = (ev as TouchEvent).touches[0].pageX;
-                y = (ev as TouchEvent).touches[0].pageY;
-            } else {
-                x = (ev as MouseEvent).pageX;
-                y = (ev as MouseEvent).pageY;
-            }
+            const haCard = findHaCard(element);
+            if (haCard) {
+                const currentStyle = window.getComputedStyle(haCard);
 
-            if (options.hasHold) {
-                this.held = false;
-                this.timer = window.setTimeout(() => {
-                    this.startAnimation(x, y);
-                    this.held = true;
-                }, this.holdTime);
+                if (currentStyle.transition.indexOf("transform") === -1) {
+                    const transform = `transform ${this.holdTime}ms cubic-bezier(0.4, 0.0, 0.2, 1)`;
+                    haCard.style.transition = concatStyle(transform, currentStyle.transition);
+                }
+                const currentTransform = currentStyle.transform;
+                haCard.style.transform = concatStyle(
+                    "scale(0.9)",
+                    currentTransform !== "none" ? currentTransform : ""
+                );
+                this.unscale = () => {
+                    // Use closure which makes bookkeeping a lot easier
+                    haCard.style.transform = currentTransform;
+                    // Remove unscale
+                    this.unscale = voidMethod;
+                };
+                if (options.hasHold) {
+                    this.held = false;
+                    this.timer = window.setTimeout(() => {
+                        this.held = true;
+                        // Give haptic feeback on devices that support it
+                        if (navigator.vibrate) {
+                            navigator.vibrate(200);
+                        }
+                    }, this.holdTime);
+                }
             }
         };
 
@@ -154,11 +167,9 @@ class ActionHandler extends HTMLElement implements ActionHandler {
             if (ev.cancelable) {
                 ev.preventDefault();
             }
-            if (options.hasHold) {
-                clearTimeout(this.timer);
-                this.stopAnimation();
-                this.timer = undefined;
-            }
+
+            this.cleanup();
+
             if (options.hasHold && this.held) {
                 fireEvent(target, "action", { action: "hold" });
             } else if (options.hasDoubleClick) {
@@ -200,32 +211,15 @@ class ActionHandler extends HTMLElement implements ActionHandler {
 
         element.addEventListener("keyup", element.actionHandler.handleEnter);
     }
-
-    private startAnimation(x: number, y: number) {
-        Object.assign(this.style, {
-            left: `${x}px`,
-            top: `${y}px`,
-            display: null,
-        });
-        this.ripple.disabled = false;
-        this.ripple.startPress();
-        this.ripple.unbounded = true;
-    }
-
-    private stopAnimation() {
-        this.ripple.endPress();
-        this.ripple.disabled = true;
-        this.style.display = "none";
-    }
 }
 
 const getActionHandler = (): ActionHandler => {
     const body = document.body;
-    if (body.querySelector("action-handler")) {
-        return body.querySelector("action-handler") as ActionHandler;
+    if (body.querySelector("mush-action-handler")) {
+        return body.querySelector("mush-action-handler") as ActionHandler;
     }
 
-    const actionhandler = document.createElement("action-handler");
+    const actionhandler = document.createElement("mush-action-handler");
     body.appendChild(actionhandler);
 
     return actionhandler as ActionHandler;
@@ -252,3 +246,21 @@ export const actionHandler = directive(
         render(_options?: ActionHandlerOptions) {}
     }
 );
+
+const findHaCard = (element: HTMLElement) => {
+    let parent: HTMLElement | null = element;
+    while (parent && parent !== document.body && parent.tagName !== "HA-CARD") {
+        parent = parent.parentElement;
+    }
+    if (parent === document.body) {
+        return null;
+    }
+    return parent;
+};
+
+const concatStyle = (left: string, right: string) => {
+    if (left && right) {
+        return `${left}, ${right}`;
+    }
+    return left || right;
+};
