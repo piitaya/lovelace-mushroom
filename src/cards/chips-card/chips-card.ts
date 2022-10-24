@@ -106,6 +106,7 @@ export class ChipsCard extends LitElement implements LovelaceCard {
                     background: none;
                     box-shadow: none;
                     border-radius: 0;
+                    border: none;
                 }
                 .chip-container {
                     display: flex;
