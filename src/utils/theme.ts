@@ -25,19 +25,12 @@ export const themeVariables = css`
     --chip-spacing: var(--mush-chip-spacing, 8px);
     --chip-padding: var(--mush-chip-padding, 0 0.25em);
     --chip-height: var(--mush-chip-height, 36px);
-    --chip-border-radius: var(--mush-chip-border-radius, 18px);
+    --chip-border-radius: var(--mush-chip-border-radius, 19px);
     --chip-font-size: var(--mush-chip-font-size, 0.3em);
     --chip-font-weight: var(--mush-chip-font-weight, bold);
     --chip-icon-size: var(--mush-chip-icon-size, 0.5em);
     --chip-avatar-padding: var(--mush-chip-avatar-padding, 0.1em);
     --chip-avatar-border-radius: var(--mush-chip-avatar-border-radius, 50%);
-    --chip-box-shadow: var(
-        --mush-chip-box-shadow,
-        var(
-            --ha-card-box-shadow,
-            none
-        )
-    );
     --chip-background: var(
         --mush-chip-background,
         var(--ha-card-background, var(--card-background-color, white))
