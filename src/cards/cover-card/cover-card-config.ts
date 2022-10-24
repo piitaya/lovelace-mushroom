@@ -14,6 +14,7 @@ export type CoverCardConfig = LovelaceCardConfig &
     ActionsSharedConfig & {
         show_buttons_control?: false;
         show_position_control?: false;
+        show_tilt_position_control?: false;
     };
 
 export const coverCardConfigStruct = assign(
@@ -22,5 +23,6 @@ export const coverCardConfigStruct = assign(
     object({
         show_buttons_control: optional(boolean()),
         show_position_control: optional(boolean()),
+        show_tilt_position_control: optional(boolean()),
     })
 );
