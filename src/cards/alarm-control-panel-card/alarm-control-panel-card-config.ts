@@ -14,6 +14,7 @@ export type AlarmControlPanelCardConfig = LovelaceCardConfig &
     ActionsSharedConfig & {
         states?: string[];
         show_keypad?: boolean;
+        show_keypad_disarm?: boolean;
     };
 
 export const alarmControlPanelCardCardConfigStruct = assign(
@@ -22,5 +23,6 @@ export const alarmControlPanelCardCardConfigStruct = assign(
     object({
         states: optional(array()),
         show_keypad: optional(boolean()),
+        show_keypad_disarm: optional(boolean()),
     })
 );

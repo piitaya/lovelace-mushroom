@@ -146,9 +146,10 @@ export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceC
     private get _hasCode(): boolean {
         const entityId = this._config?.entity;
         if (!entityId) return false;
+        const entity = this.hass.states[entityId];
         const stateObj = this.hass.states[entityId] as HassEntity | undefined;
         if (!stateObj) return false;
-        return hasCode(stateObj) && Boolean(this._config?.show_keypad);
+        return hasCode(stateObj) && (Boolean(this._config?.show_keypad) || (Boolean(this._config?.show_keypad_disarm) && !isDisarmed(entity)));
     }
 
     protected render() {

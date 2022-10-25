@@ -71,7 +71,8 @@
                 "show_tilt_position_control": "¿Control de inclinación?"
             },
             "alarm_control_panel": {
-                "show_keypad": "Mostrar teclado"
+                "show_keypad": "Mostrar teclado",
+                "show_keypad_disarm": "Mostrar teclado para desarmar"
             },
             "template": {
                 "primary": "Información primaria",

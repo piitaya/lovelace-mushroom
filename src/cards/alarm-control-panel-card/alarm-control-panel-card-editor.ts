@@ -37,6 +37,7 @@ const computeSchema = memoizeOne((localize: LocalizeFunc): HaFormSchema[] => [
         ]) as [string, string][],
     },
     { name: "show_keypad", selector: { boolean: {} } },
+    { name: "show_keypad_disarm", selector: { boolean: {} } },
     ...computeActionsFormSchema(actions),
 ]);
 
