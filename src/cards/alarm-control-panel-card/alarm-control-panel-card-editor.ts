@@ -15,31 +15,43 @@ import {
     AlarmControlPanelCardConfig,
     alarmControlPanelCardCardConfigStruct,
 } from "./alarm-control-panel-card-config";
-import { ALARM_CONTROl_PANEL_CARD_EDITOR_NAME, ALARM_CONTROl_PANEL_ENTITY_DOMAINS } from "./const";
+import {
+    ALARM_CONTROl_PANEL_CARD_EDITOR_NAME,
+    ALARM_CONTROl_PANEL_ENTITY_DOMAINS,
+    ALARM_CONTROL_PANEL_CARD_SHOW_KEYPAD_OPTIONS,
+} from "./const";
 
 const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "assist", "none"];
 
 const states = ["armed_home", "armed_away", "armed_night", "armed_vacation", "armed_custom_bypass"];
 
-const ALARM_CONTROL_PANEL_LABELS = ["show_keypad"];
+const ALARM_CONTROL_PANEL_LABELS = ["show_keypad", "always", "never"];
 
-const computeSchema = memoizeOne((localize: LocalizeFunc): HaFormSchema[] => [
-    { name: "entity", selector: { entity: { domain: ALARM_CONTROl_PANEL_ENTITY_DOMAINS } } },
-    { name: "name", selector: { text: {} } },
-    { name: "icon", selector: { icon: {} }, context: { icon_entity: "entity" } },
-    ...APPEARANCE_FORM_SCHEMA,
-    {
-        type: "multi_select",
-        name: "states",
-        options: states.map((state) => [
-            state,
-            localize(`ui.card.alarm_control_panel.${state.replace("armed", "arm")}`),
-        ]) as [string, string][],
-    },
-    { name: "show_keypad", selector: { boolean: {} } },
-    { name: "show_keypad_disarm", selector: { boolean: {} } },
-    ...computeActionsFormSchema(actions),
-]);
+const computeSchema = memoizeOne(
+    (localize: LocalizeFunc, customLocalize: LocalizeFunc, icon?: string): HaFormSchema[] => [
+        { name: "entity", selector: { entity: { domain: ALARM_CONTROl_PANEL_ENTITY_DOMAINS } } },
+        { name: "name", selector: { text: {} } },
+        { name: "icon", selector: { icon: {} }, context: { icon_entity: "entity" } },
+        ...APPEARANCE_FORM_SCHEMA,
+        {
+            type: "multi_select",
+            name: "states",
+            options: states.map((state) => [
+                state,
+                localize(`ui.card.alarm_control_panel.${state.replace("armed", "arm")}`),
+            ]) as [string, string][],
+        },
+        {
+            type: "select",
+            name: "show_keypad",
+            options: ALARM_CONTROL_PANEL_CARD_SHOW_KEYPAD_OPTIONS.map((state) => [
+                state,
+                customLocalize(`editor.card.alarm_control_panel.${state}`),
+            ]) as [string, string][],
+        },
+        ...computeActionsFormSchema(actions),
+    ]
+);
 
 @customElement(ALARM_CONTROl_PANEL_CARD_EDITOR_NAME)
 export class SwitchCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
@@ -60,7 +72,14 @@ export class SwitchCardEditor extends MushroomBaseElement implements LovelaceCar
             return nothing;
         }
 
+<<<<<<< HEAD
         const schema = computeSchema(this.hass!.localize);
+=======
+        const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
+        const entityIcon = entityState ? stateIcon(entityState) : undefined;
+        const icon = this._config.icon || entityIcon;
+        const schema = computeSchema(this.hass!.localize, setupCustomlocalize(this.hass!), icon);
+>>>>>>> af1b875 (Change approach to use select instead of two booleans)
 
         return html`
             <ha-form

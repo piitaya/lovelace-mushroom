@@ -72,7 +72,9 @@
             },
             "alarm_control_panel": {
                 "show_keypad": "Show keypad",
-                "show_keypad_disarm": "Show keypad for disarming"
+                "always": "Always",
+                "never": "Never",
+                "disarm": "Disarmed"
             },
             "template": {
                 "primary": "Primary information",

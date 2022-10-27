@@ -72,7 +72,9 @@
             },
             "alarm_control_panel": {
                 "show_keypad": "Mostrar teclado",
-                "show_keypad_disarm": "Mostrar teclado para desarmar"
+                "always": "Siempre",
+                "never": "Nunca",
+                "disarm": "Desarmado"
             },
             "template": {
                 "primary": "Información primaria",
