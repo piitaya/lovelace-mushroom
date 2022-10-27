@@ -56,8 +56,8 @@
                 "show_oscillate_control": "Bediening oscillatie"
             },
             "cover": {
-                "show_buttons_control": "Bediening middels knoppen",
-                "show_position_control": "Bediening middels positie"
+                "show_buttons_control": "Toon knoppen",
+                "show_position_control": "Toon positie bediening"
             },
             "alarm_control_panel": {
                 "show_keypad": "Toon toetsenbord"
@@ -97,13 +97,13 @@
                     "previous": "Vorige nummer",
                     "play_pause_stop": "Speel/pauze/stop",
                     "next": "Volgende nummer",
-                    "repeat": "Herhaal modes"
+                    "repeat": "Herhalen"
                 },
                 "volume_controls": "Volumeregeling",
                 "volume_controls_list": {
                     "volume_buttons": "Volume knoppen",
                     "volume_set": "Volumeniveau",
-                    "volume_mute": "Demp"
+                    "volume_mute": "Dempen"
                 }
             },
             "lock": {
