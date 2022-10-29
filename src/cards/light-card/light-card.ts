@@ -30,6 +30,7 @@ import { stateIcon } from "../../utils/icons/state-icon";
 import { computeEntityPicture, computeInfoDisplay } from "../../utils/info";
 import { LIGHT_CARD_EDITOR_NAME, LIGHT_CARD_NAME, LIGHT_ENTITY_DOMAINS } from "./const";
 import "./controls/light-brightness-control";
+import "./controls/light-white-control";
 import "./controls/light-color-control";
 import "./controls/light-color-temp-control";
 import { LightCardConfig } from "./light-card-config";
@@ -43,12 +44,13 @@ import {
     supportsColorTempControl,
 } from "./utils";
 
-type LightCardControl = "brightness_control" | "color_temp_control" | "color_control";
+type LightCardControl = "brightness_control" | "color_temp_control" | "color_control" | "white_control";
 
 const CONTROLS_ICONS: Record<LightCardControl, string> = {
     brightness_control: "mdi:brightness-4",
     color_temp_control: "mdi:thermometer",
     color_control: "mdi:palette",
+    white_control: "mdi:alpha-w-box"
 };
 
 registerCustomCard({
@@ -149,6 +151,9 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
             if (this._config.show_color_control && supportsColorControl(entity)) {
                 controls.push("color_control");
             }
+            if (this._config.show_white_control && supportsColorControl(entity)) {
+                controls.push("white_control");
+            }
         }
         this._controls = controls;
         const isActiveControlSupported = this._activeControl
@@ -224,6 +229,7 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
                 }
             }
         }
+
         return html`
             <mushroom-shape-icon
                 slot="icon"
@@ -281,6 +287,10 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
                 return html`
                     <mushroom-light-color-control .hass=${this.hass} .entity=${entity} />
                 `;
+            case "white_control":
+                return html`
+                    <mushroom-light-white-control .hass=${this.hass} .entity=${entity} />
+                `;
             default:
                 return null;
         }
@@ -298,6 +308,7 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
                     --icon-color: rgb(var(--rgb-state-light));
                     --shape-color: rgba(var(--rgb-state-light), 0.2);
                 }
+                mushroom-light-white-control,
                 mushroom-light-brightness-control,
                 mushroom-light-color-temp-control,
                 mushroom-light-color-control {

@@ -13,6 +13,12 @@ export function getColorTemp(entity: LightEntity): number | undefined {
         : undefined;
 }
 
+export function getWhite(entity: LightEntity): number | undefined {
+    return entity.attributes.rgbw_color != null
+        ? Math.round(entity.attributes.rgbw_color[3])
+        : undefined;
+}
+
 export function getRGBColor(entity: LightEntity): number[] | undefined {
     return entity.attributes.rgb_color != null ? entity.attributes.rgb_color : undefined;
 }
