@@ -14,7 +14,7 @@ export class LightWhiteControl extends LitElement {
         const value = e.detail.value;
         this.hass.callService("light", "turn_on", {
             entity_id: this.entity.entity_id,
-            rgbw_color: [0,0,0,value],
+            rgbw_color: [this.entity.attributes.rgbw_color[0],this.entity.attributes.rgbw_color[1],this.entity.attributes.rgbw_color[2],value],
         });
     }
 
