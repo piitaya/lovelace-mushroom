@@ -13,14 +13,18 @@ export function getColorTemp(entity: LightEntity): number | undefined {
         : undefined;
 }
 
-export function getWhite(entity: LightEntity): number | undefined {
-    return entity.attributes.rgbw_color != null
-        ? Math.round(entity.attributes.rgbw_color[3])
-        : undefined;
-}
-
 export function getRGBColor(entity: LightEntity): number[] | undefined {
     return entity.attributes.rgb_color != null ? entity.attributes.rgb_color : undefined;
+}
+
+export function getRGBWColor(entity: LightEntity): number[] | undefined {
+    return entity.attributes.rgbw_color != null ? entity.attributes.rgbw_color : undefined;
+}
+
+export function getWhite(entity: LightEntity): number | undefined {
+    return entity.attributes.rgbw_color != null
+        ? Math.max(Math.round((entity.attributes.rgbw_color[3] * 100) / 255), 1)
+        : undefined;
 }
 
 export function isColorLight(rgb: number[]): boolean {
