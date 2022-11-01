@@ -14,7 +14,7 @@ export class LightWhiteControl extends LitElement {
         const value_pct = e.detail.value;
         const value = Math.round((value_pct / 100) * 255);
         const rgb_color = getRGBWColor(this.entity)?.slice(0,3);
-        const rgbw_color = [...(rgb_color||[0, 0, 0]),value];
+        const rgbw_color = [...(rgb_color||[0, 0, 0]), value];
 
         if (rgbw_color?.length === 4) {
             this.hass.callService("light", "turn_on", {
