@@ -41,6 +41,7 @@ import {
     isColorSuperLight,
     supportsBrightnessControl,
     supportsColorControl,
+    supportsRgbwControl,
     supportsColorTempControl,
 } from "./utils";
 
@@ -151,7 +152,7 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
             if (this._config.show_color_control && supportsColorControl(entity)) {
                 controls.push("color_control");
             }
-            if (this._config.show_white_control && supportsColorControl(entity)) {
+            if (this._config.show_white_control && supportsRgbwControl(entity)) {
                 controls.push("white_control");
             }
         }
