@@ -18,6 +18,7 @@ export type LightCardConfig = LovelaceCardConfig &
         collapsible_controls?: boolean;
         use_light_color?: boolean;
         show_white_control?: boolean;
+        show_dual_white_control?: boolean;
     };
 
 export const lightCardConfigStruct = assign(
@@ -30,5 +31,6 @@ export const lightCardConfigStruct = assign(
         collapsible_controls: optional(boolean()),
         use_light_color: optional(boolean()),
         show_white_control: optional(boolean()),
+        show_dual_white_control: optional(boolean()),
     })
 );
