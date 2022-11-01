@@ -4,15 +4,15 @@ import memoizeOne from "memoize-one";
 import { fireEvent, HomeAssistant } from "../../../ha";
 import setupCustomlocalize from "../../../localize";
 import { computeActionsFormSchema } from "../../../shared/config/actions-config";
-import { Action } from "../../../utils/form/custom/ha-selector-mushroom-action";
 import { GENERIC_LABELS } from "../../../utils/form/generic-fields";
 import { HaFormSchema } from "../../../utils/form/ha-form";
+import { UiAction } from "../../../utils/form/ha-selector";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
 import { ActionChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { DEFAULT_ACTION_ICON } from "./action-chip";
 
-const actions: Action[] = ["navigate", "url", "call-service", "none"];
+const actions: UiAction[] = ["navigate", "url", "call-service", "none"];
 
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     {
