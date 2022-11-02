@@ -1,4 +1,4 @@
-import { MushActionSelector } from "./custom/ha-selector-mushroom-action";
+import { ActionConfig } from "../../ha";
 import { MushAlignementSelector } from "./custom/ha-selector-mushroom-alignment";
 import { MushColorSelector } from "./custom/ha-selector-mushroom-color";
 import { MushIconTypeSelector } from "./custom/ha-selector-mushroom-icon-type";
@@ -10,7 +10,6 @@ type MushSelector =
     | MushLayoutSelector
     | MushInfoSelector
     | MushIconTypeSelector
-    | MushActionSelector
     | MushAlignementSelector;
 
 export type Selector =
@@ -37,6 +36,7 @@ export type Selector =
     | TemplateSelector
     | ThemeSelector
     | TimeSelector
+    | UiActionSelector
     | MushSelector;
 
 export interface ActionSelector {
@@ -242,4 +242,12 @@ export interface ThemeSelector {
 export interface TimeSelector {
     // eslint-disable-next-line @typescript-eslint/ban-types
     time: {};
+}
+
+export type UiAction = Exclude<ActionConfig["action"], "fire-dom-event">;
+
+export interface UiActionSelector {
+    "ui-action": {
+        actions?: UiAction[];
+    } | null;
 }
