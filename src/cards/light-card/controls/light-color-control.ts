@@ -2,7 +2,8 @@ import * as Color from "color";
 import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult, unsafeCSS } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { HomeAssistant, isActive, isAvailable } from "../../../ha";
+import { HomeAssistant, isActive, isAvailable, LightEntity } from "../../../ha";
+import { supportsRgbwControl, getRGBWColor } from "../utils";
 import "../../../shared/slider";
 
 const GRADIENT = [
@@ -40,10 +41,21 @@ export class LightColorControl extends LitElement {
         const rgb_color = this._percentToRGB(value / 100);
 
         if (rgb_color.length === 3) {
-            this.hass.callService("light", "turn_on", {
-                entity_id: this.entity.entity_id,
-                rgb_color,
+            if (supportsRgbwControl(this.entity as LightEntity)) {
+                const white = getRGBWColor(this.entity as LightEntity)?.slice(-1);
+                const rgbw_color = [...(rgb_color), ...(white||[0])];
+
+                this.hass.callService("light", "turn_on", {
+                    entity_id: this.entity.entity_id,
+                    rgbw_color,
             });
+            }
+            else {
+                this.hass.callService("light", "turn_on", {
+                    entity_id: this.entity.entity_id,
+                    rgb_color,
+                });
+            }
         }
     }
 
