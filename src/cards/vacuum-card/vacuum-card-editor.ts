@@ -16,21 +16,23 @@ import { VacuumCardConfig, vacuumCardConfigStruct, VACUUM_COMMANDS } from "./vac
 
 const VACUUM_LABELS = ["commands"];
 
-const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaFormSchema[] => [
-    { name: "entity", selector: { entity: { domain: VACUUM_ENTITY_DOMAINS } } },
-    { name: "name", selector: { text: {} } },
-    { name: "icon", selector: { icon: { placeholder: icon } } },
-    ...APPEARANCE_FORM_SCHEMA,
-    {
-        type: "multi_select",
-        name: "commands",
-        options: VACUUM_COMMANDS.map((command) => [
-            command,
-            localize(`ui.dialogs.more_info_control.vacuum.${command}`),
-        ]) as [string, string][],
-    },
-    ...computeActionsFormSchema(),
-]);
+const computeSchema = memoizeOne(
+    (localize: LocalizeFunc, version: string, icon?: string): HaFormSchema[] => [
+        { name: "entity", selector: { entity: { domain: VACUUM_ENTITY_DOMAINS } } },
+        { name: "name", selector: { text: {} } },
+        { name: "icon", selector: { icon: { placeholder: icon } } },
+        ...APPEARANCE_FORM_SCHEMA,
+        {
+            type: "multi_select",
+            name: "commands",
+            options: VACUUM_COMMANDS.map((command) => [
+                command,
+                localize(`ui.dialogs.more_info_control.vacuum.${command}`),
+            ]) as [string, string][],
+        },
+        ...computeActionsFormSchema(version),
+    ]
+);
 
 @customElement(VACUUM_CARD_EDITOR_NAME)
 export class VacuumCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
@@ -38,7 +40,7 @@ export class VacuumCardEditor extends MushroomBaseElement implements LovelaceCar
 
     connectedCallback() {
         super.connectedCallback();
-        void loadHaComponents();
+        void loadHaComponents(this.hass.connection.haVersion);
     }
 
     public setConfig(config: VacuumCardConfig): void {
@@ -66,7 +68,7 @@ export class VacuumCardEditor extends MushroomBaseElement implements LovelaceCar
         const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
         const entityIcon = entityState ? stateIcon(entityState) : undefined;
         const icon = this._config.icon || entityIcon;
-        const schema = computeSchema(this.hass!.localize, icon);
+        const schema = computeSchema(this.hass!.localize, this.hass.connection.haVersion, icon);
 
         return html`
             <ha-form

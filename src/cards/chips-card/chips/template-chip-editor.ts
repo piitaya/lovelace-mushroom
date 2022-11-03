@@ -37,7 +37,7 @@ const computeSchema = memoizeOne((version: string): HaFormSchema[] => [
             ? { template: {} }
             : { text: { multiline: true } },
     },
-    ...computeActionsFormSchema(),
+    ...computeActionsFormSchema(version),
 ]);
 
 @customElement(computeChipEditorComponentName("template"))

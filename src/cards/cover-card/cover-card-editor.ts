@@ -14,9 +14,13 @@ import { loadHaComponents } from "../../utils/loader";
 import { COVER_CARD_EDITOR_NAME, COVER_ENTITY_DOMAINS } from "./const";
 import { CoverCardConfig, coverCardConfigStruct } from "./cover-card-config";
 
-const COVER_LABELS = ["show_buttons_control", "show_position_control", "show_tilt_position_control"];
+const COVER_LABELS = [
+    "show_buttons_control",
+    "show_position_control",
+    "show_tilt_position_control",
+];
 
-const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
+const computeSchema = memoizeOne((version: string, icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: COVER_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
     { name: "icon", selector: { icon: { placeholder: icon } } },
@@ -30,7 +34,7 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
             { name: "show_buttons_control", selector: { boolean: {} } },
         ],
     },
-    ...computeActionsFormSchema(),
+    ...computeActionsFormSchema(version),
 ]);
 
 @customElement(COVER_CARD_EDITOR_NAME)
@@ -39,7 +43,7 @@ export class CoverCardEditor extends MushroomBaseElement implements LovelaceCard
 
     connectedCallback() {
         super.connectedCallback();
-        void loadHaComponents();
+        void loadHaComponents(this.hass.connection.haVersion);
     }
 
     public setConfig(config: CoverCardConfig): void {
@@ -67,7 +71,7 @@ export class CoverCardEditor extends MushroomBaseElement implements LovelaceCard
         const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
         const entityIcon = entityState ? stateIcon(entityState) : undefined;
         const icon = this._config.icon || entityIcon;
-        const schema = computeSchema(icon);
+        const schema = computeSchema(this.hass.connection.haVersion, icon);
 
         return html`
             <ha-form

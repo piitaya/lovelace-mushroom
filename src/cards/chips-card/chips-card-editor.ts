@@ -151,7 +151,7 @@ export class ChipsCardEditor extends MushroomBaseElement implements LovelaceCard
 
     connectedCallback() {
         super.connectedCallback();
-        void loadHaComponents();
+        void loadHaComponents(this.hass.connection.haVersion);
     }
 
     public setConfig(config: ChipsCardConfig): void {

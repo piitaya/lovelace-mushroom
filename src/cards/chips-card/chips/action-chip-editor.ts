@@ -14,7 +14,7 @@ import { DEFAULT_ACTION_ICON } from "./action-chip";
 
 const actions: UiAction[] = ["navigate", "url", "call-service", "none"];
 
-const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
+const computeSchema = memoizeOne((version: string, icon?: string): HaFormSchema[] => [
     {
         type: "grid",
         name: "",
@@ -23,7 +23,7 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
             { name: "icon_color", selector: { "mush-color": {} } },
         ],
     },
-    ...computeActionsFormSchema(actions),
+    ...computeActionsFormSchema(version, actions),
 ]);
 
 @customElement(computeChipEditorComponentName("action"))
@@ -51,7 +51,7 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
         }
 
         const icon = this._config.icon || DEFAULT_ACTION_ICON;
-        const schema = computeSchema(icon);
+        const schema = computeSchema(this.hass.connection.haVersion, icon);
 
         return html`
             <ha-form
