@@ -40,7 +40,6 @@ export class UpdateCardEditor extends MushroomBaseElement implements LovelaceCar
     @state() private _config?: UpdateCardConfig;
 
     connectedCallback() {
-        console.log(this.hass);
         super.connectedCallback();
         void loadHaComponents(this.hass.connection.haVersion);
     }
