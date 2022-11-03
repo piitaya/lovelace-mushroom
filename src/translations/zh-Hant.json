@@ -67,7 +67,8 @@
             },
             "cover": {
                 "show_buttons_control": "按鈕控制?",
-                "show_position_control": "位置控制?"
+                "show_position_control": "位置控制?",
+                "show_tilt_position_control": "傾斜控制?"
             },
             "alarm_control_panel": {
                 "show_keypad": "顯示鍵盤"
