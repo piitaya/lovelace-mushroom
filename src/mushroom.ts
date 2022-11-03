@@ -1,4 +1,5 @@
 import { version } from "../package.json";
+import "./utils/form/custom/ha-selector-mushroom-action";
 import "./utils/form/custom/ha-selector-mushroom-alignment";
 import "./utils/form/custom/ha-selector-mushroom-color";
 import "./utils/form/custom/ha-selector-mushroom-icon-type";

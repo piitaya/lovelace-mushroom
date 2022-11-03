@@ -13,7 +13,7 @@ import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { LIGHT_ENTITY_DOMAINS } from "../../light-card/const";
 import { LIGHT_LABELS } from "../../light-card/light-card-editor";
 
-const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
+const computeSchema = memoizeOne((version: string, icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: LIGHT_ENTITY_DOMAINS } } },
     {
         type: "grid",
@@ -31,7 +31,7 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
             { name: "use_light_color", selector: { boolean: {} } },
         ],
     },
-    ...computeActionsFormSchema(),
+    ...computeActionsFormSchema(version),
 ]);
 
 @customElement(computeChipEditorComponentName("light"))
@@ -64,7 +64,7 @@ export class LightChipEditor extends LitElement implements LovelaceChipEditor {
         const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
         const entityIcon = entityState ? stateIcon(entityState) : undefined;
         const icon = this._config.icon || entityIcon;
-        const schema = computeSchema(icon);
+        const schema = computeSchema(this.hass.connection.haVersion, icon);
 
         return html`
             <ha-form

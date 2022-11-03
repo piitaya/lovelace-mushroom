@@ -9,13 +9,14 @@ import { UiAction } from "../../../utils/form/ha-selector";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
 import { WeatherChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
+import memoizeOne from "memoize-one";
 
 const WEATHER_ENTITY_DOMAINS = ["weather"];
 const WEATHER_LABELS = ["show_conditions", "show_temperature"];
 
 const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "none"];
 
-const SCHEMA: HaFormSchema[] = [
+const computeSchema = memoizeOne((version: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: WEATHER_ENTITY_DOMAINS } } },
     {
         type: "grid",
@@ -25,8 +26,8 @@ const SCHEMA: HaFormSchema[] = [
             { name: "show_temperature", selector: { boolean: {} } },
         ],
     },
-    ...computeActionsFormSchema(actions),
-];
+    ...computeActionsFormSchema(version, actions),
+]);
 
 @customElement(computeChipEditorComponentName("weather"))
 export class WeatherChipEditor extends LitElement implements LovelaceChipEditor {
@@ -55,11 +56,13 @@ export class WeatherChipEditor extends LitElement implements LovelaceChipEditor 
             return html``;
         }
 
+        const schema = computeSchema(this.hass.connection.haVersion);
+
         return html`
             <ha-form
                 .hass=${this.hass}
                 .data=${this._config}
-                .schema=${SCHEMA}
+                .schema=${schema}
                 .computeLabel=${this._computeLabel}
                 @value-changed=${this._valueChanged}
             ></ha-form>

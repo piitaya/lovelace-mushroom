@@ -11,7 +11,7 @@ import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chi
 import { EntityChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 
-const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
+const computeSchema = memoizeOne((version: string, icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: {} } },
     {
         type: "grid",
@@ -30,7 +30,7 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
         ],
     },
     { name: "use_entity_picture", selector: { boolean: {} } },
-    ...computeActionsFormSchema(),
+    ...computeActionsFormSchema(version),
 ]);
 
 @customElement(computeChipEditorComponentName("entity"))
@@ -60,7 +60,7 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
         const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
         const entityIcon = entityState ? stateIcon(entityState) : undefined;
         const icon = this._config.icon || entityIcon;
-        const schema = computeSchema(icon);
+        const schema = computeSchema(this.hass.connection.haVersion, icon);
 
         return html`
             <ha-form

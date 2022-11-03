@@ -75,7 +75,7 @@ const computeSchema = memoizeOne((version: string): HaFormSchema[] => [
             { name: "multiline_secondary", selector: { boolean: {} } },
         ],
     },
-    ...computeActionsFormSchema(),
+    ...computeActionsFormSchema(version),
 ]);
 
 @customElement(TEMPLATE_CARD_EDITOR_NAME)
@@ -84,7 +84,7 @@ export class TemplateCardEditor extends MushroomBaseElement implements LovelaceC
 
     connectedCallback() {
         super.connectedCallback();
-        void loadHaComponents();
+        void loadHaComponents(this.hass.connection.haVersion);
     }
 
     public setConfig(config: TemplateCardConfig): void {

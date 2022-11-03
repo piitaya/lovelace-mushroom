@@ -1,5 +1,5 @@
 import { object, optional } from "superstruct";
-import { ActionConfig, actionConfigStruct } from "../../ha";
+import { ActionConfig, actionConfigStruct, atLeastHaVersion } from "../../ha";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { UiAction } from "../../utils/form/ha-selector";
 
@@ -15,8 +15,23 @@ export type ActionsSharedConfig = {
     double_tap_action?: ActionConfig;
 };
 
-export const computeActionsFormSchema = (actions?: UiAction[]): HaFormSchema[] => [
-    { name: "tap_action", selector: { "ui-action": { actions } } },
-    { name: "hold_action", selector: { "ui-action": { actions } } },
-    { name: "double_tap_action", selector: { "ui-action": { actions } } },
+export const computeActionsFormSchema = (version: string, actions?: UiAction[]): HaFormSchema[] => [
+    {
+        name: "tap_action",
+        selector: atLeastHaVersion(version, 2022, 11)
+            ? { "ui-action": { actions } }
+            : { "mush-action": { actions } },
+    },
+    {
+        name: "hold_action",
+        selector: atLeastHaVersion(version, 2022, 11)
+            ? { "ui-action": { actions } }
+            : { "mush-action": { actions } },
+    },
+    {
+        name: "double_tap_action",
+        selector: atLeastHaVersion(version, 2022, 11)
+            ? { "ui-action": { actions } }
+            : { "mush-action": { actions } },
+    },
 ];
