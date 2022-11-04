@@ -67,7 +67,8 @@
             },
             "cover": {
                 "show_buttons_control": "Przyciski sterujące?",
-                "show_position_control": "Sterowanie położeniem?"
+                "show_position_control": "Sterowanie położeniem?",
+                "show_tilt_position_control": "Sterowanie poziomem otwarcia?"
             },
             "alarm_control_panel": {
                 "show_keypad": "Wyświetl klawiaturę"
