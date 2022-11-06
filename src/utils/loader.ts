@@ -9,6 +9,6 @@ export const loadHaComponents = (version: string) => {
         (customElements.get("hui-button-card") as any)?.getConfigElement();
     }
     if (!customElements.get("ha-entity-picker")) {
-        (customElements.get("hui-conditional-card-editor") as any)?.getConfigElement();
+        (customElements.get("hui-entities-card") as any)?.getConfigElement();
     }
 };
