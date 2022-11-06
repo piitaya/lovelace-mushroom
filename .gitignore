@@ -1,7 +1,6 @@
 node_modules
 dist
 .hass_dev/*
-!.hass_dev/configuration.yaml
 !.hass_dev/lovelace.yaml
 !.hass_dev/lovelace-mushroom-showcase.yaml
 !.hass_dev/views
