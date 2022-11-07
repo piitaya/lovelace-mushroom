@@ -9,7 +9,7 @@ export class ShapePicture extends LitElement {
     protected render(): TemplateResult {
         return html`
             <div class=${classMap({ container: true })}>
-                <img class="picture" src=${this.picture_url.replace("512x512", "256x256")} />
+                <img class="picture" src=${this.picture_url} />
             </div>
         `;
     }
