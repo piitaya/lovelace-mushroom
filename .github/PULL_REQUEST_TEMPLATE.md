@@ -6,6 +6,7 @@
 <!--- If suggesting a new feature or change, please discuss it in an issue first -->
 <!--- If fixing a bug, there should be an issue describing it with steps to reproduce -->
 <!--- Please link to the issue here -->
+This PR fixes or closes issue: fixes #
 
 ## Motivation and Context
 <!--- Why is this change required? What problem does it solve? -->
@@ -29,3 +30,5 @@
 - [ ] My change requires a change to the documentation.
 - [ ] I have updated the documentation accordingly.
 - [ ] I have tested the change locally.
+- [ ] I followed [the steps](https://github.com/piitaya/lovelace-mushroom#maintainer-steps-to-add-a-new-language
+) if I add a new language .
