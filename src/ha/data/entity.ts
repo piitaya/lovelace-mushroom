@@ -34,7 +34,7 @@ export function isActive(entity: HassEntity) {
         case "device_tracker":
         case "person":
             return state === "home";
-        case "media-player":
+        case "media_player":
             return state !== "idle" && state !== "standby";
         case "vacuum":
             return state === "cleaning" || state === "on";
