@@ -1,12 +1,14 @@
-# Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
 
 homeassistant:
   packages: !include_dir_named packages/
 
-# Text to speech
 tts:
   - platform: google_translate
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
 
 lovelace: !include lovelace.yaml
 
