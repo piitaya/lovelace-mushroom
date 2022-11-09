@@ -1,7 +1,7 @@
 name: 🐞 Bug Report
 description: Create a report to help us improve
 title: "[Bug]: <title>"
-labels: ["bug", "triage"]
+labels: ["bug"]
 body:
 - type: textarea
   attributes:
@@ -30,9 +30,9 @@ body:
   attributes:
     label: Context
     description: |
-      If your issue is about a certain type of entity, please provide the state of your entity. You can find it in the [developer tools](https://my.home-assistant.io/redirect/developer_states/). Otherwise, you can leave this section blank.
+      If your issue is about a certain type of entity, please provide the entity state/attribute. You can find it in the [developer tools](https://my.home-assistant.io/redirect/developer_states/). Otherwise, you can leave this section blank.
     value: |
-      Entity state yaml
+      YAML state
       ```yaml
 
       ```
