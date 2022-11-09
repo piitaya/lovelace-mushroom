@@ -1,7 +1,7 @@
 name: 🐞 Bug Report
 description: Create a report to help us improve
 title: "[Bug]: <title>"
-labels: ["bug", "triage"]
+labels: ["bug"]
 body:
 - type: textarea
   attributes:
@@ -28,18 +28,28 @@ body:
     required: false
 - type: textarea
   attributes:
+    label: Context
+    description: |
+      If your issue is about a certain type of entity, please provide the entity state/attribute. You can find it in the [developer tools](https://my.home-assistant.io/redirect/developer_states/). Otherwise, you can leave this section blank.
+    value: |
+      YAML state
+      ```yaml
+
+      ```
+  validations:
+    required: false
+- type: textarea
+  attributes:
     label: Environment
     description: |
       examples:
-        - **OS**: Ubuntu 20.04
-        - **Brower**: chrome
-        - **Version**: 1.6.2
-        - **Hassio**: 2022.2.3
+        - **Brower**: Chrome
+        - **HA Version**: 2022.11.0
+        - **Mushroom**: 2.3.4
     value: |
-        - OS:
-        - Node:
-        - Version:
-        - Hassio:
+        - Browser:
+        - HA Version:
+        - Mushroom: 
     render: markdown
   validations:
     required: false
