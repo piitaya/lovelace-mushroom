@@ -31,11 +31,11 @@ body:
     label: Context
     description: |
       If your issue is about a certain type of entity, please provide the state of your entity. You can find it in the [developer tools](https://my.home-assistant.io/redirect/developer_states/). Otherwise, you can leave this section blank.
-      value: |
-        Entity state yaml
-        ```yaml
+    value: |
+      Entity state yaml
+      ```yaml
 
-        ```
+      ```
   validations:
     required: false
 - type: textarea
