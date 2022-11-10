@@ -13,7 +13,7 @@ export function isActive(entity: HassEntity) {
     const domain = computeDomain(entity.entity_id);
     const state = entity.state;
 
-    if (["button", "input_button", "scene", "script"].includes(domain)) {
+    if (["button", "input_button", "scene"].includes(domain)) {
         return state !== UNAVAILABLE;
     }
 
