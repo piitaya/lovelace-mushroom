@@ -29,7 +29,7 @@ export function isActive(entity: HassEntity) {
         case "person":
             return state !== "not_home";
         case "media_player":
-            return state !== "idle" && state !== "standby";
+            return state !== "standby";
         case "vacuum":
             return state === "on" || state === "cleaning";
         case "plant":
