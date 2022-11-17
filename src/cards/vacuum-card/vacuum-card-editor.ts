@@ -88,7 +88,13 @@ export class VacuumCardEditor extends MushroomBaseElement implements LovelaceCar
         const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
         const entityIcon = entityState ? stateIcon(entityState) : undefined;
         const icon = this._config.icon || entityIcon;
-        const schema = computeSchema(this.hass!.localize, this.hass.connection.haVersion, icon);
+        const customLocalize = setupCustomlocalize(this.hass!);
+        const schema = computeSchema(
+            this.hass!.localize,
+            customLocalize,
+            this.hass.connection.haVersion,
+            icon
+        );
 
         return html`
             <ha-form
