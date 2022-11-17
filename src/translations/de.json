@@ -51,7 +51,8 @@
                 "icon_type": "Icon-Typ",
                 "content_info": "Inhalt",
                 "use_entity_picture": "Entitätsbild verwenden?",
-                "collapsible_controls": "Schieberegler einklappen, wenn aus"
+                "collapsible_controls": "Schieberegler einklappen, wenn aus",
+                "icon_animation": "Icon animieren, wenn aktiv?"
             },
             "light": {
                 "show_brightness_control": "Helligkeitsregelung?",
@@ -61,7 +62,6 @@
                 "incompatible_controls": "Einige Steuerelemente werden möglicherweise nicht angezeigt, wenn Ihr Licht diese Funktion nicht unterstützt."
             },
             "fan": {
-                "icon_animation": "Icon animieren, wenn aktiv?",
                 "show_percentage_control": "Prozentuale Kontrolle?",
                 "show_oscillate_control": "Oszillationssteuerung?"
             },
@@ -101,8 +101,7 @@
                 "commands": "Befehle",
                 "commands_list": {
                     "on_off": "An/Ausschalten"
-                },
-                "icon_animation": "Icon animieren, wenn aktiv?"
+                }
             },
             "media-player": {
                 "use_media_info": "Medieninfos verwenden",

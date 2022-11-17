@@ -51,7 +51,8 @@
                 "icon_type": "圖示樣式",
                 "content_info": "內容",
                 "use_entity_picture": "使用實體圖片?",
-                "collapsible_controls": "關閉時隱藏控制項"
+                "collapsible_controls": "關閉時隱藏控制項",
+                "icon_animation": "啟動時使用動態圖示?"
             },
             "light": {
                 "show_brightness_control": "亮度控制?",
@@ -61,7 +62,6 @@
                 "incompatible_controls": "裝置不支援的控制不會顯示。"
             },
             "fan": {
-                "icon_animation": "啟動時使用動態圖示?",
                 "show_percentage_control": "百分比控制?",
                 "show_oscillate_control": "擺頭控制?"
             },
@@ -98,8 +98,7 @@
                 "show_buttons_control": "按鈕控制?"
             },
             "vacuum": {
-                "commands": "指令",
-                "icon_animation": "啟動時使用動態圖示?"
+                "commands": "指令"
             },
             "media-player": {
                 "use_media_info": "使用媒體資訊",

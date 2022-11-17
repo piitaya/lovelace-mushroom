@@ -51,7 +51,8 @@
                 "icon_type": "Type d'icône",
                 "content_info": "Contenu",
                 "use_entity_picture": "Utiliser l'image de l'entité ?",
-                "collapsible_controls": "Reduire les contrôles quand éteint"
+                "collapsible_controls": "Reduire les contrôles quand éteint",
+                "icon_animation": "Animation de l'icône ?"
             },
             "light": {
                 "show_brightness_control": "Contrôle de luminosité ?",
@@ -61,7 +62,6 @@
                 "incompatible_controls": "Certains contrôles peuvent ne pas être affichés si votre lumière ne supporte pas la fonctionnalité."
             },
             "fan": {
-                "icon_animation": "Animation de l'icône ?",
                 "show_percentage_control": "Contrôle de la vitesse ?",
                 "show_oscillate_control": "Contrôle de l'oscillation ?"
             },
@@ -97,8 +97,7 @@
                 "show_buttons_control": "Contrôle avec boutons ?"
             },
             "vacuum": {
-                "commands": "Commandes",
-                "icon_animation": "Animation de l'icône ?"
+                "commands": "Commandes"
             },
             "media-player": {
                 "use_media_info": "Utiliser les informations du media",

@@ -4,20 +4,20 @@ import { CoverEntity, HomeAssistant, isAvailable } from "../../../ha";
 import "../../../shared/slider";
 import { getTiltPosition } from "../utils";
 
-
 function createTiltSliderTrackBackgroundGradient(count: number = 24, minStrokeWidth: number = 0.2) {
-    const gradient: [number, string][] = []
+    const gradient: [number, string][] = [];
 
     for (let i = 0; i < count; i++) {
         const stopOffset1 = i / count;
-        const stopOffset2 = stopOffset1 + (i / (count ** 2)) * (1 - minStrokeWidth) + minStrokeWidth / count;
+        const stopOffset2 =
+            stopOffset1 + (i / count ** 2) * (1 - minStrokeWidth) + minStrokeWidth / count;
 
         if (i !== 0) {
-            gradient.push([stopOffset1, 'transparent']);
+            gradient.push([stopOffset1, "transparent"]);
         }
-        gradient.push([stopOffset1, 'var(--slider-bg-color)']);
-        gradient.push([stopOffset2, 'var(--slider-bg-color)']);
-        gradient.push([stopOffset2, 'transparent']);
+        gradient.push([stopOffset1, "var(--slider-bg-color)"]);
+        gradient.push([stopOffset2, "var(--slider-bg-color)"]);
+        gradient.push([stopOffset2, "transparent"]);
     }
 
     return gradient;

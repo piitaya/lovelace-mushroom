@@ -51,7 +51,8 @@
                 "icon_type": "Typ ikony",
                 "content_info": "Zawartość",
                 "use_entity_picture": "Użyć obrazu encji?",
-                "collapsible_controls": "Zwiń sterowanie, jeśli wyłączone"
+                "collapsible_controls": "Zwiń sterowanie, jeśli wyłączone",
+                "icon_animation": "Animować, gdy aktywny?"
             },
             "light": {
                 "show_brightness_control": "Sterowanie jasnością?",
@@ -61,7 +62,6 @@
                 "incompatible_controls": "Niektóre funkcje są niewidoczne, jeśli światło ich nie obsługuje."
             },
             "fan": {
-                "icon_animation": "Animować, gdy aktywny?",
                 "show_percentage_control": "Sterowanie procentowe?",
                 "show_oscillate_control": "Sterowanie oscylacją?"
             },
@@ -98,8 +98,7 @@
                 "show_buttons_control": "Przyciski sterujące?"
             },
             "vacuum": {
-                "commands": "Polecenia",
-                "icon_animation": "Animować, gdy aktywny?"
+                "commands": "Polecenia"
             },
             "media-player": {
                 "use_media_info": "Użyj informacji o multimediach",

@@ -42,7 +42,8 @@
                 "secondary_info": "Información secundaria",
                 "content_info": "Contenido",
                 "use_entity_picture": "¿Usar imagen de entidad?",
-                "collapsible_controls": "Contraer controles cuando está apagado"
+                "collapsible_controls": "Contraer controles cuando está apagado",
+                "icon_animation": "¿Icono animado cuando está activo?"
             },
             "light": {
                 "show_brightness_control": "¿Controlar brillo?",
@@ -52,7 +53,6 @@
                 "incompatible_controls": "Es posible que algunos controles no se muestren si su luz no es compatible con la función."
             },
             "fan": {
-                "icon_animation": "¿Icono animado cuando está activo?",
                 "show_percentage_control": "¿Controlar porcentaje?",
                 "show_oscillate_control": "¿Controlar oscilación?"
             },
@@ -85,8 +85,7 @@
                 "show_buttons_control": "¿Botones de control?"
             },
             "vacuum": {
-                "commands": "Comandos",
-                "icon_animation": "¿Icono animado cuando está activo?"
+                "commands": "Comandos"
             },
             "media-player": {
                 "use_media_info": "Usar información multimedia",
