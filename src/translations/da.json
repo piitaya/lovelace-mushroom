@@ -51,7 +51,8 @@
                 "icon_type": "Ikon type",
                 "content_info": "Indhold",
                 "use_entity_picture": "Brug enheds billede?",
-                "collapsible_controls": "Skjul kontroller når slukket"
+                "collapsible_controls": "Skjul kontroller når slukket",
+                "icon_animation": "Animér ikon når aktiv?"
             },
             "light": {
                 "show_brightness_control": "Lysstyrkekontrol?",
@@ -61,7 +62,6 @@
                 "incompatible_controls": "Nogle kontroller vises muligvis ikke, hvis dit lys ikke understøtter funktionen."
             },
             "fan": {
-                "icon_animation": "Animér ikon når aktiv?",
                 "show_percentage_control": "Procentvis kontrol?",
                 "show_oscillate_control": "Oscillerende kontrol?"
             },

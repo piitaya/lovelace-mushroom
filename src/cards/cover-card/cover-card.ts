@@ -235,20 +235,20 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
                     />
                 `;
             case "position_control": {
-                    const color = getStateColor(entity as CoverEntity);
-                    const sliderStyle = {};
-                    sliderStyle["--slider-color"] = `rgb(${color})`;
-                    sliderStyle["--slider-bg-color"] = `rgba(${color}, 0.2)`;
+                const color = getStateColor(entity as CoverEntity);
+                const sliderStyle = {};
+                sliderStyle["--slider-color"] = `rgb(${color})`;
+                sliderStyle["--slider-bg-color"] = `rgba(${color}, 0.2)`;
 
-                    return html`
-                        <mushroom-cover-position-control
-                            .hass=${this.hass}
-                            .entity=${entity}
-                            @current-change=${this.onCurrentPositionChange}
-                            style=${styleMap(sliderStyle)}
-                        />
-                    `;
-                }
+                return html`
+                    <mushroom-cover-position-control
+                        .hass=${this.hass}
+                        .entity=${entity}
+                        @current-change=${this.onCurrentPositionChange}
+                        style=${styleMap(sliderStyle)}
+                    />
+                `;
+            }
             case "tilt_position_control": {
                 const color = getStateColor(entity as CoverEntity);
                 const sliderStyle = {};

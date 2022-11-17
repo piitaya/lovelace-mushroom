@@ -51,7 +51,8 @@
                 "icon_type": "Ikon típus",
                 "content_info": "Tartalom",
                 "use_entity_picture": "Entitás kép használata",
-                "collapsible_controls": "Vezérlők összezárása kikapcsolt állapotban"
+                "collapsible_controls": "Vezérlők összezárása kikapcsolt állapotban",
+                "icon_animation": "Ikon animálása aktív állapotban"
             },
             "light": {
                 "show_brightness_control": "Fényerő vezérlő",
@@ -61,7 +62,6 @@
                 "incompatible_controls": "Azok a vezérlők nem lesznek megjelenítve, amelyeket a fényforrás nem támogat."
             },
             "fan": {
-                "icon_animation": "Ikon animálása aktív állapotban",
                 "show_percentage_control": "Százalékos vezérlő",
                 "show_oscillate_control": "Oszcilláció vezérlő"
             },
