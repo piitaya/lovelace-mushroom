@@ -17,7 +17,12 @@ import { VacuumCardConfig, vacuumCardConfigStruct, VACUUM_COMMANDS } from "./vac
 const VACUUM_LABELS = ["icon_animation", "commands"];
 
 const computeSchema = memoizeOne(
-  (localize: LocalizeFunc, version: string, icon?: string): HaFormSchema[] => [
+  (
+    localize: LocalizeFunc,
+    customLocalize: LocalizeFunc,
+    version: string,
+    icon?: string
+  ): HaFormSchema[] => [
       { name: "entity", selector: { entity: { domain: VACUUM_ENTITY_DOMAINS } } },
       { name: "name", selector: { text: {} } },
       {
@@ -30,12 +35,20 @@ const computeSchema = memoizeOne(
       },
       ...APPEARANCE_FORM_SCHEMA,
       {
-          type: "multi_select",
           name: "commands",
-          options: VACUUM_COMMANDS.map((command) => [
-              command,
-              localize(`ui.dialogs.more_info_control.vacuum.${command}`),
-          ]) as [string, string][],
+          selector: {
+              select: {
+                  mode: "list",
+                  multiple: true,
+                  options: VACUUM_COMMANDS.map((command) => ({
+                      value: command,
+                      label:
+                        command === "on_off"
+                          ? customLocalize(`editor.card.vacuum.commands_list.${command}`)
+                          : localize(`ui.dialogs.more_info_control.vacuum.${command}`),
+                  })),
+              },
+          },
       },
       ...computeActionsFormSchema(version),
   ]

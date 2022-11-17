@@ -99,6 +99,9 @@
             },
             "vacuum": {
                 "commands": "Commands",
+                "commands_list": {
+                    "on_off": "Turn on/off"
+                },
                 "icon_animation": "Animate icon when active?"
             },
             "media-player": {
