@@ -9,6 +9,7 @@ import { EntitySharedConfig, entitySharedConfigStruct } from "../../shared/confi
 import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-config";
 
 export const VACUUM_COMMANDS = [
+    "on_off",
     "start_pause",
     "stop",
     "locate",

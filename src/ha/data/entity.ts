@@ -24,14 +24,14 @@ export function isActive(entity: HassEntity) {
     // Custom cases
     switch (domain) {
         case "cover":
-            return state === "open" || state === "opening";
+            return !["close", "closing"].includes(state);
         case "device_tracker":
         case "person":
             return state !== "not_home";
         case "media_player":
             return state !== "standby";
         case "vacuum":
-            return state === "on" || state === "cleaning";
+            return !["idle", "docked", "paused"].includes(state);
         case "plant":
             return state === "problem";
         default:
