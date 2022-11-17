@@ -99,6 +99,9 @@
             },
             "vacuum": {
                 "commands": "Befehle",
+                "commands_list": {
+                    "on_off": "An/Ausschalten"
+                },
                 "icon_animation": "Icon animieren, wenn aktiv?"
             },
             "media-player": {

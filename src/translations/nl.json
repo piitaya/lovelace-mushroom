@@ -85,6 +85,9 @@
             },
             "vacuum": {
                 "commands": "Commando's",
+                "commands_list": {
+                    "on_off": "Zet aan/uit"
+                },
                 "icon_animation": "Pictogram animeren indien actief"
             },
             "media-player": {
