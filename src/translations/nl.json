@@ -84,7 +84,8 @@
                 "show_buttons_control": "Bedieningsknoppen?"
             },
             "vacuum": {
-                "commands": "Commando's"
+                "commands": "Commando's",
+                "icon_animation": "Pictogram animeren indien actief"
             },
             "media-player": {
                 "use_media_info": "Gebruik media informatie",

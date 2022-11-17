@@ -20,6 +20,23 @@ const strAnimations = {
             transform: rotate(360deg);
         }
     }`,
+    cleaning: `@keyframes cleaning {
+        0% {
+            transform: rotate(0);
+        }
+        25% {
+            transform: rotate(20deg);
+        }
+        50% {
+            transform: rotate(0);
+        }
+        75% {
+            transform: rotate(-20deg);
+        }
+        100% {
+            transform: rotate(0);
+        }
+    }`,
 };
 
 export const animation = {
@@ -28,6 +45,9 @@ export const animation = {
     `,
     spin: css`
         ${unsafeCSS(strAnimations.spin)}
+    `,
+    cleaning: css`
+        ${unsafeCSS(strAnimations.cleaning)}
     `,
 };
 export const animations = css`

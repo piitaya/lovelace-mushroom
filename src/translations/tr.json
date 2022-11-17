@@ -80,7 +80,8 @@
                 "show_buttons_control": "Düğme kontrolü"
             },
             "vacuum": {
-                "commands": "Komutlar"
+                "commands": "Komutlar",
+                "icon_animation": "Aktif olduğunda simgeyi hareket ettir"
             }
         },
         "chip": {

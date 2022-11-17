@@ -19,16 +19,18 @@ export const VACUUM_COMMANDS = [
 export type VacuumCommand = typeof VACUUM_COMMANDS[number];
 
 export type VacuumCardConfig = LovelaceCardConfig &
-    EntitySharedConfig &
-    AppearanceSharedConfig &
-    ActionsSharedConfig & {
-        commands?: VacuumCommand[];
-    };
+  EntitySharedConfig &
+  AppearanceSharedConfig &
+  ActionsSharedConfig & {
+    icon_animation?: boolean;
+    commands?: VacuumCommand[];
+};
 
 export const vacuumCardConfigStruct = assign(
-    lovelaceCardConfigStruct,
-    assign(entitySharedConfigStruct, appearanceSharedConfigStruct, actionsSharedConfigStruct),
-    object({
-        commands: optional(array(string())),
-    })
+  lovelaceCardConfigStruct,
+  assign(entitySharedConfigStruct, appearanceSharedConfigStruct, actionsSharedConfigStruct),
+  object({
+      icon_animation: optional(boolean()),
+      commands: optional(array(string())),
+  })
 );

@@ -85,7 +85,8 @@
                 "show_buttons_control": "הצג כפתורי שליטה?"
             },
             "vacuum": {
-                "commands": "פקודות"
+                "commands": "פקודות",
+                "icon_animation": "להנפיש אייקון כאשר דלוק?"
             },
             "media-player": {
                 "use_media_info": "השתמש במידע מדיה",

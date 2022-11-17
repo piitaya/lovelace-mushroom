@@ -98,7 +98,8 @@
                 "show_buttons_control": "Control buttons?"
             },
             "vacuum": {
-                "commands": "Commands"
+                "commands": "Commands",
+                "icon_animation": "Animate icon when active?"
             },
             "media-player": {
                 "use_media_info": "Use media info",

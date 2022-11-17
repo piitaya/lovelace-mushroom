@@ -14,24 +14,31 @@ import { loadHaComponents } from "../../utils/loader";
 import { VACUUM_CARD_EDITOR_NAME, VACUUM_ENTITY_DOMAINS } from "./const";
 import { VacuumCardConfig, vacuumCardConfigStruct, VACUUM_COMMANDS } from "./vacuum-card-config";
 
-const VACUUM_LABELS = ["commands"];
+const VACUUM_LABELS = ["icon_animation", "commands"];
 
 const computeSchema = memoizeOne(
-    (localize: LocalizeFunc, version: string, icon?: string): HaFormSchema[] => [
-        { name: "entity", selector: { entity: { domain: VACUUM_ENTITY_DOMAINS } } },
-        { name: "name", selector: { text: {} } },
-        { name: "icon", selector: { icon: { placeholder: icon } } },
-        ...APPEARANCE_FORM_SCHEMA,
-        {
-            type: "multi_select",
-            name: "commands",
-            options: VACUUM_COMMANDS.map((command) => [
-                command,
-                localize(`ui.dialogs.more_info_control.vacuum.${command}`),
-            ]) as [string, string][],
-        },
-        ...computeActionsFormSchema(version),
-    ]
+  (localize: LocalizeFunc, version: string, icon?: string): HaFormSchema[] => [
+      { name: "entity", selector: { entity: { domain: VACUUM_ENTITY_DOMAINS } } },
+      { name: "name", selector: { text: {} } },
+      {
+          type: "grid",
+          name: "",
+          schema: [
+              { name: "icon", selector: { icon: { placeholder: icon } } },
+              { name: "icon_animation", selector: { boolean: {} } },
+          ],
+      },
+      ...APPEARANCE_FORM_SCHEMA,
+      {
+          type: "multi_select",
+          name: "commands",
+          options: VACUUM_COMMANDS.map((command) => [
+              command,
+              localize(`ui.dialogs.more_info_control.vacuum.${command}`),
+          ]) as [string, string][],
+      },
+      ...computeActionsFormSchema(version),
+  ]
 );
 
 @customElement(VACUUM_CARD_EDITOR_NAME)

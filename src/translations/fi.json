@@ -97,7 +97,8 @@
                 "show_buttons_control": "Toimintopainikkeet?"
             },
             "vacuum": {
-                "commands": "Komennot"
+                "commands": "Komennot",
+                "icon_animation": "Animoi kuvake, kun aktiivinen?"
             },
             "media-player": {
                 "use_media_info": "Käytä median tietoja",

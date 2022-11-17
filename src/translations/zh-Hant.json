@@ -98,7 +98,8 @@
                 "show_buttons_control": "按鈕控制?"
             },
             "vacuum": {
-                "commands": "指令"
+                "commands": "指令",
+                "icon_animation": "啟動時使用動態圖示?"
             },
             "media-player": {
                 "use_media_info": "使用媒體資訊",

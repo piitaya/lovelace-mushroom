@@ -85,7 +85,8 @@
                 "show_buttons_control": "Nút điều khiển?"
             },
             "vacuum": {
-                "commands": "Mệnh lệnh"
+                "commands": "Mệnh lệnh",
+                "icon_animation": "Biểu tượng hoạt ảnh khi hoạt động?"
             },
             "media-player": {
                 "use_media_info": "Dùng thông tin đa phương tiện",

@@ -1,17 +1,19 @@
 import { css, CSSResultGroup, html, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
+import { styleMap } from "lit/directives/style-map.js";
 import {
-    actionHandler,
     ActionHandlerEvent,
-    computeRTL,
-    handleAction,
-    hasAction,
     HomeAssistant,
     LovelaceCard,
     LovelaceCardEditor,
     VacuumEntity,
-} from "../../ha";
+    actionHandler,
+    computeRTL,
+    handleAction,
+    hasAction,
+    isActive,
+} from '../../ha';
 import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-icon";
@@ -27,6 +29,7 @@ import { VACUUM_CARD_EDITOR_NAME, VACUUM_CARD_NAME, VACUUM_ENTITY_DOMAINS } from
 import "./controls/vacuum-commands-control";
 import { isCommandsControlVisible } from "./controls/vacuum-commands-control";
 import { VacuumCardConfig } from "./vacuum-card-config";
+import { HassEntity } from 'home-assistant-js-websocket';
 
 registerCustomCard({
     type: VACUUM_CARD_NAME,
@@ -93,33 +96,53 @@ export class VacuumCard extends MushroomBaseCard implements LovelaceCard {
             <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
                 <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
                     <mushroom-state-item
-                        ?rtl=${rtl}
-                        .appearance=${appearance}
-                        @action=${this._handleAction}
-                        .actionHandler=${actionHandler({
-                            hasHold: hasAction(this._config.hold_action),
-                            hasDoubleClick: hasAction(this._config.double_tap_action),
-                        })}
+                      ?rtl=${rtl}
+                      .appearance=${appearance}
+                      @action=${this._handleAction}
+                      .actionHandler=${actionHandler({
+                          hasHold: hasAction(this._config.hold_action),
+                          hasDoubleClick: hasAction(this._config.double_tap_action),
+                      })}
                     >
                         ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
                         ${this.renderBadge(entity)}
                         ${this.renderStateInfo(entity, appearance, name)};
                     </mushroom-state-item>
                     ${isCommandsControlVisible(entity, commands)
-                        ? html`
-                              <div class="actions" ?rtl=${rtl}>
-                                  <mushroom-vacuum-commands-control
-                                      .hass=${this.hass}
-                                      .entity=${entity}
-                                      .commands=${commands}
-                                      .fill=${appearance.layout !== "horizontal"}
-                                  >
-                                  </mushroom-vacuum-commands-control>
-                              </div>
-                          `
-                        : null}
+                      ? html`
+                          <div class="actions" ?rtl=${rtl}>
+                              <mushroom-vacuum-commands-control
+                                .hass=${this.hass}
+                                .entity=${entity}
+                                .commands=${commands}
+                                .fill=${appearance.layout !== "horizontal"}
+                              >
+                              </mushroom-vacuum-commands-control>
+                          </div>
+                      `
+                      : null}
                 </mushroom-card>
             </ha-card>
+        `;
+    }
+
+    protected renderIcon(entity: HassEntity, icon: string): TemplateResult {
+        let iconStyle = {};
+        const active = isActive(entity);
+        if (active) {
+            iconStyle["--animation-duration"] = `2s`;
+        }
+
+        return html`
+            <mushroom-shape-icon
+                slot="icon"
+                class=${classMap({
+            cleaning: active && Boolean(this._config?.icon_animation),
+        })}
+                style=${styleMap(iconStyle)}
+                .disabled=${!active}
+                .icon=${icon}
+            ></mushroom-shape-icon>
         `;
     }
 
@@ -134,6 +157,9 @@ export class VacuumCard extends MushroomBaseCard implements LovelaceCard {
                 mushroom-shape-icon {
                     --icon-color: rgb(var(--rgb-state-vacuum));
                     --shape-color: rgba(var(--rgb-state-vacuum), 0.2);
+                }
+                mushroom-shape-icon.cleaning {
+                    --icon-animation: var(--animation-duration) infinite linear cleaning;
                 }
                 mushroom-vacuum-commands-control {
                     flex: 1;

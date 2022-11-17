@@ -97,7 +97,8 @@
                 "show_buttons_control": "Pulsanti di controllo"
             },
             "vacuum": {
-                "commands": "Comandi"
+                "commands": "Comandi",
+                "icon_animation": "Anima l'icona quando attiva"
             },
             "media-player": {
                 "use_media_info": "Mostra le Informazioni Sorgente",
