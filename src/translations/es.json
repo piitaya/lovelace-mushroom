@@ -85,7 +85,8 @@
                 "show_buttons_control": "¿Botones de control?"
             },
             "vacuum": {
-                "commands": "Comandos"
+                "commands": "Comandos",
+                "icon_animation": "¿Icono animado cuando está activo?"
             },
             "media-player": {
                 "use_media_info": "Usar información multimedia",

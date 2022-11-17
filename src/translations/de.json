@@ -98,7 +98,11 @@
                 "show_buttons_control": "Schaltflächensteuerung?"
             },
             "vacuum": {
-                "commands": "Befehle"
+                "commands": "Befehle",
+                "commands_list": {
+                    "on_off": "An/Ausschalten"
+                },
+                "icon_animation": "Icon animieren, wenn aktiv?"
             },
             "media-player": {
                 "use_media_info": "Medieninfos verwenden",

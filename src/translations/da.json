@@ -97,7 +97,8 @@
                 "show_buttons_control": "Betjeningsknapper?"
             },
             "vacuum": {
-                "commands": "Kommandoer"
+                "commands": "Kommandoer",
+                "icon_animation": "Animér ikon når aktiv?"
             },
             "media-player": {
                 "use_media_info": "Brug medie info",

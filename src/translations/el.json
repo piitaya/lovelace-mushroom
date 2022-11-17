@@ -80,7 +80,8 @@
                 "show_buttons_control": "Έλεγχος κουμπιών;"
             },
             "vacuum": {
-                "commands": "Εντολές"
+                "commands": "Εντολές",
+                "icon_animation": "Κίνηση εικονιδίου όταν είναι ενεργό;"
             },
             "media-player": {
                 "use_media_info": "Χρήση πληροφοριών πολυμέσων",

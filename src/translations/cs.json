@@ -97,7 +97,8 @@
                 "show_buttons_control": "Zobrazit ovládací tlačítka?"
             },
             "vacuum": {
-                "commands": "Příkazy"
+                "commands": "Příkazy",
+                "icon_animation": "Animovaná ikona, pokud je aktivní?"
             },
             "media-player": {
                 "use_media_info": "Použít informace o médiích",

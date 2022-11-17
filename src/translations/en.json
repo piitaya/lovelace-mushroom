@@ -101,7 +101,8 @@
                 "commands": "Commands",
                 "commands_list": {
                     "on_off": "Turn on/off"
-                }
+                },
+                "icon_animation": "Animate icon when active?"
             },
             "media-player": {
                 "use_media_info": "Use media info",

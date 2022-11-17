@@ -98,7 +98,8 @@
                 "show_buttons_control": "Zobraziť ovládacie tlačidlá?"
             },
             "vacuum": {
-                "commands": "Príkazy"
+                "commands": "Príkazy",
+                "icon_animation": "Animovaná ikona v stave ZAP?"
             },
             "media-player": {
                 "use_media_info": "Použiť info o médiu",

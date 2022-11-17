@@ -97,7 +97,8 @@
                 "show_buttons_control": "Vezérlő gombok"
             },
             "vacuum": {
-                "commands": "Utasítások"
+                "commands": "Utasítások",
+                "icon_animation": "Ikon animálása aktív állapotban"
             },
             "media-player": {
                 "use_media_info": "Média infó használata",

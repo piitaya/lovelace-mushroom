@@ -97,7 +97,8 @@
                 "show_buttons_control": "أزرار التحكم؟"
             },
             "vacuum": {
-                "commands": "الاوامر"
+                "commands": "الاوامر",
+                "icon_animation": "تحريك الرمز عندما يكون نشطًا؟"
             },
             "media-player": {
                 "use_media_info": "استخدم معلومات الوسائط",

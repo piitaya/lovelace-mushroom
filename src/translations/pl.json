@@ -98,7 +98,8 @@
                 "show_buttons_control": "Przyciski sterujące?"
             },
             "vacuum": {
-                "commands": "Polecenia"
+                "commands": "Polecenia",
+                "icon_animation": "Animować, gdy aktywny?"
             },
             "media-player": {
                 "use_media_info": "Użyj informacji o multimediach",

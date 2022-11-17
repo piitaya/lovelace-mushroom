@@ -97,7 +97,8 @@
                 "show_buttons_control": "Contrôle avec boutons ?"
             },
             "vacuum": {
-                "commands": "Commandes"
+                "commands": "Commandes",
+                "icon_animation": "Animation de l'icône ?"
             },
             "media-player": {
                 "use_media_info": "Utiliser les informations du media",

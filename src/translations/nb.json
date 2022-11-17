@@ -75,6 +75,10 @@
             "weather": {
                 "show_conditions": "Forhold?",
                 "show_temperature": "Temperatur?"
+            },
+            "vacuum": {
+                "commands": "Kommandoer",
+                "icon_animation": "Animer ikon når aktivt?"
             }
         },
         "chip": {
