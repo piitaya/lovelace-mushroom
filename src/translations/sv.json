@@ -38,7 +38,8 @@
                 "layout": "Layout",
                 "primary_info": "Primär information",
                 "secondary_info": "Sekundär information",
-                "use_entity_picture": "Använd enheten bild?"
+                "use_entity_picture": "Använd enheten bild?",
+                "icon_animation": "Animera ikonen när fläkten är på?"
             },
             "light": {
                 "show_brightness_control": "Styr ljushet?",
@@ -48,7 +49,6 @@
                 "incompatible_controls": "Kontroller som inte stöds av enheten kommer inte visas."
             },
             "fan": {
-                "icon_animation": "Animera ikonen när fläkten är på?",
                 "show_percentage_control": "Procentuell kontroll?",
                 "show_oscillate_control": "Kontroll för oscillera?"
             },

@@ -16,7 +16,7 @@ import * as nl from "./translations/nl.json";
 import * as pl from "./translations/pl.json";
 import * as pt_BR from "./translations/pt-BR.json";
 import * as pt_PT from "./translations/pt-PT.json";
-import * as sk from './translations/sk.json';
+import * as sk from "./translations/sk.json";
 import * as sv from "./translations/sv.json";
 import * as tr from "./translations/tr.json";
 import * as vi from "./translations/vi.json";

@@ -38,7 +38,8 @@
                 "layout": "Layout",
                 "primary_info": "Informações primárias",
                 "secondary_info": "Informações secundárias",
-                "use_entity_picture": "Usar imagem da entidade?"
+                "use_entity_picture": "Usar imagem da entidade?",
+                "icon_animation": "Animar ícone quando ativo?"
             },
             "light": {
                 "show_brightness_control": "Mostrar controle de brilho?",
@@ -48,7 +49,6 @@
                 "incompatible_controls": "Alguns controles podem não ser exibidos se sua luz não suportar o recurso."
             },
             "fan": {
-                "icon_animation": "Animar ícone quando ativo?",
                 "show_percentage_control": "Mostrar controle de porcentagem?",
                 "show_oscillate_control": "Mostrar controle de oscilação?"
             },

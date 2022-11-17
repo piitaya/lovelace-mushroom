@@ -37,7 +37,8 @@
                 "icon_color": "图标颜色",
                 "primary_info": "首要信息",
                 "secondary_info": "次要信息",
-                "use_entity_picture": "使用实体图片?"
+                "use_entity_picture": "使用实体图片?",
+                "icon_animation": "激活时使用动态图标?"
             },
             "light": {
                 "show_brightness_control": "亮度控制?",
@@ -47,7 +48,6 @@
                 "incompatible_controls": "设备不支持的控制器将不会显示。"
             },
             "fan": {
-                "icon_animation": "激活时使用动态图标?",
                 "show_percentage_control": "百分比控制?",
                 "show_oscillate_control": "摆动控制?"
             },

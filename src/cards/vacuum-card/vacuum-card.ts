@@ -13,7 +13,7 @@ import {
     handleAction,
     hasAction,
     isActive,
-} from '../../ha';
+} from "../../ha";
 import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-icon";
@@ -29,8 +29,8 @@ import { VACUUM_CARD_EDITOR_NAME, VACUUM_CARD_NAME, VACUUM_ENTITY_DOMAINS } from
 import "./controls/vacuum-commands-control";
 import { isCommandsControlVisible } from "./controls/vacuum-commands-control";
 import { VacuumCardConfig } from "./vacuum-card-config";
-import { HassEntity } from 'home-assistant-js-websocket';
-import { isCleaning, isReturningHome } from './utils';
+import { HassEntity } from "home-assistant-js-websocket";
+import { isCleaning, isReturningHome } from "./utils";
 
 registerCustomCard({
     type: VACUUM_CARD_NAME,
@@ -113,14 +113,14 @@ export class VacuumCard extends MushroomBaseCard implements LovelaceCard {
                         ? html`
                               <div class="actions" ?rtl=${rtl}>
                                   <mushroom-vacuum-commands-control
-                                    .hass=${this.hass}
-                                    .entity=${entity}
-                                    .commands=${commands}
-                                    .fill=${appearance.layout !== "horizontal"}
+                                      .hass=${this.hass}
+                                      .entity=${entity}
+                                      .commands=${commands}
+                                      .fill=${appearance.layout !== "horizontal"}
                                   >
                                   </mushroom-vacuum-commands-control>
                               </div>
-                        `
+                          `
                         : null}
                 </mushroom-card>
             </ha-card>
