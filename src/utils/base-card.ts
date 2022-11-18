@@ -1,6 +1,6 @@
 import { HassEntity } from "home-assistant-js-websocket";
 import { html, TemplateResult } from "lit";
-import { computeStateDisplay, HomeAssistant, isActive, isAvailable } from '../ha';
+import { computeStateDisplay, HomeAssistant, isActive, isAvailable } from "../ha";
 import "../shared/badge-icon";
 import "../shared/card";
 import { Appearance } from "../shared/config/appearance-config";
