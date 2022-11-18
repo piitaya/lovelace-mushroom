@@ -52,7 +52,8 @@
                 "content_info": "Inhalt",
                 "use_entity_picture": "Entitätsbild verwenden?",
                 "collapsible_controls": "Schieberegler einklappen, wenn aus",
-                "icon_animation": "Icon animieren, wenn aktiv?"
+                "icon_animation": "Icon animieren, wenn aktiv?",
+                "display_battery": "Batteriestand anzeigen?"
             },
             "light": {
                 "show_brightness_control": "Helligkeitsregelung?",

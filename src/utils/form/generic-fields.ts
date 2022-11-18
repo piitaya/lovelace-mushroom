@@ -9,4 +9,5 @@ export const GENERIC_LABELS = [
     "use_entity_picture",
     "collapsible_controls",
     "icon_animation",
+    "display_battery"
 ];

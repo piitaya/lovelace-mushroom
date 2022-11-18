@@ -33,6 +33,14 @@ const computeSchema = memoizeOne(
                 { name: "icon_animation", selector: { boolean: {} } },
             ],
         },
+        {
+            type: "grid",
+            name: "",
+            schema: [
+                { name: "", type: "constant", value: "" },
+                { name: "display_battery", selector: { boolean: {} } },
+            ],
+        },
         ...APPEARANCE_FORM_SCHEMA,
         {
             name: "commands",

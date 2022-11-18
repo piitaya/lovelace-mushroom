@@ -13,7 +13,8 @@ import {
     handleAction,
     hasAction,
     isActive,
-} from "../../ha";
+    hasBattery
+} from '../../ha';
 import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-icon";
@@ -88,6 +89,7 @@ export class VacuumCard extends MushroomBaseCard implements LovelaceCard {
         const icon = this._config.icon || stateIcon(entity);
         const appearance = computeAppearance(this._config);
         const picture = computeEntityPicture(entity, appearance.icon_type);
+        const battery = Boolean(this._config?.display_battery) && hasBattery(entity);
 
         const rtl = computeRTL(this.hass);
 
@@ -106,7 +108,7 @@ export class VacuumCard extends MushroomBaseCard implements LovelaceCard {
                         })}
                     >
                         ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
-                        ${this.renderBadge(entity)}
+                        ${battery ? this.renderBatteryBadge(entity) : this.renderBadge(entity)}
                         ${this.renderStateInfo(entity, appearance, name)};
                     </mushroom-state-item>
                     ${isCommandsControlVisible(entity, commands)

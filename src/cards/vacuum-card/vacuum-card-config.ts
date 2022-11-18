@@ -23,6 +23,7 @@ export type VacuumCardConfig = LovelaceCardConfig &
     EntitySharedConfig &
     AppearanceSharedConfig &
     ActionsSharedConfig & {
+        display_battery?: boolean;
         icon_animation?: boolean;
         commands?: VacuumCommand[];
     };
@@ -31,6 +32,7 @@ export const vacuumCardConfigStruct = assign(
     lovelaceCardConfigStruct,
     assign(entitySharedConfigStruct, appearanceSharedConfigStruct, actionsSharedConfigStruct),
     object({
+        display_battery: optional(boolean()),
         icon_animation: optional(boolean()),
         commands: optional(array(string())),
     })

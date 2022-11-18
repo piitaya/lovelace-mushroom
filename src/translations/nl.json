@@ -42,7 +42,8 @@
                 "content_info": "Inhoud",
                 "use_entity_picture": "Gebruik entiteit afbeelding",
                 "collapsible_controls": "Bedieningselementen verbergen wanneer uitgeschakeld",
-                "icon_animation": "Pictogram animeren indien actief"
+                "icon_animation": "Pictogram animeren indien actief",
+                "display_battery": "Batterijniveau weergeven?"
             },
             "light": {
                 "show_brightness_control": "Bediening helderheid",

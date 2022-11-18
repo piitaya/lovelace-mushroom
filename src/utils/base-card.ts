@@ -1,6 +1,6 @@
 import { HassEntity } from "home-assistant-js-websocket";
 import { html, TemplateResult } from "lit";
-import { computeStateDisplay, HomeAssistant, isActive, isAvailable } from "../ha";
+import { computeStateDisplay, HomeAssistant, isActive, isAvailable } from '../ha';
 import "../shared/badge-icon";
 import "../shared/card";
 import { Appearance } from "../shared/config/appearance-config";
@@ -9,7 +9,8 @@ import "../shared/shape-icon";
 import "../shared/state-info";
 import "../shared/state-item";
 import { MushroomBaseElement } from "./base-element";
-import { computeEntityPicture, computeInfoDisplay } from "./info";
+import { computeInfoDisplay } from "./info";
+import { styleMap } from "lit/directives/style-map.js";
 
 export function computeDarkMode(hass?: HomeAssistant): boolean {
     if (!hass) return false;
@@ -47,6 +48,23 @@ export class MushroomBaseCard extends MushroomBaseElement {
                   ></mushroom-badge-icon>
               `
             : null;
+    }
+
+    protected renderBatteryBadge(entity: HassEntity): TemplateResult | null {
+        const level = entity.attributes.battery_level;
+        const color = level > 40 ? "var(--rgb-success)" : level > 20 ? "var(--rgb-warning)" : "var(--rgb-danger)";
+        const iconStyle = {
+            "--main-color": `rgb(${color})`,
+        };
+
+        return  html`
+              <mushroom-badge-icon
+                class="battery"
+                slot="badge"
+                style=${styleMap(iconStyle)}
+                icon=${entity.attributes.battery_icon}
+              ></mushroom-badge-icon>
+          `;
     }
 
     protected renderStateInfo(

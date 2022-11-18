@@ -57,3 +57,7 @@ export function getEntityPicture(entity: HassEntity) {
         entity.attributes.entity_picture
     );
 }
+
+export function hasBattery(entity: HassEntity) {
+    return entity.attributes.battery_level !== undefined;
+}
