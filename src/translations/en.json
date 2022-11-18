@@ -53,7 +53,7 @@
                 "use_entity_picture": "Use entity picture?",
                 "collapsible_controls": "Collapse controls when off",
                 "icon_animation": "Animate icon when active?",
-                "display_battery": "Display battery level?"
+                "display_battery": "Display battery badge?"
             },
             "light": {
                 "show_brightness_control": "Brightness control?",
