@@ -12,7 +12,7 @@ A vacuum card allow you to control a vacuum entity.
 All the options are available in the lovelace editor but you can use `yaml` if you want.
 
 | Name                | Type                                                | Default     | Description                                                                         |
-| :------------------ | :-------------------------------------------------- | :---------- | :---------------------------------------------------------------------------------- |
+|:--------------------| :-------------------------------------------------- | :---------- |:------------------------------------------------------------------------------------|
 | `entity`            | string                                              | Required    | Vacuum entity                                                                       |
 | `icon`              | string                                              | Optional    | Custom icon                                                                         |
 | `name`              | string                                              | Optional    | Custom name                                                                         |
@@ -21,7 +21,8 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `primary_info`      | `name` `state` `last-changed` `last-updated` `none` | `name`      | Info to show as primary info                                                        |
 | `secondary_info`    | `name` `state` `last-changed` `last-updated` `none` | `state`     | Info to show as secondary info                                                      |
 | `icon_type`         | `icon` `entity-picture` `none`                      | `icon`      | Type of icon to display                                                             |
-| `icon_animation`    | boolean                                             | `false`     | Animate the icon when vacuum is `cleaning`                                          |
+| `icon_animation`    | boolean                                             | `false`     | Animate the icon when vacuum is `cleaning` or `returning`                           |
+| `display_battery`   | boolean                                             | `false`     | Displays the battery level in a badge                                               |
 | `commands`          | list                                                | `[]`        | List of commands to display (start_pause, stop, locate, clean_spot, return_home)    |
 | `tap_action`        | action                                              | `more-info` | Home assistant action to perform on tap                                             |
 | `hold_action`       | action                                              | `more-info` | Home assistant action to perform on hold                                            |
