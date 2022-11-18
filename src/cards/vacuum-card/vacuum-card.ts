@@ -13,8 +13,8 @@ import {
     handleAction,
     hasAction,
     isActive,
-    hasBattery
-} from '../../ha';
+    hasBattery,
+} from "../../ha";
 import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-icon";

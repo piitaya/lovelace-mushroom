@@ -15,8 +15,8 @@ import {
     HomeAssistant,
     isAvailable,
     LovelaceCard,
-    LovelaceCardEditor
-} from '../../ha';
+    LovelaceCardEditor,
+} from "../../ha";
 import "../../shared/badge-icon";
 import "../../shared/button";
 import "../../shared/card";
