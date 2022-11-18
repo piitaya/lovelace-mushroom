@@ -11,9 +11,14 @@ import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-conf
 export type LockCardConfig = LovelaceCardConfig &
     EntitySharedConfig &
     AppearanceSharedConfig &
-    ActionsSharedConfig;
+    ActionsSharedConfig & {
+        display_battery?: boolean;
+    };
 
 export const lockCardConfigStruct = assign(
     lovelaceCardConfigStruct,
-    assign(entitySharedConfigStruct, appearanceSharedConfigStruct, actionsSharedConfigStruct)
+    assign(entitySharedConfigStruct, appearanceSharedConfigStruct, actionsSharedConfigStruct),
+    object({
+        display_battery: optional(boolean()),
+    })
 );
