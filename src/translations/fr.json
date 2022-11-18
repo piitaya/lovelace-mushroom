@@ -97,7 +97,10 @@
                 "show_buttons_control": "Contrôle avec boutons ?"
             },
             "vacuum": {
-                "commands": "Commandes"
+                "commands": "Commandes",
+                "commands_list": {
+                    "on_off": "Allumer/Éteindre"
+                }
             },
             "media-player": {
                 "use_media_info": "Utiliser les informations du media",
