@@ -93,8 +93,8 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
 
         return html`
             <div class="header ${alignment}">
-                ${title ? html`<h1 class="title">${title}</h1>` : null}
-                ${subtitle ? html`<h2 class="subtitle">${subtitle}</h2>` : null}
+                ${title ? html`<h1 class="title">${title}</h1>` : html`<h1/>`}
+                ${subtitle ? html`<h2 class="subtitle">${subtitle}</h2>` : html`<h2/>`}
             </div>
         `;
     }
