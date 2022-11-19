@@ -98,7 +98,10 @@
                 "show_buttons_control": "按鈕控制?"
             },
             "vacuum": {
-                "commands": "指令"
+                "commands": "指令",
+                "commands_list": {
+                    "on_off": "開啟、關閉"
+                }
             },
             "media-player": {
                 "use_media_info": "使用媒體資訊",
@@ -106,7 +109,7 @@
                 "show_volume_level": "顯示音量大小",
                 "media_controls": "媒體控制",
                 "media_controls_list": {
-                    "on_off": " 開啟、關閉",
+                    "on_off": "開啟、關閉",
                     "shuffle": "隨機播放",
                     "previous": "上一首",
                     "play_pause_stop": "播放、暫停、停止",
