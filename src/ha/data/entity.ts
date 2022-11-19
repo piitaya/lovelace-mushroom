@@ -24,7 +24,7 @@ export function isActive(entity: HassEntity) {
     // Custom cases
     switch (domain) {
         case "cover":
-            return !["close", "closing"].includes(state);
+            return !["closed", "closing"].includes(state);
         case "device_tracker":
         case "person":
             return state !== "not_home";
