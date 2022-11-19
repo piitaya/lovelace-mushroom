@@ -51,7 +51,8 @@
                 "icon_type": "Icon type",
                 "content_info": "Content",
                 "use_entity_picture": "Use entity picture?",
-                "collapsible_controls": "Collapse controls when off"
+                "collapsible_controls": "Collapse controls when off",
+                "icon_animation": "Animate icon when active?"
             },
             "light": {
                 "show_brightness_control": "Brightness control?",
@@ -61,7 +62,6 @@
                 "incompatible_controls": "Some controls may not be displayed if your light does not support the feature."
             },
             "fan": {
-                "icon_animation": "Animate icon when active?",
                 "show_percentage_control": "Percentage control?",
                 "show_oscillate_control": "Oscillate control?"
             },
@@ -98,7 +98,10 @@
                 "show_buttons_control": "Control buttons?"
             },
             "vacuum": {
-                "commands": "Commands"
+                "commands": "Commands",
+                "commands_list": {
+                    "on_off": "Turn on/off"
+                }
             },
             "media-player": {
                 "use_media_info": "Use media info",

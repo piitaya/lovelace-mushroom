@@ -42,7 +42,8 @@
                 "secondary_info": "Thông tin phụ",
                 "content_info": "Nội dung",
                 "use_entity_picture": "Dùng ảnh của thực thể?",
-                "collapsible_controls": "Thu nhỏ điều kiển khi tắt"
+                "collapsible_controls": "Thu nhỏ điều kiển khi tắt",
+                "icon_animation": "Biểu tượng hoạt ảnh khi hoạt động?"
             },
             "light": {
                 "show_brightness_control": "Điều khiển độ sáng?",
@@ -52,7 +53,6 @@
                 "incompatible_controls": "Một số màu sẽ không được hiển thị nếu đèn của bạn không hỗ trợ tính năng này."
             },
             "fan": {
-                "icon_animation": "Biểu tượng hoạt ảnh khi hoạt động?",
                 "show_percentage_control": "Điều khiển dạng phần trăm?",
                 "show_oscillate_control": "Điều khiển xoay?"
             },

@@ -51,7 +51,8 @@
                 "icon_type": "Typ ikony",
                 "content_info": "Obsah",
                 "use_entity_picture": "Použiť obrázok entity?",
-                "collapsible_controls": "Skryť ovládanie v stave VYP."
+                "collapsible_controls": "Skryť ovládanie v stave VYP.",
+                "icon_animation": "Animovaná ikona v stave ZAP?"
             },
             "light": {
                 "show_brightness_control": "Ovládanie jasu?",
@@ -61,7 +62,6 @@
                 "incompatible_controls": "Niektoré ovládacie prvky sa nemusia zobraziť, pokiaľ ich svetlo nepodporuje."
             },
             "fan": {
-                "icon_animation": "Animovaná ikona v stave ZAP?",
                 "show_percentage_control": "Ovládanie rýchlosti v percentách?",
                 "show_oscillate_control": "Ovládanie oscilácie?"
             },

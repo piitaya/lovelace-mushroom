@@ -9,7 +9,7 @@ cards:
       - type: custom:mushroom-vacuum-card
         entity: vacuum.0_ground_floor
         name: Custom name and icon
-        icon: mdi:robot-outline
+        icon: mdi:robot-vacuum-variant
     columns: 2
     square: false
   - type: grid
@@ -38,9 +38,9 @@ cards:
     square: false
   - type: vertical-stack
     title: "Controls"
-    cards: 
+    cards:
       - type: grid
-        cards: 
+        cards:
           - type: custom:mushroom-vacuum-card
             entity: vacuum.0_ground_floor
             commands:
