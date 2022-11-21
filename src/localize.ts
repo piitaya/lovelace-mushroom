@@ -1,5 +1,6 @@
 import { HomeAssistant } from "./ha";
 import * as ar from "./translations/ar.json";
+import * as bg from "./translations/bg.json";
 import * as cs from "./translations/cs.json";
 import * as da from "./translations/da.json";
 import * as de from "./translations/de.json";
@@ -27,6 +28,7 @@ import * as zh_Hant from "./translations/zh-Hant.json";
 
 const languages: Record<string, unknown> = {
     ar,
+    bg,
     cs,
     da,
     de,
