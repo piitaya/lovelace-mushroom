@@ -9,6 +9,7 @@ import { EntitySharedConfig, entitySharedConfigStruct } from "../../shared/confi
 import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-config";
 
 export const VACUUM_COMMANDS = [
+    "on_off",
     "start_pause",
     "stop",
     "locate",
@@ -22,6 +23,7 @@ export type VacuumCardConfig = LovelaceCardConfig &
     EntitySharedConfig &
     AppearanceSharedConfig &
     ActionsSharedConfig & {
+        icon_animation?: boolean;
         commands?: VacuumCommand[];
     };
 
@@ -29,6 +31,7 @@ export const vacuumCardConfigStruct = assign(
     lovelaceCardConfigStruct,
     assign(entitySharedConfigStruct, appearanceSharedConfigStruct, actionsSharedConfigStruct),
     object({
+        icon_animation: optional(boolean()),
         commands: optional(array(string())),
     })
 );

@@ -40,7 +40,8 @@
                 "primary_info": "Birinci bilgi",
                 "secondary_info": "İkinci bilgi",
                 "content_info": "İçerik",
-                "use_entity_picture": "Varlık resmi kullanılsın"
+                "use_entity_picture": "Varlık resmi kullanılsın",
+                "icon_animation": "Aktif olduğunda simgeyi hareket ettir"
             },
             "light": {
                 "show_brightness_control": "Parlaklık kontrolü",
@@ -50,7 +51,6 @@
                 "incompatible_controls": "Kullandığınız lamba bu özellikleri desteklemiyorsa bazı kontroller görüntülenemeyebilir."
             },
             "fan": {
-                "icon_animation": "Aktif olduğunda simgeyi hareket ettir",
                 "show_percentage_control": "Yüzde kontrolü",
                 "show_oscillate_control": "Salınım kontrolü"
             },

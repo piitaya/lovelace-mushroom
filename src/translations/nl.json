@@ -16,6 +16,14 @@
                     "none": "Geen"
                 }
             },
+            "icon_type_picker": {
+                "values": {
+                    "default": "Standaard icoon type",
+                    "icon": "Icoon",
+                    "entity-picture": "Entiteit afbeelding",
+                    "none": "Geen"
+                }
+            },
             "layout_picker": {
                 "values": {
                     "default": "Standaard lay-out",
@@ -37,11 +45,14 @@
             "generic": {
                 "icon_color": "Icoon kleur",
                 "layout": "Lay-out",
+                "fill_container": "Vul container",
                 "primary_info": "Primaire informatie",
                 "secondary_info": "Secundaire informatie",
+                "icon_type": "Icoon type",
                 "content_info": "Inhoud",
                 "use_entity_picture": "Gebruik entiteit afbeelding",
-                "collapsible_controls": "Bedieningselementen verbergen wanneer uitgeschakeld"
+                "collapsible_controls": "Bedieningselementen verbergen wanneer uitgeschakeld",
+                "icon_animation": "Pictogram animeren indien actief"
             },
             "light": {
                 "show_brightness_control": "Bediening helderheid",
@@ -51,13 +62,13 @@
                 "incompatible_controls": "Sommige bedieningselementen worden mogelijk niet weergegeven als uw lamp deze functie niet ondersteunt."
             },
             "fan": {
-                "icon_animation": "Pictogram animeren indien actief",
                 "show_percentage_control": "Bediening middels percentage",
                 "show_oscillate_control": "Bediening oscillatie"
             },
             "cover": {
                 "show_buttons_control": "Toon knoppen",
-                "show_position_control": "Toon positie bediening"
+                "show_position_control": "Toon positie bediening",
+                "show_tilt_position_control": "Toon tilt control?"
             },
             "alarm_control_panel": {
                 "show_keypad": "Toon toetsenbord"
@@ -67,7 +78,10 @@
                 "secondary": "Secundaire informatie",
                 "multiline_secondary": "Meerlijnig secundair?",
                 "entity_extra": "Gebruikt in sjablonen en acties",
-                "content": "Inhoud"
+                "content": "Inhoud",
+                "badge_icon": "Badge icoon",
+                "badge_color": "Badge kleur",
+                "picture": "Afbeeling (zal het icoon vervangen)"
             },
             "title": {
                 "title": "Titel",
@@ -84,7 +98,10 @@
                 "show_buttons_control": "Bedieningsknoppen?"
             },
             "vacuum": {
-                "commands": "Commando's"
+                "commands": "Commando's",
+                "commands_list": {
+                    "on_off": "Zet aan/uit"
+                }
             },
             "media-player": {
                 "use_media_info": "Gebruik media informatie",
@@ -110,6 +127,13 @@
                 "lock": "Vergrendel",
                 "unlock": "Ontgrendel",
                 "open": "Open"
+            },
+            "humidifier": {
+                "show_target_humidity_control": "Vochtigheid controle?"
+            },
+            "climate": {
+                "show_temperature_control": "Temperatuur controle?",
+                "hvac_modes": "HVAC Modes"
             }
         },
         "chip": {

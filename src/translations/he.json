@@ -42,7 +42,8 @@
                 "secondary_info": "מידע מישני",
                 "content_info": "תוכן",
                 "use_entity_picture": "השתמש בתמונת ישות?",
-                "collapsible_controls": "הסתר שליטה כשאר מכובה?"
+                "collapsible_controls": "הסתר שליטה כשאר מכובה?",
+                "icon_animation": "להנפיש אייקון כאשר דלוק?"
             },
             "light": {
                 "show_brightness_control": "שליטה בבהירות?",
@@ -52,7 +53,6 @@
                 "incompatible_controls": "יתכן וחלק מהכפתורים לא יופיעו אם התאורה אינה תומכת בתכונה."
             },
             "fan": {
-                "icon_animation": "להנפיש אייקון כאשר דלוק?",
                 "show_percentage_control": "שליטה באחוז?",
                 "show_oscillate_control": "שליטה בהתנדנדות?"
             },
@@ -85,7 +85,8 @@
                 "show_buttons_control": "הצג כפתורי שליטה?"
             },
             "vacuum": {
-                "commands": "פקודות"
+                "commands": "פקודות",
+                "icon_animation": "להנפיש אייקון כאשר דלוק?"
             },
             "media-player": {
                 "use_media_info": "השתמש במידע מדיה",

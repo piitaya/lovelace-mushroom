@@ -51,7 +51,8 @@
                 "icon_type": "Tipo icona",
                 "content_info": "Contenuto",
                 "use_entity_picture": "Usa l'immagine dell'entità",
-                "collapsible_controls": "Nascondi i controlli quando spento"
+                "collapsible_controls": "Nascondi i controlli quando spento",
+                "icon_animation": "Anima l'icona quando attiva"
             },
             "light": {
                 "use_light_color": "Usa il colore della luce",
@@ -61,13 +62,13 @@
                 "incompatible_controls": "Alcuni controlli potrebbero non essere mostrati se la tua luce non li supporta."
             },
             "fan": {
-                "icon_animation": "Anima l'icona quando attiva",
                 "show_percentage_control": "Controllo potenza",
                 "show_oscillate_control": "Controllo oscillazione"
             },
             "cover": {
                 "show_buttons_control": "Pulsanti di controllo",
-                "show_position_control": "Controllo percentuale apertura"
+                "show_position_control": "Controllo percentuale apertura",
+                "show_tilt_position_control": "Controllo percentuale inclinazione"
             },
             "alarm_control_panel": {
                 "show_keypad": "Mostra il tastierino numerico"
@@ -97,7 +98,10 @@
                 "show_buttons_control": "Pulsanti di controllo"
             },
             "vacuum": {
-                "commands": "Comandi"
+                "commands": "Comandi",
+                "commands_list": {
+                    "on_off": "Accendi/Spegni"
+                }
             },
             "media-player": {
                 "use_media_info": "Mostra le Informazioni Sorgente",

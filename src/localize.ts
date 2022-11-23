@@ -1,5 +1,6 @@
 import { HomeAssistant } from "./ha";
 import * as ar from "./translations/ar.json";
+import * as bg from "./translations/bg.json";
 import * as cs from "./translations/cs.json";
 import * as da from "./translations/da.json";
 import * as de from "./translations/de.json";
@@ -16,7 +17,9 @@ import * as nl from "./translations/nl.json";
 import * as pl from "./translations/pl.json";
 import * as pt_BR from "./translations/pt-BR.json";
 import * as pt_PT from "./translations/pt-PT.json";
-import * as sk from './translations/sk.json';
+import * as ro from './translations/ro.json';
+import * as ru from './translations/ru.json';
+import * as sk from "./translations/sk.json";
 import * as sv from "./translations/sv.json";
 import * as tr from "./translations/tr.json";
 import * as vi from "./translations/vi.json";
@@ -25,6 +28,7 @@ import * as zh_Hant from "./translations/zh-Hant.json";
 
 const languages: Record<string, unknown> = {
     ar,
+    bg,
     cs,
     da,
     de,
@@ -41,6 +45,8 @@ const languages: Record<string, unknown> = {
     pl,
     "pt-BR": pt_BR,
     "pt-PT": pt_PT,
+    ro,
+    ru,
     sk,
     sv,
     tr,

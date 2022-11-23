@@ -40,7 +40,8 @@
                 "primary_info": "Primærinformasjon",
                 "secondary_info": "Sekundærinformasjon",
                 "content_info": "Innhold",
-                "use_entity_picture": "Bruk enhetsbilde?"
+                "use_entity_picture": "Bruk enhetsbilde?",
+                "icon_animation": "Animer ikon når aktivt?"
             },
             "light": {
                 "show_brightness_control": "Lysstyrkekontroll?",
@@ -50,7 +51,6 @@
                 "incompatible_controls": "Noen kontroller vises kanskje ikke hvis lyset ditt ikke støtter denne funksjonen."
             },
             "fan": {
-                "icon_animation": "Animer ikon når aktivt?",
                 "show_percentage_control": "Prosentvis kontroll?",
                 "show_oscillate_control": "Oscillerende kontroll?"
             },
@@ -75,6 +75,9 @@
             "weather": {
                 "show_conditions": "Forhold?",
                 "show_temperature": "Temperatur?"
+            },
+            "vacuum": {
+                "commands": "Kommandoer"
             }
         },
         "chip": {

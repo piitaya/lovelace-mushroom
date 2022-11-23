@@ -14,7 +14,7 @@ import { loadHaComponents } from "../../utils/loader";
 import { ENTITY_CARD_EDITOR_NAME } from "./const";
 import { EntityCardConfig, entityCardConfigStruct } from "./entity-card-config";
 
-const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
+const computeSchema = memoizeOne((version: string, icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: {} } },
     { name: "name", selector: { text: {} } },
     {
@@ -26,7 +26,7 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
         ],
     },
     ...APPEARANCE_FORM_SCHEMA,
-    ...computeActionsFormSchema(),
+    ...computeActionsFormSchema(version),
 ]);
 
 @customElement(ENTITY_CARD_EDITOR_NAME)
@@ -35,7 +35,7 @@ export class EntityCardEditor extends MushroomBaseElement implements LovelaceCar
 
     connectedCallback() {
         super.connectedCallback();
-        void loadHaComponents();
+        void loadHaComponents(this.hass.connection.haVersion);
     }
 
     public setConfig(config: EntityCardConfig): void {
@@ -60,7 +60,7 @@ export class EntityCardEditor extends MushroomBaseElement implements LovelaceCar
         const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
         const entityIcon = entityState ? stateIcon(entityState) : undefined;
         const icon = this._config.icon || entityIcon;
-        const schema = computeSchema(icon);
+        const schema = computeSchema(this.hass.connection.haVersion, icon);
 
         return html`
             <ha-form

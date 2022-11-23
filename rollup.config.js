@@ -31,7 +31,7 @@ const serveOptions = {
 
 const plugins = [
     ignore({
-        files: IGNORED_FILES.map(file => require.resolve(file))
+        files: IGNORED_FILES.map((file) => require.resolve(file)),
     }),
     typescript({
         declaration: false,

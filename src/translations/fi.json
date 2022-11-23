@@ -51,7 +51,8 @@
                 "icon_type": "Kuvakkeen tyyppi",
                 "content_info": "Sisältö",
                 "use_entity_picture": "Käytä kohteen kuvaa?",
-                "collapsible_controls": "Piilota toiminnot off-tilassa"
+                "collapsible_controls": "Piilota toiminnot off-tilassa",
+                "icon_animation": "Animoi kuvake, kun aktiivinen?"
             },
             "light": {
                 "show_brightness_control": "Kirkkauden säätö?",
@@ -61,7 +62,6 @@
                 "incompatible_controls": "Jotkin toiminnot eivät näy, jos valaisimesi ei tue niitä."
             },
             "fan": {
-                "icon_animation": "Animoi kuvake, kun aktiivinen?",
                 "show_percentage_control": "Prosentuaalinen säätö?",
                 "show_oscillate_control": "Oskillaation säätö?"
             },

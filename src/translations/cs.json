@@ -51,7 +51,8 @@
                 "icon_type": "Typ ikony",
                 "content_info": "Obsah",
                 "use_entity_picture": "Použít ikonu entity?",
-                "collapsible_controls": "Skrýt ovládací prvky pokud je VYP"
+                "collapsible_controls": "Skrýt ovládací prvky pokud je VYP",
+                "icon_animation": "Animovaná ikona, pokud je aktivní?"
             },
             "light": {
                 "show_brightness_control": "Ovládání jasu?",
@@ -61,7 +62,6 @@
                 "incompatible_controls": "Některé ovládací prvky se nemusí zobrazit, pokud vaše světlo tuto funkci nepodporuje."
             },
             "fan": {
-                "icon_animation": "Animovaná ikona, pokud je aktivní?",
                 "show_percentage_control": "Ovládání v procentech?",
                 "show_oscillate_control": "Oscillate control?"
             },

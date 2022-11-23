@@ -34,7 +34,7 @@ export class TitleCardEditor extends MushroomBaseElement implements LovelaceCard
 
     connectedCallback() {
         super.connectedCallback();
-        void loadHaComponents();
+        void loadHaComponents(this.hass.connection.haVersion);
     }
 
     public setConfig(config: TitleCardConfig): void {
