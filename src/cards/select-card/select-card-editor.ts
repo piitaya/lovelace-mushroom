@@ -11,11 +11,11 @@ import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { loadHaComponents } from "../../utils/loader";
-import { SELECT_CARD_EDITOR_NAME } from "./const";
+import { SELECT_CARD_EDITOR_NAME, SELECT_ENTITY_DOMAINS } from "./const";
 import { SelectCardConfig, selectCardConfigStruct } from "./select-card-config";
 
 const computeSchema = memoizeOne((version: string, icon?: string): HaFormSchema[] => [
-    { name: "entity", selector: { entity: {} } },
+    { name: "entity", selector: { entity: { domain: SELECT_ENTITY_DOMAINS} } },
     { name: "name", selector: { text: {} } },
     {
         type: "grid",

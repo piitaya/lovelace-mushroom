@@ -28,6 +28,7 @@ import { registerCustomCard } from "../../utils/custom-cards";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { computeEntityPicture } from "../../utils/info";
 import { SELECT_CARD_EDITOR_NAME, SELECT_CARD_NAME } from "./const";
+import "./controls/select-option-control";
 import { SelectCardConfig } from "./select-card-config";
 
 registerCustomCard({
@@ -105,6 +106,11 @@ export class SelectCard extends MushroomBaseCard implements LovelaceCard {
                         ${this.renderBadge(entity)}
                         ${this.renderStateInfo(entity, appearance, name)};
                     </mushroom-state-item>
+                    <div class="actions" ?rtl=${rtl}>
+                        <mushroom-select-option-control
+                        .hass=${this.hass}
+                        .entity=${entity}
+                    ></mushroom-select-option-control>             
                 </mushroom-card>
             </ha-card>
         `;
@@ -140,6 +146,12 @@ export class SelectCard extends MushroomBaseCard implements LovelaceCard {
                 mushroom-shape-icon {
                     --icon-color: rgb(var(--rgb-state-entity));
                     --shape-color: rgba(var(--rgb-state-entity), 0.2);
+                }
+                mushroom-select-option-control {
+                    flex: 1;
+                }
+                .mdc-menu-surface mushroom-select {
+                    left: 300px !important;
                 }
             `,
         ];
