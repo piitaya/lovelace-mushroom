@@ -140,6 +140,9 @@ export class SelectCard extends MushroomBaseCard implements LovelaceCard {
             super.styles,
             cardStyle,
             css`
+                .actions {
+                    overflow: visible;
+                }
                 mushroom-state-item {
                     cursor: pointer;
                 }
@@ -149,9 +152,6 @@ export class SelectCard extends MushroomBaseCard implements LovelaceCard {
                 }
                 mushroom-select-option-control {
                     flex: 1;
-                }
-                .mdc-menu-surface mushroom-select {
-                    left: 300px !important;
                 }
             `,
         ];
