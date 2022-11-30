@@ -9,10 +9,13 @@ import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
+import { UiAction } from "../../utils/form/ha-selector";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { loadHaComponents } from "../../utils/loader";
 import { SELECT_CARD_EDITOR_NAME, SELECT_ENTITY_DOMAINS } from "./const";
 import { SelectCardConfig, selectCardConfigStruct } from "./select-card-config";
+
+const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "none"];
 
 const computeSchema = memoizeOne((version: string, icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: SELECT_ENTITY_DOMAINS} } },
@@ -26,7 +29,7 @@ const computeSchema = memoizeOne((version: string, icon?: string): HaFormSchema[
         ],
     },
     ...APPEARANCE_FORM_SCHEMA,
-    ...computeActionsFormSchema(version),
+    ...computeActionsFormSchema(version, actions),
 ]);
 
 @customElement(SELECT_CARD_EDITOR_NAME)
