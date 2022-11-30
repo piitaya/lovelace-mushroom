@@ -1,8 +1,8 @@
 import { HassEntity } from "home-assistant-js-websocket";
 
 export function getCurrentOption(entity: HassEntity) {
-    return entity.attributes.current_option != null
-        ? entity.attributes.current_option
+    return entity.state != null
+        ? entity.state
         : undefined;
 }
 

@@ -18,15 +18,13 @@ export class SelectOptionControl extends LitElement {
 
     @property({ attribute: false }) public entity!: HassEntity;
 
-
-
     _selectChanged(ev) {
         const value = ev.target.value;
         if (value) {
             this.dispatchEvent(
                 new CustomEvent("value-changed", {
                     detail: {
-                        value: value !== "default" ? value : "",
+                        value,
                     },
                 })
             );
