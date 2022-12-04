@@ -142,6 +142,7 @@ export class SelectCard extends MushroomBaseCard implements LovelaceCard {
             css`
                 .actions {
                     overflow: visible;
+                    display: block;
                 }
                 mushroom-state-item {
                     cursor: pointer;
