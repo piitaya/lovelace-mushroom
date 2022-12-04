@@ -82,6 +82,7 @@ Different cards are available for differents entities :
 -   🔒 [Lock card](docs/cards/lock.md)
 -   💧 [Humidifier card](docs/cards/humidifier.md)
 -   🌡 [Climate card](docs/cards/climate.md)
+-   📑 [Select card](docs/cards/select.md)
 
 ### Theme customization
 
