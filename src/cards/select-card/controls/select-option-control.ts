@@ -20,6 +20,7 @@ export class SelectOptionControl extends LitElement {
 
     _selectChanged(ev) {
         const value = ev.target.value;
+
         if (value) {
             this.dispatchEvent(
                 new CustomEvent("value-changed", {
@@ -28,11 +29,18 @@ export class SelectOptionControl extends LitElement {
                     },
                 })
             );
-            this.hass.callService("input_select", "select_option", {
-                entity_id: this.entity.entity_id,
-                option: value,
-            });
+            this._setValue(value);
         }
+    }
+
+    _setValue(option) {
+        const entity_id = this.entity.entity_id;
+        const domain = entity_id.split(".")[0];
+
+        this.hass.callService(domain, "select_option", {
+            entity_id: this.entity.entity_id,
+            option: option,
+        });
     }
 
     render() {
