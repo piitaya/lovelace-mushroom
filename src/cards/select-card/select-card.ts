@@ -27,7 +27,7 @@ import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { computeEntityPicture } from "../../utils/info";
-import { SELECT_CARD_EDITOR_NAME, SELECT_CARD_NAME } from "./const";
+import { SELECT_CARD_EDITOR_NAME, SELECT_CARD_NAME, SELECT_ENTITY_DOMAINS } from "./const";
 import "./controls/select-option-control";
 import { SelectCardConfig } from "./select-card-config";
 
@@ -46,9 +46,10 @@ export class SelectCard extends MushroomBaseCard implements LovelaceCard {
 
     public static async getStubConfig(hass: HomeAssistant): Promise<SelectCardConfig> {
         const entities = Object.keys(hass.states);
+        const selects = entities.filter((e) => SELECT_ENTITY_DOMAINS.includes(e.split(".")[0]));
         return {
             type: `custom:${SELECT_CARD_NAME}`,
-            entity: entities[0],
+            entity: selects[0],
         };
     }
 
