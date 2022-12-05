@@ -9,7 +9,7 @@ body:
           options:
               - label: I have updated Mushroom to the latest available version
                 required: true
-              - label: I did a search to see if there is a similar issue.
+              - label: I did a search to see if there is a similar issue or if a pull request is open.
                 required: true
     - type: textarea
       attributes:

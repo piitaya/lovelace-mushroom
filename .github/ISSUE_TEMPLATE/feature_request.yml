@@ -3,6 +3,14 @@ description: Suggest an idea for this project
 title: "[Feature]: <title>"
 labels: ["enhancement"]
 body:
+    - type: checkboxes
+      attributes:
+          label: Requirements
+          options:
+              - label: I have updated Mushroom to the latest available version
+                required: true
+              - label: I did a search to see if there is a similar issue or if a pull request is open.
+                required: true
     - type: textarea
       attributes:
           label: Is your feature request related to a problem?
