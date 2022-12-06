@@ -25,7 +25,8 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `show_color_temp_control` | boolean                                             | `false`     | Show a slider to control temperature color                                          |
 | `show_color_control`      | boolean                                             | `false`     | Show a slider to control RGB color                                                  |
 | `show_white_control`      | boolean                                             | `false`     | Show a slider to control the white channel for RGBW color                                                |
-| `show_dual_white_control` | boolean                                             | `false`     | Show two sliders to control the white channels for RGBWW color                                                |
+| `show_cold_white_control` | boolean                                             | `false`     | Show a slider to control the cold white channel for RGBWW color                                                |
+| `show_warm_white_control` | boolean                                             | `false`     | Show a slider to control the warm white channel for RGBWW color                                                |
 | `collapsible_controls`    | boolean                                             | `false`     | Collapse controls when off                                                          |
 | `use_light_color`         | boolean                                             | `false`     | Colorize the icon and slider according light temperature or color                   |
 | `tap_action`              | action                                              | `toggle`    | Home assistant action to perform on tap                                             |
