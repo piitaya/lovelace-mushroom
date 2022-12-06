@@ -160,11 +160,11 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
             if (this._config.show_white_control && supportsRgbwControl(entity)) {
                 controls.push("white_control");
             }
-            if (this._config.show_dual_white_control && supportsRgbwwControl(entity)) {
-                controls.push("warm_white_control");
-            }
-            if (this._config.show_dual_white_control && supportsRgbwwControl(entity)) {
+            if (this._config.show_cold_white_control && supportsRgbwwControl(entity)) {
                 controls.push("cold_white_control");
+            }
+            if (this._config.show_warm_white_control && supportsRgbwwControl(entity)) {
+                controls.push("warm_white_control");
             }
         }
         this._controls = controls;
