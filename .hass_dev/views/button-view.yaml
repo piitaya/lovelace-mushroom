@@ -1,0 +1,5 @@
+title: Button
+icon: mdi:button-cursor
+cards:
+  - type: custom:multitool-button-card
+    entity: light.bed_light

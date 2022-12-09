@@ -1,8 +1,8 @@
   mode: storage
   dashboards:
-    lovelace-mushroom-showcase:
+    lovelace-multitool-showcase:
       mode: yaml
       title: Showcase
-      icon: mdi:mushroom
+      icon: mdi:hammer-wrench
       show_in_sidebar: true
-      filename: lovelace-mushroom-showcase.yaml
+      filename: lovelace-multitool-showcase.yaml

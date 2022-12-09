@@ -7,9 +7,6 @@ import {
     HassServiceTarget,
     MessageBase,
 } from "home-assistant-js-websocket";
-import { LocalizeFunc } from "./common/translations/localize";
-import { FrontendLocaleData, TranslationCategory } from "./data/translation";
-import { Themes } from "./data/ws-themes";
 
 declare global {
     /* eslint-disable no-var, no-redeclare */
@@ -132,7 +129,7 @@ export interface HomeAssistant {
     states: HassEntities;
     services: HassServices;
     config: HassConfig;
-    themes: Themes;
+    themes: any;
     selectedTheme: ThemeSettings | null;
     panels: Panels;
     panelUrl: string;
@@ -145,9 +142,9 @@ export interface HomeAssistant {
     language: string;
     // local stored language, keep that name for backward compatibility
     selectedLanguage: string | null;
-    locale: FrontendLocaleData;
+    locale: any;
     resources: Resources;
-    localize: LocalizeFunc;
+    localize: any;
     translationMetadata: TranslationMetadata;
     suspendWhenHidden: boolean;
     enableShortcuts: boolean;
@@ -173,10 +170,11 @@ export interface HomeAssistant {
     sendWS(msg: MessageBase): void;
     callWS<T>(msg: MessageBase): Promise<T>;
     loadBackendTranslation(
-        category: TranslationCategory,
+        category: any,
         integration?: string | string[],
         configFlow?: boolean
-    ): Promise<LocalizeFunc>;
+    ): Promise<any>;
 }
 
 export type Constructor<T = any> = new (...args: any[]) => T;
+

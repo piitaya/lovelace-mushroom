@@ -1,1 +1,1 @@
-export const PREFIX_NAME = "mushroom";
+export const PREFIX_NAME = "multitool";
