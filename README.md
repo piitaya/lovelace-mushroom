@@ -39,6 +39,9 @@ Mushroom is available in [HACS][hacs] (Home Assistant Community Store).
 3. Go to "Frontend" section
 4. Click button with "+" icon
 5. Search for "Mushroom"
+6. You _could_ also use the link below 
+<b>
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=piitaya&repository=lovelace-mushroom&category=plugin)
 
 ### Manual
 
