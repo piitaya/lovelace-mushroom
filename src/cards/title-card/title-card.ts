@@ -2,6 +2,10 @@ import { UnsubscribeFunc } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import {
+    actionHandler,
+    ActionHandlerEvent,
+    handleAction,
+    hasAction,
     HomeAssistant,
     LovelaceCard,
     LovelaceCardEditor,
@@ -79,6 +83,10 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
         return this.isTemplate(key) ? this._templateResults[key]?.result : this._config?.[key];
     }
 
+    private _handleAction(ev: ActionHandlerEvent) {
+        handleAction(this, this.hass!, this._config!, ev.detail.action!);
+    }
+
     protected render(): TemplateResult {
         if (!this._config || !this.hass) {
             return html``;
@@ -90,9 +98,22 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
         if (this._config.alignment) {
             alignment = `align-${this._config.alignment}`;
         }
+        let actionable = "";
+        if (hasAction(this._config.tap_action) ||
+            hasAction(this._config.hold_action) ||
+            hasAction(this._config.double_tap_action)
+        ) {
+            actionable = "actionable";
+        }
 
         return html`
-            <div class="header ${alignment}">
+            <div class="header ${alignment} ${actionable}"
+                @action=${this._handleAction}
+                .actionHandler=${actionHandler({
+                    hasHold: hasAction(this._config.hold_action),
+                    hasDoubleClick: hasAction(this._config.double_tap_action),
+                })}
+            >
                 ${title ? html`<h1 class="title">${title}</h1>` : null}
                 ${subtitle ? html`<h2 class="subtitle">${subtitle}</h2>` : null}
             </div>
@@ -214,6 +235,9 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
                     font-size: var(--subtitle-font-size);
                     font-weight: var(--subtitle-font-weight);
                     line-height: var(--subtitle-line-height);
+                }
+                .actionable {
+                    cursor: pointer;
                 }
                 .align-start {
                     text-align: start;

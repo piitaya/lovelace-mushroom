@@ -4,6 +4,7 @@ import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import { atLeastHaVersion, fireEvent, LovelaceCardEditor } from "../../ha";
 import setupCustomlocalize from "../../localize";
+import { computeActionsFormSchema } from "../../shared/config/actions-config";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { loadHaComponents } from "../../utils/loader";
@@ -26,6 +27,7 @@ const computeSchema = memoizeOne((version: string): HaFormSchema[] => [
             : { text: { multiline: true } },
     },
     { name: "alignment", selector: { "mush-alignment": {} } },
+    ...computeActionsFormSchema(version),
 ]);
 
 @customElement(TITLE_CARD_EDITOR_NAME)
