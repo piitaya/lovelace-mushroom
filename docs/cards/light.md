@@ -15,6 +15,7 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | :------------------------ | :-------------------------------------------------- | :---------- | :---------------------------------------------------------------------------------- |
 | `entity`                  | string                                              | Required    | Light entity                                                                        |
 | `icon`                    | string                                              | Optional    | Custom icon                                                                         |
+| `icon_color`              | string                                              | `blue`      | Custom color for icon and brightness bar when the lights is on and `use_light_color` is `false`
 | `name`                    | string                                              | Optional    | Custom name                                                                         |
 | `layout`                  | string                                              | Optional    | Layout of the card. Vertical, horizontal and default layout are supported           |
 | `fill_container`          | boolean                                             | `false`     | Fill container or not. Useful when card is in a grid, vertical or horizontal layout |
