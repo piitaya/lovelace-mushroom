@@ -4,6 +4,7 @@ import { alarmPanelIcon } from "./alarm-panel-icon";
 import { binarySensorIcon } from "./binary-sensor-icon";
 import { coverIcon } from "./cover-icon";
 import { sensorIcon } from "./sensor-icon";
+import { weatherIcon } from "./weather-icon";
 
 const DEFAULT_DOMAIN_ICON = "mdi:bookmark";
 
@@ -51,16 +52,18 @@ const FIXED_DOMAIN_ICONS = {
     zone: "mdi:map-marker-radius",
 };
 
-export function domainIcon(domain: string, entity?: HassEntity, state?: string): string {
+export function domainIcon(domain: string, stateObj?: HassEntity, state?: string): string {
+    const compareState = state !== undefined ? state : stateObj?.state;
+
     switch (domain) {
         case "alarm_control_panel":
-            return alarmPanelIcon(state);
+            return alarmPanelIcon(compareState);
 
         case "binary_sensor":
-            return binarySensorIcon(state, entity);
+            return binarySensorIcon(compareState, stateObj);
 
         case "button":
-            switch (entity?.attributes.device_class) {
+            switch (stateObj?.attributes.device_class) {
                 case "restart":
                     return "mdi:restart";
                 case "update":
@@ -70,25 +73,36 @@ export function domainIcon(domain: string, entity?: HassEntity, state?: string):
             }
 
         case "cover":
-            return coverIcon(state, entity);
+            return coverIcon(compareState, stateObj);
 
         case "device_tracker":
-            if (entity?.attributes.source_type === "router") {
-                return state === "home" ? "mdi:lan-connect" : "mdi:lan-disconnect";
+            if (stateObj?.attributes.source_type === "router") {
+                return compareState === "home" ? "mdi:lan-connect" : "mdi:lan-disconnect";
             }
-            if (["bluetooth", "bluetooth_le"].includes(entity?.attributes.source_type)) {
-                return state === "home" ? "mdi:bluetooth-connect" : "mdi:bluetooth";
+            if (["bluetooth", "bluetooth_le"].includes(stateObj?.attributes.source_type)) {
+                return compareState === "home" ? "mdi:bluetooth-connect" : "mdi:bluetooth";
             }
-            return state === "not_home" ? "mdi:account-arrow-right" : "mdi:account";
+            return compareState === "not_home" ? "mdi:account-arrow-right" : "mdi:account";
 
         case "humidifier":
-            return state && state === "off" ? "mdi:air-humidifier-off" : "mdi:air-humidifier";
+            return compareState && compareState === "off"
+                ? "mdi:air-humidifier-off"
+                : "mdi:air-humidifier";
 
         case "input_boolean":
-            return state === "on" ? "mdi:check-circle-outline" : "mdi:close-circle-outline";
+            return compareState === "on" ? "mdi:check-circle-outline" : "mdi:close-circle-outline";
+
+        case "input_datetime":
+            if (!stateObj?.attributes.has_date) {
+                return "mdi:clock";
+            }
+            if (!stateObj.attributes.has_time) {
+                return "mdi:calendar";
+            }
+            break;
 
         case "lock":
-            switch (state) {
+            switch (compareState) {
                 case "unlocked":
                     return "mdi:lock-open";
                 case "jammed":
@@ -101,68 +115,65 @@ export function domainIcon(domain: string, entity?: HassEntity, state?: string):
             }
 
         case "media_player":
-            return state === "playing" ? "mdi:cast-connected" : "mdi:cast";
+            switch (stateObj?.attributes.device_class) {
+                case "speaker":
+                    switch (compareState) {
+                        case "playing":
+                            return "mdi:speaker-play";
+                        case "paused":
+                            return "mdi:speaker-pause";
+                        case "off":
+                            return "mdi:speaker-off";
+                        default:
+                            return "mdi:speaker";
+                    }
+                case "tv":
+                    switch (compareState) {
+                        case "playing":
+                            return "mdi:television-play";
+                        case "paused":
+                            return "mdi:television-pause";
+                        case "off":
+                            return "mdi:television-off";
+                        default:
+                            return "mdi:television";
+                    }
+                case "receiver":
+                    switch (compareState) {
+                        case "off":
+                            return "mdi:audio-video-off";
+                        default:
+                            return "mdi:audio-video";
+                    }
+                default:
+                    switch (compareState) {
+                        case "playing":
+                        case "paused":
+                            return "mdi:cast-connected";
+                        case "off":
+                            return "mdi:cast-off";
+                        default:
+                            return "mdi:cast";
+                    }
+            }
+
+        case "person":
+            return compareState === "not_home" ? "mdi:account-arrow-right" : "mdi:account";
 
         case "switch":
-            switch (entity?.attributes.device_class) {
+            switch (stateObj?.attributes.device_class) {
                 case "outlet":
-                    return state === "on" ? "mdi:power-plug" : "mdi:power-plug-off";
+                    return compareState === "on" ? "mdi:power-plug" : "mdi:power-plug-off";
                 case "switch":
-                    return state === "on" ? "mdi:toggle-switch" : "mdi:toggle-switch-off";
+                    return compareState === "on"
+                        ? "mdi:toggle-switch-variant"
+                        : "mdi:toggle-switch-variant-off";
                 default:
-                    return "mdi:flash";
-            }
-
-        case "weather":
-            switch (state) {
-                case "clear-night":
-                    return "mdi:weather-night";
-                case "cloudy":
-                    return "mdi:weather-cloudy";
-                case "exceptional":
-                    return "mdi:alert-circle-outline";
-                case "fog":
-                    return "mdi:weather-fog";
-                case "hail":
-                    return "mdi:weather-hail";
-                case "lightning":
-                    return "mdi:weather-lightning";
-                case "lightning-rainy":
-                    return "mdi:weather-lightning-rainy";
-                case "partlycloudy":
-                    return "mdi:weather-partly-cloudy";
-                case "pouring":
-                    return "mdi:weather-pouring";
-                case "rainy":
-                    return "mdi:weather-rainy";
-                case "snowy":
-                    return "mdi:weather-snowy";
-                case "snowy-rainy":
-                    return "mdi:weather-snowy-rainy";
-                case "sunny":
-                    return "mdi:weather-sunny";
-                case "windy":
-                    return "mdi:weather-windy";
-                case "windy-variant":
-                    return "mdi:weather-windy-variant";
-                default:
-                    return "mdi:weather-cloudy";
-            }
-
-        case "zwave":
-            switch (state) {
-                case "dead":
-                    return "mdi:emoticon-dead";
-                case "sleeping":
-                    return "mdi:sleep";
-                case "initializing":
-                    return "mdi:timer-sand";
-                default:
-                    return "mdi:z-wave";
+                    return "mdi:toggle-switch-variant";
             }
 
         case "sensor": {
-            const icon = sensorIcon(entity);
+            const icon = sensorIcon(stateObj);
             if (icon) {
                 return icon;
             }
@@ -170,33 +181,31 @@ export function domainIcon(domain: string, entity?: HassEntity, state?: string):
             break;
         }
 
-        case "input_datetime":
-            if (!entity?.attributes.has_date) {
-                return "mdi:clock";
-            }
-            if (!entity.attributes.has_time) {
-                return "mdi:calendar";
-            }
-            break;
-
         case "sun":
-            return entity?.state === "above_horizon"
+            return stateObj?.state === "above_horizon"
                 ? FIXED_DOMAIN_ICONS[domain]
                 : "mdi:weather-night";
 
+        case "switch_as_x":
+            return "mdi:swap-horizontal";
+
+        case "threshold":
+            return "mdi:chart-sankey";
+
         case "update":
-            return entity?.state === "on"
-                ? updateIsInstalling(entity as UpdateEntity)
+            return stateObj?.state === "on"
+                ? updateIsInstalling(stateObj as UpdateEntity)
                     ? "mdi:package-down"
                     : "mdi:package-up"
                 : "mdi:package";
+
+        case "weather":
+            return weatherIcon(stateObj?.state);
     }
 
     if (domain in FIXED_DOMAIN_ICONS) {
         return FIXED_DOMAIN_ICONS[domain];
     }
 
-    // eslint-disable-next-line
-    console.warn(`Unable to find icon for domain ${domain}`);
     return DEFAULT_DOMAIN_ICON;
 }
