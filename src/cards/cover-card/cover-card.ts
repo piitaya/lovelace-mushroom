@@ -160,7 +160,12 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
         const appearance = computeAppearance(this._config);
         const picture = computeEntityPicture(entity, appearance.icon_type);
 
-        let stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
+        let stateDisplay = computeStateDisplay(
+            this.hass.localize,
+            entity,
+            this.hass.locale,
+            this.hass.entities
+        );
         if (this.position) {
             stateDisplay += ` - ${this.position}%`;
         }
