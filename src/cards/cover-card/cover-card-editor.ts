@@ -43,7 +43,7 @@ export class CoverCardEditor extends MushroomBaseElement implements LovelaceCard
 
     connectedCallback() {
         super.connectedCallback();
-        void loadHaComponents(this.hass.connection.haVersion);
+        void loadHaComponents();
     }
 
     public setConfig(config: CoverCardConfig): void {

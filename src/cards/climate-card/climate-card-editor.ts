@@ -51,7 +51,7 @@ export class ClimateCardEditor extends MushroomBaseElement implements LovelaceCa
 
     connectedCallback() {
         super.connectedCallback();
-        void loadHaComponents(this.hass.connection.haVersion);
+        void loadHaComponents();
     }
 
     public setConfig(config: ClimateCardConfig): void {

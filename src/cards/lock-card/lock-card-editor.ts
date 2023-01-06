@@ -28,7 +28,7 @@ export class LockCardEditor extends MushroomBaseElement implements LovelaceCardE
 
     connectedCallback() {
         super.connectedCallback();
-        void loadHaComponents(this.hass.connection.haVersion);
+        void loadHaComponents();
     }
 
     public setConfig(config: LockCardConfig): void {

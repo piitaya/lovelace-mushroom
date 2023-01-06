@@ -1,5 +1,5 @@
 import { object, optional } from "superstruct";
-import { ActionConfig, actionConfigStruct, atLeastHaVersion } from "../../ha";
+import { ActionConfig, actionConfigStruct } from "../../ha";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { UiAction } from "../../utils/form/ha-selector";
 
