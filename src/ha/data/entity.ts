@@ -23,17 +23,30 @@ export function isActive(entity: HassEntity) {
 
     // Custom cases
     switch (domain) {
+        case "alarm_control_panel":
+            return state !== "disarmed";
+        case "alert":
+            // "on" and "off" are active, as "off" just means alert was acknowledged but is still active
+            return state !== "idle";
         case "cover":
             return !["closed", "closing"].includes(state);
         case "device_tracker":
         case "person":
             return state !== "not_home";
+        case "lock":
+            return state !== "locked";
         case "media_player":
             return state !== "standby";
         case "vacuum":
             return !["idle", "docked", "paused"].includes(state);
         case "plant":
             return state === "problem";
+        case "group":
+            return ["on", "home", "open", "locked", "problem"].includes(state);
+        case "timer":
+            return state === "active";
+        case "camera":
+            return state === "streaming";
         default:
             return true;
     }

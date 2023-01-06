@@ -165,6 +165,7 @@ export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceC
 
         const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
+        const iconColor = this._config.icon_color;
         const appearance = computeAppearance(this._config);
         const picture = computeEntityPicture(entity, appearance.icon_type);
 
@@ -191,7 +192,9 @@ export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceC
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
+                        ${picture
+                            ? this.renderPicture(picture)
+                            : this.renderIcon(entity, icon, iconColor)}}
                         ${this.renderBadge(entity)}
                         ${this.renderStateInfo(entity, appearance, name)};
                     </mushroom-state-item>
@@ -256,7 +259,10 @@ export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceC
         `;
     }
 
-    protected renderIcon(entity: HassEntity, icon: string): TemplateResult {
+    protected renderIcon(entity: HassEntity, icon: string, iconColor?: string): TemplateResult {
+        if (iconColor) {
+            return super.renderIcon(entity, icon, iconColor);
+        }
         const color = getStateColor(entity.state);
         const shapePulse = shouldPulse(entity.state);
         const iconStyle = {

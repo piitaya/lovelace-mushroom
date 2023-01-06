@@ -142,6 +142,7 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
 
         const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
+        const iconColor = this._config.icon_color;
         const appearance = computeAppearance(this._config);
         const picture = computeEntityPicture(entity, appearance.icon_type);
 
@@ -173,7 +174,9 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
+                        ${picture
+                            ? this.renderPicture(picture)
+                            : this.renderIcon(entity, icon, iconColor)}
                         ${this.renderBadge(entity)}
                         ${this.renderStateInfo(entity, appearance, name, stateDisplay)};
                     </mushroom-state-item>
@@ -189,7 +192,10 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
         `;
     }
 
-    protected renderIcon(entity: ClimateEntity, icon: string): TemplateResult {
+    protected renderIcon(entity: ClimateEntity, icon: string, iconColor?: string): TemplateResult {
+        if (iconColor) {
+            return super.renderIcon(entity, icon, iconColor);
+        }
         const available = isAvailable(entity);
         const color = getHvacModeColor(entity.state as HvacMode);
         const iconStyle = {};

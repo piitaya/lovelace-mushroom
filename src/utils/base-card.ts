@@ -1,5 +1,6 @@
 import { HassEntity } from "home-assistant-js-websocket";
 import { html, TemplateResult } from "lit";
+import { styleMap } from "lit/directives/style-map.js";
 import { computeStateDisplay, HomeAssistant, isActive, isAvailable } from "../ha";
 import "../shared/badge-icon";
 import "../shared/card";
@@ -9,7 +10,8 @@ import "../shared/shape-icon";
 import "../shared/state-info";
 import "../shared/state-item";
 import { MushroomBaseElement } from "./base-element";
-import { computeEntityPicture, computeInfoDisplay } from "./info";
+import { computeRgbColor } from "./colors";
+import { computeInfoDisplay } from "./info";
 
 export function computeDarkMode(hass?: HomeAssistant): boolean {
     if (!hass) return false;
@@ -25,10 +27,19 @@ export class MushroomBaseCard extends MushroomBaseElement {
         `;
     }
 
-    protected renderIcon(entity: HassEntity, icon: string): TemplateResult {
+    protected renderIcon(entity: HassEntity, icon: string, iconColor?: string): TemplateResult {
         const active = isActive(entity);
+
+        const iconStyle = {};
+        if (iconColor) {
+            const iconRgbColor = computeRgbColor(iconColor);
+            iconStyle["--icon-color"] = `rgb(${iconRgbColor})`;
+            iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
+        }
+
         return html`
             <mushroom-shape-icon
+                style=${styleMap(iconStyle)}
                 slot="icon"
                 .disabled=${!active}
                 .icon=${icon}
