@@ -61,7 +61,12 @@ export class WeatherChip extends LitElement implements LovelaceChip {
         const displayLabels: string[] = [];
 
         if (this._config.show_conditions) {
-            const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
+            const stateDisplay = computeStateDisplay(
+                this.hass.localize,
+                entity,
+                this.hass.locale,
+                this.hass.entities
+            );
             displayLabels.push(stateDisplay);
         }
 

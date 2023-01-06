@@ -2,6 +2,7 @@ import { HassEntity } from "home-assistant-js-websocket";
 import { UNAVAILABLE, UNKNOWN } from "../../data/entity";
 import { FrontendLocaleData } from "../../data/translation";
 import { updateIsInstalling, UpdateEntity, UPDATE_SUPPORT_PROGRESS } from "../../data/update";
+import { EntityRegistryEntry, HomeAssistant } from "../../types";
 import { formatDate } from "../datetime/format_date";
 import { formatDateTime } from "../datetime/format_date_time";
 import { formatTime } from "../datetime/format_time";
@@ -14,6 +15,7 @@ export const computeStateDisplay = (
     localize: LocalizeFunc,
     stateObj: HassEntity,
     locale: FrontendLocaleData,
+    entities: HomeAssistant["entities"],
     state?: string
 ): string => {
     const compareState = state !== undefined ? state : stateObj.state;
@@ -148,7 +150,13 @@ export const computeStateDisplay = (
             : localize("ui.card.update.up_to_date");
     }
 
+    const entity = entities[stateObj.entity_id] as EntityRegistryEntry | undefined;
+
     return (
+        (entity?.translation_key &&
+            localize(
+                `component.${entity.platform}.entity.${domain}.${entity.translation_key}.state.${compareState}`
+            )) ||
         // Return device class translation
         (stateObj.attributes.device_class &&
             localize(
