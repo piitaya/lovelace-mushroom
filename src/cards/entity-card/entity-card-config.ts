@@ -11,14 +11,9 @@ import { LovelaceCardConfig } from "../../ha";
 export type EntityCardConfig = LovelaceCardConfig &
     EntitySharedConfig &
     AppearanceSharedConfig &
-    ActionsSharedConfig & {
-        icon_color?: string;
-    };
+    ActionsSharedConfig;
 
 export const entityCardConfigStruct = assign(
     lovelaceCardConfigStruct,
-    assign(entitySharedConfigStruct, appearanceSharedConfigStruct, actionsSharedConfigStruct),
-    object({
-        icon_color: optional(string()),
-    })
+    assign(entitySharedConfigStruct, appearanceSharedConfigStruct, actionsSharedConfigStruct)
 );

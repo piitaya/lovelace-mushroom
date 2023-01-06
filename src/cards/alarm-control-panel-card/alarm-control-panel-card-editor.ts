@@ -6,6 +6,7 @@ import { fireEvent, LocalizeFunc, LovelaceCardEditor } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { computeActionsFormSchema } from "../../shared/config/actions-config";
 import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
+import { computeEntityFormSchema } from "../../shared/config/entity-config";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
@@ -25,9 +26,7 @@ const states = ["armed_home", "armed_away", "armed_night", "armed_vacation", "ar
 const ALARM_CONTROL_PANEL_LABELS = ["show_keypad"];
 
 const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaFormSchema[] => [
-    { name: "entity", selector: { entity: { domain: ALARM_CONTROl_PANEL_ENTITY_DOMAINS } } },
-    { name: "name", selector: { text: {} } },
-    { name: "icon", selector: { icon: { placeholder: icon } } },
+    ...computeEntityFormSchema(icon, ALARM_CONTROl_PANEL_ENTITY_DOMAINS),
     ...APPEARANCE_FORM_SCHEMA,
     {
         type: "multi_select",

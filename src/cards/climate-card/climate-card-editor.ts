@@ -13,13 +13,12 @@ import { stateIcon } from "../../utils/icons/state-icon";
 import { loadHaComponents } from "../../utils/loader";
 import { CLIMATE_CARD_EDITOR_NAME, CLIMATE_ENTITY_DOMAINS } from "./const";
 import { ClimateCardConfig, climateCardConfigStruct, HVAC_MODES } from "./climate-card-config";
+import { computeEntityFormSchema } from "../../shared/config/entity-config";
 
 const CLIMATE_LABELS = ["hvac_modes", "show_temperature_control"] as string[];
 
 const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaFormSchema[] => [
-    { name: "entity", selector: { entity: { domain: CLIMATE_ENTITY_DOMAINS } } },
-    { name: "name", selector: { text: {} } },
-    { name: "icon", selector: { icon: { placeholder: icon } } },
+    ...computeEntityFormSchema(icon, CLIMATE_ENTITY_DOMAINS),
     ...APPEARANCE_FORM_SCHEMA,
     {
         type: "grid",

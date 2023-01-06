@@ -6,6 +6,7 @@ import { fireEvent, LovelaceCardEditor } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { computeActionsFormSchema } from "../../shared/config/actions-config";
 import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
+import { computeEntityFormSchema } from "../../shared/config/entity-config";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
@@ -15,16 +16,7 @@ import { ENTITY_CARD_EDITOR_NAME } from "./const";
 import { EntityCardConfig, entityCardConfigStruct } from "./entity-card-config";
 
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
-    { name: "entity", selector: { entity: {} } },
-    { name: "name", selector: { text: {} } },
-    {
-        type: "grid",
-        name: "",
-        schema: [
-            { name: "icon", selector: { icon: { placeholder: icon } } },
-            { name: "icon_color", selector: { "mush-color": {} } },
-        ],
-    },
+    ...computeEntityFormSchema(icon),
     ...APPEARANCE_FORM_SCHEMA,
     ...computeActionsFormSchema(),
 ]);

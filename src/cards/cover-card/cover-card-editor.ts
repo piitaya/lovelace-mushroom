@@ -6,6 +6,7 @@ import { fireEvent, LovelaceCardEditor } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { computeActionsFormSchema } from "../../shared/config/actions-config";
 import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
+import { computeEntityFormSchema } from "../../shared/config/entity-config";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
@@ -21,9 +22,7 @@ const COVER_LABELS = [
 ];
 
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
-    { name: "entity", selector: { entity: { domain: COVER_ENTITY_DOMAINS } } },
-    { name: "name", selector: { text: {} } },
-    { name: "icon", selector: { icon: { placeholder: icon } } },
+    ...computeEntityFormSchema(icon, COVER_ENTITY_DOMAINS),
     ...APPEARANCE_FORM_SCHEMA,
     {
         type: "grid",
