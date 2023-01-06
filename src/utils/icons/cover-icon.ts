@@ -1,9 +1,9 @@
 import { HassEntity } from "home-assistant-js-websocket";
 
-export const coverIcon = (state?: string, entity?: HassEntity): string => {
+export const coverIcon = (state?: string, stateObj?: HassEntity): string => {
     const open = state !== "closed";
 
-    switch (entity?.attributes.device_class) {
+    switch (stateObj?.attributes.device_class) {
         case "garage":
             switch (state) {
                 case "opening":
@@ -28,7 +28,7 @@ export const coverIcon = (state?: string, entity?: HassEntity): string => {
         case "door":
             return open ? "mdi:door-open" : "mdi:door-closed";
         case "damper":
-            return open ? "md:circle" : "mdi:circle-slice-8";
+            return open ? "mdi:circle" : "mdi:circle-slice-8";
         case "shutter":
             switch (state) {
                 case "opening":
@@ -52,6 +52,16 @@ export const coverIcon = (state?: string, entity?: HassEntity): string => {
                     return "mdi:curtains";
             }
         case "blind":
+            switch (state) {
+                case "opening":
+                    return "mdi:arrow-up-box";
+                case "closing":
+                    return "mdi:arrow-down-box";
+                case "closed":
+                    return "mdi:blinds-horizontal-closed";
+                default:
+                    return "mdi:blinds-horizontal";
+            }
         case "shade":
             switch (state) {
                 case "opening":
@@ -59,9 +69,9 @@ export const coverIcon = (state?: string, entity?: HassEntity): string => {
                 case "closing":
                     return "mdi:arrow-down-box";
                 case "closed":
-                    return "mdi:blinds";
+                    return "mdi:roller-shade-closed";
                 default:
-                    return "mdi:blinds-open";
+                    return "mdi:roller-shade";
             }
         case "window":
             switch (state) {
