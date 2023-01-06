@@ -24,24 +24,22 @@ const states = ["armed_home", "armed_away", "armed_night", "armed_vacation", "ar
 
 const ALARM_CONTROL_PANEL_LABELS = ["show_keypad"];
 
-const computeSchema = memoizeOne(
-    (localize: LocalizeFunc, version: string, icon?: string): HaFormSchema[] => [
-        { name: "entity", selector: { entity: { domain: ALARM_CONTROl_PANEL_ENTITY_DOMAINS } } },
-        { name: "name", selector: { text: {} } },
-        { name: "icon", selector: { icon: { placeholder: icon } } },
-        ...APPEARANCE_FORM_SCHEMA,
-        {
-            type: "multi_select",
-            name: "states",
-            options: states.map((state) => [
-                state,
-                localize(`ui.card.alarm_control_panel.${state.replace("armed", "arm")}`),
-            ]) as [string, string][],
-        },
-        { name: "show_keypad", selector: { boolean: {} } },
-        ...computeActionsFormSchema(version, actions),
-    ]
-);
+const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaFormSchema[] => [
+    { name: "entity", selector: { entity: { domain: ALARM_CONTROl_PANEL_ENTITY_DOMAINS } } },
+    { name: "name", selector: { text: {} } },
+    { name: "icon", selector: { icon: { placeholder: icon } } },
+    ...APPEARANCE_FORM_SCHEMA,
+    {
+        type: "multi_select",
+        name: "states",
+        options: states.map((state) => [
+            state,
+            localize(`ui.card.alarm_control_panel.${state.replace("armed", "arm")}`),
+        ]) as [string, string][],
+    },
+    { name: "show_keypad", selector: { boolean: {} } },
+    ...computeActionsFormSchema(actions),
+]);
 
 @customElement(ALARM_CONTROl_PANEL_CARD_EDITOR_NAME)
 export class SwitchCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
@@ -49,7 +47,7 @@ export class SwitchCardEditor extends MushroomBaseElement implements LovelaceCar
 
     connectedCallback() {
         super.connectedCallback();
-        void loadHaComponents(this.hass.connection.haVersion);
+        void loadHaComponents();
     }
 
     public setConfig(config: AlarmControlPanelCardConfig): void {
@@ -65,7 +63,7 @@ export class SwitchCardEditor extends MushroomBaseElement implements LovelaceCar
         const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
         const entityIcon = entityState ? stateIcon(entityState) : undefined;
         const icon = this._config.icon || entityIcon;
-        const schema = computeSchema(this.hass!.localize, this.hass.connection.haVersion, icon);
+        const schema = computeSchema(this.hass!.localize, icon);
 
         return html`
             <ha-form

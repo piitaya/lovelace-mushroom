@@ -14,12 +14,12 @@ import { loadHaComponents } from "../../utils/loader";
 import { LOCK_CARD_EDITOR_NAME, LOCK_ENTITY_DOMAINS } from "./const";
 import { LockCardConfig, lockCardConfigStruct } from "./lock-card-config";
 
-const computeSchema = memoizeOne((version: string, icon?: string): HaFormSchema[] => [
+const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: LOCK_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
     { name: "icon", selector: { icon: { placeholder: icon } } },
     ...APPEARANCE_FORM_SCHEMA,
-    ...computeActionsFormSchema(version),
+    ...computeActionsFormSchema(),
 ]);
 
 @customElement(LOCK_CARD_EDITOR_NAME)
@@ -28,7 +28,7 @@ export class LockCardEditor extends MushroomBaseElement implements LovelaceCardE
 
     connectedCallback() {
         super.connectedCallback();
-        void loadHaComponents(this.hass.connection.haVersion);
+        void loadHaComponents();
     }
 
     public setConfig(config: LockCardConfig): void {
@@ -53,7 +53,7 @@ export class LockCardEditor extends MushroomBaseElement implements LovelaceCardE
         const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
         const entityIcon = entityState ? stateIcon(entityState) : undefined;
         const icon = this._config.icon || entityIcon;
-        const schema = computeSchema(this.hass.connection.haVersion, icon);
+        const schema = computeSchema(icon);
 
         return html`
             <ha-form

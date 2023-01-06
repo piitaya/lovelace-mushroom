@@ -27,60 +27,58 @@ export const MEDIA_LABELS = [
     "volume_controls",
 ];
 
-const computeSchema = memoizeOne(
-    (localize: LocalizeFunc, version: string, icon?: string): HaFormSchema[] => [
-        { name: "entity", selector: { entity: { domain: MEDIA_PLAYER_ENTITY_DOMAINS } } },
-        { name: "name", selector: { text: {} } },
-        { name: "icon", selector: { icon: { placeholder: icon } } },
-        ...APPEARANCE_FORM_SCHEMA,
-        {
-            type: "grid",
-            name: "",
-            schema: [
-                { name: "use_media_info", selector: { boolean: {} } },
-                { name: "show_volume_level", selector: { boolean: {} } },
-            ],
-        },
-        {
-            type: "grid",
-            name: "",
-            schema: [
-                {
-                    name: "volume_controls",
-                    selector: {
-                        select: {
-                            options: MEDIA_PLAYER_VOLUME_CONTROLS.map((control) => ({
-                                value: control,
-                                label: localize(
-                                    `editor.card.media-player.volume_controls_list.${control}`
-                                ),
-                            })),
-                            mode: "list",
-                            multiple: true,
-                        },
+const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaFormSchema[] => [
+    { name: "entity", selector: { entity: { domain: MEDIA_PLAYER_ENTITY_DOMAINS } } },
+    { name: "name", selector: { text: {} } },
+    { name: "icon", selector: { icon: { placeholder: icon } } },
+    ...APPEARANCE_FORM_SCHEMA,
+    {
+        type: "grid",
+        name: "",
+        schema: [
+            { name: "use_media_info", selector: { boolean: {} } },
+            { name: "show_volume_level", selector: { boolean: {} } },
+        ],
+    },
+    {
+        type: "grid",
+        name: "",
+        schema: [
+            {
+                name: "volume_controls",
+                selector: {
+                    select: {
+                        options: MEDIA_PLAYER_VOLUME_CONTROLS.map((control) => ({
+                            value: control,
+                            label: localize(
+                                `editor.card.media-player.volume_controls_list.${control}`
+                            ),
+                        })),
+                        mode: "list",
+                        multiple: true,
                     },
                 },
-                {
-                    name: "media_controls",
-                    selector: {
-                        select: {
-                            options: MEDIA_LAYER_MEDIA_CONTROLS.map((control) => ({
-                                value: control,
-                                label: localize(
-                                    `editor.card.media-player.media_controls_list.${control}`
-                                ),
-                            })),
-                            mode: "list",
-                            multiple: true,
-                        },
+            },
+            {
+                name: "media_controls",
+                selector: {
+                    select: {
+                        options: MEDIA_LAYER_MEDIA_CONTROLS.map((control) => ({
+                            value: control,
+                            label: localize(
+                                `editor.card.media-player.media_controls_list.${control}`
+                            ),
+                        })),
+                        mode: "list",
+                        multiple: true,
                     },
                 },
-                { name: "collapsible_controls", selector: { boolean: {} } },
-            ],
-        },
-        ...computeActionsFormSchema(version),
-    ]
-);
+            },
+            { name: "collapsible_controls", selector: { boolean: {} } },
+        ],
+    },
+    ...computeActionsFormSchema(),
+]);
 
 @customElement(MEDIA_PLAYER_CARD_EDITOR_NAME)
 export class MediaCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
@@ -88,7 +86,7 @@ export class MediaCardEditor extends MushroomBaseElement implements LovelaceCard
 
     connectedCallback() {
         super.connectedCallback();
-        void loadHaComponents(this.hass.connection.haVersion);
+        void loadHaComponents();
     }
 
     public setConfig(config: MediaPlayerCardConfig): void {
@@ -118,7 +116,7 @@ export class MediaCardEditor extends MushroomBaseElement implements LovelaceCard
         const icon = this._config.icon || entityIcon;
 
         const customLocalize = setupCustomlocalize(this.hass!);
-        const schema = computeSchema(customLocalize, this.hass.connection.haVersion, icon);
+        const schema = computeSchema(customLocalize, icon);
 
         return html`
             <ha-form

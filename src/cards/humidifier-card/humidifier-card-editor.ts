@@ -16,7 +16,7 @@ import { HumidifierCardConfig, humidifierCardConfigStruct } from "./humidifier-c
 
 const HUMIDIFIER_FIELDS = ["show_target_humidity_control"];
 
-const computeSchema = memoizeOne((version: string, icon?: string): HaFormSchema[] => [
+const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: HUMIDIFIER_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
     { name: "icon", selector: { icon: { placeholder: icon } } },
@@ -29,7 +29,7 @@ const computeSchema = memoizeOne((version: string, icon?: string): HaFormSchema[
             { name: "collapsible_controls", selector: { boolean: {} } },
         ],
     },
-    ...computeActionsFormSchema(version),
+    ...computeActionsFormSchema(),
 ]);
 
 @customElement(HUMIDIFIER_CARD_EDITOR_NAME)
@@ -38,7 +38,7 @@ export class HumidifierCardEditor extends MushroomBaseElement implements Lovelac
 
     connectedCallback() {
         super.connectedCallback();
-        void loadHaComponents(this.hass.connection.haVersion);
+        void loadHaComponents();
     }
 
     public setConfig(config: HumidifierCardConfig): void {
@@ -66,7 +66,7 @@ export class HumidifierCardEditor extends MushroomBaseElement implements Lovelac
         const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
         const entityIcon = entityState ? stateIcon(entityState) : undefined;
         const icon = this._config.icon || entityIcon;
-        const schema = computeSchema(this.hass.connection.haVersion, icon);
+        const schema = computeSchema(icon);
 
         return html`
             <ha-form
