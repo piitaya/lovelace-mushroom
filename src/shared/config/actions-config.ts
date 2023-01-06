@@ -15,23 +15,17 @@ export type ActionsSharedConfig = {
     double_tap_action?: ActionConfig;
 };
 
-export const computeActionsFormSchema = (version: string, actions?: UiAction[]): HaFormSchema[] => [
+export const computeActionsFormSchema = (actions?: UiAction[]): HaFormSchema[] => [
     {
         name: "tap_action",
-        selector: atLeastHaVersion(version, 2022, 11)
-            ? { "ui-action": { actions } }
-            : { "mush-action": { actions } },
+        selector: { "ui-action": { actions } },
     },
     {
         name: "hold_action",
-        selector: atLeastHaVersion(version, 2022, 11)
-            ? { "ui-action": { actions } }
-            : { "mush-action": { actions } },
+        selector: { "ui-action": { actions } },
     },
     {
         name: "double_tap_action",
-        selector: atLeastHaVersion(version, 2022, 11)
-            ? { "ui-action": { actions } }
-            : { "mush-action": { actions } },
+        selector: { "ui-action": { actions } },
     },
 ];

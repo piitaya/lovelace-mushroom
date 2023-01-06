@@ -17,12 +17,7 @@ import { VacuumCardConfig, vacuumCardConfigStruct, VACUUM_COMMANDS } from "./vac
 const VACUUM_LABELS = ["commands"];
 
 const computeSchema = memoizeOne(
-    (
-        localize: LocalizeFunc,
-        customLocalize: LocalizeFunc,
-        version: string,
-        icon?: string
-    ): HaFormSchema[] => [
+    (localize: LocalizeFunc, customLocalize: LocalizeFunc, icon?: string): HaFormSchema[] => [
         { name: "entity", selector: { entity: { domain: VACUUM_ENTITY_DOMAINS } } },
         { name: "name", selector: { text: {} } },
         {
@@ -50,7 +45,7 @@ const computeSchema = memoizeOne(
                 },
             },
         },
-        ...computeActionsFormSchema(version),
+        ...computeActionsFormSchema(),
     ]
 );
 
@@ -89,12 +84,7 @@ export class VacuumCardEditor extends MushroomBaseElement implements LovelaceCar
         const entityIcon = entityState ? stateIcon(entityState) : undefined;
         const icon = this._config.icon || entityIcon;
         const customLocalize = setupCustomlocalize(this.hass!);
-        const schema = computeSchema(
-            this.hass!.localize,
-            customLocalize,
-            this.hass.connection.haVersion,
-            icon
-        );
+        const schema = computeSchema(this.hass!.localize, customLocalize, icon);
 
         return html`
             <ha-form
