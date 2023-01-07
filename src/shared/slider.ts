@@ -4,13 +4,6 @@ import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import "hammerjs";
 
-const getPercentageFromEvent = (e: HammerInput) => {
-    const x = e.center.x;
-    const offset = e.target.getBoundingClientRect().left;
-    const total = e.target.clientWidth;
-    return Math.max(Math.min(1, (x - offset) / total), 0);
-};
-
 export const DEFAULT_SLIDER_THRESHOLD = 10;
 const getSliderThreshold = (element: any): number | undefined => {
     const thresholdValue = window.getComputedStyle(element).getPropertyValue("--slider-threshold");
@@ -73,6 +66,13 @@ export class SliderItem extends LitElement {
     private slider;
 
     setupListeners() {
+        const getPercentageFromEvent = (e: HammerInput) => {
+            const x = e.center.x;
+            const offset = e.target.getBoundingClientRect().left;
+            const total = e.target.clientWidth;
+            return (x - offset) / total;
+        };
+
         if (this.slider && !this._mc) {
             const threshold = getSliderThreshold(this.slider);
             this._mc = new Hammer.Manager(this.slider, { touchAction: "pan-y" });
@@ -87,10 +87,23 @@ export class SliderItem extends LitElement {
             this._mc.add(new Hammer.Tap({ event: "singletap" }));
 
             let savedValue;
-            this._mc.on("panstart", () => {
+            
+            let panstartPercentage = 0;
+            const getPanTargetValue = (e) => {
+                const percentage = getPercentageFromEvent(e);
+
+                const deltaPercentage = (percentage - panstartPercentage) * 0.5;
+                const deltaValue = this.percentageToValue(deltaPercentage);
+                
+                return Math.max(Math.min(savedValue + deltaValue, this.max), this.min)
+            }
+
+            this._mc.on("panstart", (e) => {
                 if (this.disabled) return;
                 this.controlled = true;
-                savedValue = this.value;
+                savedValue = this.value || 0;
+
+                panstartPercentage = getPercentageFromEvent(e)
             });
             this._mc.on("pancancel", () => {
                 if (this.disabled) return;
@@ -99,8 +112,8 @@ export class SliderItem extends LitElement {
             });
             this._mc.on("panmove", (e) => {
                 if (this.disabled) return;
-                const percentage = getPercentageFromEvent(e);
-                this.value = this.percentageToValue(percentage);
+                this.value = getPanTargetValue(e)
+
                 this.dispatchEvent(
                     new CustomEvent("current-change", {
                         detail: {
@@ -112,9 +125,9 @@ export class SliderItem extends LitElement {
             this._mc.on("panend", (e) => {
                 if (this.disabled) return;
                 this.controlled = false;
-                const percentage = getPercentageFromEvent(e);
+                const targetValue = getPanTargetValue(e);
                 // Prevent from input releasing on a value that doesn't lie on a step
-                this.value = Math.round(this.percentageToValue(percentage) / this.step) * this.step;
+                this.value = Math.round(targetValue / this.step) * this.step;
                 this.dispatchEvent(
                     new CustomEvent("current-change", {
                         detail: {
