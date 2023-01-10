@@ -90,6 +90,13 @@ export class SelectCard extends MushroomBaseCard implements LovelaceCard {
         const picture = computeEntityPicture(entity, appearance.icon_type);
 
         const rtl = computeRTL(this.hass);
+        const iconColor = this._config?.icon_color;
+
+        const selectStyle = {};
+        if (iconColor) {
+            const iconRgbColor = computeRgbColor(iconColor);
+            selectStyle["--mdc-theme-primary"] = `rgb(${iconRgbColor})`;
+        }
 
         return html`
             <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
@@ -109,9 +116,11 @@ export class SelectCard extends MushroomBaseCard implements LovelaceCard {
                     </mushroom-state-item>
                     <div class="actions" ?rtl=${rtl}>
                         <mushroom-select-option-control
-                        .hass=${this.hass}
-                        .entity=${entity}
-                    ></mushroom-select-option-control>             
+                            style=${styleMap(selectStyle)}
+                            .hass=${this.hass}
+                            .entity=${entity}
+                        ></mushroom-select-option-control>
+                    </div>
                 </mushroom-card>
             </ha-card>
         `;
@@ -154,6 +163,7 @@ export class SelectCard extends MushroomBaseCard implements LovelaceCard {
                 }
                 mushroom-select-option-control {
                     flex: 1;
+                    --mdc-theme-primary: rgb(var(--rgb-state-entity));
                 }
             `,
         ];

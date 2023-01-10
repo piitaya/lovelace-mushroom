@@ -60,11 +60,7 @@ export class SelectOptionControl extends LitElement {
                 naturalMenuWidth
             >
                 ${options.map((option) => {
-                    return html`
-                        <mwc-list-item .value=${option} >
-                            ${option}
-                        </mwc-list-item>
-                    `;
+                    return html` <mwc-list-item .value=${option}> ${option} </mwc-list-item> `;
                 })}
             </mushroom-select>
         `;
