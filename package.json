@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "rollup -c --watch",
-    "build": "rollup -c",
+    "start": "rollup -c --watch --bundleConfigAsCjs",
+    "build": "rollup -c --bundleConfigAsCjs",
     "format": "prettier --write .",
     "start:hass": "docker run --rm -p8123:8123 -v ${PWD}/.hass_dev:/config homeassistant/home-assistant:beta",
     "start:hass-cmd": "docker run --rm -p8123:8123 -v  %cd%/.hass_dev:/config homeassistant/home-assistant:beta"
@@ -13,33 +13,33 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@material/mwc-select": "^0.25.3",
-    "@material/mwc-textfield": "^0.25.3",
+    "@material/mwc-select": "^0.27.0",
+    "@material/mwc-textfield": "^0.27.0",
     "color": "^4.2.3",
     "hammerjs": "^2.0.8",
-    "home-assistant-js-websocket": "^7.0.3",
-    "lit": "^2.2.3",
+    "home-assistant-js-websocket": "^8.0.1",
+    "lit": "^2.6.0",
     "memoize-one": "^6.0.0",
     "sortablejs": "^1.15.0",
-    "superstruct": "^0.15.4"
+    "superstruct": "^1.0.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.10",
-    "@babel/preset-typescript": "^7.16.7",
-    "@material/mwc-ripple": "^0.25.3",
+    "@babel/core": "^7.20.12",
+    "@babel/preset-typescript": "^7.18.6",
+    "@material/mwc-ripple": "^0.27.0",
     "@material/tab-bar": "^14.0.0",
-    "@rollup/plugin-babel": "^5.3.1",
-    "@rollup/plugin-commonjs": "^22.0.0",
-    "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^13.3.0",
-    "@rollup/plugin-typescript": "^8.3.2",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-commonjs": "^24.0.0",
+    "@rollup/plugin-json": "^6.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-terser": "^0.3.0",
+    "@rollup/plugin-typescript": "^11.0.0",
     "@types/color": "^3.0.3",
     "@types/hammerjs": "^2.0.41",
-    "eslint": "^8.15.0",
-    "prettier": "^2.6.2",
-    "rollup": "^2.72.1",
-    "rollup-plugin-serve": "^1.1.0",
-    "rollup-plugin-terser": "^7.0.2",
-    "typescript": "^4.6.4"
+    "eslint": "^8.31.0",
+    "prettier": "^2.8.2",
+    "rollup": "^3.9.1",
+    "rollup-plugin-serve": "^2.0.2",
+    "typescript": "^4.9.4"
   }
 }
