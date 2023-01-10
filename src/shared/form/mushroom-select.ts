@@ -36,7 +36,7 @@ export class MushroomSelect extends SelectBase {
         styles,
         css`
             .mdc-select__anchor {
-                height: var(--select-height, auto) !important;
+                height: var(--select-height, 56px) !important;
             }
         `,
     ];
