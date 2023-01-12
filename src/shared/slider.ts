@@ -93,15 +93,15 @@ export class SliderItem extends LitElement {
                 const percentage = getPercentageFromEvent(e);
 
                 const deltaPercentage = (percentage - panstartPercentage) * 0.5;
-                const deltaValue = this.percentageToValue(deltaPercentage);
-                
-                return Math.max(Math.min(savedValue + deltaValue, this.max), this.min)
+                const deltaValue = (this.max - this.min) * deltaPercentage;
+
+                return Math.max(Math.min(savedValue + deltaValue, this.max), this.min);
             }
 
             this._mc.on("panstart", (e) => {
                 if (this.disabled) return;
                 this.controlled = true;
-                savedValue = this.value || 0;
+                savedValue = this.value || this.min;
 
                 panstartPercentage = getPercentageFromEvent(e)
             });
