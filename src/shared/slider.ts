@@ -11,6 +11,20 @@ const getSliderThreshold = (element: any): number | undefined => {
     return isNaN(threshold) ? DEFAULT_SLIDER_THRESHOLD : threshold;
 };
 
+function throttle(cb, delay = 0) {
+    let shouldWait = false
+
+    return (...args) => {
+        if (shouldWait) return
+
+        cb(...args)
+        shouldWait = true
+        setTimeout(() => {
+            shouldWait = false
+        }, delay)
+    }
+}
+
 @customElement("mushroom-slider")
 export class SliderItem extends LitElement {
     @property({ type: Boolean }) public disabled: boolean = false;
@@ -87,7 +101,7 @@ export class SliderItem extends LitElement {
             this._mc.add(new Hammer.Tap({ event: "singletap" }));
 
             let savedValue;
-            
+
             let panstartPercentage = 0;
             const getPanTargetValue = (e) => {
                 const percentage = getPercentageFromEvent(e);
@@ -97,6 +111,16 @@ export class SliderItem extends LitElement {
 
                 return Math.max(Math.min(savedValue + deltaValue, this.max), this.min);
             }
+
+            const throttledChange = throttle((value) => {
+                this.dispatchEvent(
+                    new CustomEvent("change", {
+                        detail: {
+                            value,
+                        },
+                    })
+                );
+            }, 130)
 
             this._mc.on("panstart", (e) => {
                 if (this.disabled) return;
@@ -113,14 +137,15 @@ export class SliderItem extends LitElement {
             this._mc.on("panmove", (e) => {
                 if (this.disabled) return;
                 this.value = getPanTargetValue(e)
-
+                const discreteValue = Math.round(this.value / this.step) * this.step;
                 this.dispatchEvent(
                     new CustomEvent("current-change", {
                         detail: {
-                            value: Math.round(this.value / this.step) * this.step,
+                            value: discreteValue,
                         },
                     })
                 );
+                throttledChange(discreteValue)
             });
             this._mc.on("panend", (e) => {
                 if (this.disabled) return;
@@ -171,17 +196,17 @@ export class SliderItem extends LitElement {
         return html`
             <div
                 class=${classMap({
-                    container: true,
-                    inactive: this.inactive || this.disabled,
-                    controlled: this.controlled,
-                })}
+            container: true,
+            inactive: this.inactive || this.disabled,
+            controlled: this.controlled,
+        })}
             >
                 <div
                     id="slider"
                     class="slider"
                     style=${styleMap({
-                        "--value": `${this.valueToPercentage(this.value ?? 0)}`,
-                    })}
+            "--value": `${this.valueToPercentage(this.value ?? 0)}`,
+        })}
                 >
                     <div class="slider-track-background"></div>
                     ${this.showActive ? html`<div class="slider-track-active"></div>` : null}
