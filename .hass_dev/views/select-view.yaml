@@ -1,0 +1,68 @@
+title: Select
+icon: mdi:form-dropdown
+cards:
+  - type: grid
+    title: Basic
+    cards:
+      - type: custom:mushroom-select-card
+        entity: input_select.who_cooks
+      - type: custom:mushroom-select-card
+        entity: input_select.who_cooks
+        name: Custom name and icon
+        icon: mdi:robot-outline
+    columns: 2
+    square: false
+  - type: grid
+    title: Infos
+    cards:
+      - type: custom:mushroom-select-card
+        entity: input_select.who_cooks
+        primary_info: state
+        secondary_info: name
+      - type: custom:mushroom-select-card
+        entity: input_select.who_cooks
+        primary_info: name
+        secondary_info: last-changed
+      - type: custom:mushroom-select-card
+        entity: input_select.who_cooks
+        primary_info: name
+        secondary_info: last-updated
+      - type: custom:mushroom-select-card
+        entity: input_select.who_cooks
+        primary_info: name
+        secondary_info: none
+      - type: custom:mushroom-select-card
+        entity: input_select.who_cooks
+        icon_type: none
+    columns: 2
+    square: false
+  - type: grid
+    title: Icon colors
+    cards:
+      - type: custom:mushroom-select-card
+        entity: input_select.who_cooks
+        icon_color: red
+      - type: custom:mushroom-select-card
+        entity: input_select.who_cooks
+        icon_color: green
+    columns: 2
+    square: false
+  - type: vertical-stack
+    title: Layout
+    cards:
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:mushroom-select-card
+            entity: input_select.who_cooks
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:mushroom-select-card
+            entity: input_select.who_cooks
+            layout: "vertical"
+      - type: custom:mushroom-select-card
+        entity: input_select.who_cooks
+        layout: "horizontal"
