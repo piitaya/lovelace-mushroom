@@ -15,7 +15,7 @@ import { ALARM_CONTROl_PANEL_ENTITY_DOMAINS } from "../../alarm-control-panel-ca
 
 const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "none"];
 
-const computeSchema = memoizeOne((version: string, icon?: string): HaFormSchema[] => [
+const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: ALARM_CONTROl_PANEL_ENTITY_DOMAINS } } },
     {
         type: "grid",
@@ -26,7 +26,7 @@ const computeSchema = memoizeOne((version: string, icon?: string): HaFormSchema[
         ],
     },
     { name: "icon", selector: { icon: { placeholder: icon } } },
-    ...computeActionsFormSchema(version, actions),
+    ...computeActionsFormSchema(actions),
 ]);
 
 @customElement(computeChipEditorComponentName("alarm-control-panel"))
@@ -56,7 +56,7 @@ export class AlarmControlPanelChipEditor extends LitElement implements LovelaceC
         const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
         const entityIcon = entityState ? stateIcon(entityState) : undefined;
         const icon = this._config.icon || entityIcon;
-        const schema = computeSchema(this.hass.connection.haVersion, icon);
+        const schema = computeSchema(icon);
 
         return html`
             <ha-form

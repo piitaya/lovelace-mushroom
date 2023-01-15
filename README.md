@@ -82,6 +82,7 @@ Different cards are available for differents entities :
 -   🔒 [Lock card](docs/cards/lock.md)
 -   💧 [Humidifier card](docs/cards/humidifier.md)
 -   🌡 [Climate card](docs/cards/climate.md)
+-   📑 [Select card](docs/cards/select.md)
 
 ### Theme customization
 
@@ -151,7 +152,7 @@ The design is inspired by [7ahang’s work][7ahang] on Behance and [Ui Lovelace 
 [hacs-badge]: https://img.shields.io/badge/hacs-default-orange.svg?style=flat-square
 [release-badge]: https://img.shields.io/github/v/release/piitaya/lovelace-mushroom?style=flat-square
 [downloads-badge]: https://img.shields.io/github/downloads/piitaya/lovelace-mushroom/total?style=flat-square
-[build-badge]: https://img.shields.io/github/workflow/status/piitaya/lovelace-mushroom/Build?style=flat-square
+[build-badge]: https://img.shields.io/github/actions/workflow/status/piitaya/lovelace-mushroom/build.yml?branch=main&style=flat-square
 
 <!-- References -->
 

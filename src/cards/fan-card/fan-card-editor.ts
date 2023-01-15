@@ -16,7 +16,7 @@ import { FanCardConfig, fanCardConfigStruct } from "./fan-card-config";
 
 const FAN_LABELS = ["icon_animation", "show_percentage_control", "show_oscillate_control"];
 
-const computeSchema = memoizeOne((version: string, icon?: string): HaFormSchema[] => [
+const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: FAN_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
     {
@@ -37,7 +37,7 @@ const computeSchema = memoizeOne((version: string, icon?: string): HaFormSchema[
             { name: "collapsible_controls", selector: { boolean: {} } },
         ],
     },
-    ...computeActionsFormSchema(version),
+    ...computeActionsFormSchema(),
 ]);
 
 @customElement(FAN_CARD_EDITOR_NAME)
@@ -46,7 +46,7 @@ export class FanCardEditor extends MushroomBaseElement implements LovelaceCardEd
 
     connectedCallback() {
         super.connectedCallback();
-        void loadHaComponents(this.hass.connection.haVersion);
+        void loadHaComponents();
     }
 
     public setConfig(config: FanCardConfig): void {
@@ -74,7 +74,7 @@ export class FanCardEditor extends MushroomBaseElement implements LovelaceCardEd
         const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
         const entityIcon = entityState ? stateIcon(entityState) : undefined;
         const icon = this._config.icon || entityIcon;
-        const schema = computeSchema(this.hass.connection.haVersion, icon);
+        const schema = computeSchema(icon);
 
         return html`
             <ha-form

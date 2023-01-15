@@ -1,11 +1,12 @@
+import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
+import { styleMap } from "lit/directives/style-map.js";
 import {
     actionHandler,
     ActionHandlerEvent,
     computeRTL,
-    computeStateDisplay,
     handleAction,
     hasAction,
     HomeAssistant,
@@ -14,7 +15,6 @@ import {
     LovelaceCardEditor,
 } from "../../ha";
 import "../../shared/badge-icon";
-import "../../shared/button";
 import "../../shared/card";
 import "../../shared/shape-avatar";
 import "../../shared/shape-icon";
@@ -23,53 +23,46 @@ import "../../shared/state-item";
 import { computeAppearance } from "../../utils/appearance";
 import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
+import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { computeEntityPicture } from "../../utils/info";
-import {
-    HUMIDIFIER_CARD_EDITOR_NAME,
-    HUMIDIFIER_CARD_NAME,
-    HUMIDIFIER_ENTITY_DOMAINS,
-} from "./const";
-import "./controls/humidifier-humidity-control";
-import { HumidifierCardConfig } from "./humidifier-card-config";
+import { SELECT_CARD_EDITOR_NAME, SELECT_CARD_NAME, SELECT_ENTITY_DOMAINS } from "./const";
+import "./controls/select-option-control";
+import { SelectCardConfig } from "./select-card-config";
 
 registerCustomCard({
-    type: HUMIDIFIER_CARD_NAME,
-    name: "Mushroom Humidifier Card",
-    description: "Card for humidifier entity",
+    type: SELECT_CARD_NAME,
+    name: "Mushroom Select Card",
+    description: "Card for select and input_select entities",
 });
 
-@customElement(HUMIDIFIER_CARD_NAME)
-export class HumidifierCard extends MushroomBaseCard implements LovelaceCard {
+@customElement(SELECT_CARD_NAME)
+export class SelectCard extends MushroomBaseCard implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
-        await import("./humidifier-card-editor");
-        return document.createElement(HUMIDIFIER_CARD_EDITOR_NAME) as LovelaceCardEditor;
+        await import("./select-card-editor");
+        return document.createElement(SELECT_CARD_EDITOR_NAME) as LovelaceCardEditor;
     }
 
-    public static async getStubConfig(hass: HomeAssistant): Promise<HumidifierCardConfig> {
+    public static async getStubConfig(hass: HomeAssistant): Promise<SelectCardConfig> {
         const entities = Object.keys(hass.states);
-        const humidifiers = entities.filter((e) =>
-            HUMIDIFIER_ENTITY_DOMAINS.includes(e.split(".")[0])
-        );
+        const selects = entities.filter((e) => SELECT_ENTITY_DOMAINS.includes(e.split(".")[0]));
         return {
-            type: `custom:${HUMIDIFIER_CARD_NAME}`,
-            entity: humidifiers[0],
+            type: `custom:${SELECT_CARD_NAME}`,
+            entity: selects[0],
         };
     }
 
-    @state() private _config?: HumidifierCardConfig;
-
-    @state() private humidity?: number;
+    @state() private _config?: SelectCardConfig;
 
     getCardSize(): number | Promise<number> {
         return 1;
     }
 
-    setConfig(config: HumidifierCardConfig): void {
+    setConfig(config: SelectCardConfig): void {
         this._config = {
             tap_action: {
-                action: "toggle",
+                action: "more-info",
             },
             hold_action: {
                 action: "more-info",
@@ -82,40 +75,28 @@ export class HumidifierCard extends MushroomBaseCard implements LovelaceCard {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
-    private onCurrentHumidityChange(e: CustomEvent<{ value?: number }>): void {
-        if (e.detail.value != null) {
-            this.humidity = e.detail.value;
-        }
-    }
-
     protected render(): TemplateResult {
         if (!this._config || !this.hass || !this._config.entity) {
             return html``;
         }
 
-        const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id];
+        const entityId = this._config.entity;
+        const entity = this.hass.states[entityId];
 
         const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
         const appearance = computeAppearance(this._config);
+
         const picture = computeEntityPicture(entity, appearance.icon_type);
 
-        let stateDisplay = computeStateDisplay(
-            this.hass.localize,
-            entity,
-            this.hass.locale,
-            this.hass.entities
-        );
-        if (this.humidity) {
-            stateDisplay = `${this.humidity} %`;
-        }
-
         const rtl = computeRTL(this.hass);
+        const iconColor = this._config?.icon_color;
 
-        const displayControls =
-            (!this._config.collapsible_controls || isActive(entity)) &&
-            this._config.show_target_humidity_control;
+        const selectStyle = {};
+        if (iconColor) {
+            const iconRgbColor = computeRgbColor(iconColor);
+            selectStyle["--mdc-theme-primary"] = `rgb(${iconRgbColor})`;
+        }
 
         return html`
             <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
@@ -131,21 +112,36 @@ export class HumidifierCard extends MushroomBaseCard implements LovelaceCard {
                     >
                         ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
                         ${this.renderBadge(entity)}
-                        ${this.renderStateInfo(entity, appearance, name, stateDisplay)};
+                        ${this.renderStateInfo(entity, appearance, name)};
                     </mushroom-state-item>
-                    ${displayControls
-                        ? html`
-                              <div class="actions" ?rtl=${rtl}>
-                                  <mushroom-humidifier-humidity-control
-                                      .hass=${this.hass}
-                                      .entity=${entity}
-                                      @current-change=${this.onCurrentHumidityChange}
-                                  ></mushroom-humidifier-humidity-control>
-                              </div>
-                          `
-                        : null}
+                    <div class="actions" ?rtl=${rtl}>
+                        <mushroom-select-option-control
+                            style=${styleMap(selectStyle)}
+                            .hass=${this.hass}
+                            .entity=${entity}
+                        ></mushroom-select-option-control>
+                    </div>
                 </mushroom-card>
             </ha-card>
+        `;
+    }
+
+    renderIcon(entity: HassEntity, icon: string): TemplateResult {
+        const active = isActive(entity);
+        const iconStyle = {};
+        const iconColor = this._config?.icon_color;
+        if (iconColor) {
+            const iconRgbColor = computeRgbColor(iconColor);
+            iconStyle["--icon-color"] = `rgb(${iconRgbColor})`;
+            iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
+        }
+        return html`
+            <mushroom-shape-icon
+                slot="icon"
+                .disabled=${!active}
+                .icon=${icon}
+                style=${styleMap(iconStyle)}
+            ></mushroom-shape-icon>
         `;
     }
 
@@ -154,15 +150,20 @@ export class HumidifierCard extends MushroomBaseCard implements LovelaceCard {
             super.styles,
             cardStyle,
             css`
+                .actions {
+                    overflow: visible;
+                    display: block;
+                }
                 mushroom-state-item {
                     cursor: pointer;
                 }
                 mushroom-shape-icon {
-                    --icon-color: rgb(var(--rgb-state-humidifier));
-                    --shape-color: rgba(var(--rgb-state-humidifier), 0.2);
+                    --icon-color: rgb(var(--rgb-state-entity));
+                    --shape-color: rgba(var(--rgb-state-entity), 0.2);
                 }
-                mushroom-humidifier-humidity-control {
+                mushroom-select-option-control {
                     flex: 1;
+                    --mdc-theme-primary: rgb(var(--rgb-state-entity));
                 }
             `,
         ];

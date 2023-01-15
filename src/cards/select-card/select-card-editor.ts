@@ -9,45 +9,40 @@ import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
+import { UiAction } from "../../utils/form/ha-selector";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { loadHaComponents } from "../../utils/loader";
-import { COVER_CARD_EDITOR_NAME, COVER_ENTITY_DOMAINS } from "./const";
-import { CoverCardConfig, coverCardConfigStruct } from "./cover-card-config";
+import { SELECT_CARD_EDITOR_NAME, SELECT_ENTITY_DOMAINS } from "./const";
+import { SelectCardConfig, selectCardConfigStruct } from "./select-card-config";
 
-const COVER_LABELS = [
-    "show_buttons_control",
-    "show_position_control",
-    "show_tilt_position_control",
-];
+const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "none"];
 
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
-    { name: "entity", selector: { entity: { domain: COVER_ENTITY_DOMAINS } } },
+    { name: "entity", selector: { entity: { domain: SELECT_ENTITY_DOMAINS} } },
     { name: "name", selector: { text: {} } },
-    { name: "icon", selector: { icon: { placeholder: icon } } },
-    ...APPEARANCE_FORM_SCHEMA,
     {
         type: "grid",
         name: "",
         schema: [
-            { name: "show_position_control", selector: { boolean: {} } },
-            { name: "show_tilt_position_control", selector: { boolean: {} } },
-            { name: "show_buttons_control", selector: { boolean: {} } },
+            { name: "icon", selector: { icon: { placeholder: icon } } },
+            { name: "icon_color", selector: { "mush-color": {} } },
         ],
     },
-    ...computeActionsFormSchema(),
+    ...APPEARANCE_FORM_SCHEMA,
+    ...computeActionsFormSchema(actions),
 ]);
 
-@customElement(COVER_CARD_EDITOR_NAME)
-export class CoverCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
-    @state() private _config?: CoverCardConfig;
+@customElement(SELECT_CARD_EDITOR_NAME)
+export class SelectCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
+    @state() private _config?: SelectCardConfig;
 
     connectedCallback() {
         super.connectedCallback();
         void loadHaComponents();
     }
 
-    public setConfig(config: CoverCardConfig): void {
-        assert(config, coverCardConfigStruct);
+    public setConfig(config: SelectCardConfig): void {
+        assert(config, selectCardConfigStruct);
         this._config = config;
     }
 
@@ -56,9 +51,6 @@ export class CoverCardEditor extends MushroomBaseElement implements LovelaceCard
 
         if (GENERIC_LABELS.includes(schema.name)) {
             return customLocalize(`editor.card.generic.${schema.name}`);
-        }
-        if (COVER_LABELS.includes(schema.name)) {
-            return customLocalize(`editor.card.cover.${schema.name}`);
         }
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
     };

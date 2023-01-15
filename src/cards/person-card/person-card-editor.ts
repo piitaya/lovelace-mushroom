@@ -17,12 +17,12 @@ import { PersonCardConfig, personCardConfigStruct } from "./person-card-config";
 
 const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "none"];
 
-const computeSchema = memoizeOne((version: string, icon?: string): HaFormSchema[] => [
+const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: PERSON_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
     { name: "icon", selector: { icon: { placeholder: icon } } },
     ...APPEARANCE_FORM_SCHEMA,
-    ...computeActionsFormSchema(version, actions),
+    ...computeActionsFormSchema(actions),
 ]);
 
 @customElement(PERSON_CARD_EDITOR_NAME)
@@ -31,7 +31,7 @@ export class SwitchCardEditor extends MushroomBaseElement implements LovelaceCar
 
     connectedCallback() {
         super.connectedCallback();
-        void loadHaComponents(this.hass.connection.haVersion);
+        void loadHaComponents();
     }
 
     public setConfig(config: PersonCardConfig): void {
@@ -56,7 +56,7 @@ export class SwitchCardEditor extends MushroomBaseElement implements LovelaceCar
         const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
         const entityIcon = entityState ? stateIcon(entityState) : undefined;
         const icon = this._config.icon || entityIcon;
-        const schema = computeSchema(this.hass.connection.haVersion, icon);
+        const schema = computeSchema(icon);
 
         return html`
             <ha-form

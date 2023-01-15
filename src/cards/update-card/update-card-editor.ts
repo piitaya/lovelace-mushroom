@@ -19,7 +19,7 @@ const UPDATE_LABELS = ["show_buttons_control"];
 
 const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "none"];
 
-const computeSchema = memoizeOne((version: string, icon?: string): HaFormSchema[] => [
+const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: UPDATE_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
     { name: "icon", selector: { icon: { placeholder: icon } } },
@@ -32,7 +32,7 @@ const computeSchema = memoizeOne((version: string, icon?: string): HaFormSchema[
             { name: "collapsible_controls", selector: { boolean: {} } },
         ],
     },
-    ...computeActionsFormSchema(version, actions),
+    ...computeActionsFormSchema(actions),
 ]);
 
 @customElement(UPDATE_CARD_EDITOR_NAME)
@@ -41,7 +41,7 @@ export class UpdateCardEditor extends MushroomBaseElement implements LovelaceCar
 
     connectedCallback() {
         super.connectedCallback();
-        void loadHaComponents(this.hass.connection.haVersion);
+        void loadHaComponents();
     }
 
     public setConfig(config: UpdateCardConfig): void {
@@ -69,7 +69,7 @@ export class UpdateCardEditor extends MushroomBaseElement implements LovelaceCar
         const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
         const entityIcon = entityState ? stateIcon(entityState) : undefined;
         const icon = this._config.icon || entityIcon;
-        const schema = computeSchema(this.hass.connection.haVersion, icon);
+        const schema = computeSchema(icon);
 
         return html`
             <ha-form

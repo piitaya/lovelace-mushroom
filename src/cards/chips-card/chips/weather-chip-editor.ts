@@ -16,7 +16,7 @@ const WEATHER_LABELS = ["show_conditions", "show_temperature"];
 
 const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "none"];
 
-const computeSchema = memoizeOne((version: string): HaFormSchema[] => [
+const computeSchema = memoizeOne((): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: WEATHER_ENTITY_DOMAINS } } },
     {
         type: "grid",
@@ -26,7 +26,7 @@ const computeSchema = memoizeOne((version: string): HaFormSchema[] => [
             { name: "show_temperature", selector: { boolean: {} } },
         ],
     },
-    ...computeActionsFormSchema(version, actions),
+    ...computeActionsFormSchema(actions),
 ]);
 
 @customElement(computeChipEditorComponentName("weather"))
@@ -56,7 +56,7 @@ export class WeatherChipEditor extends LitElement implements LovelaceChipEditor 
             return html``;
         }
 
-        const schema = computeSchema(this.hass.connection.haVersion);
+        const schema = computeSchema();
 
         return html`
             <ha-form
