@@ -24,7 +24,7 @@ registerCustomCard({
 });
 
 const TEMPLATE_KEYS = ["title", "subtitle"] as const;
-type TemplateKey = typeof TEMPLATE_KEYS[number];
+type TemplateKey = (typeof TEMPLATE_KEYS)[number];
 
 @customElement(TITLE_CARD_NAME)
 export class TitleCard extends MushroomBaseElement implements LovelaceCard {
