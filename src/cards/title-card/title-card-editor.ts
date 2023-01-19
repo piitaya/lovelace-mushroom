@@ -6,11 +6,13 @@ import { fireEvent, LovelaceCardEditor } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { HaFormSchema } from "../../utils/form/ha-form";
+import { UiAction } from "../../utils/form/ha-selector";
 import { loadHaComponents } from "../../utils/loader";
 import { TITLE_CARD_EDITOR_NAME } from "./const";
 import { TitleCardConfig, titleCardConfigStruct } from "./title-card-config";
 
-const TITLE_LABELS = ["title", "subtitle"];
+const actions: UiAction[] = ["navigate", "url", "none"];
+const TITLE_LABELS = ["title", "subtitle", "title_tap_action", "subtitle_tap_action"];
 
 const computeSchema = memoizeOne((): HaFormSchema[] => [
     {
@@ -22,6 +24,14 @@ const computeSchema = memoizeOne((): HaFormSchema[] => [
         selector: { template: {} },
     },
     { name: "alignment", selector: { "mush-alignment": {} } },
+    {
+        name: "title_tap_action",
+        selector: { "ui-action": { actions } },
+    },
+    {
+        name: "subtitle_tap_action",
+        selector: { "ui-action": { actions } },
+    },
 ]);
 
 @customElement(TITLE_CARD_EDITOR_NAME)
