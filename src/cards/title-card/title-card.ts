@@ -6,6 +6,7 @@ import { ifDefined } from "lit/directives/if-defined.js";
 import {
     actionHandler,
     ActionHandlerEvent,
+    computeRTL,
     handleAction,
     HomeAssistant,
     LovelaceCard,
@@ -124,8 +125,11 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
         const actionableSubtitle = Boolean(
             this._config.subtitle_tap_action && this._config.subtitle_tap_action.action !== "none"
         );
+
+        const rtl = computeRTL(this.hass);
+
         return html`
-            <div class="header ${alignment}">
+            <div class="header ${alignment}" ?rtl=${rtl}>
                 ${title
                     ? html`
                           <div
@@ -161,7 +165,8 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
     }
 
     private renderArrow() {
-        return html` <ha-icon icon="mdi:chevron-right"></ha-icon>`;
+        const rtl = computeRTL(this.hass);
+        return html` <ha-icon .icon=${rtl ? "mdi:chevron-left" : "mdi:chevron-right"}></ha-icon>`;
     }
 
     protected updated(changedProps: PropertyValues): void {
@@ -281,6 +286,13 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
                 }
                 .actionable:hover ha-icon {
                     transform: translateX(4px);
+                }
+                [rtl] .actionable ha-icon {
+                    margin-left: initial;
+                    margin-right: 4px;
+                }
+                [rtl] .actionable:hover ha-icon {
+                    transform: translateX(-4px);
                 }
                 .title {
                     color: var(--primary-text-color);
