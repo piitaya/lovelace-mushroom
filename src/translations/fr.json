@@ -84,7 +84,9 @@
             },
             "title": {
                 "title": "Titre",
-                "subtitle": "Sous-titre"
+                "subtitle": "Sous-titre",
+                "title_tap_action": "Appui sur le titre",
+                "subtitle_tap_action": "Appui sur le sous-titre"
             },
             "chips": {
                 "alignment": "Alignement"
