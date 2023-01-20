@@ -88,7 +88,9 @@
             },
             "title": {
                 "title": "Title",
-                "subtitle": "Subtitle"
+                "subtitle": "Subtitle",
+                "title_tap_action": "Title tap action",
+                "subtitle_tap_action": "Subtitle tap action"
             },
             "chips": {
                 "alignment": "Alignment"

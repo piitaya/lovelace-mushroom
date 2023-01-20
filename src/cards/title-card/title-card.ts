@@ -1,7 +1,13 @@
 import { UnsubscribeFunc } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
+import { classMap } from "lit/directives/class-map.js";
+import { ifDefined } from "lit/directives/if-defined.js";
 import {
+    actionHandler,
+    ActionHandlerEvent,
+    computeRTL,
+    handleAction,
     HomeAssistant,
     LovelaceCard,
     LovelaceCardEditor,
@@ -24,7 +30,7 @@ registerCustomCard({
 });
 
 const TEMPLATE_KEYS = ["title", "subtitle"] as const;
-type TemplateKey = typeof TEMPLATE_KEYS[number];
+type TemplateKey = (typeof TEMPLATE_KEYS)[number];
 
 @customElement(TITLE_CARD_NAME)
 export class TitleCard extends MushroomBaseElement implements LovelaceCard {
@@ -58,7 +64,15 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
                 this._tryDisconnectKey(key);
             }
         });
-        this._config = config;
+        this._config = {
+            title_tap_action: {
+                action: "none",
+            },
+            subtitle_tap_action: {
+                action: "none",
+            },
+            ...config,
+        };
     }
 
     public connectedCallback() {
@@ -79,6 +93,20 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
         return this.isTemplate(key) ? this._templateResults[key]?.result : this._config?.[key];
     }
 
+    private _handleTitleAction(ev: ActionHandlerEvent) {
+        const config = {
+            tap_action: this._config!.title_tap_action,
+        };
+        handleAction(this, this.hass!, config, ev.detail.action!);
+    }
+
+    private _handleSubtitleAction(ev: ActionHandlerEvent) {
+        const config = {
+            tap_action: this._config!.subtitle_tap_action,
+        };
+        handleAction(this, this.hass!, config, ev.detail.action!);
+    }
+
     protected render(): TemplateResult {
         if (!this._config || !this.hass) {
             return html``;
@@ -91,12 +119,54 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
             alignment = `align-${this._config.alignment}`;
         }
 
+        const actionableTitle = Boolean(
+            this._config.title_tap_action && this._config.title_tap_action.action !== "none"
+        );
+        const actionableSubtitle = Boolean(
+            this._config.subtitle_tap_action && this._config.subtitle_tap_action.action !== "none"
+        );
+
+        const rtl = computeRTL(this.hass);
+
         return html`
-            <div class="header ${alignment}">
-                ${title ? html`<h1 class="title">${title}</h1>` : null}
-                ${subtitle ? html`<h2 class="subtitle">${subtitle}</h2>` : null}
+            <div class="header ${alignment}" ?rtl=${rtl}>
+                ${title
+                    ? html`
+                          <div
+                              role=${ifDefined(actionableTitle ? "button" : undefined)}
+                              tabindex=${ifDefined(actionableTitle ? "0" : undefined)}
+                              class=${classMap({
+                                  actionable: actionableTitle,
+                              })}
+                              @action=${this._handleTitleAction}
+                              .actionHandler=${actionHandler()}
+                          >
+                              <h1 class="title">${title}${this.renderArrow()}</h1>
+                          </div>
+                      `
+                    : null}
+                ${subtitle
+                    ? html`
+                          <div
+                              role=${ifDefined(actionableSubtitle ? "button" : undefined)}
+                              tabindex=${ifDefined(actionableSubtitle ? "0" : undefined)}
+                              class=${classMap({
+                                  actionable: actionableSubtitle,
+                              })}
+                              @action=${this._handleSubtitleAction}
+                              .actionHandler=${actionHandler()}
+                          >
+                              <h2 class="subtitle">${subtitle}${this.renderArrow()}</h2>
+                          </div>
+                      `
+                    : null}
             </div>
         `;
+    }
+
+    private renderArrow() {
+        const rtl = computeRTL(this.hass);
+        return html` <ha-icon .icon=${rtl ? "mdi:chevron-left" : "mdi:chevron-right"}></ha-icon>`;
     }
 
     protected updated(changedProps: PropertyValues): void {
@@ -196,24 +266,47 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
                     display: block;
                     padding: var(--title-padding);
                 }
-                .header * {
+                .header div * {
                     margin: 0;
                     white-space: pre-wrap;
                 }
-                .header *:not(:last-child) {
+                .header div:not(:last-child) {
                     margin-bottom: var(--title-spacing);
+                }
+                .actionable {
+                    cursor: pointer;
+                }
+                .header ha-icon {
+                    display: none;
+                }
+                .actionable ha-icon {
+                    display: inline-block;
+                    margin-left: 4px;
+                    transition: transform 180ms ease-in-out;
+                }
+                .actionable:hover ha-icon {
+                    transform: translateX(4px);
+                }
+                [rtl] .actionable ha-icon {
+                    margin-left: initial;
+                    margin-right: 4px;
+                }
+                [rtl] .actionable:hover ha-icon {
+                    transform: translateX(-4px);
                 }
                 .title {
                     color: var(--primary-text-color);
                     font-size: var(--title-font-size);
                     font-weight: var(--title-font-weight);
                     line-height: var(--title-line-height);
+                    --mdc-icon-size: var(--title-font-size);
                 }
                 .subtitle {
                     color: var(--secondary-text-color);
                     font-size: var(--subtitle-font-size);
                     font-weight: var(--subtitle-font-weight);
                     line-height: var(--subtitle-line-height);
+                    --mdc-icon-size: var(--subtitle-font-size);
                 }
                 .align-start {
                     text-align: start;
