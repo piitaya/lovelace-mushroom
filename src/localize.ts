@@ -12,6 +12,7 @@ import * as fr from "./translations/fr.json";
 import * as he from "./translations/he.json";
 import * as hu from "./translations/hu.json";
 import * as it from "./translations/it.json";
+import * as ko_KR from "./translations/ko-KR.json";
 import * as nb from "./translations/nb.json";
 import * as nl from "./translations/nl.json";
 import * as pl from "./translations/pl.json";
@@ -40,6 +41,7 @@ const languages: Record<string, unknown> = {
     he,
     hu,
     it,
+    "ko-KR": ko_KR,
     nb,
     nl,
     pl,
