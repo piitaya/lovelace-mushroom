@@ -67,7 +67,8 @@
             },
             "cover": {
                 "show_buttons_control": "Vezérlő gombok",
-                "show_position_control": "Pozíció vezérlő"
+                "show_position_control": "Pozíció vezérlő",
+                "show_tilt_position_control": "Dőlésszög szabályzó"
             },
             "alarm_control_panel": {
                 "show_keypad": "Billentyűzet mutatása"
@@ -84,7 +85,9 @@
             },
             "title": {
                 "title": "Fejléc",
-                "subtitle": "Alcím"
+                "subtitle": "Alcím",
+                "title_tap_action": "Fejlécre koppintáskor",
+                "subtitle_tap_action": "Alcímre koppintáskor"
             },
             "chips": {
                 "alignment": "Rendezés"
@@ -97,7 +100,10 @@
                 "show_buttons_control": "Vezérlő gombok"
             },
             "vacuum": {
-                "commands": "Utasítások"
+                "commands": "Utasítások",
+                "commands_list": {
+                    "on_off": "Ki/Bekapcsolás"
+                }
             },
             "media-player": {
                 "use_media_info": "Média infó használata",
