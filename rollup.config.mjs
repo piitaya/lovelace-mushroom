@@ -40,7 +40,6 @@ const plugins = [
     json(),
     commonjs(),
     babel({
-        exclude: "node_modules/**",
         babelHelpers: "bundled",
     }),
     ...(dev ? [serve(serveOptions)] : [terser()]),
