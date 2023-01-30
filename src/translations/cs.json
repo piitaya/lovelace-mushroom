@@ -37,7 +37,7 @@
                     "start": "Začátek",
                     "end": "Konec",
                     "center": "Na střed",
-                    "justify": "Důvod"
+                    "justify": "Do bloku"
                 }
             }
         },
@@ -58,7 +58,7 @@
                 "show_brightness_control": "Ovládání jasu?",
                 "use_light_color": "Použít ovládání světla",
                 "show_color_temp_control": "Ovládání teploty světla?",
-                "show_color_control": "Ovládání baryv světla?",
+                "show_color_control": "Ovládání barvy světla?",
                 "incompatible_controls": "Některé ovládací prvky se nemusí zobrazit, pokud vaše světlo tuto funkci nepodporuje."
             },
             "fan": {
@@ -91,7 +91,7 @@
             },
             "weather": {
                 "show_conditions": "Zobrazit podmínky?",
-                "show_temperature": "Zobrazit teplot?u"
+                "show_temperature": "Zobrazit teplotu?"
             },
             "update": {
                 "show_buttons_control": "Zobrazit ovládací tlačítka?"
