@@ -5,7 +5,7 @@
 
 ## Description
 
-A cover card allow you to control a cover entity.
+A cover card allows you to control a cover entity.
 
 ## Configuration variables
 
