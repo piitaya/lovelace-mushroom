@@ -5,7 +5,7 @@
 
 ## Description
 
-A vacuum card allow you to control a vacuum entity.
+A vacuum card allows you to control a vacuum entity.
 
 ## Configuration variables
 
