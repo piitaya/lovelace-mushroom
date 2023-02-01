@@ -5,7 +5,7 @@
 
 ## Description
 
-A lock card allow you to control a lock entity.
+A lock card allows you to control a lock entity.
 
 ## Configuration variables
 
