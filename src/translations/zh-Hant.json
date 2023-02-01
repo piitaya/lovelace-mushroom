@@ -85,7 +85,9 @@
             },
             "title": {
                 "title": "標題",
-                "subtitle": "副標題"
+                "subtitle": "副標題",
+                "title_tap_action": "標題點擊動作",
+                "subtitle_tap_action": "副標題點擊動作"
             },
             "chips": {
                 "alignment": "對齊"
