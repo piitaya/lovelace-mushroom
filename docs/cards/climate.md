@@ -5,7 +5,7 @@
 
 ## Description
 
-A climate card allow you to control a climate entity.
+A climate card allows you to control a climate entity.
 
 ## Configuration variables
 
