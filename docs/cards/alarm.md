@@ -5,7 +5,7 @@
 
 ## Description
 
-A alarm control panel card allow you to control a alarm panel entity.
+An alarm control panel card allows you to control a alarm panel entity.
 
 ## Configuration variables
 

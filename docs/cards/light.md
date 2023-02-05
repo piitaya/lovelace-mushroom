@@ -5,7 +5,7 @@
 
 ## Description
 
-A light card allow you to control a light entity.
+A light card allows you to control a light entity.
 
 ## Configuration variables
 

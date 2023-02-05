@@ -5,7 +5,7 @@
 
 ## Description
 
-A fan card allow you to control a fan entity.
+A fan card allows you to control a fan entity.
 
 ## Configuration variables
 

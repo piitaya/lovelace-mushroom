@@ -21,7 +21,7 @@ import { LovelaceChip, TemplateChipConfig } from "../../../utils/lovelace/chip/t
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 
 const TEMPLATE_KEYS = ["content", "icon", "icon_color", "picture"] as const;
-type TemplateKey = typeof TEMPLATE_KEYS[number];
+type TemplateKey = (typeof TEMPLATE_KEYS)[number];
 
 @customElement(computeChipComponentName("template"))
 export class TemplateChip extends LitElement implements LovelaceChip {

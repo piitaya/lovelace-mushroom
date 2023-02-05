@@ -41,7 +41,7 @@ const TEMPLATE_KEYS = [
     "secondary",
     "picture",
 ] as const;
-type TemplateKey = typeof TEMPLATE_KEYS[number];
+type TemplateKey = (typeof TEMPLATE_KEYS)[number];
 
 @customElement(TEMPLATE_CARD_NAME)
 export class TemplateCard extends MushroomBaseElement implements LovelaceCard {

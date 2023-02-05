@@ -5,7 +5,7 @@
 
 ## Description
 
-A entity card allow you to display an entity.
+A entity card allows you to display an entity.
 
 ## Configuration variables
 

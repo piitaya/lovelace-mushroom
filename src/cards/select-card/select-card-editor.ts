@@ -18,7 +18,7 @@ import { SelectCardConfig, selectCardConfigStruct } from "./select-card-config";
 const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "none"];
 
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
-    { name: "entity", selector: { entity: { domain: SELECT_ENTITY_DOMAINS} } },
+    { name: "entity", selector: { entity: { domain: SELECT_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
     {
         type: "grid",

@@ -5,7 +5,7 @@
 
 ## Description
 
-A select card allow you to control select and input_select entities.
+A select card allows you to control select and input_select entities.
 
 ## Configuration variables
 

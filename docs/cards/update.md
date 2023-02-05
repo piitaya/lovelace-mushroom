@@ -5,7 +5,7 @@
 
 ## Description
 
-A update card allow you to control a update entity.
+An update card allows you to control an update entity.
 
 ## Configuration variables
 
