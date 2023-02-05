@@ -23,6 +23,7 @@ export const MEDIA_LABELS = [
     "use_media_info",
     "use_media_artwork",
     "show_volume_level",
+    "show_source_controls",
     "media_controls",
     "volume_controls",
 ];
@@ -38,6 +39,7 @@ const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaForm
         schema: [
             { name: "use_media_info", selector: { boolean: {} } },
             { name: "show_volume_level", selector: { boolean: {} } },
+            { name: "show_source_controls", selector: { boolean: {} } },
         ],
     },
     {

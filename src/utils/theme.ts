@@ -142,4 +142,10 @@ export const themeColorCss = css`
     --rgb-state-climate-heat-cool: var(--mush-rgb-state-climate-heat-cool, var(--rgb-green));
     --rgb-state-climate-idle: var(--mush-rgb-state-climate-idle, var(--rgb-disabled));
     --rgb-state-climate-off: var(--mush-rgb-state-climate-off, var(--rgb-disabled));
+    
+    /* Media sources */
+    --rgb-media-source-spotify: 30, 215, 96, 0.6;
+	--rgb-media-source-bluetooth: 0, 130, 252, 0.6;
+	--rgb-media-source-netflix: 229, 9, 20, 0.6;
+	--rgb-media-source-youtube: 255, 0, 0, 0.6;
 `;

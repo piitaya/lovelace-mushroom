@@ -59,7 +59,11 @@ cards:
     square: false
   - type: vertical-stack
     title: Controls
-    cards:    
+    cards:
+      - type: custom:mushroom-media-player-card
+        entity: media_player.lounge_room
+        name: Source controls
+        show_source_controls: true
       - type: custom:mushroom-media-player-card
         entity: media_player.kitchen
         name: Volume controls

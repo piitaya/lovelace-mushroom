@@ -12,7 +12,7 @@ A media player card allows you to control a media player entity.
 All the options are available in the lovelace editor but you can use `yaml` if you want.
 
 | Name                   | Type                                                | Default     | Description                                                                            |
-| :--------------------- | :-------------------------------------------------- | :---------- | :------------------------------------------------------------------------------------- |
+|:-----------------------| :-------------------------------------------------- |:------------|:---------------------------------------------------------------------------------------|
 | `entity`               | string                                              | Required    | Media Player entity                                                                    |
 | `icon`                 | string                                              | Optional    | Custom icon                                                                            |
 | `name`                 | string                                              | Optional    | Custom name                                                                            |
@@ -21,8 +21,9 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `primary_info`         | `name` `state` `last-changed` `last-updated` `none` | `name`      | Info to show as primary info                                                           |
 | `secondary_info`       | `name` `state` `last-changed` `last-updated` `none` | `state`     | Info to show as secondary info                                                         |
 | `icon_type`            | `icon` `entity-picture` `none`                      | `icon`      | Type of icon to display                                                                |
-| `use_media_info`       | boolean                                             | `false`        | Use media info instead of name, state and icon when a media is playing                 |
-| `show_volume_level`    | boolean                                             | `false`        | Show volume level next to media state when media is playing                            |
+| `use_media_info`       | boolean                                             | `false`     | Use media info instead of name, state and icon when a media is playing                 |
+| `show_volume_level`    | boolean                                             | `false`     | Show volume level next to media state when media is playing                            |
+| `show_source_controls` | boolean                                             | `false`     | Show available media sources                                                           |
 | `media_controls`       | list                                                | `[]`        | List of controls to display (on_off, shuffle, previous, play_pause_stop, next, repeat) |
 | `volume_controls`      | list                                                | `[]`        | List of controls to display (volume_mute, volume_set, volume_buttons)                  |
 | `collapsible_controls` | boolean                                             | `false`     | Collapse controls when off                                                             |
