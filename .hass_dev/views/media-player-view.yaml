@@ -37,6 +37,7 @@ cards:
       - type: custom:mushroom-media-player-card
         entity: media_player.living_room
         icon_type: entity-picture
+        artwork: cover
     columns: 2
     square: false
   - type: grid
@@ -91,6 +92,7 @@ cards:
           - volume_mute
           - volume_set
           - volume_buttons
+        artwork: cover
       - type: custom:mushroom-media-player-card
         entity: media_player.kitchen
         name: Collapsible controls
@@ -102,6 +104,18 @@ cards:
           - repeat
           - on_off
         collapsible_controls: true
+        artwork: cover
+      - type: custom:mushroom-media-player-card
+        entity: media_player.living_room
+        media_controls:
+          - shuffle
+          - previous
+          - play_pause_stop
+          - next
+          - repeat
+          - on_off
+        collapsible_controls: true
+        artwork: full_cover
   - type: vertical-stack
     title: Layout
     cards:

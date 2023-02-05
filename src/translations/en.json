@@ -1,168 +1,174 @@
 {
-    "editor": {
-        "form": {
-            "color_picker": {
-                "values": {
-                    "default": "Default color"
-                }
-            },
-            "info_picker": {
-                "values": {
-                    "default": "Default information",
-                    "name": "Name",
-                    "state": "State",
-                    "last-changed": "Last Changed",
-                    "last-updated": "Last Updated",
-                    "none": "None"
-                }
-            },
-            "icon_type_picker": {
-                "values": {
-                    "default": "Default type",
-                    "icon": "Icon",
-                    "entity-picture": "Entity picture",
-                    "none": "None"
-                }
-            },
-            "layout_picker": {
-                "values": {
-                    "default": "Default layout",
-                    "vertical": "Vertical layout",
-                    "horizontal": "Horizontal layout"
-                }
-            },
-            "alignment_picker": {
-                "values": {
-                    "default": "Default alignment",
-                    "start": "Start",
-                    "end": "End",
-                    "center": "Center",
-                    "justify": "Justify"
-                }
-            }
-        },
-        "card": {
-            "generic": {
-                "icon_color": "Icon color",
-                "layout": "Layout",
-                "fill_container": "Fill container",
-                "primary_info": "Primary information",
-                "secondary_info": "Secondary information",
-                "icon_type": "Icon type",
-                "content_info": "Content",
-                "use_entity_picture": "Use entity picture?",
-                "collapsible_controls": "Collapse controls when off",
-                "icon_animation": "Animate icon when active?"
-            },
-            "light": {
-                "show_brightness_control": "Brightness control?",
-                "use_light_color": "Use light color",
-                "show_color_temp_control": "Temperature color control?",
-                "show_color_control": "Color control?",
-                "incompatible_controls": "Some controls may not be displayed if your light does not support the feature."
-            },
-            "fan": {
-                "show_percentage_control": "Percentage control?",
-                "show_oscillate_control": "Oscillate control?"
-            },
-            "cover": {
-                "show_buttons_control": "Control buttons?",
-                "show_position_control": "Position control?",
-                "show_tilt_position_control": "Tilt control?"
-            },
-            "alarm_control_panel": {
-                "show_keypad": "Show keypad"
-            },
-            "template": {
-                "primary": "Primary information",
-                "secondary": "Secondary information",
-                "multiline_secondary": "Multiline secondary?",
-                "entity_extra": "Used in templates and actions",
-                "content": "Content",
-                "badge_icon": "Badge icon",
-                "badge_color": "Badge color",
-                "picture": "Picture (will replace the icon)"
-            },
-            "title": {
-                "title": "Title",
-                "subtitle": "Subtitle",
-                "title_tap_action": "Title tap action",
-                "subtitle_tap_action": "Subtitle tap action"
-            },
-            "chips": {
-                "alignment": "Alignment"
-            },
-            "weather": {
-                "show_conditions": "Conditions?",
-                "show_temperature": "Temperature?"
-            },
-            "update": {
-                "show_buttons_control": "Control buttons?"
-            },
-            "vacuum": {
-                "commands": "Commands",
-                "commands_list": {
-                    "on_off": "Turn on/off"
-                }
-            },
-            "media-player": {
-                "use_media_info": "Use media info",
-                "use_media_artwork": "Use media artwork",
-                "show_volume_level": "Show volume level",
-                "media_controls": "Media controls",
-                "media_controls_list": {
-                    "on_off": "Turn on/off",
-                    "shuffle": "Shuffle",
-                    "previous": "Previous track",
-                    "play_pause_stop": "Play/pause/stop",
-                    "next": "Next track",
-                    "repeat": "Repeat mode"
-                },
-                "volume_controls": "Volume controls",
-                "volume_controls_list": {
-                    "volume_buttons": "Volume buttons",
-                    "volume_set": "Volume level",
-                    "volume_mute": "Mute"
-                }
-            },
-            "lock": {
-                "lock": "Lock",
-                "unlock": "Unlock",
-                "open": "Open"
-            },
-            "humidifier": {
-                "show_target_humidity_control": "Humidity control?"
-            },
-            "climate": {
-                "show_temperature_control": "Temperature control?",
-                "hvac_modes": "HVAC Modes"
-            }
-        },
-        "chip": {
-            "sub_element_editor": {
-                "title": "Chip editor"
-            },
-            "conditional": {
-                "chip": "Chip"
-            },
-            "chip-picker": {
-                "chips": "Chips",
-                "add": "Add chip",
-                "edit": "Edit",
-                "clear": "Clear",
-                "select": "Select chip",
-                "types": {
-                    "action": "Action",
-                    "alarm-control-panel": "Alarm",
-                    "back": "Back",
-                    "conditional": "Conditional",
-                    "entity": "Entity",
-                    "light": "Light",
-                    "menu": "Menu",
-                    "template": "Template",
-                    "weather": "Weather"
-                }
-            }
+  "editor": {
+    "form": {
+      "color_picker": {
+        "values": {
+          "default": "Default color"
         }
+      },
+      "info_picker": {
+        "values": {
+          "default": "Default information",
+          "name": "Name",
+          "state": "State",
+          "last-changed": "Last Changed",
+          "last-updated": "Last Updated",
+          "none": "None"
+        }
+      },
+      "icon_type_picker": {
+        "values": {
+          "default": "Default type",
+          "icon": "Icon",
+          "entity-picture": "Entity picture",
+          "none": "None"
+        }
+      },
+      "layout_picker": {
+        "values": {
+          "default": "Default layout",
+          "vertical": "Vertical layout",
+          "horizontal": "Horizontal layout"
+        }
+      },
+      "alignment_picker": {
+        "values": {
+          "default": "Default alignment",
+          "start": "Start",
+          "end": "End",
+          "center": "Center",
+          "justify": "Justify"
+        }
+      }
+    },
+    "card": {
+      "generic": {
+        "icon_color": "Icon color",
+        "layout": "Layout",
+        "fill_container": "Fill container",
+        "primary_info": "Primary information",
+        "secondary_info": "Secondary information",
+        "icon_type": "Icon type",
+        "content_info": "Content",
+        "use_entity_picture": "Use entity picture?",
+        "collapsible_controls": "Collapse controls when off",
+        "icon_animation": "Animate icon when active?"
+      },
+      "light": {
+        "show_brightness_control": "Brightness control?",
+        "use_light_color": "Use light color",
+        "show_color_temp_control": "Temperature color control?",
+        "show_color_control": "Color control?",
+        "incompatible_controls": "Some controls may not be displayed if your light does not support the feature."
+      },
+      "fan": {
+        "show_percentage_control": "Percentage control?",
+        "show_oscillate_control": "Oscillate control?"
+      },
+      "cover": {
+        "show_buttons_control": "Control buttons?",
+        "show_position_control": "Position control?",
+        "show_tilt_position_control": "Tilt control?"
+      },
+      "alarm_control_panel": {
+        "show_keypad": "Show keypad"
+      },
+      "template": {
+        "primary": "Primary information",
+        "secondary": "Secondary information",
+        "multiline_secondary": "Multiline secondary?",
+        "entity_extra": "Used in templates and actions",
+        "content": "Content",
+        "badge_icon": "Badge icon",
+        "badge_color": "Badge color",
+        "picture": "Picture (will replace the icon)"
+      },
+      "title": {
+        "title": "Title",
+        "subtitle": "Subtitle",
+        "title_tap_action": "Title tap action",
+        "subtitle_tap_action": "Subtitle tap action"
+      },
+      "chips": {
+        "alignment": "Alignment"
+      },
+      "weather": {
+        "show_conditions": "Conditions?",
+        "show_temperature": "Temperature?"
+      },
+      "update": {
+        "show_buttons_control": "Control buttons?"
+      },
+      "vacuum": {
+        "commands": "Commands",
+        "commands_list": {
+          "on_off": "Turn on/off"
+        }
+      },
+      "media-player": {
+        "artwork": "Artwork",
+        "artwork_list": {
+          "cover": "Cover",
+          "full_cover": "Full cover",
+          "none": "None"
+        },
+        "use_media_info": "Use media info",
+        "use_media_artwork": "Use media artwork",
+        "show_volume_level": "Show volume level",
+        "media_controls": "Media controls",
+        "media_controls_list": {
+          "on_off": "Turn on/off",
+          "shuffle": "Shuffle",
+          "previous": "Previous track",
+          "play_pause_stop": "Play/pause/stop",
+          "next": "Next track",
+          "repeat": "Repeat mode"
+        },
+        "volume_controls": "Volume controls",
+        "volume_controls_list": {
+          "volume_buttons": "Volume buttons",
+          "volume_set": "Volume level",
+          "volume_mute": "Mute"
+        }
+      },
+      "lock": {
+        "lock": "Lock",
+        "unlock": "Unlock",
+        "open": "Open"
+      },
+      "humidifier": {
+        "show_target_humidity_control": "Humidity control?"
+      },
+      "climate": {
+        "show_temperature_control": "Temperature control?",
+        "hvac_modes": "HVAC Modes"
+      }
+    },
+    "chip": {
+      "sub_element_editor": {
+        "title": "Chip editor"
+      },
+      "conditional": {
+        "chip": "Chip"
+      },
+      "chip-picker": {
+        "chips": "Chips",
+        "add": "Add chip",
+        "edit": "Edit",
+        "clear": "Clear",
+        "select": "Select chip",
+        "types": {
+          "action": "Action",
+          "alarm-control-panel": "Alarm",
+          "back": "Back",
+          "conditional": "Conditional",
+          "entity": "Entity",
+          "light": "Light",
+          "menu": "Menu",
+          "template": "Template",
+          "weather": "Weather"
+        }
+      }
     }
+  }
 }

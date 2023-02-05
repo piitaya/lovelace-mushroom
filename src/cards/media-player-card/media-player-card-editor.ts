@@ -13,123 +13,139 @@ import { stateIcon } from "../../utils/icons/state-icon";
 import { loadHaComponents } from "../../utils/loader";
 import { MEDIA_PLAYER_CARD_EDITOR_NAME, MEDIA_PLAYER_ENTITY_DOMAINS } from "./const";
 import {
-    MediaPlayerCardConfig,
-    mediaPlayerCardConfigStruct,
-    MEDIA_LAYER_MEDIA_CONTROLS,
-    MEDIA_PLAYER_VOLUME_CONTROLS,
+	MediaPlayerCardConfig,
+	mediaPlayerCardConfigStruct,
+	MEDIA_LAYER_MEDIA_CONTROLS,
+	MEDIA_PLAYER_VOLUME_CONTROLS, MEDIA_PLAYER_ARTWORK_MODES,
 } from "./media-player-card-config";
 
 export const MEDIA_LABELS = [
-    "use_media_info",
-    "use_media_artwork",
-    "show_volume_level",
-    "media_controls",
-    "volume_controls",
+	"use_media_info",
+	"use_media_artwork",
+	"show_volume_level",
+	"media_controls",
+	"volume_controls",
+	"artwork",
 ];
 
 const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaFormSchema[] => [
-    { name: "entity", selector: { entity: { domain: MEDIA_PLAYER_ENTITY_DOMAINS } } },
-    { name: "name", selector: { text: {} } },
-    { name: "icon", selector: { icon: { placeholder: icon } } },
-    ...APPEARANCE_FORM_SCHEMA,
-    {
-        type: "grid",
-        name: "",
-        schema: [
-            { name: "use_media_info", selector: { boolean: {} } },
-            { name: "show_volume_level", selector: { boolean: {} } },
-        ],
-    },
-    {
-        type: "grid",
-        name: "",
-        schema: [
-            {
-                name: "volume_controls",
-                selector: {
-                    select: {
-                        options: MEDIA_PLAYER_VOLUME_CONTROLS.map((control) => ({
-                            value: control,
-                            label: localize(
-                                `editor.card.media-player.volume_controls_list.${control}`
-                            ),
-                        })),
-                        mode: "list",
-                        multiple: true,
-                    },
-                },
-            },
-            {
-                name: "media_controls",
-                selector: {
-                    select: {
-                        options: MEDIA_LAYER_MEDIA_CONTROLS.map((control) => ({
-                            value: control,
-                            label: localize(
-                                `editor.card.media-player.media_controls_list.${control}`
-                            ),
-                        })),
-                        mode: "list",
-                        multiple: true,
-                    },
-                },
-            },
-            { name: "collapsible_controls", selector: { boolean: {} } },
-        ],
-    },
-    ...computeActionsFormSchema(),
+	{ name: "entity", selector: { entity: { domain: MEDIA_PLAYER_ENTITY_DOMAINS } } },
+	{ name: "name", selector: { text: {} } },
+	{ name: "icon", selector: { icon: { placeholder: icon } } },
+	...APPEARANCE_FORM_SCHEMA,
+	{
+		type: "grid",
+		name: "",
+		schema: [
+			{ name: "use_media_info", selector: { boolean: {} } },
+			{ name: "show_volume_level", selector: { boolean: {} } },
+		],
+	},
+	{
+		type: "grid",
+		name: "",
+		schema: [
+			{
+				name: "volume_controls",
+				selector: {
+					select: {
+						options: MEDIA_PLAYER_VOLUME_CONTROLS.map((control) => ({
+							value: control,
+							label: localize(
+								`editor.card.media-player.volume_controls_list.${control}`
+							),
+						})),
+						mode: "list",
+						multiple: true,
+					},
+				},
+			},
+			{
+				name: "media_controls",
+				selector: {
+					select: {
+						options: MEDIA_LAYER_MEDIA_CONTROLS.map((control) => ({
+							value: control,
+							label: localize(
+								`editor.card.media-player.media_controls_list.${control}`
+							),
+						})),
+						mode: "list",
+						multiple: true,
+					},
+				},
+			},
+			{ name: "collapsible_controls", selector: { boolean: {} } },
+		],
+	},
+	{
+		name: "artwork",
+		selector: {
+			select: {
+				mode: "dropdown",
+				multiple: false,
+				options: MEDIA_PLAYER_ARTWORK_MODES.map((mode) => ({
+					value: mode,
+					label: localize(
+						`editor.card.media-player.artwork_list.${mode}`
+					),
+				})),
+			},
+		}
+	},
+	...computeActionsFormSchema(),
 ]);
 
 @customElement(MEDIA_PLAYER_CARD_EDITOR_NAME)
 export class MediaCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
-    @state() private _config?: MediaPlayerCardConfig;
+	@state() private _config?: MediaPlayerCardConfig;
 
-    connectedCallback() {
-        super.connectedCallback();
-        void loadHaComponents();
-    }
+	connectedCallback() {
+		super.connectedCallback();
+		void loadHaComponents();
+	}
 
-    public setConfig(config: MediaPlayerCardConfig): void {
-        assert(config, mediaPlayerCardConfigStruct);
-        this._config = config;
-    }
+	public setConfig(config: MediaPlayerCardConfig): void {
+		assert(config, mediaPlayerCardConfigStruct);
+		this._config = config;
+	}
 
-    private _computeLabel = (schema: HaFormSchema) => {
-        const customLocalize = setupCustomlocalize(this.hass!);
+	private _computeLabel = (schema: HaFormSchema) => {
+		const customLocalize = setupCustomlocalize(this.hass!);
 
-        if (GENERIC_LABELS.includes(schema.name)) {
-            return customLocalize(`editor.card.generic.${schema.name}`);
-        }
-        if (MEDIA_LABELS.includes(schema.name)) {
-            return customLocalize(`editor.card.media-player.${schema.name}`);
-        }
-        return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
-    };
+		if (GENERIC_LABELS.includes(schema.name)) {
+			return customLocalize(`editor.card.generic.${schema.name}`);
+		}
+		if (MEDIA_LABELS.includes(schema.name)) {
+			return customLocalize(`editor.card.media-player.${schema.name}`);
+		}
+		return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
+	};
 
-    protected render(): TemplateResult {
-        if (!this.hass || !this._config) {
-            return html``;
-        }
+	protected render(): TemplateResult {
+		if (!this.hass || !this._config) {
+			return html``;
+		}
 
-        const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
-        const entityIcon = entityState ? stateIcon(entityState) : undefined;
-        const icon = this._config.icon || entityIcon;
+		const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
+		const entityIcon = entityState ? stateIcon(entityState) : undefined;
+		const icon = this._config.icon || entityIcon;
 
-        const customLocalize = setupCustomlocalize(this.hass!);
-        const schema = computeSchema(customLocalize, icon);
+		const customLocalize = setupCustomlocalize(this.hass!);
+		const schema = computeSchema(customLocalize, icon);
 
-        return html`
+		return html`
             <ha-form
-                .hass=${this.hass}
-                .data=${this._config}
-                .schema=${schema}
-                .computeLabel=${this._computeLabel}
-                @value-changed=${this._valueChanged}
+                    .hass=${this.hass}
+                    .data=${this._config}
+                    .schema=${schema}
+                    .computeLabel=${this._computeLabel}
+                    @value-changed=${this._valueChanged}
             ></ha-form>
-        `;
-    }
+		`;
+	}
 
-    private _valueChanged(ev: CustomEvent): void {
-        fireEvent(this, "config-changed", { config: ev.detail.value });
-    }
+	private _valueChanged(ev: CustomEvent): void {
+		fireEvent(this, "config-changed", { config: ev.detail.value });
+	}
 }
