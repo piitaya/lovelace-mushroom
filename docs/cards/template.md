@@ -5,7 +5,7 @@
 
 ## Description
 
-A template card allow you to build custom card.
+A template card allows you to build a custom card. You can use `entity` as a variable for the entity set on the card e.g. `{{ states(entity) }}`.
 
 ## Configuration variables
 
