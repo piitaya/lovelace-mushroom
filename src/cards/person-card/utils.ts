@@ -9,8 +9,11 @@ export function getStateIcon(entity: HassEntity, zones: HassEntity[]) {
         return "mdi:home-export-outline";
     } else if (state === "home") {
         return "mdi:home";
+    }  else {
+        return "mdi:map-marker-radius";
     }
-
+ 
+    
     const zone = zones.find((z) => state === z.attributes.friendly_name);
     if (zone && zone.attributes.icon) {
         return zone.attributes.icon;
@@ -27,6 +30,8 @@ export function getStateColor(entity: HassEntity, zones: HassEntity[]) {
         return "var(--rgb-state-person-not-home)";
     } else if (state === "home") {
         return "var(--rgb-state-person-home)";
+    } else {
+        return "var(--rgb-state-person-not-home)";;
     }
     const isInZone = zones.some((z) => state === z.attributes.friendly_name);
     if (isInZone) {
