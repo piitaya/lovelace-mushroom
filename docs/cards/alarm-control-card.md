@@ -1,7 +1,7 @@
 # Alarm control panel card
 
-![Alarm light](../images/alarm-light.png)
-![Alarm dark](../images/alarm-dark.png)
+![Alarm control panel light](../images/alarm-control-panel-light.png)
+![Alarm control panel dark](../images/alarm-control-panel-dark.png)
 
 ## Description
 
