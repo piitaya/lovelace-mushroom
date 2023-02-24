@@ -1,13 +1,13 @@
 # 🍄 Mushroom (--Better-Sliders)
 
-[![hacs][hacs-badge]][hacs-url]
+<!-- [![hacs][hacs-badge]][hacs-url]
 [![release][release-badge]][release-url]
 ![downloads][downloads-badge]
 ![build][build-badge]
-
+ -->
 [original-repo]: https://github.com/piitaya/lovelace-mushroom
 
-![Overview](https://raw.githubusercontent.com/phischdev/lovelace-mushroom/master/.github/images/readme_image.png)
+![Overview](https://raw.githubusercontent.com/phischdev/lovelace-mushroom-better-sliders/master/.github/images/readme_image.png)
 
 ## What is mushroom-better-sliders?
 This is a fork of the fantastic [Mushrooms UI Cards][original-repo] by piitaya, a collection of cards for [Home Assistant][home-assistant] Dashboard UI.
@@ -25,17 +25,17 @@ It focuses on making the sliders more touch friendly.
 
 ### HACS
 
-Mushroom is available in [HACS][hacs] (Home Assistant Community Store).
+Mushroom Better Sliders is available in [HACS][hacs] (Home Assistant Community Store).
 
 1. Install HACS if you don't have it already
 2. Open HACS in Home Assistant
 3. Go to "Frontend" section
 4. Click button with "+" icon
-5. Search for "Mushroom"
+5. Search for "Mushroom Better Sliders"
 
 ### Manual
 
-1. Download `mushroom.js` file from the [latest-release].
+1. Download repository and build `mushroom.js`. Instructions are in the [original repo][original-repo].
 2. Put `mushroom.js` file into your `config/www` folder.
 3. Add reference to `mushroom.js` in Dashboard. There's two way to do that:
     - **Using UI:** _Settings_ → _Dashboards_ → _More Options icon_ → _Resources_ → _Add Resource_ → Set _Url_ as `/local/mushroom.js` → Set _Resource type_ as `JavaScript Module`.
