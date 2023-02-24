@@ -14,12 +14,12 @@ This is a fork of the fantastic [Mushrooms UI Cards][original-repo] by piitaya, 
 
 It focuses on making the sliders more touch friendly.
 
-1. Sliders move on half speed when dragged by a finger (easier to hit small values)
+1. Sliders move on reduced speed when dragged by a finger (easier to hit small values)
 2. Sliders can be dragged from any point on the slider (like in iOS Home)
-3. Sliders let you preview your changes (live feedback)
+3. Sliders apply live changes to your devices (except turning them off)
+2. Explicitly makes it easier to hit 1%
 
-
-
+The original lovelace-mushroom has to be disabled for it to work.
 
 ## Installation
 
@@ -46,15 +46,6 @@ Mushroom Better Sliders is available in [HACS][hacs] (Home Assistant Community S
             - url: /local/mushroom.js
               type: module
         ```
-
-
-### Build
-
-You can build the `mushroom.js` file in `dist` folder by running the build command.
-
-```sh
-npm run build
-```
 
 
 <!-- Badges -->
