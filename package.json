@@ -1,7 +1,7 @@
 {
-  "name": "mushroom-cards",
+  "name": "mushroom-cards-better-sliders",
   "version": "2.5.3",
-  "description": "",
+  "description": "Home Assistant Mushroom Cards - With better slider touch support",
   "main": "index.js",
   "scripts": {
     "start": "rollup -c --watch --bundleConfigAsCjs",
