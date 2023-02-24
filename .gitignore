@@ -11,6 +11,7 @@ node_modules
 !.hass_dev/www
 !.hass_dev/packages
 .hass_dev/www/community/*
+dist
 
 # Mac OS
 .DS_Store
