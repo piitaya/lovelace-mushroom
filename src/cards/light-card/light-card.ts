@@ -5,6 +5,7 @@ import { styleMap } from "lit/directives/style-map.js";
 import {
     actionHandler,
     ActionHandlerEvent,
+    blankBeforePercent,
     computeRTL,
     computeStateDisplay,
     handleAction,
@@ -25,6 +26,7 @@ import "../../shared/state-item";
 import { computeAppearance } from "../../utils/appearance";
 import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
+import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { computeEntityPicture, computeInfoDisplay } from "../../utils/info";
@@ -174,9 +176,14 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
         const appearance = computeAppearance(this._config);
         const picture = computeEntityPicture(entity, appearance.icon_type);
 
-        let stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
+        let stateDisplay = computeStateDisplay(
+            this.hass.localize,
+            entity,
+            this.hass.locale,
+            this.hass.entities
+        );
         if (this.brightness != null) {
-            stateDisplay = `${this.brightness}%`;
+            stateDisplay = `${this.brightness}${blankBeforePercent(this.hass.locale)}%`;
         }
 
         const rtl = computeRTL(this.hass);
@@ -213,6 +220,7 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
         const lightRgbColor = getRGBColor(entity);
         const active = isActive(entity);
         const iconStyle = {};
+        const iconColor = this._config?.icon_color;
         if (lightRgbColor && this._config?.use_light_color) {
             const color = lightRgbColor.join(",");
             iconStyle["--icon-color"] = `rgb(${color})`;
@@ -223,6 +231,10 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
                     iconStyle["--icon-color"] = `rgba(var(--rgb-primary-text-color), 0.2)`;
                 }
             }
+        } else if (iconColor) {
+            const iconRgbColor = computeRgbColor(iconColor);
+            iconStyle["--icon-color"] = `rgb(${iconRgbColor})`;
+            iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
         }
         return html`
             <mushroom-shape-icon
@@ -254,6 +266,7 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
             case "brightness_control":
                 const lightRgbColor = getRGBColor(entity);
                 const sliderStyle = {};
+                const iconColor = this._config?.icon_color;
                 if (lightRgbColor && this._config?.use_light_color) {
                     const color = lightRgbColor.join(",");
                     sliderStyle["--slider-color"] = `rgb(${color})`;
@@ -264,6 +277,10 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
                         ] = `rgba(var(--rgb-primary-text-color), 0.05)`;
                         sliderStyle["--slider-color"] = `rgba(var(--rgb-primary-text-color), 0.15)`;
                     }
+                } else if (iconColor) {
+                    const iconRgbColor = computeRgbColor(iconColor);
+                    sliderStyle["--slider-color"] = `rgb(${iconRgbColor})`;
+                    sliderStyle["--slider-bg-color"] = `rgba(${iconRgbColor}, 0.2)`;
                 }
                 return html`
                     <mushroom-light-brightness-control

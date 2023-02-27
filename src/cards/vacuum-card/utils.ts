@@ -33,7 +33,6 @@ export function isStopped(entity: HassEntity): boolean {
 export function isReturningHome(entity: HassEntity): boolean {
     switch (entity.state) {
         case STATE_RETURNING:
-        case STATE_OFF:
             return true;
         default:
             return false;

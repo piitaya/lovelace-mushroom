@@ -1,12 +1,14 @@
 import { HassEntity } from "home-assistant-js-websocket";
 
-export const binarySensorIcon = (state?: string, entity?: HassEntity) => {
+export const binarySensorIcon = (state?: string, stateObj?: HassEntity) => {
     const isOff = state === "off";
-    switch (entity?.attributes.device_class) {
+    switch (stateObj?.attributes.device_class) {
         case "battery":
             return isOff ? "mdi:battery" : "mdi:battery-outline";
         case "battery_charging":
             return isOff ? "mdi:battery" : "mdi:battery-charging";
+        case "carbon_monoxide":
+            return isOff ? "mdi:smoke-detector" : "mdi:smoke-detector-alert";
         case "cold":
             return isOff ? "mdi:thermometer" : "mdi:snowflake";
         case "connectivity":
@@ -23,11 +25,11 @@ export const binarySensorIcon = (state?: string, entity?: HassEntity) => {
         case "tamper":
             return isOff ? "mdi:check-circle" : "mdi:alert-circle";
         case "smoke":
-            return isOff ? "mdi:check-circle" : "mdi:smoke";
+            return isOff ? "mdi:smoke-detector-variant" : "mdi:smoke-detector-variant-alert";
         case "heat":
             return isOff ? "mdi:thermometer" : "mdi:fire";
         case "light":
-            return isOff ? "mdi:brightness5" : "mdi:brightness-7";
+            return isOff ? "mdi:brightness-5" : "mdi:brightness-7";
         case "lock":
             return isOff ? "mdi:lock" : "mdi:lock-open";
         case "moisture":

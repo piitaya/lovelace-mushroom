@@ -145,7 +145,12 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
         const appearance = computeAppearance(this._config);
         const picture = computeEntityPicture(entity, appearance.icon_type);
 
-        let stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
+        let stateDisplay = computeStateDisplay(
+            this.hass.localize,
+            entity,
+            this.hass.locale,
+            this.hass.entities
+        );
         if (entity.attributes.current_temperature !== null) {
             const temperature = formatNumber(
                 entity.attributes.current_temperature,
@@ -212,7 +217,7 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
 
     renderActionBadge(entity: ClimateEntity) {
         const hvac_action = entity.attributes.hvac_action;
-        if (!hvac_action || hvac_action == "off" || hvac_action === "idle") return null;
+        if (!hvac_action || hvac_action == "off") return null;
 
         const color = getHvacActionColor(hvac_action);
         const icon = getHvacActionIcon(hvac_action);
@@ -246,7 +251,8 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
     }
 
     private renderActiveControl(entity: ClimateEntity): TemplateResult | null {
-        const hvac_modes = this._config?.hvac_modes ?? [];
+        const hvac_modes = this._config!.hvac_modes ?? [];
+        const appearance = computeAppearance(this._config!);
 
         switch (this._activeControl) {
             case "temperature_control":
@@ -254,7 +260,7 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
                     <mushroom-climate-temperature-control
                         .hass=${this.hass}
                         .entity=${entity}
-                        .fill=${true}
+                        .fill=${appearance.layout !== "horizontal"}
                     ></mushroom-climate-temperature-control>
                 `;
             case "hvac_mode_control":
@@ -263,7 +269,7 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
                         .hass=${this.hass}
                         .entity=${entity}
                         .modes=${hvac_modes}
-                        .fill=${true}
+                        .fill=${appearance.layout !== "horizontal"}
                     ></mushroom-climate-hvac-modes-control>
                 `;
             default:

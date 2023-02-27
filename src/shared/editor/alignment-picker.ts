@@ -5,7 +5,7 @@ import setupCustomlocalize from "../../localize";
 import "./../form/mushroom-select";
 
 const ALIGNMENT = ["default", "start", "center", "end", "justify"] as const;
-type Alignment = typeof ALIGNMENT[number];
+type Alignment = (typeof ALIGNMENT)[number];
 
 const ICONS: Record<Alignment, string> = {
     default: "mdi:format-align-left",

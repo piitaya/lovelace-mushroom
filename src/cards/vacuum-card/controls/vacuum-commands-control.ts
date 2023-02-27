@@ -3,6 +3,7 @@ import { customElement, property } from "lit/decorators.js";
 import {
     computeRTL,
     HomeAssistant,
+    isActive,
     isAvailable,
     supportsFeature,
     VacuumEntity,
@@ -12,6 +13,8 @@ import {
     VACUUM_SUPPORT_RETURN_HOME,
     VACUUM_SUPPORT_START,
     VACUUM_SUPPORT_STOP,
+    VACUUM_SUPPORT_TURN_OFF,
+    VACUUM_SUPPORT_TURN_ON,
 } from "../../../ha";
 import { isCleaning, isReturningHome, isStopped } from "../utils";
 import { VacuumCommand } from "../vacuum-card-config";
@@ -27,6 +30,24 @@ export const isCommandsControlVisible = (entity: VacuumEntity, commands: VacuumC
     VACUUM_BUTTONS.some((item) => item.isVisible(entity, commands));
 
 export const VACUUM_BUTTONS: VacuumButton[] = [
+    {
+        icon: "mdi:power",
+        serviceName: "turn_on",
+        isVisible: (entity, commands) =>
+            supportsFeature(entity, VACUUM_SUPPORT_TURN_ON) &&
+            commands.includes("on_off") &&
+            !isActive(entity),
+        isDisabled: () => false,
+    },
+    {
+        icon: "mdi:power",
+        serviceName: "turn_off",
+        isVisible: (entity, commands) =>
+            supportsFeature(entity, VACUUM_SUPPORT_TURN_OFF) &&
+            commands.includes("on_off") &&
+            isActive(entity),
+        isDisabled: () => false,
+    },
     {
         icon: "mdi:play",
         serviceName: "start",

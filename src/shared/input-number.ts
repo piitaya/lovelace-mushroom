@@ -39,14 +39,14 @@ export class InputNumber extends LitElement {
 
     private _incrementValue(e: MouseEvent) {
         e.stopPropagation();
-        if (!this.value) return;
+        if (this.value == null) return;
         const value = round(this.value + (this.step ?? DEFAULT_STEP), 1);
         this._processNewValue(value);
     }
 
     private _decrementValue(e: MouseEvent) {
         e.stopPropagation();
-        if (!this.value) return;
+        if (this.value == null) return;
         const value = round(this.value - (this.step ?? DEFAULT_STEP), 1);
         this._processNewValue(value);
     }
@@ -93,7 +93,14 @@ export class InputNumber extends LitElement {
                 <button class="button" @click=${this._decrementValue} .disabled=${this.disabled}>
                     <ha-icon icon="mdi:minus"></ha-icon>
                 </button>
-                <span class=${classMap({ pending: this.pending })}>${value}</span>
+                <span
+                    class=${classMap({
+                        pending: this.pending,
+                        disabled: this.disabled,
+                    })}
+                >
+                    ${value}
+                </span>
                 <button class="button" @click=${this._incrementValue} .disabled=${this.disabled}>
                     <ha-icon icon="mdi:plus"></ha-icon>
                 </button>
@@ -106,6 +113,8 @@ export class InputNumber extends LitElement {
             :host {
                 --text-color: var(--primary-text-color);
                 --text-color-disabled: rgb(var(--rgb-disabled));
+                --icon-color: var(--primary-text-color);
+                --icon-color-disabled: rgb(var(--rgb-disabled));
                 --bg-color: rgba(var(--rgb-primary-text-color), 0.05);
                 --bg-color-disabled: rgba(var(--rgb-disabled), 0.2);
                 height: var(--control-height);
@@ -125,6 +134,7 @@ export class InputNumber extends LitElement {
                 border: none;
                 background-color: var(--bg-color);
                 transition: background-color 280ms ease-in-out;
+                height: var(--control-height);
             }
             .button {
                 display: flex;
@@ -137,6 +147,7 @@ export class InputNumber extends LitElement {
                 cursor: pointer;
                 border-radius: var(--control-border-radius);
                 line-height: 0;
+                height: 100%;
             }
             .button:disabled {
                 cursor: not-allowed;
@@ -144,10 +155,18 @@ export class InputNumber extends LitElement {
             .button ha-icon {
                 font-size: var(--control-height);
                 --mdc-icon-size: var(--control-icon-size);
+                color: var(--icon-color);
                 pointer-events: none;
+            }
+            .button:disabled ha-icon {
+                color: var(--icon-color-disabled);
             }
             span {
                 font-weight: bold;
+                color: var(--text-color);
+            }
+            span.disabled {
+                color: var(--text-color-disabled);
             }
             span.pending {
                 opacity: 0.5;

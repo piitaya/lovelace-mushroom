@@ -16,21 +16,38 @@ import { VacuumCardConfig, vacuumCardConfigStruct, VACUUM_COMMANDS } from "./vac
 
 const VACUUM_LABELS = ["commands"];
 
-const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaFormSchema[] => [
-    { name: "entity", selector: { entity: { domain: VACUUM_ENTITY_DOMAINS } } },
-    { name: "name", selector: { text: {} } },
-    { name: "icon", selector: { icon: { placeholder: icon } } },
-    ...APPEARANCE_FORM_SCHEMA,
-    {
-        type: "multi_select",
-        name: "commands",
-        options: VACUUM_COMMANDS.map((command) => [
-            command,
-            localize(`ui.dialogs.more_info_control.vacuum.${command}`),
-        ]) as [string, string][],
-    },
-    ...computeActionsFormSchema(),
-]);
+const computeSchema = memoizeOne(
+    (localize: LocalizeFunc, customLocalize: LocalizeFunc, icon?: string): HaFormSchema[] => [
+        { name: "entity", selector: { entity: { domain: VACUUM_ENTITY_DOMAINS } } },
+        { name: "name", selector: { text: {} } },
+        {
+            type: "grid",
+            name: "",
+            schema: [
+                { name: "icon", selector: { icon: { placeholder: icon } } },
+                { name: "icon_animation", selector: { boolean: {} } },
+            ],
+        },
+        ...APPEARANCE_FORM_SCHEMA,
+        {
+            name: "commands",
+            selector: {
+                select: {
+                    mode: "list",
+                    multiple: true,
+                    options: VACUUM_COMMANDS.map((command) => ({
+                        value: command,
+                        label:
+                            command === "on_off"
+                                ? customLocalize(`editor.card.vacuum.commands_list.${command}`)
+                                : localize(`ui.dialogs.more_info_control.vacuum.${command}`),
+                    })),
+                },
+            },
+        },
+        ...computeActionsFormSchema(),
+    ]
+);
 
 @customElement(VACUUM_CARD_EDITOR_NAME)
 export class VacuumCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
@@ -66,7 +83,8 @@ export class VacuumCardEditor extends MushroomBaseElement implements LovelaceCar
         const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
         const entityIcon = entityState ? stateIcon(entityState) : undefined;
         const icon = this._config.icon || entityIcon;
-        const schema = computeSchema(this.hass!.localize, icon);
+        const customLocalize = setupCustomlocalize(this.hass!);
+        const schema = computeSchema(this.hass!.localize, customLocalize, icon);
 
         return html`
             <ha-form

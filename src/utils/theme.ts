@@ -25,21 +25,18 @@ export const themeVariables = css`
     --chip-spacing: var(--mush-chip-spacing, 8px);
     --chip-padding: var(--mush-chip-padding, 0 0.25em);
     --chip-height: var(--mush-chip-height, 36px);
-    --chip-border-radius: var(--mush-chip-border-radius, 18px);
+    --chip-border-radius: var(--mush-chip-border-radius, 19px);
+    --chip-border-width: var(--mush-chip-border-width, var(--ha-card-border-width, 1px));
+    --chip-border-color: var(
+        --mush-chip-border-color,
+        var(--ha-card-border-color, var(--divider-color))
+    );
+    --chip-box-shadow: var(--mush-chip-box-shadow, var(--ha-card-box-shadow, "none"));
     --chip-font-size: var(--mush-chip-font-size, 0.3em);
     --chip-font-weight: var(--mush-chip-font-weight, bold);
     --chip-icon-size: var(--mush-chip-icon-size, 0.5em);
     --chip-avatar-padding: var(--mush-chip-avatar-padding, 0.1em);
     --chip-avatar-border-radius: var(--mush-chip-avatar-border-radius, 50%);
-    --chip-box-shadow: var(
-        --mush-chip-box-shadow,
-        var(
-            --ha-card-box-shadow,
-            0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-            0px 1px 1px 0px rgba(0, 0, 0, 0.14),
-            0px 1px 3px 0px rgba(0, 0, 0, 0.12)
-        )
-    );
     --chip-background: var(
         --mush-chip-background,
         var(--ha-card-background, var(--card-background-color, white))
@@ -109,6 +106,7 @@ export const themeColorCss = css`
     --rgb-state-entity: var(--mush-rgb-state-entity, var(--rgb-blue));
     --rgb-state-media-player: var(--mush-rgb-state-media-player, var(--rgb-indigo));
     --rgb-state-lock: var(--mush-rgb-state-lock, var(--rgb-blue));
+    --rgb-state-number: var(--mush-rgb-state-number, var(--rgb-blue));
     --rgb-state-humidifier: var(--mush-rgb-state-humidifier, var(--rgb-purple));
 
     /* State alarm colors */
@@ -140,9 +138,9 @@ export const themeColorCss = css`
     --rgb-state-climate-auto: var(--mush-rgb-state-climate-auto, var(--rgb-green));
     --rgb-state-climate-cool: var(--mush-rgb-state-climate-cool, var(--rgb-blue));
     --rgb-state-climate-dry: var(--mush-rgb-state-climate-dry, var(--rgb-orange));
-    --rgb-state-climate-fan-only: var(--mush-rgb-state-climate-fan-only, var(--rgb-blue-grey));
+    --rgb-state-climate-fan-only: var(--mush-rgb-state-climate-fan-only, var(--rgb-teal));
     --rgb-state-climate-heat: var(--mush-rgb-state-climate-heat, var(--rgb-deep-orange));
     --rgb-state-climate-heat-cool: var(--mush-rgb-state-climate-heat-cool, var(--rgb-green));
-    --rgb-state-climate-idle: var(--mush-rgb-state-climate-idle, var(--rgb-grey));
+    --rgb-state-climate-idle: var(--mush-rgb-state-climate-idle, var(--rgb-disabled));
     --rgb-state-climate-off: var(--mush-rgb-state-climate-off, var(--rgb-disabled));
 `;

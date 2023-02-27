@@ -41,7 +41,7 @@ const TEMPLATE_KEYS = [
     "secondary",
     "picture",
 ] as const;
-type TemplateKey = typeof TEMPLATE_KEYS[number];
+type TemplateKey = (typeof TEMPLATE_KEYS)[number];
 
 @customElement(TEMPLATE_CARD_NAME)
 export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
@@ -303,6 +303,10 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
             css`
                 mushroom-state-item {
                     cursor: pointer;
+                }
+                mushroom-shape-icon {
+                    --icon-color: rgb(var(--rgb-disabled));
+                    --shape-color: rgba(var(--rgb-disabled), 0.2);
                 }
             `,
         ];

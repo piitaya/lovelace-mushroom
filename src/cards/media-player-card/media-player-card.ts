@@ -4,6 +4,7 @@ import { classMap } from "lit/directives/class-map.js";
 import {
     actionHandler,
     ActionHandlerEvent,
+    blankBeforePercent,
     computeRTL,
     handleAction,
     hasAction,
@@ -174,7 +175,7 @@ export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
 
         const stateValue =
             this.volume != null && this._config.show_volume_level
-                ? `${stateDisplay} - ${this.volume}%`
+                ? `${stateDisplay} - ${this.volume}${blankBeforePercent(this.hass.locale)}%`
                 : stateDisplay;
 
         const rtl = computeRTL(this.hass);

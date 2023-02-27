@@ -5,7 +5,7 @@ import setupCustomlocalize from "../../localize";
 import "./../form/mushroom-select";
 
 const LAYOUTS = ["default", "horizontal", "vertical"] as const;
-type Layout = typeof LAYOUTS[number];
+type Layout = (typeof LAYOUTS)[number];
 
 const ICONS: Record<Layout, string> = {
     default: "mdi:card-text-outline",

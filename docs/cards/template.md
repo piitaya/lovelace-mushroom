@@ -5,16 +5,14 @@
 
 ## Description
 
-A template card allow you to build custom card.
+A template card allows you to build a custom card. You can use `entity` as a variable for the entity set on the card e.g. `{{ states(entity) }}`.
 
 ## Configuration variables
 
 All the options are available in the lovelace editor but you can use `yaml` if you want.
 
-
-
 | Name                  | Type            | Default     | Description                                                                                                                         |
-| :--                   | :--             | :--         | :--                                                                                                                                 |
+| :-------------------- | :-------------- | :---------- | :---------------------------------------------------------------------------------------------------------------------------------- |
 | `icon`                | string          | Optional    | Icon to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                              |
 | `icon_color`          | string          | Optional    | Icon color to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                        |
 | `primary`             | string          | Optional    | Primary info to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                      |
@@ -22,7 +20,6 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `badge_icon`          | string          | Optional    | Badge icon to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                        |
 | `badge_color`         | string          | Optional    | Badge icon color to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                  |
 | `picture`             | string          | Optional    | Picture to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                           |
-| `badge_color`         | string          | Optional    | Badge icon color to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                  |
 | `multiline_secondary` | boolean         | `false`     | Enables support for multiline text for the secondary info.                                                                          |
 | `layout`              | string          | Optional    | Layout of the card. Vertical, horizontal and default layout are supported                                                           |
 | `fill_container`      | boolean         | `false`     | Fill container or not. Useful when card is in a grid, vertical or horizontal layout                                                 |

@@ -14,4 +14,13 @@ cards:
         title: Title only
       - type: custom:mushroom-title-card
         subtitle: Subtitle only
-          
+      - type: custom:mushroom-title-card
+        title: Actionable title
+        title_tap_action:
+          action: navigate
+          navigation_path: /lovelace-mushroom-showcase
+      - type: custom:mushroom-title-card
+        subtitle: Actionable subtitle
+        subtitle_tap_action:
+          action: navigate
+          navigation_path: /lovelace-mushroom-showcase

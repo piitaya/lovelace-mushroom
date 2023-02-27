@@ -72,7 +72,12 @@ export class LightChip extends LitElement implements LovelaceChip {
         const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(entity);
 
-        const stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
+        const stateDisplay = computeStateDisplay(
+            this.hass.localize,
+            entity,
+            this.hass.locale,
+            this.hass.entities
+        );
 
         const active = isActive(entity);
 

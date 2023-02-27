@@ -121,7 +121,7 @@ export class UpdateCard extends MushroomBaseCard implements LovelaceCard {
                                       .hass=${this.hass}
                                       .entity=${entity}
                                       .fill=${appearance.layout !== "horizontal"}
-                                  />
+                                  ></mushroom-update-buttons-control>
                               </div>
                           `
                         : null}

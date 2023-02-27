@@ -17,7 +17,7 @@ export const MEDIA_LAYER_MEDIA_CONTROLS = [
     "repeat",
 ] as const;
 
-export type MediaPlayerMediaControl = typeof MEDIA_LAYER_MEDIA_CONTROLS[number];
+export type MediaPlayerMediaControl = (typeof MEDIA_LAYER_MEDIA_CONTROLS)[number];
 
 export const MEDIA_PLAYER_VOLUME_CONTROLS = [
     "volume_mute",
@@ -25,7 +25,7 @@ export const MEDIA_PLAYER_VOLUME_CONTROLS = [
     "volume_buttons",
 ] as const;
 
-export type MediaPlayerVolumeControl = typeof MEDIA_PLAYER_VOLUME_CONTROLS[number];
+export type MediaPlayerVolumeControl = (typeof MEDIA_PLAYER_VOLUME_CONTROLS)[number];
 
 export type MediaPlayerCardConfig = LovelaceCardConfig &
     EntitySharedConfig &

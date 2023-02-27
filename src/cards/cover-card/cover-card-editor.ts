@@ -14,7 +14,11 @@ import { loadHaComponents } from "../../utils/loader";
 import { COVER_CARD_EDITOR_NAME, COVER_ENTITY_DOMAINS } from "./const";
 import { CoverCardConfig, coverCardConfigStruct } from "./cover-card-config";
 
-const COVER_LABELS = ["show_buttons_control", "show_position_control"];
+const COVER_LABELS = [
+    "show_buttons_control",
+    "show_position_control",
+    "show_tilt_position_control",
+];
 
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: COVER_ENTITY_DOMAINS } } },
@@ -26,6 +30,7 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
         name: "",
         schema: [
             { name: "show_position_control", selector: { boolean: {} } },
+            { name: "show_tilt_position_control", selector: { boolean: {} } },
             { name: "show_buttons_control", selector: { boolean: {} } },
         ],
     },

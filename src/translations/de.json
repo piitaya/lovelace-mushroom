@@ -51,7 +51,8 @@
                 "icon_type": "Icon-Typ",
                 "content_info": "Inhalt",
                 "use_entity_picture": "Entitätsbild verwenden?",
-                "collapsible_controls": "Schieberegler einklappen, wenn aus"
+                "collapsible_controls": "Schieberegler einklappen, wenn aus",
+                "icon_animation": "Icon animieren, wenn aktiv?"
             },
             "light": {
                 "show_brightness_control": "Helligkeitsregelung?",
@@ -61,13 +62,13 @@
                 "incompatible_controls": "Einige Steuerelemente werden möglicherweise nicht angezeigt, wenn Ihr Licht diese Funktion nicht unterstützt."
             },
             "fan": {
-                "icon_animation": "Icon animieren, wenn aktiv?",
                 "show_percentage_control": "Prozentuale Kontrolle?",
                 "show_oscillate_control": "Oszillationssteuerung?"
             },
             "cover": {
                 "show_buttons_control": "Schaltflächensteuerung?",
-                "show_position_control": "Positionssteuerung?"
+                "show_position_control": "Positionssteuerung?",
+                "show_tilt_position_control": "Winkelsteuerung?"
             },
             "alarm_control_panel": {
                 "show_keypad": "Keypad anzeigen"
@@ -84,7 +85,9 @@
             },
             "title": {
                 "title": "Titel",
-                "subtitle": "Untertitel"
+                "subtitle": "Untertitel",
+                "title_tap_action": "Titel Tipp-Aktion",
+                "subtitle_tap_action": "Untertitel Tipp-Aktion"
             },
             "chips": {
                 "alignment": "Ausrichtung"
@@ -97,7 +100,10 @@
                 "show_buttons_control": "Schaltflächensteuerung?"
             },
             "vacuum": {
-                "commands": "Befehle"
+                "commands": "Befehle",
+                "commands_list": {
+                    "on_off": "An/Ausschalten"
+                }
             },
             "media-player": {
                 "use_media_info": "Medieninfos verwenden",

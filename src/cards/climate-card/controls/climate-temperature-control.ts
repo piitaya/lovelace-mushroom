@@ -1,5 +1,6 @@
 import { html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import { styleMap } from "lit/directives/style-map.js";
 import { ClimateEntity, computeRTL, HomeAssistant, isAvailable, UNIT_F } from "../../../ha";
 import "../../../shared/button";
 import "../../../shared/button-group";
@@ -65,6 +66,12 @@ export class ClimateTemperatureControl extends LitElement {
                       maximumFractionDigits: 1,
                   };
 
+        const modeStyle = (mode: "heat" | "cool") => ({
+            "--bg-color": `rgba(var(--rgb-state-climate-${mode}), 0.05)`,
+            "--icon-color": `rgb(var(--rgb-state-climate-${mode}))`,
+            "--text-color": `rgb(var(--rgb-state-climate-${mode}))`,
+        });
+
         return html`
             <mushroom-button-group .fill=${this.fill} ?rtl=${rtl}>
                 ${this.entity.attributes.temperature != null
@@ -85,6 +92,7 @@ export class ClimateTemperatureControl extends LitElement {
                 this.entity.attributes.target_temp_high != null
                     ? html`
                           <mushroom-input-number
+                              style=${styleMap(modeStyle("heat"))}
                               .locale=${this.hass.locale}
                               .value=${this.entity.attributes.target_temp_low}
                               .step=${this._stepSize}
@@ -95,6 +103,7 @@ export class ClimateTemperatureControl extends LitElement {
                               @change=${this.onLowValueChange}
                           ></mushroom-input-number
                           ><mushroom-input-number
+                              style=${styleMap(modeStyle("cool"))}
                               .locale=${this.hass.locale}
                               .value=${this.entity.attributes.target_temp_high}
                               .step=${this._stepSize}

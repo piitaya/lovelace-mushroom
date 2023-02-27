@@ -34,10 +34,11 @@ The goal of Mushroom is not to provide custom card for deep customization. You c
 
 Mushroom is available in [HACS][hacs] (Home Assistant Community Store).
 
-1. Open HACS
-2. Go to "Frontend" section
-3. Click button with "+" icon
-4. Search for "Mushroom"
+1. Install HACS if you don't have it already
+2. Open HACS in Home Assistant
+3. Go to "Frontend" section
+4. Click button with "+" icon
+5. Search for "Mushroom"
 
 ### Manual
 
@@ -66,7 +67,7 @@ All the Mushroom cards can be configured using Dashboard UI editor.
 
 Different cards are available for differents entities :
 
--   🚨 [Alarm card](docs/cards/alarm.md)
+-   🚨 [Alarm card](docs/cards/alarm-control-panel.md)
 -   🪟 [Cover card](docs/cards/cover.md)
 -   🪄 [Entity card](docs/cards/entity.md)
 -   💨 [Fan card](docs/cards/fan.md)
@@ -81,6 +82,7 @@ Different cards are available for differents entities :
 -   🔒 [Lock card](docs/cards/lock.md)
 -   💧 [Humidifier card](docs/cards/humidifier.md)
 -   🌡 [Climate card](docs/cards/climate.md)
+-   📑 [Select card](docs/cards/select.md)
 
 ### Theme customization
 
@@ -115,15 +117,7 @@ npm install
 npm start
 ```
 
-Server will start on port `5000`.
-
-### Home assistant configuration
-
-Once both Home Assistant and mushroom are running, you have to add a resource to Home Assistant UI:
-
--   Enable `Advanced Mode` in your profile page
--   Go to Dashboard Resources and add the ressource `http://localhost:5000/mushroom.js`:  
-    _Settings_ → _Dashboards_ → _More Options icon_ → _Resources_ → _Add Resource_ → Set _URL_ as `http://localhost:5000/mushroom.js` → Set _Resource type_ as `JavaScript Module`.
+Server will start on port `4000`.
 
 ### Build
 
@@ -150,7 +144,7 @@ The design is inspired by [7ahang’s work][7ahang] on Behance and [Ui Lovelace 
 [hacs-badge]: https://img.shields.io/badge/hacs-default-orange.svg?style=flat-square
 [release-badge]: https://img.shields.io/github/v/release/piitaya/lovelace-mushroom?style=flat-square
 [downloads-badge]: https://img.shields.io/github/downloads/piitaya/lovelace-mushroom/total?style=flat-square
-[build-badge]: https://img.shields.io/github/workflow/status/piitaya/lovelace-mushroom/Build?style=flat-square
+[build-badge]: https://img.shields.io/github/actions/workflow/status/piitaya/lovelace-mushroom/build.yml?branch=main&style=flat-square
 
 <!-- References -->
 
