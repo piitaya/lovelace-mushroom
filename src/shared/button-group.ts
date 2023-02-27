@@ -41,9 +41,14 @@ export class MushroomButtonGroup extends LitElement {
                 margin-right: initial;
                 margin-left: var(--spacing);
             }
-            .container.fill > ::slotted(*) {
-                flex: 1;
+            .container > ::slotted(*) {
                 width: 0;
+                flex-grow: 0;
+                flex-shrink: 1;
+                flex-basis: calc(var(--control-height) * var(--control-button-ratio));
+            }
+            .container.fill > ::slotted(*) {
+                flex-grow: 1;
             }
         `;
     }
