@@ -1,4 +1,4 @@
-import { assign, boolean, object, optional } from "superstruct";
+import { assign, object, optional, string } from "superstruct";
 import { LovelaceCardConfig } from "../../ha";
 import { ActionsSharedConfig, actionsSharedConfigStruct } from "../../shared/config/actions-config";
 import {
@@ -11,10 +11,14 @@ import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-conf
 export type NumberCardConfig = LovelaceCardConfig &
     EntitySharedConfig &
     AppearanceSharedConfig &
-    ActionsSharedConfig & {};
+    ActionsSharedConfig & {
+        icon_color?: string;
+    };
 
 export const NumberCardConfigStruct = assign(
     lovelaceCardConfigStruct,
     assign(entitySharedConfigStruct, appearanceSharedConfigStruct, actionsSharedConfigStruct),
-    object({})
+    object({
+        icon_color: optional(string()),
+    })
 );

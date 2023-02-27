@@ -1,6 +1,8 @@
+import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
+import { styleMap } from "lit/directives/style-map.js";
 import {
     actionHandler,
     ActionHandlerEvent,
@@ -26,6 +28,7 @@ import "../../shared/state-item";
 import { computeAppearance } from "../../utils/appearance";
 import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
+import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { computeEntityPicture } from "../../utils/info";
@@ -116,6 +119,14 @@ export class NumberCard extends MushroomBaseCard implements LovelaceCard {
 
         const rtl = computeRTL(this.hass);
 
+        const sliderStyle = {};
+        const iconColor = this._config?.icon_color;
+        if (iconColor) {
+            const iconRgbColor = computeRgbColor(iconColor);
+            sliderStyle["--slider-color"] = `rgb(${iconRgbColor})`;
+            sliderStyle["--slider-bg-color"] = `rgba(${iconRgbColor}, 0.2)`;
+        }
+
         return html`
             <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
                 <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
@@ -132,19 +143,35 @@ export class NumberCard extends MushroomBaseCard implements LovelaceCard {
                         ${this.renderBadge(entity)}
                         ${this.renderStateInfo(entity, appearance, name, stateDisplay)};
                     </mushroom-state-item>
-                    ${isActive(entity)
-                        ? html`
-                              <div class="actions" ?rtl=${rtl}>
-                                  <mushroom-number-value-control
-                                      .hass=${this.hass}
-                                      .entity=${entity}
-                                      @current-change=${this.onCurrentValueChange}
-                                  ></mushroom-number-value-control>
-                              </div>
-                          `
-                        : null}
+                    <div class="actions" ?rtl=${rtl}>
+                        <mushroom-number-value-control
+                            .hass=${this.hass}
+                            .entity=${entity}
+                            style=${styleMap(sliderStyle)}
+                            @current-change=${this.onCurrentValueChange}
+                        ></mushroom-number-value-control>
+                    </div>
                 </mushroom-card>
             </ha-card>
+        `;
+    }
+
+    renderIcon(entity: HassEntity, icon: string): TemplateResult {
+        const active = isActive(entity);
+        const iconStyle = {};
+        const iconColor = this._config?.icon_color;
+        if (iconColor) {
+            const iconRgbColor = computeRgbColor(iconColor);
+            iconStyle["--icon-color"] = `rgb(${iconRgbColor})`;
+            iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
+        }
+        return html`
+            <mushroom-shape-icon
+                slot="icon"
+                .disabled=${!active}
+                .icon=${icon}
+                style=${styleMap(iconStyle)}
+            ></mushroom-shape-icon>
         `;
     }
 

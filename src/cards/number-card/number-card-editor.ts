@@ -17,7 +17,14 @@ import { NumberCardConfig, NumberCardConfigStruct } from "./number-card-config";
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: NUMBER_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
-    { name: "icon", selector: { icon: { placeholder: icon } } },
+    {
+        type: "grid",
+        name: "",
+        schema: [
+            { name: "icon", selector: { icon: { placeholder: icon } } },
+            { name: "icon_color", selector: { "mush-color": {} } },
+        ],
+    },
     ...APPEARANCE_FORM_SCHEMA,
     ...computeActionsFormSchema(),
 ]);

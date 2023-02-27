@@ -32,9 +32,11 @@ export class NumberValueControl extends LitElement {
     }
 
     protected render(): TemplateResult {
+        const value = Number(this.entity.state);
+
         return html`
             <mushroom-slider
-                .value=${this.entity.state}
+                .value=${!isNaN(value) ? value : undefined}
                 .disabled=${!isAvailable(this.entity)}
                 .inactive=${!isActive(this.entity)}
                 .showActive=${true}
@@ -49,9 +51,15 @@ export class NumberValueControl extends LitElement {
 
     static get styles(): CSSResultGroup {
         return css`
+            :host {
+                --slider-color: rgb(var(--rgb-state-number));
+                --slider-outline-color: transparent;
+                --slider-bg-color: rgba(var(--rgb-state-number), 0.2);
+            }
             mushroom-slider {
-                --main-color: rgb(var(--rgb-state-number));
-                --bg-color: rgba(var(--rgb-state-number), 0.2);
+                --main-color: var(--slider-color);
+                --bg-color: var(--slider-bg-color);
+                --main-outline-color: var(--slider-outline-color);
             }
         `;
     }
