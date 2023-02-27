@@ -15,6 +15,7 @@ import {
     LovelaceCard,
     LovelaceCardEditor,
 } from "../../ha";
+import { blankBeforePercent } from "../../ha/common/translations/blank_before_percent";
 import "../../shared/badge-icon";
 import "../../shared/button";
 import "../../shared/card";
@@ -182,7 +183,7 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
             this.hass.entities
         );
         if (this.brightness != null) {
-            stateDisplay = `${this.brightness}%`;
+            stateDisplay = `${this.brightness}${blankBeforePercent(this.hass.locale)}%`;
         }
 
         const rtl = computeRTL(this.hass);

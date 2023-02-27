@@ -13,6 +13,7 @@ import {
     LovelaceCardEditor,
     MediaPlayerEntity,
 } from "../../ha";
+import { blankBeforePercent } from "../../ha/common/translations/blank_before_percent";
 import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-avatar";
@@ -174,7 +175,7 @@ export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
 
         const stateValue =
             this.volume != null && this._config.show_volume_level
-                ? `${stateDisplay} - ${this.volume}%`
+                ? `${stateDisplay} - ${this.volume}${blankBeforePercent(this.hass.locale)}%`
                 : stateDisplay;
 
         const rtl = computeRTL(this.hass);

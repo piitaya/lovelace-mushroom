@@ -15,6 +15,7 @@ import {
     LovelaceCard,
     LovelaceCardEditor,
 } from "../../ha";
+import { blankBeforePercent } from "../../ha/common/translations/blank_before_percent";
 import "../../shared/badge-icon";
 import "../../shared/button";
 import "../../shared/card";
@@ -126,7 +127,7 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
             this.hass.entities
         );
         if (this.percentage != null) {
-            stateDisplay = `${this.percentage}%`;
+            stateDisplay = `${this.percentage}${blankBeforePercent(this.hass.locale)}%`;
         }
 
         const rtl = computeRTL(this.hass);

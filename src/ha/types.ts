@@ -49,22 +49,16 @@ declare global {
     }
 }
 
-export interface EntityRegistryEntry {
-    id: string;
+export interface EntityRegistryDisplayEntry {
     entity_id: string;
-    name: string | null;
-    icon: string | null;
-    platform: string;
-    config_entry_id: string | null;
-    device_id: string | null;
-    area_id: string | null;
-    disabled_by: "user" | "device" | "integration" | "config_entry" | null;
-    hidden_by: Exclude<EntityRegistryEntry["disabled_by"], "config_entry">;
-    entity_category: "config" | "diagnostic" | null;
-    has_entity_name: boolean;
-    original_name?: string;
-    unique_id: string;
+    name?: string;
+    device_id?: string;
+    area_id?: string;
+    hidden?: boolean;
+    entity_category?: "config" | "diagnostic";
     translation_key?: string;
+    platform?: string;
+    display_precision?: number;
 }
 
 export interface DeviceRegistryEntry {
@@ -172,7 +166,7 @@ export interface HomeAssistant {
     connection: Connection;
     connected: boolean;
     states: HassEntities;
-    entities: { [id: string]: EntityRegistryEntry };
+    entities: { [id: string]: EntityRegistryDisplayEntry };
     devices: { [id: string]: DeviceRegistryEntry };
     areas: { [id: string]: AreaRegistryEntry };
     services: HassServices;
