@@ -134,6 +134,7 @@ export class InputNumber extends LitElement {
                 border: none;
                 background-color: var(--bg-color);
                 transition: background-color 280ms ease-in-out;
+                height: var(--control-height);
             }
             .button {
                 display: flex;
@@ -146,6 +147,7 @@ export class InputNumber extends LitElement {
                 cursor: pointer;
                 border-radius: var(--control-border-radius);
                 line-height: 0;
+                height: 100%;
             }
             .button:disabled {
                 cursor: not-allowed;

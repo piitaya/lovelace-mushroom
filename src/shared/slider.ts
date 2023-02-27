@@ -31,7 +31,7 @@ export class SliderItem extends LitElement {
     public showIndicator?: boolean;
 
     @property({ attribute: false, type: Number, reflect: true })
-    public value?: number;
+    public value?: number | string;
 
     @property({ type: Number })
     public step: number = 1;
@@ -155,6 +155,18 @@ export class SliderItem extends LitElement {
     }
 
     protected render(): TemplateResult {
+        let value: number = 0;
+        switch (typeof this.value) {
+            case "string": {
+                value = parseFloat(this.value);
+                break;
+            }
+            case "number": {
+                value = this.value;
+                break;
+            }
+        }
+
         return html`
             <div
                 class=${classMap({
@@ -167,7 +179,7 @@ export class SliderItem extends LitElement {
                     id="slider"
                     class="slider"
                     style=${styleMap({
-                        "--value": `${this.valueToPercentage(this.value ?? 0)}`,
+                        "--value": `${this.valueToPercentage(value)}`,
                     })}
                 >
                     <div class="slider-track-background"></div>
