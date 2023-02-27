@@ -39,14 +39,14 @@ export class InputNumber extends LitElement {
 
     private _incrementValue(e: MouseEvent) {
         e.stopPropagation();
-        if (!this.value) return;
+        if (this.value == null) return;
         const value = round(this.value + (this.step ?? DEFAULT_STEP), 1);
         this._processNewValue(value);
     }
 
     private _decrementValue(e: MouseEvent) {
         e.stopPropagation();
-        if (!this.value) return;
+        if (this.value == null) return;
         const value = round(this.value - (this.step ?? DEFAULT_STEP), 1);
         this._processNewValue(value);
     }
