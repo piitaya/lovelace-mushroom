@@ -144,7 +144,7 @@ export const computeStateDisplayFromEntityAttributes = (
 
     if (domain === "humidifier") {
         if (state === "on" && attributes.humidity) {
-            return `${attributes.humidity} %`;
+            return `${attributes.humidity}${blankBeforePercent(locale)}%`;
         }
     }
 

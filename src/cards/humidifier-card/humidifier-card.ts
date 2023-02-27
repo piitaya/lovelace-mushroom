@@ -13,6 +13,7 @@ import {
     LovelaceCard,
     LovelaceCardEditor,
 } from "../../ha";
+import { blankBeforePercent } from "../../ha/common/translations/blank_before_percent";
 import "../../shared/badge-icon";
 import "../../shared/button";
 import "../../shared/card";
@@ -108,7 +109,7 @@ export class HumidifierCard extends MushroomBaseCard implements LovelaceCard {
             this.hass.entities
         );
         if (this.humidity) {
-            stateDisplay = `${this.humidity} %`;
+            stateDisplay = `${this.humidity}${blankBeforePercent(this.hass.locale)}%`;
         }
 
         const rtl = computeRTL(this.hass);
