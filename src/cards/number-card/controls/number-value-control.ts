@@ -1,14 +1,23 @@
 import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { HomeAssistant, isActive, isAvailable } from "../../../ha";
+import {
+    getDefaultFormatOptions,
+    getNumberFormatOptions,
+    HomeAssistant,
+    isActive,
+    isAvailable,
+} from "../../../ha";
 import "../../../shared/slider";
+import "../../../shared/input-number";
 
 @customElement("mushroom-number-value-control")
 export class NumberValueControl extends LitElement {
     @property({ attribute: false }) public hass!: HomeAssistant;
 
     @property({ attribute: false }) public entity!: HassEntity;
+
+    @property({ attribute: false }) public displayMode?: "slider" | "buttons";
 
     onChange(e: CustomEvent<{ value: number }>): void {
         const value = e.detail.value;
@@ -33,6 +42,25 @@ export class NumberValueControl extends LitElement {
 
     protected render(): TemplateResult {
         const value = Number(this.entity.state);
+
+        const formatOptions =
+            getNumberFormatOptions(this.entity, this.hass.entities[this.entity.entity_id]) ??
+            getDefaultFormatOptions(this.entity.state);
+
+        if (this.displayMode === "buttons") {
+            return html`
+                <mushroom-input-number
+                    .locale=${this.hass.locale}
+                    .value=${!isNaN(value) ? value : undefined}
+                    .min=${this.entity.attributes.min}
+                    .max=${this.entity.attributes.max}
+                    .step=${this.entity.attributes.step}
+                    .disabled=${!isAvailable(this.entity)}
+                    .formatOptions=${formatOptions}
+                    @change=${this.onChange}
+                ></mushroom-input-number>
+            `;
+        }
 
         return html`
             <mushroom-slider

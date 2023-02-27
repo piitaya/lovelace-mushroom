@@ -2,7 +2,7 @@ import { html, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
-import { fireEvent, LovelaceCardEditor } from "../../ha";
+import { fireEvent, LocalizeFunc, LovelaceCardEditor } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { computeActionsFormSchema } from "../../shared/config/actions-config";
 import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
@@ -12,9 +12,11 @@ import { HaFormSchema } from "../../utils/form/ha-form";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { loadHaComponents } from "../../utils/loader";
 import { NUMBER_CARD_EDITOR_NAME, NUMBER_ENTITY_DOMAINS } from "./const";
-import { NumberCardConfig, NumberCardConfigStruct } from "./number-card-config";
+import { DISPLAY_MODES, NumberCardConfig, NumberCardConfigStruct } from "./number-card-config";
 
-const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
+export const NUMBER_LABELS = ["display_mode"];
+
+const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: NUMBER_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
     {
@@ -26,6 +28,18 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
         ],
     },
     ...APPEARANCE_FORM_SCHEMA,
+    {
+        name: "display_mode",
+        selector: {
+            select: {
+                options: ["default", ...DISPLAY_MODES].map((control) => ({
+                    value: control,
+                    label: localize(`editor.card.number.display_mode_list.${control}`),
+                })),
+                mode: "dropdown",
+            },
+        },
+    },
     ...computeActionsFormSchema(),
 ]);
 
@@ -46,6 +60,10 @@ export class NumberCardEditor extends MushroomBaseElement implements LovelaceCar
     private _computeLabel = (schema: HaFormSchema) => {
         const customLocalize = setupCustomlocalize(this.hass!);
 
+        if (NUMBER_LABELS.includes(schema.name)) {
+            return customLocalize(`editor.card.number.${schema.name}`);
+        }
+
         if (GENERIC_LABELS.includes(schema.name)) {
             return customLocalize(`editor.card.generic.${schema.name}`);
         }
@@ -61,12 +79,20 @@ export class NumberCardEditor extends MushroomBaseElement implements LovelaceCar
         const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
         const entityIcon = entityState ? stateIcon(entityState) : undefined;
         const icon = this._config.icon || entityIcon;
-        const schema = computeSchema(icon);
+
+        const customLocalize = setupCustomlocalize(this.hass);
+
+        const schema = computeSchema(customLocalize, icon);
+
+        const data = { ...this._config } as any;
+        if (!data.display_mode) {
+            data.display_mode = "default";
+        }
 
         return html`
             <ha-form
                 .hass=${this.hass}
-                .data=${this._config}
+                .data=${data}
                 .schema=${schema}
                 .computeLabel=${this._computeLabel}
                 @value-changed=${this._valueChanged}
@@ -75,6 +101,11 @@ export class NumberCardEditor extends MushroomBaseElement implements LovelaceCar
     }
 
     private _valueChanged(ev: CustomEvent): void {
+        const value = ev.detail.value;
+
+        if (value.display_mode === "default") {
+            delete value.display_mode;
+        }
         fireEvent(this, "config-changed", { config: ev.detail.value });
     }
 }

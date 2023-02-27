@@ -147,6 +147,7 @@ export class NumberCard extends MushroomBaseCard implements LovelaceCard {
                         <mushroom-number-value-control
                             .hass=${this.hass}
                             .entity=${entity}
+                            .displayMode=${this._config.display_mode}
                             style=${styleMap(sliderStyle)}
                             @current-change=${this.onCurrentValueChange}
                         ></mushroom-number-value-control>
