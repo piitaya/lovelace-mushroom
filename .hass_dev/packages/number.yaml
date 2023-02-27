@@ -9,6 +9,7 @@ input_number:
 template:
   - number: 
       - name: Percentage
+        unique_id: percentage_number
         step: 0.5
         min: 0
         max: 100
