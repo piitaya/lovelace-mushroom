@@ -11,33 +11,28 @@ import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { loadHaComponents } from "../../utils/loader";
-import { INPUT_NUMBER_CARD_EDITOR_NAME, INPUT_NUMBER_ENTITY_DOMAINS } from "./const";
-import { InputNumberCardConfig, inputNumberCardConfigStruct } from "./input-number-card-config";
+import { NUMBER_CARD_EDITOR_NAME, NUMBER_ENTITY_DOMAINS } from "./const";
+import { NumberCardConfig, NumberCardConfigStruct } from "./number-card-config";
 
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
-    { name: "entity", selector: { entity: { domain: INPUT_NUMBER_ENTITY_DOMAINS } } },
+    { name: "entity", selector: { entity: { domain: NUMBER_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
     { name: "icon", selector: { icon: { placeholder: icon } } },
     ...APPEARANCE_FORM_SCHEMA,
-    {
-        type: "grid",
-        name: "",
-        schema: [],
-    },
     ...computeActionsFormSchema(),
 ]);
 
-@customElement(INPUT_NUMBER_CARD_EDITOR_NAME)
-export class InputNumberCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
-    @state() private _config?: InputNumberCardConfig;
+@customElement(NUMBER_CARD_EDITOR_NAME)
+export class NumberCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
+    @state() private _config?: NumberCardConfig;
 
     connectedCallback() {
         super.connectedCallback();
         void loadHaComponents();
     }
 
-    public setConfig(config: InputNumberCardConfig): void {
-        assert(config, inputNumberCardConfigStruct);
+    public setConfig(config: NumberCardConfig): void {
+        assert(config, NumberCardConfigStruct);
         this._config = config;
     }
 

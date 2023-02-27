@@ -6,6 +6,9 @@ import {
     ActionHandlerEvent,
     computeRTL,
     computeStateDisplay,
+    formatNumber,
+    getDefaultFormatOptions,
+    getNumberFormatOptions,
     handleAction,
     hasAction,
     HomeAssistant,
@@ -26,39 +29,33 @@ import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { computeEntityPicture } from "../../utils/info";
-import {
-    INPUT_NUMBER_CARD_EDITOR_NAME,
-    INPUT_NUMBER_CARD_NAME,
-    INPUT_NUMBER_ENTITY_DOMAINS,
-} from "./const";
-import "./controls/input-number-value-control";
-import { InputNumberCardConfig } from "./input-number-card-config";
+import { NUMBER_CARD_EDITOR_NAME, NUMBER_CARD_NAME, NUMBER_ENTITY_DOMAINS } from "./const";
+import "./controls/number-value-control";
+import { NumberCardConfig } from "./number-card-config";
 
 registerCustomCard({
-    type: INPUT_NUMBER_CARD_NAME,
-    name: "Mushroom Input Number Card",
-    description: "Card for input number entity",
+    type: NUMBER_CARD_NAME,
+    name: "Mushroom Number Card",
+    description: "Card for number and input number entity",
 });
 
-@customElement(INPUT_NUMBER_CARD_NAME)
-export class InputNumberCard extends MushroomBaseCard implements LovelaceCard {
+@customElement(NUMBER_CARD_NAME)
+export class NumberCard extends MushroomBaseCard implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
-        await import("./input-number-card-editor");
-        return document.createElement(INPUT_NUMBER_CARD_EDITOR_NAME) as LovelaceCardEditor;
+        await import("./number-card-editor");
+        return document.createElement(NUMBER_CARD_EDITOR_NAME) as LovelaceCardEditor;
     }
 
-    public static async getStubConfig(hass: HomeAssistant): Promise<InputNumberCardConfig> {
+    public static async getStubConfig(hass: HomeAssistant): Promise<NumberCardConfig> {
         const entities = Object.keys(hass.states);
-        const input_numbers = entities.filter((e) =>
-            INPUT_NUMBER_ENTITY_DOMAINS.includes(e.split(".")[0])
-        );
+        const numbers = entities.filter((e) => NUMBER_ENTITY_DOMAINS.includes(e.split(".")[0]));
         return {
-            type: `custom:${INPUT_NUMBER_CARD_NAME}`,
-            entity: input_numbers[0],
+            type: `custom:${NUMBER_CARD_NAME}`,
+            entity: numbers[0],
         };
     }
 
-    @state() private _config?: InputNumberCardConfig;
+    @state() private _config?: NumberCardConfig;
 
     @state() private value?: number;
 
@@ -66,10 +63,10 @@ export class InputNumberCard extends MushroomBaseCard implements LovelaceCard {
         return 1;
     }
 
-    setConfig(config: InputNumberCardConfig): void {
+    setConfig(config: NumberCardConfig): void {
         this._config = {
             tap_action: {
-                action: "toggle",
+                action: "more-info",
             },
             hold_action: {
                 action: "more-info",
@@ -85,8 +82,6 @@ export class InputNumberCard extends MushroomBaseCard implements LovelaceCard {
     private onCurrentValueChange(e: CustomEvent<{ value?: number }>): void {
         if (e.detail.value != null) {
             this.value = e.detail.value;
-        } else {
-            this.value = undefined;
         }
     }
 
@@ -103,9 +98,20 @@ export class InputNumberCard extends MushroomBaseCard implements LovelaceCard {
         const appearance = computeAppearance(this._config);
         const picture = computeEntityPicture(entity, appearance.icon_type);
 
-        let stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
-        if (this.value) {
-            stateDisplay = `${this.value} ${entity.attributes.unit_of_measurement ?? ''}`;
+        let stateDisplay = computeStateDisplay(
+            this.hass.localize,
+            entity,
+            this.hass.locale,
+            this.hass.entities
+        );
+        if (this.value !== undefined) {
+            const numberValue = formatNumber(
+                this.value,
+                this.hass.locale,
+                getNumberFormatOptions(entity, this.hass.entities[entity.entity_id]) ??
+                    getDefaultFormatOptions(entity.state)
+            );
+            stateDisplay = `${numberValue} ${entity.attributes.unit_of_measurement ?? ""}`;
         }
 
         const rtl = computeRTL(this.hass);
@@ -129,11 +135,11 @@ export class InputNumberCard extends MushroomBaseCard implements LovelaceCard {
                     ${isActive(entity)
                         ? html`
                               <div class="actions" ?rtl=${rtl}>
-                                  <mushroom-input-number-value-control
+                                  <mushroom-number-value-control
                                       .hass=${this.hass}
                                       .entity=${entity}
                                       @current-change=${this.onCurrentValueChange}
-                                  ></mushroom-input-number-value-control>
+                                  ></mushroom-number-value-control>
                               </div>
                           `
                         : null}
@@ -151,10 +157,10 @@ export class InputNumberCard extends MushroomBaseCard implements LovelaceCard {
                     cursor: pointer;
                 }
                 mushroom-shape-icon {
-                    --icon-color: rgb(var(--rgb-state-input-number));
-                    --shape-color: rgba(var(--rgb-state-input-number), 0.2);
+                    --icon-color: rgb(var(--rgb-state-number));
+                    --shape-color: rgba(var(--rgb-state-number), 0.2);
                 }
-                mushroom-input-number-value-control {
+                mushroom-number-value-control {
                     flex: 1;
                 }
             `,

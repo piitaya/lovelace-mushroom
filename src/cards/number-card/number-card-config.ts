@@ -8,12 +8,12 @@ import {
 import { EntitySharedConfig, entitySharedConfigStruct } from "../../shared/config/entity-config";
 import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-config";
 
-export type InputNumberCardConfig = LovelaceCardConfig &
+export type NumberCardConfig = LovelaceCardConfig &
     EntitySharedConfig &
     AppearanceSharedConfig &
     ActionsSharedConfig & {};
 
-export const inputNumberCardConfigStruct = assign(
+export const NumberCardConfigStruct = assign(
     lovelaceCardConfigStruct,
     assign(entitySharedConfigStruct, appearanceSharedConfigStruct, actionsSharedConfigStruct),
     object({})
