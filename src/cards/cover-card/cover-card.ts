@@ -6,6 +6,7 @@ import { styleMap } from "lit/directives/style-map.js";
 import {
     actionHandler,
     ActionHandlerEvent,
+    blankBeforePercent,
     computeRTL,
     computeStateDisplay,
     CoverEntity,
@@ -14,9 +15,8 @@ import {
     HomeAssistant,
     isAvailable,
     LovelaceCard,
-    LovelaceCardEditor,
+    LovelaceCardEditor
 } from "../../ha";
-import { blankBeforePercent } from "../../ha/common/translations/blank_before_percent";
 import "../../shared/badge-icon";
 import "../../shared/button";
 import "../../shared/card";

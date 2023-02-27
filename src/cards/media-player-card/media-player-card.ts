@@ -4,6 +4,7 @@ import { classMap } from "lit/directives/class-map.js";
 import {
     actionHandler,
     ActionHandlerEvent,
+    blankBeforePercent,
     computeRTL,
     handleAction,
     hasAction,
@@ -13,7 +14,6 @@ import {
     LovelaceCardEditor,
     MediaPlayerEntity,
 } from "../../ha";
-import { blankBeforePercent } from "../../ha/common/translations/blank_before_percent";
 import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-avatar";
