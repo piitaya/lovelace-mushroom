@@ -41,13 +41,20 @@ export class MushroomButtonGroup extends LitElement {
                 margin-right: initial;
                 margin-left: var(--spacing);
             }
-            .container > ::slotted(*) {
+            .container > ::slotted(mushroom-button) {
                 width: 0;
                 flex-grow: 0;
                 flex-shrink: 1;
                 flex-basis: calc(var(--control-height) * var(--control-button-ratio));
             }
-            .container.fill > ::slotted(*) {
+            .container > ::slotted(mushroom-input-number) {
+                width: 0;
+                flex-grow: 0;
+                flex-shrink: 1;
+                flex-basis: calc(var(--control-height) * var(--control-button-ratio) * 3);
+            }
+            .container.fill > ::slotted(mushroom-button),
+            .container.fill > ::slotted(mushroom-input-number) {
                 flex-grow: 1;
             }
         `;
