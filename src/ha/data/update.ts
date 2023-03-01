@@ -1,7 +1,13 @@
-import type { HassEntityAttributeBase, HassEntityBase } from "home-assistant-js-websocket";
-import { supportsFeature } from "../common/entity/supports-feature";
+import type {
+    HassEntities,
+    HassEntityAttributeBase,
+    HassEntityBase,
+} from "home-assistant-js-websocket";
+import { BINARY_STATE_ON } from "../common/const";
+import { computeStateDomain } from "../common/entity/compute-state-domain";
+import { supportsFeature, supportsFeatureFromAttributes } from "../common/entity/supports-feature";
+import { caseInsensitiveStringCompare } from "../common/string/compare";
 import { HomeAssistant } from "../types";
-import { ON } from "./entity";
 
 export const UPDATE_SUPPORT_INSTALL = 1;
 export const UPDATE_SUPPORT_SPECIFIC_VERSION = 2;
@@ -25,17 +31,59 @@ export interface UpdateEntity extends HassEntityBase {
 }
 
 export const updateUsesProgress = (entity: UpdateEntity): boolean =>
-    supportsFeature(entity, UPDATE_SUPPORT_PROGRESS) &&
-    typeof entity.attributes.in_progress === "number";
+    updateUsesProgressFromAttributes(entity.attributes);
 
-export const updateCanInstall = (entity: UpdateEntity): boolean =>
-    entity.state === ON && supportsFeature(entity, UPDATE_SUPPORT_INSTALL);
+export const updateUsesProgressFromAttributes = (attributes: { [key: string]: any }): boolean =>
+    supportsFeatureFromAttributes(attributes, UPDATE_SUPPORT_PROGRESS) &&
+    typeof attributes.in_progress === "number";
+
+export const updateCanInstall = (entity: UpdateEntity, showSkipped = false): boolean =>
+    (entity.state === BINARY_STATE_ON ||
+        (showSkipped && Boolean(entity.attributes.skipped_version))) &&
+    supportsFeature(entity, UPDATE_SUPPORT_INSTALL);
 
 export const updateIsInstalling = (entity: UpdateEntity): boolean =>
     updateUsesProgress(entity) || !!entity.attributes.in_progress;
+
+export const updateIsInstallingFromAttributes = (attributes: { [key: string]: any }): boolean =>
+    updateUsesProgressFromAttributes(attributes) || !!attributes.in_progress;
 
 export const updateReleaseNotes = (hass: HomeAssistant, entityId: string) =>
     hass.callWS<string | null>({
         type: "update/release_notes",
         entity_id: entityId,
     });
+
+export const filterUpdateEntities = (entities: HassEntities, language?: string) =>
+    (
+        Object.values(entities).filter(
+            (entity) => computeStateDomain(entity) === "update"
+        ) as UpdateEntity[]
+    ).sort((a, b) => {
+        if (a.attributes.title === "Home Assistant Core") {
+            return -3;
+        }
+        if (b.attributes.title === "Home Assistant Core") {
+            return 3;
+        }
+        if (a.attributes.title === "Home Assistant Operating System") {
+            return -2;
+        }
+        if (b.attributes.title === "Home Assistant Operating System") {
+            return 2;
+        }
+        if (a.attributes.title === "Home Assistant Supervisor") {
+            return -1;
+        }
+        if (b.attributes.title === "Home Assistant Supervisor") {
+            return 1;
+        }
+        return caseInsensitiveStringCompare(
+            a.attributes.title || a.attributes.friendly_name || "",
+            b.attributes.title || b.attributes.friendly_name || "",
+            language
+        );
+    });
+
+export const filterUpdateEntitiesWithInstall = (entities: HassEntities, showSkipped = false) =>
+    filterUpdateEntities(entities).filter((entity) => updateCanInstall(entity, showSkipped));

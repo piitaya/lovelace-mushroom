@@ -1,12 +1,16 @@
+import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
+import { styleMap } from "lit/directives/style-map.js";
 import {
     actionHandler,
     ActionHandlerEvent,
-    blankBeforePercent,
     computeRTL,
     computeStateDisplay,
+    formatNumber,
+    getDefaultFormatOptions,
+    getNumberFormatOptions,
     handleAction,
     hasAction,
     HomeAssistant,
@@ -24,53 +28,48 @@ import "../../shared/state-item";
 import { computeAppearance } from "../../utils/appearance";
 import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
+import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { computeEntityPicture } from "../../utils/info";
-import {
-    HUMIDIFIER_CARD_EDITOR_NAME,
-    HUMIDIFIER_CARD_NAME,
-    HUMIDIFIER_ENTITY_DOMAINS,
-} from "./const";
-import "./controls/humidifier-humidity-control";
-import { HumidifierCardConfig } from "./humidifier-card-config";
+import { NUMBER_CARD_EDITOR_NAME, NUMBER_CARD_NAME, NUMBER_ENTITY_DOMAINS } from "./const";
+import "./controls/number-value-control";
+import { NumberCardConfig } from "./number-card-config";
 
 registerCustomCard({
-    type: HUMIDIFIER_CARD_NAME,
-    name: "Mushroom Humidifier Card",
-    description: "Card for humidifier entity",
+    type: NUMBER_CARD_NAME,
+    name: "Mushroom Number Card",
+    description: "Card for number and input number entity",
 });
 
-@customElement(HUMIDIFIER_CARD_NAME)
-export class HumidifierCard extends MushroomBaseCard implements LovelaceCard {
+@customElement(NUMBER_CARD_NAME)
+export class NumberCard extends MushroomBaseCard implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
-        await import("./humidifier-card-editor");
-        return document.createElement(HUMIDIFIER_CARD_EDITOR_NAME) as LovelaceCardEditor;
+        await import("./number-card-editor");
+        return document.createElement(NUMBER_CARD_EDITOR_NAME) as LovelaceCardEditor;
     }
 
-    public static async getStubConfig(hass: HomeAssistant): Promise<HumidifierCardConfig> {
+    public static async getStubConfig(hass: HomeAssistant): Promise<NumberCardConfig> {
         const entities = Object.keys(hass.states);
-        const humidifiers = entities.filter((e) =>
-            HUMIDIFIER_ENTITY_DOMAINS.includes(e.split(".")[0])
-        );
+        const numbers = entities.filter((e) => NUMBER_ENTITY_DOMAINS.includes(e.split(".")[0]));
         return {
-            type: `custom:${HUMIDIFIER_CARD_NAME}`,
-            entity: humidifiers[0],
+            type: `custom:${NUMBER_CARD_NAME}`,
+            entity: numbers[0],
         };
     }
 
-    @state() private _config?: HumidifierCardConfig;
+    @state() private _config?: NumberCardConfig;
 
-    @state() private humidity?: number;
+    @state() private value?: number;
 
     getCardSize(): number | Promise<number> {
         return 1;
     }
 
-    setConfig(config: HumidifierCardConfig): void {
+    setConfig(config: NumberCardConfig): void {
         this._config = {
             tap_action: {
-                action: "toggle",
+                action: "more-info",
             },
             hold_action: {
                 action: "more-info",
@@ -83,9 +82,9 @@ export class HumidifierCard extends MushroomBaseCard implements LovelaceCard {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
-    private onCurrentHumidityChange(e: CustomEvent<{ value?: number }>): void {
+    private onCurrentValueChange(e: CustomEvent<{ value?: number }>): void {
         if (e.detail.value != null) {
-            this.humidity = e.detail.value;
+            this.value = e.detail.value;
         }
     }
 
@@ -108,15 +107,25 @@ export class HumidifierCard extends MushroomBaseCard implements LovelaceCard {
             this.hass.locale,
             this.hass.entities
         );
-        if (this.humidity) {
-            stateDisplay = `${this.humidity}${blankBeforePercent(this.hass.locale)}%`;
+        if (this.value !== undefined) {
+            const numberValue = formatNumber(
+                this.value,
+                this.hass.locale,
+                getNumberFormatOptions(entity, this.hass.entities[entity.entity_id]) ??
+                    getDefaultFormatOptions(entity.state)
+            );
+            stateDisplay = `${numberValue} ${entity.attributes.unit_of_measurement ?? ""}`;
         }
 
         const rtl = computeRTL(this.hass);
 
-        const displayControls =
-            (!this._config.collapsible_controls || isActive(entity)) &&
-            this._config.show_target_humidity_control;
+        const sliderStyle = {};
+        const iconColor = this._config?.icon_color;
+        if (iconColor) {
+            const iconRgbColor = computeRgbColor(iconColor);
+            sliderStyle["--slider-color"] = `rgb(${iconRgbColor})`;
+            sliderStyle["--slider-bg-color"] = `rgba(${iconRgbColor}, 0.2)`;
+        }
 
         return html`
             <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
@@ -134,19 +143,36 @@ export class HumidifierCard extends MushroomBaseCard implements LovelaceCard {
                         ${this.renderBadge(entity)}
                         ${this.renderStateInfo(entity, appearance, name, stateDisplay)};
                     </mushroom-state-item>
-                    ${displayControls
-                        ? html`
-                              <div class="actions" ?rtl=${rtl}>
-                                  <mushroom-humidifier-humidity-control
-                                      .hass=${this.hass}
-                                      .entity=${entity}
-                                      @current-change=${this.onCurrentHumidityChange}
-                                  ></mushroom-humidifier-humidity-control>
-                              </div>
-                          `
-                        : null}
+                    <div class="actions" ?rtl=${rtl}>
+                        <mushroom-number-value-control
+                            .hass=${this.hass}
+                            .entity=${entity}
+                            .displayMode=${this._config.display_mode}
+                            style=${styleMap(sliderStyle)}
+                            @current-change=${this.onCurrentValueChange}
+                        ></mushroom-number-value-control>
+                    </div>
                 </mushroom-card>
             </ha-card>
+        `;
+    }
+
+    renderIcon(entity: HassEntity, icon: string): TemplateResult {
+        const active = isActive(entity);
+        const iconStyle = {};
+        const iconColor = this._config?.icon_color;
+        if (iconColor) {
+            const iconRgbColor = computeRgbColor(iconColor);
+            iconStyle["--icon-color"] = `rgb(${iconRgbColor})`;
+            iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
+        }
+        return html`
+            <mushroom-shape-icon
+                slot="icon"
+                .disabled=${!active}
+                .icon=${icon}
+                style=${styleMap(iconStyle)}
+            ></mushroom-shape-icon>
         `;
     }
 
@@ -159,10 +185,10 @@ export class HumidifierCard extends MushroomBaseCard implements LovelaceCard {
                     cursor: pointer;
                 }
                 mushroom-shape-icon {
-                    --icon-color: rgb(var(--rgb-state-humidifier));
-                    --shape-color: rgba(var(--rgb-state-humidifier), 0.2);
+                    --icon-color: rgb(var(--rgb-state-number));
+                    --shape-color: rgba(var(--rgb-state-number), 0.2);
                 }
-                mushroom-humidifier-humidity-control {
+                mushroom-number-value-control {
                     flex: 1;
                 }
             `,

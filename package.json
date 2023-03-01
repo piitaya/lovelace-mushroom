@@ -1,7 +1,7 @@
 {
   "name": "mushroom-cards",
-  "version": "2.5.3",
-  "description": "",
+  "version": "2.6.1",
+  "description": "Home Assistant Mushroom Cards",
   "main": "index.js",
   "scripts": {
     "start": "rollup -c --watch --bundleConfigAsCjs",
@@ -10,7 +10,11 @@
     "start:hass": "docker run --rm -p8123:8123 -v ${PWD}/.hass_dev:/config homeassistant/home-assistant:beta",
     "start:hass-cmd": "docker run --rm -p8123:8123 -v  %cd%/.hass_dev:/config homeassistant/home-assistant:beta"
   },
-  "author": "",
+  "author": "Paul Bottein",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/piitaya/lovelace-mushroom"
+  },
   "license": "ISC",
   "dependencies": {
     "@material/mwc-select": "^0.27.0",
