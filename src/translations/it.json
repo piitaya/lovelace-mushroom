@@ -85,7 +85,9 @@
             },
             "title": {
                 "title": "Titolo",
-                "subtitle": "Sottotitolo"
+                "subtitle": "Sottotitolo",
+                "title_tap_action": "Azione di tap sul titolo",
+                "subtitle_tap_action": "Azione di tap sul sottotitolo"
             },
             "chips": {
                 "alignment": "Allineamento"
@@ -134,6 +136,14 @@
             "climate": {
                 "show_temperature_control": "Controllo della temperatura?",
                 "hvac_modes": "Modalità del termostato"
+            },
+            "number": {
+                "display_mode": "Modalità di visualizzazione",
+                "display_mode_list": {
+                    "default": "Predefinito (slider)",
+                    "slider": "Slider",
+                    "buttons": "Pulsanti"
+                }
             }
         },
         "chip": {
