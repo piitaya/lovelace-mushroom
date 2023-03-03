@@ -136,6 +136,14 @@
             "climate": {
                 "show_temperature_control": "Temperatursteuerung?",
                 "hvac_modes": "HVAC-Modi"
+            },
+            "number": {
+                "display_mode": "Anzeigemodus",
+                "display_mode_list": {
+                    "default": "Standard (Schieberegler)",
+                    "slider": "Schieberegler",
+                    "buttons": "Buttons"
+                }
             }
         },
         "chip": {

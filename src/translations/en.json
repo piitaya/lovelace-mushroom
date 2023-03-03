@@ -136,6 +136,14 @@
             "climate": {
                 "show_temperature_control": "Temperature control?",
                 "hvac_modes": "HVAC Modes"
+            },
+            "number": {
+                "display_mode": "Display Mode",
+                "display_mode_list": {
+                    "default": "Default (slider)",
+                    "slider": "Slider",
+                    "buttons": "Buttons"
+                }
             }
         },
         "chip": {

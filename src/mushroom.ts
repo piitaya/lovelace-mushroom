@@ -12,6 +12,7 @@ export { CoverCard } from "./cards/cover-card/cover-card";
 export { EntityCard } from "./cards/entity-card/entity-card";
 export { FanCard } from "./cards/fan-card/fan-card";
 export { HumidifierCard } from "./cards/humidifier-card/humidifier-card";
+export { NumberCard } from "./cards/number-card/number-card";
 export { LightCard } from "./cards/light-card/light-card";
 export { LockCard } from "./cards/lock-card/lock-card";
 export { MediaPlayerCard } from "./cards/media-player-card/media-player-card";

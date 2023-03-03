@@ -6,6 +6,7 @@ import { styleMap } from "lit/directives/style-map.js";
 import {
     actionHandler,
     ActionHandlerEvent,
+    blankBeforePercent,
     computeRTL,
     computeStateDisplay,
     handleAction,
@@ -126,7 +127,7 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
             this.hass.entities
         );
         if (this.percentage != null) {
-            stateDisplay = `${this.percentage}%`;
+            stateDisplay = `${this.percentage}${blankBeforePercent(this.hass.locale)}%`;
         }
 
         const rtl = computeRTL(this.hass);

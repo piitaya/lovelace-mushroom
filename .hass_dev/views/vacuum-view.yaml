@@ -69,9 +69,18 @@ cards:
         cards:
           - type: custom:mushroom-vacuum-card
             entity: vacuum.0_ground_floor
+            commands:
+              - start_pause
+              - stop
           - type: custom:mushroom-vacuum-card
             entity: vacuum.0_ground_floor
             layout: "vertical"
+            commands:
+              - start_pause
+              - stop
       - type: custom:mushroom-vacuum-card
         entity: vacuum.0_ground_floor
         layout: "horizontal"
+        commands:
+          - start_pause
+          - stop

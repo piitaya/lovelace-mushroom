@@ -14,4 +14,6 @@ lovelace: !include lovelace.yaml
 
 frontend:
   themes: !include_dir_merge_named themes
+  extra_module_url:
+    - http://localhost:4000/mushroom.js
 #   development_repo: /workspaces/home-assistant-frontend

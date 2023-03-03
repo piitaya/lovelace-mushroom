@@ -85,7 +85,9 @@
             },
             "title": {
                 "title": "Titel",
-                "subtitle": "Ondertitel"
+                "subtitle": "Ondertitel",
+                "title_tap_action": "Titel tik actie",
+                "subtitle_tap_action": "Ondertitel tik actie"
             },
             "chips": {
                 "alignment": "Uitlijning"
@@ -134,11 +136,19 @@
             "climate": {
                 "show_temperature_control": "Temperatuur controle",
                 "hvac_modes": "HVAC Modes"
+            },
+            "number": {
+                "display_mode": "Weergave Modus",
+                "display_mode_list": {
+                    "default": "Standaard (schuifbalk)",
+                    "slider": "Schuifbalk",
+                    "buttons": "Knoppen"
+                }
             }
         },
         "chip": {
             "sub_element_editor": {
-                "title": "Chip-editor"
+                "title": "Chip editor"
             },
             "conditional": {
                 "chip": "Chip"

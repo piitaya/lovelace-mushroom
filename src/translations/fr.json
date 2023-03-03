@@ -135,6 +135,14 @@
             "climate": {
                 "show_temperature_control": "Contrôle de la température?",
                 "hvac_modes": "Modes du thermostat"
+            },
+            "number": {
+                "display_mode": "Mode d'affichage",
+                "display_mode_list": {
+                    "default": "Par défaut (Curseur)",
+                    "slider": "Curseur",
+                    "buttons": "Boutons"
+                }
             }
         },
         "chip": {

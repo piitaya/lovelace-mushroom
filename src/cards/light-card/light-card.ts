@@ -5,6 +5,7 @@ import { styleMap } from "lit/directives/style-map.js";
 import {
     actionHandler,
     ActionHandlerEvent,
+    blankBeforePercent,
     computeRTL,
     computeStateDisplay,
     handleAction,
@@ -182,7 +183,7 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
             this.hass.entities
         );
         if (this.brightness != null) {
-            stateDisplay = `${this.brightness}%`;
+            stateDisplay = `${this.brightness}${blankBeforePercent(this.hass.locale)}%`;
         }
 
         const rtl = computeRTL(this.hass);
