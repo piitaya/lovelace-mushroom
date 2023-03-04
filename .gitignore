@@ -1,4 +1,7 @@
 node_modules
+dist/
+.history
+
 .hass_dev/*
 !.hass_dev/configuration.yaml
 !.hass_dev/lovelace.yaml
