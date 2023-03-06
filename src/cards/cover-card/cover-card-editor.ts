@@ -31,14 +31,7 @@ const computeSchema = memoizeOne((version: string, icon?: string): HaFormSchema[
         schema: [
             { name: "show_position_control", selector: { boolean: {} } },
             { name: "show_tilt_position_control", selector: { boolean: {} } },
-        ],
-    },
-    {
-        type: "grid",
-        name: "",
-        schema: [
             { name: "show_buttons_control", selector: { boolean: {} } },
-            { name: "display_battery", selector: { boolean: {} } },
         ],
     },
     ...computeActionsFormSchema(version),

@@ -1,4 +1,4 @@
-import { assign, boolean, object, optional } from "superstruct";
+import { assign } from "superstruct";
 import { LovelaceCardConfig } from "../../ha";
 import { ActionsSharedConfig, actionsSharedConfigStruct } from "../../shared/config/actions-config";
 import {
@@ -11,14 +11,9 @@ import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-conf
 export type LockCardConfig = LovelaceCardConfig &
     EntitySharedConfig &
     AppearanceSharedConfig &
-    ActionsSharedConfig & {
-        display_battery?: boolean;
-    };
+    ActionsSharedConfig;
 
 export const lockCardConfigStruct = assign(
     lovelaceCardConfigStruct,
-    assign(entitySharedConfigStruct, appearanceSharedConfigStruct, actionsSharedConfigStruct),
-    object({
-        display_battery: optional(boolean()),
-    })
+  assign(entitySharedConfigStruct, appearanceSharedConfigStruct, actionsSharedConfigStruct)
 );

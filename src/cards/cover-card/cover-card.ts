@@ -11,7 +11,6 @@ import {
     CoverEntity,
     handleAction,
     hasAction,
-    hasBattery,
     HomeAssistant,
     isAvailable,
     LovelaceCard,
@@ -160,7 +159,6 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
         const icon = this._config.icon || stateIcon(entity);
         const appearance = computeAppearance(this._config);
         const picture = computeEntityPicture(entity, appearance.icon_type);
-        const battery = Boolean(this._config?.display_battery) && hasBattery(entity);
 
         let stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
         if (this.position) {
@@ -182,7 +180,7 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
                         })}
                     >
                         ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
-                        ${battery ? this.renderBatteryBadge(entity) : this.renderBadge(entity)}
+                        ${this.renderBadge(entity)}
                         ${this.renderStateInfo(entity, appearance, name, stateDisplay)};
                     </mushroom-state-item>
                     ${this._controls.length > 0

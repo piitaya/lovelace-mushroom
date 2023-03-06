@@ -50,23 +50,6 @@ export class MushroomBaseCard extends MushroomBaseElement {
             : null;
     }
 
-    protected renderBatteryBadge(entity: HassEntity): TemplateResult | null {
-        const level = entity.attributes.battery_level;
-        const color = level > 40 ? "var(--rgb-success)" : level > 20 ? "var(--rgb-warning)" : "var(--rgb-danger)";
-        const iconStyle = {
-            "--main-color": `rgb(${color})`,
-        };
-
-        return  html`
-              <mushroom-badge-icon
-                class="battery"
-                slot="badge"
-                style=${styleMap(iconStyle)}
-                icon=${entity.attributes.battery_icon}
-              ></mushroom-badge-icon>
-          `;
-    }
-
     protected renderStateInfo(
         entity: HassEntity,
         appearance: Appearance,
