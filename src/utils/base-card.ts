@@ -10,7 +10,6 @@ import "../shared/state-info";
 import "../shared/state-item";
 import { MushroomBaseElement } from "./base-element";
 import { computeInfoDisplay } from "./info";
-import { styleMap } from "lit/directives/style-map.js";
 
 export function computeDarkMode(hass?: HomeAssistant): boolean {
     if (!hass) return false;

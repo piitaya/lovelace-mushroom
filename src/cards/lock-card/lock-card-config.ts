@@ -15,5 +15,5 @@ export type LockCardConfig = LovelaceCardConfig &
 
 export const lockCardConfigStruct = assign(
     lovelaceCardConfigStruct,
-  assign(entitySharedConfigStruct, appearanceSharedConfigStruct, actionsSharedConfigStruct)
+    assign(entitySharedConfigStruct, appearanceSharedConfigStruct, actionsSharedConfigStruct)
 );
