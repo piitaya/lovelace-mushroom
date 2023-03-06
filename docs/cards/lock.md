@@ -18,7 +18,6 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `name`              | string                                              | Optional    | Custom name                                                                         |
 | `layout`            | string                                              | Optional    | Layout of the card. Vertical, horizontal and default layout are supported           |
 | `fill_container`    | boolean                                             | `false`     | Fill container or not. Useful when card is in a grid, vertical or horizontal layout |
-| `display_battery`   | boolean                                             | `false`     | Displays the battery level in a badge                                               |
 | `primary_info`      | `name` `state` `last-changed` `last-updated` `none` | `name`      | Info to show as primary info                                                        |
 | `secondary_info`    | `name` `state` `last-changed` `last-updated` `none` | `state`     | Info to show as secondary info                                                      |
 | `icon_type`         | `icon` `entity-picture` `none`                      | `icon`      | Type of icon to display                                                             |
