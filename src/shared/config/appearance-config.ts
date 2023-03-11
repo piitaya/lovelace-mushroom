@@ -17,7 +17,9 @@ export type Appearance = {
     layout: Layout;
     fill_container: boolean;
     primary_info: Info;
+    primary_info_template: string;
     secondary_info: Info;
+    secondary_info_template: string;
     icon_type: IconType;
 };
 
@@ -35,7 +37,9 @@ export const APPEARANCE_FORM_SCHEMA: HaFormSchema[] = [
         name: "",
         schema: [
             { name: "primary_info", selector: { "mush-info": {} } },
+            { name: "primary_info_template", selector: { template: {} } },
             { name: "secondary_info", selector: { "mush-info": {} } },
+            { name: "secondary_info_template", selector: { template: {} } },
             { name: "icon_type", selector: { "mush-icon-type": {} } },
         ],
     },
