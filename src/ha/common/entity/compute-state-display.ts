@@ -197,24 +197,6 @@ export const computeStateDisplayFromEntityAttributes = (
             : localize("ui.card.update.up_to_date");
     }
 
-    if (atLeastHaVersion(haVersion, 2023, 4, 0)) {
-        return (
-            (entity?.translation_key &&
-                localize(
-                    `component.${entity.platform}.entity.${domain}.${entity.translation_key}.state.${state}`
-                )) ||
-            // Return device class translation
-            (attributes.device_class &&
-                localize(
-                    `component.${domain}.entity_component.${attributes.device_class}.state.${state}`
-                )) ||
-            // Return default translation
-            localize(`component.${domain}.entity_component._.state.${state}`) ||
-            // We don't know! Return the raw state.
-            state
-        );
-    }
-
     return (
         (entity?.translation_key &&
             localize(
@@ -222,9 +204,17 @@ export const computeStateDisplayFromEntityAttributes = (
             )) ||
         // Return device class translation
         (attributes.device_class &&
-            localize(`component.${domain}.state.${attributes.device_class}.${state}`)) ||
+            localize(
+                atLeastHaVersion(haVersion, 2023, 4)
+                    ? `component.${domain}.entity_component.${attributes.device_class}.state.${state}`
+                    : `component.${domain}.state.${attributes.device_class}.${state}`
+            )) ||
         // Return default translation
-        localize(`component.${domain}.state._.${state}`) ||
+        localize(
+            atLeastHaVersion(haVersion, 2023, 4)
+                ? `component.${domain}.entity_component._.state.${state}`
+                : `component.${domain}.state._.${state}`
+        ) ||
         // We don't know! Return the raw state.
         state
     );

@@ -32,9 +32,11 @@ const computeSchema = memoizeOne(
                         select: {
                             options: HVAC_MODES.map((mode) => ({
                                 value: mode,
-                                label: atLeastHaVersion(haVersion, 2023, 4, 0)
-                                    ? localize(`component.climate.entity_component._.state.${mode}`)
-                                    : localize(`component.climate.state._.${mode}`),
+                                label: localize(
+                                    atLeastHaVersion(haVersion, 2023, 4)
+                                        ? `component.climate.entity_component._.state.${mode}`
+                                        : `component.climate.state._.${mode}`
+                                ),
                             })),
                             mode: "dropdown",
                             multiple: true,
