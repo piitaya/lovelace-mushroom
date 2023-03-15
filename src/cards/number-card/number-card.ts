@@ -105,7 +105,8 @@ export class NumberCard extends MushroomBaseCard implements LovelaceCard {
             this.hass.localize,
             entity,
             this.hass.locale,
-            this.hass.entities
+            this.hass.entities,
+            this.hass.connection.haVersion,
         );
         if (this.value !== undefined) {
             const numberValue = formatNumber(

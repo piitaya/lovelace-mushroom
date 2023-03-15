@@ -165,7 +165,8 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
             this.hass.localize,
             entity,
             this.hass.locale,
-            this.hass.entities
+            this.hass.entities,
+            this.hass.connection.haVersion,
         );
         if (this.position) {
             stateDisplay += ` - ${this.position}${blankBeforePercent(this.hass.locale)}%`;

@@ -124,7 +124,8 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
             this.hass.localize,
             entity,
             this.hass.locale,
-            this.hass.entities
+            this.hass.entities,
+            this.hass.connection.haVersion,
         );
         if (this.percentage != null) {
             stateDisplay = `${this.percentage}${blankBeforePercent(this.hass.locale)}%`;
