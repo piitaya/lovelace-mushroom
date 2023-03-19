@@ -77,11 +77,11 @@
                 "primary": "Elsődleges információ",
                 "secondary": "Másodlagos információ",
                 "multiline_secondary": "Másodlagost több sorba?",
-                "entity_extra": "Used in templates and actions",
+                "entity_extra": "Műveletek és sablonok használatakor",
                 "content": "Tartalom",
                 "badge_icon": "Jelvény ikon",
                 "badge_color": "Jelvény szín",
-                "picture": "Kép (helyettesíteni fogja az ikont)"
+                "picture": "Kép (lecseréli az ikont)"
             },
             "title": {
                 "title": "Fejléc",
@@ -136,6 +136,14 @@
             "climate": {
                 "show_temperature_control": "Hőmérséklet vezérlő",
                 "hvac_modes": "HVAC mód"
+            },
+            "number": {
+                "display_mode": "Megjelenítési mód",
+                "display_mode_list": {
+                    "default": "Alepértelmezett (csúszka)",
+                    "slider": "Csúszka",
+                    "buttons": "Gombok"
+                }
             }
         },
         "chip": {

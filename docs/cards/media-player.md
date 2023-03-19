@@ -5,7 +5,7 @@
 
 ## Description
 
-A media player card allow you to control a media player entity.
+A media player card allows you to control a media player entity.
 
 ## Configuration variables
 

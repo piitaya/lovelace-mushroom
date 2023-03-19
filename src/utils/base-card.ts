@@ -59,7 +59,8 @@ export class MushroomBaseCard extends MushroomBaseElement {
             this.hass.localize,
             entity,
             this.hass.locale,
-            this.hass.entities
+            this.hass.entities,
+            this.hass.connection.haVersion
         );
         const displayState = state ?? defaultState;
 

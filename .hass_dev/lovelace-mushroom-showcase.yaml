@@ -15,4 +15,5 @@ views:
   - !include views/lock-view.yaml
   - !include views/humidifier-view.yaml
   - !include views/select-view.yaml
+  - !include views/number-view.yaml
   - !include views/shopping-list-view.yaml

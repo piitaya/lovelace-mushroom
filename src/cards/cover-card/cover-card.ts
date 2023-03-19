@@ -6,6 +6,7 @@ import { styleMap } from "lit/directives/style-map.js";
 import {
     actionHandler,
     ActionHandlerEvent,
+    blankBeforePercent,
     computeRTL,
     computeStateDisplay,
     CoverEntity,
@@ -14,7 +15,7 @@ import {
     HomeAssistant,
     isAvailable,
     LovelaceCard,
-    LovelaceCardEditor,
+    LovelaceCardEditor
 } from "../../ha";
 import "../../shared/badge-icon";
 import "../../shared/button";
@@ -164,10 +165,11 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
             this.hass.localize,
             entity,
             this.hass.locale,
-            this.hass.entities
+            this.hass.entities,
+            this.hass.connection.haVersion,
         );
         if (this.position) {
-            stateDisplay += ` - ${this.position}%`;
+            stateDisplay += ` - ${this.position}${blankBeforePercent(this.hass.locale)}%`;
         }
 
         const rtl = computeRTL(this.hass);

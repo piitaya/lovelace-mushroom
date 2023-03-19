@@ -68,7 +68,7 @@
             "cover": {
                 "show_buttons_control": "Toon knoppen",
                 "show_position_control": "Toon positie bediening",
-                "show_tilt_position_control": "Toon tilt control?"
+                "show_tilt_position_control": "Toon tilt control"
             },
             "alarm_control_panel": {
                 "show_keypad": "Toon toetsenbord"
@@ -76,16 +76,18 @@
             "template": {
                 "primary": "Primaire informatie",
                 "secondary": "Secundaire informatie",
-                "multiline_secondary": "Meerlijnig secundair?",
+                "multiline_secondary": "Secundaire informatie op meerdere lijnen weergeven",
                 "entity_extra": "Gebruikt in sjablonen en acties",
                 "content": "Inhoud",
                 "badge_icon": "Badge icoon",
                 "badge_color": "Badge kleur",
-                "picture": "Afbeeling (zal het icoon vervangen)"
+                "picture": "Afbeelding (zal het icoon vervangen)"
             },
             "title": {
                 "title": "Titel",
-                "subtitle": "Ondertitel"
+                "subtitle": "Ondertitel",
+                "title_tap_action": "Titel tik actie",
+                "subtitle_tap_action": "Ondertitel tik actie"
             },
             "chips": {
                 "alignment": "Uitlijning"
@@ -95,7 +97,7 @@
                 "show_temperature": "Temperatuur"
             },
             "update": {
-                "show_buttons_control": "Bedieningsknoppen?"
+                "show_buttons_control": "Bedieningsknoppen"
             },
             "vacuum": {
                 "commands": "Commando's",
@@ -132,13 +134,21 @@
                 "show_target_humidity_control": "Vochtigheid controle?"
             },
             "climate": {
-                "show_temperature_control": "Temperatuur controle?",
+                "show_temperature_control": "Temperatuur controle",
                 "hvac_modes": "HVAC Modes"
+            },
+            "number": {
+                "display_mode": "Weergave Modus",
+                "display_mode_list": {
+                    "default": "Standaard (schuifbalk)",
+                    "slider": "Schuifbalk",
+                    "buttons": "Knoppen"
+                }
             }
         },
         "chip": {
             "sub_element_editor": {
-                "title": "Chip-editor"
+                "title": "Chip editor"
             },
             "conditional": {
                 "chip": "Chip"

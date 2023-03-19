@@ -14,6 +14,7 @@ export * from "./common/number/clamp";
 export * from "./common/number/format_number";
 export * from "./common/number/round";
 export * from "./common/structs/handle-errors";
+export * from "./common/translations/blank_before_percent";
 export * from "./common/translations/localize";
 export * from "./common/util/compute_rtl";
 export * from "./common/util/debounce";

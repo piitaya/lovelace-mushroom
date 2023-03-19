@@ -39,14 +39,14 @@ export class InputNumber extends LitElement {
 
     private _incrementValue(e: MouseEvent) {
         e.stopPropagation();
-        if (!this.value) return;
+        if (this.value == null) return;
         const value = round(this.value + (this.step ?? DEFAULT_STEP), 1);
         this._processNewValue(value);
     }
 
     private _decrementValue(e: MouseEvent) {
         e.stopPropagation();
-        if (!this.value) return;
+        if (this.value == null) return;
         const value = round(this.value - (this.step ?? DEFAULT_STEP), 1);
         this._processNewValue(value);
     }
@@ -90,18 +90,19 @@ export class InputNumber extends LitElement {
 
         return html`
             <div class="container" id="container">
-                <button class="button" @click=${this._decrementValue} .disabled=${this.disabled}>
+                <button class="button minus" @click=${this._decrementValue} .disabled=${this.disabled}>
                     <ha-icon icon="mdi:minus"></ha-icon>
                 </button>
                 <span
                     class=${classMap({
+                        value: true,
                         pending: this.pending,
                         disabled: this.disabled,
                     })}
                 >
                     ${value}
                 </span>
-                <button class="button" @click=${this._incrementValue} .disabled=${this.disabled}>
+                <button class="button plus" @click=${this._incrementValue} .disabled=${this.disabled}>
                     <ha-icon icon="mdi:plus"></ha-icon>
                 </button>
             </div>
@@ -129,23 +130,32 @@ export class InputNumber extends LitElement {
                 display: flex;
                 flex-direction: row;
                 align-items: center;
-                justify-content: space-between;
+                justify-content: center;
                 border-radius: var(--control-border-radius);
                 border: none;
                 background-color: var(--bg-color);
                 transition: background-color 280ms ease-in-out;
+                height: var(--control-height);
+                overflow: hidden;
             }
             .button {
                 display: flex;
                 flex-direction: row;
                 align-items: center;
                 justify-content: center;
-                padding: 6px;
+                padding: 4px;
                 border: none;
                 background: none;
                 cursor: pointer;
                 border-radius: var(--control-border-radius);
                 line-height: 0;
+                height: 100%;
+            }
+            .minus {
+                padding-right: 0;
+            }
+            .plus {
+                padding-left: 0;
             }
             .button:disabled {
                 cursor: not-allowed;
@@ -159,14 +169,18 @@ export class InputNumber extends LitElement {
             .button:disabled ha-icon {
                 color: var(--icon-color-disabled);
             }
-            span {
+            .value {
+                text-align: center;
+                flex-grow: 1;
+                flex-shrink: 0;
+                flex-basis: 20px;
                 font-weight: bold;
                 color: var(--text-color);
             }
-            span.disabled {
+            .value.disabled {
                 color: var(--text-color-disabled);
             }
-            span.pending {
+            .value.pending {
                 opacity: 0.5;
             }
         `;
