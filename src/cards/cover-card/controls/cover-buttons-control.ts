@@ -2,10 +2,10 @@ import { html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import {
     computeRTL,
-    CoverEntity,
     COVER_SUPPORT_CLOSE,
     COVER_SUPPORT_OPEN,
     COVER_SUPPORT_STOP,
+    CoverEntity,
     HomeAssistant,
     isAvailable,
     isClosing,
@@ -17,6 +17,7 @@ import {
 import "../../../shared/button";
 import "../../../shared/button-group";
 import { computeCloseIcon, computeOpenIcon } from "../../../utils/icons/cover-icon";
+import {CoverCardConfig} from "../cover-card-config";
 
 @customElement("mushroom-cover-buttons-control")
 export class CoverButtonsControl extends LitElement {
@@ -26,25 +27,57 @@ export class CoverButtonsControl extends LitElement {
 
     @property() public fill: boolean = false;
 
+    @property() public config!: CoverCardConfig;
+
     private _onOpenTap(e: MouseEvent): void {
         e.stopPropagation();
-        this.hass.callService("cover", "open_cover", {
-            entity_id: this.entity.entity_id,
-        });
+        if (this.config.open_cover_action) {
+            const [domain, service] = this.config.open_cover_action.service.split(".", 2);
+            this.hass.callService(
+                domain,
+                service,
+                this.config.open_cover_action.data ?? this.config.open_cover_action.service_data,
+                this.config?.open_cover_action.target
+            );
+        } else {
+            this.hass.callService("cover", "open_cover", {
+                entity_id: this.entity.entity_id,
+            });
+        }
     }
 
     private _onCloseTap(e: MouseEvent): void {
         e.stopPropagation();
-        this.hass.callService("cover", "close_cover", {
-            entity_id: this.entity.entity_id,
-        });
+        if (this.config.close_cover_action) {
+            const [domain, service] = this.config.close_cover_action.service.split(".", 2);
+            this.hass.callService(
+                domain,
+                service,
+                this.config.close_cover_action.data ?? this.config.close_cover_action.service_data,
+                this.config.close_cover_action.target
+            );
+        } else {
+            this.hass.callService("cover", "close_cover", {
+                entity_id: this.entity.entity_id,
+            });
+        }
     }
 
     private _onStopTap(e: MouseEvent): void {
         e.stopPropagation();
-        this.hass.callService("cover", "stop_cover", {
-            entity_id: this.entity.entity_id,
-        });
+        if (this.config.stop_cover_action) {
+            const [domain, service] = this.config.stop_cover_action.service.split(".", 2);
+            this.hass.callService(
+                domain,
+                service,
+                this.config.stop_cover_action.data ?? this.config.stop_cover_action.service_data,
+                this.config.stop_cover_action.target
+            );
+        } else {
+            this.hass.callService("cover", "stop_cover", {
+                entity_id: this.entity.entity_id,
+            });
+        }
     }
 
     private get openDisabled(): boolean {

@@ -68,7 +68,10 @@
             "cover": {
                 "show_buttons_control": "Control buttons?",
                 "show_position_control": "Position control?",
-                "show_tilt_position_control": "Tilt control?"
+                "show_tilt_position_control": "Tilt control?",
+                "close_cover_action": "Close Cover Action",
+                "stop_cover_action": "Stop Cover Action",
+                "open_cover_action": "Open Cover Action"
             },
             "alarm_control_panel": {
                 "show_keypad": "Show keypad"

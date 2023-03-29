@@ -239,6 +239,7 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
                         .hass=${this.hass}
                         .entity=${entity}
                         .fill=${layout !== "horizontal"}
+                        .config=${this._config}
                     />
                 `;
             case "position_control": {
