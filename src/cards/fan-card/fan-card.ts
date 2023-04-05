@@ -156,9 +156,7 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
                     </mushroom-state-item>
                     ${displayControls
                         ? html`
-                              ${!!(this._config.show_percentage_control || this._config.show_oscillate_control) ? 
-                                html`
-                                    <div class="actions" ?rtl=${rtl}>
+                               <div class="actions" ?rtl=${rtl}>
                                     ${this._config.show_percentage_control
                                         ? html`
                                                 <mushroom-fan-percentage-control
@@ -176,22 +174,19 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
                                                 ></mushroom-fan-oscillate-control>
                                             `
                                         : null}
+                                    ${this._config.presets 
+                                        ? html` 
+                                            <mushroom-fan-preset-control
+                                                class="actions"
+                                                ?rtl=${rtl}
+                                                .hass=${this.hass}
+                                                .entity=${entity}
+                                                .config=${this._config}
+                                                @current-change=${this.onCurrentPercentageChange}
+                                            ></mushroom-fan-preset-control>
+                                    ` : null}
                                 </div>
                               `
-                              : null}
-                              ${this._config.presets ?
-                                html`
-                                <mushroom-fan-preset-control
-                                    class="actions"
-                                    ?rtl=${rtl}
-                                    .hass=${this.hass}
-                                    .entity=${entity}
-                                    .config=${this._config}
-                                    @current-change=${this.onCurrentPercentageChange}
-                                ></mushroom-fan-preset-control>
-                                `
-                                : null}
-                          `
                         : null}
                 </mushroom-card>
             </ha-card>
