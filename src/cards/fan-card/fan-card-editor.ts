@@ -15,7 +15,7 @@ import { FAN_CARD_EDITOR_NAME, FAN_ENTITY_DOMAINS } from "./const";
 import { FanCardConfig, fanCardConfigStruct } from "./fan-card-config";
 import '../../shared/button'
 
-const FAN_LABELS = ["icon_animation", "show_percentage_control", "show_oscillate_control"];
+const FAN_LABELS = ["icon_animation", "show_percentage_control", "show_oscillate_control", "custom_presets"];
 
 const mdiClose = "M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z";
 const mdiPlus = "M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z";
@@ -50,7 +50,7 @@ const customPresetsScheme: HaFormSchema[] = [
         name: "",
         schema: [
             { name: "icon", selector: { icon: { placeholder: 'mdi:fan' } } },
-            { name: "value", selector: { number: {min: 0, max: 100, step: 1, mode: 'box'} } }
+            { name: "percentage", selector: { number: {min: 0, max: 100, step: 1, mode: 'box', unit_of_measurement: '%'} } }
         ]
     }
 ];
@@ -151,7 +151,7 @@ export class FanCardEditor extends MushroomBaseElement implements LovelaceCardEd
     
         newCustomPresets.push({
             icon: 'mdi:fan',
-            value: 100
+            percentage: 100
         })
 
         this._config!.custom_presets = newCustomPresets;
@@ -167,6 +167,8 @@ export class FanCardEditor extends MushroomBaseElement implements LovelaceCardEd
         const index = (ev.currentTarget as any).index;
         const newCustomPresets = this._config!.custom_presets!.concat();
         newCustomPresets[index] = {...ev.detail.value};
+        if(!newCustomPresets[index].percentage)
+            newCustomPresets[index].percentage = 0;
         this._config!.custom_presets = newCustomPresets;
     
         fireEvent(this, "config-changed", { config: this._config! });

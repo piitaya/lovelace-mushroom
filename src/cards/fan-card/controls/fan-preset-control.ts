@@ -34,7 +34,7 @@ export class FanPresetControl extends LitElement {
 
     private _onTap(e: MouseEvent): void {
         e.stopPropagation();
-        const value = this.config.custom_presets?.find(f=>`fan-preset-${f.value}` === (e.target as Element).id)?.value;
+        const value = this.config.custom_presets?.find(f=>`fan-preset-${f.percentage}` === (e.target as Element).id)?.percentage;
         if(value === 0 || value) {
             this.hass.callService("fan", "set_percentage", {
                 entity_id: this.entity.entity_id,
@@ -57,14 +57,14 @@ export class FanPresetControl extends LitElement {
 
         return html`
             ${this.config.custom_presets?.map(preset => {
-            const activated = active && preset.value === percentage;
+            const activated = active && preset.percentage === percentage;
             return html`
                 <mushroom-button
                     .disabled=${!isAvailable(this.entity)}
                     .icon=${preset.icon || "mdi:fan"}
                     @click=${this._onTap}
                      class=${classMap({ active: activated })}
-                    .id=${'fan-preset-'+preset.value}
+                    .id=${'fan-preset-'+preset.percentage}
                 />`
             })}
         `;

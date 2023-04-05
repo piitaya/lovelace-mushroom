@@ -9,7 +9,7 @@ import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-conf
 import { LovelaceCardConfig } from "../../ha";
 
 export interface FanPresetConfig {
-    value: number;
+    percentage: number;
     icon?: string;
 }
 
@@ -33,7 +33,7 @@ export const fanCardConfigStruct = assign(
         show_oscillate_control: optional(boolean()),
         collapsible_controls: optional(boolean()),
         custom_presets: optional(array(object({
-            value: integer(),
+            percentage: integer(),
             icon: optional(string())
         })))
     })
