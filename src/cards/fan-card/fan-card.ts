@@ -32,6 +32,7 @@ import { computeEntityPicture } from "../../utils/info";
 import { FAN_CARD_EDITOR_NAME, FAN_CARD_NAME, FAN_ENTITY_DOMAINS } from "./const";
 import "./controls/fan-oscillate-control";
 import "./controls/fan-percentage-control";
+import "./controls/fan-preset-control";
 import { FanCardConfig } from "./fan-card-config";
 import { getPercentage } from "./utils";
 
@@ -135,7 +136,7 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
 
         const displayControls =
             (!this._config.collapsible_controls || isActive(entity)) &&
-            (this._config.show_percentage_control || this._config.show_oscillate_control);
+            (this._config.show_percentage_control || this._config.show_oscillate_control || this._config.presets);
 
         return html`
             <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
@@ -155,25 +156,41 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
                     </mushroom-state-item>
                     ${displayControls
                         ? html`
-                              <div class="actions" ?rtl=${rtl}>
-                                  ${this._config.show_percentage_control
-                                      ? html`
-                                            <mushroom-fan-percentage-control
-                                                .hass=${this.hass}
-                                                .entity=${entity}
-                                                @current-change=${this.onCurrentPercentageChange}
-                                            ></mushroom-fan-percentage-control>
-                                        `
-                                      : null}
-                                  ${this._config.show_oscillate_control
-                                      ? html`
-                                            <mushroom-fan-oscillate-control
-                                                .hass=${this.hass}
-                                                .entity=${entity}
-                                            ></mushroom-fan-oscillate-control>
-                                        `
-                                      : null}
-                              </div>
+                              ${!!(this._config.show_percentage_control || this._config.show_oscillate_control) ? 
+                                html`
+                                    <div class="actions" ?rtl=${rtl}>
+                                    ${this._config.show_percentage_control
+                                        ? html`
+                                                <mushroom-fan-percentage-control
+                                                    .hass=${this.hass}
+                                                    .entity=${entity}
+                                                    @current-change=${this.onCurrentPercentageChange}
+                                                ></mushroom-fan-percentage-control>
+                                            `
+                                        : null}
+                                    ${this._config.show_oscillate_control
+                                        ? html`
+                                                <mushroom-fan-oscillate-control
+                                                    .hass=${this.hass}
+                                                    .entity=${entity}
+                                                ></mushroom-fan-oscillate-control>
+                                            `
+                                        : null}
+                                </div>
+                              `
+                              : null}
+                              ${this._config.presets ?
+                                html`
+                                <mushroom-fan-preset-control
+                                    class="actions"
+                                    ?rtl=${rtl}
+                                    .hass=${this.hass}
+                                    .entity=${entity}
+                                    .config=${this._config}
+                                    @current-change=${this.onCurrentPercentageChange}
+                                ></mushroom-fan-preset-control>
+                                `
+                                : null}
                           `
                         : null}
                 </mushroom-card>
@@ -226,6 +243,9 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
                     color: red !important;
                 }
                 mushroom-fan-percentage-control {
+                    flex: 1;
+                }
+                mushroom-fan-preset-control {
                     flex: 1;
                 }
             `,

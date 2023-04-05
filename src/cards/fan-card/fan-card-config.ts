@@ -1,4 +1,4 @@
-import { assign, boolean, object, optional } from "superstruct";
+import { assign, boolean, object, optional, array, string, integer  } from "superstruct";
 import { actionsSharedConfigStruct, ActionsSharedConfig } from "../../shared/config/actions-config";
 import {
     appearanceSharedConfigStruct,
@@ -8,6 +8,11 @@ import { entitySharedConfigStruct, EntitySharedConfig } from "../../shared/confi
 import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-config";
 import { LovelaceCardConfig } from "../../ha";
 
+export interface FanPresetConfig {
+    value: number;
+    icon?: string;
+}
+
 export type FanCardConfig = LovelaceCardConfig &
     EntitySharedConfig &
     AppearanceSharedConfig &
@@ -16,6 +21,7 @@ export type FanCardConfig = LovelaceCardConfig &
         show_percentage_control?: boolean;
         show_oscillate_control?: boolean;
         collapsible_controls?: boolean;
+        presets? : FanPresetConfig[];
     };
 
 export const fanCardConfigStruct = assign(
@@ -26,5 +32,9 @@ export const fanCardConfigStruct = assign(
         show_percentage_control: optional(boolean()),
         show_oscillate_control: optional(boolean()),
         collapsible_controls: optional(boolean()),
+        presets: optional(array(object({
+            value: integer(),
+            icon: optional(string())
+        })))
     })
 );

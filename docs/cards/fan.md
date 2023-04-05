@@ -9,13 +9,15 @@ A fan card allows you to control a fan entity.
 
 ## Configuration variables
 
-All the options are available in the lovelace editor but you can use `yaml` if you want.
+Almost all the options are available in the lovelace editor but you can use `yaml` if you want.
+
 
 | Name                      | Type                                                | Default     | Description                                                                         |
 | :------------------------ | :-------------------------------------------------- | :---------- | :---------------------------------------------------------------------------------- |
 | `entity`                  | string                                              | Required    | Fan entity                                                                          |
 | `icon`                    | string                                              | Optional    | Custom icon                                                                         |
 | `name`                    | string                                              | Optional    | Custom name                                                                         |
+| `presets`                 | preset list                                         | Optional    | list of persentage presets and coresponding icons                                   |
 | `layout`                  | string                                              | Optional    | Layout of the card. Vertical, horizontal and default layout are supported           |
 | `fill_container`          | boolean                                             | `false`     | Fill container or not. Useful when card is in a grid, vertical or horizontal layout |
 | `primary_info`            | `name` `state` `last-changed` `last-updated` `none` | `name`      | Info to show as primary info                                                        |
@@ -28,3 +30,12 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `tap_action`              | action                                              | `toggle`    | Home assistant action to perform on tap                                             |
 | `hold_action`             | action                                              | `more-info` | Home assistant action to perform on hold                                            |
 | `double_tap_action`       | action                                              | `more-info` | Home assistant action to perform on double_tap                                      |
+
+### presets
+
+presets are entered as a list of objects value and icon
+
+| Name                      | Type                                                | Default     | Description                                                                         |
+| :------------------------ | :-------------------------------------------------- | :---------- | :---------------------------------------------------------------------------------- |
+| `value`                   | integer                                             | Required    | 0-100 representing the percentage for the preset                                    |
+| `icon`                    | string                                              | Optional    | Custom icon (defaults to mdi:fan)                                                   |
