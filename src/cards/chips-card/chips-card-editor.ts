@@ -111,6 +111,10 @@ const templateChipConfigStruct = object({
     entity_id: optional(union([string(), array(string())])),
 });
 
+const spacerChipConfigStruct = object({
+    type: literal("spacer"),
+});
+
 const chipsConfigStruct = dynamic<any>((value) => {
     if (value && typeof value === "object" && "type" in value) {
         switch ((value as LovelaceChipConfig).type!) {
@@ -130,6 +134,8 @@ const chipsConfigStruct = dynamic<any>((value) => {
                 return lightChipConfigStruct;
             case "template":
                 return templateChipConfigStruct;
+            case "spacer":
+                return spacerChipConfigStruct;
         }
     }
     return object();

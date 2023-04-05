@@ -167,6 +167,7 @@
                     "entity": "Entity",
                     "light": "Light",
                     "menu": "Menu",
+                    "spacer": "Spacer",
                     "template": "Template",
                     "weather": "Weather"
                 }
