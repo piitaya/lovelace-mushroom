@@ -1,7 +1,7 @@
 import { html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
-import { atLeastHaVersion, fireEvent, HomeAssistant } from "../../../ha";
+import { fireEvent, HomeAssistant } from "../../../ha";
 import setupCustomlocalize from "../../../localize";
 import { computeActionsFormSchema } from "../../../shared/config/actions-config";
 import { GENERIC_LABELS } from "../../../utils/form/generic-fields";
@@ -11,31 +11,23 @@ import { TemplateChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { TEMPLATE_LABELS } from "../../template-card/template-card-editor";
 
-const computeSchema = memoizeOne((version: string): HaFormSchema[] => [
+const computeSchema = memoizeOne((): HaFormSchema[] => [
     { name: "entity", selector: { entity: {} } },
     {
         name: "icon",
-        selector: atLeastHaVersion(version, 2022, 5)
-            ? { template: {} }
-            : { text: { multiline: true } },
+        selector: { template: {} },
     },
     {
         name: "icon_color",
-        selector: atLeastHaVersion(version, 2022, 5)
-            ? { template: {} }
-            : { text: { multiline: true } },
+        selector: { template: {} },
     },
     {
         name: "picture",
-        selector: atLeastHaVersion(version, 2022, 5)
-            ? { template: {} }
-            : { text: { multiline: true } },
+        selector: { template: {} },
     },
     {
         name: "content",
-        selector: atLeastHaVersion(version, 2022, 5)
-            ? { template: {} }
-            : { text: { multiline: true } },
+        selector: { template: {} },
     },
     ...computeActionsFormSchema(),
 ]);
@@ -72,11 +64,13 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
             return html``;
         }
 
+        const schema = computeSchema();
+
         return html`
             <ha-form
                 .hass=${this.hass}
                 .data=${this._config}
-                .schema=${computeSchema(this.hass!.connection.haVersion)}
+                .schema=${schema}
                 .computeLabel=${this._computeLabel}
                 @value-changed=${this._valueChanged}
             ></ha-form>

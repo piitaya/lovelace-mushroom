@@ -51,7 +51,8 @@
                 "icon_type": "Ikon típus",
                 "content_info": "Tartalom",
                 "use_entity_picture": "Entitás kép használata",
-                "collapsible_controls": "Vezérlők összezárása kikapcsolt állapotban"
+                "collapsible_controls": "Vezérlők összezárása kikapcsolt állapotban",
+                "icon_animation": "Ikon animálása aktív állapotban"
             },
             "light": {
                 "show_brightness_control": "Fényerő vezérlő",
@@ -61,13 +62,13 @@
                 "incompatible_controls": "Azok a vezérlők nem lesznek megjelenítve, amelyeket a fényforrás nem támogat."
             },
             "fan": {
-                "icon_animation": "Ikon animálása aktív állapotban",
                 "show_percentage_control": "Százalékos vezérlő",
                 "show_oscillate_control": "Oszcilláció vezérlő"
             },
             "cover": {
                 "show_buttons_control": "Vezérlő gombok",
-                "show_position_control": "Pozíció vezérlő"
+                "show_position_control": "Pozíció vezérlő",
+                "show_tilt_position_control": "Dőlésszög szabályzó"
             },
             "alarm_control_panel": {
                 "show_keypad": "Billentyűzet mutatása"
@@ -76,15 +77,17 @@
                 "primary": "Elsődleges információ",
                 "secondary": "Másodlagos információ",
                 "multiline_secondary": "Másodlagost több sorba?",
-                "entity_extra": "Used in templates and actions",
+                "entity_extra": "Műveletek és sablonok használatakor",
                 "content": "Tartalom",
                 "badge_icon": "Jelvény ikon",
                 "badge_color": "Jelvény szín",
-                "picture": "Kép (helyettesíteni fogja az ikont)"
+                "picture": "Kép (lecseréli az ikont)"
             },
             "title": {
                 "title": "Fejléc",
-                "subtitle": "Alcím"
+                "subtitle": "Alcím",
+                "title_tap_action": "Fejlécre koppintáskor",
+                "subtitle_tap_action": "Alcímre koppintáskor"
             },
             "chips": {
                 "alignment": "Rendezés"
@@ -97,7 +100,10 @@
                 "show_buttons_control": "Vezérlő gombok"
             },
             "vacuum": {
-                "commands": "Utasítások"
+                "commands": "Utasítások",
+                "commands_list": {
+                    "on_off": "Ki/Bekapcsolás"
+                }
             },
             "media-player": {
                 "use_media_info": "Média infó használata",
@@ -130,6 +136,14 @@
             "climate": {
                 "show_temperature_control": "Hőmérséklet vezérlő",
                 "hvac_modes": "HVAC mód"
+            },
+            "number": {
+                "display_mode": "Megjelenítési mód",
+                "display_mode_list": {
+                    "default": "Alepértelmezett (csúszka)",
+                    "slider": "Csúszka",
+                    "buttons": "Gombok"
+                }
             }
         },
         "chip": {

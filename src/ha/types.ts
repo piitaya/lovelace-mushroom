@@ -49,6 +49,42 @@ declare global {
     }
 }
 
+export interface EntityRegistryDisplayEntry {
+    entity_id: string;
+    name?: string;
+    device_id?: string;
+    area_id?: string;
+    hidden?: boolean;
+    entity_category?: "config" | "diagnostic";
+    translation_key?: string;
+    platform?: string;
+    display_precision?: number;
+}
+
+export interface DeviceRegistryEntry {
+    id: string;
+    config_entries: string[];
+    connections: Array<[string, string]>;
+    identifiers: Array<[string, string]>;
+    manufacturer: string | null;
+    model: string | null;
+    name: string | null;
+    sw_version: string | null;
+    hw_version: string | null;
+    via_device_id: string | null;
+    area_id: string | null;
+    name_by_user: string | null;
+    entry_type: "service" | null;
+    disabled_by: "user" | "integration" | "config_entry" | null;
+    configuration_url: string | null;
+}
+
+export interface AreaRegistryEntry {
+    area_id: string;
+    name: string;
+    picture: string | null;
+}
+
 export interface ThemeSettings {
     theme: string;
     // Radio box selection for theme picker. Do not use in Lovelace rendering as
@@ -130,6 +166,9 @@ export interface HomeAssistant {
     connection: Connection;
     connected: boolean;
     states: HassEntities;
+    entities: { [id: string]: EntityRegistryDisplayEntry };
+    devices: { [id: string]: DeviceRegistryEntry };
+    areas: { [id: string]: AreaRegistryEntry };
     services: HassServices;
     config: HassConfig;
     themes: Themes;

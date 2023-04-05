@@ -42,8 +42,11 @@ export class Chip extends LitElement {
                 display: flex;
                 flex-direction: row;
                 align-items: center;
-                box-shadow: var(--chip-box-shadow);
                 background: var(--chip-background);
+                border-width: var(--chip-border-width);
+                border-color: var(--chip-border-color);
+                box-shadow: var(--chip-box-shadow);
+                box-sizing: content-box;
             }
             .avatar {
                 --avatar-size: calc(var(--chip-height) - 2 * var(--chip-avatar-padding));

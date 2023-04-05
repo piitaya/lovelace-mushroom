@@ -37,7 +37,7 @@
                     "start": "Začátek",
                     "end": "Konec",
                     "center": "Na střed",
-                    "justify": "Důvod"
+                    "justify": "Do bloku"
                 }
             }
         },
@@ -51,17 +51,17 @@
                 "icon_type": "Typ ikony",
                 "content_info": "Obsah",
                 "use_entity_picture": "Použít ikonu entity?",
-                "collapsible_controls": "Skrýt ovládací prvky pokud je VYP"
+                "collapsible_controls": "Skrýt ovládací prvky pokud je VYP",
+                "icon_animation": "Animovaná ikona, pokud je aktivní?"
             },
             "light": {
                 "show_brightness_control": "Ovládání jasu?",
                 "use_light_color": "Použít ovládání světla",
                 "show_color_temp_control": "Ovládání teploty světla?",
-                "show_color_control": "Ovládání baryv světla?",
+                "show_color_control": "Ovládání barvy světla?",
                 "incompatible_controls": "Některé ovládací prvky se nemusí zobrazit, pokud vaše světlo tuto funkci nepodporuje."
             },
             "fan": {
-                "icon_animation": "Animovaná ikona, pokud je aktivní?",
                 "show_percentage_control": "Ovládání v procentech?",
                 "show_oscillate_control": "Oscillate control?"
             },
@@ -91,7 +91,7 @@
             },
             "weather": {
                 "show_conditions": "Zobrazit podmínky?",
-                "show_temperature": "Zobrazit teplot?u"
+                "show_temperature": "Zobrazit teplotu?"
             },
             "update": {
                 "show_buttons_control": "Zobrazit ovládací tlačítka?"

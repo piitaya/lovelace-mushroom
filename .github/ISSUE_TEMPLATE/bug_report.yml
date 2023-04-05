@@ -1,52 +1,70 @@
 name: 🐞 Bug Report
 description: Create a report to help us improve
 title: "[Bug]: <title>"
-labels: ["bug", "triage"]
+labels: ["bug"]
 body:
-- type: textarea
-  attributes:
-    label: Current Behavior
-    description: A concise description of what you're experiencing.
-  validations:
-    required: false
-- type: textarea
-  attributes:
-    label: Expected Behavior
-    description: A concise description of what you expected to happen.
-  validations:
-    required: false
-- type: textarea
-  attributes:
-    label: Steps To Reproduce
-    description: Steps to reproduce the behavior.
-    placeholder: |
-      1. In this environment...
-      2. With this config...
-      3. Run '...'
-      4. See error...
-  validations:
-    required: false
-- type: textarea
-  attributes:
-    label: Environment
-    description: |
-      examples:
-        - **OS**: Ubuntu 20.04
-        - **Brower**: chrome
-        - **Version**: 1.6.2
-        - **Hassio**: 2022.2.3
-    value: |
-        - OS:
-        - Node:
-        - Version:
-        - Hassio:
-    render: markdown
-  validations:
-    required: false
-- type: textarea
-  attributes:
-    label: Anything else?
-    description: |
-      Links? References? Anything that will give us more context about the issue you are encountering!
+    - type: checkboxes
+      attributes:
+          label: Requirements
+          options:
+              - label: I have updated Mushroom to the latest available version
+                required: true
+              - label: I did a search to see if there is a similar issue or if a pull request is open.
+                required: true
+    - type: textarea
+      attributes:
+          label: Current Behavior
+          description: A concise description of what you're experiencing.
+      validations:
+          required: false
+    - type: textarea
+      attributes:
+          label: Expected Behavior
+          description: A concise description of what you expected to happen.
+      validations:
+          required: false
+    - type: textarea
+      attributes:
+          label: Steps To Reproduce
+          description: Steps to reproduce the behavior.
+          placeholder: |
+              1. In this environment...
+              2. With this config...
+              3. Run '...'
+              4. See error...
+      validations:
+          required: false
+    - type: textarea
+      attributes:
+          label: Context
+          description: |
+              If your issue is about a certain type of entity, please provide the entity state/attribute. You can find it in the [developer tools](https://my.home-assistant.io/redirect/developer_states/). Otherwise, you can leave this section blank.
+          value: |
+              YAML state
+              ```yaml
 
-      Tip: You can attach images or log files by clicking this area to highlight it and then dragging files in.
+              ```
+      validations:
+          required: false
+    - type: textarea
+      attributes:
+          label: Environment
+          description: |
+              examples:
+                - **Brower**: Chrome
+                - **HA Version**: 2022.11.0
+                - **Mushroom**: 2.3.4
+          value: |
+              - Browser:
+              - HA Version:
+              - Mushroom:
+          render: markdown
+      validations:
+          required: false
+    - type: textarea
+      attributes:
+          label: Anything else?
+          description: |
+              Links? References? Anything that will give us more context about the issue you are encountering!
+
+              Tip: You can attach images or log files by clicking this area to highlight it and then dragging files in.

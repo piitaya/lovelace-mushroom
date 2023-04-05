@@ -1,6 +1,9 @@
 import { HomeAssistant } from "./ha";
 import * as ar from "./translations/ar.json";
+import * as bg from "./translations/bg.json";
+import * as ca from "./translations/ca.json";
 import * as cs from "./translations/cs.json";
+import * as da from "./translations/da.json";
 import * as de from "./translations/de.json";
 import * as el from "./translations/el.json";
 import * as en from "./translations/en.json";
@@ -10,11 +13,15 @@ import * as fr from "./translations/fr.json";
 import * as he from "./translations/he.json";
 import * as hu from "./translations/hu.json";
 import * as it from "./translations/it.json";
+import * as ko_KR from "./translations/ko-KR.json";
 import * as nb from "./translations/nb.json";
 import * as nl from "./translations/nl.json";
 import * as pl from "./translations/pl.json";
 import * as pt_BR from "./translations/pt-BR.json";
 import * as pt_PT from "./translations/pt-PT.json";
+import * as ro from "./translations/ro.json";
+import * as ru from "./translations/ru.json";
+import * as sk from "./translations/sk.json";
 import * as sv from "./translations/sv.json";
 import * as tr from "./translations/tr.json";
 import * as vi from "./translations/vi.json";
@@ -23,7 +30,10 @@ import * as zh_Hant from "./translations/zh-Hant.json";
 
 const languages: Record<string, unknown> = {
     ar,
+    bg,
+    ca,
     cs,
+    da,
     de,
     el,
     en,
@@ -33,11 +43,15 @@ const languages: Record<string, unknown> = {
     he,
     hu,
     it,
+    "ko-KR": ko_KR,
     nb,
     nl,
     pl,
     "pt-BR": pt_BR,
     "pt-PT": pt_PT,
+    ro,
+    ru,
+    sk,
     sv,
     tr,
     vi,

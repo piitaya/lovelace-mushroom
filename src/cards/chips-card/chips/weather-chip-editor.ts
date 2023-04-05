@@ -3,19 +3,20 @@ import { customElement, property, state } from "lit/decorators.js";
 import { fireEvent, HomeAssistant } from "../../../ha";
 import setupCustomlocalize from "../../../localize";
 import { computeActionsFormSchema } from "../../../shared/config/actions-config";
-import { Action } from "../../../utils/form/custom/ha-selector-mushroom-action";
 import { GENERIC_LABELS } from "../../../utils/form/generic-fields";
 import { HaFormSchema } from "../../../utils/form/ha-form";
+import { UiAction } from "../../../utils/form/ha-selector";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
 import { WeatherChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
+import memoizeOne from "memoize-one";
 
 const WEATHER_ENTITY_DOMAINS = ["weather"];
 const WEATHER_LABELS = ["show_conditions", "show_temperature"];
 
-const actions: Action[] = ["more-info", "navigate", "url", "call-service", "none"];
+const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "none"];
 
-const SCHEMA: HaFormSchema[] = [
+const computeSchema = memoizeOne((): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: WEATHER_ENTITY_DOMAINS } } },
     {
         type: "grid",
@@ -26,7 +27,7 @@ const SCHEMA: HaFormSchema[] = [
         ],
     },
     ...computeActionsFormSchema(actions),
-];
+]);
 
 @customElement(computeChipEditorComponentName("weather"))
 export class WeatherChipEditor extends LitElement implements LovelaceChipEditor {
@@ -55,11 +56,13 @@ export class WeatherChipEditor extends LitElement implements LovelaceChipEditor 
             return html``;
         }
 
+        const schema = computeSchema();
+
         return html`
             <ha-form
                 .hass=${this.hass}
                 .data=${this._config}
-                .schema=${SCHEMA}
+                .schema=${schema}
                 .computeLabel=${this._computeLabel}
                 @value-changed=${this._valueChanged}
             ></ha-form>

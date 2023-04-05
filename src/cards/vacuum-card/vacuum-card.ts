@@ -1,16 +1,18 @@
 import { css, CSSResultGroup, html, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
+import { styleMap } from "lit/directives/style-map.js";
 import {
-    actionHandler,
     ActionHandlerEvent,
-    computeRTL,
-    handleAction,
-    hasAction,
     HomeAssistant,
     LovelaceCard,
     LovelaceCardEditor,
     VacuumEntity,
+    actionHandler,
+    computeRTL,
+    handleAction,
+    hasAction,
+    isActive,
 } from "../../ha";
 import "../../shared/badge-icon";
 import "../../shared/card";
@@ -27,6 +29,8 @@ import { VACUUM_CARD_EDITOR_NAME, VACUUM_CARD_NAME, VACUUM_ENTITY_DOMAINS } from
 import "./controls/vacuum-commands-control";
 import { isCommandsControlVisible } from "./controls/vacuum-commands-control";
 import { VacuumCardConfig } from "./vacuum-card-config";
+import { HassEntity } from "home-assistant-js-websocket";
+import { isCleaning, isReturningHome } from "./utils";
 
 registerCustomCard({
     type: VACUUM_CARD_NAME,
@@ -123,6 +127,21 @@ export class VacuumCard extends MushroomBaseCard implements LovelaceCard {
         `;
     }
 
+    protected renderIcon(entity: HassEntity, icon: string): TemplateResult {
+        return html`
+            <mushroom-shape-icon
+                slot="icon"
+                class=${classMap({
+                    returning: isReturningHome(entity) && Boolean(this._config?.icon_animation),
+                    cleaning: isCleaning(entity) && Boolean(this._config?.icon_animation),
+                })}
+                style=${styleMap({})}
+                .disabled=${!isActive(entity)}
+                .icon=${icon}
+            ></mushroom-shape-icon>
+        `;
+    }
+
     static get styles(): CSSResultGroup {
         return [
             super.styles,
@@ -134,6 +153,12 @@ export class VacuumCard extends MushroomBaseCard implements LovelaceCard {
                 mushroom-shape-icon {
                     --icon-color: rgb(var(--rgb-state-vacuum));
                     --shape-color: rgba(var(--rgb-state-vacuum), 0.2);
+                }
+                mushroom-shape-icon.cleaning {
+                    --icon-animation: 5s infinite linear cleaning;
+                }
+                mushroom-shape-icon.returning {
+                    --icon-animation: 2s infinite linear returning;
                 }
                 mushroom-vacuum-commands-control {
                     flex: 1;

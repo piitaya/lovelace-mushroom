@@ -2,30 +2,36 @@ import { html, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
-import { atLeastHaVersion, fireEvent, LovelaceCardEditor } from "../../ha";
+import { fireEvent, LovelaceCardEditor } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { HaFormSchema } from "../../utils/form/ha-form";
+import { UiAction } from "../../utils/form/ha-selector";
 import { loadHaComponents } from "../../utils/loader";
 import { TITLE_CARD_EDITOR_NAME } from "./const";
 import { TitleCardConfig, titleCardConfigStruct } from "./title-card-config";
 
-const TITLE_LABELS = ["title", "subtitle"];
+const actions: UiAction[] = ["navigate", "url", "none"];
+const TITLE_LABELS = ["title", "subtitle", "title_tap_action", "subtitle_tap_action"];
 
-const computeSchema = memoizeOne((version: string): HaFormSchema[] => [
+const computeSchema = memoizeOne((): HaFormSchema[] => [
     {
         name: "title",
-        selector: atLeastHaVersion(version, 2022, 5)
-            ? { template: {} }
-            : { text: { multiline: true } },
+        selector: { template: {} },
     },
     {
         name: "subtitle",
-        selector: atLeastHaVersion(version, 2022, 5)
-            ? { template: {} }
-            : { text: { multiline: true } },
+        selector: { template: {} },
     },
     { name: "alignment", selector: { "mush-alignment": {} } },
+    {
+        name: "title_tap_action",
+        selector: { "ui-action": { actions } },
+    },
+    {
+        name: "subtitle_tap_action",
+        selector: { "ui-action": { actions } },
+    },
 ]);
 
 @customElement(TITLE_CARD_EDITOR_NAME)
@@ -56,11 +62,13 @@ export class TitleCardEditor extends MushroomBaseElement implements LovelaceCard
             return html``;
         }
 
+        const schema = computeSchema();
+
         return html`
             <ha-form
                 .hass=${this.hass}
                 .data=${this._config}
-                .schema=${computeSchema(this.hass!.connection.haVersion)}
+                .schema=${schema}
                 .computeLabel=${this._computeLabel}
                 @value-changed=${this._valueChanged}
             ></ha-form>

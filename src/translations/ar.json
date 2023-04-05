@@ -51,7 +51,8 @@
                 "icon_type": "نوع الأيقونة",
                 "content_info": "المحتوى",
                 "use_entity_picture": "استخدم صورة الكيان؟",
-                "collapsible_controls": "تصغير عناصر التحكم عند الإيقاف"
+                "collapsible_controls": "تصغير عناصر التحكم عند الإيقاف",
+                "icon_animation": "تحريك الرمز عندما يكون نشطًا؟"
             },
             "light": {
                 "show_brightness_control": "التحكم في السطوع؟",
@@ -61,7 +62,6 @@
                 "incompatible_controls": "قد لا يتم عرض بعض عناصر التحكم إذا كان الضوء الخاص بك لا يدعم الميزة."
             },
             "fan": {
-                "icon_animation": "تحريك الرمز عندما يكون نشطًا؟",
                 "show_percentage_control": "التحكم في النسبة المئوية؟",
                 "show_oscillate_control": "التحكم في التذبذب؟"
             },

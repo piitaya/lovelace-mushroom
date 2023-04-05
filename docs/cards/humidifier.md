@@ -5,7 +5,7 @@
 
 ## Description
 
-A humidifier card allow you to control a humidifier entity.
+A humidifier card allows you to control a humidifier entity.
 
 ## Configuration variables
 

@@ -37,7 +37,7 @@
                     "start": "Wyrównanie do lewej",
                     "end": "Wyrównanie do prawej",
                     "center": "Wyśrodkowanie",
-                    "justify": "Justyfikacja"
+                    "justify": "Justowanie"
                 }
             }
         },
@@ -51,7 +51,8 @@
                 "icon_type": "Typ ikony",
                 "content_info": "Zawartość",
                 "use_entity_picture": "Użyć obrazu encji?",
-                "collapsible_controls": "Zwiń sterowanie, jeśli wyłączone"
+                "collapsible_controls": "Zwiń sterowanie, jeśli wyłączone",
+                "icon_animation": "Animować, gdy aktywny?"
             },
             "light": {
                 "show_brightness_control": "Sterowanie jasnością?",
@@ -61,13 +62,13 @@
                 "incompatible_controls": "Niektóre funkcje są niewidoczne, jeśli światło ich nie obsługuje."
             },
             "fan": {
-                "icon_animation": "Animować, gdy aktywny?",
                 "show_percentage_control": "Sterowanie procentowe?",
                 "show_oscillate_control": "Sterowanie oscylacją?"
             },
             "cover": {
                 "show_buttons_control": "Przyciski sterujące?",
-                "show_position_control": "Sterowanie położeniem?"
+                "show_position_control": "Sterowanie położeniem?",
+                "show_tilt_position_control": "Sterowanie poziomem otwarcia?"
             },
             "alarm_control_panel": {
                 "show_keypad": "Wyświetl klawiaturę"

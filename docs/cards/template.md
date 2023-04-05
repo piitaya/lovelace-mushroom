@@ -5,16 +5,14 @@
 
 ## Description
 
-A template card allow you to build custom card.
+A template card allows you to build a custom card. You can use `entity` as a variable for the entity set on the card e.g. `{{ states(entity) }}`.
 
 ## Configuration variables
 
 All the options are available in the lovelace editor but you can use `yaml` if you want.
 
-
-
 | Name                  | Type            | Default     | Description                                                                                                                         |
-| :--                   | :--             | :--         | :--                                                                                                                                 |
+| :-------------------- | :-------------- | :---------- | :---------------------------------------------------------------------------------------------------------------------------------- |
 | `icon`                | string          | Optional    | Icon to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                              |
 | `icon_color`          | string          | Optional    | Icon color to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                        |
 | `primary`             | string          | Optional    | Primary info to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                      |

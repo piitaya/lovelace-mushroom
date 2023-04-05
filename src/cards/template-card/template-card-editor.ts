@@ -2,7 +2,7 @@ import { html, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
-import { atLeastHaVersion, fireEvent, LovelaceCardEditor } from "../../ha";
+import { fireEvent, LovelaceCardEditor } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { computeActionsFormSchema } from "../../shared/config/actions-config";
 import { MushroomBaseElement } from "../../utils/base-element";
@@ -22,49 +22,35 @@ export const TEMPLATE_LABELS = [
     "picture",
 ];
 
-const computeSchema = memoizeOne((version: string): HaFormSchema[] => [
+const computeSchema = memoizeOne((): HaFormSchema[] => [
     { name: "entity", selector: { entity: {} } },
     {
         name: "icon",
-        selector: atLeastHaVersion(version, 2022, 5)
-            ? { template: {} }
-            : { text: { multiline: true } },
+        selector: { template: {} },
     },
     {
         name: "icon_color",
-        selector: atLeastHaVersion(version, 2022, 5)
-            ? { template: {} }
-            : { text: { multiline: true } },
+        selector: { template: {} },
     },
     {
         name: "primary",
-        selector: atLeastHaVersion(version, 2022, 5)
-            ? { template: {} }
-            : { text: { multiline: true } },
+        selector: { template: {} },
     },
     {
         name: "secondary",
-        selector: atLeastHaVersion(version, 2022, 5)
-            ? { template: {} }
-            : { text: { multiline: true } },
+        selector: { template: {} },
     },
     {
         name: "badge_icon",
-        selector: atLeastHaVersion(version, 2022, 5)
-            ? { template: {} }
-            : { text: { multiline: true } },
+        selector: { template: {} },
     },
     {
         name: "badge_color",
-        selector: atLeastHaVersion(version, 2022, 5)
-            ? { template: {} }
-            : { text: { multiline: true } },
+        selector: { template: {} },
     },
     {
         name: "picture",
-        selector: atLeastHaVersion(version, 2022, 5)
-            ? { template: {} }
-            : { text: { multiline: true } },
+        selector: { template: {} },
     },
     {
         type: "grid",
@@ -114,11 +100,12 @@ export class TemplateCardEditor extends MushroomBaseElement implements LovelaceC
             return html``;
         }
 
+        const schema = computeSchema();
         return html`
             <ha-form
                 .hass=${this.hass}
                 .data=${this._config}
-                .schema=${computeSchema(this.hass!.connection.haVersion)}
+                .schema=${schema}
                 .computeLabel=${this._computeLabel}
                 @value-changed=${this._valueChanged}
             ></ha-form>

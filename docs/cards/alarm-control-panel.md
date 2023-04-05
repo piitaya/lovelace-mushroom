@@ -1,11 +1,11 @@
 # Alarm control panel card
 
-![Alarm light](../images/alarm-light.png)
-![Alarm dark](../images/alarm-dark.png)
+![Alarm control panel light](../images/alarm-control-panel-light.png)
+![Alarm control panel dark](../images/alarm-control-panel-dark.png)
 
 ## Description
 
-A alarm control panel card allow you to control a alarm panel entity.
+An alarm control panel card allows you to control a alarm panel entity.
 
 ## Configuration variables
 

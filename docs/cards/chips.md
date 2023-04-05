@@ -32,7 +32,7 @@ An alarm control panel is an entity chip that allows you to display the right ic
 ![Chip back light](../images/chip-back-light.png)
 ![Chip back dark](../images/chip-back-dark.png)
 
-An action chip allows you to perform a back action.
+A back chip allows you to perform a back action.
 
 ### Conditional chip
 
