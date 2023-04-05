@@ -21,7 +21,7 @@ export type FanCardConfig = LovelaceCardConfig &
         show_percentage_control?: boolean;
         show_oscillate_control?: boolean;
         collapsible_controls?: boolean;
-        presets? : FanPresetConfig[];
+        custom_presets? : FanPresetConfig[];
     };
 
 export const fanCardConfigStruct = assign(
@@ -32,7 +32,7 @@ export const fanCardConfigStruct = assign(
         show_percentage_control: optional(boolean()),
         show_oscillate_control: optional(boolean()),
         collapsible_controls: optional(boolean()),
-        presets: optional(array(object({
+        custom_presets: optional(array(object({
             value: integer(),
             icon: optional(string())
         })))

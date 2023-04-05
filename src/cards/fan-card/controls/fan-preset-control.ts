@@ -34,7 +34,7 @@ export class FanPresetControl extends LitElement {
 
     private _onTap(e: MouseEvent): void {
         e.stopPropagation();
-        const value = this.config.presets?.find(f=>`fan-preset-${f.value}` === (e.target as Element).id)?.value;
+        const value = this.config.custom_presets?.find(f=>`fan-preset-${f.value}` === (e.target as Element).id)?.value;
         if(value === 0 || value) {
             this.hass.callService("fan", "set_percentage", {
                 entity_id: this.entity.entity_id,
@@ -56,7 +56,7 @@ export class FanPresetControl extends LitElement {
         const percentage = getPercentage(this.entity);
 
         return html`
-            ${this.config.presets?.map(preset => {
+            ${this.config.custom_presets?.map(preset => {
             const activated = active && preset.value === percentage;
             return html`
                 <mushroom-button

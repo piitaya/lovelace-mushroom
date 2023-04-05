@@ -136,7 +136,7 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
 
         const displayControls =
             (!this._config.collapsible_controls || isActive(entity)) &&
-            (this._config.show_percentage_control || this._config.show_oscillate_control || this._config.presets);
+            (this._config.show_percentage_control || this._config.show_oscillate_control || this._config.custom_presets);
 
         return html`
             <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
@@ -174,7 +174,7 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
                                                 ></mushroom-fan-oscillate-control>
                                             `
                                         : null}
-                                    ${this._config.presets 
+                                    ${this._config.custom_presets 
                                         ? html` 
                                             <mushroom-fan-preset-control
                                                 class="actions"
