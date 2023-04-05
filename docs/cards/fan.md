@@ -9,7 +9,7 @@ A fan card allows you to control a fan entity.
 
 ## Configuration variables
 
-Almost all the options are available in the lovelace editor but you can use `yaml` if you want.
+All the options are available in the lovelace editor but you can use `yaml` if you want.
 
 
 | Name                      | Type                                                | Default     | Description                                                                         |
