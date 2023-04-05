@@ -144,6 +144,9 @@
                     "slider": "Slider",
                     "buttons": "Buttons"
                 }
+            },
+            "countdown": {
+                "timeup_message": "Time's Up Message"
             }
         },
         "chip": {

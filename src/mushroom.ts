@@ -22,5 +22,6 @@ export { TemplateCard } from "./cards/template-card/template-card";
 export { TitleCard } from "./cards/title-card/title-card";
 export { UpdateCard } from "./cards/update-card/update-card";
 export { VacuumCard } from "./cards/vacuum-card/vacuum-card";
+export { CountdownCard } from "./cards/countdown-card/countdown-card";
 
 console.info(`%c🍄 Mushroom 🍄 - ${version}`, "color: #ef5350; font-weight: 700;");
