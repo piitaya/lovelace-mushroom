@@ -11,17 +11,17 @@ export class CountDownComponent extends LitElement {
 
     @property({ attribute: false }) public timeup_message?: string;
     
-    private _interval?: number;
+    private _timeout?: number;
 
     public disconnectedCallback(): void {
       super.disconnectedCallback();
-      this._clearInterval();
+      this._clearTimeout();
     }
   
     public connectedCallback(): void {
       super.connectedCallback();
       if (this.datetime) {
-        this._startInterval();
+        this._updateRelative();
       }
     }
   
@@ -39,18 +39,11 @@ export class CountDownComponent extends LitElement {
       this._updateRelative();
     }
   
-    private _clearInterval(): void {
-      if (this._interval) {
-        window.clearInterval(this._interval);
-        this._interval = undefined;
+    private _clearTimeout(): void {
+      if (this._timeout) {
+        window.clearInterval(this._timeout);
+        this._timeout = undefined;
       }
-    }
-  
-    private _startInterval(): void {
-      this._clearInterval();
-  
-      // update every second
-      this._interval = window.setInterval(() => this._updateRelative(), 1000);
     }
   
     private _updateRelative(): void {
@@ -58,9 +51,9 @@ export class CountDownComponent extends LitElement {
         this.innerHTML = this.hass.localize("ui.components.relative_time.never");
       } else {
         this.innerHTML = this._GetLabel(new Date(this.datetime));
+        this._timeout = setTimeout(()=>this._updateRelative(), 1000);
       }
     }
-  
 
     _GetLabel(targetDateTime?: Date) {
     
@@ -71,6 +64,7 @@ export class CountDownComponent extends LitElement {
         try {
           const distance = targetDateTime.getTime() - new Date().getTime();
           if(distance <= 0) {
+            this._clearTimeout();
             return this.timeup_message || "Time's Up!"
           }
         
