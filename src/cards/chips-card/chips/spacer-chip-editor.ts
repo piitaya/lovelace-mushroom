@@ -1,6 +1,7 @@
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { HomeAssistant } from "../../../ha";
+import setupCustomlocalize from "../../../localize";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 
@@ -14,8 +15,10 @@ export class SpacerChipEditor extends LitElement implements LovelaceChipEditor {
         if (!this.hass) {
             return html``;
         }
-        
-        return html`<div>There are currently no config options for this chip.</div>`;
+
+        const customLocalize = setupCustomlocalize(this.hass!);
+
+        return html`<div>${customLocalize(`editor.chip.no_config`)}</div>`;
     }
 
     static get styles(): CSSResultGroup {

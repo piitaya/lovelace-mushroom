@@ -171,7 +171,8 @@
                     "template": "Template",
                     "weather": "Weather"
                 }
-            }
+            },
+            "no_config": "There are currently no config options for this chip."
         }
     }
 }
