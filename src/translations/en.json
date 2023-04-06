@@ -146,7 +146,8 @@
                 }
             },
             "countdown": {
-                "timeup_message": "Time's Up Message"
+                "timeup_message": "Time's Up Message",
+                "unknown_message": "Unknown State Message"
             }
         },
         "chip": {

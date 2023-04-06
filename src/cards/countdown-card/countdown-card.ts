@@ -150,6 +150,12 @@ export class CountdownCard extends MushroomBaseCard implements LovelaceCard {
                     .timeup_message=${this._config?.timeup_message}
                 ></mushroom-time-countdown>
                 `;
+        } if (entity.attributes.device_class === "timestamp" &&
+            isAvailable(entity) &&
+            isUnknown(entity) &&
+            this._config?.unknown_message
+        ){
+            secondary = this._config?.unknown_message || displayState
         } else {
             secondary = computeInfoDisplay(
                 appearance.secondary_info,

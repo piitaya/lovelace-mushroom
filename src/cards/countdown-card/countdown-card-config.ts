@@ -14,6 +14,7 @@ export type CountdownCardConfig = LovelaceCardConfig &
     ActionsSharedConfig & {
         icon_color?: string;
         timeup_message?: string;
+        unknown_message?: string;
     };
 
 export const countdownCardConfigStruct = assign(
@@ -22,5 +23,6 @@ export const countdownCardConfigStruct = assign(
     object({
         icon_color: optional(string()),
         timeup_message: optional(string()),
+        unknown_message: optional(string()),
     })
 );

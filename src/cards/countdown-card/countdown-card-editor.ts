@@ -14,7 +14,7 @@ import { loadHaComponents } from "../../utils/loader";
 import { ENTITY_CARD_EDITOR_NAME } from "./const";
 import { CountdownCardConfig, countdownCardConfigStruct } from "./countdown-card-config";
 
-const COUNTDOWN_LABELS = ["timeup_message"];
+const COUNTDOWN_LABELS = ["timeup_message", "unknown_message"];
 
 const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: {domain: "sensor" } } },
@@ -28,6 +28,7 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
         ],
     },
     { name: "timeup_message", selector: { text:  {} } },
+    { name: "unknown_message", selector: { text:  {} } },
     ...APPEARANCE_FORM_SCHEMA,
     ...computeActionsFormSchema(),
 ]);
