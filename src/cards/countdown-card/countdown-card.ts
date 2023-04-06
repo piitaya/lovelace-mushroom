@@ -130,16 +130,39 @@ export class CountdownCard extends MushroomBaseCard implements LovelaceCard {
         );
         const displayState = state ?? defaultState;
 
-        const primary = computeInfoDisplay(
-            appearance.primary_info,
-            name,
-            displayState,
-            entity,
-            this.hass
-        );
+        let primary: string | TemplateResult | undefined;
+        if (appearance.primary_info === "state" && 
+            entity.attributes.device_class === "timestamp" &&
+            isAvailable(entity) &&
+            !isUnknown(entity)
+        ) {
+            primary = html`
+                <mushroom-time-countdown
+                    .hass=${this.hass}
+                    .datetime=${entity.state}
+                    .timeup_message=${this._config?.timeup_message}
+                ></mushroom-time-countdown>
+                `;
+        } else if (appearance.primary_info === "state" &&
+            entity.attributes.device_class === "timestamp" &&
+            isAvailable(entity) &&
+            isUnknown(entity) &&
+            this._config?.unknown_message
+            ){
+                primary = this._config?.unknown_message || displayState
+        } else {
+            primary = computeInfoDisplay(
+                appearance.primary_info,
+                name,
+                displayState,
+                entity,
+                this.hass
+            );
+        }
 
         let secondary: string | TemplateResult | undefined;
-        if (entity.attributes.device_class === "timestamp" &&
+        if (appearance.secondary_info === "state" &&
+            entity.attributes.device_class === "timestamp" &&
             isAvailable(entity) &&
             !isUnknown(entity)
         ) {
@@ -150,12 +173,13 @@ export class CountdownCard extends MushroomBaseCard implements LovelaceCard {
                     .timeup_message=${this._config?.timeup_message}
                 ></mushroom-time-countdown>
                 `;
-        } if (entity.attributes.device_class === "timestamp" &&
+        } else if (appearance.secondary_info === "state" &&
+            entity.attributes.device_class === "timestamp" &&
             isAvailable(entity) &&
             isUnknown(entity) &&
             this._config?.unknown_message
-        ){
-            secondary = this._config?.unknown_message || displayState
+            ){
+                secondary = this._config?.unknown_message || displayState
         } else {
             secondary = computeInfoDisplay(
                 appearance.secondary_info,
