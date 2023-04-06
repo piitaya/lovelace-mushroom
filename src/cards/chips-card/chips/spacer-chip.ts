@@ -1,6 +1,5 @@
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
-import { HomeAssistant } from "../../../ha";
+import { customElement } from "lit/decorators.js";
 import {
     computeChipComponentName,
     computeChipEditorComponentName,
@@ -17,26 +16,13 @@ export class SpacerChip extends LitElement implements LovelaceChip {
         ) as LovelaceChipEditor;
     }
 
-    public static async getStubConfig(hass: HomeAssistant): Promise<SpacerChipConfig> {
-        const entities = Object.keys(hass.states);
-        return {
-            type: `spacer`,
-        };
+    public static async getStubConfig(): Promise<SpacerChipConfig> {
+        return { type: `spacer` };
     }
 
-    @property({ attribute: false }) public hass?: HomeAssistant;
-
-    @state() private _config?: SpacerChipConfig;
-
-    public setConfig(config: SpacerChipConfig): void {
-        this._config = config;
-    }
+    public setConfig(): void {}
 
     protected render(): TemplateResult {
-        if (!this.hass || !this._config) {
-            return html`<div></div>`;
-        }
-
         return html`<div></div>`;
     }
 
