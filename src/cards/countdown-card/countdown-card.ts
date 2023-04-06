@@ -30,7 +30,7 @@ import { cardStyle } from "../../utils/card-styles";
 import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { stateIcon } from "../../utils/icons/state-icon";
-import { computeEntityPicture, computeInfoDisplay, Info } from "../../utils/info";
+import { computeEntityPicture, computeInfoDisplay } from "../../utils/info";
 import { ENTITY_CARD_EDITOR_NAME, ENTITY_CARD_NAME } from "./const";
 import { CountdownCardConfig } from "./countdown-card-config";
 import { Appearance } from "../../shared/config/appearance-config";
