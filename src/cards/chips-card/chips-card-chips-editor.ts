@@ -76,8 +76,9 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
                                               </div>
                                           </div>
                                       `}
-                                      ${!chipConf.type.includes("spacer")
-                                          ? html`
+                                      ${chipConf.type == "spacer"
+                                          ? ""
+                                          : html`
                                                 <ha-icon-button
                                                     .label=${customLocalize(
                                                         "editor.chip.chip-picker.edit"
@@ -88,8 +89,7 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
                                                 >
                                                     <ha-icon icon="mdi:pencil"></ha-icon>
                                                 </ha-icon-button>
-                                            `
-                                          : ""}
+                                            `}
                                       <ha-icon-button
                                           .label=${customLocalize("editor.chip.chip-picker.clear")}
                                           class="remove-icon"
