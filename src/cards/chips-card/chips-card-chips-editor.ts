@@ -1,4 +1,4 @@
-import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, nothing, PropertyValues, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { guard } from "lit/directives/guard.js";
 import type { SortableEvent } from "sortablejs";
@@ -19,6 +19,8 @@ declare global {
         };
     }
 }
+
+const NON_EDITABLE_CHIPS = new Set<LovelaceChipConfig["type"]>(["spacer"]);
 
 @customElement("mushroom-chips-card-chips-editor")
 export class ChipsCardEditorChips extends MushroomBaseElement {
@@ -76,8 +78,8 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
                                               </div>
                                           </div>
                                       `}
-                                      ${chipConf.type == "spacer"
-                                          ? ""
+                                      ${NON_EDITABLE_CHIPS.has(chipConf.type)
+                                          ? nothing
                                           : html`
                                                 <ha-icon-button
                                                     .label=${customLocalize(

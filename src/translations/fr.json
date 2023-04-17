@@ -166,6 +166,7 @@
                     "entity": "Entité",
                     "light": "Lumière",
                     "menu": "Menu",
+                    "spacer": "Espacement",
                     "template": "Template",
                     "weather": "Météo"
                 }
