@@ -59,7 +59,7 @@
                 "use_light_color": "使用燈光顏色",
                 "show_color_temp_control": "色溫控制?",
                 "show_color_control": "色彩控制?",
-                "incompatible_controls": "裝置不支援的控制不會顯示。"
+                "incompatible_controls": "不會顯示裝置不支援的控制。"
             },
             "fan": {
                 "show_percentage_control": "百分比控制?",
@@ -68,7 +68,7 @@
             "cover": {
                 "show_buttons_control": "按鈕控制?",
                 "show_position_control": "位置控制?",
-                "show_tilt_position_control": "傾斜控制?"
+                "show_tilt_position_control": "角度控制?"
             },
             "alarm_control_panel": {
                 "show_keypad": "顯示鍵盤"
@@ -81,7 +81,7 @@
                 "content": "內容",
                 "badge_icon": "角標圖示",
                 "badge_color": "角標顏色",
-                "picture": "圖片(將會取代圖示)"
+                "picture": "圖片 (將會取代圖示)"
             },
             "title": {
                 "title": "標題",
@@ -136,21 +136,29 @@
             "climate": {
                 "show_temperature_control": "溫度控制?",
                 "hvac_modes": "空調模式"
-            }
+            },
+            "number": {
+                "display_mode": "顯示模式",
+                "display_mode_list": {
+                    "default": "預設 (滑桿)",
+                    "slider": "滑桿",
+                    "buttons": "按鈕"
+                }
+			}
         },
         "chip": {
             "sub_element_editor": {
-                "title": "Chip 編輯"
+                "title": "小卡片編輯器"
             },
             "conditional": {
-                "chip": "Chip"
+                "chip": "小卡片"
             },
             "chip-picker": {
-                "chips": "Chips",
-                "add": "新增 chip",
+                "chips": "小卡片",
+                "add": "新增小卡片",
                 "edit": "編輯",
                 "clear": "清除",
-                "select": "選擇 chip",
+                "select": "選擇小卡片",
                 "types": {
                     "action": "動作",
                     "alarm-control-panel": "警報器控制",
