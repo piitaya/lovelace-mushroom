@@ -90,7 +90,9 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
     }
 
     private getValue(key: TemplateKey) {
-        return this.isTemplate(key) ? this._templateResults[key]?.result : this._config?.[key];
+        return this.isTemplate(key)
+            ? this._templateResults[key]?.result?.toString()
+            : this._config?.[key];
     }
 
     private _handleTitleAction(ev: ActionHandlerEvent) {
