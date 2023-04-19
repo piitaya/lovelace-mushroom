@@ -23,7 +23,7 @@ const computeSchema = memoizeOne((): HaFormSchema[] => [
         name: "subtitle",
         selector: { template: {} },
     },
-    { name: "alignment", selector: { "mush-alignment": {} } },
+    { name: "alignment", selector: { mush_alignment: {} } },
     {
         name: "title_tap_action",
         selector: { "ui-action": { actions } },
