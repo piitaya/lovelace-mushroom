@@ -26,7 +26,7 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
         name: "",
         schema: [
             { name: "icon", selector: { icon: { placeholder: icon } } },
-            { name: "icon_color", selector: { "mush-color": {} } },
+            { name: "icon_color", selector: { mush_color: {} } },
         ],
     },
     { name: "use_entity_picture", selector: { boolean: {} } },
