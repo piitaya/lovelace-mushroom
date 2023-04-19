@@ -24,7 +24,7 @@ export class HaMushInfoSelector extends LitElement {
         return html`
             <mushroom-info-picker
                 .hass=${this.hass}
-                .infos=${this.selector["mush_info"].infos}
+                .infos=${this.selector.mush_info.infos}
                 .label=${this.label}
                 .value=${this.value}
                 @value-changed=${this._valueChanged}
