@@ -167,6 +167,7 @@
                     "entity": "Entitás",
                     "light": "Fényforrás",
                     "menu": "Menü",
+                    "spacer": "Térköz",
                     "template": "Sablon",
                     "weather": "Időjárás"
                 }
