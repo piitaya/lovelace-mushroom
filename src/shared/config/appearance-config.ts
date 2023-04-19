@@ -26,7 +26,7 @@ export const APPEARANCE_FORM_SCHEMA: HaFormSchema[] = [
         type: "grid",
         name: "",
         schema: [
-            { name: "layout", selector: { "mush-layout": {} } },
+            { name: "layout", selector: { mush_layout: {} } },
             { name: "fill_container", selector: { boolean: {} } },
         ],
     },
