@@ -36,7 +36,7 @@ export const APPEARANCE_FORM_SCHEMA: HaFormSchema[] = [
         schema: [
             { name: "primary_info", selector: { "mush-info": {} } },
             { name: "secondary_info", selector: { "mush-info": {} } },
-            { name: "icon_type", selector: { "mush-icon-type": {} } },
+            { name: "icon_type", selector: { mush_icon_type: {} } },
         ],
     },
 ];
