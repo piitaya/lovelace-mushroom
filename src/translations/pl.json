@@ -154,6 +154,7 @@
                     "entity": "Encja",
                     "light": "Światło",
                     "menu": "Menu",
+                    "spacer": "Odstęp",          
                     "template": "Szablon",
                     "weather": "Pogoda"
                 }

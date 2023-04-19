@@ -180,7 +180,8 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
             this.hass.localize,
             entity,
             this.hass.locale,
-            this.hass.entities
+            this.hass.entities,
+            this.hass.connection.haVersion,
         );
         if (this.brightness != null) {
             stateDisplay = `${this.brightness}${blankBeforePercent(this.hass.locale)}%`;

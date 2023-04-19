@@ -84,7 +84,9 @@ export class TemplateChip extends LitElement implements LovelaceChip {
     }
 
     private getValue(key: TemplateKey) {
-        return this.isTemplate(key) ? this._templateResults[key]?.result : this._config?.[key];
+        return this.isTemplate(key)
+            ? this._templateResults[key]?.result?.toString()
+            : this._config?.[key];
     }
 
     protected render(): TemplateResult {

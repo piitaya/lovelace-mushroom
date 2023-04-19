@@ -21,7 +21,7 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `primary_info`             | `name` `state` `last-changed` `last-updated` `none` | `name`      | Info to show as primary info                                                        |
 | `secondary_info`           | `name` `state` `last-changed` `last-updated` `none` | `state`     | Info to show as secondary info                                                      |
 | `icon_type`                | `icon` `entity-picture` `none`                      | `icon`      | Type of icon to display                                                             |
-| `hvac_modes`               | list                                                | `[]`        | List of hvac modes to display (auto, heat_cool, heat, cool, dry, fan_ony, off)      |
+| `hvac_modes`               | list                                                | `[]`        | List of hvac modes to display (auto, heat_cool, heat, cool, dry, fan_only, off)      |
 | `show_temperature_control` | boolean                                             | `false`     | Show buttons to control target temperature                                          |
 | `collapsible_controls`     | boolean                                             | `false`     | Collapse controls when off                                                          |
 | `tap_action`               | action                                              | `more-info` | Home assistant action to perform on tap                                             |

@@ -59,6 +59,13 @@ An light chip allows you to display light.
 
 A menu chip allows you to open the drawer in mobile.
 
+### Spacer chip
+
+![Chip menu light](../images/chip-spacer-light.png)
+![Chip menu dark](../images/chip-spacer-dark.png)
+
+A spacer chip allows you to space chips apart.
+
 ### Template chip
 
 ![Chip template light](../images/chip-template-light.png)

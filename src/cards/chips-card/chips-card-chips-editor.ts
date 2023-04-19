@@ -1,4 +1,4 @@
-import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, nothing, PropertyValues, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { guard } from "lit/directives/guard.js";
 import type { SortableEvent } from "sortablejs";
@@ -19,6 +19,8 @@ declare global {
         };
     }
 }
+
+const NON_EDITABLE_CHIPS = new Set<LovelaceChipConfig["type"]>(["spacer"]);
 
 @customElement("mushroom-chips-card-chips-editor")
 export class ChipsCardEditorChips extends MushroomBaseElement {
@@ -70,27 +72,33 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
                                           <div class="special-row">
                                               <div>
                                                   <span> ${this._renderChipLabel(chipConf)}</span>
-                                                  <span class="secondary"
-                                                      >${this._renderChipSecondary(chipConf)}</span
-                                                  >
+                                                  <span class="secondary">
+                                                      ${this._renderChipSecondary(chipConf)}
+                                                  </span>
                                               </div>
                                           </div>
                                       `}
+                                      ${NON_EDITABLE_CHIPS.has(chipConf.type)
+                                          ? nothing
+                                          : html`
+                                                <ha-icon-button
+                                                    .label=${customLocalize(
+                                                        "editor.chip.chip-picker.edit"
+                                                    )}
+                                                    class="edit-icon"
+                                                    .index=${index}
+                                                    @click=${this._editChip}
+                                                >
+                                                    <ha-icon icon="mdi:pencil"></ha-icon>
+                                                </ha-icon-button>
+                                            `}
                                       <ha-icon-button
                                           .label=${customLocalize("editor.chip.chip-picker.clear")}
                                           class="remove-icon"
                                           .index=${index}
                                           @click=${this._removeChip}
                                       >
-                                          <ha-icon icon="mdi:close"></ha-icon
-                                      ></ha-icon-button>
-                                      <ha-icon-button
-                                          .label=${customLocalize("editor.chip.chip-picker.edit")}
-                                          class="edit-icon"
-                                          .index=${index}
-                                          @click=${this._editChip}
-                                      >
-                                          <ha-icon icon="mdi:pencil"></ha-icon>
+                                          <ha-icon icon="mdi:close"></ha-icon>
                                       </ha-icon-button>
                                   </div>
                               `

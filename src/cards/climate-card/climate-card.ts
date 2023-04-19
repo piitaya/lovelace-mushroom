@@ -149,7 +149,8 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
             this.hass.localize,
             entity,
             this.hass.locale,
-            this.hass.entities
+            this.hass.entities,
+            this.hass.connection.haVersion,
         );
         if (entity.attributes.current_temperature !== null) {
             const temperature = formatNumber(
