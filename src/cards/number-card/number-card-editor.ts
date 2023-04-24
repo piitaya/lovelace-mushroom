@@ -24,7 +24,7 @@ const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaForm
         name: "",
         schema: [
             { name: "icon", selector: { icon: { placeholder: icon } } },
-            { name: "icon_color", selector: { "mush-color": {} } },
+            { name: "icon_color", selector: { mush_color: {} } },
         ],
     },
     ...APPEARANCE_FORM_SCHEMA,
