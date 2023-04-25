@@ -269,9 +269,9 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
 
     private getEntityName(entity_id: string): string | undefined {
         if (!this.hass) return undefined;
-        const entity = this.hass.states[entity_id];
-        if (!entity) return undefined;
-        return entity.attributes.friendly_name;
+        const stateObj = this.hass.states[entity_id];
+        if (!stateObj) return undefined;
+        return stateObj.attributes.friendly_name;
     }
 
     static get styles(): CSSResultGroup {

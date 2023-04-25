@@ -117,10 +117,10 @@ export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
         if (!this._config || !this.hass || !this._config.entity) return;
 
         const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id] as MediaPlayerEntity;
+        const stateObj = this.hass.states[entity_id] as MediaPlayerEntity | undefined;
 
-        if (!entity) return;
-        const volume = getVolumeLevel(entity);
+        if (!stateObj) return;
+        const volume = getVolumeLevel(stateObj);
         this.volume = volume != null ? Math.round(volume) : volume;
     }
 
@@ -134,16 +134,16 @@ export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
         if (!this._config || !this.hass || !this._config.entity) return;
 
         const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id] as MediaPlayerEntity;
+        const stateObj = this.hass.states[entity_id] as MediaPlayerEntity | undefined;
 
-        if (!entity) return;
+        if (!stateObj) return;
 
         const controls: MediaPlayerCardControl[] = [];
-        if (!this._config.collapsible_controls || isActive(entity)) {
-            if (isMediaControlVisible(entity, this._config?.media_controls)) {
+        if (!this._config.collapsible_controls || isActive(stateObj)) {
+            if (isMediaControlVisible(stateObj, this._config?.media_controls)) {
                 controls.push("media_control");
             }
-            if (isVolumeControlVisible(entity, this._config.volume_controls)) {
+            if (isVolumeControlVisible(stateObj, this._config.volume_controls)) {
                 controls.push("volume_control");
             }
         }
@@ -165,13 +165,17 @@ export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
         }
 
         const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id] as MediaPlayerEntity;
+        const stateObj = this.hass.states[entity_id] as MediaPlayerEntity | undefined;
 
-        const icon = computeMediaIcon(this._config, entity);
-        const nameDisplay = computeMediaNameDisplay(this._config, entity);
-        const stateDisplay = computeMediaStateDisplay(this._config, entity, this.hass);
+        if (!stateObj) {
+            return nothing;
+        }
+
+        const icon = computeMediaIcon(this._config, stateObj);
+        const nameDisplay = computeMediaNameDisplay(this._config, stateObj);
+        const stateDisplay = computeMediaStateDisplay(this._config, stateObj, this.hass);
         const appearance = computeAppearance(this._config);
-        const picture = computeEntityPicture(entity, appearance.icon_type);
+        const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
         const stateValue =
             this.volume != null && this._config.show_volume_level
@@ -192,14 +196,14 @@ export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
-                        ${this.renderBadge(entity)}
-                        ${this.renderStateInfo(entity, appearance, nameDisplay, stateValue)};
+                        ${picture ? this.renderPicture(picture) : this.renderIcon(stateObj, icon)}
+                        ${this.renderBadge(stateObj)}
+                        ${this.renderStateInfo(stateObj, appearance, nameDisplay, stateValue)};
                     </mushroom-state-item>
                     ${this._controls.length > 0
                         ? html`
                               <div class="actions" ?rtl=${rtl}>
-                                  ${this.renderActiveControl(entity, appearance.layout)}
+                                  ${this.renderActiveControl(stateObj, appearance.layout)}
                                   ${this.renderOtherControls()}
                               </div>
                           `

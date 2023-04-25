@@ -58,23 +58,27 @@ export class EntityChip extends LitElement implements LovelaceChip {
         }
 
         const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id];
+        const stateObj = this.hass.states[entity_id];
 
-        const name = this._config.name || entity.attributes.friendly_name || "";
-        const icon = this._config.icon || stateIcon(entity);
+        if (!stateObj) {
+            return nothing;
+        }
+
+        const name = this._config.name || stateObj.attributes.friendly_name || "";
+        const icon = this._config.icon || stateIcon(stateObj);
         const iconColor = this._config.icon_color;
 
-        const picture = this._config.use_entity_picture ? getEntityPicture(entity) : undefined;
+        const picture = this._config.use_entity_picture ? getEntityPicture(stateObj) : undefined;
 
         const stateDisplay = computeStateDisplay(
             this.hass.localize,
-            entity,
+            stateObj,
             this.hass.locale,
             this.hass.entities,
             this.hass.connection.haVersion
         );
 
-        const active = isActive(entity);
+        const active = isActive(stateObj);
 
         const iconStyle = {};
         if (iconColor) {
@@ -86,7 +90,7 @@ export class EntityChip extends LitElement implements LovelaceChip {
             this._config.content_info ?? "state",
             name,
             stateDisplay,
-            entity,
+            stateObj,
             this.hass
         );
 

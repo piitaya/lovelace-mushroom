@@ -120,10 +120,10 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
         if (!this._config || !this.hass || !this._config.entity) return;
 
         const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id] as LightEntity;
+        const stateObj = this.hass.states[entity_id] as LightEntity | undefined;
 
-        if (!entity) return;
-        this.brightness = getBrightness(entity);
+        if (!stateObj) return;
+        this.brightness = getBrightness(stateObj);
     }
 
     private onCurrentBrightnessChange(e: CustomEvent<{ value?: number }>): void {
@@ -136,19 +136,19 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
         if (!this._config || !this.hass || !this._config.entity) return;
 
         const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id] as LightEntity;
+        const stateObj = this.hass.states[entity_id] as LightEntity | undefined;
 
-        if (!entity) return;
+        if (!stateObj) return;
 
         const controls: LightCardControl[] = [];
-        if (!this._config.collapsible_controls || isActive(entity)) {
-            if (this._config.show_brightness_control && supportsBrightnessControl(entity)) {
+        if (!this._config.collapsible_controls || isActive(stateObj)) {
+            if (this._config.show_brightness_control && supportsBrightnessControl(stateObj)) {
                 controls.push("brightness_control");
             }
-            if (this._config.show_color_temp_control && supportsColorTempControl(entity)) {
+            if (this._config.show_color_temp_control && supportsColorTempControl(stateObj)) {
                 controls.push("color_temp_control");
             }
-            if (this._config.show_color_control && supportsColorControl(entity)) {
+            if (this._config.show_color_control && supportsColorControl(stateObj)) {
                 controls.push("color_control");
             }
         }
@@ -169,16 +169,20 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
         }
 
         const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id] as LightEntity;
+        const stateObj = this.hass.states[entity_id] as LightEntity | undefined;
 
-        const name = this._config.name || entity.attributes.friendly_name || "";
-        const icon = this._config.icon || stateIcon(entity);
+        if (!stateObj) {
+            return nothing;
+        }
+
+        const name = this._config.name || stateObj.attributes.friendly_name || "";
+        const icon = this._config.icon || stateIcon(stateObj);
         const appearance = computeAppearance(this._config);
-        const picture = computeEntityPicture(entity, appearance.icon_type);
+        const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
         let stateDisplay = computeStateDisplay(
             this.hass.localize,
-            entity,
+            stateObj,
             this.hass.locale,
             this.hass.entities,
             this.hass.connection.haVersion
@@ -201,14 +205,15 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
-                        ${this.renderBadge(entity)}
-                        ${this.renderStateInfo(entity, appearance, name, stateDisplay)};
+                        ${picture ? this.renderPicture(picture) : this.renderIcon(stateObj, icon)}
+                        ${this.renderBadge(stateObj)}
+                        ${this.renderStateInfo(stateObj, appearance, name, stateDisplay)};
                     </mushroom-state-item>
                     ${this._controls.length > 0
                         ? html`
                               <div class="actions" ?rtl=${rtl}>
-                                  ${this.renderActiveControl(entity)} ${this.renderOtherControls()}
+                                  ${this.renderActiveControl(stateObj)}
+                                  ${this.renderOtherControls()}
                               </div>
                           `
                         : nothing}

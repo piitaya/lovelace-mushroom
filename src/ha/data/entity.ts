@@ -9,9 +9,9 @@ export const OFF = "off";
 
 const OFF_STATES = [UNAVAILABLE, UNKNOWN, OFF];
 
-export function isActive(entity: HassEntity) {
-    const domain = computeDomain(entity.entity_id);
-    const state = entity.state;
+export function isActive(stateObj: HassEntity) {
+    const domain = computeDomain(stateObj.entity_id);
+    const state = stateObj.state;
 
     if (["button", "input_button", "scene"].includes(domain)) {
         return state !== UNAVAILABLE;
@@ -39,21 +39,21 @@ export function isActive(entity: HassEntity) {
     }
 }
 
-export function isAvailable(entity: HassEntity) {
-    return entity.state !== UNAVAILABLE;
+export function isAvailable(stateObj: HassEntity) {
+    return stateObj.state !== UNAVAILABLE;
 }
 
-export function isOff(entity: HassEntity) {
-    return entity.state === OFF;
+export function isOff(stateObj: HassEntity) {
+    return stateObj.state === OFF;
 }
 
-export function isUnknown(entity: HassEntity) {
-    return entity.state === UNKNOWN;
+export function isUnknown(stateObj: HassEntity) {
+    return stateObj.state === UNKNOWN;
 }
 
-export function getEntityPicture(entity: HassEntity) {
+export function getEntityPicture(stateObj: HassEntity) {
     return (
-        (entity.attributes.entity_picture_local as string | undefined) ||
-        entity.attributes.entity_picture
+        (stateObj.attributes.entity_picture_local as string | undefined) ||
+        stateObj.attributes.entity_picture
     );
 }

@@ -82,12 +82,16 @@ export class VacuumCard extends MushroomBaseCard implements LovelaceCard {
         }
 
         const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id] as VacuumEntity;
+        const stateObj = this.hass.states[entity_id] as VacuumEntity | undefined;
 
-        const name = this._config.name || entity.attributes.friendly_name || "";
-        const icon = this._config.icon || stateIcon(entity);
+        if (!stateObj) {
+            return nothing;
+        }
+
+        const name = this._config.name || stateObj.attributes.friendly_name || "";
+        const icon = this._config.icon || stateIcon(stateObj);
         const appearance = computeAppearance(this._config);
-        const picture = computeEntityPicture(entity, appearance.icon_type);
+        const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
         const rtl = computeRTL(this.hass);
 
@@ -105,16 +109,16 @@ export class VacuumCard extends MushroomBaseCard implements LovelaceCard {
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
-                        ${this.renderBadge(entity)}
-                        ${this.renderStateInfo(entity, appearance, name)};
+                        ${picture ? this.renderPicture(picture) : this.renderIcon(stateObj, icon)}
+                        ${this.renderBadge(stateObj)}
+                        ${this.renderStateInfo(stateObj, appearance, name)};
                     </mushroom-state-item>
-                    ${isCommandsControlVisible(entity, commands)
+                    ${isCommandsControlVisible(stateObj, commands)
                         ? html`
                               <div class="actions" ?rtl=${rtl}>
                                   <mushroom-vacuum-commands-control
                                       .hass=${this.hass}
-                                      .entity=${entity}
+                                      .entity=${stateObj}
                                       .commands=${commands}
                                       .fill=${appearance.layout !== "horizontal"}
                                   >
@@ -127,16 +131,16 @@ export class VacuumCard extends MushroomBaseCard implements LovelaceCard {
         `;
     }
 
-    protected renderIcon(entity: HassEntity, icon: string): TemplateResult {
+    protected renderIcon(stateObj: HassEntity, icon: string): TemplateResult {
         return html`
             <mushroom-shape-icon
                 slot="icon"
                 class=${classMap({
-                    returning: isReturningHome(entity) && Boolean(this._config?.icon_animation),
-                    cleaning: isCleaning(entity) && Boolean(this._config?.icon_animation),
+                    returning: isReturningHome(stateObj) && Boolean(this._config?.icon_animation),
+                    cleaning: isCleaning(stateObj) && Boolean(this._config?.icon_animation),
                 })}
                 style=${styleMap({})}
-                .disabled=${!isActive(entity)}
+                .disabled=${!isActive(stateObj)}
                 .icon=${icon}
             ></mushroom-shape-icon>
         `;

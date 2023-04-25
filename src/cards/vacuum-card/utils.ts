@@ -8,8 +8,8 @@ import {
     STATE_RETURNING,
 } from "../../ha";
 
-export function isCleaning(entity: HassEntity): boolean {
-    switch (entity.state) {
+export function isCleaning(stateObj: HassEntity): boolean {
+    switch (stateObj.state) {
         case STATE_CLEANING:
         case STATE_ON:
             return true;
@@ -18,8 +18,8 @@ export function isCleaning(entity: HassEntity): boolean {
     }
 }
 
-export function isStopped(entity: HassEntity): boolean {
-    switch (entity.state) {
+export function isStopped(stateObj: HassEntity): boolean {
+    switch (stateObj.state) {
         case STATE_DOCKED:
         case STATE_OFF:
         case STATE_IDLE:
@@ -30,8 +30,8 @@ export function isStopped(entity: HassEntity): boolean {
     }
 }
 
-export function isReturningHome(entity: HassEntity): boolean {
-    switch (entity.state) {
+export function isReturningHome(stateObj: HassEntity): boolean {
+    switch (stateObj.state) {
         case STATE_RETURNING:
             return true;
         default:

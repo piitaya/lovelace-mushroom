@@ -106,16 +106,16 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
         if (!this._config || !this.hass || !this._config.entity) return;
 
         const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id] as ClimateEntity;
+        const stateObj = this.hass.states[entity_id] as ClimateEntity | undefined;
 
-        if (!entity) return;
+        if (!stateObj) return;
 
         const controls: ClimateCardControl[] = [];
-        if (!this._config.collapsible_controls || isActive(entity)) {
-            if (isTemperatureControlVisible(entity) && this._config.show_temperature_control) {
+        if (!this._config.collapsible_controls || isActive(stateObj)) {
+            if (isTemperatureControlVisible(stateObj) && this._config.show_temperature_control) {
                 controls.push("temperature_control");
             }
-            if (isHvacModesVisible(entity, this._config.hvac_modes)) {
+            if (isHvacModesVisible(stateObj, this._config.hvac_modes)) {
                 controls.push("hvac_mode_control");
             }
         }
@@ -137,23 +137,27 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
         }
 
         const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id] as ClimateEntity;
+        const stateObj = this.hass.states[entity_id] as ClimateEntity | undefined;
 
-        const name = this._config.name || entity.attributes.friendly_name || "";
-        const icon = this._config.icon || stateIcon(entity);
+        if (!stateObj) {
+            return nothing;
+        }
+
+        const name = this._config.name || stateObj.attributes.friendly_name || "";
+        const icon = this._config.icon || stateIcon(stateObj);
         const appearance = computeAppearance(this._config);
-        const picture = computeEntityPicture(entity, appearance.icon_type);
+        const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
         let stateDisplay = computeStateDisplay(
             this.hass.localize,
-            entity,
+            stateObj,
             this.hass.locale,
             this.hass.entities,
             this.hass.connection.haVersion
         );
-        if (entity.attributes.current_temperature !== null) {
+        if (stateObj.attributes.current_temperature !== null) {
             const temperature = formatNumber(
-                entity.attributes.current_temperature,
+                stateObj.attributes.current_temperature,
                 this.hass.locale
             );
             const unit = this.hass.config.unit_system.temperature;
@@ -173,14 +177,14 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
-                        ${this.renderBadge(entity)}
-                        ${this.renderStateInfo(entity, appearance, name, stateDisplay)};
+                        ${picture ? this.renderPicture(picture) : this.renderIcon(stateObj, icon)}
+                        ${this.renderBadge(stateObj)}
+                        ${this.renderStateInfo(stateObj, appearance, name, stateDisplay)};
                     </mushroom-state-item>
                     ${this._controls.length > 0
                         ? html`
                               <div class="actions" ?rtl=${rtl}>
-                                  ${this.renderActiveControl(entity)}${this.renderOtherControls()}
+                                  ${this.renderActiveControl(stateObj)}${this.renderOtherControls()}
                               </div>
                           `
                         : nothing}

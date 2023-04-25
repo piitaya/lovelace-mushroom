@@ -25,8 +25,8 @@ export class MushroomBaseCard extends MushroomBaseElement {
         `;
     }
 
-    protected renderIcon(entity: HassEntity, icon: string): TemplateResult {
-        const active = isActive(entity);
+    protected renderIcon(stateObj: HassEntity, icon: string): TemplateResult {
+        const active = isActive(stateObj);
         return html`
             <mushroom-shape-icon
                 slot="icon"
@@ -36,8 +36,8 @@ export class MushroomBaseCard extends MushroomBaseElement {
         `;
     }
 
-    protected renderBadge(entity: HassEntity) {
-        const unavailable = !isAvailable(entity);
+    protected renderBadge(stateObj: HassEntity) {
+        const unavailable = !isAvailable(stateObj);
         return unavailable
             ? html`
                   <mushroom-badge-icon
@@ -50,14 +50,14 @@ export class MushroomBaseCard extends MushroomBaseElement {
     }
 
     protected renderStateInfo(
-        entity: HassEntity,
+        stateObj: HassEntity,
         appearance: Appearance,
         name: string,
         state?: string
     ): TemplateResult | null {
         const defaultState = computeStateDisplay(
             this.hass.localize,
-            entity,
+            stateObj,
             this.hass.locale,
             this.hass.entities,
             this.hass.connection.haVersion
@@ -68,7 +68,7 @@ export class MushroomBaseCard extends MushroomBaseElement {
             appearance.primary_info,
             name,
             displayState,
-            entity,
+            stateObj,
             this.hass
         );
 
@@ -76,7 +76,7 @@ export class MushroomBaseCard extends MushroomBaseElement {
             appearance.secondary_info,
             name,
             displayState,
-            entity,
+            stateObj,
             this.hass
         );
 

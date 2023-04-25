@@ -120,8 +120,9 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
                           ${this.hass!.localize(
                               "ui.panel.lovelace.editor.card.conditional.condition_explanation"
                           )}
-                          ${this._config.conditions.map(
-                              (cond, idx) => html`
+                          ${this._config.conditions.map((cond, idx) => {
+                              const stateObj = this.hass!.states[cond.entity];
+                              return html`
                                   <div class="condition" ?rtl=${rtl}>
                                       <div class="entity">
                                           <ha-entity-picker
@@ -157,11 +158,15 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
                                               </mwc-list-item>
                                           </mushroom-select>
                                           <mushroom-textfield
-                                              .label="${this.hass!.localize(
+                                              .label=${`${this.hass!.localize(
                                                   "ui.panel.lovelace.editor.card.generic.state"
-                                              )} (${this.hass!.localize(
-                                                  "ui.panel.lovelace.editor.card.conditional.current_state"
-                                              )}: ${this.hass?.states[cond.entity].state})"
+                                              )} ${
+                                                  stateObj
+                                                      ? `(${this.hass!.localize(
+                                                            "ui.panel.lovelace.editor.card.conditional.current_state"
+                                                        )}: ${stateObj.state})`
+                                                      : ""
+                                              }`}
                                               .value=${cond.state_not !== undefined
                                                   ? cond.state_not
                                                   : cond.state}
@@ -172,8 +177,8 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
                                           </mushroom-textfield>
                                       </div>
                                   </div>
-                              `
-                          )}
+                              `;
+                          })}
                           <div class="condition">
                               <ha-entity-picker
                                   .hass=${this.hass}

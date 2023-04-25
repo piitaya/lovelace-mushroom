@@ -94,16 +94,20 @@ export class NumberCard extends MushroomBaseCard implements LovelaceCard {
         }
 
         const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id];
+        const stateObj = this.hass.states[entity_id];
 
-        const name = this._config.name || entity.attributes.friendly_name || "";
-        const icon = this._config.icon || stateIcon(entity);
+        if (!stateObj) {
+            return nothing;
+        }
+
+        const name = this._config.name || stateObj.attributes.friendly_name || "";
+        const icon = this._config.icon || stateIcon(stateObj);
         const appearance = computeAppearance(this._config);
-        const picture = computeEntityPicture(entity, appearance.icon_type);
+        const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
         let stateDisplay = computeStateDisplay(
             this.hass.localize,
-            entity,
+            stateObj,
             this.hass.locale,
             this.hass.entities,
             this.hass.connection.haVersion
@@ -112,10 +116,10 @@ export class NumberCard extends MushroomBaseCard implements LovelaceCard {
             const numberValue = formatNumber(
                 this.value,
                 this.hass.locale,
-                getNumberFormatOptions(entity, this.hass.entities[entity.entity_id]) ??
-                    getDefaultFormatOptions(entity.state)
+                getNumberFormatOptions(stateObj, this.hass.entities[stateObj.entity_id]) ??
+                    getDefaultFormatOptions(stateObj.state)
             );
-            stateDisplay = `${numberValue} ${entity.attributes.unit_of_measurement ?? ""}`;
+            stateDisplay = `${numberValue} ${stateObj.attributes.unit_of_measurement ?? ""}`;
         }
 
         const rtl = computeRTL(this.hass);
@@ -140,14 +144,14 @@ export class NumberCard extends MushroomBaseCard implements LovelaceCard {
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
-                        ${this.renderBadge(entity)}
-                        ${this.renderStateInfo(entity, appearance, name, stateDisplay)};
+                        ${picture ? this.renderPicture(picture) : this.renderIcon(stateObj, icon)}
+                        ${this.renderBadge(stateObj)}
+                        ${this.renderStateInfo(stateObj, appearance, name, stateDisplay)};
                     </mushroom-state-item>
                     <div class="actions" ?rtl=${rtl}>
                         <mushroom-number-value-control
                             .hass=${this.hass}
-                            .entity=${entity}
+                            .entity=${stateObj}
                             .displayMode=${this._config.display_mode}
                             style=${styleMap(sliderStyle)}
                             @current-change=${this.onCurrentValueChange}
@@ -158,8 +162,8 @@ export class NumberCard extends MushroomBaseCard implements LovelaceCard {
         `;
     }
 
-    renderIcon(entity: HassEntity, icon: string): TemplateResult {
-        const active = isActive(entity);
+    renderIcon(stateObj: HassEntity, icon: string): TemplateResult {
+        const active = isActive(stateObj);
         const iconStyle = {};
         const iconColor = this._config?.icon_color;
         if (iconColor) {

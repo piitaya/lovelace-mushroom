@@ -24,12 +24,12 @@ import { MediaPlayerCardConfig, MediaPlayerMediaControl } from "./media-player-c
 export function callService(
     e: MouseEvent,
     hass: HomeAssistant,
-    entity: HassEntity,
+    stateObj: HassEntity,
     serviceName: string
 ): void {
     e.stopPropagation();
     hass.callService("media_player", serviceName, {
-        entity_id: entity.entity_id,
+        entity_id: stateObj.entity_id,
     });
 }
 
