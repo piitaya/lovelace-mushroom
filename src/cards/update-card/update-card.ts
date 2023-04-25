@@ -124,7 +124,7 @@ export class UpdateCard extends MushroomBaseCard implements LovelaceCard {
                                   ></mushroom-update-buttons-control>
                               </div>
                           `
-                        : null}
+                        : nothing}
                 </mushroom-card>
             </ha-card>
         `;

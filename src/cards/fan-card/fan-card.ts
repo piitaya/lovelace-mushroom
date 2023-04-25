@@ -164,7 +164,7 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
                                                 @current-change=${this.onCurrentPercentageChange}
                                             ></mushroom-fan-percentage-control>
                                         `
-                                      : null}
+                                      : nothing}
                                   ${this._config.show_oscillate_control
                                       ? html`
                                             <mushroom-fan-oscillate-control
@@ -172,10 +172,10 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
                                                 .entity=${entity}
                                             ></mushroom-fan-oscillate-control>
                                         `
-                                      : null}
+                                      : nothing}
                               </div>
                           `
-                        : null}
+                        : nothing}
                 </mushroom-card>
             </ha-card>
         `;

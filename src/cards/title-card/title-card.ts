@@ -146,7 +146,7 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
                               <h1 class="title">${title}${this.renderArrow()}</h1>
                           </div>
                       `
-                    : null}
+                    : nothing}
                 ${subtitle
                     ? html`
                           <div
@@ -161,7 +161,7 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
                               <h2 class="subtitle">${subtitle}${this.renderArrow()}</h2>
                           </div>
                       `
-                    : null}
+                    : nothing}
             </div>
         `;
     }

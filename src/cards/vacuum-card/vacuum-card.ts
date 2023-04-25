@@ -121,7 +121,7 @@ export class VacuumCard extends MushroomBaseCard implements LovelaceCard {
                                   </mushroom-vacuum-commands-control>
                               </div>
                           `
-                        : null}
+                        : nothing}
                 </mushroom-card>
             </ha-card>
         `;

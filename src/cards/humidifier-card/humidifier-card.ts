@@ -145,7 +145,7 @@ export class HumidifierCard extends MushroomBaseCard implements LovelaceCard {
                                   ></mushroom-humidifier-humidity-control>
                               </div>
                           `
-                        : null}
+                        : nothing}
                 </mushroom-card>
             </ha-card>
         `;

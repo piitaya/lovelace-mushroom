@@ -1,4 +1,4 @@
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, LitElement, nothing, TemplateResult } from "lit";
 import { property, customElement } from "lit/decorators.js";
 
 @customElement("mushroom-state-info")
@@ -18,7 +18,7 @@ export class StateItem extends LitElement {
                           class="secondary${this.multiline_secondary ? ` multiline_secondary` : ``}"
                           >${this.secondary}</span
                       >`
-                    : null}
+                    : nothing}
             </div>
         `;
     }

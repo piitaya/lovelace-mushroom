@@ -197,7 +197,7 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
                                   ${this.renderNextControlButton()}
                               </div>
                           `
-                        : null}
+                        : nothing}
                 </mushroom-card>
             </ha-card>
         `;

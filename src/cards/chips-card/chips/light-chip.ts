@@ -116,7 +116,7 @@ export class LightChip extends LitElement implements LovelaceChip {
                     style=${styleMap(iconStyle)}
                     class=${classMap({ active })}
                 ></ha-icon>
-                ${content ? html`<span>${content}</span>` : null}
+                ${content ? html`<span>${content}</span>` : nothing}
             </mushroom-chip>
         `;
     }

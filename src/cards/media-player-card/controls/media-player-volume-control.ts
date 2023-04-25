@@ -92,7 +92,7 @@ export class MediaPlayerVolumeControls extends LitElement {
                           @change=${this.handleSliderChange}
                           @current-change=${this.handleSliderCurrentChange}
                       />`
-                    : null}
+                    : nothing}
                 ${displayVolumeMute
                     ? html`
                           <mushroom-button

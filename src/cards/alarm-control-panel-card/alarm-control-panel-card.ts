@@ -211,7 +211,7 @@ export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceC
                                   )}
                               </mushroom-button-group>
                           `
-                        : null}
+                        : nothing}
                 </mushroom-card>
                 ${!this._hasCode
                     ? nothing

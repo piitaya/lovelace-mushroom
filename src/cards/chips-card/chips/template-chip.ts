@@ -120,8 +120,8 @@ export class TemplateChip extends LitElement implements LovelaceChip {
                 .avatar=${picture ? (this.hass as any).hassUrl(picture) : undefined}
                 .avatarOnly=${picture && !content}
             >
-                ${icon && !picture ? this.renderIcon(icon, iconColor) : null}
-                ${content ? this.renderContent(content) : null}
+                ${icon && !picture ? this.renderIcon(icon, iconColor) : nothing}
+                ${content ? this.renderContent(content) : nothing}
             </mushroom-chip>
         `;
     }

@@ -203,7 +203,7 @@ export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
                                   ${this.renderOtherControls()}
                               </div>
                           `
-                        : null}
+                        : nothing}
                 </mushroom-card>
             </ha-card>
         `;

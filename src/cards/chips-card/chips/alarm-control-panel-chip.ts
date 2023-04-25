@@ -111,7 +111,7 @@ export class AlarmControlPanelChip extends LitElement implements LovelaceChip {
                     style=${styleMap(iconStyle)}
                     class=${classMap({ pulse: iconPulse })}
                 ></ha-icon>
-                ${content ? html`<span>${content}</span>` : null}
+                ${content ? html`<span>${content}</span>` : nothing}
             </mushroom-chip>
         `;
     }

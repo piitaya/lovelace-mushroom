@@ -153,7 +153,7 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
                             ? this.renderPicture(picture)
                             : icon
                             ? this.renderIcon(icon, iconColor)
-                            : null}
+                            : nothing}
                         ${(icon || picture) && badgeIcon
                             ? this.renderBadgeIcon(badgeIcon, badgeColor)
                             : undefined}

@@ -183,7 +183,7 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
                                   ${this.renderActiveControl(entity)}${this.renderOtherControls()}
                               </div>
                           `
-                        : null}
+                        : nothing}
                 </mushroom-card>
             </ha-card>
         `;
