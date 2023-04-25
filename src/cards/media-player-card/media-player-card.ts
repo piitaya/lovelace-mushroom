@@ -224,7 +224,7 @@ export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
         `;
     }
 
-    private renderActiveControl(entity: MediaPlayerEntity, layout: Layout): TemplateResult | null {
+    private renderActiveControl(entity: MediaPlayerEntity, layout: Layout) {
         const media_controls = this._config?.media_controls ?? [];
         const volume_controls = this._config?.volume_controls ?? [];
 
@@ -250,7 +250,7 @@ export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
                     />
                 `;
             default:
-                return null;
+                return nothing;
         }
     }
 

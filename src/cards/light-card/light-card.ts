@@ -29,7 +29,7 @@ import { cardStyle } from "../../utils/card-styles";
 import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { stateIcon } from "../../utils/icons/state-icon";
-import { computeEntityPicture, computeInfoDisplay } from "../../utils/info";
+import { computeEntityPicture } from "../../utils/info";
 import { LIGHT_CARD_EDITOR_NAME, LIGHT_CARD_NAME, LIGHT_ENTITY_DOMAINS } from "./const";
 import "./controls/light-brightness-control";
 import "./controls/light-color-control";
@@ -262,7 +262,7 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
         `;
     }
 
-    private renderActiveControl(entity: LightEntity): TemplateResult | null {
+    private renderActiveControl(entity: LightEntity) {
         switch (this._activeControl) {
             case "brightness_control":
                 const lightRgbColor = getRGBColor(entity);
@@ -300,7 +300,7 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
                     <mushroom-light-color-control .hass=${this.hass} .entity=${entity} />
                 `;
             default:
-                return null;
+                return nothing;
         }
     }
 

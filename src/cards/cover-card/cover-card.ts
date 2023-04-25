@@ -220,8 +220,8 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
         `;
     }
 
-    private renderNextControlButton(): TemplateResult | null {
-        if (!this._nextControl || this._nextControl == this._activeControl) return null;
+    private renderNextControlButton() {
+        if (!this._nextControl || this._nextControl == this._activeControl) return nothing;
 
         return html`
             <mushroom-button
@@ -231,7 +231,7 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
         `;
     }
 
-    private renderActiveControl(entity: HassEntity, layout?: Layout): TemplateResult | null {
+    private renderActiveControl(entity: HassEntity, layout?: Layout) {
         switch (this._activeControl) {
             case "buttons_control":
                 return html`
@@ -271,7 +271,7 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
                 `;
             }
             default:
-                return null;
+                return nothing;
         }
     }
 

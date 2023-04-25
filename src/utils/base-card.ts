@@ -1,5 +1,5 @@
 import { HassEntity } from "home-assistant-js-websocket";
-import { html, TemplateResult } from "lit";
+import { html, nothing, TemplateResult } from "lit";
 import { computeStateDisplay, HomeAssistant, isActive, isAvailable } from "../ha";
 import "../shared/badge-icon";
 import "../shared/card";
@@ -9,7 +9,7 @@ import "../shared/shape-icon";
 import "../shared/state-info";
 import "../shared/state-item";
 import { MushroomBaseElement } from "./base-element";
-import { computeEntityPicture, computeInfoDisplay } from "./info";
+import { computeInfoDisplay } from "./info";
 
 export function computeDarkMode(hass?: HomeAssistant): boolean {
     if (!hass) return false;
@@ -36,7 +36,7 @@ export class MushroomBaseCard extends MushroomBaseElement {
         `;
     }
 
-    protected renderBadge(entity: HassEntity): TemplateResult | null {
+    protected renderBadge(entity: HassEntity) {
         const unavailable = !isAvailable(entity);
         return unavailable
             ? html`
@@ -46,7 +46,7 @@ export class MushroomBaseCard extends MushroomBaseElement {
                       icon="mdi:help"
                   ></mushroom-badge-icon>
               `
-            : null;
+            : nothing;
     }
 
     protected renderStateInfo(

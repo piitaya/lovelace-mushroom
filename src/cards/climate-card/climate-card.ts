@@ -30,7 +30,6 @@ import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { computeEntityPicture } from "../../utils/info";
-import { Layout } from "../../utils/layout";
 import { ClimateCardConfig } from "./climate-card-config";
 import { CLIMATE_CARD_EDITOR_NAME, CLIMATE_CARD_NAME, CLIMATE_ENTITY_DOMAINS } from "./const";
 import "./controls/climate-hvac-modes-control";
@@ -218,12 +217,12 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
 
     renderActionBadge(entity: ClimateEntity) {
         const hvac_action = entity.attributes.hvac_action;
-        if (!hvac_action || hvac_action == "off") return null;
+        if (!hvac_action || hvac_action == "off") return nothing;
 
         const color = getHvacActionColor(hvac_action);
         const icon = getHvacActionIcon(hvac_action);
 
-        if (!icon) return null;
+        if (!icon) return nothing;
 
         return html`
             <mushroom-badge-icon
@@ -251,7 +250,7 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
         `;
     }
 
-    private renderActiveControl(entity: ClimateEntity): TemplateResult | null {
+    private renderActiveControl(entity: ClimateEntity) {
         const hvac_modes = this._config!.hvac_modes ?? [];
         const appearance = computeAppearance(this._config!);
 
@@ -274,7 +273,7 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
                     ></mushroom-climate-hvac-modes-control>
                 `;
             default:
-                return null;
+                return nothing;
         }
     }
 
