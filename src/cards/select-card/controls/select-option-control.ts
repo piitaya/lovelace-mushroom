@@ -22,8 +22,8 @@ export class SelectOptionControl extends LitElement {
     }
 
     _setValue(option) {
-        const entity_id = this.entity.entity_id;
-        const domain = entity_id.split(".")[0];
+        const entityId = this.entity.entity_id;
+        const domain = entityId.split(".")[0];
 
         this.hass.callService(domain, "select_option", {
             entity_id: this.entity.entity_id,

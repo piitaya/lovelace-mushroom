@@ -76,8 +76,8 @@ const BATTERY_CHARGING_ICONS = {
     100: "mdi:battery-charging",
 };
 
-const batteryStateIcon = (batteryEntity: HassEntity, batteryChargingEntity?: HassEntity) => {
-    const battery = batteryEntity.state;
+const batteryStateIcon = (stateObj: HassEntity, batteryChargingEntity?: HassEntity) => {
+    const battery = stateObj.state;
     const batteryCharging = batteryChargingEntity?.state === "on";
 
     return batteryIcon(battery, batteryCharging);

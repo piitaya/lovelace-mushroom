@@ -1,4 +1,4 @@
-import { html, TemplateResult } from "lit";
+import { html, nothing } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
@@ -12,7 +12,7 @@ import { HaFormSchema } from "../../utils/form/ha-form";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { loadHaComponents } from "../../utils/loader";
 import { VACUUM_CARD_EDITOR_NAME, VACUUM_ENTITY_DOMAINS } from "./const";
-import { VacuumCardConfig, vacuumCardConfigStruct, VACUUM_COMMANDS } from "./vacuum-card-config";
+import { VACUUM_COMMANDS, VacuumCardConfig, vacuumCardConfigStruct } from "./vacuum-card-config";
 
 const VACUUM_LABELS = ["commands"];
 
@@ -75,9 +75,9 @@ export class VacuumCardEditor extends MushroomBaseElement implements LovelaceCar
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
     };
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this.hass || !this._config) {
-            return html``;
+            return nothing;
         }
 
         const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;

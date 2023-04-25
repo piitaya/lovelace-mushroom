@@ -9,7 +9,8 @@ export const turnOnOffEntities = (
 ): void => {
     const domainsToCall = {};
     entityIds.forEach((entityId) => {
-        if (STATES_OFF.includes(hass.states[entityId].state) === turnOn) {
+        const stateObj = hass.states[entityId];
+        if (stateObj && STATES_OFF.includes(stateObj.state) === turnOn) {
             const stateDomain = computeDomain(entityId);
             const serviceDomain = ["cover", "lock"].includes(stateDomain)
                 ? stateDomain

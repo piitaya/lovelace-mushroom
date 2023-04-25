@@ -6,6 +6,7 @@ export const toggleEntity = (
     hass: HomeAssistant,
     entityId: string
 ): Promise<ServiceCallResponse> => {
-    const turnOn = STATES_OFF.includes(hass.states[entityId].state);
+    const stateObj = hass.states[entityId];
+    const turnOn = stateObj && STATES_OFF.includes(stateObj.state);
     return turnOnOffEntity(hass, entityId, turnOn);
 };

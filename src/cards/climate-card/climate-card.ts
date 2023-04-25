@@ -1,4 +1,4 @@
-import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, nothing, PropertyValues, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -30,7 +30,6 @@ import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { computeEntityPicture } from "../../utils/info";
-import { Layout } from "../../utils/layout";
 import { ClimateCardConfig } from "./climate-card-config";
 import { CLIMATE_CARD_EDITOR_NAME, CLIMATE_CARD_NAME, CLIMATE_ENTITY_DOMAINS } from "./const";
 import "./controls/climate-hvac-modes-control";
@@ -106,17 +105,17 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
     updateControls() {
         if (!this._config || !this.hass || !this._config.entity) return;
 
-        const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id] as ClimateEntity;
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as ClimateEntity | undefined;
 
-        if (!entity) return;
+        if (!stateObj) return;
 
         const controls: ClimateCardControl[] = [];
-        if (!this._config.collapsible_controls || isActive(entity)) {
-            if (isTemperatureControlVisible(entity) && this._config.show_temperature_control) {
+        if (!this._config.collapsible_controls || isActive(stateObj)) {
+            if (isTemperatureControlVisible(stateObj) && this._config.show_temperature_control) {
                 controls.push("temperature_control");
             }
-            if (isHvacModesVisible(entity, this._config.hvac_modes)) {
+            if (isHvacModesVisible(stateObj, this._config.hvac_modes)) {
                 controls.push("hvac_mode_control");
             }
         }
@@ -132,29 +131,33 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this.hass || !this._config || !this._config.entity) {
-            return html``;
+            return nothing;
         }
 
-        const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id] as ClimateEntity;
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as ClimateEntity | undefined;
 
-        const name = this._config.name || entity.attributes.friendly_name || "";
-        const icon = this._config.icon || stateIcon(entity);
+        if (!stateObj) {
+            return this.renderNotFound(this._config);
+        }
+
+        const name = this._config.name || stateObj.attributes.friendly_name || "";
+        const icon = this._config.icon || stateIcon(stateObj);
         const appearance = computeAppearance(this._config);
-        const picture = computeEntityPicture(entity, appearance.icon_type);
+        const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
         let stateDisplay = computeStateDisplay(
             this.hass.localize,
-            entity,
+            stateObj,
             this.hass.locale,
             this.hass.entities,
-            this.hass.connection.haVersion,
+            this.hass.connection.haVersion
         );
-        if (entity.attributes.current_temperature !== null) {
+        if (stateObj.attributes.current_temperature !== null) {
             const temperature = formatNumber(
-                entity.attributes.current_temperature,
+                stateObj.attributes.current_temperature,
                 this.hass.locale
             );
             const unit = this.hass.config.unit_system.temperature;
@@ -174,17 +177,17 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
-                        ${this.renderBadge(entity)}
-                        ${this.renderStateInfo(entity, appearance, name, stateDisplay)};
+                        ${picture ? this.renderPicture(picture) : this.renderIcon(stateObj, icon)}
+                        ${this.renderBadge(stateObj)}
+                        ${this.renderStateInfo(stateObj, appearance, name, stateDisplay)};
                     </mushroom-state-item>
                     ${this._controls.length > 0
                         ? html`
                               <div class="actions" ?rtl=${rtl}>
-                                  ${this.renderActiveControl(entity)}${this.renderOtherControls()}
+                                  ${this.renderActiveControl(stateObj)}${this.renderOtherControls()}
                               </div>
                           `
-                        : null}
+                        : nothing}
                 </mushroom-card>
             </ha-card>
         `;
@@ -218,12 +221,12 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
 
     renderActionBadge(entity: ClimateEntity) {
         const hvac_action = entity.attributes.hvac_action;
-        if (!hvac_action || hvac_action == "off") return null;
+        if (!hvac_action || hvac_action == "off") return nothing;
 
         const color = getHvacActionColor(hvac_action);
         const icon = getHvacActionIcon(hvac_action);
 
-        if (!icon) return null;
+        if (!icon) return nothing;
 
         return html`
             <mushroom-badge-icon
@@ -251,7 +254,7 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
         `;
     }
 
-    private renderActiveControl(entity: ClimateEntity): TemplateResult | null {
+    private renderActiveControl(entity: ClimateEntity) {
         const hvac_modes = this._config!.hvac_modes ?? [];
         const appearance = computeAppearance(this._config!);
 
@@ -274,7 +277,7 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
                     ></mushroom-climate-hvac-modes-control>
                 `;
             default:
-                return null;
+                return nothing;
         }
     }
 

@@ -1,4 +1,4 @@
-import { css, CSSResultGroup, html, nothing, PropertyValues, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, nothing, PropertyValues } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { guard } from "lit/directives/guard.js";
 import type { SortableEvent } from "sortablejs";
@@ -9,6 +9,7 @@ import { MushroomBaseElement } from "../../utils/base-element";
 import { getChipElementClass } from "../../utils/lovelace/chip-element-editor";
 import { CHIP_LIST, LovelaceChipConfig } from "../../utils/lovelace/chip/types";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
+import { HassEntity } from "home-assistant-js-websocket";
 
 let Sortable;
 
@@ -44,9 +45,9 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
         this._attached = false;
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this.chips || !this.hass) {
-            return html``;
+            return nothing;
         }
 
         const customLocalize = setupCustomlocalize(this.hass);
@@ -269,9 +270,9 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
 
     private getEntityName(entity_id: string): string | undefined {
         if (!this.hass) return undefined;
-        const entity = this.hass.states[entity_id];
-        if (!entity) return undefined;
-        return entity.attributes.friendly_name;
+        const stateObj = this.hass.states[entity_id] as HassEntity | undefined;
+        if (!stateObj) return undefined;
+        return stateObj.attributes.friendly_name;
     }
 
     static get styles(): CSSResultGroup {
