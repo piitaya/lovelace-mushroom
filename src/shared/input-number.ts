@@ -90,7 +90,11 @@ export class InputNumber extends LitElement {
 
         return html`
             <div class="container" id="container">
-                <button class="button minus" @click=${this._decrementValue} .disabled=${this.disabled}>
+                <button
+                    class="button minus"
+                    @click=${this._decrementValue}
+                    .disabled=${this.disabled}
+                >
                     <ha-icon icon="mdi:minus"></ha-icon>
                 </button>
                 <span
@@ -102,7 +106,11 @@ export class InputNumber extends LitElement {
                 >
                     ${value}
                 </span>
-                <button class="button plus" @click=${this._incrementValue} .disabled=${this.disabled}>
+                <button
+                    class="button plus"
+                    @click=${this._incrementValue}
+                    .disabled=${this.disabled}
+                >
                     <ha-icon icon="mdi:plus"></ha-icon>
                 </button>
             </div>
