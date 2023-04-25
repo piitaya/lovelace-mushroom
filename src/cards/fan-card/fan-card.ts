@@ -90,8 +90,8 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
         this.percentage = undefined;
         if (!this._config || !this.hass || !this._config.entity) return;
 
-        const entity_id = this._config.entity;
-        const stateObj = this.hass.states[entity_id];
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as HassEntity | undefined;
 
         if (!stateObj) return;
         this.percentage = getPercentage(stateObj);
@@ -112,11 +112,11 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
             return nothing;
         }
 
-        const entity_id = this._config.entity;
-        const stateObj = this.hass.states[entity_id];
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as HassEntity | undefined;
 
         if (!stateObj) {
-            return nothing;
+            return this.renderNotFound(this._config);
         }
 
         const name = this._config.name || stateObj.attributes.friendly_name || "";

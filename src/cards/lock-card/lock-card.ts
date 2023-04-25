@@ -81,12 +81,16 @@ export class LockCard extends MushroomBaseCard implements LovelaceCard {
         }
 
         const entityId = this._config.entity;
-        const entity = this.hass.states[entityId] as LockEntity;
+        const stateObj = this.hass.states[entityId] as LockEntity | undefined;
 
-        const name = this._config.name || entity.attributes.friendly_name || "";
-        const icon = this._config.icon || stateIcon(entity);
+        if (!stateObj) {
+            return this.renderNotFound(this._config);
+        }
+
+        const name = this._config.name || stateObj.attributes.friendly_name || "";
+        const icon = this._config.icon || stateIcon(stateObj);
         const appearance = computeAppearance(this._config);
-        const picture = computeEntityPicture(entity, appearance.icon_type);
+        const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
         const rtl = computeRTL(this.hass);
 
@@ -102,14 +106,16 @@ export class LockCard extends MushroomBaseCard implements LovelaceCard {
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
-                        ${this.renderBadge(entity)}
-                        ${this.renderStateInfo(entity, appearance, name)};
+                        ${picture
+                            ? this.renderPicture(picture)
+                            : this.renderIcon(stateObj as LockEntity, icon)}
+                        ${this.renderBadge(stateObj)}
+                        ${this.renderStateInfo(stateObj, appearance, name)};
                     </mushroom-state-item>
                     <div class="actions" ?rtl=${rtl}>
                         <mushroom-lock-buttons-control
                             .hass=${this.hass}
-                            .entity=${entity}
+                            .entity=${stateObj}
                             .fill=${appearance.layout !== "horizontal"}
                         >
                         </mushroom-lock-buttons-control>

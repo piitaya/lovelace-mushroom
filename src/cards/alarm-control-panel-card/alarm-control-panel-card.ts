@@ -111,8 +111,8 @@ export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceC
 
     async loadComponents() {
         if (!this._config || !this.hass || !this._config.entity) return;
-        const entity_id = this._config.entity;
-        const stateObj = this.hass.states[entity_id];
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as HassEntity | undefined;
 
         if (stateObj && hasCode(stateObj)) {
             void import("../../shared/form/mushroom-textfield");
@@ -145,9 +145,9 @@ export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceC
     }
 
     private get _hasCode(): boolean {
-        const entity_id = this._config?.entity;
-        if (!entity_id) return false;
-        const stateObj = this.hass.states[entity_id];
+        const entityId = this._config?.entity;
+        if (!entityId) return false;
+        const stateObj = this.hass.states[entityId] as HassEntity | undefined;
         if (!stateObj) return false;
         return hasCode(stateObj) && Boolean(this._config?.show_keypad);
     }
@@ -157,11 +157,11 @@ export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceC
             return nothing;
         }
 
-        const entity_id = this._config.entity;
-        const stateObj = this.hass.states[entity_id];
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as HassEntity | undefined;
 
         if (!stateObj) {
-            return nothing;
+            return this.renderNotFound(this._config);
         }
 
         const name = this._config.name || stateObj.attributes.friendly_name || "";

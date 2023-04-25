@@ -17,6 +17,7 @@ import {
 import { LovelaceChip, WeatherChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { getWeatherStateSVG, weatherSVGStyles } from "../../../utils/weather";
+import { HassEntity } from "home-assistant-js-websocket";
 
 @customElement(computeChipComponentName("weather"))
 export class WeatherChip extends LitElement implements LovelaceChip {
@@ -53,8 +54,8 @@ export class WeatherChip extends LitElement implements LovelaceChip {
             return nothing;
         }
 
-        const entity_id = this._config.entity;
-        const stateObj = this.hass.states[entity_id];
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as HassEntity | undefined;
 
         if (!stateObj) {
             return nothing;

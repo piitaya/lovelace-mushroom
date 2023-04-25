@@ -131,8 +131,8 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
         this.position = undefined;
         if (!this._config || !this.hass || !this._config.entity) return;
 
-        const entity_id = this._config.entity;
-        const stateObj = this.hass.states[entity_id] as CoverEntity | undefined;
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as CoverEntity | undefined;
 
         if (!stateObj) return;
         this.position = getPosition(stateObj);
@@ -153,11 +153,11 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
             return nothing;
         }
 
-        const entity_id = this._config.entity;
-        const stateObj = this.hass.states[entity_id] as CoverEntity | undefined;
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as CoverEntity | undefined;
 
         if (!stateObj) {
-            return nothing;
+            return this.renderNotFound(this._config);
         }
 
         const name = this._config.name || stateObj.attributes.friendly_name || "";

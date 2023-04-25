@@ -27,6 +27,7 @@ import {
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { ALARM_CONTROl_PANEL_ENTITY_DOMAINS } from "../../alarm-control-panel-card/const";
 import { getStateColor, shouldPulse } from "../../alarm-control-panel-card/utils";
+import { HassEntity } from "home-assistant-js-websocket";
 
 @customElement(computeChipComponentName("alarm-control-panel"))
 export class AlarmControlPanelChip extends LitElement implements LovelaceChip {
@@ -65,8 +66,8 @@ export class AlarmControlPanelChip extends LitElement implements LovelaceChip {
             return nothing;
         }
 
-        const entity_id = this._config.entity;
-        const stateObj = this.hass.states[entity_id];
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as HassEntity | undefined;
 
         if (!stateObj) {
             return nothing;

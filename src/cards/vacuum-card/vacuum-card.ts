@@ -81,11 +81,11 @@ export class VacuumCard extends MushroomBaseCard implements LovelaceCard {
             return nothing;
         }
 
-        const entity_id = this._config.entity;
-        const stateObj = this.hass.states[entity_id] as VacuumEntity | undefined;
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as VacuumEntity | undefined;
 
         if (!stateObj) {
-            return nothing;
+            return this.renderNotFound(this._config);
         }
 
         const name = this._config.name || stateObj.attributes.friendly_name || "";

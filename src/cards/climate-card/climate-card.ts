@@ -105,8 +105,8 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
     updateControls() {
         if (!this._config || !this.hass || !this._config.entity) return;
 
-        const entity_id = this._config.entity;
-        const stateObj = this.hass.states[entity_id] as ClimateEntity | undefined;
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as ClimateEntity | undefined;
 
         if (!stateObj) return;
 
@@ -136,11 +136,11 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
             return nothing;
         }
 
-        const entity_id = this._config.entity;
-        const stateObj = this.hass.states[entity_id] as ClimateEntity | undefined;
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as ClimateEntity | undefined;
 
         if (!stateObj) {
-            return nothing;
+            return this.renderNotFound(this._config);
         }
 
         const name = this._config.name || stateObj.attributes.friendly_name || "";

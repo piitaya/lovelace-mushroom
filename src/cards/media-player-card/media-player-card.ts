@@ -116,8 +116,8 @@ export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
         this.volume = undefined;
         if (!this._config || !this.hass || !this._config.entity) return;
 
-        const entity_id = this._config.entity;
-        const stateObj = this.hass.states[entity_id] as MediaPlayerEntity | undefined;
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as MediaPlayerEntity | undefined;
 
         if (!stateObj) return;
         const volume = getVolumeLevel(stateObj);
@@ -133,8 +133,8 @@ export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
     updateControls() {
         if (!this._config || !this.hass || !this._config.entity) return;
 
-        const entity_id = this._config.entity;
-        const stateObj = this.hass.states[entity_id] as MediaPlayerEntity | undefined;
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as MediaPlayerEntity | undefined;
 
         if (!stateObj) return;
 
@@ -164,11 +164,11 @@ export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
             return nothing;
         }
 
-        const entity_id = this._config.entity;
-        const stateObj = this.hass.states[entity_id] as MediaPlayerEntity | undefined;
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as MediaPlayerEntity | undefined;
 
         if (!stateObj) {
-            return nothing;
+            return this.renderNotFound(this._config);
         }
 
         const icon = computeMediaIcon(this._config, stateObj);

@@ -79,10 +79,10 @@ export class EntityCard extends MushroomBaseCard implements LovelaceCard {
         }
 
         const entityId = this._config.entity;
-        const stateObj = this.hass.states[entityId];
+        const stateObj = this.hass.states[entityId] as HassEntity | undefined;
 
         if (!stateObj) {
-            return nothing;
+            return this.renderNotFound(this._config);
         }
 
         const name = this._config.name || stateObj.attributes.friendly_name || "";

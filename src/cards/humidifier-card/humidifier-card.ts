@@ -10,6 +10,7 @@ import {
     handleAction,
     hasAction,
     HomeAssistant,
+    HumidifierEntity,
     isActive,
     LovelaceCard,
     LovelaceCardEditor,
@@ -94,11 +95,11 @@ export class HumidifierCard extends MushroomBaseCard implements LovelaceCard {
             return nothing;
         }
 
-        const entity_id = this._config.entity;
-        const stateObj = this.hass.states[entity_id];
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as HumidifierEntity | undefined;
 
         if (!stateObj) {
-            return nothing;
+            return this.renderNotFound(this._config);
         }
 
         const name = this._config.name || stateObj.attributes.friendly_name || "";

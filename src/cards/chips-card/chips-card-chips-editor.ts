@@ -9,6 +9,7 @@ import { MushroomBaseElement } from "../../utils/base-element";
 import { getChipElementClass } from "../../utils/lovelace/chip-element-editor";
 import { CHIP_LIST, LovelaceChipConfig } from "../../utils/lovelace/chip/types";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
+import { HassEntity } from "home-assistant-js-websocket";
 
 let Sortable;
 
@@ -269,7 +270,7 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
 
     private getEntityName(entity_id: string): string | undefined {
         if (!this.hass) return undefined;
-        const stateObj = this.hass.states[entity_id];
+        const stateObj = this.hass.states[entity_id] as HassEntity | undefined;
         if (!stateObj) return undefined;
         return stateObj.attributes.friendly_name;
     }

@@ -66,8 +66,8 @@ export class LightChip extends LitElement implements LovelaceChip {
             return nothing;
         }
 
-        const entity_id = this._config.entity;
-        const stateObj = this.hass.states[entity_id] as LightEntity | undefined;
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as LightEntity | undefined;
 
         if (!stateObj) {
             return nothing;

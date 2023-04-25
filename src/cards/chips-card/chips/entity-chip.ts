@@ -22,6 +22,7 @@ import {
 } from "../../../utils/lovelace/chip/chip-element";
 import { EntityChipConfig, LovelaceChip } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
+import { HassEntity } from "home-assistant-js-websocket";
 
 @customElement(computeChipComponentName("entity"))
 export class EntityChip extends LitElement implements LovelaceChip {
@@ -57,8 +58,8 @@ export class EntityChip extends LitElement implements LovelaceChip {
             return nothing;
         }
 
-        const entity_id = this._config.entity;
-        const stateObj = this.hass.states[entity_id];
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as HassEntity | undefined;
 
         if (!stateObj) {
             return nothing;
