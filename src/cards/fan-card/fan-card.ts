@@ -1,5 +1,5 @@
 import { HassEntity } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, nothing, PropertyValues, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -107,9 +107,9 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this._config || !this.hass || !this._config.entity) {
-            return html``;
+            return nothing;
         }
 
         const entity_id = this._config.entity;
@@ -125,7 +125,7 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
             entity,
             this.hass.locale,
             this.hass.entities,
-            this.hass.connection.haVersion,
+            this.hass.connection.haVersion
         );
         if (this.percentage != null) {
             stateDisplay = `${this.percentage}${blankBeforePercent(this.hass.locale)}%`;

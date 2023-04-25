@@ -1,4 +1,4 @@
-import { css, CSSResultGroup, html, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, nothing } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import {
@@ -89,9 +89,9 @@ export class HumidifierCard extends MushroomBaseCard implements LovelaceCard {
         }
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this._config || !this.hass || !this._config.entity) {
-            return html``;
+            return nothing;
         }
 
         const entity_id = this._config.entity;
@@ -107,7 +107,7 @@ export class HumidifierCard extends MushroomBaseCard implements LovelaceCard {
             entity,
             this.hass.locale,
             this.hass.entities,
-            this.hass.connection.haVersion,
+            this.hass.connection.haVersion
         );
         if (this.humidity) {
             stateDisplay = `${this.humidity}${blankBeforePercent(this.hass.locale)}%`;

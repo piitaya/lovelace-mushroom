@@ -1,5 +1,5 @@
 import { HassEntity } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, nothing, PropertyValues, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -15,7 +15,7 @@ import {
     HomeAssistant,
     isAvailable,
     LovelaceCard,
-    LovelaceCardEditor
+    LovelaceCardEditor,
 } from "../../ha";
 import "../../shared/badge-icon";
 import "../../shared/button";
@@ -148,9 +148,9 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this.hass || !this._config || !this._config.entity) {
-            return html``;
+            return nothing;
         }
 
         const entity_id = this._config.entity;
@@ -166,7 +166,7 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
             entity,
             this.hass.locale,
             this.hass.entities,
-            this.hass.connection.haVersion,
+            this.hass.connection.haVersion
         );
         if (this.position) {
             stateDisplay += ` - ${this.position}${blankBeforePercent(this.hass.locale)}%`;

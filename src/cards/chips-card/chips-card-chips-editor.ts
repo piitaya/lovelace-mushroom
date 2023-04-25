@@ -1,4 +1,4 @@
-import { css, CSSResultGroup, html, nothing, PropertyValues, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, nothing, PropertyValues } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { guard } from "lit/directives/guard.js";
 import type { SortableEvent } from "sortablejs";
@@ -44,9 +44,9 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
         this._attached = false;
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this.chips || !this.hass) {
-            return html``;
+            return nothing;
         }
 
         const customLocalize = setupCustomlocalize(this.hass);

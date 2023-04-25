@@ -1,18 +1,19 @@
-import { css, CSSResultGroup, html, TemplateResult } from "lit";
+import { HassEntity } from "home-assistant-js-websocket";
+import { css, CSSResultGroup, html, nothing, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import {
-    ActionHandlerEvent,
-    HomeAssistant,
-    LovelaceCard,
-    LovelaceCardEditor,
-    VacuumEntity,
     actionHandler,
+    ActionHandlerEvent,
     computeRTL,
     handleAction,
     hasAction,
+    HomeAssistant,
     isActive,
+    LovelaceCard,
+    LovelaceCardEditor,
+    VacuumEntity,
 } from "../../ha";
 import "../../shared/badge-icon";
 import "../../shared/card";
@@ -28,9 +29,8 @@ import { computeEntityPicture } from "../../utils/info";
 import { VACUUM_CARD_EDITOR_NAME, VACUUM_CARD_NAME, VACUUM_ENTITY_DOMAINS } from "./const";
 import "./controls/vacuum-commands-control";
 import { isCommandsControlVisible } from "./controls/vacuum-commands-control";
-import { VacuumCardConfig } from "./vacuum-card-config";
-import { HassEntity } from "home-assistant-js-websocket";
 import { isCleaning, isReturningHome } from "./utils";
+import { VacuumCardConfig } from "./vacuum-card-config";
 
 registerCustomCard({
     type: VACUUM_CARD_NAME,
@@ -76,9 +76,9 @@ export class VacuumCard extends MushroomBaseCard implements LovelaceCard {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this._config || !this.hass || !this._config.entity) {
-            return html``;
+            return nothing;
         }
 
         const entity_id = this._config.entity;

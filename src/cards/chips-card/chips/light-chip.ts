@@ -1,4 +1,4 @@
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, LitElement, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -61,9 +61,9 @@ export class LightChip extends LitElement implements LovelaceChip {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this.hass || !this._config || !this._config.entity) {
-            return html``;
+            return nothing;
         }
 
         const entity_id = this._config.entity;
@@ -77,7 +77,7 @@ export class LightChip extends LitElement implements LovelaceChip {
             entity,
             this.hass.locale,
             this.hass.entities,
-            this.hass.connection.haVersion,
+            this.hass.connection.haVersion
         );
 
         const active = isActive(entity);

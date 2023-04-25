@@ -1,4 +1,4 @@
-import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, nothing, PropertyValues, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -163,9 +163,9 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this._config || !this.hass || !this._config.entity) {
-            return html``;
+            return nothing;
         }
 
         const entity_id = this._config.entity;
@@ -181,7 +181,7 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
             entity,
             this.hass.locale,
             this.hass.entities,
-            this.hass.connection.haVersion,
+            this.hass.connection.haVersion
         );
         if (this.brightness != null) {
             stateDisplay = `${this.brightness}${blankBeforePercent(this.hass.locale)}%`;

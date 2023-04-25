@@ -1,4 +1,4 @@
-import { css, CSSResultGroup, html, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, nothing, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -75,9 +75,9 @@ export class LockCard extends MushroomBaseCard implements LovelaceCard {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this._config || !this.hass || !this._config.entity) {
-            return html``;
+            return nothing;
         }
 
         const entityId = this._config.entity;

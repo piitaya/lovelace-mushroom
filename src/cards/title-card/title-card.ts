@@ -1,5 +1,5 @@
 import { UnsubscribeFunc } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, nothing, PropertyValues } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { ifDefined } from "lit/directives/if-defined.js";
@@ -109,9 +109,9 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
         handleAction(this, this.hass!, config, ev.detail.action!);
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this._config || !this.hass) {
-            return html``;
+            return nothing;
         }
 
         const title = this.getValue("title");

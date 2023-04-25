@@ -1,5 +1,5 @@
 import { HassEntity } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, nothing, PropertyValues, TemplateResult } from "lit";
 import { customElement, query, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -7,7 +7,6 @@ import {
     actionHandler,
     ActionHandlerEvent,
     computeRTL,
-    computeStateDisplay,
     handleAction,
     hasAction,
     HomeAssistant,
@@ -27,7 +26,7 @@ import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { alarmPanelIconAction } from "../../utils/icons/alarm-panel-icon";
 import { stateIcon } from "../../utils/icons/state-icon";
-import { computeEntityPicture, computeInfoDisplay } from "../../utils/info";
+import { computeEntityPicture } from "../../utils/info";
 import { AlarmControlPanelCardConfig } from "./alarm-control-panel-card-config";
 import {
     ALARM_CONTROl_PANEL_CARD_EDITOR_NAME,
@@ -154,9 +153,9 @@ export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceC
         return false;
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this.hass || !this._config || !this._config.entity) {
-            return html``;
+            return nothing;
         }
 
         const entity_id = this._config.entity;
@@ -215,7 +214,7 @@ export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceC
                         : null}
                 </mushroom-card>
                 ${!this._hasCode
-                    ? html``
+                    ? nothing
                     : html`
                           <mushroom-textfield
                               id="alarmCode"
@@ -227,7 +226,7 @@ export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceC
                           ></mushroom-textfield>
                       `}
                 ${!(this._hasCode && entity.attributes.code_format === "number")
-                    ? html``
+                    ? nothing
                     : html`
                           <div id="keypad">
                               ${BUTTONS.map((value) =>

@@ -1,5 +1,13 @@
 import { UnsubscribeFunc } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
+import {
+    css,
+    CSSResultGroup,
+    html,
+    LitElement,
+    nothing,
+    PropertyValues,
+    TemplateResult,
+} from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import {
@@ -89,9 +97,9 @@ export class TemplateChip extends LitElement implements LovelaceChip {
             : this._config?.[key];
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this.hass || !this._config) {
-            return html``;
+            return nothing;
         }
 
         const icon = this.getValue("icon");

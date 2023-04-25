@@ -1,4 +1,4 @@
-import { html, TemplateResult } from "lit";
+import { html, nothing } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import {
     any,
@@ -173,9 +173,9 @@ export class ChipsCardEditor extends MushroomBaseElement implements LovelaceCard
         return this._config!.theme || "";
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this.hass || !this._config) {
-            return html``;
+            return nothing;
         }
 
         if (this._subElementEditorConfig) {

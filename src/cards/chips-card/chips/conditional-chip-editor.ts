@@ -1,5 +1,5 @@
 import type { MDCTabBarActivatedEvent } from "@material/tab-bar";
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, LitElement, nothing } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { computeRTL, fireEvent, HASSDomEvent, HomeAssistant, LovelaceConfig } from "../../../ha";
 import setupCustomlocalize from "../../../localize";
@@ -41,9 +41,9 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
         this._cardEditorEl?.focusYamlEditor();
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this.hass || !this._config) {
-            return html``;
+            return nothing;
         }
 
         const customLocalize = setupCustomlocalize(this.hass);

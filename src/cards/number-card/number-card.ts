@@ -1,5 +1,5 @@
 import { HassEntity } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, nothing, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -88,9 +88,9 @@ export class NumberCard extends MushroomBaseCard implements LovelaceCard {
         }
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this._config || !this.hass || !this._config.entity) {
-            return html``;
+            return nothing;
         }
 
         const entity_id = this._config.entity;
@@ -106,7 +106,7 @@ export class NumberCard extends MushroomBaseCard implements LovelaceCard {
             entity,
             this.hass.locale,
             this.hass.entities,
-            this.hass.connection.haVersion,
+            this.hass.connection.haVersion
         );
         if (this.value !== undefined) {
             const numberValue = formatNumber(
