@@ -1,8 +1,7 @@
 import { html, nothing } from "lit";
 import { customElement, state } from "lit/decorators.js";
-import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
-import { fireEvent, LovelaceCardEditor } from "../../ha";
+import { LovelaceCardEditor, fireEvent } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { computeActionsFormSchema } from "../../shared/config/actions-config";
 import { MushroomBaseElement } from "../../utils/base-element";
@@ -22,7 +21,7 @@ export const TEMPLATE_LABELS = [
     "picture",
 ];
 
-const computeSchema = memoizeOne((): HaFormSchema[] => [
+const SCHEMA: HaFormSchema[] = [
     { name: "entity", selector: { entity: {} } },
     {
         name: "icon",
@@ -62,7 +61,7 @@ const computeSchema = memoizeOne((): HaFormSchema[] => [
         ],
     },
     ...computeActionsFormSchema(),
-]);
+];
 
 @customElement(TEMPLATE_CARD_EDITOR_NAME)
 export class TemplateCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
@@ -100,12 +99,11 @@ export class TemplateCardEditor extends MushroomBaseElement implements LovelaceC
             return nothing;
         }
 
-        const schema = computeSchema();
         return html`
             <ha-form
                 .hass=${this.hass}
                 .data=${this._config}
-                .schema=${schema}
+                .schema=${SCHEMA}
                 .computeLabel=${this._computeLabel}
                 @value-changed=${this._valueChanged}
             ></ha-form>

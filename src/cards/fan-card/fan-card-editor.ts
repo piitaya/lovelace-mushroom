@@ -1,29 +1,27 @@
-import { html, nothing, TemplateResult } from "lit";
+import { html, nothing } from "lit";
 import { customElement, state } from "lit/decorators.js";
-import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
-import { fireEvent, LovelaceCardEditor } from "../../ha";
+import { LovelaceCardEditor, fireEvent } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { computeActionsFormSchema } from "../../shared/config/actions-config";
 import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
-import { stateIcon } from "../../utils/icons/state-icon";
 import { loadHaComponents } from "../../utils/loader";
 import { FAN_CARD_EDITOR_NAME, FAN_ENTITY_DOMAINS } from "./const";
 import { FanCardConfig, fanCardConfigStruct } from "./fan-card-config";
 
 const FAN_LABELS = ["icon_animation", "show_percentage_control", "show_oscillate_control"];
 
-const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
+const SCHEMA: HaFormSchema[] = [
     { name: "entity", selector: { entity: { domain: FAN_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
     {
         type: "grid",
         name: "",
         schema: [
-            { name: "icon", selector: { icon: { placeholder: icon } } },
+            { name: "icon", selector: { icon: {} }, context: { icon_entity: "entity" } },
             { name: "icon_animation", selector: { boolean: {} } },
         ],
     },
@@ -38,7 +36,7 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
         ],
     },
     ...computeActionsFormSchema(),
-]);
+];
 
 @customElement(FAN_CARD_EDITOR_NAME)
 export class FanCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
@@ -71,16 +69,11 @@ export class FanCardEditor extends MushroomBaseElement implements LovelaceCardEd
             return nothing;
         }
 
-        const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
-        const entityIcon = entityState ? stateIcon(entityState) : undefined;
-        const icon = this._config.icon || entityIcon;
-        const schema = computeSchema(icon);
-
         return html`
             <ha-form
                 .hass=${this.hass}
                 .data=${this._config}
-                .schema=${schema}
+                .schema=${SCHEMA}
                 .computeLabel=${this._computeLabel}
                 @value-changed=${this._valueChanged}
             ></ha-form>

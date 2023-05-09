@@ -1,6 +1,5 @@
-import { html, LitElement, nothing, TemplateResult } from "lit";
+import { html, LitElement, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import memoizeOne from "memoize-one";
 import { fireEvent, HomeAssistant } from "../../../ha";
 import setupCustomlocalize from "../../../localize";
 import { computeActionsFormSchema } from "../../../shared/config/actions-config";
@@ -11,7 +10,7 @@ import { TemplateChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { TEMPLATE_LABELS } from "../../template-card/template-card-editor";
 
-const computeSchema = memoizeOne((): HaFormSchema[] => [
+const SCHEMA: HaFormSchema[] = [
     { name: "entity", selector: { entity: {} } },
     {
         name: "icon",
@@ -30,7 +29,7 @@ const computeSchema = memoizeOne((): HaFormSchema[] => [
         selector: { template: {} },
     },
     ...computeActionsFormSchema(),
-]);
+];
 
 @customElement(computeChipEditorComponentName("template"))
 export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
@@ -64,13 +63,11 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
             return nothing;
         }
 
-        const schema = computeSchema();
-
         return html`
             <ha-form
                 .hass=${this.hass}
                 .data=${this._config}
-                .schema=${schema}
+                .schema=${SCHEMA}
                 .computeLabel=${this._computeLabel}
                 @value-changed=${this._valueChanged}
             ></ha-form>
