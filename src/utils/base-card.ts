@@ -62,13 +62,11 @@ export class MushroomBaseCard extends MushroomBaseElement {
         `;
     }
 
-    protected renderIcon(stateObj: HassEntity, icon: string): TemplateResult {
+    protected renderIcon(stateObj: HassEntity, icon?: string): TemplateResult {
         const active = isActive(stateObj);
         return html`
-            <mushroom-shape-icon
-                slot="icon"
-                .disabled=${!active}
-                .icon=${icon}
+            <mushroom-shape-icon slot="icon" .disabled=${!active}>
+                <ha-state-icon .state=${stateObj} icon=${icon}></ha-state-icon
             ></mushroom-shape-icon>
         `;
     }

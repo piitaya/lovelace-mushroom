@@ -17,7 +17,9 @@ export class ShapeIcon extends LitElement {
                     disabled: Boolean(this.disabled),
                 })}
             >
-                <ha-icon .icon=${this.icon} />
+                <slot>
+                    <ha-icon .icon=${this.icon} />
+                </slot>
             </div>
         `;
     }
@@ -50,7 +52,9 @@ export class ShapeIcon extends LitElement {
                 animation: var(--shape-animation);
                 box-shadow: 0 0 0 1px var(--shape-outline-color);
             }
-            .shape ha-icon {
+            .shape ha-icon,
+            .shape ::slotted(ha-icon),
+            .shape ::slotted(ha-state-icon) {
                 display: flex;
                 --mdc-icon-size: var(--icon-symbol-size);
                 color: var(--icon-color);
@@ -60,9 +64,12 @@ export class ShapeIcon extends LitElement {
             .shape.disabled {
                 background-color: var(--shape-color-disabled);
             }
-            .shape.disabled ha-icon {
+            .shape.disabled ha-icon,
+            .shape.disabled ::slotted(ha-icon),
+            .shape.disabled ::slotted(ha-state-icon) {
                 color: var(--icon-color-disabled);
             }
+            .shape.disabled ha-icon {
             ${animations}
         `;
     }

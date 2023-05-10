@@ -26,7 +26,6 @@ import { computeAppearance } from "../../utils/appearance";
 import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { stateIcon } from "../../utils/icons/state-icon";
 import { computeEntityPicture } from "../../utils/info";
 import {
     HUMIDIFIER_CARD_EDITOR_NAME,
@@ -103,7 +102,7 @@ export class HumidifierCard extends MushroomBaseCard implements LovelaceCard {
         }
 
         const name = this._config.name || stateObj.attributes.friendly_name || "";
-        const icon = this._config.icon || stateIcon(stateObj);
+        const icon = this._config.icon;
         const appearance = computeAppearance(this._config);
         const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
