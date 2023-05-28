@@ -167,10 +167,14 @@
                     "entity": "Entität",
                     "light": "Licht",
                     "menu": "Menü",
+                    "spacer": "Abstand",
                     "template": "Vorlage",
                     "weather": "Wetter"
                 }
             }
         }
+    },
+    "card": {
+        "not_found": "Entität nicht gefunden"
     }
 }
