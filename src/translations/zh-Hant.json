@@ -167,10 +167,14 @@
                     "entity": "實體",
                     "light": "燈光",
                     "menu": "選單",
+                    "spacer": "佔位符",
                     "template": "模板",
                     "weather": "天氣"
                 }
             }
         }
+    },
+    "card": {
+        "not_found": "未找到實體"
     }
 }
