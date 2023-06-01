@@ -185,21 +185,25 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
         const entityId = this._config.entity;
         const stateObj = this.hass.states[entityId] as LightEntity | undefined;
         const entityIdTwo = this._config.entity_two;
-        const stateObjTwo = this.hass.states[entityIdTwo] as LightEntity | undefined;
+        const stateObjTwo = this.hass.states[entityIdTwo!] as LightEntity | undefined;
 
         if (!stateObj) {
             return this.renderNotFound(this._config);
         }
 
         const name = this._config.name || stateObj.attributes.friendly_name || "";
-        const icon = this._config.icon || stateIcon(stateObj);
-        const icon_two = this._config.icon_two || stateIcon(stateObjTwo!);
+        const icon = this._config.icon || stateIcon(stateObj!);
+        const icon_two =
+            this._config.icon_two ||
+            (stateObjTwo && stateIcon(stateObjTwo)) ||
+            (stateObj && stateIcon(stateObj)) ||
+            undefined;
         const appearance = computeAppearance(this._config);
         const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
         let stateDisplay = computeStateDisplay(
             this.hass.localize,
-            { ...stateObj, ...stateObjTwo },
+            stateObjTwo ? { ...stateObj, ...stateObjTwo } : stateObj,
             this.hass.locale,
             this.hass.entities,
             this.hass.connection.haVersion
@@ -209,49 +213,79 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
         }
 
         const rtl = computeRTL(this.hass);
-
-        return html`
-            <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
-                <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
-                    <mushroom-state-item
-                        ?rtl=${rtl}
-                        .appearance=${appearance}
-                        @action=${this._handleActionTwo}
-                        .actionHandler=${actionHandler({
-                            hasHold: hasAction(this._config.hold_action),
-                            hasDoubleClick: hasAction(this._config.double_tap_action),
-                        })}
-                        style="flex: 0 0 40px;"
-                    >
-                        ${picture
-                            ? this.renderPicture(picture)
-                            : this.renderIcon(stateObjTwo || stateObj, icon_two)}
-                        ${this.renderBadge(stateObjTwo || stateObj)}
-                    </mushroom-state-item>
-                    <mushroom-state-item
-                        ?rtl=${rtl}
-                        .appearance=${appearance}
-                        @action=${this._handleAction}
-                        .actionHandler=${actionHandler({
-                            hasHold: hasAction(this._config.hold_action),
-                            hasDoubleClick: hasAction(this._config.double_tap_action),
-                        })}
-                    >
-                        ${picture ? this.renderPicture(picture) : this.renderIcon(stateObj, icon)}
-                        ${this.renderBadge(stateObj)}
-                        ${this.renderStateInfo(stateObj, appearance, name, stateDisplay)};
-                    </mushroom-state-item>
-                    ${this._controls.length > 0
-                        ? html`
-                              <div class="actions" ?rtl=${rtl}>
-                                  ${this.renderActiveControl(stateObj)}
-                                  ${this.renderOtherControls()}
-                              </div>
-                          `
-                        : nothing}
-                </mushroom-card>
-            </ha-card>
-        `;
+        return stateObjTwo && icon_two
+            ? html`
+                  <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
+                      <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
+                          <mushroom-state-item
+                              ?rtl=${rtl}
+                              .appearance=${appearance}
+                              @action=${this._handleActionTwo}
+                              .actionHandler=${actionHandler({
+                                  hasHold: hasAction(this._config.hold_action),
+                                  hasDoubleClick: hasAction(this._config.double_tap_action),
+                              })}
+                              style="flex: 0 0 40px;"
+                          >
+                              ${picture
+                                  ? this.renderPicture(picture)
+                                  : this.renderIcon(stateObjTwo, icon_two)}
+                          </mushroom-state-item>
+                          <mushroom-state-item
+                              ?rtl=${rtl}
+                              .appearance=${appearance}
+                              @action=${this._handleAction}
+                              .actionHandler=${actionHandler({
+                                  hasHold: hasAction(this._config.hold_action),
+                                  hasDoubleClick: hasAction(this._config.double_tap_action),
+                              })}
+                          >
+                              ${picture
+                                  ? this.renderPicture(picture)
+                                  : this.renderIcon(stateObj, icon)}
+                              ${this.renderBadge(stateObj)}
+                              ${this.renderStateInfo(stateObj, appearance, name, stateDisplay)};
+                          </mushroom-state-item>
+                          ${this._controls.length > 0
+                              ? html`
+                                    <div class="actions" ?rtl=${rtl}>
+                                        ${this.renderActiveControl(stateObj)}
+                                        ${this.renderOtherControls()}
+                                    </div>
+                                `
+                              : nothing}
+                      </mushroom-card>
+                  </ha-card>
+              `
+            : html`
+                  <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
+                      <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
+                          <mushroom-state-item
+                              ?rtl=${rtl}
+                              .appearance=${appearance}
+                              @action=${this._handleAction}
+                              .actionHandler=${actionHandler({
+                                  hasHold: hasAction(this._config.hold_action),
+                                  hasDoubleClick: hasAction(this._config.double_tap_action),
+                              })}
+                          >
+                              ${picture
+                                  ? this.renderPicture(picture)
+                                  : this.renderIcon(stateObj, icon)}
+                              ${this.renderBadge(stateObj)}
+                              ${this.renderStateInfo(stateObj, appearance, name, stateDisplay)};
+                          </mushroom-state-item>
+                          ${this._controls.length > 0
+                              ? html`
+                                    <div class="actions" ?rtl=${rtl}>
+                                        ${this.renderActiveControl(stateObj)}
+                                        ${this.renderOtherControls()}
+                                    </div>
+                                `
+                              : nothing}
+                      </mushroom-card>
+                  </ha-card>
+              `;
     }
 
     protected renderIcon(entity: LightEntity, icon: string): TemplateResult {
