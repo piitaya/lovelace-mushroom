@@ -162,6 +162,20 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
     private _handleAction(ev: ActionHandlerEvent) {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
+    private _handleActionTwo(ev: ActionHandlerEvent) {
+        handleAction(
+            this,
+            this.hass!,
+            {
+                entity: this._config!.entity_two,
+                camera_image: this._config!.camera_image,
+                hold_action: this._config!.hold_action,
+                tap_action: this._config!.tap_action,
+                double_tap_action: this._config!.double_tap_action,
+            },
+            ev.detail.action!
+        );
+    }
 
     protected render() {
         if (!this._config || !this.hass || !this._config.entity) {
@@ -170,6 +184,8 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
 
         const entityId = this._config.entity;
         const stateObj = this.hass.states[entityId] as LightEntity | undefined;
+        const entityIdTwo = this._config.entity_two;
+        const stateObjTwo = this.hass.states[entityIdTwo] as LightEntity | undefined;
 
         if (!stateObj) {
             return this.renderNotFound(this._config);
@@ -177,12 +193,13 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
 
         const name = this._config.name || stateObj.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(stateObj);
+        const icon_two = this._config.icon_two || stateIcon(stateObjTwo!);
         const appearance = computeAppearance(this._config);
         const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
         let stateDisplay = computeStateDisplay(
             this.hass.localize,
-            stateObj,
+            { ...stateObj, ...stateObjTwo },
             this.hass.locale,
             this.hass.entities,
             this.hass.connection.haVersion
@@ -196,6 +213,21 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
         return html`
             <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
                 <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
+                    <mushroom-state-item
+                        ?rtl=${rtl}
+                        .appearance=${appearance}
+                        @action=${this._handleActionTwo}
+                        .actionHandler=${actionHandler({
+                            hasHold: hasAction(this._config.hold_action),
+                            hasDoubleClick: hasAction(this._config.double_tap_action),
+                        })}
+                        style="flex: 0 0 40px;"
+                    >
+                        ${picture
+                            ? this.renderPicture(picture)
+                            : this.renderIcon(stateObjTwo || stateObj, icon_two)}
+                        ${this.renderBadge(stateObjTwo || stateObj)}
+                    </mushroom-state-item>
                     <mushroom-state-item
                         ?rtl=${rtl}
                         .appearance=${appearance}
@@ -266,6 +298,21 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
             )}
         `;
     }
+
+    // private renderSecondaryControls(): TemplateResult | null {
+    //     const otherControls = this._controls.filter((control) => control != this._activeControl);
+
+    //     return html`
+    //         ${otherControls.map(
+    //             (ctrl) => html`
+    //                 <mushroom-button
+    //                     .icon=${CONTROLS_ICONS[ctrl]}
+    //                     @click=${(e) => this._onControlTap(ctrl, e)}
+    //                 />
+    //             `
+    //         )}
+    //     `;
+    // }
 
     private renderActiveControl(entity: LightEntity) {
         switch (this._activeControl) {

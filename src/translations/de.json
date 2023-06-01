@@ -55,6 +55,8 @@
                 "icon_animation": "Icon animieren, wenn aktiv?"
             },
             "light": {
+                "icon_two": "Symbol (sekundär)",
+                "entity_two": "Entität (sekundär)",
                 "show_brightness_control": "Helligkeitsregelung?",
                 "use_light_color": "Farbsteuerung verwenden",
                 "show_color_temp_control": "Farbtemperatursteuerung?",
@@ -165,6 +167,7 @@
                     "back": "Zurück",
                     "conditional": "Bedingung",
                     "entity": "Entität",
+                    "entity_two": "Entität 2",
                     "light": "Licht",
                     "menu": "Menü",
                     "spacer": "Abstand",

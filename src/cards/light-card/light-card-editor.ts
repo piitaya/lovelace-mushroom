@@ -19,9 +19,11 @@ export const LIGHT_LABELS = [
     "use_light_color",
     "show_color_temp_control",
     "show_color_control",
+    "entity_two",
+    "icon_two",
 ];
 
-const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
+const computeSchema = memoizeOne((icon?: string, icon_two?: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: LIGHT_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
     {
@@ -45,6 +47,14 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
         ],
     },
     ...computeActionsFormSchema(),
+    {
+        type: "grid",
+        name: "",
+        schema: [
+            { name: "entity_two", selector: { entity: { domain: LIGHT_ENTITY_DOMAINS } } },
+            { name: "icon_two", selector: { icon: { placeholder: icon_two } } },
+        ],
+    },
 ]);
 
 @customElement(LIGHT_CARD_EDITOR_NAME)
@@ -79,9 +89,14 @@ export class LightCardEditor extends MushroomBaseElement implements LovelaceCard
         }
 
         const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
+        const entityStateTwo = this._config.entity_two
+            ? this.hass.states[this._config.entity_two]
+            : undefined;
         const entityIcon = entityState ? stateIcon(entityState) : undefined;
+        const entityIconTwo = entityStateTwo ? stateIcon(entityStateTwo) : undefined;
         const icon = this._config.icon || entityIcon;
-        const schema = computeSchema(icon);
+        const icon_two = this._config.icon_two || entityIconTwo;
+        const schema = computeSchema(icon, icon_two);
 
         return html`
             <ha-form
