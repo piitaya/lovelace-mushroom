@@ -193,8 +193,13 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
 
         const name = this._config.name || stateObj.attributes.friendly_name || "";
         const icon = this._config.icon || stateIcon(stateObj!);
-        const icon_two =
-            this._config.icon_two ||
+        const useIconTwo = this._config?.use_icon_two
+        const useEntityTwo = this._config?.use_entity_two
+        const attributesTwo = this._config?.attribute_two
+        
+        const icon_two = !useIconTwo
+            ? 'mdi:power'
+            : this._config.icon_two ||
             (stateObjTwo && stateIcon(stateObjTwo)) ||
             (stateObj && stateIcon(stateObj)) ||
             undefined;
@@ -203,17 +208,17 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
 
         let stateDisplay = computeStateDisplay(
             this.hass.localize,
-            stateObjTwo ? { ...stateObj, ...stateObjTwo } : stateObj,
+            useEntityTwo && stateObjTwo ? { ...stateObj, ...stateObjTwo } : stateObj,
             this.hass.locale,
             this.hass.entities,
             this.hass.connection.haVersion
         );
         if (this.brightness != null) {
             stateDisplay = `${this.brightness}${blankBeforePercent(this.hass.locale)}%`;
-        }
+        }       
 
         const rtl = computeRTL(this.hass);
-        return stateObjTwo && icon_two
+        return useEntityTwo && stateObjTwo && icon_two
             ? html`
                   <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
                       <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
@@ -244,8 +249,8 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
                                   ? this.renderPicture(picture)
                                   : this.renderIcon(stateObj, icon)}
                               ${this.renderBadge(stateObj)}
-                              ${this.renderStateInfo(stateObj, appearance, name, stateDisplay)};
-                          </mushroom-state-item>
+                              ${this.renderStateInfo(stateObj, appearance, name, stateDisplay, this._config?.use_attribute_two && this._config?.attribute_two ? " | " + stateObjTwo.attributes[this._config?.attribute_two!] : undefined)}
+                              </mushroom-state-item>
                           ${this._controls.length > 0
                               ? html`
                                     <div class="actions" ?rtl=${rtl}>
@@ -332,21 +337,6 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
             )}
         `;
     }
-
-    // private renderSecondaryControls(): TemplateResult | null {
-    //     const otherControls = this._controls.filter((control) => control != this._activeControl);
-
-    //     return html`
-    //         ${otherControls.map(
-    //             (ctrl) => html`
-    //                 <mushroom-button
-    //                     .icon=${CONTROLS_ICONS[ctrl]}
-    //                     @click=${(e) => this._onControlTap(ctrl, e)}
-    //                 />
-    //             `
-    //         )}
-    //     `;
-    // }
 
     private renderActiveControl(entity: LightEntity) {
         switch (this._activeControl) {

@@ -23,4 +23,4 @@ export { TitleCard } from "./cards/title-card/title-card";
 export { UpdateCard } from "./cards/update-card/update-card";
 export { VacuumCard } from "./cards/vacuum-card/vacuum-card";
 
-console.info(`%c🍄 Mushroom 🍄 - ${version} BladeMOD`, "color: #ef5350; font-weight: 700;");
+console.info(`%c🍄 Mushroom 🍄 - ${version}`, "color: #ef5350; font-weight: 700;");

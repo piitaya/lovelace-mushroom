@@ -55,13 +55,17 @@
                 "icon_animation": "Icon animieren, wenn aktiv?"
             },
             "light": {
-                "icon_two": "Symbol (sekundär)",
-                "entity_two": "Entität (sekundär)",
                 "show_brightness_control": "Helligkeitsregelung?",
                 "use_light_color": "Farbsteuerung verwenden",
                 "show_color_temp_control": "Farbtemperatursteuerung?",
                 "show_color_control": "Farbsteuerung?",
-                "incompatible_controls": "Einige Steuerelemente werden möglicherweise nicht angezeigt, wenn Ihr Licht diese Funktion nicht unterstützt."
+                "incompatible_controls": "Einige Steuerelemente werden möglicherweise nicht angezeigt, wenn Ihr Licht diese Funktion nicht unterstützt.",
+                "use_entity_two": "Entität 2 verwenden",
+                "use_icon_two": "Icon verwenden",
+                "use_attribute_two": "Attribut verwenden",
+                "entity_two": "Entität (sekundär)",
+                "icon_two": "Icon",
+                "attribute_two": "Attribut"
             },
             "fan": {
                 "show_percentage_control": "Prozentuale Kontrolle?",

@@ -90,7 +90,8 @@ export class MushroomBaseCard extends MushroomBaseElement {
         stateObj: HassEntity,
         appearance: Appearance,
         name: string,
-        state?: string
+        state?: string,
+        additional?: string
     ): TemplateResult | null {
         const defaultState = computeStateDisplay(
             this.hass.localize,
@@ -121,7 +122,7 @@ export class MushroomBaseCard extends MushroomBaseElement {
             <mushroom-state-info
                 slot="info"
                 .primary=${primary}
-                .secondary=${secondary}
+                .secondary=${secondary}${additional || ''}
             ></mushroom-state-info>
         `;
     }

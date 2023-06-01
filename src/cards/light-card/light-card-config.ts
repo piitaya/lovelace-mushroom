@@ -13,13 +13,17 @@ export type LightCardConfig = LovelaceCardConfig &
     AppearanceSharedConfig &
     ActionsSharedConfig & {
         icon_color?: string;
-        icon_two?: string;
-        entity_two?: any;
         show_brightness_control?: boolean;
         show_color_temp_control?: boolean;
         show_color_control?: boolean;
         collapsible_controls?: boolean;
         use_light_color?: boolean;
+        use_entity_two?: boolean;
+        use_icon_two?: boolean;
+        use_attribute_two?: boolean;
+        entity_two?: any;
+        icon_two?: string;
+        attribute_two?: string;
     };
 
 export const lightCardConfigStruct = assign(
@@ -27,12 +31,16 @@ export const lightCardConfigStruct = assign(
     assign(entitySharedConfigStruct, appearanceSharedConfigStruct, actionsSharedConfigStruct),
     object({
         icon_color: optional(string()),
-        icon_two: optional(string()),
-        entity_two: optional(string()),
         show_brightness_control: optional(boolean()),
         show_color_temp_control: optional(boolean()),
         show_color_control: optional(boolean()),
         collapsible_controls: optional(boolean()),
         use_light_color: optional(boolean()),
+        use_entity_two: optional(boolean()),
+        use_icon_two: optional(boolean()),
+        use_attribute_two: optional(boolean()),
+        entity_two: optional(string()),
+        icon_two: optional(string()),
+        attribute_two: optional(string()),
     })
 );

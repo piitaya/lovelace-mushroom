@@ -55,13 +55,17 @@
                 "icon_animation": "Animate icon when active?"
             },
             "light": {
-                "icon_two": "Icon Two",
-                "entity_two": "Entity Two",
                 "show_brightness_control": "Brightness control?",
                 "use_light_color": "Use light color",
                 "show_color_temp_control": "Temperature color control?",
                 "show_color_control": "Color control?",
-                "incompatible_controls": "Some controls may not be displayed if your light does not support the feature."
+                "incompatible_controls": "Some controls may not be displayed if your light does not support the feature.",
+                "use_entity_two": "Use Entity Two",
+                "use_icon_two": "Use Icon",
+                "use_attribute_two": "Use Attribute",
+                "entity_two": "Entity Two",
+                "icon_two": "Icon Two",
+                "attribute_two": "Attribute"
             },
             "fan": {
                 "show_percentage_control": "Percentage control?",
