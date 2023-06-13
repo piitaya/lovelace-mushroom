@@ -59,6 +59,8 @@ export type WeatherChipConfig = {
     double_tap_action?: ActionConfig;
     show_temperature?: boolean;
     show_conditions?: boolean;
+    round_temperature?: boolean;
+    additional_information?: string;
 };
 
 export type TemplateChipConfig = {

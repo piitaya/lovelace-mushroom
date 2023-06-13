@@ -12,7 +12,7 @@ import { WeatherChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 
 const WEATHER_ENTITY_DOMAINS = ["weather"];
-const WEATHER_LABELS = ["show_conditions", "show_temperature"];
+const WEATHER_LABELS = ["show_conditions", "show_temperature", "round_temperature", "additional_information"];
 
 const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "none"];
 
@@ -24,8 +24,10 @@ const computeSchema = memoizeOne((): HaFormSchema[] => [
         schema: [
             { name: "show_conditions", selector: { boolean: {} } },
             { name: "show_temperature", selector: { boolean: {} } },
+            { name: "round_temperature", selector: { boolean: {} } },
         ],
     },
+    { name: "additional_information", selector: { template: {} } },
     ...computeActionsFormSchema(actions),
 ]);
 

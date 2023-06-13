@@ -94,7 +94,9 @@
             },
             "weather": {
                 "show_conditions": "Conditions?",
-                "show_temperature": "Temperature?"
+                "show_temperature": "Temperature?",
+                "round_temperature": "Round temperature?",
+                "additional_information": "Additional information"
             },
             "update": {
                 "show_buttons_control": "Control buttons?"
@@ -169,7 +171,7 @@
                     "menu": "Menu",
                     "spacer": "Spacer",
                     "template": "Template",
-                    "weather": "Weather"
+                    "weather": "Weather-new"
                 }
             }
         }

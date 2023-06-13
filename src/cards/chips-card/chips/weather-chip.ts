@@ -1,4 +1,13 @@
-import { css, CSSResultGroup, html, LitElement, nothing } from "lit";
+import { UnsubscribeFunc } from "home-assistant-js-websocket";
+import {
+    css,
+    CSSResultGroup,
+    html,
+    LitElement,
+    nothing,
+    PropertyValues,
+    TemplateResult,
+} from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import {
     actionHandler,
@@ -9,6 +18,8 @@ import {
     handleAction,
     hasAction,
     HomeAssistant,
+    RenderTemplateResult,
+    subscribeRenderTemplate,
 } from "../../../ha";
 import {
     computeChipComponentName,
@@ -18,6 +29,9 @@ import { LovelaceChip, WeatherChipConfig } from "../../../utils/lovelace/chip/ty
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { getWeatherStateSVG, weatherSVGStyles } from "../../../utils/weather";
 import { HassEntity } from "home-assistant-js-websocket";
+
+const TEMPLATE_KEYS = ["additional_information"] as const;
+type TemplateKey = (typeof TEMPLATE_KEYS)[number];
 
 @customElement(computeChipComponentName("weather"))
 export class WeatherChip extends LitElement implements LovelaceChip {
@@ -41,12 +55,38 @@ export class WeatherChip extends LitElement implements LovelaceChip {
 
     @state() private _config?: WeatherChipConfig;
 
+    @state() private _templateResults: Partial<
+        Record<TemplateKey, RenderTemplateResult | undefined>
+    > = {};
+
+    @state() private _unsubRenderTemplates: Map<TemplateKey, Promise<UnsubscribeFunc>> = new Map();
+
     public setConfig(config: WeatherChipConfig): void {
         this._config = config;
     }
 
+    public connectedCallback() {
+        super.connectedCallback();
+        this._tryConnect();
+    }
+
+    public disconnectedCallback() {
+        this._tryDisconnect();
+    }
+
     private _handleAction(ev: ActionHandlerEvent) {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
+    }
+
+    public isTemplate(key: TemplateKey) {
+        const value = this._config?.[key];
+        return value?.includes("{");
+    }
+
+    private getValue(key: TemplateKey) {
+        return this.isTemplate(key)
+            ? this._templateResults[key]?.result?.toString()
+            : this._config?.[key];
     }
 
     protected render() {
@@ -56,6 +96,7 @@ export class WeatherChip extends LitElement implements LovelaceChip {
 
         const entityId = this._config.entity;
         const stateObj = this.hass.states[entityId] as HassEntity | undefined;
+        const additionalInformation = this.getValue("additional_information");
 
         if (!stateObj) {
             return nothing;
@@ -78,10 +119,14 @@ export class WeatherChip extends LitElement implements LovelaceChip {
 
         if (this._config.show_temperature) {
             const temperatureDisplay = `${formatNumber(
-                stateObj.attributes.temperature,
+                this._config.round_temperature ? Math.round(stateObj.attributes.temperature) : stateObj.attributes.temperature,
                 this.hass.locale
             )} ${this.hass.config.unit_system.temperature}`;
             displayLabels.push(temperatureDisplay);
+        }
+
+        if (additionalInformation) {
+            displayLabels.push(additionalInformation);
         }
 
         const rtl = computeRTL(this.hass);
@@ -112,5 +157,93 @@ export class WeatherChip extends LitElement implements LovelaceChip {
                 }
             `,
         ];
+    }
+
+    protected updated(changedProps: PropertyValues): void {
+        super.updated(changedProps);
+        if (!this._config || !this.hass) {
+            return;
+        }
+
+        this._tryConnect();
+    }
+
+    private async _tryConnect(): Promise<void> {
+        TEMPLATE_KEYS.forEach((key) => {
+            this._tryConnectKey(key);
+        });
+    }
+
+    private async _tryConnectKey(key: TemplateKey): Promise<void> {
+        if (
+            this._unsubRenderTemplates.get(key) !== undefined ||
+            !this.hass ||
+            !this._config ||
+            !this.isTemplate(key)
+        ) {
+            return;
+        }
+
+        try {
+            const sub = subscribeRenderTemplate(
+                this.hass.connection,
+                (result) => {
+                    this._templateResults = {
+                        ...this._templateResults,
+                        [key]: result,
+                    };
+                },
+                {
+                    template: this._config[key] ?? "",
+                    variables: {
+                        config: this._config,
+                        user: this.hass.user!.name,
+                        entity: this._config.entity,
+                    },
+                    strict: true,
+                }
+            );
+            this._unsubRenderTemplates.set(key, sub);
+            await sub;
+        } catch (_err) {
+            const result = {
+                result: this._config[key] ?? "",
+                listeners: {
+                    all: false,
+                    domains: [],
+                    entities: [],
+                    time: false,
+                },
+            };
+            this._templateResults = {
+                ...this._templateResults,
+                [key]: result,
+            };
+            this._unsubRenderTemplates.delete(key);
+        }
+    }
+    private async _tryDisconnect(): Promise<void> {
+        TEMPLATE_KEYS.forEach((key) => {
+            this._tryDisconnectKey(key);
+        });
+    }
+
+    private async _tryDisconnectKey(key: TemplateKey): Promise<void> {
+        const unsubRenderTemplate = this._unsubRenderTemplates.get(key);
+        if (!unsubRenderTemplate) {
+            return;
+        }
+
+        try {
+            const unsub = await unsubRenderTemplate;
+            unsub();
+            this._unsubRenderTemplates.delete(key);
+        } catch (err: any) {
+            if (err.code === "not_found" || err.code === "template_error") {
+                // If we get here, the connection was probably already closed. Ignore.
+            } else {
+                throw err;
+            }
+        }
     }
 }

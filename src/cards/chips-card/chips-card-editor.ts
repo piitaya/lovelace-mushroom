@@ -72,6 +72,8 @@ const weatherChipConfigStruct = object({
     double_tap_action: optional(actionConfigStruct),
     show_temperature: optional(boolean()),
     show_conditions: optional(boolean()),
+    round_temperature: optional(boolean()),
+    additional_information: optional(string()),
 });
 
 const conditionStruct = object({
