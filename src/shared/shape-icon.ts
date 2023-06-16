@@ -5,8 +5,6 @@ import { animations } from "../utils/entity-styles";
 
 @customElement("mushroom-shape-icon")
 export class ShapeIcon extends LitElement {
-    @property() public icon: string = "";
-
     @property({ type: Boolean }) public disabled?: boolean;
 
     protected render(): TemplateResult {
@@ -17,9 +15,7 @@ export class ShapeIcon extends LitElement {
                     disabled: Boolean(this.disabled),
                 })}
             >
-                <slot>
-                    <ha-icon .icon=${this.icon} />
-                </slot>
+                <slot></slot>
             </div>
         `;
     }
@@ -35,6 +31,7 @@ export class ShapeIcon extends LitElement {
                 --shape-animation: none;
                 --shape-outline-color: transparent;
                 flex: none;
+                ${animations}
             }
             .shape {
                 position: relative;
@@ -52,9 +49,7 @@ export class ShapeIcon extends LitElement {
                 animation: var(--shape-animation);
                 box-shadow: 0 0 0 1px var(--shape-outline-color);
             }
-            .shape ha-icon,
-            .shape ::slotted(ha-icon),
-            .shape ::slotted(ha-state-icon) {
+            .shape ::slotted(*) {
                 display: flex;
                 --mdc-icon-size: var(--icon-symbol-size);
                 color: var(--icon-color);
@@ -64,13 +59,9 @@ export class ShapeIcon extends LitElement {
             .shape.disabled {
                 background-color: var(--shape-color-disabled);
             }
-            .shape.disabled ha-icon,
-            .shape.disabled ::slotted(ha-icon),
-            .shape.disabled ::slotted(ha-state-icon) {
+            .shape.disabled ::slotted(*) {
                 color: var(--icon-color-disabled);
             }
-            .shape.disabled ha-icon {
-            ${animations}
         `;
     }
 }
