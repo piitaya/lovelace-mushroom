@@ -71,7 +71,7 @@ export class ActionChip extends LitElement implements LovelaceChip {
                     hasDoubleClick: hasAction(this._config.double_tap_action),
                 })}
             >
-                <ha-icon .icon=${icon} style=${styleMap(iconStyle)}></ha-icon>
+                <ha-state-icon .icon=${icon} style=${styleMap(iconStyle)}></ha-state-icon>
             </mushroom-chip>
         `;
     }
@@ -81,7 +81,7 @@ export class ActionChip extends LitElement implements LovelaceChip {
             mushroom-chip {
                 cursor: pointer;
             }
-            ha-icon {
+            ha-state-icon {
                 color: var(--color);
             }
         `;

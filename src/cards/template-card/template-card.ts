@@ -193,7 +193,7 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
         }
         return html`
             <mushroom-shape-icon style=${styleMap(iconStyle)} slot="icon">
-                <ha-icon .icon=${icon}></ha-icon>
+                <ha-state-icon .icon=${icon}></ha-state-icon>
             </mushroom-shape-icon>
         `;
     }
