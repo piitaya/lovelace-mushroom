@@ -1,4 +1,4 @@
-import { html, LitElement, TemplateResult } from "lit";
+import { html, LitElement, nothing, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { ClimateEntity, computeRTL, HomeAssistant, isAvailable, UNIT_F } from "../../../ha";
@@ -87,7 +87,7 @@ export class ClimateTemperatureControl extends LitElement {
                               @change=${this.onValueChange}
                           ></mushroom-input-number>
                       `
-                    : null}
+                    : nothing}
                 ${this.entity.attributes.target_temp_low != null &&
                 this.entity.attributes.target_temp_high != null
                     ? html`
@@ -114,7 +114,7 @@ export class ClimateTemperatureControl extends LitElement {
                               @change=${this.onHighValueChange}
                           ></mushroom-input-number>
                       `
-                    : null}
+                    : nothing}
             </mushroom-button-group>
         `;
     }

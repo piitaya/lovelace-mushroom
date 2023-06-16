@@ -1,5 +1,5 @@
 import { HassEntity } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, nothing, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -73,19 +73,23 @@ export class EntityCard extends MushroomBaseCard implements LovelaceCard {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this._config || !this.hass || !this._config.entity) {
-            return html``;
+            return nothing;
         }
 
         const entityId = this._config.entity;
-        const entity = this.hass.states[entityId];
+        const stateObj = this.hass.states[entityId] as HassEntity | undefined;
 
-        const name = this._config.name || entity.attributes.friendly_name || "";
-        const icon = this._config.icon || stateIcon(entity);
+        if (!stateObj) {
+            return this.renderNotFound(this._config);
+        }
+
+        const name = this._config.name || stateObj.attributes.friendly_name || "";
+        const icon = this._config.icon || stateIcon(stateObj);
         const appearance = computeAppearance(this._config);
 
-        const picture = computeEntityPicture(entity, appearance.icon_type);
+        const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
         const rtl = computeRTL(this.hass);
 
@@ -101,17 +105,17 @@ export class EntityCard extends MushroomBaseCard implements LovelaceCard {
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
-                        ${this.renderBadge(entity)}
-                        ${this.renderStateInfo(entity, appearance, name)};
+                        ${picture ? this.renderPicture(picture) : this.renderIcon(stateObj, icon)}
+                        ${this.renderBadge(stateObj)}
+                        ${this.renderStateInfo(stateObj, appearance, name)};
                     </mushroom-state-item>
                 </mushroom-card>
             </ha-card>
         `;
     }
 
-    renderIcon(entity: HassEntity, icon: string): TemplateResult {
-        const active = isActive(entity);
+    renderIcon(stateObj: HassEntity, icon: string): TemplateResult {
+        const active = isActive(stateObj);
         const iconStyle = {};
         const iconColor = this._config?.icon_color;
         if (iconColor) {

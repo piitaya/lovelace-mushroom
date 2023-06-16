@@ -21,14 +21,14 @@ export function shouldPulse(state: string): boolean {
     return ["arming", "triggered", "pending", UNAVAILABLE].indexOf(state) >= 0;
 }
 
-export function isActionsAvailable(entity: HassEntity) {
-    return UNAVAILABLE !== entity.state;
+export function isActionsAvailable(stateObj: HassEntity) {
+    return UNAVAILABLE !== stateObj.state;
 }
 
-export function isDisarmed(entity: HassEntity) {
-    return entity.state === "disarmed";
+export function isDisarmed(stateObj: HassEntity) {
+    return stateObj.state === "disarmed";
 }
 
-export function hasCode(entity: HassEntity): boolean {
-    return entity.attributes.code_format && entity.attributes.code_format !== "no_code";
+export function hasCode(stateObj: HassEntity): boolean {
+    return stateObj.attributes.code_format && stateObj.attributes.code_format !== "no_code";
 }

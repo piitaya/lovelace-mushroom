@@ -1,5 +1,6 @@
-import { html, LitElement, TemplateResult } from "lit";
+import { html, LitElement, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import memoizeOne from "memoize-one";
 import { fireEvent, HomeAssistant } from "../../../ha";
 import setupCustomlocalize from "../../../localize";
 import { computeActionsFormSchema } from "../../../shared/config/actions-config";
@@ -9,7 +10,6 @@ import { UiAction } from "../../../utils/form/ha-selector";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
 import { WeatherChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
-import memoizeOne from "memoize-one";
 
 const WEATHER_ENTITY_DOMAINS = ["weather"];
 const WEATHER_LABELS = ["show_conditions", "show_temperature"];
@@ -51,9 +51,9 @@ export class WeatherChipEditor extends LitElement implements LovelaceChipEditor 
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
     };
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this.hass || !this._config) {
-            return html``;
+            return nothing;
         }
 
         const schema = computeSchema();

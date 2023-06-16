@@ -1,4 +1,4 @@
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, LitElement, nothing, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { Appearance } from "./config/appearance-config";
@@ -23,7 +23,7 @@ export class StateItem extends LitElement {
                               <slot name="badge"></slot>
                           </div>
                       `
-                    : null}
+                    : nothing}
                 ${this.appearance?.primary_info !== "none" ||
                 this.appearance?.secondary_info !== "none"
                     ? html`
@@ -31,7 +31,7 @@ export class StateItem extends LitElement {
                               <slot name="info"></slot>
                           </div>
                       `
-                    : null}
+                    : nothing}
             </div>
         `;
     }

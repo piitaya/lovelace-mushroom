@@ -1,8 +1,8 @@
-import { html, TemplateResult } from "lit";
+import { html, nothing } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
-import { fireEvent, LovelaceCardEditor } from "../../ha";
+import { LovelaceCardEditor, fireEvent } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { computeActionsFormSchema } from "../../shared/config/actions-config";
 import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
@@ -63,9 +63,9 @@ export class CoverCardEditor extends MushroomBaseElement implements LovelaceCard
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
     };
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this.hass || !this._config) {
-            return html``;
+            return nothing;
         }
 
         const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;

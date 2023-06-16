@@ -1,9 +1,9 @@
 import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
-import { HomeAssistant } from "../../../ha";
-import { getCurrentOption, getOptions } from "../utils";
+import { customElement, property } from "lit/decorators.js";
+import { computeStateDisplay, HomeAssistant } from "../../../ha";
 import "../../../shared/form/mushroom-select";
+import { getCurrentOption, getOptions } from "../utils";
 
 @customElement("mushroom-select-option-control")
 export class SelectOptionControl extends LitElement {
@@ -22,8 +22,8 @@ export class SelectOptionControl extends LitElement {
     }
 
     _setValue(option) {
-        const entity_id = this.entity.entity_id;
-        const domain = entity_id.split(".")[0];
+        const entityId = this.entity.entity_id;
+        const domain = entityId.split(".")[0];
 
         this.hass.callService(domain, "select_option", {
             entity_id: this.entity.entity_id,
@@ -44,7 +44,18 @@ export class SelectOptionControl extends LitElement {
                 naturalMenuWidth
             >
                 ${options.map((option) => {
-                    return html` <mwc-list-item .value=${option}> ${option} </mwc-list-item> `;
+                    return html`
+                        <mwc-list-item .value=${option}>
+                            ${computeStateDisplay(
+                                this.hass.localize,
+                                this.entity,
+                                this.hass.locale,
+                                this.hass.entities,
+                                this.hass.connection.haVersion,
+                                option
+                            )}
+                        </mwc-list-item>
+                    `;
                 })}
             </mushroom-select>
         `;

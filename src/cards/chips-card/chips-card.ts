@@ -1,4 +1,4 @@
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, LitElement, nothing } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import {
     computeRTL,
@@ -66,9 +66,9 @@ export class ChipsCard extends LitElement implements LovelaceCard {
         this._config = config;
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this._config || !this._hass) {
-            return html``;
+            return nothing;
         }
 
         let alignment = "";
@@ -87,10 +87,10 @@ export class ChipsCard extends LitElement implements LovelaceCard {
         `;
     }
 
-    private renderChip(chipConfig: LovelaceChipConfig): TemplateResult {
+    private renderChip(chipConfig: LovelaceChipConfig) {
         const element = createChipElement(chipConfig);
         if (!element) {
-            return html``;
+            return nothing;
         }
         if (this._hass) {
             element.hass = this._hass;

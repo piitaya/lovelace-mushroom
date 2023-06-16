@@ -1,5 +1,13 @@
 import { UnsubscribeFunc } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
+import {
+    css,
+    CSSResultGroup,
+    html,
+    LitElement,
+    nothing,
+    PropertyValues,
+    TemplateResult,
+} from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import {
@@ -84,12 +92,14 @@ export class TemplateChip extends LitElement implements LovelaceChip {
     }
 
     private getValue(key: TemplateKey) {
-        return this.isTemplate(key) ? this._templateResults[key]?.result : this._config?.[key];
+        return this.isTemplate(key)
+            ? this._templateResults[key]?.result?.toString()
+            : this._config?.[key];
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this.hass || !this._config) {
-            return html``;
+            return nothing;
         }
 
         const icon = this.getValue("icon");
@@ -110,8 +120,8 @@ export class TemplateChip extends LitElement implements LovelaceChip {
                 .avatar=${picture ? (this.hass as any).hassUrl(picture) : undefined}
                 .avatarOnly=${picture && !content}
             >
-                ${icon && !picture ? this.renderIcon(icon, iconColor) : null}
-                ${content ? this.renderContent(content) : null}
+                ${icon && !picture ? this.renderIcon(icon, iconColor) : nothing}
+                ${content ? this.renderContent(content) : nothing}
             </mushroom-chip>
         `;
     }

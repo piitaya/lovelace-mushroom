@@ -9,16 +9,14 @@ import { weatherIcon } from "./weather-icon";
 const DEFAULT_DOMAIN_ICON = "mdi:bookmark";
 
 const FIXED_DOMAIN_ICONS = {
-    alert: "mdi:alert",
     air_quality: "mdi:air-filter",
-    automation: "mdi:robot",
+    alert: "mdi:alert",
     calendar: "mdi:calendar",
-    camera: "mdi:video",
     climate: "mdi:thermostat",
     configurator: "mdi:cog",
-    conversation: "mdi:text-to-speech",
+    conversation: "mdi:microphone-messafe",
     counter: "mdi:counter",
-    fan: "mdi:fan",
+    demo: "mdi:home-assistant",
     google_assistant: "mdi:google-assistant",
     group: "mdi:google-circles-communities",
     homeassistant: "mdi:home-assistant",
@@ -34,21 +32,22 @@ const FIXED_DOMAIN_ICONS = {
     notify: "mdi:comment-alert",
     number: "mdi:ray-vertex",
     persistent_notification: "mdi:bell",
-    person: "mdi:account",
     plant: "mdi:flower",
     proximity: "mdi:apple-safari",
     remote: "mdi:remote",
     scene: "mdi:palette",
+    schedule: "mdi:calendar-clock",
     script: "mdi:script-text",
     select: "mdi:format-list-bulleted",
     sensor: "mdi:eye",
-    siren: "mdi:bullhorn",
     simple_alarm: "mdi:bell",
-    sun: "mdi:white-balance-sunny",
+    siren: "mdi:bullhorn",
+    stt: "mdi:microphone-message",
+    text: "mdi:form-text-box",
     timer: "mdi:timer-outline",
+    tts: "mdi:speaker-message",
     updater: "mdi:cloud-upload",
     vacuum: "mdi:robot-vacuum",
-    water_heater: "mdi:thermometer",
     zone: "mdi:map-marker-radius",
 };
 
@@ -58,6 +57,9 @@ export function domainIcon(domain: string, stateObj?: HassEntity, state?: string
     switch (domain) {
         case "alarm_control_panel":
             return alarmPanelIcon(compareState);
+
+        case "automation":
+            return compareState === "off" ? "mdi:robot-off" : "mdi:robot";
 
         case "binary_sensor":
             return binarySensorIcon(compareState, stateObj);
@@ -72,6 +74,9 @@ export function domainIcon(domain: string, stateObj?: HassEntity, state?: string
                     return "mdi:gesture-tap-button";
             }
 
+        case "camera":
+            return compareState === "off" ? "mdi:video-off" : "mdi:video";
+
         case "cover":
             return coverIcon(compareState, stateObj);
 
@@ -83,6 +88,9 @@ export function domainIcon(domain: string, stateObj?: HassEntity, state?: string
                 return compareState === "home" ? "mdi:bluetooth-connect" : "mdi:bluetooth";
             }
             return compareState === "not_home" ? "mdi:account-arrow-right" : "mdi:account";
+
+        case "fan":
+            return compareState === "off" ? "mdi:fan-off" : "mdi:fan";
 
         case "humidifier":
             return compareState && compareState === "off"
@@ -183,7 +191,7 @@ export function domainIcon(domain: string, stateObj?: HassEntity, state?: string
 
         case "sun":
             return stateObj?.state === "above_horizon"
-                ? FIXED_DOMAIN_ICONS[domain]
+                ? "mdi:white-balance-sunny"
                 : "mdi:weather-night";
 
         case "switch_as_x":
@@ -198,6 +206,9 @@ export function domainIcon(domain: string, stateObj?: HassEntity, state?: string
                     ? "mdi:package-down"
                     : "mdi:package-up"
                 : "mdi:package";
+
+        case "water_heater":
+            return compareState === "off" ? "mdi:water-boiler-off" : "mdi:water-boiler";
 
         case "weather":
             return weatherIcon(stateObj?.state);

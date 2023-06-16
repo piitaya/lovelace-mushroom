@@ -1,4 +1,4 @@
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, LitElement, nothing, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { actionHandler, computeRTL, fireEvent, HomeAssistant } from "../../../ha";
 import {
@@ -35,9 +35,9 @@ export class MenuChip extends LitElement implements LovelaceChip {
         fireEvent(this, "hass-toggle-menu" as any);
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this.hass || !this._config) {
-            return html``;
+            return nothing;
         }
 
         const icon = this._config.icon || DEFAULT_MENU_ICON;

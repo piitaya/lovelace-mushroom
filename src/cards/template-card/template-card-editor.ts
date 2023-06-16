@@ -1,4 +1,4 @@
-import { html, TemplateResult } from "lit";
+import { html, nothing } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
@@ -56,7 +56,7 @@ const computeSchema = memoizeOne((): HaFormSchema[] => [
         type: "grid",
         name: "",
         schema: [
-            { name: "layout", selector: { "mush-layout": {} } },
+            { name: "layout", selector: { mush_layout: {} } },
             { name: "fill_container", selector: { boolean: {} } },
             { name: "multiline_secondary", selector: { boolean: {} } },
         ],
@@ -95,9 +95,9 @@ export class TemplateCardEditor extends MushroomBaseElement implements LovelaceC
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
     };
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this.hass || !this._config) {
-            return html``;
+            return nothing;
         }
 
         const schema = computeSchema();

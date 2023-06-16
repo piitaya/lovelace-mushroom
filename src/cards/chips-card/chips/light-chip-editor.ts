@@ -1,4 +1,4 @@
-import { html, LitElement, TemplateResult } from "lit";
+import { html, LitElement, nothing, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { fireEvent, HomeAssistant } from "../../../ha";
@@ -20,7 +20,7 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
         name: "",
         schema: [
             { name: "name", selector: { text: {} } },
-            { name: "content_info", selector: { "mush-info": {} } },
+            { name: "content_info", selector: { mush_info: {} } },
         ],
     },
     {
@@ -56,9 +56,9 @@ export class LightChipEditor extends LitElement implements LovelaceChipEditor {
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
     };
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this.hass || !this._config) {
-            return html``;
+            return nothing;
         }
 
         const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;

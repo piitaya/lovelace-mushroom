@@ -1,5 +1,5 @@
 import { UnsubscribeFunc } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, nothing, PropertyValues, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -107,12 +107,14 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
     }
 
     private getValue(key: TemplateKey) {
-        return this.isTemplate(key) ? this._templateResults[key]?.result : this._config?.[key];
+        return this.isTemplate(key)
+            ? this._templateResults[key]?.result?.toString()
+            : this._config?.[key];
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this._config || !this.hass) {
-            return html``;
+            return nothing;
         }
 
         const icon = this.getValue("icon");
@@ -151,7 +153,7 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
                             ? this.renderPicture(picture)
                             : icon
                             ? this.renderIcon(icon, iconColor)
-                            : null}
+                            : nothing}
                         ${(icon || picture) && badgeIcon
                             ? this.renderBadgeIcon(badgeIcon, badgeColor)
                             : undefined}

@@ -1,4 +1,4 @@
-import { html, TemplateResult } from "lit";
+import { html, nothing, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
@@ -66,9 +66,9 @@ export class FanCardEditor extends MushroomBaseElement implements LovelaceCardEd
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
     };
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this.hass || !this._config) {
-            return html``;
+            return nothing;
         }
 
         const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
