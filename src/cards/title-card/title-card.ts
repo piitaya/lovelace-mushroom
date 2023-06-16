@@ -131,7 +131,7 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
         const rtl = computeRTL(this.hass);
 
         return html`
-            <div class="header ${alignment}" ?rtl=${rtl}>
+            <ha-card class="header ${alignment}" ?rtl=${rtl}>
                 ${title
                     ? html`
                           <div
@@ -162,7 +162,7 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
                           </div>
                       `
                     : nothing}
-            </div>
+            </ha-card>
         `;
     }
 
@@ -267,6 +267,8 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
                 .header {
                     display: block;
                     padding: var(--title-padding);
+                    background: none;
+                    border: none;
                 }
                 .header div * {
                     margin: 0;
