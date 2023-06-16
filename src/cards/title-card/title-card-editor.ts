@@ -11,7 +11,7 @@ import { loadHaComponents } from "../../utils/loader";
 import { TITLE_CARD_EDITOR_NAME } from "./const";
 import { TitleCardConfig, titleCardConfigStruct } from "./title-card-config";
 
-const actions: UiAction[] = ["navigate", "url", "none"];
+const actions: UiAction[] = ["navigate", "url", "call-service", "none"];
 const TITLE_LABELS = ["title", "subtitle", "title_tap_action", "subtitle_tap_action"];
 
 const computeSchema = memoizeOne((): HaFormSchema[] => [
