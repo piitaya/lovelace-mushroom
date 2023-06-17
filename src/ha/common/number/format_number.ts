@@ -95,6 +95,9 @@ export const getNumberFormatOptions = (
     ) {
         return { maximumFractionDigits: 0 };
     }
+    if (entityState.attributes.step != null) {
+        return { maximumFractionDigits: Math.ceil(Math.log10(1 / entityState.attributes.step)) };
+    }
     return undefined;
 };
 

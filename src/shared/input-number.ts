@@ -37,17 +37,25 @@ export class InputNumber extends LitElement {
 
     @state() pending = false;
 
+    private get _precision() {
+        return Math.ceil(Math.log10(1 / this._step));
+    }
+
+    private get _step() {
+        return this.step ?? DEFAULT_STEP;
+    }
+
     private _incrementValue(e: MouseEvent) {
         e.stopPropagation();
         if (this.value == null) return;
-        const value = round(this.value + (this.step ?? DEFAULT_STEP), 1);
+        const value = round(this.value + this._step, this._precision);
         this._processNewValue(value);
     }
 
     private _decrementValue(e: MouseEvent) {
         e.stopPropagation();
         if (this.value == null) return;
-        const value = round(this.value - (this.step ?? DEFAULT_STEP), 1);
+        const value = round(this.value - this._step, this._precision);
         this._processNewValue(value);
     }
 
