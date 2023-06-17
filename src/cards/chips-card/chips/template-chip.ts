@@ -27,6 +27,8 @@ import {
 } from "../../../utils/lovelace/chip/chip-element";
 import { LovelaceChip, TemplateChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
+import { getWeatherStateSVG, weatherSVGStyles } from "../../../utils/weather";
+import { weatherSVGs } from "../../../utils/icons/weather-icon";
 
 const TEMPLATE_KEYS = ["content", "icon", "icon_color", "picture"] as const;
 type TemplateKey = (typeof TEMPLATE_KEYS)[number];
@@ -109,6 +111,9 @@ export class TemplateChip extends LitElement implements LovelaceChip {
 
         const rtl = computeRTL(this.hass);
 
+        const weatherSvg =
+            icon && weatherSVGs.has(icon) ? getWeatherStateSVG(icon, true) : undefined;
+
         return html`
             <mushroom-chip
                 ?rtl=${rtl}
@@ -120,7 +125,13 @@ export class TemplateChip extends LitElement implements LovelaceChip {
                 .avatar=${picture ? (this.hass as any).hassUrl(picture) : undefined}
                 .avatarOnly=${picture && !content}
             >
-                ${icon && !picture ? this.renderIcon(icon, iconColor) : nothing}
+                ${!picture
+                    ? weatherSvg
+                        ? weatherSvg
+                        : icon
+                        ? this.renderIcon(icon, iconColor)
+                        : nothing
+                    : nothing}
                 ${content ? this.renderContent(content) : nothing}
             </mushroom-chip>
         `;
@@ -236,6 +247,7 @@ export class TemplateChip extends LitElement implements LovelaceChip {
             ha-icon {
                 color: var(--color);
             }
+            ${weatherSVGStyles}
         `;
     }
 }

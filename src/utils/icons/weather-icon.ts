@@ -16,6 +16,23 @@ const weatherIcons = {
     "windy-variant": "mdi:weather-windy-variant",
 };
 
+export const weatherSVGs = new Set<string>([
+    "clear-night",
+    "cloudy",
+    "fog",
+    "lightning",
+    "lightning-rainy",
+    "partlycloudy",
+    "pouring",
+    "rainy",
+    "hail",
+    "snowy",
+    "snowy-rainy",
+    "sunny",
+    "windy",
+    "windy-variant",
+]);
+
 export const weatherIcon = (state?: string, nightTime?: boolean): string =>
     !state
         ? undefined
