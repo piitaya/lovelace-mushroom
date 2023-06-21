@@ -21,14 +21,14 @@ import {
     subscribeRenderTemplate,
 } from "../../../ha";
 import { computeRgbColor } from "../../../utils/colors";
+import { getWeatherSvgIcon } from "../../../utils/icons/weather-icon";
 import {
     computeChipComponentName,
     computeChipEditorComponentName,
 } from "../../../utils/lovelace/chip/chip-element";
 import { LovelaceChip, TemplateChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
-import { getWeatherStateSVG, weatherSVGStyles } from "../../../utils/weather";
-import { weatherSVGs } from "../../../utils/icons/weather-icon";
+import { weatherSVGStyles } from "../../../utils/weather";
 
 const TEMPLATE_KEYS = ["content", "icon", "icon_color", "picture"] as const;
 type TemplateKey = (typeof TEMPLATE_KEYS)[number];
@@ -110,9 +110,7 @@ export class TemplateChip extends LitElement implements LovelaceChip {
         const picture = this.getValue("picture");
 
         const rtl = computeRTL(this.hass);
-
-        const weatherSvg =
-            icon && weatherSVGs.has(icon) ? getWeatherStateSVG(icon, true) : undefined;
+        const weatherSvg = getWeatherSvgIcon(icon);
 
         return html`
             <mushroom-chip
