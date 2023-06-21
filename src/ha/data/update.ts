@@ -5,7 +5,7 @@ import type {
     HassEntityBase,
 } from "home-assistant-js-websocket";
 import { BINARY_STATE_ON } from "../common/const";
-import { computeStateDomain } from "../common/entity/compute-state-domain";
+import { computeStateDomain } from "../common/entity/compute_state_domain";
 import { supportsFeature, supportsFeatureFromAttributes } from "../common/entity/supports-feature";
 import { caseInsensitiveStringCompare } from "../common/string/compare";
 import { HomeAssistant } from "../types";

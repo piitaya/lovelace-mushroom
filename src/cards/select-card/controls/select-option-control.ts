@@ -50,8 +50,8 @@ export class SelectOptionControl extends LitElement {
                                 this.hass.localize,
                                 this.entity,
                                 this.hass.locale,
+                                this.hass.config,
                                 this.hass.entities,
-                                this.hass.connection.haVersion,
                                 option
                             )}
                         </mwc-list-item>

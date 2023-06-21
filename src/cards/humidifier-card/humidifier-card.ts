@@ -110,8 +110,8 @@ export class HumidifierCard extends MushroomBaseCard implements LovelaceCard {
             this.hass.localize,
             stateObj,
             this.hass.locale,
-            this.hass.entities,
-            this.hass.connection.haVersion
+            this.hass.config,
+            this.hass.entities
         );
         if (this.humidity) {
             stateDisplay = `${this.humidity}${blankBeforePercent(this.hass.locale)}%`;
