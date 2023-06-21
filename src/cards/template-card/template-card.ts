@@ -23,8 +23,8 @@ import { MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
 import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { weatherSVGs } from "../../utils/icons/weather-icon";
-import { getWeatherStateSVG, weatherSVGStyles } from "../../utils/weather";
+import { getWeatherSvgIcon } from "../../utils/icons/weather-icon";
+import { weatherSVGStyles } from "../../utils/weather";
 import { TEMPLATE_CARD_EDITOR_NAME, TEMPLATE_CARD_NAME } from "./const";
 import { TemplateCardConfig } from "./template-card-config";
 
@@ -139,8 +139,7 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
             secondary_info: Boolean(secondary) ? "state" : "none",
         });
 
-        const weatherSvg =
-            icon && weatherSVGs.has(icon) ? getWeatherStateSVG(icon, true) : undefined;
+        const weatherSvg = getWeatherSvgIcon(icon);
 
         return html`
             <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>

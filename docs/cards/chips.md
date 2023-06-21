@@ -84,18 +84,17 @@ A weather chip allows you to display the weather.
 
 \* You can render weather svg icons using [weather state](https://developers.home-assistant.io/docs/core/entity/weather/#recommended-values-for-state-and-condition) as icon :
 
--   clear-night
--   cloudy
--   fog
--   lightning
--   lightning-rainy
--   partlycloudy
--   pouring
--   rainy
--   hail
--   snowy
--   snowy-rainy
--   sunny
--   windy
--   windy-variant
--   exceptional (not supported)
+-   weather-clear-night
+-   weather-cloudy
+-   weather-fog
+-   weather-lightning
+-   weather-lightning-rainy
+-   weather-partlycloudy
+-   weather-pouring
+-   weather-rainy
+-   weather-hail
+-   weather-snowy
+-   weather-snowy-rainy
+-   weather-sunny
+-   weather-windy
+-   weather-windy-variant
