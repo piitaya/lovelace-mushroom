@@ -269,6 +269,7 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
                     padding: var(--title-padding);
                     background: none;
                     border: none;
+                    box-shadow: none;
                 }
                 .header div * {
                     margin: 0;
