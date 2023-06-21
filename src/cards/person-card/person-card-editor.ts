@@ -13,7 +13,7 @@ import { loadHaComponents } from "../../utils/loader";
 import { PERSON_CARD_EDITOR_NAME, PERSON_ENTITY_DOMAINS } from "./const";
 import { PersonCardConfig, personCardConfigStruct } from "./person-card-config";
 
-const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "none"];
+const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "assist", "none"];
 
 const SCHEMA: HaFormSchema[] = [
     { name: "entity", selector: { entity: { domain: PERSON_ENTITY_DOMAINS } } },

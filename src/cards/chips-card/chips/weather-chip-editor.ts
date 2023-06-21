@@ -13,7 +13,7 @@ import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 const WEATHER_ENTITY_DOMAINS = ["weather"];
 const WEATHER_LABELS = ["show_conditions", "show_temperature"];
 
-const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "none"];
+const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "assist", "none"];
 
 const SCHEMA: HaFormSchema[] = [
     { name: "entity", selector: { entity: { domain: WEATHER_ENTITY_DOMAINS } } },

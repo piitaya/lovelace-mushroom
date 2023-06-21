@@ -11,7 +11,7 @@ import { AlarmControlPanelChipConfig } from "../../../utils/lovelace/chip/types"
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { ALARM_CONTROl_PANEL_ENTITY_DOMAINS } from "../../alarm-control-panel-card/const";
 
-const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "none"];
+const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "assist", "none"];
 
 const SCHEMA: HaFormSchema[] = [
     { name: "entity", selector: { entity: { domain: ALARM_CONTROl_PANEL_ENTITY_DOMAINS } } },

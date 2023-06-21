@@ -15,7 +15,7 @@ import { UpdateCardConfig, updateCardConfigStruct } from "./update-card-config";
 
 const UPDATE_LABELS = ["show_buttons_control"];
 
-const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "none"];
+const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "assist", "none"];
 
 const SCHEMA: HaFormSchema[] = [
     { name: "entity", selector: { entity: { domain: UPDATE_ENTITY_DOMAINS } } },
