@@ -71,7 +71,7 @@ A spacer chip allows you to space chips apart.
 ![Chip template light](../images/chip-template-light.png)
 ![Chip template dark](../images/chip-template-dark.png)
 
-A template chip allows you to build custom chip using [templates](https://www.home-assistant.io/docs/configuration/templating/).
+A template chip allows you to build custom chip using [templates](https://www.home-assistant.io/docs/configuration/templating/) \*.
 
 ### Weather chip
 
@@ -79,3 +79,23 @@ A template chip allows you to build custom chip using [templates](https://www.ho
 ![Chip weather dark](../images/chip-weather-dark.png)
 
 A weather chip allows you to display the weather.
+
+#### Notes
+
+\* You can render weather svg icons using [weather state](https://developers.home-assistant.io/docs/core/entity/weather/#recommended-values-for-state-and-condition) as icon :
+
+-   clear-night
+-   cloudy
+-   fog
+-   lightning
+-   lightning-rainy
+-   partlycloudy
+-   pouring
+-   rainy
+-   hail
+-   snowy
+-   snowy-rainy
+-   sunny
+-   windy
+-   windy-variant
+-   exceptional (not supported)
