@@ -1,8 +1,8 @@
-import { html, nothing, TemplateResult } from "lit";
+import { html, nothing } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
-import { atLeastHaVersion, fireEvent, LocalizeFunc, LovelaceCardEditor } from "../../ha";
+import { fireEvent, LocalizeFunc, LovelaceCardEditor } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { computeActionsFormSchema } from "../../shared/config/actions-config";
 import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
@@ -11,13 +11,13 @@ import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { stateIcon } from "../../utils/icons/state-icon";
 import { loadHaComponents } from "../../utils/loader";
-import { CLIMATE_CARD_EDITOR_NAME, CLIMATE_ENTITY_DOMAINS } from "./const";
 import { ClimateCardConfig, climateCardConfigStruct, HVAC_MODES } from "./climate-card-config";
+import { CLIMATE_CARD_EDITOR_NAME, CLIMATE_ENTITY_DOMAINS } from "./const";
 
 const CLIMATE_LABELS = ["hvac_modes", "show_temperature_control"] as string[];
 
 const computeSchema = memoizeOne(
-    (localize: LocalizeFunc, haVersion: string, icon?: string): HaFormSchema[] => [
+    (localize: LocalizeFunc, _haVersion: string, icon?: string): HaFormSchema[] => [
         { name: "entity", selector: { entity: { domain: CLIMATE_ENTITY_DOMAINS } } },
         { name: "name", selector: { text: {} } },
         { name: "icon", selector: { icon: { placeholder: icon } } },
@@ -33,9 +33,7 @@ const computeSchema = memoizeOne(
                             options: HVAC_MODES.map((mode) => ({
                                 value: mode,
                                 label: localize(
-                                    atLeastHaVersion(haVersion, 2023, 4)
-                                        ? `component.climate.entity_component._.state.${mode}`
-                                        : `component.climate.state._.${mode}`
+                                    `component.climate.entity_component._.state.${mode}`
                                 ),
                             })),
                             mode: "dropdown",

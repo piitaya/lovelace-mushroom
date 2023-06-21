@@ -1,10 +1,9 @@
 import { HassEntity } from "home-assistant-js-websocket";
 import { UNAVAILABLE, UNKNOWN } from "../../data/entity";
 import { FrontendLocaleData } from "../../data/translation";
-import { updateIsInstallingFromAttributes, UPDATE_SUPPORT_PROGRESS } from "../../data/update";
+import { UPDATE_SUPPORT_PROGRESS, updateIsInstallingFromAttributes } from "../../data/update";
 import { EntityRegistryDisplayEntry, HomeAssistant } from "../../types";
-import { atLeastHaVersion } from "../../util";
-import { formatDuration, UNIT_TO_SECOND_CONVERT } from "../datetime/duration";
+import { UNIT_TO_SECOND_CONVERT, formatDuration } from "../datetime/duration";
 import { formatDate } from "../datetime/format_date";
 import { formatDateTime } from "../datetime/format_date_time";
 import { formatTime } from "../datetime/format_time";
@@ -23,14 +22,13 @@ export const computeStateDisplay = (
     stateObj: HassEntity,
     locale: FrontendLocaleData,
     entities: HomeAssistant["entities"],
-    haVersion: string,
+    _haVersion: string,
     state?: string
 ): string =>
     computeStateDisplayFromEntityAttributes(
         localize,
         locale,
         entities,
-        haVersion,
         stateObj.entity_id,
         stateObj.attributes,
         state !== undefined ? state : stateObj.state
@@ -40,7 +38,6 @@ export const computeStateDisplayFromEntityAttributes = (
     localize: LocalizeFunc,
     locale: FrontendLocaleData,
     entities: HomeAssistant["entities"],
-    haVersion: string,
     entityId: string,
     attributes: any,
     state: string
@@ -203,16 +200,10 @@ export const computeStateDisplayFromEntityAttributes = (
         // Return device class translation
         (attributes.device_class &&
             localize(
-                atLeastHaVersion(haVersion, 2023, 4)
-                    ? `component.${domain}.entity_component.${attributes.device_class}.state.${state}`
-                    : `component.${domain}.state.${attributes.device_class}.${state}`
+                `component.${domain}.entity_component.${attributes.device_class}.state.${state}`
             )) ||
         // Return default translation
-        localize(
-            atLeastHaVersion(haVersion, 2023, 4)
-                ? `component.${domain}.entity_component._.state.${state}`
-                : `component.${domain}.state._.${state}`
-        ) ||
+        localize(`component.${domain}.entity_component._.state.${state}`) ||
         // We don't know! Return the raw state.
         state
     );
