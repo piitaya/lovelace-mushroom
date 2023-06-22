@@ -59,6 +59,9 @@
                 "use_light_color": "Use light color",
                 "show_color_temp_control": "Temperature color control?",
                 "show_color_control": "Color control?",
+                "show_white_control": "White control?",
+                "show_cold_white_control": "Cold white control?",
+                "show_warm_white_control": "Warm white control?",
                 "incompatible_controls": "Some controls may not be displayed if your light does not support the feature."
             },
             "fan": {
