@@ -1,5 +1,5 @@
 import { HassEntity } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, nothing, PropertyValues, TemplateResult } from "lit";
 import { customElement, query, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -7,7 +7,6 @@ import {
     actionHandler,
     ActionHandlerEvent,
     computeRTL,
-    computeStateDisplay,
     handleAction,
     hasAction,
     HomeAssistant,
@@ -27,7 +26,7 @@ import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { alarmPanelIconAction } from "../../utils/icons/alarm-panel-icon";
 import { stateIcon } from "../../utils/icons/state-icon";
-import { computeEntityPicture, computeInfoDisplay } from "../../utils/info";
+import { computeEntityPicture } from "../../utils/info";
 import { AlarmControlPanelCardConfig } from "./alarm-control-panel-card-config";
 import {
     ALARM_CONTROl_PANEL_CARD_EDITOR_NAME,
@@ -112,10 +111,10 @@ export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceC
 
     async loadComponents() {
         if (!this._config || !this.hass || !this._config.entity) return;
-        const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id];
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as HassEntity | undefined;
 
-        if (hasCode(entity)) {
+        if (stateObj && hasCode(stateObj)) {
             void import("../../shared/form/mushroom-textfield");
         }
     }
@@ -146,36 +145,38 @@ export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceC
     }
 
     private get _hasCode(): boolean {
-        const entity_id = this._config?.entity;
-        if (entity_id) {
-            const entity = this.hass.states[entity_id];
-            return hasCode(entity) && (this._config?.show_keypad ?? false);
-        }
-        return false;
+        const entityId = this._config?.entity;
+        if (!entityId) return false;
+        const stateObj = this.hass.states[entityId] as HassEntity | undefined;
+        if (!stateObj) return false;
+        return hasCode(stateObj) && Boolean(this._config?.show_keypad);
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this.hass || !this._config || !this._config.entity) {
-            return html``;
+            return nothing;
         }
 
-        const entity_id = this._config.entity;
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as HassEntity | undefined;
 
-        const entity = this.hass.states[entity_id];
+        if (!stateObj) {
+            return this.renderNotFound(this._config);
+        }
 
-        const name = this._config.name || entity.attributes.friendly_name || "";
-        const icon = this._config.icon || stateIcon(entity);
+        const name = this._config.name || stateObj.attributes.friendly_name || "";
+        const icon = this._config.icon || stateIcon(stateObj);
         const appearance = computeAppearance(this._config);
-        const picture = computeEntityPicture(entity, appearance.icon_type);
+        const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
         const actions: ActionButtonType[] =
             this._config.states && this._config.states.length > 0
-                ? isDisarmed(entity)
+                ? isDisarmed(stateObj)
                     ? this._config.states.map((state) => ({ state }))
                     : [{ state: "disarmed" }]
                 : [];
 
-        const isActionEnabled = isActionsAvailable(entity);
+        const isActionEnabled = isActionsAvailable(stateObj);
 
         const rtl = computeRTL(this.hass);
 
@@ -191,9 +192,9 @@ export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceC
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
-                        ${this.renderBadge(entity)}
-                        ${this.renderStateInfo(entity, appearance, name)};
+                        ${picture ? this.renderPicture(picture) : this.renderIcon(stateObj, icon)}
+                        ${this.renderBadge(stateObj)}
+                        ${this.renderStateInfo(stateObj, appearance, name)};
                     </mushroom-state-item>
                     ${actions.length > 0
                         ? html`
@@ -212,22 +213,22 @@ export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceC
                                   )}
                               </mushroom-button-group>
                           `
-                        : null}
+                        : nothing}
                 </mushroom-card>
                 ${!this._hasCode
-                    ? html``
+                    ? nothing
                     : html`
                           <mushroom-textfield
                               id="alarmCode"
                               .label=${this.hass.localize("ui.card.alarm_control_panel.code")}
                               type="password"
-                              .inputmode=${entity.attributes.code_format === "number"
+                              .inputmode=${stateObj.attributes.code_format === "number"
                                   ? "numeric"
                                   : "text"}
                           ></mushroom-textfield>
                       `}
-                ${!(this._hasCode && entity.attributes.code_format === "number")
-                    ? html``
+                ${!(this._hasCode && stateObj.attributes.code_format === "number")
+                    ? nothing
                     : html`
                           <div id="keypad">
                               ${BUTTONS.map((value) =>
@@ -256,9 +257,9 @@ export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceC
         `;
     }
 
-    protected renderIcon(entity: HassEntity, icon: string): TemplateResult {
-        const color = getStateColor(entity.state);
-        const shapePulse = shouldPulse(entity.state);
+    protected renderIcon(stateObj: HassEntity, icon: string): TemplateResult {
+        const color = getStateColor(stateObj.state);
+        const shapePulse = shouldPulse(stateObj.state);
         const iconStyle = {
             "--icon-color": `rgb(${color})`,
             "--shape-color": `rgba(${color}, 0.2)`,

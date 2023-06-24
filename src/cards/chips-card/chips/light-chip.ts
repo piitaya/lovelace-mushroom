@@ -1,4 +1,4 @@
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, LitElement, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -61,27 +61,32 @@ export class LightChip extends LitElement implements LovelaceChip {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this.hass || !this._config || !this._config.entity) {
-            return html``;
+            return nothing;
         }
 
-        const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id] as LightEntity;
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as LightEntity | undefined;
 
-        const name = this._config.name || entity.attributes.friendly_name || "";
-        const icon = this._config.icon || stateIcon(entity);
+        if (!stateObj) {
+            return nothing;
+        }
+
+        const name = this._config.name || stateObj.attributes.friendly_name || "";
+        const icon = this._config.icon || stateIcon(stateObj);
 
         const stateDisplay = computeStateDisplay(
             this.hass.localize,
-            entity,
+            stateObj,
             this.hass.locale,
-            this.hass.entities
+            this.hass.entities,
+            this.hass.connection.haVersion
         );
 
-        const active = isActive(entity);
+        const active = isActive(stateObj);
 
-        const lightRgbColor = getRGBColor(entity);
+        const lightRgbColor = getRGBColor(stateObj);
         const iconStyle = {};
         if (lightRgbColor && this._config?.use_light_color) {
             const color = lightRgbColor.join(",");
@@ -95,7 +100,7 @@ export class LightChip extends LitElement implements LovelaceChip {
             this._config.content_info ?? "state",
             name,
             stateDisplay,
-            entity,
+            stateObj,
             this.hass
         );
 
@@ -115,7 +120,7 @@ export class LightChip extends LitElement implements LovelaceChip {
                     style=${styleMap(iconStyle)}
                     class=${classMap({ active })}
                 ></ha-icon>
-                ${content ? html`<span>${content}</span>` : null}
+                ${content ? html`<span>${content}</span>` : nothing}
             </mushroom-chip>
         `;
     }

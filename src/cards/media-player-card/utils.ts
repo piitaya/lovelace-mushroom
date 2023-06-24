@@ -24,12 +24,12 @@ import { MediaPlayerCardConfig, MediaPlayerMediaControl } from "./media-player-c
 export function callService(
     e: MouseEvent,
     hass: HomeAssistant,
-    entity: HassEntity,
+    stateObj: HassEntity,
     serviceName: string
 ): void {
     e.stopPropagation();
     hass.callService("media_player", serviceName, {
-        entity_id: entity.entity_id,
+        entity_id: stateObj.entity_id,
     });
 }
 
@@ -51,7 +51,13 @@ export function computeMediaStateDisplay(
     entity: MediaPlayerEntity,
     hass: HomeAssistant
 ): string {
-    let state = computeStateDisplay(hass.localize, entity, hass.locale, hass.entities);
+    let state = computeStateDisplay(
+        hass.localize,
+        entity,
+        hass.locale,
+        hass.entities,
+        hass.connection.haVersion
+    );
     if (![UNAVAILABLE, UNKNOWN, OFF].includes(entity.state) && config.use_media_info) {
         return computeMediaDescription(entity) || state;
     }

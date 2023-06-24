@@ -1,5 +1,6 @@
 import type {
     HassEntities,
+    HassEntity,
     HassEntityAttributeBase,
     HassEntityBase,
 } from "home-assistant-js-websocket";
@@ -57,7 +58,7 @@ export const updateReleaseNotes = (hass: HomeAssistant, entityId: string) =>
 export const filterUpdateEntities = (entities: HassEntities, language?: string) =>
     (
         Object.values(entities).filter(
-            (entity) => computeStateDomain(entity) === "update"
+            (stateObj) => computeStateDomain(stateObj) === "update"
         ) as UpdateEntity[]
     ).sort((a, b) => {
         if (a.attributes.title === "Home Assistant Core") {

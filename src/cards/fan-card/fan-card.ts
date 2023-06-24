@@ -1,5 +1,5 @@
 import { HassEntity } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, nothing, PropertyValues, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -90,11 +90,11 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
         this.percentage = undefined;
         if (!this._config || !this.hass || !this._config.entity) return;
 
-        const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id];
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as HassEntity | undefined;
 
-        if (!entity) return;
-        this.percentage = getPercentage(entity);
+        if (!stateObj) return;
+        this.percentage = getPercentage(stateObj);
     }
 
     private onCurrentPercentageChange(e: CustomEvent<{ value?: number }>): void {
@@ -107,24 +107,29 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this._config || !this.hass || !this._config.entity) {
-            return html``;
+            return nothing;
         }
 
-        const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id];
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as HassEntity | undefined;
 
-        const name = this._config.name || entity.attributes.friendly_name || "";
-        const icon = this._config.icon || stateIcon(entity);
+        if (!stateObj) {
+            return this.renderNotFound(this._config);
+        }
+
+        const name = this._config.name || stateObj.attributes.friendly_name || "";
+        const icon = this._config.icon || stateIcon(stateObj);
         const appearance = computeAppearance(this._config);
-        const picture = computeEntityPicture(entity, appearance.icon_type);
+        const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
         let stateDisplay = computeStateDisplay(
             this.hass.localize,
-            entity,
+            stateObj,
             this.hass.locale,
-            this.hass.entities
+            this.hass.entities,
+            this.hass.connection.haVersion
         );
         if (this.percentage != null) {
             stateDisplay = `${this.percentage}${blankBeforePercent(this.hass.locale)}%`;
@@ -133,7 +138,7 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
         const rtl = computeRTL(this.hass);
 
         const displayControls =
-            (!this._config.collapsible_controls || isActive(entity)) &&
+            (!this._config.collapsible_controls || isActive(stateObj)) &&
             (this._config.show_percentage_control || this._config.show_oscillate_control);
 
         return html`
@@ -148,9 +153,9 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
-                        ${this.renderBadge(entity)}
-                        ${this.renderStateInfo(entity, appearance, name, stateDisplay)};
+                        ${picture ? this.renderPicture(picture) : this.renderIcon(stateObj, icon)}
+                        ${this.renderBadge(stateObj)}
+                        ${this.renderStateInfo(stateObj, appearance, name, stateDisplay)};
                     </mushroom-state-item>
                     ${displayControls
                         ? html`
@@ -159,31 +164,31 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
                                       ? html`
                                             <mushroom-fan-percentage-control
                                                 .hass=${this.hass}
-                                                .entity=${entity}
+                                                .entity=${stateObj}
                                                 @current-change=${this.onCurrentPercentageChange}
                                             ></mushroom-fan-percentage-control>
                                         `
-                                      : null}
+                                      : nothing}
                                   ${this._config.show_oscillate_control
                                       ? html`
                                             <mushroom-fan-oscillate-control
                                                 .hass=${this.hass}
-                                                .entity=${entity}
+                                                .entity=${stateObj}
                                             ></mushroom-fan-oscillate-control>
                                         `
-                                      : null}
+                                      : nothing}
                               </div>
                           `
-                        : null}
+                        : nothing}
                 </mushroom-card>
             </ha-card>
         `;
     }
 
-    protected renderIcon(entity: HassEntity, icon: string): TemplateResult {
+    protected renderIcon(stateObj: HassEntity, icon: string): TemplateResult {
         let iconStyle = {};
-        const percentage = getPercentage(entity);
-        const active = isActive(entity);
+        const percentage = getPercentage(stateObj);
+        const active = isActive(stateObj);
         if (active) {
             if (percentage) {
                 const speed = 1.5 * (percentage / 100) ** 0.5;

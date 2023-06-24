@@ -1,5 +1,5 @@
 import { HassEntity } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, nothing, PropertyValues, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -15,7 +15,7 @@ import {
     HomeAssistant,
     isAvailable,
     LovelaceCard,
-    LovelaceCardEditor
+    LovelaceCardEditor,
 } from "../../ha";
 import "../../shared/badge-icon";
 import "../../shared/button";
@@ -131,11 +131,11 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
         this.position = undefined;
         if (!this._config || !this.hass || !this._config.entity) return;
 
-        const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id] as CoverEntity;
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as CoverEntity | undefined;
 
-        if (!entity) return;
-        this.position = getPosition(entity);
+        if (!stateObj) return;
+        this.position = getPosition(stateObj);
     }
 
     private onCurrentPositionChange(e: CustomEvent<{ value?: number }>): void {
@@ -148,24 +148,29 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this.hass || !this._config || !this._config.entity) {
-            return html``;
+            return nothing;
         }
 
-        const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id] as CoverEntity;
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as CoverEntity | undefined;
 
-        const name = this._config.name || entity.attributes.friendly_name || "";
-        const icon = this._config.icon || stateIcon(entity);
+        if (!stateObj) {
+            return this.renderNotFound(this._config);
+        }
+
+        const name = this._config.name || stateObj.attributes.friendly_name || "";
+        const icon = this._config.icon || stateIcon(stateObj);
         const appearance = computeAppearance(this._config);
-        const picture = computeEntityPicture(entity, appearance.icon_type);
+        const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
         let stateDisplay = computeStateDisplay(
             this.hass.localize,
-            entity,
+            stateObj,
             this.hass.locale,
-            this.hass.entities
+            this.hass.entities,
+            this.hass.connection.haVersion
         );
         if (this.position) {
             stateDisplay += ` - ${this.position}${blankBeforePercent(this.hass.locale)}%`;
@@ -185,18 +190,18 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
-                        ${this.renderBadge(entity)}
-                        ${this.renderStateInfo(entity, appearance, name, stateDisplay)};
+                        ${picture ? this.renderPicture(picture) : this.renderIcon(stateObj, icon)}
+                        ${this.renderBadge(stateObj)}
+                        ${this.renderStateInfo(stateObj, appearance, name, stateDisplay)};
                     </mushroom-state-item>
                     ${this._controls.length > 0
                         ? html`
                               <div class="actions" ?rtl=${rtl}>
-                                  ${this.renderActiveControl(entity, appearance.layout)}
+                                  ${this.renderActiveControl(stateObj, appearance.layout)}
                                   ${this.renderNextControlButton()}
                               </div>
                           `
-                        : null}
+                        : nothing}
                 </mushroom-card>
             </ha-card>
         `;
@@ -219,8 +224,8 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
         `;
     }
 
-    private renderNextControlButton(): TemplateResult | null {
-        if (!this._nextControl || this._nextControl == this._activeControl) return null;
+    private renderNextControlButton() {
+        if (!this._nextControl || this._nextControl == this._activeControl) return nothing;
 
         return html`
             <mushroom-button
@@ -230,18 +235,18 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
         `;
     }
 
-    private renderActiveControl(entity: HassEntity, layout?: Layout): TemplateResult | null {
+    private renderActiveControl(stateObj: HassEntity, layout?: Layout) {
         switch (this._activeControl) {
             case "buttons_control":
                 return html`
                     <mushroom-cover-buttons-control
                         .hass=${this.hass}
-                        .entity=${entity}
+                        .entity=${stateObj}
                         .fill=${layout !== "horizontal"}
                     />
                 `;
             case "position_control": {
-                const color = getStateColor(entity as CoverEntity);
+                const color = getStateColor(stateObj as CoverEntity);
                 const sliderStyle = {};
                 sliderStyle["--slider-color"] = `rgb(${color})`;
                 sliderStyle["--slider-bg-color"] = `rgba(${color}, 0.2)`;
@@ -249,14 +254,14 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
                 return html`
                     <mushroom-cover-position-control
                         .hass=${this.hass}
-                        .entity=${entity}
+                        .entity=${stateObj}
                         @current-change=${this.onCurrentPositionChange}
                         style=${styleMap(sliderStyle)}
                     />
                 `;
             }
             case "tilt_position_control": {
-                const color = getStateColor(entity as CoverEntity);
+                const color = getStateColor(stateObj as CoverEntity);
                 const sliderStyle = {};
                 sliderStyle["--slider-color"] = `rgb(${color})`;
                 sliderStyle["--slider-bg-color"] = `rgba(${color}, 0.2)`;
@@ -264,13 +269,13 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
                 return html`
                     <mushroom-cover-tilt-position-control
                         .hass=${this.hass}
-                        .entity=${entity}
+                        .entity=${stateObj}
                         style=${styleMap(sliderStyle)}
                     />
                 `;
             }
             default:
-                return null;
+                return nothing;
         }
     }
 

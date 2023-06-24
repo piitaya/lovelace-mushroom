@@ -13,7 +13,7 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 
 | Name                  | Type            | Default     | Description                                                                                                                         |
 | :-------------------- | :-------------- | :---------- | :---------------------------------------------------------------------------------------------------------------------------------- |
-| `icon`                | string          | Optional    | Icon to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                              |
+| `icon`                | string          | Optional    | Icon to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/) \*.                           |
 | `icon_color`          | string          | Optional    | Icon color to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                        |
 | `primary`             | string          | Optional    | Primary info to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                      |
 | `secondary`           | string          | Optional    | Secondary info to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                    |
@@ -27,3 +27,22 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `hold_action`         | action          | `none`      | Home assistant action to perform on hold                                                                                            |
 | `entity_id`           | `string` `list` | Optional    | Only reacts to the state changes of these entities. This can be used if the automatic analysis fails to find all relevant entities. |
 | `double_tap_action`   | action          | `more-info` | Home assistant action to perform on double_tap                                                                                      |
+
+#### Notes
+
+\* You can render weather svg icons using [weather state](https://developers.home-assistant.io/docs/core/entity/weather/#recommended-values-for-state-and-condition) as icon :
+
+-   weather-clear-night
+-   weather-cloudy
+-   weather-fog
+-   weather-lightning
+-   weather-lightning-rainy
+-   weather-partlycloudy
+-   weather-pouring
+-   weather-rainy
+-   weather-hail
+-   weather-snowy
+-   weather-snowy-rainy
+-   weather-sunny
+-   weather-windy
+-   weather-windy-variant

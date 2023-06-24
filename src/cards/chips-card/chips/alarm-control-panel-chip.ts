@@ -1,4 +1,4 @@
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, LitElement, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -27,6 +27,7 @@ import {
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { ALARM_CONTROl_PANEL_ENTITY_DOMAINS } from "../../alarm-control-panel-card/const";
 import { getStateColor, shouldPulse } from "../../alarm-control-panel-card/utils";
+import { HassEntity } from "home-assistant-js-websocket";
 
 @customElement(computeChipComponentName("alarm-control-panel"))
 export class AlarmControlPanelChip extends LitElement implements LovelaceChip {
@@ -60,24 +61,29 @@ export class AlarmControlPanelChip extends LitElement implements LovelaceChip {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this.hass || !this._config || !this._config.entity) {
-            return html``;
+            return nothing;
         }
 
-        const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id];
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as HassEntity | undefined;
 
-        const name = this._config.name || entity.attributes.friendly_name || "";
-        const icon = this._config.icon || stateIcon(entity);
-        const iconColor = getStateColor(entity.state);
-        const iconPulse = shouldPulse(entity.state);
+        if (!stateObj) {
+            return nothing;
+        }
+
+        const name = this._config.name || stateObj.attributes.friendly_name || "";
+        const icon = this._config.icon || stateIcon(stateObj);
+        const iconColor = getStateColor(stateObj.state);
+        const iconPulse = shouldPulse(stateObj.state);
 
         const stateDisplay = computeStateDisplay(
             this.hass.localize,
-            entity,
+            stateObj,
             this.hass.locale,
-            this.hass.entities
+            this.hass.entities,
+            this.hass.connection.haVersion
         );
 
         const iconStyle = {};
@@ -90,7 +96,7 @@ export class AlarmControlPanelChip extends LitElement implements LovelaceChip {
             this._config.content_info ?? "state",
             name,
             stateDisplay,
-            entity,
+            stateObj,
             this.hass
         );
 
@@ -110,7 +116,7 @@ export class AlarmControlPanelChip extends LitElement implements LovelaceChip {
                     style=${styleMap(iconStyle)}
                     class=${classMap({ pulse: iconPulse })}
                 ></ha-icon>
-                ${content ? html`<span>${content}</span>` : null}
+                ${content ? html`<span>${content}</span>` : nothing}
             </mushroom-chip>
         `;
     }

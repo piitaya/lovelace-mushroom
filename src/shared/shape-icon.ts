@@ -7,14 +7,14 @@ import { animations } from "../utils/entity-styles";
 export class ShapeIcon extends LitElement {
     @property() public icon: string = "";
 
-    @property() public disabled: boolean = false;
+    @property({ type: Boolean }) public disabled?: boolean;
 
     protected render(): TemplateResult {
         return html`
             <div
                 class=${classMap({
                     shape: true,
-                    disabled: this.disabled,
+                    disabled: Boolean(this.disabled),
                 })}
             >
                 <ha-icon .icon=${this.icon} />

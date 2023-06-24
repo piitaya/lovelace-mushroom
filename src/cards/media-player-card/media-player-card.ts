@@ -1,4 +1,4 @@
-import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, nothing, PropertyValues, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import {
@@ -116,11 +116,11 @@ export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
         this.volume = undefined;
         if (!this._config || !this.hass || !this._config.entity) return;
 
-        const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id] as MediaPlayerEntity;
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as MediaPlayerEntity | undefined;
 
-        if (!entity) return;
-        const volume = getVolumeLevel(entity);
+        if (!stateObj) return;
+        const volume = getVolumeLevel(stateObj);
         this.volume = volume != null ? Math.round(volume) : volume;
     }
 
@@ -133,17 +133,17 @@ export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
     updateControls() {
         if (!this._config || !this.hass || !this._config.entity) return;
 
-        const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id] as MediaPlayerEntity;
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as MediaPlayerEntity | undefined;
 
-        if (!entity) return;
+        if (!stateObj) return;
 
         const controls: MediaPlayerCardControl[] = [];
-        if (!this._config.collapsible_controls || isActive(entity)) {
-            if (isMediaControlVisible(entity, this._config?.media_controls)) {
+        if (!this._config.collapsible_controls || isActive(stateObj)) {
+            if (isMediaControlVisible(stateObj, this._config?.media_controls)) {
                 controls.push("media_control");
             }
-            if (isVolumeControlVisible(entity, this._config.volume_controls)) {
+            if (isVolumeControlVisible(stateObj, this._config.volume_controls)) {
                 controls.push("volume_control");
             }
         }
@@ -159,19 +159,23 @@ export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this._config || !this.hass || !this._config.entity) {
-            return html``;
+            return nothing;
         }
 
-        const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id] as MediaPlayerEntity;
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as MediaPlayerEntity | undefined;
 
-        const icon = computeMediaIcon(this._config, entity);
-        const nameDisplay = computeMediaNameDisplay(this._config, entity);
-        const stateDisplay = computeMediaStateDisplay(this._config, entity, this.hass);
+        if (!stateObj) {
+            return this.renderNotFound(this._config);
+        }
+
+        const icon = computeMediaIcon(this._config, stateObj);
+        const nameDisplay = computeMediaNameDisplay(this._config, stateObj);
+        const stateDisplay = computeMediaStateDisplay(this._config, stateObj, this.hass);
         const appearance = computeAppearance(this._config);
-        const picture = computeEntityPicture(entity, appearance.icon_type);
+        const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
         const stateValue =
             this.volume != null && this._config.show_volume_level
@@ -192,18 +196,18 @@ export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
-                        ${this.renderBadge(entity)}
-                        ${this.renderStateInfo(entity, appearance, nameDisplay, stateValue)};
+                        ${picture ? this.renderPicture(picture) : this.renderIcon(stateObj, icon)}
+                        ${this.renderBadge(stateObj)}
+                        ${this.renderStateInfo(stateObj, appearance, nameDisplay, stateValue)};
                     </mushroom-state-item>
                     ${this._controls.length > 0
                         ? html`
                               <div class="actions" ?rtl=${rtl}>
-                                  ${this.renderActiveControl(entity, appearance.layout)}
+                                  ${this.renderActiveControl(stateObj, appearance.layout)}
                                   ${this.renderOtherControls()}
                               </div>
                           `
-                        : null}
+                        : nothing}
                 </mushroom-card>
             </ha-card>
         `;
@@ -224,7 +228,7 @@ export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
         `;
     }
 
-    private renderActiveControl(entity: MediaPlayerEntity, layout: Layout): TemplateResult | null {
+    private renderActiveControl(entity: MediaPlayerEntity, layout: Layout) {
         const media_controls = this._config?.media_controls ?? [];
         const volume_controls = this._config?.volume_controls ?? [];
 
@@ -250,7 +254,7 @@ export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
                     />
                 `;
             default:
-                return null;
+                return nothing;
         }
     }
 

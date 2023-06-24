@@ -1,3 +1,5 @@
+import { getWeatherStateSVG } from "../weather";
+
 const weatherIcons = {
     "clear-night": "mdi:weather-night",
     cloudy: "mdi:weather-cloudy",
@@ -16,9 +18,37 @@ const weatherIcons = {
     "windy-variant": "mdi:weather-windy-variant",
 };
 
+export const weatherSVGs = new Set<string>([
+    "clear-night",
+    "cloudy",
+    "fog",
+    "lightning",
+    "lightning-rainy",
+    "partlycloudy",
+    "pouring",
+    "rainy",
+    "hail",
+    "snowy",
+    "snowy-rainy",
+    "sunny",
+    "windy",
+    "windy-variant",
+]);
+
 export const weatherIcon = (state?: string, nightTime?: boolean): string =>
     !state
         ? undefined
         : nightTime && state === "partlycloudy"
-        ? "mdiWeatherNightPartlyCloudy"
+        ? "mdi:weather-night-partly-cloudy"
         : weatherIcons[state];
+
+export const getWeatherSvgIcon = (icon?: string) => {
+    if (!icon || !icon.startsWith("weather-")) {
+        return undefined;
+    }
+    const name = icon.replace("weather-", "");
+    if (!weatherSVGs.has(name)) {
+        return undefined;
+    }
+    return getWeatherStateSVG(name, true);
+};

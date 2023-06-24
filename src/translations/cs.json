@@ -153,6 +153,7 @@
                     "entity": "Entita",
                     "light": "Světlo",
                     "menu": "Menu",
+                    "spacer": "Mezera",
                     "template": "Šablona",
                     "weather": "Počasí"
                 }

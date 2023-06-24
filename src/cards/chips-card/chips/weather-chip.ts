@@ -1,4 +1,4 @@
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, LitElement, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import {
     actionHandler,
@@ -17,6 +17,7 @@ import {
 import { LovelaceChip, WeatherChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { getWeatherStateSVG, weatherSVGStyles } from "../../../utils/weather";
+import { HassEntity } from "home-assistant-js-websocket";
 
 @customElement(computeChipComponentName("weather"))
 export class WeatherChip extends LitElement implements LovelaceChip {
@@ -48,31 +49,36 @@ export class WeatherChip extends LitElement implements LovelaceChip {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this.hass || !this._config || !this._config.entity) {
-            return html``;
+            return nothing;
         }
 
-        const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id];
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as HassEntity | undefined;
 
-        const weatherIcon = getWeatherStateSVG(entity.state, true);
+        if (!stateObj) {
+            return nothing;
+        }
+
+        const weatherIcon = getWeatherStateSVG(stateObj.state, true);
 
         const displayLabels: string[] = [];
 
         if (this._config.show_conditions) {
             const stateDisplay = computeStateDisplay(
                 this.hass.localize,
-                entity,
+                stateObj,
                 this.hass.locale,
-                this.hass.entities
+                this.hass.entities,
+                this.hass.connection.haVersion
             );
             displayLabels.push(stateDisplay);
         }
 
         if (this._config.show_temperature) {
             const temperatureDisplay = `${formatNumber(
-                entity.attributes.temperature,
+                stateObj.attributes.temperature,
                 this.hass.locale
             )} ${this.hass.config.unit_system.temperature}`;
             displayLabels.push(temperatureDisplay);
@@ -90,7 +96,9 @@ export class WeatherChip extends LitElement implements LovelaceChip {
                 })}
             >
                 ${weatherIcon}
-                ${displayLabels.length > 0 ? html`<span>${displayLabels.join(" / ")}</span>` : null}
+                ${displayLabels.length > 0
+                    ? html`<span>${displayLabels.join(" / ")}</span>`
+                    : nothing}
             </mushroom-chip>
         `;
     }

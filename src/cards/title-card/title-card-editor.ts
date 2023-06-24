@@ -1,4 +1,4 @@
-import { html, TemplateResult } from "lit";
+import { html, nothing } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
@@ -11,7 +11,7 @@ import { loadHaComponents } from "../../utils/loader";
 import { TITLE_CARD_EDITOR_NAME } from "./const";
 import { TitleCardConfig, titleCardConfigStruct } from "./title-card-config";
 
-const actions: UiAction[] = ["navigate", "url", "none"];
+const actions: UiAction[] = ["navigate", "url", "call-service", "none"];
 const TITLE_LABELS = ["title", "subtitle", "title_tap_action", "subtitle_tap_action"];
 
 const computeSchema = memoizeOne((): HaFormSchema[] => [
@@ -23,7 +23,7 @@ const computeSchema = memoizeOne((): HaFormSchema[] => [
         name: "subtitle",
         selector: { template: {} },
     },
-    { name: "alignment", selector: { "mush-alignment": {} } },
+    { name: "alignment", selector: { mush_alignment: {} } },
     {
         name: "title_tap_action",
         selector: { "ui-action": { actions } },
@@ -57,9 +57,9 @@ export class TitleCardEditor extends MushroomBaseElement implements LovelaceCard
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
     };
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this.hass || !this._config) {
-            return html``;
+            return nothing;
         }
 
         const schema = computeSchema();
