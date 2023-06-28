@@ -112,7 +112,7 @@ export class AlarmControlPanelChip extends LitElement implements LovelaceChip {
             >
                 <ha-state-icon
                     .state=${stateObj}
-                    icon=${icon}
+                    .icon=${icon}
                     style=${styleMap(iconStyle)}
                     class=${classMap({ pulse: iconPulse })}
                 ></ha-state-icon>

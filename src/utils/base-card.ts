@@ -64,7 +64,7 @@ export class MushroomBaseCard extends MushroomBaseElement {
         const active = isActive(stateObj);
         return html`
             <mushroom-shape-icon slot="icon" .disabled=${!active}>
-                <ha-state-icon .state=${stateObj} icon=${icon}></ha-state-icon
+                <ha-state-icon .state=${stateObj} .icon=${icon}></ha-state-icon
             ></mushroom-shape-icon>
         `;
     }

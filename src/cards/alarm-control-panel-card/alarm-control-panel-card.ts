@@ -269,7 +269,7 @@ export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceC
                 style=${styleMap(iconStyle)}
                 class=${classMap({ pulse: shapePulse })}
             >
-                <ha-state-icon .state=${stateObj} icon=${icon}></ha-state-icon>
+                <ha-state-icon .state=${stateObj} .icon=${icon}></ha-state-icon>
             </mushroom-shape-icon>
         `;
     }

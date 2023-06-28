@@ -152,7 +152,7 @@ export class UpdateCard extends MushroomBaseCard implements LovelaceCard {
                 })}
                 style=${styleMap(style)}
             >
-                <ha-state-icon .state=${stateObj} icon=${icon}></ha-state-icon>
+                <ha-state-icon .state=${stateObj} .icon=${icon}></ha-state-icon>
             </mushroom-shape-icon>
         `;
     }
