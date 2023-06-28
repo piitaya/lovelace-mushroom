@@ -17,7 +17,7 @@ import {
 } from "./alarm-control-panel-card-config";
 import { ALARM_CONTROl_PANEL_CARD_EDITOR_NAME, ALARM_CONTROl_PANEL_ENTITY_DOMAINS } from "./const";
 
-const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "none"];
+const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "assist", "none"];
 
 const states = ["armed_home", "armed_away", "armed_night", "armed_vacation", "armed_custom_bypass"];
 

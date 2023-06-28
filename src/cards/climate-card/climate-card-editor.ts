@@ -2,7 +2,7 @@ import { html, nothing } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
-import { atLeastHaVersion, fireEvent, LocalizeFunc, LovelaceCardEditor } from "../../ha";
+import { fireEvent, LocalizeFunc, LovelaceCardEditor } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { computeActionsFormSchema } from "../../shared/config/actions-config";
 import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
@@ -15,7 +15,7 @@ import { CLIMATE_CARD_EDITOR_NAME, CLIMATE_ENTITY_DOMAINS } from "./const";
 
 const CLIMATE_LABELS = ["hvac_modes", "show_temperature_control"] as string[];
 
-const computeSchema = memoizeOne((localize: LocalizeFunc, haVersion: string): HaFormSchema[] => [
+const computeSchema = memoizeOne((localize: LocalizeFunc): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: CLIMATE_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
     { name: "icon", selector: { icon: {} }, context: { icon_entity: "entity" } },
@@ -30,11 +30,7 @@ const computeSchema = memoizeOne((localize: LocalizeFunc, haVersion: string): Ha
                     select: {
                         options: HVAC_MODES.map((mode) => ({
                             value: mode,
-                            label: localize(
-                                atLeastHaVersion(haVersion, 2023, 4)
-                                    ? `component.climate.entity_component._.state.${mode}`
-                                    : `component.climate.state._.${mode}`
-                            ),
+                            label: localize(`component.climate.entity_component._.state.${mode}`),
                         })),
                         mode: "dropdown",
                         multiple: true,
@@ -79,7 +75,7 @@ export class ClimateCardEditor extends MushroomBaseElement implements LovelaceCa
             return nothing;
         }
 
-        const schema = computeSchema(this.hass!.localize, this.hass!.connection.haVersion);
+        const schema = computeSchema(this.hass!.localize);
 
         return html`
             <ha-form

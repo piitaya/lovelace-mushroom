@@ -11,7 +11,7 @@ import { ActionChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { DEFAULT_ACTION_ICON } from "./action-chip";
 
-const actions: UiAction[] = ["navigate", "url", "call-service", "none"];
+const actions: UiAction[] = ["navigate", "url", "call-service", "assist", "none"];
 
 const SCHEMA: HaFormSchema[] = [
     {
