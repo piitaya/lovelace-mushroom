@@ -81,8 +81,8 @@ export class AlarmControlPanelChip extends LitElement implements LovelaceChip {
             this.hass.localize,
             stateObj,
             this.hass.locale,
-            this.hass.entities,
-            this.hass.connection.haVersion
+            this.hass.config,
+            this.hass.entities
         );
 
         const iconStyle = {};

@@ -1,5 +1,5 @@
 import { HassEntity } from "home-assistant-js-websocket";
-import { computeDomain } from "../common/entity/compute-domain";
+import { computeDomain } from "../common/entity/compute_domain";
 
 export const UNAVAILABLE = "unavailable";
 export const UNKNOWN = "unknown";
