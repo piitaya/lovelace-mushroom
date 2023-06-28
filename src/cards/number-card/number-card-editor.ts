@@ -2,28 +2,27 @@ import { html, nothing } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
-import { fireEvent, LocalizeFunc, LovelaceCardEditor } from "../../ha";
+import { LocalizeFunc, LovelaceCardEditor, fireEvent } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { computeActionsFormSchema } from "../../shared/config/actions-config";
 import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
-import { stateIcon } from "../../utils/icons/state-icon";
 import { loadHaComponents } from "../../utils/loader";
 import { NUMBER_CARD_EDITOR_NAME, NUMBER_ENTITY_DOMAINS } from "./const";
 import { DISPLAY_MODES, NumberCardConfig, NumberCardConfigStruct } from "./number-card-config";
 
 export const NUMBER_LABELS = ["display_mode"];
 
-const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaFormSchema[] => [
+const computeSchema = memoizeOne((localize: LocalizeFunc): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: NUMBER_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
     {
         type: "grid",
         name: "",
         schema: [
-            { name: "icon", selector: { icon: { placeholder: icon } } },
+            { name: "icon", selector: { icon: {} }, context: { icon_entity: "entity" } },
             { name: "icon_color", selector: { mush_color: {} } },
         ],
     },
@@ -76,13 +75,9 @@ export class NumberCardEditor extends MushroomBaseElement implements LovelaceCar
             return nothing;
         }
 
-        const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
-        const entityIcon = entityState ? stateIcon(entityState) : undefined;
-        const icon = this._config.icon || entityIcon;
-
         const customLocalize = setupCustomlocalize(this.hass);
 
-        const schema = computeSchema(customLocalize, icon);
+        const schema = computeSchema(customLocalize);
 
         const data = { ...this._config } as any;
         if (!data.display_mode) {

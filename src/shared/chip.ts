@@ -70,7 +70,8 @@ export class Chip extends LitElement {
                 padding: var(--chip-padding);
                 line-height: 0;
             }
-            ::slotted(ha-icon) {
+            ::slotted(ha-icon),
+            ::slotted(ha-state-icon) {
                 display: flex;
                 --mdc-icon-size: var(--chip-icon-size);
                 color: var(--icon-color);

@@ -25,7 +25,6 @@ import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { alarmPanelIconAction } from "../../utils/icons/alarm-panel-icon";
-import { stateIcon } from "../../utils/icons/state-icon";
 import { computeEntityPicture } from "../../utils/info";
 import { AlarmControlPanelCardConfig } from "./alarm-control-panel-card-config";
 import {
@@ -165,7 +164,7 @@ export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceC
         }
 
         const name = this._config.name || stateObj.attributes.friendly_name || "";
-        const icon = this._config.icon || stateIcon(stateObj);
+        const icon = this._config.icon;
         const appearance = computeAppearance(this._config);
         const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
@@ -257,7 +256,7 @@ export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceC
         `;
     }
 
-    protected renderIcon(stateObj: HassEntity, icon: string): TemplateResult {
+    protected renderIcon(stateObj: HassEntity, icon?: string): TemplateResult {
         const color = getStateColor(stateObj.state);
         const shapePulse = shouldPulse(stateObj.state);
         const iconStyle = {
@@ -268,11 +267,10 @@ export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceC
             <mushroom-shape-icon
                 slot="icon"
                 style=${styleMap(iconStyle)}
-                class=${classMap({
-                    pulse: shapePulse,
-                })}
-                .icon=${icon}
-            ></mushroom-shape-icon>
+                class=${classMap({ pulse: shapePulse })}
+            >
+                <ha-state-icon .state=${stateObj} .icon=${icon}></ha-state-icon>
+            </mushroom-shape-icon>
         `;
     }
 

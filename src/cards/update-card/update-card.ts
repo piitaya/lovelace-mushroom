@@ -27,7 +27,6 @@ import { computeAppearance } from "../../utils/appearance";
 import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { stateIcon } from "../../utils/icons/state-icon";
 import { computeEntityPicture } from "../../utils/info";
 import { UPDATE_CARD_EDITOR_NAME, UPDATE_CARD_NAME, UPDATE_ENTITY_DOMAINS } from "./const";
 import "./controls/update-buttons-control";
@@ -91,7 +90,7 @@ export class UpdateCard extends MushroomBaseCard implements LovelaceCard {
         }
 
         const name = this._config.name || stateObj.attributes.friendly_name || "";
-        const icon = this._config.icon || stateIcon(stateObj);
+        const icon = this._config.icon;
         const appearance = computeAppearance(this._config);
         const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
@@ -134,10 +133,10 @@ export class UpdateCard extends MushroomBaseCard implements LovelaceCard {
         `;
     }
 
-    protected renderIcon(entity: UpdateEntity, icon: string): TemplateResult {
-        const isInstalling = updateIsInstalling(entity);
+    protected renderIcon(stateObj: UpdateEntity, icon?: string): TemplateResult {
+        const isInstalling = updateIsInstalling(stateObj);
 
-        const color = getStateColor(entity.state, isInstalling);
+        const color = getStateColor(stateObj.state, isInstalling);
 
         const style = {
             "--icon-color": `rgb(${color})`,
@@ -147,13 +146,14 @@ export class UpdateCard extends MushroomBaseCard implements LovelaceCard {
         return html`
             <mushroom-shape-icon
                 slot="icon"
-                .disabled=${!isAvailable(entity)}
-                .icon=${icon}
+                .disabled=${!isAvailable(stateObj)}
                 class=${classMap({
                     pulse: isInstalling,
                 })}
                 style=${styleMap(style)}
-            ></mushroom-shape-icon>
+            >
+                <ha-state-icon .state=${stateObj} .icon=${icon}></ha-state-icon>
+            </mushroom-shape-icon>
         `;
     }
 

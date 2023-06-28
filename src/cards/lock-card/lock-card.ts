@@ -24,7 +24,6 @@ import { computeAppearance } from "../../utils/appearance";
 import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { stateIcon } from "../../utils/icons/state-icon";
 import { computeEntityPicture } from "../../utils/info";
 import { LOCK_CARD_EDITOR_NAME, LOCK_CARD_NAME, LOCK_ENTITY_DOMAINS } from "./const";
 import "./controls/lock-buttons-control";
@@ -88,7 +87,7 @@ export class LockCard extends MushroomBaseCard implements LovelaceCard {
         }
 
         const name = this._config.name || stateObj.attributes.friendly_name || "";
-        const icon = this._config.icon || stateIcon(stateObj);
+        const icon = this._config.icon;
         const appearance = computeAppearance(this._config);
         const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
@@ -125,32 +124,29 @@ export class LockCard extends MushroomBaseCard implements LovelaceCard {
         `;
     }
 
-    renderIcon(entity: LockEntity, icon: string): TemplateResult {
-        const available = isAvailable(entity);
+    renderIcon(stateObj: LockEntity, icon?: string): TemplateResult {
+        const available = isAvailable(stateObj);
 
         const iconStyle = {
             "--icon-color": "rgb(var(--rgb-state-lock))",
             "--shape-color": "rgba(var(--rgb-state-lock), 0.2)",
         };
 
-        if (isLocked(entity)) {
+        if (isLocked(stateObj)) {
             iconStyle["--icon-color"] = `rgb(var(--rgb-state-lock-locked))`;
             iconStyle["--shape-color"] = `rgba(var(--rgb-state-lock-locked), 0.2)`;
-        } else if (isUnlocked(entity)) {
+        } else if (isUnlocked(stateObj)) {
             iconStyle["--icon-color"] = `rgb(var(--rgb-state-lock-unlocked))`;
             iconStyle["--shape-color"] = `rgba(var(--rgb-state-lock-unlocked), 0.2)`;
-        } else if (isActionPending(entity)) {
+        } else if (isActionPending(stateObj)) {
             iconStyle["--icon-color"] = `rgb(var(--rgb-state-lock-pending))`;
             iconStyle["--shape-color"] = `rgba(var(--rgb-state-lock-pending), 0.2)`;
         }
 
         return html`
-            <mushroom-shape-icon
-                slot="icon"
-                .disabled=${!available}
-                .icon=${icon}
-                style=${styleMap(iconStyle)}
-            ></mushroom-shape-icon>
+            <mushroom-shape-icon slot="icon" .disabled=${!available} style=${styleMap(iconStyle)}>
+                <ha-state-icon .state=${stateObj} .icon=${icon}></ha-state-icon>
+            </mushroom-shape-icon>
         `;
     }
 

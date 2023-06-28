@@ -1,12 +1,9 @@
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { property, customElement } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
-import { animations } from "../utils/entity-styles";
 
 @customElement("mushroom-shape-icon")
 export class ShapeIcon extends LitElement {
-    @property() public icon: string = "";
-
     @property({ type: Boolean }) public disabled?: boolean;
 
     protected render(): TemplateResult {
@@ -17,7 +14,7 @@ export class ShapeIcon extends LitElement {
                     disabled: Boolean(this.disabled),
                 })}
             >
-                <ha-icon .icon=${this.icon} />
+                <slot></slot>
             </div>
         `;
     }
@@ -50,7 +47,7 @@ export class ShapeIcon extends LitElement {
                 animation: var(--shape-animation);
                 box-shadow: 0 0 0 1px var(--shape-outline-color);
             }
-            .shape ha-icon {
+            .shape ::slotted(*) {
                 display: flex;
                 --mdc-icon-size: var(--icon-symbol-size);
                 color: var(--icon-color);
@@ -60,10 +57,9 @@ export class ShapeIcon extends LitElement {
             .shape.disabled {
                 background-color: var(--shape-color-disabled);
             }
-            .shape.disabled ha-icon {
+            .shape.disabled ::slotted(*) {
                 color: var(--icon-color-disabled);
             }
-            ${animations}
         `;
     }
 }
