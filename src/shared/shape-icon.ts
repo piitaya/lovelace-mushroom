@@ -1,7 +1,6 @@
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { property, customElement } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
-import { animations } from "../utils/entity-styles";
 
 @customElement("mushroom-shape-icon")
 export class ShapeIcon extends LitElement {
@@ -31,7 +30,6 @@ export class ShapeIcon extends LitElement {
                 --shape-animation: none;
                 --shape-outline-color: transparent;
                 flex: none;
-                ${animations}
             }
             .shape {
                 position: relative;
