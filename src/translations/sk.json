@@ -85,7 +85,7 @@
             },
             "title": {
                 "title": "Nadpis",
-                "subtitle": "Podnadpis"
+                "subtitle": "Podnadpis",
                 "title_tap_action": "Akcia klepnutia na názov",
                 "subtitle_tap_action": "Akcia klepnutia na titulky"
             },
@@ -100,7 +100,7 @@
                 "show_buttons_control": "Zobraziť ovládacie tlačidlá?"
             },
             "vacuum": {
-                "commands": "Príkazy"
+                "commands": "Príkazy",
                 "commands_list": {
                     "on_off": "Zapnúť/Vypnúť"
                 }
@@ -166,7 +166,6 @@
                     "conditional": "Podmienené",
                     "entity": "Entita",
                     "light": "Svetlo",
-                    "menu": "Menu",
                     "menu": "Medzera",
                     "template": "Šablóna",
                     "weather": "Počasie"
