@@ -1,6 +1,6 @@
 {
   "name": "mushroom-cards",
-  "version": "3.0.0",
+  "version": "2.8.1",
   "description": "Home Assistant Mushroom Cards",
   "main": "index.js",
   "scripts": {
