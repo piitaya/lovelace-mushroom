@@ -41,15 +41,15 @@
                 "primary_info": "מידע ראשי",
                 "secondary_info": "מידע מישני",
                 "content_info": "תוכן",
-                "use_entity_picture": "השתמש בתמונת ישות?",
-                "collapsible_controls": "הסתר שליטה כשאר מכובה?",
-                "icon_animation": "להנפיש אייקון כאשר דלוק?"
+                "use_entity_picture": "השתמש בתמונת ישות",
+                "collapsible_controls": "הסתר שליטה כשאר מכובה",
+                "icon_animation": "הנפש אייקון"
             },
             "light": {
                 "show_brightness_control": "שליטה בבהירות?",
                 "use_light_color": "השתמש בצבע האור",
-                "show_color_temp_control": "שליטה בגוון האור?",
-                "show_color_control": "שליטה בצבע האור?",
+                "show_color_temp_control": "הצג פקד גוון תאורה?",
+                "show_color_control": "הצג פקד צבע",
                 "incompatible_controls": "יתכן וחלק מהכפתורים לא יופיעו אם התאורה אינה תומכת בתכונה."
             },
             "fan": {
@@ -57,8 +57,8 @@
                 "show_oscillate_control": "שליטה בהתנדנדות?"
             },
             "cover": {
-                "show_buttons_control": "כפתורי שליטה?",
-                "show_position_control": "שליטה במיקום?"
+                "show_buttons_control": "הצג כפתורי שליטה",
+                "show_position_control": "הצג פקדי מיקום"
             },
             "alarm_control_panel": {
                 "show_keypad": "הצג מקלדת"
@@ -66,7 +66,7 @@
             "template": {
                 "primary": "מידע ראשי",
                 "secondary": "מידע מישני",
-                "multiline_secondary": "מידע מישני רו קווי?",
+                "multiline_secondary": "מידע מישני רב קווי",
                 "entity_extra": "משמש בתבניות ופעולות",
                 "content": "תוכן"
             },
@@ -86,7 +86,7 @@
             },
             "vacuum": {
                 "commands": "פקודות",
-                "icon_animation": "להנפיש אייקון כאשר דלוק?"
+                "icon_animation": "הנפשת אייקון"
             },
             "media-player": {
                 "use_media_info": "השתמש במידע מדיה",
@@ -114,7 +114,7 @@
                 "open": "פתח"
             },
             "humidifier": {
-                "show_target_humidity_control": "שליטה בלחות?"
+                "show_target_humidity_control": "הצג פקדי לחות"
             }
         },
         "chip": {

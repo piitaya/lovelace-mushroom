@@ -13,7 +13,6 @@ template:
         step: 0.5
         min: 0
         max: 100
-        step: 0.5
         state: "{{ states('input_number.percentage') }}"
         set_value: 
           service: input_number.set_value

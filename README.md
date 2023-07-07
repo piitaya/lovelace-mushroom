@@ -42,7 +42,7 @@ Mushroom is available in [HACS][hacs] (Home Assistant Community Store).
 
 ### Manual
 
-1. Download `mushroom.js` file from the [latest-release].
+1. Download `mushroom.js` file from the [latest release][release-url].
 2. Put `mushroom.js` file into your `config/www` folder.
 3. Add reference to `mushroom.js` in Dashboard. There's two way to do that:
     - **Using UI:** _Settings_ → _Dashboards_ → _More Options icon_ → _Resources_ → _Add Resource_ → Set _Url_ as `/local/mushroom.js` → Set _Resource type_ as `JavaScript Module`.
@@ -134,6 +134,17 @@ npm run build
 2. Create a new file `{language_code}.json` with your language code in the [translation folder](https://github.com/piitaya/lovelace-mushroom/tree/main/src/translations). Examples: `fr.json`.
 3. Import your file into the [`localize.ts file`](https://github.com/piitaya/lovelace-mushroom/blob/main/src/localize.ts) and add your language in the `languages` record.
 4. Don't forget to test locally with the development server by choosing the language with the Home Assistant UI in your profile.
+
+## Troubleshooting
+
+### I don't see the last changes
+
+1. Check that your Home Assistant version is the latest. Some new Mushroom features can only be visible for the latest Home Assistant version.
+2. Check that you have the latest Mushroom version
+3. Clear your cache :
+    - delete mushroom resources (https://my.home-assistant.io/redirect/lovelace_resources/)
+    - uninstall Mushroom from HACS
+    - reinstall Mushroom from HACS
 
 ## Credits
 

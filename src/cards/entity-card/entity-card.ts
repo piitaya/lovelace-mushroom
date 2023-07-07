@@ -1,5 +1,5 @@
 import { HassEntity } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, nothing, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -25,7 +25,6 @@ import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
 import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { stateIcon } from "../../utils/icons/state-icon";
 import { computeEntityPicture } from "../../utils/info";
 import { ENTITY_CARD_EDITOR_NAME, ENTITY_CARD_NAME } from "./const";
 import { EntityCardConfig } from "./entity-card-config";
@@ -73,19 +72,23 @@ export class EntityCard extends MushroomBaseCard implements LovelaceCard {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this._config || !this.hass || !this._config.entity) {
-            return html``;
+            return nothing;
         }
 
         const entityId = this._config.entity;
-        const entity = this.hass.states[entityId];
+        const stateObj = this.hass.states[entityId] as HassEntity | undefined;
 
-        const name = this._config.name || entity.attributes.friendly_name || "";
-        const icon = this._config.icon || stateIcon(entity);
+        if (!stateObj) {
+            return this.renderNotFound(this._config);
+        }
+
+        const name = this._config.name || stateObj.attributes.friendly_name || "";
+        const icon = this._config.icon;
         const appearance = computeAppearance(this._config);
 
-        const picture = computeEntityPicture(entity, appearance.icon_type);
+        const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
         const rtl = computeRTL(this.hass);
 
@@ -101,17 +104,17 @@ export class EntityCard extends MushroomBaseCard implements LovelaceCard {
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
-                        ${this.renderBadge(entity)}
-                        ${this.renderStateInfo(entity, appearance, name)};
+                        ${picture ? this.renderPicture(picture) : this.renderIcon(stateObj, icon)}
+                        ${this.renderBadge(stateObj)}
+                        ${this.renderStateInfo(stateObj, appearance, name)};
                     </mushroom-state-item>
                 </mushroom-card>
             </ha-card>
         `;
     }
 
-    renderIcon(entity: HassEntity, icon: string): TemplateResult {
-        const active = isActive(entity);
+    renderIcon(stateObj: HassEntity, icon?: string): TemplateResult {
+        const active = isActive(stateObj);
         const iconStyle = {};
         const iconColor = this._config?.icon_color;
         if (iconColor) {
@@ -120,12 +123,9 @@ export class EntityCard extends MushroomBaseCard implements LovelaceCard {
             iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
         }
         return html`
-            <mushroom-shape-icon
-                slot="icon"
-                .disabled=${!active}
-                .icon=${icon}
-                style=${styleMap(iconStyle)}
-            ></mushroom-shape-icon>
+            <mushroom-shape-icon slot="icon" .disabled=${!active} style=${styleMap(iconStyle)}>
+                <ha-state-icon .state=${stateObj} .icon=${icon}></ha-state-icon>
+            </mushroom-shape-icon>
         `;
     }
 

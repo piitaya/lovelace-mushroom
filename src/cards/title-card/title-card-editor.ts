@@ -1,8 +1,7 @@
-import { html, TemplateResult } from "lit";
+import { html, nothing } from "lit";
 import { customElement, state } from "lit/decorators.js";
-import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
-import { fireEvent, LovelaceCardEditor } from "../../ha";
+import { LovelaceCardEditor, fireEvent } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { HaFormSchema } from "../../utils/form/ha-form";
@@ -11,10 +10,10 @@ import { loadHaComponents } from "../../utils/loader";
 import { TITLE_CARD_EDITOR_NAME } from "./const";
 import { TitleCardConfig, titleCardConfigStruct } from "./title-card-config";
 
-const actions: UiAction[] = ["navigate", "url", "none"];
+const actions: UiAction[] = ["navigate", "url", "call-service", "none"];
 const TITLE_LABELS = ["title", "subtitle", "title_tap_action", "subtitle_tap_action"];
 
-const computeSchema = memoizeOne((): HaFormSchema[] => [
+const SCHEMA: HaFormSchema[] = [
     {
         name: "title",
         selector: { template: {} },
@@ -23,7 +22,7 @@ const computeSchema = memoizeOne((): HaFormSchema[] => [
         name: "subtitle",
         selector: { template: {} },
     },
-    { name: "alignment", selector: { "mush-alignment": {} } },
+    { name: "alignment", selector: { mush_alignment: {} } },
     {
         name: "title_tap_action",
         selector: { "ui-action": { actions } },
@@ -32,7 +31,7 @@ const computeSchema = memoizeOne((): HaFormSchema[] => [
         name: "subtitle_tap_action",
         selector: { "ui-action": { actions } },
     },
-]);
+];
 
 @customElement(TITLE_CARD_EDITOR_NAME)
 export class TitleCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
@@ -57,18 +56,16 @@ export class TitleCardEditor extends MushroomBaseElement implements LovelaceCard
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
     };
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this.hass || !this._config) {
-            return html``;
+            return nothing;
         }
-
-        const schema = computeSchema();
 
         return html`
             <ha-form
                 .hass=${this.hass}
                 .data=${this._config}
-                .schema=${schema}
+                .schema=${SCHEMA}
                 .computeLabel=${this._computeLabel}
                 @value-changed=${this._valueChanged}
             ></ha-form>

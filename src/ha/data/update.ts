@@ -1,10 +1,11 @@
 import type {
     HassEntities,
+    HassEntity,
     HassEntityAttributeBase,
     HassEntityBase,
 } from "home-assistant-js-websocket";
 import { BINARY_STATE_ON } from "../common/const";
-import { computeStateDomain } from "../common/entity/compute-state-domain";
+import { computeStateDomain } from "../common/entity/compute_state_domain";
 import { supportsFeature, supportsFeatureFromAttributes } from "../common/entity/supports-feature";
 import { caseInsensitiveStringCompare } from "../common/string/compare";
 import { HomeAssistant } from "../types";
@@ -57,7 +58,7 @@ export const updateReleaseNotes = (hass: HomeAssistant, entityId: string) =>
 export const filterUpdateEntities = (entities: HassEntities, language?: string) =>
     (
         Object.values(entities).filter(
-            (entity) => computeStateDomain(entity) === "update"
+            (stateObj) => computeStateDomain(stateObj) === "update"
         ) as UpdateEntity[]
     ).sort((a, b) => {
         if (a.attributes.title === "Home Assistant Core") {

@@ -37,17 +37,25 @@ export class InputNumber extends LitElement {
 
     @state() pending = false;
 
+    private get _precision() {
+        return Math.ceil(Math.log10(1 / this._step));
+    }
+
+    private get _step() {
+        return this.step ?? DEFAULT_STEP;
+    }
+
     private _incrementValue(e: MouseEvent) {
         e.stopPropagation();
         if (this.value == null) return;
-        const value = round(this.value + (this.step ?? DEFAULT_STEP), 1);
+        const value = round(this.value + this._step, this._precision);
         this._processNewValue(value);
     }
 
     private _decrementValue(e: MouseEvent) {
         e.stopPropagation();
         if (this.value == null) return;
-        const value = round(this.value - (this.step ?? DEFAULT_STEP), 1);
+        const value = round(this.value - this._step, this._precision);
         this._processNewValue(value);
     }
 
@@ -90,7 +98,11 @@ export class InputNumber extends LitElement {
 
         return html`
             <div class="container" id="container">
-                <button class="button minus" @click=${this._decrementValue} .disabled=${this.disabled}>
+                <button
+                    class="button minus"
+                    @click=${this._decrementValue}
+                    .disabled=${this.disabled}
+                >
                     <ha-icon icon="mdi:minus"></ha-icon>
                 </button>
                 <span
@@ -102,7 +114,11 @@ export class InputNumber extends LitElement {
                 >
                     ${value}
                 </span>
-                <button class="button plus" @click=${this._incrementValue} .disabled=${this.disabled}>
+                <button
+                    class="button plus"
+                    @click=${this._incrementValue}
+                    .disabled=${this.disabled}
+                >
                     <ha-icon icon="mdi:plus"></ha-icon>
                 </button>
             </div>

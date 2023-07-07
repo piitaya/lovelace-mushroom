@@ -7,7 +7,7 @@ body:
       attributes:
           label: Requirements
           options:
-              - label: I have updated Mushroom to the latest available version
+              - label: I checked the troubleshooting section in the README to verify that I have the latest Mushroom version.
                 required: true
               - label: I did a search to see if there is a similar issue or if a pull request is open.
                 required: true

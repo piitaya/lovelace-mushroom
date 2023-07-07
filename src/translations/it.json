@@ -173,5 +173,8 @@
                 }
             }
         }
+    },
+    "card": {
+        "not_found": "Entità non trovata"
     }
 }

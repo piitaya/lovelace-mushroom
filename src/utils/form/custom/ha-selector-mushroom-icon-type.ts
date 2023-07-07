@@ -4,10 +4,10 @@ import { customElement, property } from "lit/decorators.js";
 import "../../../shared/editor/icon-type-picker";
 
 export type MushIconTypeSelector = {
-    "mush-icon-type": {};
+    mush_icon_type: {};
 };
 
-@customElement("ha-selector-mush-icon-type")
+@customElement("ha-selector-mush_icon_type")
 export class HaMushIconTypeSelector extends LitElement {
     @property() public hass!: HomeAssistant;
 

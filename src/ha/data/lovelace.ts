@@ -148,6 +148,12 @@ export interface CustomActionConfig extends BaseActionConfig {
     action: "fire-dom-event";
 }
 
+export interface AssistActionConfig extends BaseActionConfig {
+    action: "assist";
+    pipeline_id?: string;
+    start_listening?: boolean;
+}
+
 export interface BaseActionConfig {
     action: string;
     confirmation?: ConfirmationRestrictionConfig;
@@ -168,6 +174,7 @@ export type ActionConfig =
     | NavigateActionConfig
     | UrlActionConfig
     | MoreInfoActionConfig
+    | AssistActionConfig
     | NoActionConfig
     | CustomActionConfig;
 

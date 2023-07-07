@@ -2,6 +2,8 @@ import { css } from "lit";
 import * as Color from "color";
 
 export const COLORS = [
+    "primary",
+    "accent",
     "red",
     "pink",
     "purple",
@@ -27,6 +29,9 @@ export const COLORS = [
 ];
 
 export function computeRgbColor(color: string): string {
+    if (color === "primary" || color === "accent") {
+        return `var(--rgb-${color}-color)`;
+    }
     if (COLORS.includes(color)) {
         return `var(--rgb-${color})`;
     } else if (color.startsWith("#")) {

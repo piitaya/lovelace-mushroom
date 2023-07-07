@@ -1,4 +1,4 @@
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, LitElement, nothing, TemplateResult } from "lit";
 import { property, customElement } from "lit/decorators.js";
 
 @customElement("mushroom-chip")
@@ -14,14 +14,14 @@ export class Chip extends LitElement {
     protected render(): TemplateResult {
         return html`
             <ha-card>
-                ${this.avatar ? html` <img class="avatar" src=${this.avatar} /> ` : null}
+                ${this.avatar ? html` <img class="avatar" src=${this.avatar} /> ` : nothing}
                 ${!this.avatarOnly
                     ? html`
                           <div class="content">
                               <slot></slot>
                           </div>
                       `
-                    : null}
+                    : nothing}
             </ha-card>
         `;
     }
@@ -70,7 +70,8 @@ export class Chip extends LitElement {
                 padding: var(--chip-padding);
                 line-height: 0;
             }
-            ::slotted(ha-icon) {
+            ::slotted(ha-icon),
+            ::slotted(ha-state-icon) {
                 display: flex;
                 --mdc-icon-size: var(--chip-icon-size);
                 color: var(--icon-color);

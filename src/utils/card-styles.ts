@@ -34,6 +34,12 @@ export const cardStyle = css`
         margin-left: var(--spacing);
     }
     .unavailable {
-        --main-color: var(--warning-color);
+        --main-color: rgb(var(--rgb-warning));
+    }
+    .not-found {
+        --main-color: rgb(var(--rgb-danger));
+    }
+    mushroom-state-item[disabled] {
+        cursor: initial;
     }
 `;

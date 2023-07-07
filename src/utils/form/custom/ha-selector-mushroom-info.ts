@@ -5,12 +5,12 @@ import "../../../shared/editor/info-picker";
 import { Info } from "../../info";
 
 export type MushInfoSelector = {
-    "mush-info": {
+    mush_info: {
         infos?: Info[];
     };
 };
 
-@customElement("ha-selector-mush-info")
+@customElement("ha-selector-mush_info")
 export class HaMushInfoSelector extends LitElement {
     @property() public hass!: HomeAssistant;
 
@@ -24,7 +24,7 @@ export class HaMushInfoSelector extends LitElement {
         return html`
             <mushroom-info-picker
                 .hass=${this.hass}
-                .infos=${this.selector["mush-info"].infos}
+                .infos=${this.selector.mush_info.infos}
                 .label=${this.label}
                 .value=${this.value}
                 @value-changed=${this._valueChanged}

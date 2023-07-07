@@ -1,5 +1,5 @@
 import { UnsubscribeFunc } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, nothing, PropertyValues, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -23,6 +23,8 @@ import { MushroomBaseElement } from "../../utils/base-element";
 import { cardStyle } from "../../utils/card-styles";
 import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
+import { getWeatherSvgIcon } from "../../utils/icons/weather-icon";
+import { weatherSVGStyles } from "../../utils/weather";
 import { TEMPLATE_CARD_EDITOR_NAME, TEMPLATE_CARD_NAME } from "./const";
 import { TemplateCardConfig } from "./template-card-config";
 
@@ -112,9 +114,9 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
             : this._config?.[key];
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this._config || !this.hass) {
-            return html``;
+            return nothing;
         }
 
         const icon = this.getValue("icon");
@@ -137,6 +139,8 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
             secondary_info: Boolean(secondary) ? "state" : "none",
         });
 
+        const weatherSvg = getWeatherSvgIcon(icon);
+
         return html`
             <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
                 <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
@@ -151,9 +155,11 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
                     >
                         ${picture
                             ? this.renderPicture(picture)
+                            : weatherSvg
+                            ? html`<div slot="icon">${weatherSvg}</div>`
                             : icon
                             ? this.renderIcon(icon, iconColor)
-                            : null}
+                            : nothing}
                         ${(icon || picture) && badgeIcon
                             ? this.renderBadgeIcon(badgeIcon, badgeColor)
                             : undefined}
@@ -186,11 +192,9 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
             iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
         }
         return html`
-            <mushroom-shape-icon
-                style=${styleMap(iconStyle)}
-                slot="icon"
-                .icon=${icon}
-            ></mushroom-shape-icon>
+            <mushroom-shape-icon style=${styleMap(iconStyle)} slot="icon">
+                <ha-state-icon .icon=${icon}></ha-state-icon>
+            </mushroom-shape-icon>
         `;
     }
 
@@ -310,6 +314,12 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
                     --icon-color: rgb(var(--rgb-disabled));
                     --shape-color: rgba(var(--rgb-disabled), 0.2);
                 }
+                svg {
+                    width: var(--icon-size);
+                    height: var(--icon-size);
+                    display: flex;
+                }
+                ${weatherSVGStyles}
             `,
         ];
     }

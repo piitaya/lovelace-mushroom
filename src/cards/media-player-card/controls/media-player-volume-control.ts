@@ -1,4 +1,4 @@
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, LitElement, nothing } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import {
     computeRTL,
@@ -6,10 +6,10 @@ import {
     isActive,
     isAvailable,
     isOff,
-    MediaPlayerEntity,
     MEDIA_PLAYER_SUPPORT_VOLUME_BUTTONS,
     MEDIA_PLAYER_SUPPORT_VOLUME_MUTE,
     MEDIA_PLAYER_SUPPORT_VOLUME_SET,
+    MediaPlayerEntity,
     supportsFeature,
 } from "../../../ha";
 import { MediaPlayerVolumeControl } from "../media-player-card-config";
@@ -60,8 +60,8 @@ export class MediaPlayerVolumeControls extends LitElement {
         handleMediaControlClick(this.hass, this.entity, action!);
     }
 
-    protected render(): TemplateResult | null {
-        if (!this.entity) return null;
+    protected render() {
+        if (!this.entity) return nothing;
 
         const value = getVolumeLevel(this.entity);
 
@@ -92,7 +92,7 @@ export class MediaPlayerVolumeControls extends LitElement {
                           @change=${this.handleSliderChange}
                           @current-change=${this.handleSliderCurrentChange}
                       />`
-                    : null}
+                    : nothing}
                 ${displayVolumeMute
                     ? html`
                           <mushroom-button

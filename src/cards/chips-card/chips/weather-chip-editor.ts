@@ -1,4 +1,4 @@
-import { html, LitElement, TemplateResult } from "lit";
+import { html, LitElement, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { fireEvent, HomeAssistant } from "../../../ha";
 import setupCustomlocalize from "../../../localize";
@@ -9,14 +9,13 @@ import { UiAction } from "../../../utils/form/ha-selector";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
 import { WeatherChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
-import memoizeOne from "memoize-one";
 
 const WEATHER_ENTITY_DOMAINS = ["weather"];
 const WEATHER_LABELS = ["show_conditions", "show_temperature"];
 
-const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "none"];
+const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "assist", "none"];
 
-const computeSchema = memoizeOne((): HaFormSchema[] => [
+const SCHEMA: HaFormSchema[] = [
     { name: "entity", selector: { entity: { domain: WEATHER_ENTITY_DOMAINS } } },
     {
         type: "grid",
@@ -27,7 +26,7 @@ const computeSchema = memoizeOne((): HaFormSchema[] => [
         ],
     },
     ...computeActionsFormSchema(actions),
-]);
+];
 
 @customElement(computeChipEditorComponentName("weather"))
 export class WeatherChipEditor extends LitElement implements LovelaceChipEditor {
@@ -51,18 +50,16 @@ export class WeatherChipEditor extends LitElement implements LovelaceChipEditor 
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
     };
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this.hass || !this._config) {
-            return html``;
+            return nothing;
         }
-
-        const schema = computeSchema();
 
         return html`
             <ha-form
                 .hass=${this.hass}
                 .data=${this._config}
-                .schema=${schema}
+                .schema=${SCHEMA}
                 .computeLabel=${this._computeLabel}
                 @value-changed=${this._valueChanged}
             ></ha-form>

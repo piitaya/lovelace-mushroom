@@ -1,4 +1,4 @@
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, LitElement, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { actionHandler, computeRTL, HomeAssistant } from "../../../ha";
 import {
@@ -35,9 +35,9 @@ export class BackChip extends LitElement implements LovelaceChip {
         window.history.back();
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this.hass || !this._config) {
-            return html``;
+            return nothing;
         }
 
         const icon = this._config.icon || DEFAULT_BACK_ICON;
@@ -50,7 +50,7 @@ export class BackChip extends LitElement implements LovelaceChip {
                 @action=${this._handleAction}
                 .actionHandler=${actionHandler()}
             >
-                <ha-icon .icon=${icon}></ha-icon>
+                <ha-state-icon .icon=${icon}></ha-state-icon>
             </mushroom-chip>
         `;
     }
