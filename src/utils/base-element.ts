@@ -30,18 +30,20 @@ export class MushroomBaseElement extends LitElement {
     }
 
     static get styles(): CSSResultGroup {
-        return css`
-            ${animations}
-            :host {
-                ${defaultColorCss}
-            }
-            :host([dark-mode]) {
-                ${defaultDarkColorCss}
-            }
-            :host {
-                ${themeColorCss}
-                ${themeVariables}
-            }
-        `;
+        return [
+            animations,
+            css`
+                :host {
+                    ${defaultColorCss}
+                }
+                :host([dark-mode]) {
+                    ${defaultDarkColorCss}
+                }
+                :host {
+                    ${themeColorCss}
+                    ${themeVariables}
+                }
+            `,
+        ];
     }
 }
