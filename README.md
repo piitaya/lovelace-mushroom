@@ -135,6 +135,17 @@ npm run build
 3. Import your file into the [`localize.ts file`](https://github.com/piitaya/lovelace-mushroom/blob/main/src/localize.ts) and add your language in the `languages` record.
 4. Don't forget to test locally with the development server by choosing the language with the Home Assistant UI in your profile.
 
+## Troubleshooting
+
+### I don't see the last changes
+
+1. Check that your Home Assistant version is the latest. Some new Mushroom features can only be visible for the latest Home Assistant version.
+2. Check that you have the latest Mushroom version
+3. Clear your cache :
+  - delete mushroom resources (https://my.home-assistant.io/redirect/lovelace_resources/)
+  - uninstall Mushroom from HACS
+  - reinstall Mushroom from HACS
+
 ## Credits
 
 The design is inspired by [7ahang’s work][7ahang] on Behance and [Ui Lovelace Minimalist][ui-lovelace-minimalist].
