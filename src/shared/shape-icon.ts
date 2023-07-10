@@ -51,12 +51,18 @@ export class ShapeIcon extends LitElement {
                     animation: var(--shape-animation);
                     box-shadow: 0 0 0 1px var(--shape-outline-color);
                 }
+
                 .shape ::slotted(*) {
                     display: flex;
-                    --mdc-icon-size: var(--icon-symbol-size);
                     color: var(--icon-color);
                     transition: color 280ms ease-in-out;
                     animation: var(--icon-animation);
+                }
+                ::slotted(ha-icon),
+                ::slotted(ha-state-icon) {
+                    display: flex;
+                    line-height: 0;
+                    --mdc-icon-size: var(--icon-symbol-size);
                 }
                 .shape.disabled {
                     background-color: var(--shape-color-disabled);

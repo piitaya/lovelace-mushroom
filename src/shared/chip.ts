@@ -77,6 +77,7 @@ export class Chip extends LitElement {
                 ::slotted(ha-icon),
                 ::slotted(ha-state-icon) {
                     display: flex;
+                    line-height: 0;
                     --mdc-icon-size: var(--chip-icon-size);
                     color: var(--icon-color);
                 }
