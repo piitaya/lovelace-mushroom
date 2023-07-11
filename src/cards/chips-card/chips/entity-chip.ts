@@ -14,7 +14,6 @@ import {
     isActive,
 } from "../../../ha";
 import { computeRgbColor } from "../../../utils/colors";
-import { stateIcon } from "../../../utils/icons/state-icon";
 import { computeInfoDisplay } from "../../../utils/info";
 import {
     computeChipComponentName,
@@ -66,7 +65,7 @@ export class EntityChip extends LitElement implements LovelaceChip {
         }
 
         const name = this._config.name || stateObj.attributes.friendly_name || "";
-        const icon = this._config.icon || stateIcon(stateObj);
+        const icon = this._config.icon;
         const iconColor = this._config.icon_color;
 
         const picture = this._config.use_entity_picture ? getEntityPicture(stateObj) : undefined;
@@ -75,17 +74,11 @@ export class EntityChip extends LitElement implements LovelaceChip {
             this.hass.localize,
             stateObj,
             this.hass.locale,
-            this.hass.entities,
-            this.hass.connection.haVersion
+            this.hass.config,
+            this.hass.entities
         );
 
         const active = isActive(stateObj);
-
-        const iconStyle = {};
-        if (iconColor) {
-            const iconRgbColor = computeRgbColor(iconColor);
-            iconStyle["--color"] = `rgb(${iconRgbColor})`;
-        }
 
         const content = computeInfoDisplay(
             this._config.content_info ?? "state",
@@ -108,24 +101,30 @@ export class EntityChip extends LitElement implements LovelaceChip {
                 .avatar=${picture ? (this.hass as any).hassUrl(picture) : undefined}
                 .avatarOnly=${picture && !content}
             >
-                ${!picture ? this.renderIcon(icon, iconColor, active) : nothing}
+                ${!picture ? this.renderIcon(stateObj, icon, iconColor, active) : nothing}
                 ${content ? html`<span>${content}</span>` : nothing}
             </mushroom-chip>
         `;
     }
 
-    renderIcon(icon: string, iconColor: string | undefined, active: boolean): TemplateResult {
+    renderIcon(
+        stateObj: HassEntity,
+        icon: string | undefined,
+        iconColor: string | undefined,
+        active: boolean
+    ): TemplateResult {
         const iconStyle = {};
         if (iconColor) {
             const iconRgbColor = computeRgbColor(iconColor);
             iconStyle["--color"] = `rgb(${iconRgbColor})`;
         }
         return html`
-            <ha-icon
+            <ha-state-icon
+                .state=${stateObj}
                 .icon=${icon}
                 style=${styleMap(iconStyle)}
                 class=${classMap({ active })}
-            ></ha-icon>
+            ></ha-state-icon>
         `;
     }
 
@@ -134,7 +133,7 @@ export class EntityChip extends LitElement implements LovelaceChip {
             mushroom-chip {
                 cursor: pointer;
             }
-            ha-icon.active {
+            ha-state-icon.active {
                 color: var(--color);
             }
         `;

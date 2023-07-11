@@ -47,6 +47,19 @@ Mushroom Better Sliders is available in [HACS][hacs] (Home Assistant Community S
               type: module
         ```
 
+### Merging upstream
+- git fetch upstream
+- git merge vX.X.X (merge release commit)
+- resolve conflicts
+- run npm i to generate package-lock.json
+- npm run start to host
+- Edit Dashboard -> Manage Resources 
+-> Add hosted "http://192.168.x.x:4000/mushroom.js"
+-> Disable current Mushroom (better sliders) resource
+-> Reload
+- Test
+- Create Pull Request
+
 
 <!-- Badges -->
 

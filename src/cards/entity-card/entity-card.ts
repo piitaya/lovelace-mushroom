@@ -25,7 +25,6 @@ import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
 import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { stateIcon } from "../../utils/icons/state-icon";
 import { computeEntityPicture } from "../../utils/info";
 import { ENTITY_CARD_EDITOR_NAME, ENTITY_CARD_NAME } from "./const";
 import { EntityCardConfig } from "./entity-card-config";
@@ -86,7 +85,7 @@ export class EntityCard extends MushroomBaseCard implements LovelaceCard {
         }
 
         const name = this._config.name || stateObj.attributes.friendly_name || "";
-        const icon = this._config.icon || stateIcon(stateObj);
+        const icon = this._config.icon;
         const appearance = computeAppearance(this._config);
 
         const picture = computeEntityPicture(stateObj, appearance.icon_type);
@@ -114,7 +113,7 @@ export class EntityCard extends MushroomBaseCard implements LovelaceCard {
         `;
     }
 
-    renderIcon(stateObj: HassEntity, icon: string): TemplateResult {
+    renderIcon(stateObj: HassEntity, icon?: string): TemplateResult {
         const active = isActive(stateObj);
         const iconStyle = {};
         const iconColor = this._config?.icon_color;
@@ -124,12 +123,9 @@ export class EntityCard extends MushroomBaseCard implements LovelaceCard {
             iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
         }
         return html`
-            <mushroom-shape-icon
-                slot="icon"
-                .disabled=${!active}
-                .icon=${icon}
-                style=${styleMap(iconStyle)}
-            ></mushroom-shape-icon>
+            <mushroom-shape-icon slot="icon" .disabled=${!active} style=${styleMap(iconStyle)}>
+                <ha-state-icon .state=${stateObj} .icon=${icon}></ha-state-icon>
+            </mushroom-shape-icon>
         `;
     }
 

@@ -1,9 +1,6 @@
 import { HassEntity } from "home-assistant-js-websocket";
 import {
-    computeMediaDescription,
-    computeStateDisplay,
     HomeAssistant,
-    MediaPlayerEntity,
     MEDIA_PLAYER_SUPPORT_NEXT_TRACK,
     MEDIA_PLAYER_SUPPORT_PAUSE,
     MEDIA_PLAYER_SUPPORT_PLAY,
@@ -13,12 +10,14 @@ import {
     MEDIA_PLAYER_SUPPORT_STOP,
     MEDIA_PLAYER_SUPPORT_TURN_OFF,
     MEDIA_PLAYER_SUPPORT_TURN_ON,
+    MediaPlayerEntity,
     OFF,
-    supportsFeature,
     UNAVAILABLE,
     UNKNOWN,
+    computeMediaDescription,
+    computeStateDisplay,
+    supportsFeature,
 } from "../../ha";
-import { stateIcon } from "../../utils/icons/state-icon";
 import { MediaPlayerCardConfig, MediaPlayerMediaControl } from "./media-player-card-config";
 
 export function callService(
@@ -51,13 +50,7 @@ export function computeMediaStateDisplay(
     entity: MediaPlayerEntity,
     hass: HomeAssistant
 ): string {
-    let state = computeStateDisplay(
-        hass.localize,
-        entity,
-        hass.locale,
-        hass.entities,
-        hass.connection.haVersion
-    );
+    let state = computeStateDisplay(hass.localize, entity, hass.locale, hass.config, hass.entities);
     if (![UNAVAILABLE, UNKNOWN, OFF].includes(entity.state) && config.use_media_info) {
         return computeMediaDescription(entity) || state;
     }
@@ -70,8 +63,11 @@ export function getVolumeLevel(entity: MediaPlayerEntity) {
         : undefined;
 }
 
-export function computeMediaIcon(config: MediaPlayerCardConfig, entity: MediaPlayerEntity): string {
-    var icon = config.icon || stateIcon(entity);
+export function computeMediaIcon(
+    config: MediaPlayerCardConfig,
+    entity: MediaPlayerEntity
+): string | undefined {
+    var icon = config.icon;
 
     if (![UNAVAILABLE, UNKNOWN, OFF].includes(entity.state) && config.use_media_info) {
         var app = entity.attributes.app_name?.toLowerCase();
@@ -91,7 +87,7 @@ export function computeMediaIcon(config: MediaPlayerCardConfig, entity: MediaPla
             case "netflix":
                 return "mdi:netflix";
             default:
-                return icon;
+                return undefined;
         }
     }
     return icon;

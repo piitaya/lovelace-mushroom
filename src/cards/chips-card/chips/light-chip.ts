@@ -13,7 +13,6 @@ import {
     isActive,
     LightEntity,
 } from "../../../ha";
-import { stateIcon } from "../../../utils/icons/state-icon";
 import { computeInfoDisplay } from "../../../utils/info";
 import {
     computeChipComponentName,
@@ -74,14 +73,14 @@ export class LightChip extends LitElement implements LovelaceChip {
         }
 
         const name = this._config.name || stateObj.attributes.friendly_name || "";
-        const icon = this._config.icon || stateIcon(stateObj);
+        const icon = this._config.icon;
 
         const stateDisplay = computeStateDisplay(
             this.hass.localize,
             stateObj,
             this.hass.locale,
-            this.hass.entities,
-            this.hass.connection.haVersion
+            this.hass.config,
+            this.hass.entities
         );
 
         const active = isActive(stateObj);
@@ -115,11 +114,12 @@ export class LightChip extends LitElement implements LovelaceChip {
                     hasDoubleClick: hasAction(this._config.double_tap_action),
                 })}
             >
-                <ha-icon
+                <ha-state-icon
+                    .state=${stateObj}
                     .icon=${icon}
                     style=${styleMap(iconStyle)}
                     class=${classMap({ active })}
-                ></ha-icon>
+                ></ha-state-icon>
                 ${content ? html`<span>${content}</span>` : nothing}
             </mushroom-chip>
         `;
@@ -133,7 +133,7 @@ export class LightChip extends LitElement implements LovelaceChip {
             mushroom-chip {
                 cursor: pointer;
             }
-            ha-icon.active {
+            ha-state-icon.active {
                 color: var(--color);
             }
         `;

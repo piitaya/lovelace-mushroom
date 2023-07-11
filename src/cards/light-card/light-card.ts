@@ -28,7 +28,6 @@ import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
 import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { stateIcon } from "../../utils/icons/state-icon";
 import { computeEntityPicture } from "../../utils/info";
 import { LIGHT_CARD_EDITOR_NAME, LIGHT_CARD_NAME, LIGHT_ENTITY_DOMAINS } from "./const";
 import "./controls/light-brightness-control";
@@ -176,7 +175,7 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
         }
 
         const name = this._config.name || stateObj.attributes.friendly_name || "";
-        const icon = this._config.icon || stateIcon(stateObj);
+        const icon = this._config.icon;
         const appearance = computeAppearance(this._config);
         const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
@@ -184,8 +183,8 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
             this.hass.localize,
             stateObj,
             this.hass.locale,
-            this.hass.entities,
-            this.hass.connection.haVersion
+            this.hass.config,
+            this.hass.entities
         );
         if (this.brightness != null) {
             stateDisplay = `${this.brightness}${blankBeforePercent(this.hass.locale)}%`;
@@ -222,9 +221,9 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
         `;
     }
 
-    protected renderIcon(entity: LightEntity, icon: string): TemplateResult {
-        const lightRgbColor = getRGBColor(entity);
-        const active = isActive(entity);
+    protected renderIcon(stateObj: LightEntity, icon?: string): TemplateResult {
+        const lightRgbColor = getRGBColor(stateObj);
+        const active = isActive(stateObj);
         const iconStyle = {};
         const iconColor = this._config?.icon_color;
         if (lightRgbColor && this._config?.use_light_color) {
@@ -243,12 +242,9 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
             iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
         }
         return html`
-            <mushroom-shape-icon
-                slot="icon"
-                .disabled=${!active}
-                .icon=${icon}
-                style=${styleMap(iconStyle)}
-            ></mushroom-shape-icon>
+            <mushroom-shape-icon slot="icon" .disabled=${!active} style=${styleMap(iconStyle)}>
+                <ha-state-icon .state=${stateObj} .icon=${icon}></ha-state-icon>
+            </mushroom-shape-icon>
         `;
     }
 

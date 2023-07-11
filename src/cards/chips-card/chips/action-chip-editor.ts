@@ -1,6 +1,5 @@
 import { html, LitElement, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import memoizeOne from "memoize-one";
 import { fireEvent, HomeAssistant } from "../../../ha";
 import setupCustomlocalize from "../../../localize";
 import { computeActionsFormSchema } from "../../../shared/config/actions-config";
@@ -12,19 +11,19 @@ import { ActionChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { DEFAULT_ACTION_ICON } from "./action-chip";
 
-const actions: UiAction[] = ["navigate", "url", "call-service", "none"];
+const actions: UiAction[] = ["navigate", "url", "call-service", "assist", "none"];
 
-const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
+const SCHEMA: HaFormSchema[] = [
     {
         type: "grid",
         name: "",
         schema: [
-            { name: "icon", selector: { icon: { placeholder: icon } } },
+            { name: "icon", selector: { icon: { placeholder: DEFAULT_ACTION_ICON } } },
             { name: "icon_color", selector: { mush_color: {} } },
         ],
     },
     ...computeActionsFormSchema(actions),
-]);
+];
 
 @customElement(computeChipEditorComponentName("action"))
 export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
@@ -50,14 +49,11 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
             return nothing;
         }
 
-        const icon = this._config.icon || DEFAULT_ACTION_ICON;
-        const schema = computeSchema(icon);
-
         return html`
             <ha-form
                 .hass=${this.hass}
                 .data=${this._config}
-                .schema=${schema}
+                .schema=${SCHEMA}
                 .computeLabel=${this._computeLabel}
                 @value-changed=${this._valueChanged}
             ></ha-form>

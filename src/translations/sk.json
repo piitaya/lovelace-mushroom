@@ -85,7 +85,9 @@
             },
             "title": {
                 "title": "Nadpis",
-                "subtitle": "Podnadpis"
+                "subtitle": "Podnadpis",
+                "title_tap_action": "Akcia klepnutia na názov",
+                "subtitle_tap_action": "Akcia klepnutia na titulky"
             },
             "chips": {
                 "alignment": "Zarovnanie"
@@ -98,7 +100,10 @@
                 "show_buttons_control": "Zobraziť ovládacie tlačidlá?"
             },
             "vacuum": {
-                "commands": "Príkazy"
+                "commands": "Príkazy",
+                "commands_list": {
+                    "on_off": "Zapnúť/Vypnúť"
+                }
             },
             "media-player": {
                 "use_media_info": "Použiť info o médiu",
@@ -131,7 +136,15 @@
             "climate": {
                 "show_temperature_control": "Ovládanie teploty?",
                 "hvac_modes": "HVAC mód"
-            }
+            },
+            "number": {
+                "display_mode": "Režim zobrazenia",
+                "display_mode_list": {
+                    "default": "Predvolené (posúvač)",
+                    "slider": "Posúvač",
+                    "buttons": "Tlačidlá"
+                }
+            }                    
         },
         "chip": {
             "sub_element_editor": {
@@ -150,14 +163,17 @@
                     "action": "Akcia",
                     "alarm-control-panel": "Alarm",
                     "back": "Späť",
-                    "conditional": "Podmienka",
+                    "conditional": "Podmienené",
                     "entity": "Entita",
                     "light": "Svetlo",
-                    "menu": "Menu",
+                    "menu": "Medzera",
                     "template": "Šablóna",
                     "weather": "Počasie"
                 }
             }
         }
+    },
+    "card": {
+        "not_found": "Entita nenájdená"
     }
 }

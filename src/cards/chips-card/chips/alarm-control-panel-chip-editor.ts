@@ -1,21 +1,19 @@
 import { html, LitElement, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import memoizeOne from "memoize-one";
 import { fireEvent, HomeAssistant } from "../../../ha";
 import setupCustomlocalize from "../../../localize";
 import { computeActionsFormSchema } from "../../../shared/config/actions-config";
 import { GENERIC_LABELS } from "../../../utils/form/generic-fields";
 import { HaFormSchema } from "../../../utils/form/ha-form";
 import { UiAction } from "../../../utils/form/ha-selector";
-import { stateIcon } from "../../../utils/icons/state-icon";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
 import { AlarmControlPanelChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { ALARM_CONTROl_PANEL_ENTITY_DOMAINS } from "../../alarm-control-panel-card/const";
 
-const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "none"];
+const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "assist", "none"];
 
-const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
+const SCHEMA: HaFormSchema[] = [
     { name: "entity", selector: { entity: { domain: ALARM_CONTROl_PANEL_ENTITY_DOMAINS } } },
     {
         type: "grid",
@@ -25,9 +23,9 @@ const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
             { name: "content_info", selector: { mush_info: {} } },
         ],
     },
-    { name: "icon", selector: { icon: { placeholder: icon } } },
+    { name: "icon", selector: { icon: {} }, context: { icon_entity: "entity" } },
     ...computeActionsFormSchema(actions),
-]);
+];
 
 @customElement(computeChipEditorComponentName("alarm-control-panel"))
 export class AlarmControlPanelChipEditor extends LitElement implements LovelaceChipEditor {
@@ -53,16 +51,11 @@ export class AlarmControlPanelChipEditor extends LitElement implements LovelaceC
             return nothing;
         }
 
-        const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
-        const entityIcon = entityState ? stateIcon(entityState) : undefined;
-        const icon = this._config.icon || entityIcon;
-        const schema = computeSchema(icon);
-
         return html`
             <ha-form
                 .hass=${this.hass}
                 .data=${this._config}
-                .schema=${schema}
+                .schema=${SCHEMA}
                 .computeLabel=${this._computeLabel}
                 @value-changed=${this._valueChanged}
             ></ha-form>

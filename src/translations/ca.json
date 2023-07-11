@@ -85,7 +85,9 @@
             },
             "title": {
                 "title": "Títol",
-                "subtitle": "Subtítol"
+                "subtitle": "Subtítol",
+                "title_tap_action": "Acció en tocar el títol",
+                "subtitle_tap_action": "Acció en tocar el subtítol"
             },
             "chips": {
                 "alignment": "Alineació"
@@ -134,6 +136,14 @@
             "climate": {
                 "show_temperature_control": "Control de temperatura?",
                 "hvac_modes": "Modes HVAC"
+            },
+            "number": {
+                "display_mode": "Mode de visualització",
+                "display_mode_list": {
+                    "default": "Per defecte (lliscant)",
+                    "slider": "Lliscant",
+                    "buttons": "Botons"
+                }
             }
         },
         "chip": {

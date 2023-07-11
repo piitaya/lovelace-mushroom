@@ -24,7 +24,6 @@ import { computeAppearance } from "../../utils/appearance";
 import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { stateIcon } from "../../utils/icons/state-icon";
 import { computeEntityPicture } from "../../utils/info";
 import { VACUUM_CARD_EDITOR_NAME, VACUUM_CARD_NAME, VACUUM_ENTITY_DOMAINS } from "./const";
 import "./controls/vacuum-commands-control";
@@ -89,7 +88,7 @@ export class VacuumCard extends MushroomBaseCard implements LovelaceCard {
         }
 
         const name = this._config.name || stateObj.attributes.friendly_name || "";
-        const icon = this._config.icon || stateIcon(stateObj);
+        const icon = this._config.icon;
         const appearance = computeAppearance(this._config);
         const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
@@ -131,7 +130,7 @@ export class VacuumCard extends MushroomBaseCard implements LovelaceCard {
         `;
     }
 
-    protected renderIcon(stateObj: HassEntity, icon: string): TemplateResult {
+    protected renderIcon(stateObj: HassEntity, icon?: string): TemplateResult {
         return html`
             <mushroom-shape-icon
                 slot="icon"
@@ -141,7 +140,8 @@ export class VacuumCard extends MushroomBaseCard implements LovelaceCard {
                 })}
                 style=${styleMap({})}
                 .disabled=${!isActive(stateObj)}
-                .icon=${icon}
+            >
+                <ha-state-icon .state=${stateObj} .icon=${icon}></ha-state-icon
             ></mushroom-shape-icon>
         `;
     }

@@ -27,7 +27,6 @@ import { computeAppearance } from "../../utils/appearance";
 import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { stateIcon } from "../../utils/icons/state-icon";
 import { computeEntityPicture } from "../../utils/info";
 import { FAN_CARD_EDITOR_NAME, FAN_CARD_NAME, FAN_ENTITY_DOMAINS } from "./const";
 import "./controls/fan-oscillate-control";
@@ -120,7 +119,7 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
         }
 
         const name = this._config.name || stateObj.attributes.friendly_name || "";
-        const icon = this._config.icon || stateIcon(stateObj);
+        const icon = this._config.icon;
         const appearance = computeAppearance(this._config);
         const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
@@ -128,8 +127,8 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
             this.hass.localize,
             stateObj,
             this.hass.locale,
-            this.hass.entities,
-            this.hass.connection.haVersion
+            this.hass.config,
+            this.hass.entities
         );
         if (this.percentage != null) {
             stateDisplay = `${this.percentage}${blankBeforePercent(this.hass.locale)}%`;
@@ -185,7 +184,7 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
         `;
     }
 
-    protected renderIcon(stateObj: HassEntity, icon: string): TemplateResult {
+    protected renderIcon(stateObj: HassEntity, icon?: string): TemplateResult {
         let iconStyle = {};
         const percentage = getPercentage(stateObj);
         const active = isActive(stateObj);
@@ -206,8 +205,9 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
                 })}
                 style=${styleMap(iconStyle)}
                 .disabled=${!active}
-                .icon=${icon}
-            ></mushroom-shape-icon>
+            >
+                <ha-state-icon .state=${stateObj} .icon=${icon}></ha-state-icon>
+            </mushroom-shape-icon>
         `;
     }
 
@@ -225,9 +225,6 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
                 }
                 mushroom-shape-icon.spin {
                     --icon-animation: var(--animation-duration) infinite linear spin;
-                }
-                mushroom-shape-icon ha-icon {
-                    color: red !important;
                 }
                 mushroom-fan-percentage-control {
                     flex: 1;

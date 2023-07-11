@@ -41,11 +41,9 @@ export class MushroomBaseCard extends MushroomBaseElement {
             <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
                 <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
                     <mushroom-state-item ?rtl=${rtl} .appearance=${appearance} disabled>
-                        <mushroom-shape-icon
-                            slot="icon"
-                            disabled
-                            icon="mdi:help"
-                        ></mushroom-shape-icon>
+                        <mushroom-shape-icon slot="icon" disabled>
+                            <ha-icon icon="mdi:help"></ha-icon>
+                        </mushroom-shape-icon>
                         <mushroom-badge-icon
                             slot="badge"
                             class="not-found"
@@ -62,13 +60,11 @@ export class MushroomBaseCard extends MushroomBaseElement {
         `;
     }
 
-    protected renderIcon(stateObj: HassEntity, icon: string): TemplateResult {
+    protected renderIcon(stateObj: HassEntity, icon?: string): TemplateResult {
         const active = isActive(stateObj);
         return html`
-            <mushroom-shape-icon
-                slot="icon"
-                .disabled=${!active}
-                .icon=${icon}
+            <mushroom-shape-icon slot="icon" .disabled=${!active}>
+                <ha-state-icon .state=${stateObj} .icon=${icon}></ha-state-icon
             ></mushroom-shape-icon>
         `;
     }
@@ -96,8 +92,8 @@ export class MushroomBaseCard extends MushroomBaseElement {
             this.hass.localize,
             stateObj,
             this.hass.locale,
-            this.hass.entities,
-            this.hass.connection.haVersion
+            this.hass.config,
+            this.hass.entities
         );
         const displayState = state ?? defaultState;
 

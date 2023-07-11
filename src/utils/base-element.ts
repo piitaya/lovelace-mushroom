@@ -7,8 +7,9 @@ import "../shared/shape-avatar";
 import "../shared/shape-icon";
 import "../shared/state-info";
 import "../shared/state-item";
+import { animations } from "../utils/entity-styles";
 import { defaultColorCss, defaultDarkColorCss } from "./colors";
-import { themeVariables, themeColorCss } from "./theme";
+import { themeColorCss, themeVariables } from "./theme";
 
 export function computeDarkMode(hass?: HomeAssistant): boolean {
     if (!hass) return false;
@@ -29,17 +30,20 @@ export class MushroomBaseElement extends LitElement {
     }
 
     static get styles(): CSSResultGroup {
-        return css`
-            :host {
-                ${defaultColorCss}
-            }
-            :host([dark-mode]) {
-                ${defaultDarkColorCss}
-            }
-            :host {
-                ${themeColorCss}
-                ${themeVariables}
-            }
-        `;
+        return [
+            animations,
+            css`
+                :host {
+                    ${defaultColorCss}
+                }
+                :host([dark-mode]) {
+                    ${defaultDarkColorCss}
+                }
+                :host {
+                    ${themeColorCss}
+                    ${themeVariables}
+                }
+            `,
+        ];
     }
 }
