@@ -73,7 +73,7 @@ export class CoverTiltPositionControl extends LitElement {
             mushroom-slider {
                 --main-color: var(--slider-color);
                 --bg-color: var(--slider-bg-color);
-                --gradient: -webkit-linear-gradient(left, ${unsafeCSS(gradient)});
+                --gradient: -webkit-linear-gradient(right, ${unsafeCSS(gradient)});
             }
         `;
     }
