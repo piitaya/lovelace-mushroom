@@ -223,8 +223,8 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
                     --icon-color: rgb(var(--rgb-state-fan));
                     --shape-color: rgba(var(--rgb-state-fan), 0.2);
                 }
-                mushroom-shape-icon.spin {
-                    --icon-animation: var(--animation-duration) infinite linear spin;
+                .spin ha-state-icon {
+                    animation: var(--animation-duration) infinite linear spin;
                 }
                 mushroom-fan-percentage-control {
                     flex: 1;
