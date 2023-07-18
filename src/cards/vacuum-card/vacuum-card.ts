@@ -158,11 +158,11 @@ export class VacuumCard extends MushroomBaseCard implements LovelaceCard {
                     --icon-color: rgb(var(--rgb-state-vacuum));
                     --shape-color: rgba(var(--rgb-state-vacuum), 0.2);
                 }
-                mushroom-shape-icon.cleaning {
-                    --icon-animation: 5s infinite linear cleaning;
+                .cleaning ha-state-icon {
+                    animation: 5s infinite linear cleaning;
                 }
-                mushroom-shape-icon.returning {
-                    --icon-animation: 2s infinite linear returning;
+                .cleaning ha-state-icon {
+                    animation: 2s infinite linear returning;
                 }
                 mushroom-vacuum-commands-control {
                     flex: 1;

@@ -28,7 +28,6 @@ export class ShapeIcon extends LitElement {
                 :host {
                     --icon-color: var(--primary-text-color);
                     --icon-color-disabled: rgb(var(--rgb-disabled));
-                    --icon-animation: none;
                     --shape-color: rgba(var(--rgb-primary-text-color), 0.05);
                     --shape-color-disabled: rgba(var(--rgb-disabled), 0.2);
                     --shape-animation: none;
@@ -56,7 +55,6 @@ export class ShapeIcon extends LitElement {
                     display: flex;
                     color: var(--icon-color);
                     transition: color 280ms ease-in-out;
-                    animation: var(--icon-animation);
                 }
                 ::slotted(ha-icon),
                 ::slotted(ha-state-icon) {
