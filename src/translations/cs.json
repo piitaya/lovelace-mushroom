@@ -56,7 +56,7 @@
             },
             "light": {
                 "show_brightness_control": "Ovládání jasu?",
-                "use_light_color": "Použít ovládání světla",
+                "use_light_color": "Ikona podle barvy světla?",
                 "show_color_temp_control": "Ovládání teploty světla?",
                 "show_color_control": "Ovládání barvy světla?",
                 "incompatible_controls": "Některé ovládací prvky se nemusí zobrazit, pokud vaše světlo tuto funkci nepodporuje."
