@@ -144,6 +144,7 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
 
         const name = this._config.name || stateObj.attributes.friendly_name || "";
         const icon = this._config.icon;
+        const showTargetTemperature = this._config.show_target_temperature
         const appearance = computeAppearance(this._config);
         const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
@@ -154,6 +155,12 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
             this.hass.config,
             this.hass.entities
         );
+
+        if (showTargetTemperature && stateObj.state !== "off") {
+            const targetTemperature = this._computeTarget(stateObj);
+            stateDisplay += ` (${targetTemperature})`;
+        }
+
         if (stateObj.attributes.current_temperature !== null) {
             const temperature = formatNumber(
                 stateObj.attributes.current_temperature,
@@ -292,4 +299,52 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
             `,
         ];
     }
+
+    // ported from https://github.com/home-assistant/frontend/blob/d3ba19b0e00de1de14b4a17b331210325de8614e/src/components/ha-climate-state.ts#L43
+    private _computeTarget(stateObj: ClimateEntity): string {
+        if (!this.hass || !stateObj) {
+          return "";
+        }
+    
+        if (
+          stateObj.attributes.target_temp_low != null &&
+          stateObj.attributes.target_temp_high != null
+        ) {
+          return `${formatNumber(
+            stateObj.attributes.target_temp_low,
+            this.hass.locale
+          )}-${formatNumber(
+            stateObj.attributes.target_temp_high,
+            this.hass.locale
+          )} ${this.hass.config.unit_system.temperature}`;
+        }
+    
+        if (stateObj.attributes.temperature != null) {
+          return `${formatNumber(
+            stateObj.attributes.temperature,
+            this.hass.locale
+          )} ${this.hass.config.unit_system.temperature}`;
+        }
+        if (
+          stateObj.attributes.target_humidity_low != null &&
+          stateObj.attributes.target_humidity_high != null
+        ) {
+          return `${formatNumber(
+            stateObj.attributes.target_humidity_low,
+            this.hass.locale
+          )}-${formatNumber(
+            stateObj.attributes.target_humidity_high,
+            this.hass.locale
+          )} %`;
+        }
+    
+        if (stateObj.attributes.humidity != null) {
+          return `${formatNumber(
+            stateObj.attributes.humidity,
+            this.hass.locale
+          )} %`;
+        }
+    
+        return "";
+      }
 }
