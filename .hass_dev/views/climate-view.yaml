@@ -1,0 +1,49 @@
+title: Climate
+icon: mdi:home-thermometer
+cards:
+  - type: grid
+    title: Basic
+    cards:
+      - type: custom:mushroom-climate-card
+        entity: climate.ecobee
+        show_target_temperature: true
+      - type: custom:mushroom-climate-card
+        entity: climate.heatpump
+        show_target_temperature: true
+      - type: custom:mushroom-climate-card
+        entity: climate.hvac
+        show_target_temperature: true
+    columns: 2
+    square: false
+  - type: grid
+    title: Controls
+    cards:
+      - type: custom:mushroom-climate-card
+        entity: climate.ecobee
+        name: Percentage control
+        show_temperature_control: true
+      - type: custom:mushroom-climate-card
+        entity: climate.hvac
+        name: Multiple controls
+        show_temperature_control: true
+        hvac_modes: 
+          - auto
+          - heat_cool
+          - heat
+          - cool
+          - dry
+          - fan_only
+      - type: custom:mushroom-climate-card
+        entity: climate.hvac
+        name: Collapsible controls
+        show_temperature_control: true
+        hvac_modes: 
+          - auto
+          - heat_cool
+          - heat
+          - cool
+          - dry
+          - fan_only
+        collapsible_controls: true
+    columns: 2
+    square: false
