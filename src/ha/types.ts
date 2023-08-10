@@ -1,15 +1,16 @@
-import {
+import type {
     Auth,
     Connection,
     HassConfig,
     HassEntities,
+    HassEntity,
     HassServices,
     HassServiceTarget,
     MessageBase,
 } from "home-assistant-js-websocket";
-import { LocalizeFunc } from "./common/translations/localize";
-import { FrontendLocaleData, TranslationCategory } from "./data/translation";
-import { Themes } from "./data/ws-themes";
+import type { LocalizeFunc } from "./common/translations/localize";
+import type { FrontendLocaleData, TranslationCategory } from "./data/translation";
+import type { Themes } from "./data/ws-themes";
 
 declare global {
     /* eslint-disable no-var, no-redeclare */
@@ -216,6 +217,9 @@ export interface HomeAssistant {
         integration?: string | string[],
         configFlow?: boolean
     ): Promise<LocalizeFunc>;
+    formatEntityState(stateObj: HassEntity, state?: string): string;
+    formatEntityAttributeValue(stateObj: HassEntity, attribute: string, value?: string): string;
+    formatEntityAttributeName(stateObj: HassEntity, attribute: string): string;
 }
 
 export type Constructor<T = any> = new (...args: any[]) => T;

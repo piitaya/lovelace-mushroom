@@ -50,7 +50,9 @@ export function computeMediaStateDisplay(
     entity: MediaPlayerEntity,
     hass: HomeAssistant
 ): string {
-    let state = computeStateDisplay(hass.localize, entity, hass.locale, hass.config, hass.entities);
+    let state = hass.formatEntityState
+        ? hass.formatEntityState(entity)
+        : computeStateDisplay(hass.localize, entity, hass.locale, hass.config, hass.entities);
     if (![UNAVAILABLE, UNKNOWN, OFF].includes(entity.state) && config.use_media_info) {
         return computeMediaDescription(entity) || state;
     }

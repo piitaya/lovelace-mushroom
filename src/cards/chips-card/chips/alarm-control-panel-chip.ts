@@ -77,13 +77,15 @@ export class AlarmControlPanelChip extends LitElement implements LovelaceChip {
         const iconColor = getStateColor(stateObj.state);
         const iconPulse = shouldPulse(stateObj.state);
 
-        const stateDisplay = computeStateDisplay(
-            this.hass.localize,
-            stateObj,
-            this.hass.locale,
-            this.hass.config,
-            this.hass.entities
-        );
+        const stateDisplay = this.hass.formatEntityState
+            ? this.hass.formatEntityState(stateObj)
+            : computeStateDisplay(
+                  this.hass.localize,
+                  stateObj,
+                  this.hass.locale,
+                  this.hass.config,
+                  this.hass.entities
+              );
 
         const iconStyle = {};
         if (iconColor) {
