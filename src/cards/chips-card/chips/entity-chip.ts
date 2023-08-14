@@ -70,13 +70,15 @@ export class EntityChip extends LitElement implements LovelaceChip {
 
         const picture = this._config.use_entity_picture ? getEntityPicture(stateObj) : undefined;
 
-        const stateDisplay = computeStateDisplay(
-            this.hass.localize,
-            stateObj,
-            this.hass.locale,
-            this.hass.config,
-            this.hass.entities
-        );
+        const stateDisplay = this.hass.formatEntityState
+            ? this.hass.formatEntityState(stateObj)
+            : computeStateDisplay(
+                  this.hass.localize,
+                  stateObj,
+                  this.hass.locale,
+                  this.hass.config,
+                  this.hass.entities
+              );
 
         const active = isActive(stateObj);
 
