@@ -28,7 +28,7 @@ const states = ["armed_home", "armed_away", "armed_night", "armed_vacation", "ar
 const ALARM_CONTROL_PANEL_LABELS = ["show_keypad", "always", "never"];
 
 const computeSchema = memoizeOne(
-    (localize: LocalizeFunc, customLocalize: LocalizeFunc, icon?: string): HaFormSchema[] => [
+    (localize: LocalizeFunc, customLocalize: LocalizeFunc): HaFormSchema[] => [
         { name: "entity", selector: { entity: { domain: ALARM_CONTROl_PANEL_ENTITY_DOMAINS } } },
         { name: "name", selector: { text: {} } },
         { name: "icon", selector: { icon: {} }, context: { icon_entity: "entity" } },
@@ -72,14 +72,7 @@ export class SwitchCardEditor extends MushroomBaseElement implements LovelaceCar
             return nothing;
         }
 
-<<<<<<< HEAD
-        const schema = computeSchema(this.hass!.localize);
-=======
-        const entityState = this._config.entity ? this.hass.states[this._config.entity] : undefined;
-        const entityIcon = entityState ? stateIcon(entityState) : undefined;
-        const icon = this._config.icon || entityIcon;
-        const schema = computeSchema(this.hass!.localize, setupCustomlocalize(this.hass!), icon);
->>>>>>> af1b875 (Change approach to use select instead of two booleans)
+        const schema = computeSchema(this.hass!.localize, setupCustomlocalize(this.hass!));
 
         return html`
             <ha-form
