@@ -166,7 +166,8 @@
                     "conditional": "Podmienené",
                     "entity": "Entita",
                     "light": "Svetlo",
-                    "menu": "Medzera",
+                    "menu": "menu",
+                    "spacer": "Medzera",                    
                     "template": "Šablóna",
                     "weather": "Počasie"
                 }
