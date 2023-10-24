@@ -1,7 +1,7 @@
 import type { MDCTabBarActivatedEvent } from "@material/tab-bar";
 import { css, CSSResultGroup, html, LitElement, nothing } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
-import { fireEvent, HASSDomEvent, HomeAssistant, LovelaceConfig } from "../../../ha";
+import { computeRTL, fireEvent, HASSDomEvent, HomeAssistant, LovelaceConfig } from "../../../ha";
 import setupCustomlocalize from "../../../localize";
 import "../../../shared/form/mushroom-select";
 import "../../../shared/form/mushroom-textfield";
@@ -16,7 +16,7 @@ import { GUIModeChangedEvent } from "../../../utils/lovelace/editor/types";
 import { ConfigChangedEvent } from "../../../utils/lovelace/element-editor";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 
-@customElement(computeChipEditorComponentName("conditional"))
+@customElement(`${computeChipEditorComponentName("conditional")}-legacy`)
 export class ConditionalChipEditor extends LitElement implements LovelaceChipEditor {
     @property({ attribute: false }) public hass?: HomeAssistant;
 
@@ -47,6 +47,8 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
         }
 
         const customLocalize = setupCustomlocalize(this.hass);
+
+        const rtl = computeRTL(this.hass);
 
         return html`
             <mwc-tab-bar
@@ -114,11 +116,76 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
                       </div>
                   `
                 : html`
-                      <ha-card-conditions-editor
-                          .hass=${this.hass}
-                          .conditions=${this._config.conditions}
-                          @value-changed=${this._conditionChanged}
-                      ></ha-card-conditions-editor>
+                      <div class="conditions">
+                          ${this.hass!.localize(
+                              "ui.panel.lovelace.editor.card.conditional.condition_explanation"
+                          )}
+                          ${this._config.conditions.map((cond, idx) => {
+                              const stateObj = this.hass!.states[cond.entity];
+                              return html`
+                                  <div class="condition" ?rtl=${rtl}>
+                                      <div class="entity">
+                                          <ha-entity-picker
+                                              .hass=${this.hass}
+                                              .value=${cond.entity}
+                                              .idx=${idx}
+                                              .configValue=${"entity"}
+                                              @change=${this._changeCondition}
+                                              allow-custom-entity
+                                          ></ha-entity-picker>
+                                      </div>
+                                      <div class="state">
+                                          <mushroom-select
+                                              .value=${cond.state_not !== undefined
+                                                  ? "true"
+                                                  : "false"}
+                                              .idx=${idx}
+                                              .configValue=${"invert"}
+                                              @selected=${this._changeCondition}
+                                              @closed=${(e) => e.stopPropagation()}
+                                              naturalMenuWidth
+                                              fixedMenuPosition
+                                          >
+                                              <mwc-list-item value="false">
+                                                  ${this.hass!.localize(
+                                                      "ui.panel.lovelace.editor.card.conditional.state_equal"
+                                                  )}
+                                              </mwc-list-item>
+                                              <mwc-list-item value="true">
+                                                  ${this.hass!.localize(
+                                                      "ui.panel.lovelace.editor.card.conditional.state_not_equal"
+                                                  )}
+                                              </mwc-list-item>
+                                          </mushroom-select>
+                                          <mushroom-textfield
+                                              .label=${`${this.hass!.localize(
+                                                  "ui.panel.lovelace.editor.card.generic.state"
+                                              )} ${
+                                                  stateObj
+                                                      ? `(${this.hass!.localize(
+                                                            "ui.panel.lovelace.editor.card.conditional.current_state"
+                                                        )}: ${stateObj.state})`
+                                                      : ""
+                                              }`}
+                                              .value=${cond.state_not !== undefined
+                                                  ? cond.state_not
+                                                  : cond.state}
+                                              .idx=${idx}
+                                              .configValue=${"state"}
+                                              @input=${this._changeCondition}
+                                          >
+                                          </mushroom-textfield>
+                                      </div>
+                                  </div>
+                              `;
+                          })}
+                          <div class="condition">
+                              <ha-entity-picker
+                                  .hass=${this.hass}
+                                  @change=${this._addCondition}
+                              ></ha-entity-picker>
+                          </div>
+                      </div>
                   `}
         `;
     }
@@ -196,12 +263,52 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
         fireEvent(this, "config-changed", { config: this._config });
     }
 
-    private _conditionChanged(ev: CustomEvent) {
-        ev.stopPropagation();
-        if (!this._config) {
+    private _addCondition(ev: Event): void {
+        const target = ev.target! as any;
+        if (target.value === "" || !this._config) {
             return;
         }
-        const conditions = ev.detail.value;
+        const conditions = [...this._config.conditions];
+        conditions.push({
+            entity: target.value,
+            state: "",
+        });
+        this._config = { ...this._config, conditions };
+        target.value = "";
+        fireEvent(this, "config-changed", { config: this._config });
+    }
+
+    private _changeCondition(ev: Event): void {
+        const target = ev.target as any;
+        if (!this._config || !target) {
+            return;
+        }
+        const conditions = [...this._config.conditions];
+        if (target.configValue === "entity" && !target.value) {
+            conditions.splice(target.idx, 1);
+        } else {
+            const condition = { ...conditions[target.idx] };
+            if (target.configValue === "entity") {
+                condition.entity = target.value;
+            } else if (target.configValue === "state") {
+                if (condition.state_not !== undefined) {
+                    condition.state_not = target.value;
+                } else {
+                    condition.state = target.value;
+                }
+            } else if (target.configValue === "invert") {
+                if (target.value === "true") {
+                    if (condition.state) {
+                        condition.state_not = condition.state;
+                        delete condition.state;
+                    }
+                } else if (condition.state_not) {
+                    condition.state = condition.state_not;
+                    delete condition.state_not;
+                }
+            }
+            conditions[target.idx] = condition;
+        }
         this._config = { ...this._config, conditions };
         fireEvent(this, "config-changed", { config: this._config });
     }
@@ -210,6 +317,25 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
         return css`
             mwc-tab-bar {
                 border-bottom: 1px solid var(--divider-color);
+            }
+            .conditions {
+                margin-top: 8px;
+            }
+            .condition {
+                margin-top: 8px;
+                border: 1px solid var(--divider-color);
+                padding: 12px;
+            }
+            .condition .state {
+                display: flex;
+                align-items: flex-end;
+            }
+            .condition .state mushroom-select {
+                margin-right: 16px;
+            }
+            .condition[rtl] .state mushroom-select {
+                margin-right: initial;
+                margin-left: 16px;
             }
             .card {
                 margin-top: 8px;
@@ -221,7 +347,8 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
                 margin-top: 0px;
             }
             @media (max-width: 450px) {
-                .card {
+                .card,
+                .condition {
                     margin: 8px -12px 0;
                 }
             }
