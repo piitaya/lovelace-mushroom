@@ -1,4 +1,4 @@
-import { ActionConfig, Condition, HomeAssistant } from "../../../ha";
+import { ActionConfig, HomeAssistant } from "../../../ha";
 import { Info } from "../../info";
 
 export interface LovelaceChip extends HTMLElement {
@@ -77,7 +77,7 @@ export type TemplateChipConfig = {
 export interface ConditionalChipConfig {
     type: "conditional";
     chip?: LovelaceChipConfig;
-    conditions: Condition[];
+    conditions: any[];
 }
 
 export type LightChipConfig = {

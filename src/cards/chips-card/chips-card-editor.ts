@@ -74,16 +74,10 @@ const weatherChipConfigStruct = object({
     show_conditions: optional(boolean()),
 });
 
-const conditionStruct = object({
-    entity: string(),
-    state: optional(string()),
-    state_not: optional(string()),
-});
-
 const conditionChipConfigStruct = object({
     type: literal("conditional"),
     chip: optional(any()),
-    conditions: optional(array(conditionStruct)),
+    conditions: optional(array(any())),
 });
 
 const lightChipConfigStruct = object({

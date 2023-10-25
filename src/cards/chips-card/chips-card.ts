@@ -1,5 +1,5 @@
 import { css, CSSResultGroup, html, LitElement, nothing } from "lit";
-import { customElement, state } from "lit/decorators.js";
+import { customElement, property, state } from "lit/decorators.js";
 import {
     computeRTL,
     HomeAssistant,
@@ -13,7 +13,7 @@ import { registerCustomCard } from "../../utils/custom-cards";
 import { createChipElement } from "../../utils/lovelace/chip/chip-element";
 import { LovelaceChip, LovelaceChipConfig } from "../../utils/lovelace/chip/types";
 import "./chips";
-import { EntityChip } from "./chips";
+import { EntityChip } from "./chips/entity-chip";
 import { CHIPS_CARD_EDITOR_NAME, CHIPS_CARD_NAME } from "./const";
 
 export interface ChipsCardConfig extends LovelaceCardConfig {
@@ -41,6 +41,8 @@ export class ChipsCard extends LitElement implements LovelaceCard {
             chips,
         };
     }
+
+    @property() public editMode?: boolean;
 
     @state() private _config?: ChipsCardConfig;
 
@@ -94,6 +96,7 @@ export class ChipsCard extends LitElement implements LovelaceCard {
         }
         if (this._hass) {
             element.hass = this._hass;
+            element.editMode = this.editMode;
         }
         return html`${element}`;
     }
