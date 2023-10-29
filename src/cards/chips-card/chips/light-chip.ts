@@ -1,4 +1,4 @@
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, LitElement, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -13,7 +13,6 @@ import {
     isActive,
     LightEntity,
 } from "../../../ha";
-import { stateIcon } from "../../../utils/icons/state-icon";
 import { computeInfoDisplay } from "../../../utils/info";
 import {
     computeChipComponentName,
@@ -61,28 +60,34 @@ export class LightChip extends LitElement implements LovelaceChip {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this.hass || !this._config || !this._config.entity) {
-            return html``;
+            return nothing;
         }
 
-        const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id] as LightEntity;
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as LightEntity | undefined;
 
-        const name = this._config.name || entity.attributes.friendly_name || "";
-        const icon = this._config.icon || stateIcon(entity);
+        if (!stateObj) {
+            return nothing;
+        }
 
-        const stateDisplay = computeStateDisplay(
-            this.hass.localize,
-            entity,
-            this.hass.locale,
-            this.hass.entities,
-            this.hass.connection.haVersion,
-        );
+        const name = this._config.name || stateObj.attributes.friendly_name || "";
+        const icon = this._config.icon;
 
-        const active = isActive(entity);
+        const stateDisplay = this.hass.formatEntityState
+            ? this.hass.formatEntityState(stateObj)
+            : computeStateDisplay(
+                  this.hass.localize,
+                  stateObj,
+                  this.hass.locale,
+                  this.hass.config,
+                  this.hass.entities
+              );
 
-        const lightRgbColor = getRGBColor(entity);
+        const active = isActive(stateObj);
+
+        const lightRgbColor = getRGBColor(stateObj);
         const iconStyle = {};
         if (lightRgbColor && this._config?.use_light_color) {
             const color = lightRgbColor.join(",");
@@ -96,7 +101,7 @@ export class LightChip extends LitElement implements LovelaceChip {
             this._config.content_info ?? "state",
             name,
             stateDisplay,
-            entity,
+            stateObj,
             this.hass
         );
 
@@ -111,12 +116,13 @@ export class LightChip extends LitElement implements LovelaceChip {
                     hasDoubleClick: hasAction(this._config.double_tap_action),
                 })}
             >
-                <ha-icon
+                <ha-state-icon
+                    .state=${stateObj}
                     .icon=${icon}
                     style=${styleMap(iconStyle)}
                     class=${classMap({ active })}
-                ></ha-icon>
-                ${content ? html`<span>${content}</span>` : null}
+                ></ha-state-icon>
+                ${content ? html`<span>${content}</span>` : nothing}
             </mushroom-chip>
         `;
     }
@@ -129,7 +135,7 @@ export class LightChip extends LitElement implements LovelaceChip {
             mushroom-chip {
                 cursor: pointer;
             }
-            ha-icon.active {
+            ha-state-icon.active {
                 color: var(--color);
             }
         `;

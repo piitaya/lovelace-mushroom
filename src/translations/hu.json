@@ -167,10 +167,14 @@
                     "entity": "Entitás",
                     "light": "Fényforrás",
                     "menu": "Menü",
+                    "spacer": "Térköz",
                     "template": "Sablon",
                     "weather": "Időjárás"
                 }
             }
         }
+    },
+    "card": {
+        "not_found": "Entitás nem található"
     }
 }

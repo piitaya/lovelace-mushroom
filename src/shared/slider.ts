@@ -1,4 +1,12 @@
-import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
+import {
+    css,
+    CSSResultGroup,
+    html,
+    LitElement,
+    nothing,
+    PropertyValues,
+    TemplateResult,
+} from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -171,8 +179,10 @@ export class SliderItem extends LitElement {
                     })}
                 >
                     <div class="slider-track-background"></div>
-                    ${this.showActive ? html`<div class="slider-track-active"></div>` : null}
-                    ${this.showIndicator ? html`<div class="slider-track-indicator"></div>` : null}
+                    ${this.showActive ? html`<div class="slider-track-active"></div>` : nothing}
+                    ${this.showIndicator
+                        ? html`<div class="slider-track-indicator"></div>`
+                        : nothing}
                 </div>
             </div>
         `;

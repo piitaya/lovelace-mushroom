@@ -3,12 +3,12 @@
         "form": {
             "color_picker": {
                 "values": {
-                    "default": "Цвет по-умолчанию"
+                    "default": "Цвет по умолчанию"
                 }
             },
             "info_picker": {
                 "values": {
-                    "default": "По-умолчанию",
+                    "default": "По умолчанию",
                     "name": "Имя",
                     "state": "Статус",
                     "last-changed": "Последнее изменение",
@@ -18,7 +18,7 @@
             },
             "icon_type_picker": {
                 "values": {
-                    "default": "По-умолчанию",
+                    "default": "По умолчанию",
                     "icon": "Иконка",
                     "entity-picture": "Изображение",
                     "none": "Нет"
@@ -26,17 +26,17 @@
             },
             "layout_picker": {
                 "values": {
-                    "default": "Расположение по-умолчанию",
+                    "default": "Расположение по умолчанию",
                     "vertical": "Вертикальное расположение",
                     "horizontal": "Горизонтальное расположение"
                 }
             },
             "alignment_picker": {
                 "values": {
-                    "default": "Выравнивание по-умолчанию",
-                    "start": "По правому краю",
-                    "end": "По левому краю",
-                    "center": "По-центру",
+                    "default": "Выравнивание по умолчанию",
+                    "start": "К началу",
+                    "end": "К концу",
+                    "center": "По центру",
                     "justify": "На всю ширину"
                 }
             }

@@ -11,8 +11,8 @@
                     "default": "Informazione predefinita",
                     "name": "Nome",
                     "state": "Stato",
-                    "last-changed": "Ultimo Cambiamento",
-                    "last-updated": "Ultimo Aggiornamento",
+                    "last-changed": "Ultimo cambiamento",
+                    "last-updated": "Ultimo aggiornamento",
                     "none": "Nessuno"
                 }
             },
@@ -26,9 +26,9 @@
             },
             "layout_picker": {
                 "values": {
-                    "default": "Disposizione Predefinita",
-                    "vertical": "Disposizione Verticale",
-                    "horizontal": "Disposizione Orizzontale"
+                    "default": "Disposizione predefinita",
+                    "vertical": "Disposizione verticale",
+                    "horizontal": "Disposizione orizzontale"
                 }
             },
             "alignment_picker": {
@@ -106,22 +106,22 @@
                 }
             },
             "media-player": {
-                "use_media_info": "Mostra le Informazioni Sorgente",
-                "use_media_artwork": "Usa la copertina della Sorgente",
-                "show_volume_level": "Mostra Volume",
-                "media_controls": "Controlli Media",
+                "use_media_info": "Mostra le informazioni della sorgente",
+                "use_media_artwork": "Usa la copertina della sorgente",
+                "show_volume_level": "Mostra volume",
+                "media_controls": "Controlli media",
                 "media_controls_list": {
                     "on_off": "Accendi/Spegni",
-                    "shuffle": "Riproduzione Casuale",
-                    "previous": "Traccia Precedente",
+                    "shuffle": "Riproduzione casuale",
+                    "previous": "Traccia precedente",
                     "play_pause_stop": "Play/Pausa/Stop",
-                    "next": "Traccia Successiva",
-                    "repeat": "Loop"
+                    "next": "Traccia successiva",
+                    "repeat": "Ciclo continuo"
                 },
                 "volume_controls": "Controlli del Volume",
                 "volume_controls_list": {
-                    "volume_buttons": "Bottoni del Volume",
-                    "volume_set": "Livello del Volume",
+                    "volume_buttons": "Bottoni del volume",
+                    "volume_set": "Livello del volume",
                     "volume_mute": "Silenzia"
                 }
             },
@@ -140,8 +140,8 @@
             "number": {
                 "display_mode": "Modalità di visualizzazione",
                 "display_mode_list": {
-                    "default": "Predefinito (slider)",
-                    "slider": "Slider",
+                    "default": "Predefinito (cursore)",
+                    "slider": "Cursore",
                     "buttons": "Pulsanti"
                 }
             }
@@ -167,10 +167,14 @@
                     "entity": "Entità",
                     "light": "Luce",
                     "menu": "Menù",
-                    "template": "Template",
+                    "spacer": "Distanziere",
+                    "template": "Modello",
                     "weather": "Meteo"
                 }
             }
         }
+    },
+    "card": {
+        "not_found": "Entità non trovata"
     }
 }

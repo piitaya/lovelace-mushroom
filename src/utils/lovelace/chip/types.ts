@@ -1,4 +1,4 @@
-import { ActionConfig, Condition, HomeAssistant } from "../../../ha";
+import { ActionConfig, HomeAssistant } from "../../../ha";
 import { Info } from "../../info";
 
 export interface LovelaceChip extends HTMLElement {
@@ -77,7 +77,7 @@ export type TemplateChipConfig = {
 export interface ConditionalChipConfig {
     type: "conditional";
     chip?: LovelaceChipConfig;
-    conditions: Condition[];
+    conditions: any[];
 }
 
 export type LightChipConfig = {
@@ -92,6 +92,10 @@ export type LightChipConfig = {
     double_tap_action?: ActionConfig;
 };
 
+export type SpacerChipConfig = {
+    type: "spacer";
+};
+
 export type LovelaceChipConfig =
     | ActionChipConfig
     | AlarmControlPanelChipConfig
@@ -101,7 +105,8 @@ export type LovelaceChipConfig =
     | WeatherChipConfig
     | TemplateChipConfig
     | ConditionalChipConfig
-    | LightChipConfig;
+    | LightChipConfig
+    | SpacerChipConfig;
 
 export const CHIP_LIST: LovelaceChipConfig["type"][] = [
     "action",
@@ -111,6 +116,7 @@ export const CHIP_LIST: LovelaceChipConfig["type"][] = [
     "entity",
     "light",
     "menu",
+    "spacer",
     "template",
     "weather",
 ];

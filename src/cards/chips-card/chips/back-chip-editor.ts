@@ -1,6 +1,5 @@
-import { html, LitElement, TemplateResult } from "lit";
+import { html, LitElement, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import memoizeOne from "memoize-one";
 import { fireEvent, HomeAssistant } from "../../../ha";
 import { HaFormSchema } from "../../../utils/form/ha-form";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
@@ -8,9 +7,9 @@ import { EntityChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { DEFAULT_BACK_ICON } from "./back-chip";
 
-const computeSchema = memoizeOne((icon?: string): HaFormSchema[] => [
-    { name: "icon", selector: { icon: { placeholder: icon } } },
-]);
+const SCHEMA: HaFormSchema[] = [
+    { name: "icon", selector: { icon: { placeholder: DEFAULT_BACK_ICON } } },
+];
 
 @customElement(computeChipEditorComponentName("back"))
 export class BackChipEditor extends LitElement implements LovelaceChipEditor {
@@ -26,19 +25,16 @@ export class BackChipEditor extends LitElement implements LovelaceChipEditor {
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
     };
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this.hass || !this._config) {
-            return html``;
+            return nothing;
         }
-
-        const icon = this._config.icon || DEFAULT_BACK_ICON;
-        const schema = computeSchema(icon);
 
         return html`
             <ha-form
                 .hass=${this.hass}
                 .data=${this._config}
-                .schema=${schema}
+                .schema=${SCHEMA}
                 .computeLabel=${this._computeLabel}
                 @value-changed=${this._valueChanged}
             ></ha-form>

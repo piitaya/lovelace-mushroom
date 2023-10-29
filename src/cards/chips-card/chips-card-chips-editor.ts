@@ -1,4 +1,4 @@
-import { css, CSSResultGroup, html, PropertyValues, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, nothing, PropertyValues } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { guard } from "lit/directives/guard.js";
 import type { SortableEvent } from "sortablejs";
@@ -9,6 +9,7 @@ import { MushroomBaseElement } from "../../utils/base-element";
 import { getChipElementClass } from "../../utils/lovelace/chip-element-editor";
 import { CHIP_LIST, LovelaceChipConfig } from "../../utils/lovelace/chip/types";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
+import { HassEntity } from "home-assistant-js-websocket";
 
 let Sortable;
 
@@ -19,6 +20,8 @@ declare global {
         };
     }
 }
+
+const NON_EDITABLE_CHIPS = new Set<LovelaceChipConfig["type"]>(["spacer"]);
 
 @customElement("mushroom-chips-card-chips-editor")
 export class ChipsCardEditorChips extends MushroomBaseElement {
@@ -42,9 +45,9 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
         this._attached = false;
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this.chips || !this.hass) {
-            return html``;
+            return nothing;
         }
 
         const customLocalize = setupCustomlocalize(this.hass);
@@ -70,27 +73,33 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
                                           <div class="special-row">
                                               <div>
                                                   <span> ${this._renderChipLabel(chipConf)}</span>
-                                                  <span class="secondary"
-                                                      >${this._renderChipSecondary(chipConf)}</span
-                                                  >
+                                                  <span class="secondary">
+                                                      ${this._renderChipSecondary(chipConf)}
+                                                  </span>
                                               </div>
                                           </div>
                                       `}
+                                      ${NON_EDITABLE_CHIPS.has(chipConf.type)
+                                          ? nothing
+                                          : html`
+                                                <ha-icon-button
+                                                    .label=${customLocalize(
+                                                        "editor.chip.chip-picker.edit"
+                                                    )}
+                                                    class="edit-icon"
+                                                    .index=${index}
+                                                    @click=${this._editChip}
+                                                >
+                                                    <ha-icon icon="mdi:pencil"></ha-icon>
+                                                </ha-icon-button>
+                                            `}
                                       <ha-icon-button
                                           .label=${customLocalize("editor.chip.chip-picker.clear")}
                                           class="remove-icon"
                                           .index=${index}
                                           @click=${this._removeChip}
                                       >
-                                          <ha-icon icon="mdi:close"></ha-icon
-                                      ></ha-icon-button>
-                                      <ha-icon-button
-                                          .label=${customLocalize("editor.chip.chip-picker.edit")}
-                                          class="edit-icon"
-                                          .index=${index}
-                                          @click=${this._editChip}
-                                      >
-                                          <ha-icon icon="mdi:pencil"></ha-icon>
+                                          <ha-icon icon="mdi:close"></ha-icon>
                                       </ha-icon-button>
                                   </div>
                               `
@@ -232,38 +241,30 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
 
     private _renderChipLabel(chipConf: LovelaceChipConfig): string {
         const customLocalize = setupCustomlocalize(this.hass);
-        let label = customLocalize(`editor.chip.chip-picker.types.${chipConf.type}`);
-        if (chipConf.type === "conditional" && chipConf.conditions.length > 0) {
-            const condition = chipConf.conditions[0];
-            const entity = this.getEntityName(condition.entity) ?? condition.entity;
-            label += ` - ${entity} ${
-                condition.state
-                    ? `= ${condition.state}`
-                    : condition.state_not
-                    ? `≠ ${condition.state_not}`
-                    : null
-            }`;
-        }
-        return label;
+        return customLocalize(`editor.chip.chip-picker.types.${chipConf.type}`);
     }
 
     private _renderChipSecondary(chipConf: LovelaceChipConfig): string | undefined {
         const customLocalize = setupCustomlocalize(this.hass);
         if ("entity" in chipConf && chipConf.entity) {
-            return `${this.getEntityName(chipConf.entity) ?? chipConf.entity}`;
+            return `${this.getEntityName(chipConf.entity) ?? chipConf.entity ?? ""}`;
         }
         if ("chip" in chipConf && chipConf.chip) {
             const label = customLocalize(`editor.chip.chip-picker.types.${chipConf.chip.type}`);
-            return `${this._renderChipSecondary(chipConf.chip)} (via ${label})`;
+            const chipSecondary = this._renderChipSecondary(chipConf.chip);
+            if (chipSecondary) {
+                return `${this._renderChipSecondary(chipConf.chip)} (via ${label})`;
+            }
+            return label;
         }
-        return undefined;
+        return "";
     }
 
     private getEntityName(entity_id: string): string | undefined {
         if (!this.hass) return undefined;
-        const entity = this.hass.states[entity_id];
-        if (!entity) return undefined;
-        return entity.attributes.friendly_name;
+        const stateObj = this.hass.states[entity_id] as HassEntity | undefined;
+        if (!stateObj) return undefined;
+        return stateObj.attributes.friendly_name;
     }
 
     static get styles(): CSSResultGroup {

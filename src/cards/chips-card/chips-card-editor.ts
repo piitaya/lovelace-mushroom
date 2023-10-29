@@ -1,4 +1,4 @@
-import { html, TemplateResult } from "lit";
+import { html, nothing } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import {
     any,
@@ -74,16 +74,10 @@ const weatherChipConfigStruct = object({
     show_conditions: optional(boolean()),
 });
 
-const conditionStruct = object({
-    entity: string(),
-    state: optional(string()),
-    state_not: optional(string()),
-});
-
 const conditionChipConfigStruct = object({
     type: literal("conditional"),
     chip: optional(any()),
-    conditions: optional(array(conditionStruct)),
+    conditions: optional(array(any())),
 });
 
 const lightChipConfigStruct = object({
@@ -111,6 +105,10 @@ const templateChipConfigStruct = object({
     entity_id: optional(union([string(), array(string())])),
 });
 
+const spacerChipConfigStruct = object({
+    type: literal("spacer"),
+});
+
 const chipsConfigStruct = dynamic<any>((value) => {
     if (value && typeof value === "object" && "type" in value) {
         switch ((value as LovelaceChipConfig).type!) {
@@ -130,6 +128,8 @@ const chipsConfigStruct = dynamic<any>((value) => {
                 return lightChipConfigStruct;
             case "template":
                 return templateChipConfigStruct;
+            case "spacer":
+                return spacerChipConfigStruct;
         }
     }
     return object();
@@ -167,9 +167,9 @@ export class ChipsCardEditor extends MushroomBaseElement implements LovelaceCard
         return this._config!.theme || "";
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this.hass || !this._config) {
-            return html``;
+            return nothing;
         }
 
         if (this._subElementEditorConfig) {

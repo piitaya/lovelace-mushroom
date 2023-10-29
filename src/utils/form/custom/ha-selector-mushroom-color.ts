@@ -4,10 +4,10 @@ import { fireEvent, HomeAssistant } from "../../../ha";
 import "../../../shared/editor/color-picker";
 
 export type MushColorSelector = {
-    "mush-color": {};
+    mush_color: {};
 };
 
-@customElement("ha-selector-mush-color")
+@customElement("ha-selector-mush_color")
 export class HaMushColorSelector extends LitElement {
     @property() public hass!: HomeAssistant;
 

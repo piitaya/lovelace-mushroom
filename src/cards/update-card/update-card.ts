@@ -1,4 +1,4 @@
-import { css, CSSResultGroup, html, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, nothing, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -14,9 +14,9 @@ import {
     LovelaceCard,
     LovelaceCardEditor,
     supportsFeature,
+    UPDATE_SUPPORT_INSTALL,
     UpdateEntity,
     updateIsInstalling,
-    UPDATE_SUPPORT_INSTALL,
 } from "../../ha";
 import "../../shared/badge-icon";
 import "../../shared/card";
@@ -27,7 +27,6 @@ import { computeAppearance } from "../../utils/appearance";
 import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { stateIcon } from "../../utils/icons/state-icon";
 import { computeEntityPicture } from "../../utils/info";
 import { UPDATE_CARD_EDITOR_NAME, UPDATE_CARD_NAME, UPDATE_ENTITY_DOMAINS } from "./const";
 import "./controls/update-buttons-control";
@@ -78,25 +77,29 @@ export class UpdateCard extends MushroomBaseCard implements LovelaceCard {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this._config || !this.hass || !this._config.entity) {
-            return html``;
+            return nothing;
         }
 
         const entityId = this._config.entity;
-        const entity = this.hass.states[entityId] as UpdateEntity;
+        const stateObj = this.hass.states[entityId] as UpdateEntity | undefined;
 
-        const name = this._config.name || entity.attributes.friendly_name || "";
-        const icon = this._config.icon || stateIcon(entity);
+        if (!stateObj) {
+            return this.renderNotFound(this._config);
+        }
+
+        const name = this._config.name || stateObj.attributes.friendly_name || "";
+        const icon = this._config.icon;
         const appearance = computeAppearance(this._config);
-        const picture = computeEntityPicture(entity, appearance.icon_type);
+        const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
         const rtl = computeRTL(this.hass);
 
         const displayControls =
-            (!this._config.collapsible_controls || isActive(entity)) &&
+            (!this._config.collapsible_controls || isActive(stateObj)) &&
             this._config.show_buttons_control &&
-            supportsFeature(entity, UPDATE_SUPPORT_INSTALL);
+            supportsFeature(stateObj, UPDATE_SUPPORT_INSTALL);
 
         return html`
             <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
@@ -110,30 +113,30 @@ export class UpdateCard extends MushroomBaseCard implements LovelaceCard {
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
-                        ${this.renderBadge(entity)}
-                        ${this.renderStateInfo(entity, appearance, name)};
+                        ${picture ? this.renderPicture(picture) : this.renderIcon(stateObj, icon)}
+                        ${this.renderBadge(stateObj)}
+                        ${this.renderStateInfo(stateObj, appearance, name)};
                     </mushroom-state-item>
                     ${displayControls
                         ? html`
                               <div class="actions" ?rtl=${rtl}>
                                   <mushroom-update-buttons-control
                                       .hass=${this.hass}
-                                      .entity=${entity}
+                                      .entity=${stateObj}
                                       .fill=${appearance.layout !== "horizontal"}
                                   ></mushroom-update-buttons-control>
                               </div>
                           `
-                        : null}
+                        : nothing}
                 </mushroom-card>
             </ha-card>
         `;
     }
 
-    protected renderIcon(entity: UpdateEntity, icon: string): TemplateResult {
-        const isInstalling = updateIsInstalling(entity);
+    protected renderIcon(stateObj: UpdateEntity, icon?: string): TemplateResult {
+        const isInstalling = updateIsInstalling(stateObj);
 
-        const color = getStateColor(entity.state, isInstalling);
+        const color = getStateColor(stateObj.state, isInstalling);
 
         const style = {
             "--icon-color": `rgb(${color})`,
@@ -143,13 +146,14 @@ export class UpdateCard extends MushroomBaseCard implements LovelaceCard {
         return html`
             <mushroom-shape-icon
                 slot="icon"
-                .disabled=${!isAvailable(entity)}
-                .icon=${icon}
+                .disabled=${!isAvailable(stateObj)}
                 class=${classMap({
                     pulse: isInstalling,
                 })}
                 style=${styleMap(style)}
-            ></mushroom-shape-icon>
+            >
+                <ha-state-icon .state=${stateObj} .icon=${icon}></ha-state-icon>
+            </mushroom-shape-icon>
         `;
     }
 

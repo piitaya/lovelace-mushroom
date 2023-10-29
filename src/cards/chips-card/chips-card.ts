@@ -1,5 +1,5 @@
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { customElement, state } from "lit/decorators.js";
+import { css, CSSResultGroup, html, LitElement, nothing } from "lit";
+import { customElement, property, state } from "lit/decorators.js";
 import {
     computeRTL,
     HomeAssistant,
@@ -13,7 +13,7 @@ import { registerCustomCard } from "../../utils/custom-cards";
 import { createChipElement } from "../../utils/lovelace/chip/chip-element";
 import { LovelaceChip, LovelaceChipConfig } from "../../utils/lovelace/chip/types";
 import "./chips";
-import { EntityChip } from "./chips";
+import { EntityChip } from "./chips/entity-chip";
 import { CHIPS_CARD_EDITOR_NAME, CHIPS_CARD_NAME } from "./const";
 
 export interface ChipsCardConfig extends LovelaceCardConfig {
@@ -42,6 +42,8 @@ export class ChipsCard extends LitElement implements LovelaceCard {
         };
     }
 
+    @property() public editMode?: boolean;
+
     @state() private _config?: ChipsCardConfig;
 
     private _hass?: HomeAssistant;
@@ -66,9 +68,9 @@ export class ChipsCard extends LitElement implements LovelaceCard {
         this._config = config;
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this._config || !this._hass) {
-            return html``;
+            return nothing;
         }
 
         let alignment = "";
@@ -87,13 +89,14 @@ export class ChipsCard extends LitElement implements LovelaceCard {
         `;
     }
 
-    private renderChip(chipConfig: LovelaceChipConfig): TemplateResult {
+    private renderChip(chipConfig: LovelaceChipConfig) {
         const element = createChipElement(chipConfig);
         if (!element) {
-            return html``;
+            return nothing;
         }
         if (this._hass) {
             element.hass = this._hass;
+            element.editMode = this.editMode;
         }
         return html`${element}`;
     }

@@ -6,4 +6,29 @@ export const loadHaComponents = () => {
     if (!customElements.get("ha-entity-picker")) {
         (customElements.get("hui-entities-card") as any)?.getConfigElement();
     }
+    if (!customElements.get("ha-card-conditions-editor")) {
+        (customElements.get("hui-conditional-card") as any)?.getConfigElement();
+    }
+};
+
+export const loadConditionalCardComponents = async () => {
+    const HuiView = await loadCustomElement("hui-view");
+    const view = new HuiView();
+    view.lovelace = {
+        editMode: false,
+    };
+    view.createCardElement({
+        type: "conditional",
+        card: { type: "button" },
+        conditions: [],
+    });
+};
+
+export const loadCustomElement = async <T = any>(name: string) => {
+    let Component = customElements.get(name) as T;
+    if (Component) {
+        return Component;
+    }
+    await customElements.whenDefined(name);
+    return customElements.get(name) as T;
 };

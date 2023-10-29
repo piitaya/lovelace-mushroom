@@ -4,10 +4,10 @@ import { fireEvent, HomeAssistant } from "../../../ha";
 import "../../../shared/editor/alignment-picker";
 
 export type MushAlignementSelector = {
-    "mush-alignment": {};
+    mush_alignment: {};
 };
 
-@customElement("ha-selector-mush-alignment")
+@customElement("ha-selector-mush_alignment")
 export class HaMushAlignmentSelector extends LitElement {
     @property() public hass!: HomeAssistant;
 

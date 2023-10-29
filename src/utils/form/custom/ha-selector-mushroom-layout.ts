@@ -4,10 +4,10 @@ import { fireEvent, HomeAssistant } from "../../../ha";
 import "../../../shared/editor/layout-picker";
 
 export type MushLayoutSelector = {
-    "mush-layout": {};
+    mush_layout: {};
 };
 
-@customElement("ha-selector-mush-layout")
+@customElement("ha-selector-mush_layout")
 export class HaMushLayoutSelector extends LitElement {
     @property() public hass!: HomeAssistant;
 

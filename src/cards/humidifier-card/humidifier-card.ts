@@ -1,4 +1,4 @@
-import { css, CSSResultGroup, html, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, nothing } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import {
@@ -10,6 +10,7 @@ import {
     handleAction,
     hasAction,
     HomeAssistant,
+    HumidifierEntity,
     isActive,
     LovelaceCard,
     LovelaceCardEditor,
@@ -25,7 +26,6 @@ import { computeAppearance } from "../../utils/appearance";
 import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { stateIcon } from "../../utils/icons/state-icon";
 import { computeEntityPicture } from "../../utils/info";
 import {
     HUMIDIFIER_CARD_EDITOR_NAME,
@@ -89,26 +89,32 @@ export class HumidifierCard extends MushroomBaseCard implements LovelaceCard {
         }
     }
 
-    protected render(): TemplateResult {
+    protected render() {
         if (!this._config || !this.hass || !this._config.entity) {
-            return html``;
+            return nothing;
         }
 
-        const entity_id = this._config.entity;
-        const entity = this.hass.states[entity_id];
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as HumidifierEntity | undefined;
 
-        const name = this._config.name || entity.attributes.friendly_name || "";
-        const icon = this._config.icon || stateIcon(entity);
+        if (!stateObj) {
+            return this.renderNotFound(this._config);
+        }
+
+        const name = this._config.name || stateObj.attributes.friendly_name || "";
+        const icon = this._config.icon;
         const appearance = computeAppearance(this._config);
-        const picture = computeEntityPicture(entity, appearance.icon_type);
+        const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
-        let stateDisplay = computeStateDisplay(
-            this.hass.localize,
-            entity,
-            this.hass.locale,
-            this.hass.entities,
-            this.hass.connection.haVersion,
-        );
+        let stateDisplay = this.hass.formatEntityState
+            ? this.hass.formatEntityState(stateObj)
+            : computeStateDisplay(
+                  this.hass.localize,
+                  stateObj,
+                  this.hass.locale,
+                  this.hass.config,
+                  this.hass.entities
+              );
         if (this.humidity) {
             stateDisplay = `${this.humidity}${blankBeforePercent(this.hass.locale)}%`;
         }
@@ -116,7 +122,7 @@ export class HumidifierCard extends MushroomBaseCard implements LovelaceCard {
         const rtl = computeRTL(this.hass);
 
         const displayControls =
-            (!this._config.collapsible_controls || isActive(entity)) &&
+            (!this._config.collapsible_controls || isActive(stateObj)) &&
             this._config.show_target_humidity_control;
 
         return html`
@@ -131,21 +137,21 @@ export class HumidifierCard extends MushroomBaseCard implements LovelaceCard {
                             hasDoubleClick: hasAction(this._config.double_tap_action),
                         })}
                     >
-                        ${picture ? this.renderPicture(picture) : this.renderIcon(entity, icon)}
-                        ${this.renderBadge(entity)}
-                        ${this.renderStateInfo(entity, appearance, name, stateDisplay)};
+                        ${picture ? this.renderPicture(picture) : this.renderIcon(stateObj, icon)}
+                        ${this.renderBadge(stateObj)}
+                        ${this.renderStateInfo(stateObj, appearance, name, stateDisplay)};
                     </mushroom-state-item>
                     ${displayControls
                         ? html`
                               <div class="actions" ?rtl=${rtl}>
                                   <mushroom-humidifier-humidity-control
                                       .hass=${this.hass}
-                                      .entity=${entity}
+                                      .entity=${stateObj}
                                       @current-change=${this.onCurrentHumidityChange}
                                   ></mushroom-humidifier-humidity-control>
                               </div>
                           `
-                        : null}
+                        : nothing}
                 </mushroom-card>
             </ha-card>
         `;

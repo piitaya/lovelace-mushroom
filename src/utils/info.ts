@@ -14,24 +14,24 @@ export function computeInfoDisplay(
     info: Info,
     name: string,
     state: string,
-    entity: HassEntity,
+    stateObj: HassEntity,
     hass: HomeAssistant
 ) {
     switch (info) {
         case "name":
             return name;
         case "state":
-            const domain = entity.entity_id.split(".")[0];
+            const domain = stateObj.entity_id.split(".")[0];
             if (
-                (entity.attributes.device_class === "timestamp" ||
+                (stateObj.attributes.device_class === "timestamp" ||
                     TIMESTAMP_STATE_DOMAINS.includes(domain)) &&
-                isAvailable(entity) &&
-                !isUnknown(entity)
+                isAvailable(stateObj) &&
+                !isUnknown(stateObj)
             ) {
                 return html`
                     <ha-relative-time
                         .hass=${hass}
-                        .datetime=${entity.state}
+                        .datetime=${stateObj.state}
                         capitalize
                     ></ha-relative-time>
                 `;
@@ -42,7 +42,7 @@ export function computeInfoDisplay(
             return html`
                 <ha-relative-time
                     .hass=${hass}
-                    .datetime=${entity.last_changed}
+                    .datetime=${stateObj.last_changed}
                     capitalize
                 ></ha-relative-time>
             `;
@@ -50,7 +50,7 @@ export function computeInfoDisplay(
             return html`
                 <ha-relative-time
                     .hass=${hass}
-                    .datetime=${entity.last_updated}
+                    .datetime=${stateObj.last_updated}
                     capitalize
                 ></ha-relative-time>
             `;
@@ -59,6 +59,6 @@ export function computeInfoDisplay(
     }
 }
 
-export function computeEntityPicture(entity: HassEntity, iconType: IconType) {
-    return iconType === "entity-picture" ? getEntityPicture(entity) : undefined;
+export function computeEntityPicture(stateObj: HassEntity, iconType: IconType) {
+    return iconType === "entity-picture" ? getEntityPicture(stateObj) : undefined;
 }

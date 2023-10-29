@@ -1,18 +1,20 @@
 import { HassEntity } from "home-assistant-js-websocket";
 
-export function getPercentage(entity: HassEntity) {
-    return entity.attributes.percentage != null
-        ? Math.round(entity.attributes.percentage)
+export function getPercentage(stateObj: HassEntity) {
+    return stateObj.attributes.percentage != null
+        ? Math.round(stateObj.attributes.percentage)
         : undefined;
 }
 
-export function isOscillating(entity: HassEntity) {
-    return entity.attributes.oscillating != null ? Boolean(entity.attributes.oscillating) : false;
+export function isOscillating(stateObj: HassEntity) {
+    return stateObj.attributes.oscillating != null
+        ? Boolean(stateObj.attributes.oscillating)
+        : false;
 }
 
-export function computePercentageStep(entity: HassEntity) {
-    if (entity.attributes.percentage_step) {
-        return entity.attributes.percentage_step;
+export function computePercentageStep(stateObj: HassEntity) {
+    if (stateObj.attributes.percentage_step) {
+        return stateObj.attributes.percentage_step;
     }
     return 1;
 }

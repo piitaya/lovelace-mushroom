@@ -62,30 +62,30 @@ export class CoverButtonsControl extends LitElement {
 
         return html`
             <mushroom-button-group .fill=${this.fill} ?rtl=${rtl}>
-                ${supportsFeature(this.entity, COVER_SUPPORT_CLOSE)
-                    ? html`
-                          <mushroom-button
-                              .icon=${computeCloseIcon(this.entity)}
-                              .disabled=${!isAvailable(this.entity) || this.closedDisabled}
-                              @click=${this._onCloseTap}
-                          ></mushroom-button>
-                      `
-                    : undefined}
-                ${supportsFeature(this.entity, COVER_SUPPORT_STOP)
-                    ? html`
-                          <mushroom-button
-                              icon="mdi:pause"
-                              .disabled=${!isAvailable(this.entity)}
-                              @click=${this._onStopTap}
-                          ></mushroom-button>
-                      `
-                    : undefined}
                 ${supportsFeature(this.entity, COVER_SUPPORT_OPEN)
                     ? html`
                           <mushroom-button
                               .icon=${computeOpenIcon(this.entity)}
                               .disabled=${!isAvailable(this.entity) || this.openDisabled}
                               @click=${this._onOpenTap}
+                          ></mushroom-button>
+                      `
+                    : undefined}
+                ${supportsFeature(this.entity, COVER_SUPPORT_STOP)
+                    ? html`
+                          <mushroom-button
+                              icon="mdi:stop"
+                              .disabled=${!isAvailable(this.entity)}
+                              @click=${this._onStopTap}
+                          ></mushroom-button>
+                      `
+                    : undefined}
+                ${supportsFeature(this.entity, COVER_SUPPORT_CLOSE)
+                    ? html`
+                          <mushroom-button
+                              .icon=${computeCloseIcon(this.entity)}
+                              .disabled=${!isAvailable(this.entity) || this.closedDisabled}
+                              @click=${this._onCloseTap}
                           ></mushroom-button>
                       `
                     : undefined}
