@@ -25,7 +25,7 @@
     "lit": "^2.7.6",
     "memoize-one": "^6.0.0",
     "sortablejs": "^1.15.0",
-    "superstruct": "^1.0.3"
+    "superstruct": "^0.15.2"
   },
   "devDependencies": {
     "@babel/core": "^7.23.2",
