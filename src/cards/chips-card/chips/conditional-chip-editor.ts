@@ -5,6 +5,7 @@ import { fireEvent, HASSDomEvent, HomeAssistant, LovelaceConfig } from "../../..
 import setupCustomlocalize from "../../../localize";
 import "../../../shared/form/mushroom-select";
 import "../../../shared/form/mushroom-textfield";
+import { loadHaComponents } from "../../../utils/loader";
 import { getChipElementClass } from "../../../utils/lovelace/chip-element-editor";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
 import {
@@ -29,6 +30,11 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
     @state() private _guiModeAvailable? = true;
 
     @state() private _cardTab = false;
+
+    connectedCallback() {
+        super.connectedCallback();
+        void loadHaComponents();
+    }
 
     @query("mushroom-chip-element-editor")
     private _cardEditorEl?: any;

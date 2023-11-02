@@ -13,6 +13,7 @@ import { registerCustomCard } from "../../utils/custom-cards";
 import { createChipElement } from "../../utils/lovelace/chip/chip-element";
 import { LovelaceChip, LovelaceChipConfig } from "../../utils/lovelace/chip/types";
 import "./chips";
+import { setupConditionChipComponent } from "./chips/conditional-chip";
 import { EntityChip } from "./chips/entity-chip";
 import { CHIPS_CARD_EDITOR_NAME, CHIPS_CARD_NAME } from "./const";
 
@@ -90,6 +91,9 @@ export class ChipsCard extends LitElement implements LovelaceCard {
     }
 
     private renderChip(chipConfig: LovelaceChipConfig) {
+        if (chipConfig.type === "conditional") {
+            setupConditionChipComponent();
+        }
         const element = createChipElement(chipConfig);
         if (!element) {
             return nothing;
