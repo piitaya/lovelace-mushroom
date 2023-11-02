@@ -10,6 +10,7 @@ import { getChipElementClass } from "../../utils/lovelace/chip-element-editor";
 import { CHIP_LIST, LovelaceChipConfig } from "../../utils/lovelace/chip/types";
 import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { HassEntity } from "home-assistant-js-websocket";
+import { setupConditionChipComponent } from "./chips/conditional-chip";
 
 let Sortable;
 
@@ -114,12 +115,11 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
                 naturalMenuWidth
             >
                 ${CHIP_LIST.map(
-                    (chip) =>
-                        html`
-                            <mwc-list-item .value=${chip}>
-                                ${customLocalize(`editor.chip.chip-picker.types.${chip}`)}
-                            </mwc-list-item>
-                        `
+                    (chip) => html`
+                        <mwc-list-item .value=${chip}>
+                            ${customLocalize(`editor.chip.chip-picker.types.${chip}`)}
+                        </mwc-list-item>
+                    `
                 )}
             </mushroom-select>
         `;
@@ -188,6 +188,10 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
         }
 
         let newChip: LovelaceChipConfig;
+
+        if (value === "conditional") {
+            await setupConditionChipComponent();
+        }
 
         // Check if a stub config exists
         const elClass = getChipElementClass(value) as any;

@@ -1,5 +1,5 @@
 import { atLeastHaVersion } from "../../../ha";
-import { loadConditionalCardComponents, loadCustomElement } from "../../../utils/loader";
+import { loadCustomElement } from "../../../utils/loader";
 import {
     computeChipComponentName,
     computeChipEditorComponentName,
@@ -10,8 +10,25 @@ import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import "./conditional-chip-editor";
 import "./conditional-chip-editor-legacy";
 
-async function setupConditionChipComponent() {
+const componentName = computeChipComponentName("conditional");
+
+export const setupConditionChipComponent = async () => {
+    // Don't resetup the component if already set up.
+    if (customElements.get(componentName)) {
+        return;
+    }
+
+    // Load conditional base
+    if (!customElements.get("hui-conditional-base")) {
+        const helpers = await (window as any).loadCardHelpers();
+        helpers.createCardElement({
+            type: "conditional",
+            card: { type: "button" },
+            conditions: [],
+        });
+    }
     const HuiConditionalBase = await loadCustomElement("hui-conditional-base");
+    
     // @ts-ignore
     class ConditionalChip extends HuiConditionalBase implements LovelaceChip {
         public static async getConfigElement(): Promise<LovelaceChipEditor> {
@@ -40,9 +57,9 @@ async function setupConditionChipComponent() {
             this._element = createChipElement(config.chip) as LovelaceChip;
         }
     }
-    // @ts-ignore
-    customElements.define(computeChipComponentName("conditional"), ConditionalChip);
-}
 
-loadConditionalCardComponents();
-setupConditionChipComponent();
+    if (!customElements.get(componentName)) {
+        // @ts-ignore
+        customElements.define(componentName, ConditionalChip);
+    }
+};
