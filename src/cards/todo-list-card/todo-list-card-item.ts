@@ -8,15 +8,15 @@ import "../../shared/shape-avatar";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
-import { SHOPPING_LIST_CARD_ITEM_NAME } from "./const";
+import { DEFAULT_CHECKED_ICON, DEFAULT_UNCHECKED_ICON, TODO_LIST_CARD_ITEM_NAME } from "./const";
 
-@customElement(SHOPPING_LIST_CARD_ITEM_NAME)
-export class ShoppingListItem extends LitElement {
+@customElement(TODO_LIST_CARD_ITEM_NAME)
+export class TodoListItem extends LitElement {
     @property() checked: boolean = false;
     @property() value: string = "";
     @property() highlighted: boolean = false;
-    @property() checkedIcon = "mdi:checkbox-marked";
-    @property() uncheckedIcon = "mdi:checkbox-blank-outline";
+    @property() checkedIcon = DEFAULT_CHECKED_ICON;
+    @property() uncheckedIcon = DEFAULT_UNCHECKED_ICON;
 
     protected render(): TemplateResult {
         return html`

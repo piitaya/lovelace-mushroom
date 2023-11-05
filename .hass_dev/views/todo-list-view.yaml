@@ -1,12 +1,13 @@
-title: Shopping Lists
-icon: mdi:cart
+title: Todo Lists
+icon: mdi:clipboard-list
 cards:
   - type: grid
-    title: Shopping List
+    title: Todo List
     cards:
-      - type: custom:mushroom-shopping-list
+      - type: custom:mushroom-todo-list
+        entity: todo.shopping_list
         name: My Shopping List
-        icon: mdi:cart
+        icon: mdi:format-list-checks
         primary_info: name
         secondary_info: state
     columns: 1
@@ -14,8 +15,9 @@ cards:
   - type: vertical-stack
     title: Layout
     cards:
-      - type: custom:mushroom-shopping-list
-        name: Horizontal Shopping List
+      - type: custom:mushroom-todo-list
+        entity: todo.shopping_list
+        name: Horizontal Todo List
         layout: horizontal
         primary_info: name
         secondary_info: state
@@ -23,11 +25,13 @@ cards:
         columns: 2
         square: false
         cards:
-          - type: custom:mushroom-shopping-list
+          - type: custom:mushroom-todo-list
+            entity: todo.shopping_list
             checked_icon: mdi:checkbox-blank-circle
             unchecked_icon: mdi:checkbox-blank-circle-outline
-          - type: custom:mushroom-shopping-list
-            name: Vertical Shopping List
+          - type: custom:mushroom-todo-list
+            entity: todo.shopping_list
+            name: Vertical Todo List
             icon: mdi:arrow-down
             layout: vertical
             primary_info: name

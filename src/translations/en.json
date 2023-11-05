@@ -145,13 +145,12 @@
                     "buttons": "Buttons"
                 }
             },
-            "shopping_list": {
+            "todo_list": {
                 "add_item_placeholder": "Add item …",
                 "clear_completed": "Clear completed",
                 "status": "{completed_count} of {total_count} completed",
                 "checked_icon": "Checked item icon",
-                "unchecked_icon": "Unchecked item icon",
-                "integration_missing": "'shopping_list' integration is not installed."
+                "unchecked_icon": "Unchecked item icon"
             }
         },
         "chip": {

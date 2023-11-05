@@ -1,8 +1,5 @@
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { classMap } from "lit/directives/class-map.js";
-import { fireEvent } from "../../ha";
-import setupCustomlocalize from "../../localize";
 import "../../shared/badge-icon";
 import "../../shared/button";
 import "../../shared/card";
@@ -10,10 +7,10 @@ import "../../shared/shape-avatar";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
-import { SHOPPING_LIST_CARD_DIVIDER_NAME } from "./const";
+import { TODO_LIST_CARD_DIVIDER_NAME } from "./const";
 
-@customElement(SHOPPING_LIST_CARD_DIVIDER_NAME)
-export class ShoppingListCardDivider extends LitElement {
+@customElement(TODO_LIST_CARD_DIVIDER_NAME)
+export class TodoListCardDivider extends LitElement {
     @property() localize: (key: string) => string = (key) => key;
 
     private _buttonClicked() {
@@ -27,7 +24,7 @@ export class ShoppingListCardDivider extends LitElement {
                 <hr class="hr-start" />
                 <button class="button" @click=${this._buttonClicked}>
                     <ha-icon class="button-icon" icon="mdi:delete-sweep-outline"></ha-icon>
-                    ${this.localize("editor.card.shopping_list.clear_completed")}
+                    ${this.localize("editor.card.todo_list.clear_completed")}
                 </button>
                 <hr class="hr-end" />
             </div>

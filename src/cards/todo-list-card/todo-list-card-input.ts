@@ -1,6 +1,5 @@
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { classMap } from "lit/directives/class-map.js";
 import { fireEvent } from "../../ha";
 import "../../shared/badge-icon";
 import "../../shared/button";
@@ -9,10 +8,10 @@ import "../../shared/shape-avatar";
 import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
-import { SHOPPING_LIST_CARD_INPUT_NAME } from "./const";
+import { TODO_LIST_CARD_INPUT_NAME } from "./const";
 
-@customElement(SHOPPING_LIST_CARD_INPUT_NAME)
-export class ShoppingListItemInput extends LitElement {
+@customElement(TODO_LIST_CARD_INPUT_NAME)
+export class TodoListItemInput extends LitElement {
     @property() value: string = "";
     @property() placeholder: string = "";
 

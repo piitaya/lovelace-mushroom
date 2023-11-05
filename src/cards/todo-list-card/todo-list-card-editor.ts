@@ -1,29 +1,29 @@
 import { html, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
-import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import { fireEvent, LovelaceCardEditor } from "../../ha";
 import setupCustomlocalize from "../../localize";
-import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { loadHaComponents } from "../../utils/loader";
-import { SHOPPING_LIST_CARD_EDITOR_NAME } from "./const";
-import { ShoppingListCardConfig, shoppingListCardConfigStruct } from "./shopping-list-card-config";
+import { TODO_LIST_CARD_EDITOR_NAME, TODO_LIST_ENTITY_DOMAINS } from "./const";
+import { TodoListCardConfig, todoListCardConfigStruct } from "./todo-list-card-config";
+import { computeActionsFormSchema } from "../../shared/config/actions-config";
 
-export const SHOPPING_LIST_LABELS = ["checked_icon", "unchecked_icon"];
+export const TODO_LIST_LABELS = ["checked_icon", "unchecked_icon"];
 
 const schema = [
+    { name: "entity", selector: { entity: { domain: TODO_LIST_ENTITY_DOMAINS } } },
     { name: "name", selector: { text: {} } },
     { name: "icon", selector: { icon: {} } },
     {
         type: "grid",
         name: "",
         schema: [
-            { name: "layout", selector: { "mush-layout": {} } },
-            { name: "primary_info", selector: { "mush-info": {} } },
-            { name: "secondary_info", selector: { "mush-info": {} } },
+            { name: "layout", selector: { mush_layout: {} } },
+            { name: "primary_info", selector: { mush_info: {} } },
+            { name: "secondary_info", selector: { mush_info: {} } },
         ],
     },
     {
@@ -34,19 +34,20 @@ const schema = [
             { name: "checked_icon", selector: { icon: {} } },
         ],
     },
+    ...computeActionsFormSchema(),
 ];
 
-@customElement(SHOPPING_LIST_CARD_EDITOR_NAME)
-export class ShoppingListCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
-    @state() private _config?: ShoppingListCardConfig;
+@customElement(TODO_LIST_CARD_EDITOR_NAME)
+export class TodoListCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
+    @state() private _config?: TodoListCardConfig;
 
     connectedCallback() {
         super.connectedCallback();
         void loadHaComponents();
     }
 
-    public setConfig(config: ShoppingListCardConfig): void {
-        assert(config, shoppingListCardConfigStruct);
+    public setConfig(config: TodoListCardConfig): void {
+        assert(config, todoListCardConfigStruct);
         this._config = config;
     }
 
@@ -56,8 +57,8 @@ export class ShoppingListCardEditor extends MushroomBaseElement implements Lovel
         if (GENERIC_LABELS.includes(schema.name)) {
             return customLocalize(`editor.card.generic.${schema.name}`);
         }
-        if (SHOPPING_LIST_LABELS.includes(schema.name)) {
-            return customLocalize(`editor.card.shopping_list.${schema.name}`);
+        if (TODO_LIST_LABELS.includes(schema.name)) {
+            return customLocalize(`editor.card.todo_list.${schema.name}`);
         }
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
     };

@@ -1,25 +1,24 @@
-import { assign, string, object, optional } from "superstruct";
+import { assign, object, optional, string } from "superstruct";
 import { LovelaceCardConfig } from "../../ha";
 import {
     AppearanceSharedConfig,
     appearanceSharedConfigStruct,
 } from "../../shared/config/appearance-config";
 import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-config";
+import { EntitySharedConfig, entitySharedConfigStruct } from "../../shared/config/entity-config";
+import { actionsSharedConfigStruct } from "../../shared/config/actions-config";
 
-export type ShoppingListCardConfig = LovelaceCardConfig &
+export type TodoListCardConfig = LovelaceCardConfig &
+    EntitySharedConfig &
     AppearanceSharedConfig & {
-        name?: string;
-        icon?: string;
         checked_icon?: string;
         unchecked_icon?: string;
     };
 
-export const shoppingListCardConfigStruct = assign(
+export const todoListCardConfigStruct = assign(
     lovelaceCardConfigStruct,
-    appearanceSharedConfigStruct,
+    assign(entitySharedConfigStruct, appearanceSharedConfigStruct, actionsSharedConfigStruct),
     object({
-        name: optional(string()),
-        icon: optional(string()),
         checked_icon: optional(string()),
         unchecked_icon: optional(string()),
     })
