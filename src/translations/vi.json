@@ -11,9 +11,17 @@
                     "default": "Thông tin mặc định",
                     "name": "Tên",
                     "state": "Trạng thái",
-                    "last-changed": "Lần cuối thay đổi",
-                    "last-updated": "Lần cuối cập nhật",
-                    "none": "Rỗng"
+                    "last-changed": "Lần thay đổi cuối",
+                    "last-updated": "Lần cập nhật cuối",
+                    "none": "Không có"
+                }
+            },
+            "icon_type_picker": {
+                "values": {
+                    "default": "Kiểu mặc định",
+                    "icon": "Biểu tượng",
+                    "entity-picture": "Ảnh thực thể",
+                    "none": "Không có"
                 }
             },
             "layout_picker": {
@@ -37,28 +45,30 @@
             "generic": {
                 "icon_color": "Màu biểu tượng",
                 "layout": "Bố cục",
-                "fill_container": "Làm đầy",
+                "fill_container": "Làm đầy ô chứa",
                 "primary_info": "Thông tin chính",
                 "secondary_info": "Thông tin phụ",
+                "icon_type": "Kiểu biểu tượng",
                 "content_info": "Nội dung",
                 "use_entity_picture": "Dùng ảnh của thực thể?",
                 "collapsible_controls": "Thu nhỏ điều kiển khi tắt",
-                "icon_animation": "Biểu tượng hoạt ảnh khi hoạt động?"
+                "icon_animation": "Biểu tượng chuyển động khi kích hoạt?"
             },
             "light": {
                 "show_brightness_control": "Điều khiển độ sáng?",
-                "use_light_color": "Dùng ánh sáng màu",
+                "use_light_color": "Dùng màu đèn",
                 "show_color_temp_control": "Điều khiển nhiệt độ màu?",
                 "show_color_control": "Điều khiển màu sắc?",
-                "incompatible_controls": "Một số màu sẽ không được hiển thị nếu đèn của bạn không hỗ trợ tính năng này."
+                "incompatible_controls": "Một số điều khiển sẽ không được hiển thị nếu đèn của bạn không hỗ trợ tính năng đó."
             },
             "fan": {
                 "show_percentage_control": "Điều khiển dạng phần trăm?",
                 "show_oscillate_control": "Điều khiển xoay?"
             },
             "cover": {
-                "show_buttons_control": "Nút điều khiển?",
-                "show_position_control": "Điều khiển vị trí?"
+                "show_buttons_control": "Điều khiển nút bấm?",
+                "show_position_control": "Điều khiển vị trí?",
+                "show_tilt_position_control": "Điều khiển độ nghiêng?"
             },
             "alarm_control_panel": {
                 "show_keypad": "Hiện bàn phím"
@@ -67,12 +77,17 @@
                 "primary": "Thông tin chính",
                 "secondary": "Thông tin phụ",
                 "multiline_secondary": "Nhiều dòng thông tin phụ?",
-                "entity_extra": "Được sử dụng trong mẫu và hành động",
-                "content": "Nội dung"
+                "entity_extra": "Được sử dụng trong bản mẫu và hành động",
+                "content": "Nội dung",
+                "badge_icon": "Biểu tượng huy hiệu",
+                "badge_color": "Màu huy hiệu",
+                "picture": "Ảnh (thay cho biểu tượng)"
             },
             "title": {
                 "title": "Tiêu đề",
-                "subtitle": "Phụ đề"
+                "subtitle": "Phụ đề",
+                "title_tap_action": "Hành động khi nhấp tiêu đề",
+                "subtitle_tap_action": "Hành động khi nhấp phụ đề"
             },
             "chips": {
                 "alignment": "Căn chỉnh"
@@ -82,20 +97,24 @@
                 "show_temperature": "Nhiệt độ?"
             },
             "update": {
-                "show_buttons_control": "Nút điều khiển?"
+                "show_buttons_control": "Điều khiển nút bấm?"
             },
             "vacuum": {
-                "commands": "Mệnh lệnh"
+                "commands": "Mệnh lệnh",
+                "commands_list": {
+                    "on_off": "Bật/tắt"
+                }
             },
             "media-player": {
                 "use_media_info": "Dùng thông tin đa phương tiện",
                 "use_media_artwork": "Dùng ảnh đa phương tiện",
+                "show_volume_level": "Hiện mức âm lượng",
                 "media_controls": "Điều khiển đa phương tiện",
                 "media_controls_list": {
-                    "on_off": "Bật/Tắt",
+                    "on_off": "Bật/tắt",
                     "shuffle": "Xáo trộn",
                     "previous": "Bài trước",
-                    "play_pause_stop": "Phát/Tạm dừng/Dừng",
+                    "play_pause_stop": "Phát/tạm dừng/dừng",
                     "next": "Bài tiếp theo",
                     "repeat": "Chế độ lặp lại"
                 },
@@ -110,21 +129,36 @@
                 "lock": "Khóa",
                 "unlock": "Mở khóa",
                 "open": "Mở"
+            },
+            "humidifier": {
+                "show_target_humidity_control": "Điều khiển độ ẩm?"
+            },
+            "climate": {
+                "show_temperature_control": "Điều khiển nhiệt độ?",
+                "hvac_modes": "Chế độ điều hòa"
+            },
+            "number": {
+                "display_mode": "Chế độ hiển thị",
+                "display_mode_list": {
+                    "default": "Mặc định (thanh trượt)",
+                    "slider": "Thanh trượt",
+                    "buttons": "Nút"
+                }
             }
         },
         "chip": {
             "sub_element_editor": {
-                "title": "Chỉnh sửa chip"
+                "title": "Trình soạn phỉnh"
             },
             "conditional": {
-                "chip": "Chip"
+                "chip": "Phỉnh"
             },
             "chip-picker": {
-                "chips": "Các chip",
-                "add": "Thêm chip",
+                "chips": "Phỉnh",
+                "add": "Thêm phỉnh",
                 "edit": "Chỉnh sửa",
-                "clear": "Làm mới",
-                "select": "Chọn chip",
+                "clear": "Tẩy trống",
+                "select": "Chọn phỉnh",
                 "types": {
                     "action": "Hành động",
                     "alarm-control-panel": "Báo động",
@@ -132,11 +166,15 @@
                     "conditional": "Điều kiện",
                     "entity": "Thực thể",
                     "light": "Đèn",
-                    "menu": "Menu",
+                    "menu": "Trình đơn",
+                    "spacer": "Ngăn cách",
                     "template": "Mẫu",
                     "weather": "Thời tiết"
                 }
             }
         }
+    },
+    "card": {
+        "not_found": "Không tìm thấy thực thể"
     }
 }
