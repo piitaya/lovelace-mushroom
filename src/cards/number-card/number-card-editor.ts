@@ -96,11 +96,12 @@ export class NumberCardEditor extends MushroomBaseElement implements LovelaceCar
     }
 
     private _valueChanged(ev: CustomEvent): void {
-        const value = ev.detail.value;
+        const config = { ...ev.detail.value };
 
-        if (value.display_mode === "default") {
-            delete value.display_mode;
+        if (config.display_mode === "default") {
+            delete config.display_mode;
         }
-        fireEvent(this, "config-changed", { config: ev.detail.value });
+
+        fireEvent(this, "config-changed", { config });
     }
 }
