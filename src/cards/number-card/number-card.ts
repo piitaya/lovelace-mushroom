@@ -1,5 +1,5 @@
 import { HassEntity } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, nothing, TemplateResult } from "lit";
+import { css, CSSResultGroup, html, nothing, PropertyValues, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -85,6 +85,24 @@ export class NumberCard extends MushroomBaseCard implements LovelaceCard {
         if (e.detail.value != null) {
             this.value = e.detail.value;
         }
+    }
+
+    protected updated(changedProperties: PropertyValues) {
+        super.updated(changedProperties);
+        if (this.hass && changedProperties.has("hass")) {
+            this.updateValue();
+        }
+    }
+
+    updateValue() {
+        this.value = undefined;
+        if (!this._config || !this.hass || !this._config.entity) return;
+
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as HassEntity | undefined;
+
+        if (!stateObj || Number.isNaN(stateObj.state)) return;
+        this.value = Number(stateObj.state);
     }
 
     protected render() {
