@@ -24,6 +24,7 @@ export function isActive(stateObj: HassEntity) {
     // Custom cases
     switch (domain) {
         case "cover":
+        case "valve":
             return !["closed", "closing"].includes(state);
         case "device_tracker":
         case "person":
