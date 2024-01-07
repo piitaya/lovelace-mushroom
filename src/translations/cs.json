@@ -67,7 +67,8 @@
             },
             "cover": {
                 "show_buttons_control": "Zobrazit ovládací tlačítka?",
-                "show_position_control": "Zobrazit ovládání polohy?"
+                "show_position_control": "Zobrazit ovládání polohy?",
+                "show_tilt_position_control": "Zobrazit ovládání náklonu?"
             },
             "alarm_control_panel": {
                 "show_keypad": "Zobrazit klávesnici"
@@ -84,7 +85,9 @@
             },
             "title": {
                 "title": "Titulek",
-                "subtitle": "Popis"
+                "subtitle": "Popis",
+                "title_tap_action": "Titulek akce klepnutím",
+                "subtitle_tap_action": "Popis akce klepnutím"
             },
             "chips": {
                 "alignment": "Zarovnání"
@@ -97,7 +100,10 @@
                 "show_buttons_control": "Zobrazit ovládací tlačítka?"
             },
             "vacuum": {
-                "commands": "Příkazy"
+                "commands": "Příkazy",
+                "commands_list": {
+                    "on_off": "Vyp / Zap"
+                }
             },
             "media-player": {
                 "use_media_info": "Použít informace o médiích",
@@ -130,6 +136,14 @@
             "climate": {
                 "show_temperature_control": "Ovládání teploty?",
                 "hvac_modes": "HVAC Mód"
+            },
+            "number": {
+                "display_mode": "Režim zobrazení",
+                "display_mode_list": {
+                    "default": "Výchozí (posuvník)",
+                    "slider": "Posuvník",
+                    "buttons": "Tlačítka"
+                }
             }
         },
         "chip": {
@@ -159,5 +173,8 @@
                 }
             }
         }
+    },
+    "card": {
+        "not_found": "Entita nebyla nalezena"
     }
 }
