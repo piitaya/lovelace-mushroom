@@ -25,6 +25,7 @@ import * as sl from "./translations/sl.json";
 import * as sk from "./translations/sk.json";
 import * as sv from "./translations/sv.json";
 import * as tr from "./translations/tr.json";
+import * as uk from "./translations/uk.json";
 import * as vi from "./translations/vi.json";
 import * as zh_Hans from "./translations/zh-Hans.json";
 import * as zh_Hant from "./translations/zh-Hant.json";
@@ -56,6 +57,7 @@ const languages: Record<string, unknown> = {
     sk,
     sv,
     tr,
+    uk,
     vi,
     "zh-Hans": zh_Hans,
     "zh-Hant": zh_Hant,
