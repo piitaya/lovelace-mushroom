@@ -167,10 +167,14 @@
                     "entity": "Entitat",
                     "light": "Llum",
                     "menu": "Menú",
+                    "spacer": "Espai",
                     "template": "Plantilla",
                     "weather": "Oratge"
                 }
             }
         }
+    },
+    "card": {
+        "not_found": "No s'ha trobat l'entitat"
     }
 }
