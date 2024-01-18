@@ -167,10 +167,14 @@
                     "entity": "Entiteit",
                     "light": "Licht",
                     "menu": "Menu",
+                    "spacer": "Afstandhouder",
                     "template": "Sjabloon",
                     "weather": "Weer"
                 }
             }
         }
+    },
+    "card": {
+        "not_found": "Entiteit niet gevonden"
     }
 }
