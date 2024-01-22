@@ -50,7 +50,7 @@ export class BackChip extends LitElement implements LovelaceChip {
                 @action=${this._handleAction}
                 .actionHandler=${actionHandler()}
             >
-                <ha-state-icon .icon=${icon}></ha-state-icon>
+                <ha-state-icon .hass=${this.hass} .icon=${icon}></ha-state-icon>
             </mushroom-chip>
         `;
     }

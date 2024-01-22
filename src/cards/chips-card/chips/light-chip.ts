@@ -117,6 +117,8 @@ export class LightChip extends LitElement implements LovelaceChip {
                 })}
             >
                 <ha-state-icon
+                    .hass=${this.hass}
+                    .stateObj=${stateObj}
                     .state=${stateObj}
                     .icon=${icon}
                     style=${styleMap(iconStyle)}

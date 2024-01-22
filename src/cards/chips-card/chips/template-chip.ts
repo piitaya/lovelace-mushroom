@@ -141,7 +141,11 @@ export class TemplateChip extends LitElement implements LovelaceChip {
             const iconRgbColor = computeRgbColor(iconColor);
             iconStyle["--color"] = `rgb(${iconRgbColor})`;
         }
-        return html`<ha-state-icon .icon=${icon} style=${styleMap(iconStyle)}></ha-state-icon>`;
+        return html`<ha-state-icon
+            .hass=${this.hass}
+            .icon=${icon}
+            style=${styleMap(iconStyle)}
+        ></ha-state-icon>`;
     }
 
     protected renderContent(content: string): TemplateResult {

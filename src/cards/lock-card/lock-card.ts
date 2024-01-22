@@ -145,7 +145,12 @@ export class LockCard extends MushroomBaseCard implements LovelaceCard {
 
         return html`
             <mushroom-shape-icon slot="icon" .disabled=${!available} style=${styleMap(iconStyle)}>
-                <ha-state-icon .state=${stateObj} .icon=${icon}></ha-state-icon>
+                <ha-state-icon
+                    .hass=${this.hass}
+                    .stateObj=${stateObj}
+                    .state=${stateObj}
+                    .icon=${icon}
+                ></ha-state-icon>
             </mushroom-shape-icon>
         `;
     }
