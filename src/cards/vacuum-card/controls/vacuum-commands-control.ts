@@ -116,7 +116,7 @@ export class CoverButtonsControl extends LitElement {
 
     @property({ attribute: false }) public commands!: VacuumCommand[];
 
-    @property() public fill: boolean = false;
+    @property({ type: Boolean }) public fill: boolean = false;
 
     private callService(e: CustomEvent) {
         e.stopPropagation();
@@ -134,11 +134,12 @@ export class CoverButtonsControl extends LitElement {
                 ${VACUUM_BUTTONS.filter((item) => item.isVisible(this.entity, this.commands)).map(
                     (item) => html`
                         <mushroom-button
-                            .icon=${item.icon}
                             .entry=${item}
                             .disabled=${!isAvailable(this.entity) || item.isDisabled(this.entity)}
                             @click=${this.callService}
-                        ></mushroom-button>
+                        >
+                            <ha-icon .icon=${item.icon}></ha-icon>
+                        </mushroom-button>
                     `
                 )}
             </mushroom-button-group>

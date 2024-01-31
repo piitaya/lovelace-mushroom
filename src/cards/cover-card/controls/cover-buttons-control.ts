@@ -65,10 +65,11 @@ export class CoverButtonsControl extends LitElement {
                 ${supportsFeature(this.entity, COVER_SUPPORT_OPEN)
                     ? html`
                           <mushroom-button
-                              .icon=${computeOpenIcon(this.entity)}
                               .disabled=${!isAvailable(this.entity) || this.openDisabled}
                               @click=${this._onOpenTap}
-                          ></mushroom-button>
+                          >
+                              <ha-icon .icon=${computeOpenIcon(this.entity)}></ha-icon>
+                          </mushroom-button>
                       `
                     : undefined}
                 ${supportsFeature(this.entity, COVER_SUPPORT_STOP)
@@ -77,16 +78,19 @@ export class CoverButtonsControl extends LitElement {
                               icon="mdi:stop"
                               .disabled=${!isAvailable(this.entity)}
                               @click=${this._onStopTap}
-                          ></mushroom-button>
+                          >
+                              <ha-icon icon="mdi:stop"></ha-icon>
+                          </mushroom-button>
                       `
                     : undefined}
                 ${supportsFeature(this.entity, COVER_SUPPORT_CLOSE)
                     ? html`
                           <mushroom-button
-                              .icon=${computeCloseIcon(this.entity)}
                               .disabled=${!isAvailable(this.entity) || this.closedDisabled}
                               @click=${this._onCloseTap}
-                          ></mushroom-button>
+                          >
+                              <ha-icon .icon=${computeCloseIcon(this.entity)}></ha-icon>
+                          </mushroom-button>
                       `
                     : undefined}
             </mushroom-button-group>

@@ -29,10 +29,15 @@ export class FanPercentageControl extends LitElement {
         return html`
             <mushroom-button
                 class=${classMap({ active: oscillating })}
-                .icon=${"mdi:sync"}
                 @click=${this._onTap}
                 .disabled=${!active}
-            />
+            >
+                <ha-icon
+                    .icon=${oscillating
+                        ? "mdi:arrow-oscillating"
+                        : "mdi:arrow-oscillating-off"}
+                ></ha-icon>
+            </mushroom-button>
         `;
     }
 

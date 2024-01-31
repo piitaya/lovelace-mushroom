@@ -54,7 +54,7 @@ export class LockButtonsControl extends LitElement {
 
     @property({ attribute: false }) public entity!: LockEntity;
 
-    @property() public fill: boolean = false;
+    @property({ type: Boolean })  public fill: boolean = false;
 
     private callService(e: CustomEvent) {
         e.stopPropagation();
@@ -73,14 +73,15 @@ export class LockButtonsControl extends LitElement {
                 >${LOCK_BUTTONS.filter((item) => item.isVisible(this.entity)).map(
                     (item) => html`
                         <mushroom-button
-                            .icon=${item.icon}
                             .entry=${item}
                             .title=${item.title
                                 ? customLocalize(`editor.card.lock.${item.title}`)
                                 : ""}
                             .disabled=${!isAvailable(this.entity) || item.isDisabled(this.entity)}
                             @click=${this.callService}
-                        ></mushroom-button>
+                        >
+                            <ha-icon .icon=${item.icon}></ha-icon>
+                        </mushroom-button>
                     `
                 )}</mushroom-button-group
             >

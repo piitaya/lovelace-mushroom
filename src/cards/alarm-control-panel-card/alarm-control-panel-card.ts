@@ -204,10 +204,12 @@ export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceC
                                   ${actions.map(
                                       (action) => html`
                                           <mushroom-button
-                                              .icon=${alarmPanelIconAction(action.state)}
                                               @click=${(e) => this._onTap(e, action.state)}
                                               .disabled=${!isActionEnabled}
-                                          ></mushroom-button>
+                                          >
+                                              <ha-icon .icon=${alarmPanelIconAction(action.state)}>
+                                              </ha-icon>
+                                          </mushroom-button>
                                       `
                                   )}
                               </mushroom-button-group>
