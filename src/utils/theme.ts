@@ -91,7 +91,9 @@ export const themeColorCss = css`
     --rgb-orange: var(--mush-rgb-orange, var(--default-orange));
     --rgb-deep-orange: var(--mush-rgb-deep-orange, var(--default-deep-orange));
     --rgb-brown: var(--mush-rgb-brown, var(--default-brown));
+    --rgb-light-grey: var(--mush-rgb-light-grey, var(--default-light-grey));
     --rgb-grey: var(--mush-rgb-grey, var(--default-grey));
+    --rgb-dark-grey: var(--mush-rgb-dark-grey, var(--default-dark-grey));
     --rgb-blue-grey: var(--mush-rgb-blue-grey, var(--default-blue-grey));
     --rgb-black: var(--mush-rgb-black, var(--default-black));
     --rgb-white: var(--mush-rgb-white, var(--default-white));
