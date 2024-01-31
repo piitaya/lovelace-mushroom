@@ -31,7 +31,7 @@ export class MediaPlayerVolumeControls extends LitElement {
 
     @property({ attribute: false }) public entity!: MediaPlayerEntity;
 
-    @property() public fill: boolean = false;
+    @property({ type: Boolean })  public fill: boolean = false;
 
     @property({ attribute: false }) public controls!: MediaPlayerVolumeControl[];
 
@@ -97,21 +97,25 @@ export class MediaPlayerVolumeControls extends LitElement {
                     ? html`
                           <mushroom-button
                               .action=${"volume_mute"}
-                              .icon=${this.entity.attributes.is_volume_muted
-                                  ? "mdi:volume-off"
-                                  : "mdi:volume-high"}
                               .disabled=${!isAvailable(this.entity) || isOff(this.entity)}
                               @click=${this.handleClick}
-                          ></mushroom-button>
+                          >
+                              <ha-icon
+                                  .icon=${this.entity.attributes.is_volume_muted
+                                      ? "mdi:volume-off"
+                                      : "mdi:volume-high"}
+                              ></ha-icon>
+                          </mushroom-button>
                       `
                     : undefined}
                 ${displayVolumeButtons
                     ? html`
                           <mushroom-button
                               .action=${"volume_down"}
-                              icon="mdi:volume-minus"
                               .disabled=${!isAvailable(this.entity) || isOff(this.entity)}
                               @click=${this.handleClick}
+                          >
+                              <ha-icon icon="mdi:volume-minus"></ha-icon
                           ></mushroom-button>
                       `
                     : undefined}
@@ -122,6 +126,8 @@ export class MediaPlayerVolumeControls extends LitElement {
                               icon="mdi:volume-plus"
                               .disabled=${!isAvailable(this.entity) || isOff(this.entity)}
                               @click=${this.handleClick}
+                          >
+                              <ha-icon icon="mdi:volume-plus"></ha-icon
                           ></mushroom-button>
                       `
                     : undefined}

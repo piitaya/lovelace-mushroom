@@ -3,14 +3,13 @@ import { property, customElement } from "lit/decorators.js";
 
 @customElement("mushroom-button")
 export class Button extends LitElement {
-    @property() public icon: string = "";
     @property() public title: string = "";
     @property({ type: Boolean }) public disabled: boolean = false;
 
     protected render(): TemplateResult {
         return html`
             <button type="button" class="button" .title=${this.title} .disabled=${this.disabled}>
-                <ha-icon .icon=${this.icon} />
+                <slot> </slot>
             </button>
         `;
     }
@@ -47,12 +46,12 @@ export class Button extends LitElement {
                 cursor: not-allowed;
                 background-color: var(--bg-color-disabled);
             }
-            .button ha-icon {
+            .button ::slotted(*) {
                 --mdc-icon-size: var(--control-icon-size);
                 color: var(--icon-color);
                 pointer-events: none;
             }
-            .button:disabled ha-icon {
+            .button:disabled ::slotted(*) {
                 color: var(--icon-color-disabled);
             }
         `;

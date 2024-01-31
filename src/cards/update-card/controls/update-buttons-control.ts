@@ -17,7 +17,7 @@ export class UpdateButtonsControl extends LitElement {
 
     @property({ attribute: false }) public entity!: UpdateEntity;
 
-    @property() public fill: boolean = false;
+    @property({ type: Boolean }) public fill: boolean = false;
 
     private _handleInstall(): void {
         this.hass.callService("update", "install", {
@@ -53,16 +53,12 @@ export class UpdateButtonsControl extends LitElement {
 
         return html`
             <mushroom-button-group .fill=${this.fill} ?rtl=${rtl}>
-                <mushroom-button
-                    icon="mdi:cancel"
-                    .disabled=${this.skipDisabled}
-                    @click=${this._handleSkip}
-                ></mushroom-button>
-                <mushroom-button
-                    icon="mdi:cellphone-arrow-down"
-                    .disabled=${this.installDisabled}
-                    @click=${this._handleInstall}
-                ></mushroom-button>
+                <mushroom-button .disabled=${this.skipDisabled} @click=${this._handleSkip}>
+                    <ha-icon icon="mdi:cancel"></ha-icon>
+                </mushroom-button>
+                <mushroom-button .disabled=${this.installDisabled} @click=${this._handleInstall}>
+                    <ha-icon icon="mdi:cellphone-arrow-down"></ha-icon>
+                </mushroom-button>
             </mushroom-button-group>
         `;
     }

@@ -17,7 +17,7 @@ export class MediaPlayerMediaControls extends LitElement {
 
     @property({ attribute: false }) public controls!: MediaPlayerMediaControl[];
 
-    @property() public fill: boolean = false;
+    @property({ type: Boolean })  public fill: boolean = false;
 
     private _handleClick(e: MouseEvent): void {
         e.stopPropagation();
@@ -34,11 +34,9 @@ export class MediaPlayerMediaControls extends LitElement {
             <mushroom-button-group .fill=${this.fill} ?rtl=${rtl}>
                 ${controls.map(
                     (control) => html`
-                        <mushroom-button
-                            .icon=${control.icon}
-                            .action=${control.action}
-                            @click=${this._handleClick}
-                        ></mushroom-button>
+                        <mushroom-button .action=${control.action} @click=${this._handleClick}>
+                            <ha-icon .icon=${control.icon}></ha-icon>
+                        </mushroom-button>
                     `
                 )}
             </mushroom-button-group>

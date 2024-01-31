@@ -261,10 +261,9 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
         return html`
             ${otherControls.map(
                 (ctrl) => html`
-                    <mushroom-button
-                        .icon=${CONTROLS_ICONS[ctrl]}
-                        @click=${(e) => this._onControlTap(ctrl, e)}
-                    />
+                    <mushroom-button @click=${(e) => this._onControlTap(ctrl, e)}>
+                        <ha-icon .icon=${CONTROLS_ICONS[ctrl]}></ha-icon>
+                    </mushroom-button>
                 `
             )}
         `;
