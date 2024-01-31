@@ -35,7 +35,8 @@ export class StateItem extends LitElement {
                 font-weight: var(--card-primary-font-weight);
                 font-size: var(--card-primary-font-size);
                 line-height: var(--card-primary-line-height);
-                color: var(--primary-text-color);
+                color: var(--card-primary-color);
+                letter-spacing: var(--card-primary-letter-spacing);
                 text-overflow: ellipsis;
                 overflow: hidden;
                 white-space: nowrap;
@@ -44,7 +45,8 @@ export class StateItem extends LitElement {
                 font-weight: var(--card-secondary-font-weight);
                 font-size: var(--card-secondary-font-size);
                 line-height: var(--card-secondary-line-height);
-                color: var(--secondary-text-color);
+                color: var(--card-secondary-color);
+                letter-spacing: var(--card-secondary-letter-spacing);
                 text-overflow: ellipsis;
                 overflow: hidden;
                 white-space: nowrap;

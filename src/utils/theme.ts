@@ -16,10 +16,14 @@ export const themeVariables = css`
     /* Card */
     --card-primary-font-size: var(--mush-card-primary-font-size, 14px);
     --card-secondary-font-size: var(--mush-card-secondary-font-size, 12px);
-    --card-primary-font-weight: var(--mush-card-primary-font-weight, bold);
-    --card-secondary-font-weight: var(--mush-card-secondary-font-weight, bolder);
-    --card-primary-line-height: var(--mush-card-primary-line-height, 1.5);
-    --card-secondary-line-height: var(--mush-card-secondary-line-height, 1.5);
+    --card-primary-font-weight: var(--mush-card-primary-font-weight, 500);
+    --card-secondary-font-weight: var(--mush-card-secondary-font-weight, 400);
+    --card-primary-line-height: var(--mush-card-primary-line-height, 20px);
+    --card-secondary-line-height: var(--mush-card-secondary-line-height, 16px);
+    --card-primary-color: var(--mush-card-primary-color, var(--primary-text-color));
+    --card-secondary-color: var(--mush-card-secondary-color, var(--primary-text-color));
+    --card-primary-letter-spacing: var(--mush-card-secondary-color, 0.1px);
+    --card-secondary-letter-spacing: var(--mush-card-secondary-color, 0.4px);
 
     /* Chips */
     --chip-spacing: var(--mush-chip-spacing, 8px);
@@ -63,8 +67,8 @@ export const themeVariables = css`
 
     /* Icon */
     --icon-border-radius: var(--mush-icon-border-radius, 50%);
-    --icon-size: var(--mush-icon-size, 42px);
-    --icon-symbol-size: var(--mush-icon-symbol-size, 0.5em);
+    --icon-size: var(--mush-icon-size, 40px);
+    --icon-symbol-size: var(--mush-icon-symbol-size, 0.6em);
 `;
 
 export const themeColorCss = css`
