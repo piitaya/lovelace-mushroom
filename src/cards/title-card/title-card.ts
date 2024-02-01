@@ -300,17 +300,19 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
                     transform: translateX(-4px);
                 }
                 .title {
-                    color: var(--primary-text-color);
+                    color: var(--title-color);
                     font-size: var(--title-font-size);
                     font-weight: var(--title-font-weight);
                     line-height: var(--title-line-height);
+                    letter-spacing: var(--title-letter-spacing);
                     --mdc-icon-size: var(--title-font-size);
                 }
                 .subtitle {
-                    color: var(--secondary-text-color);
+                    color: var(--subtitle-color);
                     font-size: var(--subtitle-font-size);
                     font-weight: var(--subtitle-font-weight);
                     line-height: var(--subtitle-line-height);
+                    letter-spacing: var(--subtitle-letter-spacing);
                     --mdc-icon-size: var(--subtitle-font-size);
                 }
                 .align-start {
