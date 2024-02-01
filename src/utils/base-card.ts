@@ -52,7 +52,7 @@ export class MushroomBaseCard extends MushroomBaseElement {
                         <mushroom-state-info
                             slot="info"
                             .primary=${config.entity}
-                            secondary=${customLocalize("card.not_found")}
+                            .secondary=${customLocalize("card.not_found")}
                         ></mushroom-state-info>
                     </mushroom-state-item>
                 </mushroom-card>
