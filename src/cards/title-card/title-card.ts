@@ -275,7 +275,7 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
                     margin: 0;
                     white-space: pre-wrap;
                 }
-                .header div:not(:last-child) {
+                .header div:not(:last-of-type) {
                     margin-bottom: var(--title-spacing);
                 }
                 .actionable {
