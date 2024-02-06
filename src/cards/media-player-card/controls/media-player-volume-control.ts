@@ -123,7 +123,6 @@ export class MediaPlayerVolumeControls extends LitElement {
                     ? html`
                           <mushroom-button
                               .action=${"volume_up"}
-                              icon="mdi:volume-plus"
                               .disabled=${!isAvailable(this.entity) || isOff(this.entity)}
                               @click=${this.handleClick}
                           >

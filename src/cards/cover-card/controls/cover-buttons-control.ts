@@ -75,7 +75,6 @@ export class CoverButtonsControl extends LitElement {
                 ${supportsFeature(this.entity, COVER_SUPPORT_STOP)
                     ? html`
                           <mushroom-button
-                              icon="mdi:stop"
                               .disabled=${!isAvailable(this.entity)}
                               @click=${this._onStopTap}
                           >
