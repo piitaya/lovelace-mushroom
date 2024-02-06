@@ -60,11 +60,12 @@ export class ClimateHvacModesControl extends LitElement {
         return html`
             <mushroom-button
                 style=${styleMap(iconStyle)}
-                .icon=${getHvacModeIcon(mode)}
                 .mode=${mode}
                 .disabled=${!isAvailable(this.entity)}
                 @click=${this.callService}
-            ></mushroom-button>
+            >
+                <ha-icon .icon=${getHvacModeIcon(mode)}></ha-icon>
+            </mushroom-button>
         `;
     }
 }

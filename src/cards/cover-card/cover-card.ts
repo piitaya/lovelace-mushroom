@@ -230,10 +230,7 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
         if (!this._nextControl || this._nextControl == this._activeControl) return nothing;
 
         return html`
-            <mushroom-button
-                .icon=${CONTROLS_ICONS[this._nextControl]}
-                @click=${this._onNextControlTap}
-            >
+            <mushroom-button @click=${this._onNextControlTap}>
                 <ha-icon .icon=${CONTROLS_ICONS[this._nextControl]}></ha-icon>
             </mushroom-button>
         `;
