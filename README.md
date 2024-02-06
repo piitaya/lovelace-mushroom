@@ -146,6 +146,9 @@ npm run build
     - uninstall Mushroom from HACS
     - reinstall Mushroom from HACS
 
+### My card mod configuration doesn't work.
+
+Help about card mod configuration is not provided in this repository. More info in the [state of card mod support](https://github.com/piitaya/lovelace-mushroom/issues/1366).
 ## Credits
 
 The design is inspired by [7ahang’s work][7ahang] on Behance and [Ui Lovelace Minimalist][ui-lovelace-minimalist].
