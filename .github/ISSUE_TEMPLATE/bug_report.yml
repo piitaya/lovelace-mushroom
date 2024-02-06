@@ -11,7 +11,7 @@ body:
                 required: true
               - label: I did a search to see if there is a similar issue or if a pull request is open.
                 required: true
-              - label: I have read the [state of card mod support](https://github.com/piitaya/lovelace-mushroom/issues/1366) and understand card mod support is not provided in this repository.
+              - label: I have read the state of card mod support (in pin issues) and understand card mod support is not provided in this repository.
                 required: true
     - type: textarea
       attributes:
