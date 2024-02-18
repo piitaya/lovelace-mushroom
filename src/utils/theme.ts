@@ -25,7 +25,7 @@ export const themeVariables = css`
     --card-primary-line-height: var(--mush-card-primary-line-height, 20px);
     --card-secondary-line-height: var(--mush-card-secondary-line-height, 16px);
     --card-primary-color: var(--mush-card-primary-color, var(--primary-text-color));
-    --card-secondary-color: var(--mush-card-secondary-color, var(--primary-text-color));
+    --card-secondary-color: var(--mush-card-secondary-color, var(--secondary-text-color));
     --card-primary-letter-spacing: var(--mush-card-primary-letter-spacing, 0.1px);
     --card-secondary-letter-spacing: var(--mush-card-secondary-letter-spacing, 0.4px);
 
