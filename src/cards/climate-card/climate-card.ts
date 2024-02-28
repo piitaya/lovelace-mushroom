@@ -70,7 +70,24 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
 
     @state() private _activeControl?: ClimateCardControl;
 
-    @state() private _controls: ClimateCardControl[] = [];
+    @state() private _inGrid = false;
+
+    private get _controls(): ClimateCardControl[] {
+        if (!this._config || !this.hass || !this._config.entity) return [];
+
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as ClimateEntity | undefined;
+        if (!stateObj) return [];
+
+        const controls: ClimateCardControl[] = [];
+        if (isTemperatureControlVisible(stateObj) && this._config.show_temperature_control) {
+            controls.push("temperature_control");
+        }
+        if (isHvacModesVisible(stateObj, this._config.hvac_modes)) {
+            controls.push("hvac_mode_control");
+        }
+        return controls;
+    }
 
     _onControlTap(ctrl, e): void {
         e.stopPropagation();
@@ -91,39 +108,21 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
             },
             ...config,
         };
-        this.updateControls();
+        this.updateActiveControl();
     }
 
     protected updated(changedProperties: PropertyValues) {
         super.updated(changedProperties);
         if (this.hass && changedProperties.has("hass")) {
-            this.updateControls();
+            this.updateActiveControl();
         }
     }
 
-    updateControls() {
-        if (!this._config || !this.hass || !this._config.entity) return;
-
-        const entityId = this._config.entity;
-        const stateObj = this.hass.states[entityId] as ClimateEntity | undefined;
-
-        if (!stateObj) return;
-
-        const controls: ClimateCardControl[] = [];
-        if (!this._config.collapsible_controls || isActive(stateObj)) {
-            if (isTemperatureControlVisible(stateObj) && this._config.show_temperature_control) {
-                controls.push("temperature_control");
-            }
-            if (isHvacModesVisible(stateObj, this._config.hvac_modes)) {
-                controls.push("hvac_mode_control");
-            }
-        }
-
-        this._controls = controls;
+    updateActiveControl() {
         const isActiveControlSupported = this._activeControl
-            ? controls.includes(this._activeControl)
+            ? this._controls.includes(this._activeControl)
             : false;
-        this._activeControl = isActiveControlSupported ? this._activeControl : controls[0];
+        this._activeControl = isActiveControlSupported ? this._activeControl : this._controls[0];
     }
 
     private _handleAction(ev: ActionHandlerEvent) {
@@ -166,8 +165,16 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
         }
         const rtl = computeRTL(this.hass);
 
+        const isControlVisible =
+            (!this._config.collapsible_controls || isActive(stateObj)) && this._controls.length;
+
         return html`
-            <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
+            <ha-card
+                class=${classMap({
+                    "fill-container": appearance.fill_container,
+                    "in-grid": this._inGrid,
+                })}
+            >
                 <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
                     <mushroom-state-item
                         ?rtl=${rtl}
@@ -182,7 +189,7 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
                         ${this.renderBadge(stateObj)}
                         ${this.renderStateInfo(stateObj, appearance, name, stateDisplay)};
                     </mushroom-state-item>
-                    ${this._controls.length > 0
+                    ${isControlVisible
                         ? html`
                               <div class="actions" ?rtl=${rtl}>
                                   ${this.renderActiveControl(stateObj)}${this.renderOtherControls()}
@@ -281,6 +288,26 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
             default:
                 return nothing;
         }
+    }
+
+    public getGridSize(): [number, number] {
+        this._inGrid = true;
+        let column = 2;
+        let row = 1;
+        if (!this._config) return [column, row];
+
+        const appearance = computeAppearance(this._config);
+        if (appearance.layout === "vertical") {
+            row += 1;
+        }
+        if (this._controls.length) {
+            if (appearance.layout === "horizontal") {
+                column = 4;
+            } else if (!this._config?.collapsible_controls) {
+                row += 1;
+            }
+        }
+        return [column, row];
     }
 
     static get styles(): CSSResultGroup {

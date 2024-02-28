@@ -51,7 +51,7 @@ export const themeVariables = css`
     );
     /* Controls */
     --control-border-radius: var(--mush-control-border-radius, 12px);
-    --control-height: var(--mush-control-height, 42px);
+    --control-height: var(--mush-control-height, 40px);
     --control-button-ratio: var(--mush-control-button-ratio, 1);
     --control-icon-size: var(--mush-control-icon-size, 0.5em);
 

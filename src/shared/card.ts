@@ -32,7 +32,8 @@ export class Card extends LitElement {
                 flex-shrink: 0;
                 flex-grow: 0;
                 box-sizing: border-box;
-                justify-content: center;
+                justify-content: space-between;
+                height: 100%;
             }
             .container > ::slotted(*:not(:last-child)) {
                 margin-bottom: var(--spacing);
