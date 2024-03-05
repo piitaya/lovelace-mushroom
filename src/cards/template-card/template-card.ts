@@ -1,6 +1,6 @@
 import { UnsubscribeFunc } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, nothing, PropertyValues, TemplateResult } from "lit";
-import { customElement, state } from "lit/decorators.js";
+import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import {
@@ -69,8 +69,33 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
 
     @state() private _unsubRenderTemplates: Map<TemplateKey, Promise<UnsubscribeFunc>> = new Map();
 
-    getCardSize(): number | Promise<number> {
-        return 1;
+    @property({ attribute: "in-grid", reflect: true, type: Boolean })
+    protected _inGrid = false;
+
+    public getCardSize(): number | Promise<number> {
+        let height = 1;
+        if (!this._config) return height;
+        const appearance = computeAppearance(this._config);
+        if (appearance.layout === "vertical") {
+            height += 1;
+        }
+        return height;
+    }
+
+    public getGridSize(): [number, number] {
+        this._inGrid = true;
+        let column = 2;
+        let row = 1;
+        if (!this._config) return [column, row];
+
+        const appearance = computeAppearance(this._config);
+        if (appearance.layout === "vertical") {
+            row += 1;
+        }
+        if (appearance.layout === "horizontal") {
+            column = 4;
+        }
+        return [column, row];
     }
 
     setConfig(config: TemplateCardConfig): void {

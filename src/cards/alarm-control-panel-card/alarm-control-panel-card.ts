@@ -62,7 +62,10 @@ const BUTTONS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "", "0", "clear"];
  */
 
 @customElement(ALARM_CONTROl_PANEL_CARD_NAME)
-export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceCard {
+export class AlarmControlPanelCard
+    extends MushroomBaseCard<AlarmControlPanelCardConfig>
+    implements LovelaceCard
+{
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./alarm-control-panel-card-editor");
         return document.createElement(ALARM_CONTROl_PANEL_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -80,24 +83,21 @@ export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceC
         };
     }
 
-    @state() private _config?: AlarmControlPanelCardConfig;
+    protected get hasControls(): boolean {
+        return Boolean(this._config?.states?.length);
+    }
+
+    public getGridSize() {
+        if (this._config?.show_keypad) {
+            return [4, 1] as [number, number];
+        }
+        return super.getGridSize();
+    }
 
     @query("#alarmCode") private _input?: HaTextField;
 
-    getCardSize(): number | Promise<number> {
-        return 1;
-    }
-
     setConfig(config: AlarmControlPanelCardConfig): void {
-        this._config = {
-            tap_action: {
-                action: "more-info",
-            },
-            hold_action: {
-                action: "more-info",
-            },
-            ...config,
-        };
+        super.setConfig(config);
         this.loadComponents();
     }
 
@@ -109,9 +109,7 @@ export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceC
     }
 
     async loadComponents() {
-        if (!this._config || !this.hass || !this._config.entity) return;
-        const entityId = this._config.entity;
-        const stateObj = this.hass.states[entityId] as HassEntity | undefined;
+        const stateObj = this._stateObj;
 
         if (stateObj && hasCode(stateObj)) {
             void import("../../shared/form/mushroom-textfield");
@@ -144,9 +142,7 @@ export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceC
     }
 
     private get _hasCode(): boolean {
-        const entityId = this._config?.entity;
-        if (!entityId) return false;
-        const stateObj = this.hass.states[entityId] as HassEntity | undefined;
+        const stateObj = this._stateObj;
         if (!stateObj) return false;
         return hasCode(stateObj) && Boolean(this._config?.show_keypad);
     }
@@ -156,8 +152,7 @@ export class AlarmControlPanelCard extends MushroomBaseCard implements LovelaceC
             return nothing;
         }
 
-        const entityId = this._config.entity;
-        const stateObj = this.hass.states[entityId] as HassEntity | undefined;
+        const stateObj = this._stateObj;
 
         if (!stateObj) {
             return this.renderNotFound(this._config);

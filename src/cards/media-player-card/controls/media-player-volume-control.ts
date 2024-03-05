@@ -31,7 +31,7 @@ export class MediaPlayerVolumeControls extends LitElement {
 
     @property({ attribute: false }) public entity!: MediaPlayerEntity;
 
-    @property({ type: Boolean })  public fill: boolean = false;
+    @property({ type: Boolean }) public fill: boolean = false;
 
     @property({ attribute: false }) public controls!: MediaPlayerVolumeControl[];
 

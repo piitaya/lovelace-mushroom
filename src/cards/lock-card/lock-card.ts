@@ -37,7 +37,7 @@ registerCustomCard({
 });
 
 @customElement(LOCK_CARD_NAME)
-export class LockCard extends MushroomBaseCard implements LovelaceCard {
+export class LockCard extends MushroomBaseCard<LockCardConfig, LockEntity> implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./lock-card-editor");
         return document.createElement(LOCK_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -52,22 +52,8 @@ export class LockCard extends MushroomBaseCard implements LovelaceCard {
         };
     }
 
-    @state() private _config?: LockCardConfig;
-
-    getCardSize(): number | Promise<number> {
-        return 1;
-    }
-
-    setConfig(config: LockCardConfig): void {
-        this._config = {
-            tap_action: {
-                action: "more-info",
-            },
-            hold_action: {
-                action: "more-info",
-            },
-            ...config,
-        };
+    protected get hasControls(): boolean {
+        return true;
     }
 
     private _handleAction(ev: ActionHandlerEvent) {
@@ -79,8 +65,7 @@ export class LockCard extends MushroomBaseCard implements LovelaceCard {
             return nothing;
         }
 
-        const entityId = this._config.entity;
-        const stateObj = this.hass.states[entityId] as LockEntity | undefined;
+        const stateObj = this._stateObj;
 
         if (!stateObj) {
             return this.renderNotFound(this._config);

@@ -54,13 +54,12 @@ export class LayoutPicker extends LitElement {
             >
                 <ha-icon slot="icon" .icon=${ICONS[value as Layout]}></ha-icon>
                 ${LAYOUTS.map(
-                    (layout) =>
-                        html`
-                            <mwc-list-item .value=${layout} graphic="icon">
-                                ${customLocalize(`editor.form.layout_picker.values.${layout}`)}
-                                <ha-icon slot="graphic" .icon=${ICONS[layout]}></ha-icon>
-                            </mwc-list-item>
-                        `
+                    (layout) => html`
+                        <mwc-list-item .value=${layout} graphic="icon">
+                            ${customLocalize(`editor.form.layout_picker.values.${layout}`)}
+                            <ha-icon slot="graphic" .icon=${ICONS[layout]}></ha-icon>
+                        </mwc-list-item>
+                    `
                 )}
             </mushroom-select>
         `;

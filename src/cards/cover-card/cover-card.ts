@@ -51,7 +51,10 @@ registerCustomCard({
 });
 
 @customElement(COVER_CARD_NAME)
-export class CoverCard extends MushroomBaseCard implements LovelaceCard {
+export class CoverCard
+    extends MushroomBaseCard<CoverCardConfig, CoverEntity>
+    implements LovelaceCard
+{
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./cover-card-editor");
         return document.createElement(COVER_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -66,11 +69,11 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
         };
     }
 
-    @state() private _config?: CoverCardConfig;
+    protected get hasControls(): boolean {
+        return this._controls.length > 0;
+    }
 
     @state() private _activeControl?: CoverCardControl;
-
-    @state() private _controls: CoverCardControl[] = [];
 
     get _nextControl(): CoverCardControl | undefined {
         if (this._activeControl) {
@@ -91,7 +94,7 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
     }
 
     setConfig(config: CoverCardConfig): void {
-        this._config = {
+        super.setConfig({
             tap_action: {
                 action: "toggle",
             },
@@ -99,26 +102,38 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
                 action: "more-info",
             },
             ...config,
-        };
+        });
+        this.updateActiveControl();
+        this.updatePosition();
+    }
+
+    private get _controls(): CoverCardControl[] {
+        if (!this._config || !this._stateObj) return [];
         const controls: CoverCardControl[] = [];
-        if (this._config?.show_buttons_control) {
+        if (this._config.show_buttons_control) {
             controls.push("buttons_control");
         }
-        if (this._config?.show_position_control) {
+        if (this._config.show_position_control) {
             controls.push("position_control");
         }
-        if (this._config?.show_tilt_position_control) {
+        if (this._config.show_tilt_position_control) {
             controls.push("tilt_position_control");
         }
-        this._controls = controls;
-        this._activeControl = controls[0];
-        this.updatePosition();
+        return controls;
+    }
+
+    updateActiveControl() {
+        const isActiveControlSupported = this._activeControl
+            ? this._controls.includes(this._activeControl)
+            : false;
+        this._activeControl = isActiveControlSupported ? this._activeControl : this._controls[0];
     }
 
     protected updated(changedProperties: PropertyValues) {
         super.updated(changedProperties);
         if (this.hass && changedProperties.has("hass")) {
             this.updatePosition();
+            this.updateActiveControl();
         }
     }
 
@@ -127,10 +142,7 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
 
     updatePosition() {
         this.position = undefined;
-        if (!this._config || !this.hass || !this._config.entity) return;
-
-        const entityId = this._config.entity;
-        const stateObj = this.hass.states[entityId] as CoverEntity | undefined;
+        const stateObj = this._stateObj;
 
         if (!stateObj) return;
         this.position = getPosition(stateObj);
@@ -151,8 +163,7 @@ export class CoverCard extends MushroomBaseCard implements LovelaceCard {
             return nothing;
         }
 
-        const entityId = this._config.entity;
-        const stateObj = this.hass.states[entityId] as CoverEntity | undefined;
+        const stateObj = this._stateObj;
 
         if (!stateObj) {
             return this.renderNotFound(this._config);

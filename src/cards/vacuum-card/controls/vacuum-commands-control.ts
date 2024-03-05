@@ -22,88 +22,102 @@ import { VacuumCommand } from "../vacuum-card-config";
 interface VacuumButton {
     icon: string;
     serviceName: string;
-    isVisible: (entity: VacuumEntity, commands: VacuumCommand[]) => boolean;
+    command: VacuumCommand;
+    isSupported: (entity: VacuumEntity) => boolean;
+    isVisible?: (entity: VacuumEntity) => boolean;
     isDisabled: (entity: VacuumEntity) => boolean;
 }
 
+export const isButtonVisible = (
+    entity: VacuumEntity,
+    button: VacuumButton,
+    commands: VacuumCommand[]
+) => isButtonSupported(entity, button, commands) && (!button.isVisible || button.isVisible(entity));
+
+export const isButtonSupported = (
+    entity: VacuumEntity,
+    button: VacuumButton,
+    commands: VacuumCommand[]
+) => button.isSupported(entity) && commands.includes(button.command);
+
 export const isCommandsControlVisible = (entity: VacuumEntity, commands: VacuumCommand[]) =>
-    VACUUM_BUTTONS.some((item) => item.isVisible(entity, commands));
+    VACUUM_BUTTONS.some((button) => isButtonVisible(entity, button, commands));
+
+export const isCommandsControlSupported = (entity: VacuumEntity, commands: VacuumCommand[]) =>
+    VACUUM_BUTTONS.some((button) => isButtonSupported(entity, button, commands));
 
 export const VACUUM_BUTTONS: VacuumButton[] = [
     {
         icon: "mdi:power",
         serviceName: "turn_on",
-        isVisible: (entity, commands) =>
-            supportsFeature(entity, VACUUM_SUPPORT_TURN_ON) &&
-            commands.includes("on_off") &&
-            !isActive(entity),
+        command: "on_off",
+        isSupported: (entity) => supportsFeature(entity, VACUUM_SUPPORT_TURN_ON),
+        isVisible: (entity) => !isActive(entity),
         isDisabled: () => false,
     },
     {
         icon: "mdi:power",
         serviceName: "turn_off",
-        isVisible: (entity, commands) =>
-            supportsFeature(entity, VACUUM_SUPPORT_TURN_OFF) &&
-            commands.includes("on_off") &&
-            isActive(entity),
+        command: "on_off",
+        isSupported: (entity) => supportsFeature(entity, VACUUM_SUPPORT_TURN_OFF),
+        isVisible: (entity) => isActive(entity),
         isDisabled: () => false,
     },
     {
         icon: "mdi:play",
         serviceName: "start",
-        isVisible: (entity, commands) =>
-            supportsFeature(entity, VACUUM_SUPPORT_START) &&
-            commands.includes("start_pause") &&
-            !isCleaning(entity),
+        command: "start_pause",
+        isSupported: (entity) => supportsFeature(entity, VACUUM_SUPPORT_START),
+        isVisible: (entity) => !isCleaning(entity),
         isDisabled: () => false,
     },
     {
         icon: "mdi:pause",
         serviceName: "pause",
-        isVisible: (entity, commands) =>
+        command: "start_pause",
+        isSupported: (entity) =>
             // We need also to check if Start is supported because if not we show play-pause
             supportsFeature(entity, VACUUM_SUPPORT_START) &&
-            supportsFeature(entity, VACUUM_SUPPORT_PAUSE) &&
-            commands.includes("start_pause") &&
-            isCleaning(entity),
+            supportsFeature(entity, VACUUM_SUPPORT_PAUSE),
+        isVisible: (entity) => isCleaning(entity),
         isDisabled: () => false,
     },
     {
         icon: "mdi:play-pause",
         serviceName: "start_pause",
-        isVisible: (entity, commands) =>
+        command: "start_pause",
+        isSupported: (entity) =>
             // If start is supported, we don't show this button
             !supportsFeature(entity, VACUUM_SUPPORT_START) &&
-            supportsFeature(entity, VACUUM_SUPPORT_PAUSE) &&
-            commands.includes("start_pause"),
+            supportsFeature(entity, VACUUM_SUPPORT_PAUSE),
         isDisabled: () => false,
     },
     {
         icon: "mdi:stop",
         serviceName: "stop",
-        isVisible: (entity, commands) =>
-            supportsFeature(entity, VACUUM_SUPPORT_STOP) && commands.includes("stop"),
+        command: "stop",
+        isSupported: (entity) => supportsFeature(entity, VACUUM_SUPPORT_STOP),
         isDisabled: (entity) => isStopped(entity),
     },
     {
         icon: "mdi:target-variant",
         serviceName: "clean_spot",
-        isVisible: (entity, commands) =>
-            supportsFeature(entity, VACUUM_SUPPORT_CLEAN_SPOT) && commands.includes("clean_spot"),
+        command: "clean_spot",
+        isSupported: (entity) => supportsFeature(entity, VACUUM_SUPPORT_CLEAN_SPOT),
         isDisabled: () => false,
     },
     {
         icon: "mdi:map-marker",
         serviceName: "locate",
-        isVisible: (entity, commands) =>
-            supportsFeature(entity, VACUUM_SUPPORT_LOCATE) && commands.includes("locate"),
+        command: "locate",
+        isSupported: (entity) => supportsFeature(entity, VACUUM_SUPPORT_LOCATE),
         isDisabled: (entity) => isReturningHome(entity),
     },
     {
         icon: "mdi:home-map-marker",
         serviceName: "return_to_base",
-        isVisible: (entity, commands) =>
-            supportsFeature(entity, VACUUM_SUPPORT_RETURN_HOME) && commands.includes("return_home"),
+        command: "return_home",
+        isSupported: (entity) => supportsFeature(entity, VACUUM_SUPPORT_RETURN_HOME),
         isDisabled: () => false,
     },
 ];
@@ -131,7 +145,9 @@ export class CoverButtonsControl extends LitElement {
 
         return html`
             <mushroom-button-group .fill=${this.fill} ?rtl=${rtl}>
-                ${VACUUM_BUTTONS.filter((item) => item.isVisible(this.entity, this.commands)).map(
+                ${VACUUM_BUTTONS.filter((item) =>
+                    isButtonVisible(this.entity, item, this.commands)
+                ).map(
                     (item) => html`
                         <mushroom-button
                             .entry=${item}

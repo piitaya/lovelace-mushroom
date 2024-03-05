@@ -1,5 +1,6 @@
 import { HassEntity } from "home-assistant-js-websocket";
 import { html, nothing, TemplateResult } from "lit";
+import { property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { computeRTL, computeStateDisplay, HomeAssistant, isActive, isAvailable } from "../ha";
 import setupCustomlocalize from "../localize";
@@ -21,7 +22,77 @@ export function computeDarkMode(hass?: HomeAssistant): boolean {
     if (!hass) return false;
     return (hass.themes as any).darkMode as boolean;
 }
-export class MushroomBaseCard extends MushroomBaseElement {
+export class MushroomBaseCard<
+    T extends BaseConfig = BaseConfig,
+    E extends HassEntity = HassEntity,
+> extends MushroomBaseElement {
+    @state() protected _config?: T;
+
+    @property({ attribute: "in-grid", reflect: true, type: Boolean })
+    protected _inGrid = false;
+
+    protected get _stateObj(): E | undefined {
+        if (!this._config || !this.hass || !this._config.entity) return undefined;
+
+        const entityId = this._config.entity;
+        return this.hass.states[entityId] as E;
+    }
+
+    protected get hasControls(): boolean {
+        return false;
+    }
+
+    setConfig(config: T): void {
+        this._config = {
+            tap_action: {
+                action: "more-info",
+            },
+            hold_action: {
+                action: "more-info",
+            },
+            ...config,
+        };
+    }
+
+    public getGridSize(): [number, number] {
+        this._inGrid = true;
+        let column = 2;
+        let row = 1;
+        if (!this._config) return [column, row];
+        const appearance = computeAppearance(this._config);
+        if (appearance.layout === "vertical") {
+            row += 1;
+        }
+        if (appearance.layout === "horizontal") {
+            column = 4;
+        }
+        if (
+            appearance?.layout !== "horizontal" &&
+            this.hasControls &&
+            !("collapsible_controls" in this._config && this._config?.collapsible_controls)
+        ) {
+            row += 1;
+        }
+        return [column, row];
+    }
+
+    public getCardSize(): number | Promise<number> {
+        let height = 1;
+        if (!this._config) return height;
+        const appearance = computeAppearance(this._config);
+        if (appearance.layout === "vertical") {
+            height += 1;
+        }
+        if (
+            appearance?.layout !== "horizontal" &&
+            this.hasControls &&
+            !("collapsible_controls" in this._config && this._config?.collapsible_controls)
+        ) {
+            height += 1;
+        }
+        return height;
+    }
+
     protected renderPicture(picture: string): TemplateResult {
         return html`
             <mushroom-shape-avatar
