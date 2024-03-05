@@ -36,7 +36,7 @@ registerCustomCard({
 });
 
 @customElement(ENTITY_CARD_NAME)
-export class EntityCard extends MushroomBaseCard implements LovelaceCard {
+export class EntityCard extends MushroomBaseCard<EntityCardConfig> implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./entity-card-editor");
         return document.createElement(ENTITY_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -50,14 +50,8 @@ export class EntityCard extends MushroomBaseCard implements LovelaceCard {
         };
     }
 
-    @state() private _config?: EntityCardConfig;
-
-    getCardSize(): number | Promise<number> {
-        return 1;
-    }
-
     setConfig(config: EntityCardConfig): void {
-        this._config = {
+        super.setConfig({
             tap_action: {
                 action: "more-info",
             },
@@ -65,7 +59,7 @@ export class EntityCard extends MushroomBaseCard implements LovelaceCard {
                 action: "more-info",
             },
             ...config,
-        };
+        });
     }
 
     private _handleAction(ev: ActionHandlerEvent) {

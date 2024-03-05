@@ -12,10 +12,10 @@ export const cardStyle = css`
     ha-card.fill-container {
         height: 100%;
     }
-    ha-card.in-grid {
+    :host([in-grid]) ha-card {
         height: 100%;
     }
-    ha-card.in-grid mushroom-card {
+    :host([in-grid]) ha-card mushroom-card {
         height: 100%;
     }
     .actions {

@@ -59,7 +59,7 @@ registerCustomCard({
 });
 
 @customElement(LIGHT_CARD_NAME)
-export class LightCard extends MushroomBaseCard implements LovelaceCard {
+export class LightCard extends MushroomBaseCard<LightCardConfig> implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./light-card-editor");
         return document.createElement(LIGHT_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -74,13 +74,9 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
         };
     }
 
-    @state() private _config?: LightCardConfig;
-
     @state() private _activeControl?: LightCardControl;
 
     @state() private brightness?: number;
-
-    @state() private _inGrid = false;
 
     private get _controls(): LightCardControl[] {
         if (!this._config || !this.hass || !this._config.entity) return [];
@@ -102,35 +98,22 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
         return controls;
     }
 
-    public getCardSize(): number | Promise<number> {
-        return 1;
-    }
-
     public getGridSize(): [number, number] {
-        this._inGrid = true;
-        let column = 2;
-        let row = 1;
-        if (!this._config) return [column, row];
-
+        const size = super.getGridSize();
+        if (!this._config) return size;
         const appearance = computeAppearance(this._config);
-        if (appearance.layout === "vertical") {
-            row += 1;
-        }
-        if (appearance.layout === "horizontal") {
-            column = 4;
-        }
         if (
             this._controls.length &&
             !this._config?.collapsible_controls &&
             appearance.layout !== "horizontal"
         ) {
-            row += 1;
+            size[1] += 1;
         }
-        return [column, row];
+        return size;
     }
 
     setConfig(config: LightCardConfig): void {
-        this._config = {
+        super.setConfig({
             tap_action: {
                 action: "toggle",
             },
@@ -138,7 +121,7 @@ export class LightCard extends MushroomBaseCard implements LovelaceCard {
                 action: "more-info",
             },
             ...config,
-        };
+        });
         this.updateActiveControls();
         this.updateBrightness();
     }

@@ -1,5 +1,6 @@
 import { HassEntity } from "home-assistant-js-websocket";
 import { html, nothing, TemplateResult } from "lit";
+import { property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { computeRTL, computeStateDisplay, HomeAssistant, isActive, isAvailable } from "../ha";
 import setupCustomlocalize from "../localize";
@@ -21,7 +22,36 @@ export function computeDarkMode(hass?: HomeAssistant): boolean {
     if (!hass) return false;
     return (hass.themes as any).darkMode as boolean;
 }
-export class MushroomBaseCard extends MushroomBaseElement {
+export class MushroomBaseCard<T extends BaseConfig = BaseConfig> extends MushroomBaseElement {
+    @state() protected _config?: T;
+
+    @property({ attribute: "in-grid", reflect: true, type: Boolean })
+    protected _inGrid = false;
+
+    public getCardSize(): number | Promise<number> {
+        return 1;
+    }
+
+    setConfig(config: T): void {
+        this._config = config;
+    }
+
+    public getGridSize(): [number, number] {
+        this._inGrid = true;
+        let column = 2;
+        let row = 1;
+        if (!this._config) return [column, row];
+
+        const appearance = computeAppearance(this._config);
+        if (appearance.layout === "vertical") {
+            row += 1;
+        }
+        if (appearance.layout === "horizontal") {
+            column = 4;
+        }
+        return [column, row];
+    }
+
     protected renderPicture(picture: string): TemplateResult {
         return html`
             <mushroom-shape-avatar
