@@ -40,7 +40,10 @@ registerCustomCard({
 });
 
 @customElement(UPDATE_CARD_NAME)
-export class UpdateCard extends MushroomBaseCard implements LovelaceCard {
+export class UpdateCard
+    extends MushroomBaseCard<UpdateCardConfig, UpdateEntity>
+    implements LovelaceCard
+{
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./update-card-editor");
         return document.createElement(UPDATE_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -55,14 +58,15 @@ export class UpdateCard extends MushroomBaseCard implements LovelaceCard {
         };
     }
 
-    @state() private _config?: UpdateCardConfig;
-
-    getCardSize(): number | Promise<number> {
-        return 1;
+    protected get hasControls() {
+        if (!this._stateObj || !this._config) return false;
+        return (
+            Boolean(this._config.show_buttons_control) &&
+            supportsFeature(this._stateObj, UPDATE_SUPPORT_INSTALL)
+        );
     }
-
     setConfig(config: UpdateCardConfig): void {
-        this._config = {
+        super.setConfig({
             tap_action: {
                 action: "more-info",
             },
@@ -70,7 +74,7 @@ export class UpdateCard extends MushroomBaseCard implements LovelaceCard {
                 action: "more-info",
             },
             ...config,
-        };
+        });
     }
 
     private _handleAction(ev: ActionHandlerEvent) {
@@ -78,12 +82,11 @@ export class UpdateCard extends MushroomBaseCard implements LovelaceCard {
     }
 
     protected render() {
-        if (!this._config || !this.hass || !this._config.entity) {
+        if (!this._config || !this.hass) {
             return nothing;
         }
 
-        const entityId = this._config.entity;
-        const stateObj = this.hass.states[entityId] as UpdateEntity | undefined;
+        const stateObj = this._stateObj;
 
         if (!stateObj) {
             return this.renderNotFound(this._config);

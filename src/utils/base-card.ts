@@ -22,11 +22,25 @@ export function computeDarkMode(hass?: HomeAssistant): boolean {
     if (!hass) return false;
     return (hass.themes as any).darkMode as boolean;
 }
-export class MushroomBaseCard<T extends BaseConfig = BaseConfig> extends MushroomBaseElement {
+export class MushroomBaseCard<
+    T extends BaseConfig = BaseConfig,
+    E extends HassEntity = HassEntity,
+> extends MushroomBaseElement {
     @state() protected _config?: T;
 
     @property({ attribute: "in-grid", reflect: true, type: Boolean })
     protected _inGrid = false;
+
+    protected get _stateObj(): E | undefined {
+        if (!this._config || !this.hass || !this._config.entity) return undefined;
+
+        const entityId = this._config.entity;
+        return this.hass.states[entityId] as E;
+    }
+
+    protected get hasControls(): boolean {
+        return false;
+    }
 
     public getCardSize(): number | Promise<number> {
         return 1;
@@ -36,21 +50,24 @@ export class MushroomBaseCard<T extends BaseConfig = BaseConfig> extends Mushroo
         this._config = config;
     }
 
-    public get _appearance(): Appearance | undefined {
-        if (!this._config) return undefined;
-        return computeAppearance(this._config);
-    }
-
     public getGridSize(): [number, number] {
         this._inGrid = true;
         let column = 2;
         let row = 1;
-        if (!this._appearance) return [column, row];
-        if (this._appearance.layout === "vertical") {
+        if (!this._config) return [column, row];
+        const appearance = computeAppearance(this._config);
+        if (appearance.layout === "vertical") {
             row += 1;
         }
-        if (this._appearance.layout === "horizontal") {
+        if (appearance.layout === "horizontal") {
             column = 4;
+        }
+        if (
+            appearance?.layout !== "horizontal" &&
+            this.hasControls &&
+            !("collapsible_controls" in this._config && this._config?.collapsible_controls)
+        ) {
+            row += 1;
         }
         return [column, row];
     }

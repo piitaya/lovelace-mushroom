@@ -59,7 +59,7 @@ registerCustomCard({
 });
 
 @customElement(LIGHT_CARD_NAME)
-export class LightCard extends MushroomBaseCard<LightCardConfig> implements LovelaceCard {
+export class LightCard extends MushroomBaseCard<LightCardConfig, LightEntity> implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./light-card-editor");
         return document.createElement(LIGHT_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -79,12 +79,9 @@ export class LightCard extends MushroomBaseCard<LightCardConfig> implements Love
     @state() private brightness?: number;
 
     private get _controls(): LightCardControl[] {
-        if (!this._config || !this.hass || !this._config.entity) return [];
+        if (!this._config || !this._stateObj) return [];
 
-        const entityId = this._config.entity;
-        const stateObj = this.hass.states[entityId] as LightEntity | undefined;
-        if (!stateObj) return [];
-
+        const stateObj = this._stateObj;
         const controls: LightCardControl[] = [];
         if (this._config.show_brightness_control && supportsBrightnessControl(stateObj)) {
             controls.push("brightness_control");
@@ -98,16 +95,8 @@ export class LightCard extends MushroomBaseCard<LightCardConfig> implements Love
         return controls;
     }
 
-    public getGridSize(): [number, number] {
-        const size = super.getGridSize();
-        if (
-            this._controls.length &&
-            !this._config?.collapsible_controls &&
-            this._appearance?.layout !== "horizontal"
-        ) {
-            size[1] += 1;
-        }
-        return size;
+    protected get hasControls(): boolean {
+        return this._controls.length > 0;
     }
 
     setConfig(config: LightCardConfig): void {

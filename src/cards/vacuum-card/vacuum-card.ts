@@ -41,7 +41,10 @@ registerCustomCard({
 });
 
 @customElement(VACUUM_CARD_NAME)
-export class VacuumCard extends MushroomBaseCard<VacuumCardConfig> implements LovelaceCard {
+export class VacuumCard
+    extends MushroomBaseCard<VacuumCardConfig, VacuumEntity>
+    implements LovelaceCard
+{
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./vacuum-card-editor");
         return document.createElement(VACUUM_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -56,22 +59,9 @@ export class VacuumCard extends MushroomBaseCard<VacuumCardConfig> implements Lo
         };
     }
 
-    isControlSupported() {
-        if (!this._config || !this.hass || !this._config.entity) return false;
-
-        const entityId = this._config.entity;
-        const stateObj = this.hass.states[entityId] as VacuumEntity | undefined;
-        if (!stateObj) return false;
-
-        return isCommandsControlSupported(stateObj, this._config.commands ?? []);
-    }
-
-    public getGridSize(): [number, number] {
-        const size = super.getGridSize();
-        if (this.isControlSupported() && this._appearance?.layout !== "horizontal") {
-            size[1] += 1;
-        }
-        return size;
+    protected get hasControls() {
+        if (!this._stateObj || !this._config) return false;
+        return isCommandsControlSupported(this._stateObj, this._config.commands ?? []);
     }
 
     setConfig(config: VacuumCardConfig): void {
@@ -91,12 +81,11 @@ export class VacuumCard extends MushroomBaseCard<VacuumCardConfig> implements Lo
     }
 
     protected render() {
-        if (!this._config || !this.hass || !this._config.entity) {
+        if (!this._config || !this.hass) {
             return nothing;
         }
-
-        const entityId = this._config.entity;
-        const stateObj = this.hass.states[entityId] as VacuumEntity | undefined;
+        
+        const stateObj = this._stateObj;
 
         if (!stateObj) {
             return this.renderNotFound(this._config);

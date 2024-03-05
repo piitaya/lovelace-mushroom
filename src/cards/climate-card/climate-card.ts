@@ -51,7 +51,7 @@ registerCustomCard({
 });
 
 @customElement(CLIMATE_CARD_NAME)
-export class ClimateCard extends MushroomBaseCard<ClimateCardConfig> implements LovelaceCard {
+export class ClimateCard extends MushroomBaseCard<ClimateCardConfig, ClimateEntity> implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./climate-card-editor");
         return document.createElement(CLIMATE_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -69,12 +69,9 @@ export class ClimateCard extends MushroomBaseCard<ClimateCardConfig> implements 
     @state() private _activeControl?: ClimateCardControl;
 
     private get _controls(): ClimateCardControl[] {
-        if (!this._config || !this.hass || !this._config.entity) return [];
-
-        const entityId = this._config.entity;
-        const stateObj = this.hass.states[entityId] as ClimateEntity | undefined;
-        if (!stateObj) return [];
-
+        if (!this._config || !this._stateObj) return [];
+        
+        const stateObj = this._stateObj;
         const controls: ClimateCardControl[] = [];
         if (isTemperatureControlVisible(stateObj) && this._config.show_temperature_control) {
             controls.push("temperature_control");
@@ -85,16 +82,8 @@ export class ClimateCard extends MushroomBaseCard<ClimateCardConfig> implements 
         return controls;
     }
 
-    public getGridSize(): [number, number] {
-        const size = super.getGridSize();
-        if (
-            this._controls.length &&
-            !this._config?.collapsible_controls &&
-            this._appearance?.layout !== "horizontal"
-        ) {
-            size[1] += 1;
-        }
-        return size;
+    protected get hasControls(): boolean {
+        return this._controls.length > 0;
     }
 
     _onControlTap(ctrl, e): void {
@@ -134,12 +123,11 @@ export class ClimateCard extends MushroomBaseCard<ClimateCardConfig> implements 
     }
 
     protected render() {
-        if (!this.hass || !this._config || !this._config.entity) {
+        if (!this.hass || !this._config) {
             return nothing;
         }
 
-        const entityId = this._config.entity;
-        const stateObj = this.hass.states[entityId] as ClimateEntity | undefined;
+        const stateObj = this._stateObj;
 
         if (!stateObj) {
             return this.renderNotFound(this._config);
