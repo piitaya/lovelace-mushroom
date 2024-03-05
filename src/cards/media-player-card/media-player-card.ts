@@ -55,7 +55,10 @@ registerCustomCard({
 });
 
 @customElement(MEDIA_PLAYER_CARD_NAME)
-export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
+export class MediaPlayerCard
+    extends MushroomBaseCard<MediaPlayerCardConfig, MediaPlayerEntity>
+    implements LovelaceCard
+{
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./media-player-card-editor");
         return document.createElement(MEDIA_PLAYER_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -72,18 +75,19 @@ export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
         };
     }
 
-    @state() private _config?: MediaPlayerCardConfig;
-
     @state() private _activeControl?: MediaPlayerCardControl;
 
-    @state() private _inGrid = false;
+    protected get hasControls(): boolean {
+        return (
+            Boolean(this._config?.media_controls?.length) ||
+            Boolean(this._config?.volume_controls?.length)
+        );
+    }
 
     private get _controls(): MediaPlayerCardControl[] {
-        if (!this._config || !this.hass || !this._config.entity) return [];
+        if (!this._config || !this._stateObj) return [];
 
-        const entityId = this._config.entity;
-        const stateObj = this.hass.states[entityId] as MediaPlayerEntity | undefined;
-        if (!stateObj) return [];
+        const stateObj = this._stateObj;
 
         const controls: MediaPlayerCardControl[] = [];
         if (isMediaControlVisible(stateObj, this._config.media_controls)) {
@@ -95,33 +99,21 @@ export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
         return controls;
     }
 
-    public getCardSize(): number | Promise<number> {
-        return 1;
-    }
-
     _onControlTap(ctrl, e): void {
         e.stopPropagation();
         this._activeControl = ctrl;
     }
 
     setConfig(config: MediaPlayerCardConfig): void {
-        this._config = {
-            tap_action: {
-                action: "more-info",
-            },
-            hold_action: {
-                action: "more-info",
-            },
-            ...config,
-        };
-        this.updateControls();
+        super.setConfig(config);
+        this.updateActiveControls();
         this.updateVolume();
     }
 
     protected updated(changedProperties: PropertyValues) {
         super.updated(changedProperties);
         if (this.hass && changedProperties.has("hass")) {
-            this.updateControls();
+            this.updateActiveControls();
             this.updateVolume();
         }
     }
@@ -147,7 +139,7 @@ export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
         }
     }
 
-    updateControls() {
+    updateActiveControls() {
         const isActiveControlSupported = this._activeControl
             ? this._controls.includes(this._activeControl)
             : false;
@@ -162,9 +154,8 @@ export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
         if (!this._config || !this.hass || !this._config.entity) {
             return nothing;
         }
-
-        const entityId = this._config.entity;
-        const stateObj = this.hass.states[entityId] as MediaPlayerEntity | undefined;
+        
+        const stateObj = this._stateObj;
 
         if (!stateObj) {
             return this.renderNotFound(this._config);
