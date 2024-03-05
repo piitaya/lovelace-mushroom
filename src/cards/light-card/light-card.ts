@@ -107,6 +107,9 @@ export class LightCard
             tap_action: {
                 action: "toggle",
             },
+            hold_action: {
+                action: "more-info",
+            },
             ...config,
         });
         this.updateActiveControl();
