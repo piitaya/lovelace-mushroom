@@ -76,15 +76,52 @@ export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
 
     @state() private _activeControl?: MediaPlayerCardControl;
 
-    @state() private _controls: MediaPlayerCardControl[] = [];
+    @state() private _inGrid = false;
+
+    private get _controls(): MediaPlayerCardControl[] {
+        if (!this._config || !this.hass || !this._config.entity) return [];
+
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as MediaPlayerEntity | undefined;
+        if (!stateObj) return [];
+
+        const controls: MediaPlayerCardControl[] = [];
+        if (isMediaControlVisible(stateObj, this._config.media_controls)) {
+            controls.push("media_control");
+        }
+        if (isVolumeControlVisible(stateObj, this._config.volume_controls)) {
+            controls.push("volume_control");
+        }
+        return controls;
+    }
+
+    public getCardSize(): number | Promise<number> {
+        return 1;
+    }
+
+    public getGridSize(): [number, number] {
+        this._inGrid = true;
+        let column = 2;
+        let row = 1;
+        if (!this._config) return [column, row];
+
+        const appearance = computeAppearance(this._config);
+        if (appearance.layout === "vertical") {
+            row += 1;
+        }
+        if (this._controls.length) {
+            if (appearance.layout === "horizontal") {
+                column = 4;
+            } else if (!this._config?.collapsible_controls) {
+                row += 1;
+            }
+        }
+        return [column, row];
+    }
 
     _onControlTap(ctrl, e): void {
         e.stopPropagation();
         this._activeControl = ctrl;
-    }
-
-    getCardSize(): number | Promise<number> {
-        return 1;
     }
 
     setConfig(config: MediaPlayerCardConfig): void {
@@ -131,28 +168,10 @@ export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
     }
 
     updateControls() {
-        if (!this._config || !this.hass || !this._config.entity) return;
-
-        const entityId = this._config.entity;
-        const stateObj = this.hass.states[entityId] as MediaPlayerEntity | undefined;
-
-        if (!stateObj) return;
-
-        const controls: MediaPlayerCardControl[] = [];
-        if (!this._config.collapsible_controls || isActive(stateObj)) {
-            if (isMediaControlVisible(stateObj, this._config?.media_controls)) {
-                controls.push("media_control");
-            }
-            if (isVolumeControlVisible(stateObj, this._config.volume_controls)) {
-                controls.push("volume_control");
-            }
-        }
-
-        this._controls = controls;
         const isActiveControlSupported = this._activeControl
-            ? controls.includes(this._activeControl)
+            ? this._controls.includes(this._activeControl)
             : false;
-        this._activeControl = isActiveControlSupported ? this._activeControl : controls[0];
+        this._activeControl = isActiveControlSupported ? this._activeControl : this._controls[0];
     }
 
     private _handleAction(ev: ActionHandlerEvent) {
@@ -184,8 +203,16 @@ export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
 
         const rtl = computeRTL(this.hass);
 
+        const isControlVisible =
+            (!this._config.collapsible_controls || isActive(stateObj)) && this._controls.length;
+
         return html`
-            <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
+            <ha-card
+                class=${classMap({
+                    "fill-container": appearance.fill_container,
+                    "in-grid": this._inGrid,
+                })}
+            >
                 <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
                     <mushroom-state-item
                         ?rtl=${rtl}
@@ -200,7 +227,7 @@ export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
                         ${this.renderBadge(stateObj)}
                         ${this.renderStateInfo(stateObj, appearance, nameDisplay, stateValue)};
                     </mushroom-state-item>
-                    ${this._controls.length > 0
+                    ${isControlVisible
                         ? html`
                               <div class="actions" ?rtl=${rtl}>
                                   ${this.renderActiveControl(stateObj, appearance.layout)}
