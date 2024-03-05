@@ -41,7 +41,7 @@ registerCustomCard({
 });
 
 @customElement(FAN_CARD_NAME)
-export class FanCard extends MushroomBaseCard implements LovelaceCard {
+export class FanCard extends MushroomBaseCard<FanCardConfig> implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./fan-card-editor");
         return document.createElement(FAN_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -56,14 +56,15 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
         };
     }
 
-    @state() private _config?: FanCardConfig;
-
-    getCardSize(): number | Promise<number> {
-        return 1;
+    protected get hasControls(): boolean {
+        return (
+            Boolean(this._config?.show_percentage_control) ||
+            Boolean(this._config?.show_oscillate_control)
+        );
     }
 
     setConfig(config: FanCardConfig): void {
-        this._config = {
+        super.setConfig({
             tap_action: {
                 action: "toggle",
             },
@@ -71,7 +72,7 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
                 action: "more-info",
             },
             ...config,
-        };
+        });
         this.updatePercentage();
     }
 
@@ -87,12 +88,8 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
 
     updatePercentage() {
         this.percentage = undefined;
-        if (!this._config || !this.hass || !this._config.entity) return;
-
-        const entityId = this._config.entity;
-        const stateObj = this.hass.states[entityId] as HassEntity | undefined;
-
-        if (!stateObj) return;
+        const stateObj = this._stateObj;
+        if (!this._config || !this.hass || !stateObj) return;
         this.percentage = getPercentage(stateObj);
     }
 
@@ -111,8 +108,7 @@ export class FanCard extends MushroomBaseCard implements LovelaceCard {
             return nothing;
         }
 
-        const entityId = this._config.entity;
-        const stateObj = this.hass.states[entityId] as HassEntity | undefined;
+        const stateObj = this._stateObj;
 
         if (!stateObj) {
             return this.renderNotFound(this._config);
