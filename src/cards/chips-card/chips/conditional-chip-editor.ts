@@ -106,14 +106,13 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
                                         naturalMenuWidth
                                     >
                                         ${CHIP_LIST.map(
-                                            (chip) =>
-                                                html`
-                                                    <mwc-list-item .value=${chip}>
-                                                        ${customLocalize(
-                                                            `editor.chip.chip-picker.types.${chip}`
-                                                        )}
-                                                    </mwc-list-item>
-                                                `
+                                            (chip) => html`
+                                                <mwc-list-item .value=${chip}>
+                                                    ${customLocalize(
+                                                        `editor.chip.chip-picker.types.${chip}`
+                                                    )}
+                                                </mwc-list-item>
+                                            `
                                         )}
                                     </mushroom-select>
                                 `}

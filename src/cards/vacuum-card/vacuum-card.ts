@@ -72,7 +72,7 @@ export class VacuumCard
         if (!this._config || !this.hass) {
             return nothing;
         }
-        
+
         const stateObj = this._stateObj;
 
         if (!stateObj) {

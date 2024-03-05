@@ -151,7 +151,7 @@ export class MediaPlayerCard
         if (!this._config || !this.hass || !this._config.entity) {
             return nothing;
         }
-        
+
         const stateObj = this._stateObj;
 
         if (!stateObj) {

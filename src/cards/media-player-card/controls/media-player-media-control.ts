@@ -17,7 +17,7 @@ export class MediaPlayerMediaControls extends LitElement {
 
     @property({ attribute: false }) public controls!: MediaPlayerMediaControl[];
 
-    @property({ type: Boolean })  public fill: boolean = false;
+    @property({ type: Boolean }) public fill: boolean = false;
 
     private _handleClick(e: MouseEvent): void {
         e.stopPropagation();

@@ -28,7 +28,7 @@ export const setupConditionChipComponent = async () => {
         });
     }
     const HuiConditionalBase = await loadCustomElement("hui-conditional-base");
-    
+
     // @ts-ignore
     class ConditionalChip extends HuiConditionalBase implements LovelaceChip {
         public static async getConfigElement(): Promise<LovelaceChipEditor> {

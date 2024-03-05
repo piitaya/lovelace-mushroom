@@ -82,7 +82,7 @@ export class NumberCard extends MushroomBaseCard<NumberCardConfig> implements Lo
 
     updateValue() {
         this.value = undefined;
-        const stateObj =this._stateObj;
+        const stateObj = this._stateObj;
 
         if (!stateObj || Number.isNaN(stateObj.state)) return;
         this.value = Number(stateObj.state);

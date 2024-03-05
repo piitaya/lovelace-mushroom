@@ -51,7 +51,10 @@ registerCustomCard({
 });
 
 @customElement(CLIMATE_CARD_NAME)
-export class ClimateCard extends MushroomBaseCard<ClimateCardConfig, ClimateEntity> implements LovelaceCard {
+export class ClimateCard
+    extends MushroomBaseCard<ClimateCardConfig, ClimateEntity>
+    implements LovelaceCard
+{
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./climate-card-editor");
         return document.createElement(CLIMATE_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -70,7 +73,7 @@ export class ClimateCard extends MushroomBaseCard<ClimateCardConfig, ClimateEnti
 
     private get _controls(): ClimateCardControl[] {
         if (!this._config || !this._stateObj) return [];
-        
+
         const stateObj = this._stateObj;
         const controls: ClimateCardControl[] = [];
         if (isTemperatureControlVisible(stateObj) && this._config.show_temperature_control) {
@@ -96,6 +99,9 @@ export class ClimateCard extends MushroomBaseCard<ClimateCardConfig, ClimateEnti
             tap_action: {
                 action: "toggle",
             },
+            hold_action: {
+                action: "more-info",
+            },
             ...config,
         });
         this.updateActiveControl();
@@ -120,7 +126,7 @@ export class ClimateCard extends MushroomBaseCard<ClimateCardConfig, ClimateEnti
     }
 
     protected render() {
-        if (!this.hass || !this._config) {
+        if (!this.hass || !this._config || !this._config.entity) {
             return nothing;
         }
 

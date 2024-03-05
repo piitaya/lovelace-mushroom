@@ -33,9 +33,7 @@ export class FanPercentageControl extends LitElement {
                 .disabled=${!active}
             >
                 <ha-icon
-                    .icon=${oscillating
-                        ? "mdi:arrow-oscillating"
-                        : "mdi:arrow-oscillating-off"}
+                    .icon=${oscillating ? "mdi:arrow-oscillating" : "mdi:arrow-oscillating-off"}
                 ></ha-icon>
             </mushroom-button>
         `;

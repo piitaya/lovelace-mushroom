@@ -54,7 +54,7 @@ export class LockButtonsControl extends LitElement {
 
     @property({ attribute: false }) public entity!: LockEntity;
 
-    @property({ type: Boolean })  public fill: boolean = false;
+    @property({ type: Boolean }) public fill: boolean = false;
 
     private callService(e: CustomEvent) {
         e.stopPropagation();
