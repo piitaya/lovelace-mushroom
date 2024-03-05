@@ -1,6 +1,6 @@
 import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, nothing, TemplateResult } from "lit";
-import { customElement, state } from "lit/decorators.js";
+import { customElement } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import {
@@ -59,8 +59,7 @@ export class EntityCard extends MushroomBaseCard<EntityCardConfig> implements Lo
             return nothing;
         }
 
-        const entityId = this._config.entity;
-        const stateObj = this.hass.states[entityId] as HassEntity | undefined;
+        const stateObj = this._stateObj;
 
         if (!stateObj) {
             return this.renderNotFound(this._config);

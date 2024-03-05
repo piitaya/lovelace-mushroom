@@ -1,6 +1,6 @@
 import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, nothing } from "lit";
-import { customElement, state } from "lit/decorators.js";
+import { customElement } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import {
@@ -36,7 +36,7 @@ registerCustomCard({
 });
 
 @customElement(PERSON_CARD_NAME)
-export class PersonCard extends MushroomBaseCard implements LovelaceCard {
+export class PersonCard extends MushroomBaseCard<PersonCardConfig> implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./person-card-editor");
         return document.createElement(PERSON_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -51,24 +51,6 @@ export class PersonCard extends MushroomBaseCard implements LovelaceCard {
         };
     }
 
-    @state() private _config?: PersonCardConfig;
-
-    getCardSize(): number | Promise<number> {
-        return 1;
-    }
-
-    setConfig(config: PersonCardConfig): void {
-        this._config = {
-            tap_action: {
-                action: "more-info",
-            },
-            hold_action: {
-                action: "more-info",
-            },
-            ...config,
-        };
-    }
-
     private _handleAction(ev: ActionHandlerEvent) {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }
@@ -78,8 +60,7 @@ export class PersonCard extends MushroomBaseCard implements LovelaceCard {
             return nothing;
         }
 
-        const entityId = this._config.entity;
-        const stateObj = this.hass.states[entityId] as HassEntity | undefined;
+        const stateObj = this._stateObj;
 
         if (!stateObj) {
             return this.renderNotFound(this._config);
