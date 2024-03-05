@@ -42,7 +42,10 @@ registerCustomCard({
 });
 
 @customElement(HUMIDIFIER_CARD_NAME)
-export class HumidifierCard extends MushroomBaseCard implements LovelaceCard {
+export class HumidifierCard
+    extends MushroomBaseCard<HumidifierCardConfig, HumidifierEntity>
+    implements LovelaceCard
+{
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./humidifier-card-editor");
         return document.createElement(HUMIDIFIER_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -59,16 +62,14 @@ export class HumidifierCard extends MushroomBaseCard implements LovelaceCard {
         };
     }
 
-    @state() private _config?: HumidifierCardConfig;
-
     @state() private humidity?: number;
 
-    getCardSize(): number | Promise<number> {
-        return 1;
+    protected get hasControls(): boolean {
+        return Boolean(this._config?.show_target_humidity_control);
     }
 
     setConfig(config: HumidifierCardConfig): void {
-        this._config = {
+        super.setConfig({
             tap_action: {
                 action: "toggle",
             },
@@ -76,7 +77,7 @@ export class HumidifierCard extends MushroomBaseCard implements LovelaceCard {
                 action: "more-info",
             },
             ...config,
-        };
+        });
     }
 
     private _handleAction(ev: ActionHandlerEvent) {
@@ -94,8 +95,7 @@ export class HumidifierCard extends MushroomBaseCard implements LovelaceCard {
             return nothing;
         }
 
-        const entityId = this._config.entity;
-        const stateObj = this.hass.states[entityId] as HumidifierEntity | undefined;
+        const stateObj = this._stateObj;
 
         if (!stateObj) {
             return this.renderNotFound(this._config);

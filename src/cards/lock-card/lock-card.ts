@@ -65,8 +65,7 @@ export class LockCard extends MushroomBaseCard<LockCardConfig, LockEntity> imple
             return nothing;
         }
 
-        const entityId = this._config.entity;
-        const stateObj = this.hass.states[entityId] as LockEntity | undefined;
+        const stateObj = this._stateObj;
 
         if (!stateObj) {
             return this.renderNotFound(this._config);
