@@ -37,7 +37,7 @@ registerCustomCard({
 });
 
 @customElement(SELECT_CARD_NAME)
-export class SelectCard extends MushroomBaseCard implements LovelaceCard {
+export class SelectCard extends MushroomBaseCard<SelectCardConfig> implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./select-card-editor");
         return document.createElement(SELECT_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -52,14 +52,12 @@ export class SelectCard extends MushroomBaseCard implements LovelaceCard {
         };
     }
 
-    @state() private _config?: SelectCardConfig;
-
-    getCardSize(): number | Promise<number> {
-        return 1;
+    protected get hasControls(): boolean {
+        return true;
     }
 
     setConfig(config: SelectCardConfig): void {
-        this._config = {
+        super.setConfig({
             tap_action: {
                 action: "more-info",
             },
@@ -67,7 +65,7 @@ export class SelectCard extends MushroomBaseCard implements LovelaceCard {
                 action: "more-info",
             },
             ...config,
-        };
+        });
     }
 
     private _handleAction(ev: ActionHandlerEvent) {
@@ -79,8 +77,7 @@ export class SelectCard extends MushroomBaseCard implements LovelaceCard {
             return nothing;
         }
 
-        const entityId = this._config.entity;
-        const stateObj = this.hass.states[entityId] as HassEntity | undefined;
+        const stateObj = this._stateObj;
 
         if (!stateObj) {
             return this.renderNotFound(this._config);
