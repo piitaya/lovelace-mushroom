@@ -71,7 +71,7 @@ export class UpdateCard
     }
 
     protected render() {
-        if (!this._config || !this.hass) {
+        if (!this._config || !this.hass || !this._config.entity) {
             return nothing;
         }
 
