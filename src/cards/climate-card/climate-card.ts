@@ -89,13 +89,33 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
         return controls;
     }
 
+    public getCardSize(): number | Promise<number> {
+        return 1;
+    }
+
+    public getGridSize(): [number, number] {
+        this._inGrid = true;
+        let column = 2;
+        let row = 1;
+        if (!this._config) return [column, row];
+
+        const appearance = computeAppearance(this._config);
+        if (appearance.layout === "vertical") {
+            row += 1;
+        }
+        if (this._controls.length) {
+            if (appearance.layout === "horizontal") {
+                column = 4;
+            } else if (!this._config?.collapsible_controls) {
+                row += 1;
+            }
+        }
+        return [column, row];
+    }
+
     _onControlTap(ctrl, e): void {
         e.stopPropagation();
         this._activeControl = ctrl;
-    }
-
-    getCardSize(): number | Promise<number> {
-        return 1;
     }
 
     setConfig(config: ClimateCardConfig): void {
@@ -192,7 +212,8 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
                     ${isControlVisible
                         ? html`
                               <div class="actions" ?rtl=${rtl}>
-                                  ${this.renderActiveControl(stateObj)}${this.renderOtherControls()}
+                                  ${this.renderActiveControl(stateObj)}
+                                  ${this.renderOtherControls()}
                               </div>
                           `
                         : nothing}
@@ -288,26 +309,6 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
             default:
                 return nothing;
         }
-    }
-
-    public getGridSize(): [number, number] {
-        this._inGrid = true;
-        let column = 2;
-        let row = 1;
-        if (!this._config) return [column, row];
-
-        const appearance = computeAppearance(this._config);
-        if (appearance.layout === "vertical") {
-            row += 1;
-        }
-        if (this._controls.length) {
-            if (appearance.layout === "horizontal") {
-                column = 4;
-            } else if (!this._config?.collapsible_controls) {
-                row += 1;
-            }
-        }
-        return [column, row];
     }
 
     static get styles(): CSSResultGroup {
