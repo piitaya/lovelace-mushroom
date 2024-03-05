@@ -64,18 +64,6 @@ export class VacuumCard
         return isCommandsControlSupported(this._stateObj, this._config.commands ?? []);
     }
 
-    setConfig(config: VacuumCardConfig): void {
-        super.setConfig({
-            tap_action: {
-                action: "more-info",
-            },
-            hold_action: {
-                action: "more-info",
-            },
-            ...config,
-        });
-    }
-
     private _handleAction(ev: ActionHandlerEvent) {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }

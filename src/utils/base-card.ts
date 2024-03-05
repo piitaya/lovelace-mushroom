@@ -47,7 +47,15 @@ export class MushroomBaseCard<
     }
 
     setConfig(config: T): void {
-        this._config = config;
+        this._config = {
+            tap_action: {
+                action: "more-info",
+            },
+            hold_action: {
+                action: "more-info",
+            },
+            ...config,
+        };
     }
 
     public getGridSize(): [number, number] {

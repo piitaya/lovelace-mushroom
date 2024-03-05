@@ -56,18 +56,6 @@ export class SelectCard extends MushroomBaseCard<SelectCardConfig> implements Lo
         return true;
     }
 
-    setConfig(config: SelectCardConfig): void {
-        super.setConfig({
-            tap_action: {
-                action: "more-info",
-            },
-            hold_action: {
-                action: "more-info",
-            },
-            ...config,
-        });
-    }
-
     private _handleAction(ev: ActionHandlerEvent) {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
     }

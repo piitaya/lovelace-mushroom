@@ -104,9 +104,6 @@ export class LightCard extends MushroomBaseCard<LightCardConfig, LightEntity> im
             tap_action: {
                 action: "toggle",
             },
-            hold_action: {
-                action: "more-info",
-            },
             ...config,
         });
         this.updateActiveControls();

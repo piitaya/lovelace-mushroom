@@ -96,9 +96,6 @@ export class ClimateCard extends MushroomBaseCard<ClimateCardConfig, ClimateEnti
             tap_action: {
                 action: "toggle",
             },
-            hold_action: {
-                action: "more-info",
-            },
             ...config,
         });
         this.updateActiveControl();
