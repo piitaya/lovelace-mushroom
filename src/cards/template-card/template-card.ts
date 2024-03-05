@@ -1,6 +1,6 @@
 import { UnsubscribeFunc } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, nothing, PropertyValues, TemplateResult } from "lit";
-import { customElement, state } from "lit/decorators.js";
+import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import {
@@ -69,7 +69,8 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
 
     @state() private _unsubRenderTemplates: Map<TemplateKey, Promise<UnsubscribeFunc>> = new Map();
 
-    @state() private _inGrid = false;
+    @property({ attribute: "in-grid", reflect: true, type: Boolean })
+    protected _inGrid = false;
 
     public getCardSize(): number | Promise<number> {
         return 1;
@@ -160,12 +161,7 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
         const weatherSvg = getWeatherSvgIcon(icon);
 
         return html`
-            <ha-card
-                class=${classMap({
-                    "fill-container": appearance.fill_container,
-                    "in-grid": this._inGrid,
-                })}
-            >
+            <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
                 <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
                     <mushroom-state-item
                         ?rtl=${rtl}
