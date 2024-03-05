@@ -109,9 +109,7 @@ export class AlarmControlPanelCard
     }
 
     async loadComponents() {
-        if (!this._config || !this.hass || !this._config.entity) return;
-        const entityId = this._config.entity;
-        const stateObj = this.hass.states[entityId] as HassEntity | undefined;
+        const stateObj = this._stateObj;
 
         if (stateObj && hasCode(stateObj)) {
             void import("../../shared/form/mushroom-textfield");

@@ -128,10 +128,7 @@ export class LightCard
 
     updateBrightness() {
         this.brightness = undefined;
-        if (!this._config || !this.hass || !this._config.entity) return;
-
-        const entityId = this._config.entity;
-        const stateObj = this.hass.states[entityId] as LightEntity | undefined;
+        const stateObj = this._stateObj;
 
         if (!stateObj) return;
         this.brightness = getBrightness(stateObj);
@@ -159,8 +156,7 @@ export class LightCard
             return nothing;
         }
 
-        const entityId = this._config.entity;
-        const stateObj = this.hass.states[entityId] as LightEntity | undefined;
+        const stateObj = this._stateObj;
 
         if (!stateObj) {
             return this.renderNotFound(this._config);

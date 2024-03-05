@@ -142,10 +142,7 @@ export class CoverCard
 
     updatePosition() {
         this.position = undefined;
-        if (!this._config || !this.hass || !this._config.entity) return;
-
-        const entityId = this._config.entity;
-        const stateObj = this.hass.states[entityId] as CoverEntity | undefined;
+        const stateObj = this._stateObj;
 
         if (!stateObj) return;
         this.position = getPosition(stateObj);
@@ -166,8 +163,7 @@ export class CoverCard
             return nothing;
         }
 
-        const entityId = this._config.entity;
-        const stateObj = this.hass.states[entityId] as CoverEntity | undefined;
+        const stateObj = this._stateObj;
 
         if (!stateObj) {
             return this.renderNotFound(this._config);

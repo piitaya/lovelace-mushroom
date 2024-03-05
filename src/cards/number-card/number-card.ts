@@ -82,10 +82,7 @@ export class NumberCard extends MushroomBaseCard<NumberCardConfig> implements Lo
 
     updateValue() {
         this.value = undefined;
-        if (!this._config || !this.hass || !this._config.entity) return;
-
-        const entityId = this._config.entity;
-        const stateObj = this.hass.states[entityId] as HassEntity | undefined;
+        const stateObj =this._stateObj;
 
         if (!stateObj || Number.isNaN(stateObj.state)) return;
         this.value = Number(stateObj.state);
@@ -96,8 +93,7 @@ export class NumberCard extends MushroomBaseCard<NumberCardConfig> implements Lo
             return nothing;
         }
 
-        const entityId = this._config.entity;
-        const stateObj = this.hass.states[entityId] as HassEntity | undefined;
+        const stateObj = this._stateObj;
 
         if (!stateObj) {
             return this.renderNotFound(this._config);
