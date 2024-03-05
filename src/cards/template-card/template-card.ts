@@ -69,8 +69,26 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
 
     @state() private _unsubRenderTemplates: Map<TemplateKey, Promise<UnsubscribeFunc>> = new Map();
 
-    getCardSize(): number | Promise<number> {
+    @state() private _inGrid = false;
+
+    public getCardSize(): number | Promise<number> {
         return 1;
+    }
+
+    public getGridSize(): [number, number] {
+        this._inGrid = true;
+        let column = 2;
+        let row = 1;
+        if (!this._config) return [column, row];
+
+        const appearance = computeAppearance(this._config);
+        if (appearance.layout === "vertical") {
+            row += 1;
+        }
+        if (appearance.layout === "horizontal") {
+            column = 4;
+        }
+        return [column, row];
     }
 
     setConfig(config: TemplateCardConfig): void {
@@ -142,7 +160,12 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
         const weatherSvg = getWeatherSvgIcon(icon);
 
         return html`
-            <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
+            <ha-card
+                class=${classMap({
+                    "fill-container": appearance.fill_container,
+                    "in-grid": this._inGrid,
+                })}
+            >
                 <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
                     <mushroom-state-item
                         ?rtl=${rtl}

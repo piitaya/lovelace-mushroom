@@ -109,12 +109,15 @@ export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
         if (appearance.layout === "vertical") {
             row += 1;
         }
-        if (this._controls.length) {
-            if (appearance.layout === "horizontal") {
-                column = 4;
-            } else if (!this._config?.collapsible_controls) {
-                row += 1;
-            }
+        if (appearance.layout === "horizontal") {
+            column = 4;
+        }
+        if (
+            this._controls.length &&
+            !this._config?.collapsible_controls &&
+            appearance.layout !== "horizontal"
+        ) {
+            row += 1;
         }
         return [column, row];
     }
