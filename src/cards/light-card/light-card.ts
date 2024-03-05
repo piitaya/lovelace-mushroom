@@ -59,7 +59,10 @@ registerCustomCard({
 });
 
 @customElement(LIGHT_CARD_NAME)
-export class LightCard extends MushroomBaseCard<LightCardConfig, LightEntity> implements LovelaceCard {
+export class LightCard
+    extends MushroomBaseCard<LightCardConfig, LightEntity>
+    implements LovelaceCard
+{
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./light-card-editor");
         return document.createElement(LIGHT_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -106,7 +109,7 @@ export class LightCard extends MushroomBaseCard<LightCardConfig, LightEntity> im
             },
             ...config,
         });
-        this.updateActiveControls();
+        this.updateActiveControl();
         this.updateBrightness();
     }
 
@@ -118,7 +121,7 @@ export class LightCard extends MushroomBaseCard<LightCardConfig, LightEntity> im
     protected updated(changedProperties: PropertyValues) {
         super.updated(changedProperties);
         if (this.hass && changedProperties.has("hass")) {
-            this.updateActiveControls();
+            this.updateActiveControl();
             this.updateBrightness();
         }
     }
@@ -140,7 +143,7 @@ export class LightCard extends MushroomBaseCard<LightCardConfig, LightEntity> im
         }
     }
 
-    updateActiveControls() {
+    updateActiveControl() {
         const isActiveControlSupported = this._activeControl
             ? this._controls.includes(this._activeControl)
             : false;

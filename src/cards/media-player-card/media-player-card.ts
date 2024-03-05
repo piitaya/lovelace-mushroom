@@ -106,14 +106,14 @@ export class MediaPlayerCard
 
     setConfig(config: MediaPlayerCardConfig): void {
         super.setConfig(config);
-        this.updateActiveControls();
+        this.updateActiveControl();
         this.updateVolume();
     }
 
     protected updated(changedProperties: PropertyValues) {
         super.updated(changedProperties);
         if (this.hass && changedProperties.has("hass")) {
-            this.updateActiveControls();
+            this.updateActiveControl();
             this.updateVolume();
         }
     }
@@ -139,7 +139,7 @@ export class MediaPlayerCard
         }
     }
 
-    updateActiveControls() {
+    updateActiveControl() {
         const isActiveControlSupported = this._activeControl
             ? this._controls.includes(this._activeControl)
             : false;
