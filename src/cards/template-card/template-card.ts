@@ -73,7 +73,13 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
     protected _inGrid = false;
 
     public getCardSize(): number | Promise<number> {
-        return 1;
+        let height = 1;
+        if (!this._config) return height;
+        const appearance = computeAppearance(this._config);
+        if (appearance.layout === "vertical") {
+            height += 1;
+        }
+        return height;
     }
 
     public getGridSize(): [number, number] {
