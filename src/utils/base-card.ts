@@ -36,17 +36,20 @@ export class MushroomBaseCard<T extends BaseConfig = BaseConfig> extends Mushroo
         this._config = config;
     }
 
+    public get _appearance(): Appearance | undefined {
+        if (!this._config) return undefined;
+        return computeAppearance(this._config);
+    }
+
     public getGridSize(): [number, number] {
         this._inGrid = true;
         let column = 2;
         let row = 1;
-        if (!this._config) return [column, row];
-
-        const appearance = computeAppearance(this._config);
-        if (appearance.layout === "vertical") {
+        if (!this._appearance) return [column, row];
+        if (this._appearance.layout === "vertical") {
             row += 1;
         }
-        if (appearance.layout === "horizontal") {
+        if (this._appearance.layout === "horizontal") {
             column = 4;
         }
         return [column, row];

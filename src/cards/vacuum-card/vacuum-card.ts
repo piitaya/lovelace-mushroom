@@ -27,7 +27,10 @@ import { registerCustomCard } from "../../utils/custom-cards";
 import { computeEntityPicture } from "../../utils/info";
 import { VACUUM_CARD_EDITOR_NAME, VACUUM_CARD_NAME, VACUUM_ENTITY_DOMAINS } from "./const";
 import "./controls/vacuum-commands-control";
-import { isCommandsControlVisible } from "./controls/vacuum-commands-control";
+import {
+    isCommandsControlSupported,
+    isCommandsControlVisible,
+} from "./controls/vacuum-commands-control";
 import { isCleaning, isReturningHome } from "./utils";
 import { VacuumCardConfig } from "./vacuum-card-config";
 
@@ -38,7 +41,7 @@ registerCustomCard({
 });
 
 @customElement(VACUUM_CARD_NAME)
-export class VacuumCard extends MushroomBaseCard implements LovelaceCard {
+export class VacuumCard extends MushroomBaseCard<VacuumCardConfig> implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./vacuum-card-editor");
         return document.createElement(VACUUM_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -53,14 +56,26 @@ export class VacuumCard extends MushroomBaseCard implements LovelaceCard {
         };
     }
 
-    @state() private _config?: VacuumCardConfig;
+    isControlSupported() {
+        if (!this._config || !this.hass || !this._config.entity) return false;
 
-    getCardSize(): number | Promise<number> {
-        return 1;
+        const entityId = this._config.entity;
+        const stateObj = this.hass.states[entityId] as VacuumEntity | undefined;
+        if (!stateObj) return false;
+
+        return isCommandsControlSupported(stateObj, this._config.commands ?? []);
+    }
+
+    public getGridSize(): [number, number] {
+        const size = super.getGridSize();
+        if (this.isControlSupported() && this._appearance?.layout !== "horizontal") {
+            size[1] += 1;
+        }
+        return size;
     }
 
     setConfig(config: VacuumCardConfig): void {
-        this._config = {
+        super.setConfig({
             tap_action: {
                 action: "more-info",
             },
@@ -68,7 +83,7 @@ export class VacuumCard extends MushroomBaseCard implements LovelaceCard {
                 action: "more-info",
             },
             ...config,
-        };
+        });
     }
 
     private _handleAction(ev: ActionHandlerEvent) {

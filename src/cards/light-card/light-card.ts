@@ -100,12 +100,10 @@ export class LightCard extends MushroomBaseCard<LightCardConfig> implements Love
 
     public getGridSize(): [number, number] {
         const size = super.getGridSize();
-        if (!this._config) return size;
-        const appearance = computeAppearance(this._config);
         if (
             this._controls.length &&
             !this._config?.collapsible_controls &&
-            appearance.layout !== "horizontal"
+            this._appearance?.layout !== "horizontal"
         ) {
             size[1] += 1;
         }
@@ -203,12 +201,7 @@ export class LightCard extends MushroomBaseCard<LightCardConfig> implements Love
             (!this._config.collapsible_controls || isActive(stateObj)) && this._controls.length;
 
         return html`
-            <ha-card
-                class=${classMap({
-                    "fill-container": appearance.fill_container,
-                    "in-grid": this._inGrid,
-                })}
-            >
+            <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
                 <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
                     <mushroom-state-item
                         ?rtl=${rtl}

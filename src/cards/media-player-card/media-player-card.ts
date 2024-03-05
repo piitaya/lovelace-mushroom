@@ -99,29 +99,6 @@ export class MediaPlayerCard extends MushroomBaseCard implements LovelaceCard {
         return 1;
     }
 
-    public getGridSize(): [number, number] {
-        this._inGrid = true;
-        let column = 2;
-        let row = 1;
-        if (!this._config) return [column, row];
-
-        const appearance = computeAppearance(this._config);
-        if (appearance.layout === "vertical") {
-            row += 1;
-        }
-        if (appearance.layout === "horizontal") {
-            column = 4;
-        }
-        if (
-            this._controls.length &&
-            !this._config?.collapsible_controls &&
-            appearance.layout !== "horizontal"
-        ) {
-            row += 1;
-        }
-        return [column, row];
-    }
-
     _onControlTap(ctrl, e): void {
         e.stopPropagation();
         this._activeControl = ctrl;

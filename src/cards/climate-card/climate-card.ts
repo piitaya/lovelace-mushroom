@@ -51,7 +51,7 @@ registerCustomCard({
 });
 
 @customElement(CLIMATE_CARD_NAME)
-export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
+export class ClimateCard extends MushroomBaseCard<ClimateCardConfig> implements LovelaceCard {
     public static async getConfigElement(): Promise<LovelaceCardEditor> {
         await import("./climate-card-editor");
         return document.createElement(CLIMATE_CARD_EDITOR_NAME) as LovelaceCardEditor;
@@ -66,11 +66,7 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
         };
     }
 
-    @state() private _config?: ClimateCardConfig;
-
     @state() private _activeControl?: ClimateCardControl;
-
-    @state() private _inGrid = false;
 
     private get _controls(): ClimateCardControl[] {
         if (!this._config || !this.hass || !this._config.entity) return [];
@@ -89,31 +85,16 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
         return controls;
     }
 
-    public getCardSize(): number | Promise<number> {
-        return 1;
-    }
-
     public getGridSize(): [number, number] {
-        this._inGrid = true;
-        let column = 2;
-        let row = 1;
-        if (!this._config) return [column, row];
-
-        const appearance = computeAppearance(this._config);
-        if (appearance.layout === "vertical") {
-            row += 1;
-        }
-        if (appearance.layout === "horizontal") {
-            column = 4;
-        }
+        const size = super.getGridSize();
         if (
             this._controls.length &&
             !this._config?.collapsible_controls &&
-            appearance.layout !== "horizontal"
+            this._appearance?.layout !== "horizontal"
         ) {
-            row += 1;
+            size[1] += 1;
         }
-        return [column, row];
+        return size;
     }
 
     _onControlTap(ctrl, e): void {
@@ -122,7 +103,7 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
     }
 
     setConfig(config: ClimateCardConfig): void {
-        this._config = {
+        super.setConfig({
             tap_action: {
                 action: "toggle",
             },
@@ -130,7 +111,7 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
                 action: "more-info",
             },
             ...config,
-        };
+        });
         this.updateActiveControl();
     }
 
@@ -192,12 +173,7 @@ export class ClimateCard extends MushroomBaseCard implements LovelaceCard {
             (!this._config.collapsible_controls || isActive(stateObj)) && this._controls.length;
 
         return html`
-            <ha-card
-                class=${classMap({
-                    "fill-container": appearance.fill_container,
-                    "in-grid": this._inGrid,
-                })}
-            >
+            <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
                 <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
                     <mushroom-state-item
                         ?rtl=${rtl}
