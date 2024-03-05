@@ -42,10 +42,6 @@ export class MushroomBaseCard<
         return false;
     }
 
-    public getCardSize(): number | Promise<number> {
-        return 1;
-    }
-
     setConfig(config: T): void {
         this._config = {
             tap_action: {
@@ -78,6 +74,23 @@ export class MushroomBaseCard<
             row += 1;
         }
         return [column, row];
+    }
+
+    public getCardSize(): number | Promise<number> {
+        let height = 1;
+        if (!this._config) return height;
+        const appearance = computeAppearance(this._config);
+        if (appearance.layout === "vertical") {
+            height += 1;
+        }
+        if (
+            appearance?.layout !== "horizontal" &&
+            this.hasControls &&
+            !("collapsible_controls" in this._config && this._config?.collapsible_controls)
+        ) {
+            height += 1;
+        }
+        return height;
     }
 
     protected renderPicture(picture: string): TemplateResult {
