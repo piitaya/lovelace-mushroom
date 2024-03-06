@@ -87,11 +87,14 @@ export class AlarmControlPanelCard
         return Boolean(this._config?.states?.length);
     }
 
-    public getGridSize() {
+    public getGridOptions() {
         if (this._config?.show_keypad) {
-            return [4, 1] as [number, number];
+            return {
+                columns: undefined,
+                rows: undefined,
+            };
         }
-        return super.getGridSize();
+        return super.getGridOptions();
     }
 
     @query("#alarmCode") private _input?: HaTextField;

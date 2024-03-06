@@ -12,6 +12,7 @@ import {
     HomeAssistant,
     LovelaceCard,
     LovelaceCardEditor,
+    LovelaceGridOptions,
     RenderTemplateResult,
     subscribeRenderTemplate,
 } from "../../ha";
@@ -82,20 +83,26 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
         return height;
     }
 
-    public getGridSize(): [number, number] {
-        this._inGrid = true;
-        let column = 2;
-        let row = 1;
-        if (!this._config) return [column, row];
+    // For backward compatibility
+    public getGridSize(): [number | undefined, number | undefined] {
+        const { columns, rows } = this.getGridOptions();
+        return [columns, rows];
+    }
 
+    public getGridOptions(): LovelaceGridOptions {
+        const options = {
+            columns: 2,
+            rows: 1,
+        };
+        if (!this._config) return options;
         const appearance = computeAppearance(this._config);
         if (appearance.layout === "vertical") {
-            row += 1;
+            options.rows += 1;
         }
         if (appearance.layout === "horizontal") {
-            column = 4;
+            options.columns = 4;
         }
-        return [column, row];
+        return options;
     }
 
     setConfig(config: TemplateCardConfig): void {

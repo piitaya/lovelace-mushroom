@@ -2,7 +2,14 @@ import { HassEntity } from "home-assistant-js-websocket";
 import { html, nothing, TemplateResult } from "lit";
 import { property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
-import { computeRTL, computeStateDisplay, HomeAssistant, isActive, isAvailable } from "../ha";
+import {
+    computeRTL,
+    computeStateDisplay,
+    HomeAssistant,
+    isActive,
+    isAvailable,
+    LovelaceGridOptions,
+} from "../ha";
 import setupCustomlocalize from "../localize";
 import "../shared/badge-icon";
 import "../shared/card";
@@ -54,26 +61,10 @@ export class MushroomBaseCard<
         };
     }
 
-    public getGridSize(): [number, number] {
-        this._inGrid = true;
-        let column = 2;
-        let row = 1;
-        if (!this._config) return [column, row];
-        const appearance = computeAppearance(this._config);
-        if (appearance.layout === "vertical") {
-            row += 1;
-        }
-        if (appearance.layout === "horizontal") {
-            column = 4;
-        }
-        if (
-            appearance?.layout !== "horizontal" &&
-            this.hasControls &&
-            !("collapsible_controls" in this._config && this._config?.collapsible_controls)
-        ) {
-            row += 1;
-        }
-        return [column, row];
+    // For backward compatibility
+    public getGridSize(): [number | undefined, number | undefined] {
+        const { columns, rows } = this.getGridOptions();
+        return [columns, rows];
     }
 
     public getCardSize(): number | Promise<number> {
@@ -91,6 +82,25 @@ export class MushroomBaseCard<
             height += 1;
         }
         return height;
+    }
+
+    public getGridOptions(): LovelaceGridOptions {
+        const options = {
+            columns: 2,
+            rows: 1,
+        };
+        if (!this._config) return options;
+        const appearance = computeAppearance(this._config);
+        if (appearance.layout === "vertical") {
+            options.rows += 1;
+        }
+        if (appearance.layout === "horizontal") {
+            options.columns = 4;
+        }
+        if (appearance?.layout !== "horizontal" && this.hasControls) {
+            options.rows += 1;
+        }
+        return options;
     }
 
     protected renderPicture(picture: string): TemplateResult {

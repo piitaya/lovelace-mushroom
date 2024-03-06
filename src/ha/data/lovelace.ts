@@ -113,6 +113,11 @@ export interface LovelaceCardConfig {
     [key: string]: any;
 }
 
+export interface LovelaceGridOptions {
+    columns?: number;
+    rows?: number;
+}
+
 export interface ToggleActionConfig extends BaseActionConfig {
     action: "toggle";
 }
