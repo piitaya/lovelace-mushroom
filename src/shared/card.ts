@@ -26,6 +26,9 @@ export class Card extends LitElement {
 
     static get styles(): CSSResultGroup {
         return css`
+            :host {
+                height: 100%;
+            }
             .container {
                 display: flex;
                 flex-direction: column;
@@ -44,6 +47,9 @@ export class Card extends LitElement {
             .container.horizontal > ::slotted(*) {
                 flex: 1;
                 min-width: 0;
+            }
+            .container > ::slotted(mushroom-state-item) {
+                flex: 1;
             }
             .container.no-info > ::slotted(mushroom-state-item) {
                 flex: none;
