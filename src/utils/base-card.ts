@@ -8,7 +8,7 @@ import {
     HomeAssistant,
     isActive,
     isAvailable,
-    LovelaceGridOptions,
+    LovelaceLayoutOptions,
 } from "../ha";
 import setupCustomlocalize from "../localize";
 import "../shared/badge-icon";
@@ -63,8 +63,8 @@ export class MushroomBaseCard<
 
     // For backward compatibility
     public getGridSize(): [number | undefined, number | undefined] {
-        const { columns, rows } = this.getGridOptions();
-        return [columns, rows];
+        const { grid_columns, grid_rows } = this.getLayoutOptions();
+        return [grid_columns, grid_rows];
     }
 
     public getCardSize(): number | Promise<number> {
@@ -84,21 +84,21 @@ export class MushroomBaseCard<
         return height;
     }
 
-    public getGridOptions(): LovelaceGridOptions {
+    public getLayoutOptions(): LovelaceLayoutOptions {
         const options = {
-            columns: 2,
-            rows: 1,
+            grid_columns: 2,
+            grid_rows: 1,
         };
         if (!this._config) return options;
         const appearance = computeAppearance(this._config);
         if (appearance.layout === "vertical") {
-            options.rows += 1;
+            options.grid_rows += 1;
         }
         if (appearance.layout === "horizontal") {
-            options.columns = 4;
+            options.grid_columns = 4;
         }
         if (appearance?.layout !== "horizontal" && this.hasControls) {
-            options.rows += 1;
+            options.grid_rows += 1;
         }
         return options;
     }

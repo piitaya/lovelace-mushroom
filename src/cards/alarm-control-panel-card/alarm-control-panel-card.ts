@@ -1,6 +1,6 @@
 import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, nothing, PropertyValues, TemplateResult } from "lit";
-import { customElement, query, state } from "lit/decorators.js";
+import { customElement, query } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import {
@@ -12,6 +12,7 @@ import {
     HomeAssistant,
     LovelaceCard,
     LovelaceCardEditor,
+    LovelaceLayoutOptions,
 } from "../../ha";
 import "../../shared/badge-icon";
 import "../../shared/button";
@@ -87,14 +88,13 @@ export class AlarmControlPanelCard
         return Boolean(this._config?.states?.length);
     }
 
-    public getGridOptions() {
+    public getLayoutOptions(): LovelaceLayoutOptions {
+        const options = super.getLayoutOptions();
         if (this._config?.show_keypad) {
-            return {
-                columns: undefined,
-                rows: undefined,
-            };
+            delete options.grid_columns;
+            delete options.grid_rows;
         }
-        return super.getGridOptions();
+        return options;
     }
 
     @query("#alarmCode") private _input?: HaTextField;
