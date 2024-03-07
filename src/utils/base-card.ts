@@ -85,6 +85,7 @@ export class MushroomBaseCard<
     }
 
     public getLayoutOptions(): LovelaceLayoutOptions {
+        this._inGrid = true;
         const options = {
             grid_columns: 2,
             grid_rows: 1,
