@@ -6,12 +6,16 @@ export const cardStyle = css`
         padding: var(--spacing);
         display: flex;
         flex-direction: column;
+        justify-content: var(--layout-align);
         height: auto;
     }
     ha-card.fill-container {
         height: 100%;
     }
     :host([in-grid]) ha-card {
+        height: 100%;
+    }
+    :host([in-grid]) ha-card mushroom-card {
         height: 100%;
     }
     .actions {

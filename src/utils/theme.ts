@@ -61,6 +61,9 @@ export const themeVariables = css`
     /* Input Number */
     --input-number-debounce: var(--mush-input-number-debounce);
 
+    /* Layout */
+    --layout-align: var(--mush-layout-align, center);
+
     /* Badge */
     --badge-size: var(--mush-badge-size, 16px);
     --badge-icon-size: var(--mush-badge-icon-size, 0.75em);

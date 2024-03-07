@@ -41,9 +41,8 @@ export class StateItem extends LitElement {
             .container {
                 display: flex;
                 flex-direction: row;
-                align-items: flex-start;
+                align-items: center;
                 justify-content: flex-start;
-                height: 100%;
             }
             .container > *:not(:last-child) {
                 margin-right: var(--spacing);
@@ -71,7 +70,6 @@ export class StateItem extends LitElement {
                 flex-direction: column;
             }
             .container.vertical {
-                align-items: center;
                 flex-direction: column;
             }
             .container.vertical > *:not(:last-child) {
