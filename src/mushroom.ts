@@ -18,6 +18,7 @@ import "./cards/lock-card/lock-card";
 import "./cards/media-player-card/media-player-card";
 import "./cards/person-card/person-card";
 import "./cards/select-card/select-card";
+import "./cards/todo-list-card/todo-list-card";
 import "./cards/template-card/template-card";
 import "./cards/title-card/title-card";
 import "./cards/update-card/update-card";

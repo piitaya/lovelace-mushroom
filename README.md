@@ -84,6 +84,7 @@ Different cards are available for differents entities :
 -   🌡 [Climate card](docs/cards/climate.md)
 -   📑 [Select card](docs/cards/select.md)
 -   🔢 [Number card](docs/cards/number.md)
+-   📃 [Todo list card](docs/cards/todo-list.md)
 
 ### Theme customization
 
