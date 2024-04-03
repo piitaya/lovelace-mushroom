@@ -91,17 +91,20 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
 
     public getLayoutOptions(): LovelaceLayoutOptions {
         this._inGrid = true;
-        const options = {
+        const options: LovelaceLayoutOptions = {
             grid_columns: 2,
             grid_rows: 1,
         };
         if (!this._config) return options;
         const appearance = computeAppearance(this._config);
         if (appearance.layout === "vertical") {
-            options.grid_rows += 1;
+            options.grid_rows! += 1;
         }
         if (appearance.layout === "horizontal") {
             options.grid_columns = 4;
+        }
+        if (this._config?.multiline_secondary) {
+            options.grid_rows = undefined
         }
         return options;
     }
