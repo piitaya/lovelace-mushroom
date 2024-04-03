@@ -5,4 +5,5 @@ export const lovelaceCardConfigStruct = object({
     view_index: optional(number()),
     view_layout: any(),
     type: string(),
+    layout_options: any(),
 });
