@@ -9,16 +9,6 @@ export class StateItem extends LitElement {
 
     @property({ type: Boolean }) public multiline_secondary?: boolean = false;
 
-    protected parseIcons(text: string | TemplateResult): TemplateResult {
-        // Get value as a string, then convert {mdi:abc} format strings to HA icons.
-        const textAsString = `${text}`.replace(
-            /{([a-z0-9\:\-]+)}/g,
-            '<ha-icon icon="$1"></ha-icon>'
-        );
-        const fragment = document.createRange().createContextualFragment(textAsString);
-        return html`${fragment}`;
-    }
-
     protected render(): TemplateResult {
         return html`
             <div class="container">
@@ -26,7 +16,7 @@ export class StateItem extends LitElement {
                 ${this.secondary
                     ? html`<span
                           class="secondary${this.multiline_secondary ? ` multiline_secondary` : ``}"
-                          >${this.parseIcons(this.secondary)}</span
+                          >${this.secondary}</span
                       >`
                     : nothing}
             </div>
@@ -40,6 +30,7 @@ export class StateItem extends LitElement {
                 flex: 1;
                 display: flex;
                 flex-direction: column;
+                --mdc-icon-size: 16px;
             }
             .primary {
                 font-weight: var(--card-primary-font-weight);
