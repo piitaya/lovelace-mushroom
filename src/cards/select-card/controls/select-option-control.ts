@@ -42,6 +42,7 @@ export class SelectOptionControl extends LitElement {
                 @closed=${(e) => e.stopPropagation()}
                 .value=${value ?? ""}
                 naturalMenuWidth
+                fixedMenuPosition
             >
                 ${options.map((option) => {
                     return html`
