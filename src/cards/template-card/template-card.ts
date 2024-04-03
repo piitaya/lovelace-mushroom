@@ -153,24 +153,21 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
             return undefined;
         }
 
-        // Get value as a string to enable string operations
-        const textAsString = `${text}`;
-
         // Convert :mdi:abc: format strings to HA icons.
-        const parsedString = textAsString.replace(
+        const parsedText = text.replace(
             /:([a-z]{3}\:[a-z0-9\-]+):/g,
             '<ha-icon icon="$1"></ha-icon>'
         );
 
         // If initially recorded length & current length match then we have not
         // parsed any icons
-        if (parsedString.length === textAsString.length) {
-            return html`${parsedString}`;
+        if (parsedText.length === text.length) {
+            return html`${parsedText}`;
         }
 
         // Otherwise, some icons must have been found. Convert to fragment to avoid icon
         // markup being escaped
-        const fragment = document.createRange().createContextualFragment(parsedString);
+        const fragment = document.createRange().createContextualFragment(parsedText);
         // Return content
         return html`${fragment}`;
     }
