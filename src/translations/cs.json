@@ -81,7 +81,15 @@
                 "content": "Obsah",
                 "badge_icon": "Ikona odznaku",
                 "badge_color": "Barva odznaku",
-                "picture": "Obrázek (nahradí ikonu)"
+                "picture": "Obrázek (nahradí ikonu)",
+                "first_button_icon": "Ikona prvního tlačítka",
+                "first_button_tap_action": "Akce při klepnutí na prvního tlačítko",
+                "second_button_icon": "Ikona prvního tlačítka",
+                "second_button_tap_action": "Akce při klepnutí na prvního tlačítko",
+                "third_button_icon": "Ikona prvního tlačítka",
+                "third_button_tap_action": "Akce při klepnutí na prvního tlačítko",
+                "fourth_button_icon": "Ikona prvního tlačítka",
+                "fourth_button_tap_action": "Akce při klepnutí na prvního tlačítko"
             },
             "title": {
                 "title": "Titulek",

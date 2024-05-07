@@ -4,6 +4,7 @@ import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import {
+    ActionConfig,
     actionHandler,
     ActionHandlerEvent,
     computeRTL,
@@ -28,6 +29,7 @@ import { getWeatherSvgIcon } from "../../utils/icons/weather-icon";
 import { weatherSVGStyles } from "../../utils/weather";
 import { TEMPLATE_CARD_EDITOR_NAME, TEMPLATE_CARD_NAME } from "./const";
 import { TemplateCardConfig } from "./template-card-config";
+import { Layout } from "../../utils/layout";
 
 registerCustomCard({
     type: TEMPLATE_CARD_NAME,
@@ -35,6 +37,12 @@ registerCustomCard({
     description: "Card for custom rendering with templates",
 });
 
+export const customButtonKeys = (buttonPrefix: string): string[] => {
+    return [
+        `${buttonPrefix}_button_icon`,
+        `${buttonPrefix}_button_tap_action`,
+    ];
+};
 const TEMPLATE_KEYS = [
     "icon",
     "icon_color",
@@ -43,6 +51,10 @@ const TEMPLATE_KEYS = [
     "primary",
     "secondary",
     "picture",
+    ...customButtonKeys("first"),
+    ...customButtonKeys("second"),
+    ...customButtonKeys("third"),
+    ...customButtonKeys("fourth"),
 ] as const;
 type TemplateKey = (typeof TEMPLATE_KEYS)[number];
 
@@ -126,6 +138,30 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
         };
     }
 
+    private get _custom_buttons(): Button[] {
+        if (!this._config) return [];
+
+        const buttons: Button[] = [];
+
+        if (this._config.first_button_icon && this._config.first_button_tap_action) {
+            buttons.push(new Button(this._config.first_button_icon, this._config.first_button_tap_action));
+        }
+
+        if (this._config.second_button_icon && this._config.second_button_tap_action) {
+            buttons.push(new Button(this._config.second_button_icon, this._config.second_button_tap_action));
+        }
+
+        if (this._config.third_button_icon && this._config.third_button_tap_action) {
+            buttons.push(new Button(this._config.third_button_icon, this._config.third_button_tap_action));
+        }
+
+        if (this._config.fourth_button_icon && this._config.fourth_button_tap_action) {
+            buttons.push(new Button(this._config.fourth_button_icon, this._config.fourth_button_tap_action));
+        }
+
+        return buttons;
+    }
+
     public connectedCallback() {
         super.connectedCallback();
         this._tryConnect();
@@ -140,14 +176,14 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
     }
 
     public isTemplate(key: TemplateKey) {
-        const value = this._config?.[key];
+        const value = this._config?.[key] as string;
         return value?.includes("{");
     }
 
     private getValue(key: TemplateKey) {
         return this.isTemplate(key)
             ? this._templateResults[key]?.result?.toString()
-            : this._config?.[key];
+            : this._config?.[key] as string | undefined;
     }
 
     protected render() {
@@ -206,6 +242,9 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
                             .multiline_secondary=${multiline_secondary}
                         ></mushroom-state-info>
                     </mushroom-state-item>
+                    ${this._custom_buttons.length > 0
+                        ? this.renderCustomButtons(rtl, appearance.layout)
+                        : nothing}
                 </mushroom-card>
             </ha-card>
         `;
@@ -249,6 +288,34 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
         `;
     }
 
+    renderCustomButtons(rtl: boolean, layout?: Layout): TemplateResult {
+        return html`
+            <div class="actions" ?rtl=${rtl}>
+                <mushroom-button-group .fill=${layout !== "horizontal"} ?rtl=${rtl}>
+                    ${this._custom_buttons.map(this.renderCustomButton.bind(this))}
+                </mushroom-button-group>            
+            </div>
+        `;
+    }
+
+    renderCustomButton(button: Button): TemplateResult {
+        var handleButtonTap = (ev: ActionHandlerEvent) => {
+            ev.stopPropagation();
+            
+            const config = {
+                tap_action: button.tap_action,
+            };
+            handleAction(this, this.hass!, config, ev.detail.action!);
+        }
+
+        return html`
+            <mushroom-button @action=${handleButtonTap}
+                            .actionHandler=${actionHandler()}>
+                <ha-icon .icon=${button.icon}></ha-icon>
+            </mushroom-button>
+        `;
+    }
+
     protected updated(changedProps: PropertyValues): void {
         super.updated(changedProps);
         if (!this._config || !this.hass) {
@@ -284,7 +351,7 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
                     };
                 },
                 {
-                    template: this._config[key] ?? "",
+                    template: this._config[key] as string | undefined ?? "",
                     entity_ids: this._config.entity_id,
                     variables: {
                         config: this._config,
@@ -359,4 +426,9 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
             `,
         ];
     }
+    
+}
+
+class Button {
+    constructor(readonly icon: string, readonly tap_action: ActionConfig) {}
 }

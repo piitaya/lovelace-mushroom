@@ -58,6 +58,67 @@ cards:
     columns: 2
     square: false
   - type: vertical-stack
+    title: Custom buttons
+    cards:
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:mushroom-template-card
+            primary: Hello, {{user}}
+            secondary: How are you?
+            icon: mdi:home
+            first_button_icon: mdi:arrow-up
+            first_button_tap_action:
+              action: none
+            second_button_icon: mdi:arrow-right
+            second_button_tap_action:
+              action: none
+            third_button_icon: mdi:arrow-down
+            third_button_tap_action:
+              action: none
+            fourth_button_icon: mdi:arrow-left
+            fourth_button_tap_action:
+              action: none
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:mushroom-template-card
+            primary: Hello, {{user}}
+            secondary: How are you?
+            icon: mdi:home
+            layout: vertical
+            first_button_icon: mdi:arrow-up
+            first_button_tap_action:
+              action: none
+            second_button_icon: mdi:arrow-right
+            second_button_tap_action:
+              action: none
+            third_button_icon: mdi:arrow-down
+            third_button_tap_action:
+              action: none
+            fourth_button_icon: mdi:arrow-left
+            fourth_button_tap_action:
+              action: none
+      - type: custom:mushroom-template-card
+        primary: Hello, {{user}}
+        secondary: How are you?
+        icon: mdi:home
+        layout: horizontal
+        first_button_icon: mdi:arrow-up
+        first_button_tap_action:
+          action: none
+        second_button_icon: mdi:arrow-right
+        second_button_tap_action:
+          action: none
+        third_button_icon: mdi:arrow-down
+        third_button_tap_action:
+          action: none
+        fourth_button_icon: mdi:arrow-left
+        fourth_button_tap_action:
+          action: none
+  - type: vertical-stack
     title: Layout
     cards:
       - type: grid

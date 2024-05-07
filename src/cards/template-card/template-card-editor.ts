@@ -10,6 +10,14 @@ import { HaFormSchema } from "../../utils/form/ha-form";
 import { loadHaComponents } from "../../utils/loader";
 import { TEMPLATE_CARD_EDITOR_NAME } from "./const";
 import { TemplateCardConfig, templateCardConfigStruct } from "./template-card-config";
+import { UiAction } from "../../utils/form/ha-selector";
+
+export const customButtonLabels = (buttonPrefix: string): string[] => {
+    return [
+        `${buttonPrefix}_button_icon`,
+        `${buttonPrefix}_button_tap_action`,
+    ];
+};
 
 export const TEMPLATE_LABELS = [
     "badge_icon",
@@ -19,10 +27,32 @@ export const TEMPLATE_LABELS = [
     "secondary",
     "multiline_secondary",
     "picture",
+    ...customButtonLabels("first"),
+    ...customButtonLabels("second"),
+    ...customButtonLabels("third"),
+    ...customButtonLabels("fourth"),
 ];
 
+const buttonAllowedActions: UiAction[] = ["navigate", "url", "call-service", "assist", "none"];
+
+export const customButtonFormSchema = (buttonPrefix: string): HaFormSchema[] => {
+    return [
+        {
+            name: `${buttonPrefix}_button_icon`,
+            selector: { template: {} },
+        },
+        {
+            name: `${buttonPrefix}_button_tap_action`,
+            selector: { "ui-action": { actions: buttonAllowedActions } },
+        }
+    ];
+};
+
 const SCHEMA: HaFormSchema[] = [
-    { name: "entity", selector: { entity: {} } },
+    { 
+        name: "entity", 
+        selector: { entity: {} } 
+    },
     {
         name: "icon",
         selector: { template: {} },
@@ -61,6 +91,10 @@ const SCHEMA: HaFormSchema[] = [
         ],
     },
     ...computeActionsFormSchema(),
+    ...customButtonFormSchema("first"),
+    ...customButtonFormSchema("second"),
+    ...customButtonFormSchema("third"),
+    ...customButtonFormSchema("fourth"),
 ];
 
 @customElement(TEMPLATE_CARD_EDITOR_NAME)
