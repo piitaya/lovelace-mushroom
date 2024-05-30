@@ -13,7 +13,7 @@ import {
     LovelaceCard,
     LovelaceCardEditor,
 } from "../../ha";
-import { AlarmMode, setProtectedAlarmControlPanelMode } from "../../ha/data/alarm_control_panel";
+import { ALARM_MODES, AlarmMode, setProtectedAlarmControlPanelMode } from "../../ha/data/alarm_control_panel";
 import "../../shared/badge-icon";
 import "../../shared/button";
 import "../../shared/button-group";
@@ -25,7 +25,6 @@ import { computeAppearance } from "../../utils/appearance";
 import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { alarmPanelIconAction } from "../../utils/icons/alarm-panel-icon";
 import { computeEntityPicture } from "../../utils/info";
 import { AlarmControlPanelCardConfig } from "./alarm-control-panel-card-config";
 import {
@@ -141,7 +140,7 @@ export class AlarmControlPanelCard
                                               @click=${(e) => this._onTap(e, action.mode)}
                                               .disabled=${!isActionEnabled}
                                           >
-                                              <ha-icon .icon=${alarmPanelIconAction(action.mode)}>
+                                              <ha-icon .icon=${ALARM_MODES[action.mode].icon}>
                                               </ha-icon>
                                           </mushroom-button>
                                       `
