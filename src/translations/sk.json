@@ -70,9 +70,6 @@
                 "show_position_control": "Ovládanie pozície?",
                 "show_tilt_position_control": "Ovládanie natočenia?"
             },
-            "alarm_control_panel": {
-                "show_keypad": "Zobraziť klávesnicu"
-            },
             "template": {
                 "primary": "Základné info",
                 "secondary": "Doplnkové info",
@@ -144,7 +141,7 @@
                     "slider": "Posúvač",
                     "buttons": "Tlačidlá"
                 }
-            }                    
+            }
         },
         "chip": {
             "sub_element_editor": {
@@ -167,7 +164,7 @@
                     "entity": "Entita",
                     "light": "Svetlo",
                     "menu": "Menu",
-                    "spacer": "Medzera",                    
+                    "spacer": "Medzera",
                     "template": "Šablóna",
                     "weather": "Počasie"
                 }

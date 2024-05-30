@@ -70,9 +70,6 @@
                 "show_position_control": "Pozíció vezérlő",
                 "show_tilt_position_control": "Dőlésszög szabályzó"
             },
-            "alarm_control_panel": {
-                "show_keypad": "Billentyűzet mutatása"
-            },
             "template": {
                 "primary": "Elsődleges információ",
                 "secondary": "Másodlagos információ",

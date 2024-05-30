@@ -70,9 +70,6 @@
                 "show_position_control": "Sterowanie położeniem?",
                 "show_tilt_position_control": "Sterowanie poziomem otwarcia?"
             },
-            "alarm_control_panel": {
-                "show_keypad": "Wyświetl klawiaturę"
-            },
             "template": {
                 "primary": "Informacje główne",
                 "secondary": "Informacje drugorzędne",
@@ -154,7 +151,7 @@
                     "entity": "Encja",
                     "light": "Światło",
                     "menu": "Menu",
-                    "spacer": "Odstęp",          
+                    "spacer": "Odstęp",
                     "template": "Szablon",
                     "weather": "Pogoda"
                 }

@@ -1,6 +1,6 @@
 import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, nothing, PropertyValues, TemplateResult } from "lit";
-import { customElement, query } from "lit/decorators.js";
+import { customElement } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import {
@@ -12,8 +12,8 @@ import {
     HomeAssistant,
     LovelaceCard,
     LovelaceCardEditor,
-    LovelaceLayoutOptions,
 } from "../../ha";
+import { AlarmMode, setProtectedAlarmControlPanelMode } from "../../ha/data/alarm_control_panel";
 import "../../shared/badge-icon";
 import "../../shared/button";
 import "../../shared/button-group";
@@ -33,14 +33,7 @@ import {
     ALARM_CONTROl_PANEL_CARD_NAME,
     ALARM_CONTROl_PANEL_ENTITY_DOMAINS,
 } from "./const";
-import {
-    getStateColor,
-    getStateService,
-    hasCode,
-    isActionsAvailable,
-    isDisarmed,
-    shouldPulse,
-} from "./utils";
+import { getStateColor, hasCode, isActionsAvailable, isDisarmed, shouldPulse } from "./utils";
 
 registerCustomCard({
     type: ALARM_CONTROl_PANEL_CARD_NAME,
@@ -49,13 +42,9 @@ registerCustomCard({
 });
 
 type ActionButtonType = {
-    state: string;
+    mode: AlarmMode;
     disabled?: boolean;
 };
-
-type HaTextField = any;
-
-const BUTTONS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "", "0", "clear"];
 
 /*
  * Ref: https://github.com/home-assistant/frontend/blob/dev/src/panels/lovelace/cards/hui-alarm-panel-card.ts
@@ -88,66 +77,13 @@ export class AlarmControlPanelCard
         return Boolean(this._config?.states?.length);
     }
 
-    public getLayoutOptions(): LovelaceLayoutOptions {
-        const options = super.getLayoutOptions();
-        if (this._config?.show_keypad) {
-            delete options.grid_columns;
-            delete options.grid_rows;
-        }
-        return options;
-    }
-
-    @query("#alarmCode") private _input?: HaTextField;
-
-    setConfig(config: AlarmControlPanelCardConfig): void {
-        super.setConfig(config);
-        this.loadComponents();
-    }
-
-    protected updated(changedProperties: PropertyValues) {
-        super.updated(changedProperties);
-        if (this.hass && changedProperties.has("hass")) {
-            this.loadComponents();
-        }
-    }
-
-    async loadComponents() {
-        const stateObj = this._stateObj;
-
-        if (stateObj && hasCode(stateObj)) {
-            void import("../../shared/form/mushroom-textfield");
-        }
-    }
-
-    private _onTap(e: MouseEvent, state: string): void {
-        const service = getStateService(state);
-        if (!service) return;
+    private _onTap(e: MouseEvent, mode: AlarmMode): void {
         e.stopPropagation();
-        const code = this._input?.value || undefined;
-        this.hass.callService("alarm_control_panel", service, {
-            entity_id: this._config?.entity,
-            code,
-        });
-        if (this._input) {
-            this._input.value = "";
-        }
-    }
-
-    private _handlePadClick(e: MouseEvent): void {
-        const val = (e.currentTarget! as any).value;
-        if (this._input) {
-            this._input.value = val === "clear" ? "" : this._input!.value + val;
-        }
+        setProtectedAlarmControlPanelMode(this, this.hass!, this._stateObj!, mode);
     }
 
     private _handleAction(ev: ActionHandlerEvent) {
         handleAction(this, this.hass!, this._config!, ev.detail.action!);
-    }
-
-    private get _hasCode(): boolean {
-        const stateObj = this._stateObj;
-        if (!stateObj) return false;
-        return hasCode(stateObj) && Boolean(this._config?.show_keypad);
     }
 
     protected render() {
@@ -169,8 +105,8 @@ export class AlarmControlPanelCard
         const actions: ActionButtonType[] =
             this._config.states && this._config.states.length > 0
                 ? isDisarmed(stateObj)
-                    ? this._config.states.map((state) => ({ state }))
-                    : [{ state: "disarmed" }]
+                    ? this._config.states.map((state) => ({ mode: state }))
+                    : [{ mode: "disarmed" }]
                 : [];
 
         const isActionEnabled = isActionsAvailable(stateObj);
@@ -202,10 +138,10 @@ export class AlarmControlPanelCard
                                   ${actions.map(
                                       (action) => html`
                                           <mushroom-button
-                                              @click=${(e) => this._onTap(e, action.state)}
+                                              @click=${(e) => this._onTap(e, action.mode)}
                                               .disabled=${!isActionEnabled}
                                           >
-                                              <ha-icon .icon=${alarmPanelIconAction(action.state)}>
+                                              <ha-icon .icon=${alarmPanelIconAction(action.mode)}>
                                               </ha-icon>
                                           </mushroom-button>
                                       `
@@ -214,44 +150,6 @@ export class AlarmControlPanelCard
                           `
                         : nothing}
                 </mushroom-card>
-                ${!this._hasCode
-                    ? nothing
-                    : html`
-                          <mushroom-textfield
-                              id="alarmCode"
-                              .label=${this.hass.localize("ui.card.alarm_control_panel.code")}
-                              type="password"
-                              .inputmode=${stateObj.attributes.code_format === "number"
-                                  ? "numeric"
-                                  : "text"}
-                          ></mushroom-textfield>
-                      `}
-                ${!(this._hasCode && stateObj.attributes.code_format === "number")
-                    ? nothing
-                    : html`
-                          <div id="keypad">
-                              ${BUTTONS.map((value) =>
-                                  value === ""
-                                      ? html`<mwc-button disabled></mwc-button>`
-                                      : html`
-                                            <mwc-button
-                                                .value=${value}
-                                                @click=${this._handlePadClick}
-                                                outlined
-                                                class=${classMap({
-                                                    numberkey: value !== "clear",
-                                                })}
-                                            >
-                                                ${value === "clear"
-                                                    ? this.hass!.localize(
-                                                          `ui.card.alarm_control_panel.clear_code`
-                                                      )
-                                                    : value}
-                                            </mwc-button>
-                                        `
-                              )}
-                          </div>
-                      `}
             </ha-card>
         `;
     }
@@ -287,30 +185,8 @@ export class AlarmControlPanelCard
                 mushroom-state-item {
                     cursor: pointer;
                 }
-                .alert {
-                    --main-color: var(--warning-color);
-                }
                 mushroom-shape-icon.pulse {
                     --shape-animation: 1s ease 0s infinite normal none running pulse;
-                }
-                mushroom-textfield {
-                    display: block;
-                    margin: 8px auto;
-                    max-width: 150px;
-                    text-align: center;
-                }
-                #keypad {
-                    display: flex;
-                    justify-content: center;
-                    flex-wrap: wrap;
-                    margin: auto;
-                    width: 100%;
-                    max-width: 300px;
-                }
-                #keypad mwc-button {
-                    padding: 8px;
-                    width: 30%;
-                    box-sizing: border-box;
                 }
             `,
         ];

@@ -70,9 +70,6 @@
                 "show_position_control": "Nadzor položaja?",
                 "show_tilt_position_control": "Nadzor nagiba?"
             },
-            "alarm_control_panel": {
-                "show_keypad": "Prikaži tipkovnico"
-            },
             "template": {
                 "primary": "Primarna informacija",
                 "secondary": "Sekundarna informacija",

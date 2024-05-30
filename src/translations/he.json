@@ -60,9 +60,6 @@
                 "show_buttons_control": "הצג כפתורי שליטה",
                 "show_position_control": "הצג פקדי מיקום"
             },
-            "alarm_control_panel": {
-                "show_keypad": "הצג מקלדת"
-            },
             "template": {
                 "primary": "מידע ראשי",
                 "secondary": "מידע מישני",

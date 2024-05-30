@@ -70,9 +70,6 @@
                 "show_position_control": "Zobrazit ovládání polohy?",
                 "show_tilt_position_control": "Zobrazit ovládání náklonu?"
             },
-            "alarm_control_panel": {
-                "show_keypad": "Zobrazit klávesnici"
-            },
             "template": {
                 "primary": "Základní informace",
                 "secondary": "Sekundární informace",

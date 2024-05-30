@@ -70,9 +70,6 @@
                 "show_position_control": "Control de posició?",
                 "show_tilt_position_control": "Control d'inclinació?"
             },
-            "alarm_control_panel": {
-                "show_keypad": "Mostra el teclat"
-            },
             "template": {
                 "primary": "Informació primaria",
                 "secondary": "Informació secundaria",

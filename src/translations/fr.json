@@ -69,9 +69,6 @@
                 "show_buttons_control": "Contrôle avec boutons ?",
                 "show_position_control": "Contrôle de la position ?"
             },
-            "alarm_control_panel": {
-                "show_keypad": "Afficher le clavier"
-            },
             "template": {
                 "primary": "Information principale",
                 "secondary": "Information secondaire",

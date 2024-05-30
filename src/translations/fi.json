@@ -69,9 +69,6 @@
                 "show_buttons_control": "Toimintopainikkeet?",
                 "show_position_control": "Sijainnin hallinta?"
             },
-            "alarm_control_panel": {
-                "show_keypad": "Näytä näppäimet"
-            },
             "template": {
                 "primary": "Ensisijaiset tiedot",
                 "secondary": "Toissijaiset tiedot",

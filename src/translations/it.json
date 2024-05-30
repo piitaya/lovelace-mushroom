@@ -70,9 +70,6 @@
                 "show_position_control": "Controllo percentuale apertura",
                 "show_tilt_position_control": "Controllo percentuale inclinazione"
             },
-            "alarm_control_panel": {
-                "show_keypad": "Mostra il tastierino numerico"
-            },
             "template": {
                 "primary": "Informazione primaria",
                 "secondary": "Informazione secondaria",

@@ -70,9 +70,6 @@
                 "show_position_control": "Toon positie bediening",
                 "show_tilt_position_control": "Toon tilt control"
             },
-            "alarm_control_panel": {
-                "show_keypad": "Toon toetsenbord"
-            },
             "template": {
                 "primary": "Primaire informatie",
                 "secondary": "Secundaire informatie",
