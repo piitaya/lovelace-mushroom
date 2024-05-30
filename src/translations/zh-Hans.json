@@ -70,9 +70,6 @@
                 "show_position_control": "位置控制?",
                 "show_tilt_position_control": "角度控制?"
             },
-            "alarm_control_panel": {
-                "show_keypad": "显示键盘"
-            },
             "template": {
                 "primary": "首要信息",
                 "secondary": "次要信息",

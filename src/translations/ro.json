@@ -70,9 +70,6 @@
                 "show_position_control": "Comandă pentru poziție?",
                 "show_tilt_position_control": "Comandă pentru înclinare?"
             },
-            "alarm_control_panel": {
-                "show_keypad": "Arată tastatura"
-            },
             "template": {
                 "primary": "Informație principală",
                 "secondary": "Informație secundară",

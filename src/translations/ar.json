@@ -69,9 +69,6 @@
                 "show_buttons_control": "أزرار التحكم؟",
                 "show_position_control": "التحكم في الموقع؟"
             },
-            "alarm_control_panel": {
-                "show_keypad": "إظهار لوحة المفاتيح"
-            },
             "template": {
                 "primary": "المعلومات الأساسية",
                 "secondary": "المعلومات الثانوية",

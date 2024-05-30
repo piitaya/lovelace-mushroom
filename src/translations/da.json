@@ -69,9 +69,6 @@
                 "show_buttons_control": "Betjeningsknapper?",
                 "show_position_control": "Positionskontrol?"
             },
-            "alarm_control_panel": {
-                "show_keypad": "Vis tastatur"
-            },
             "template": {
                 "primary": "Primær information",
                 "secondary": "Sekundær information",

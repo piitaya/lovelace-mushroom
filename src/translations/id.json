@@ -70,9 +70,6 @@
                 "show_position_control": "Kontrol posisi?",
                 "show_tilt_position_control": "Kontrol kemiringan?"
             },
-            "alarm_control_panel": {
-                "show_keypad": "Tampilkan papan tombol"
-            },
             "template": {
                 "primary": "Informasi primer",
                 "secondary": "Informasi sekunder",

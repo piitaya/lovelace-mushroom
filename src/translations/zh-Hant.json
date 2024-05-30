@@ -70,9 +70,6 @@
                 "show_position_control": "位置控制?",
                 "show_tilt_position_control": "角度控制?"
             },
-            "alarm_control_panel": {
-                "show_keypad": "顯示鍵盤"
-            },
             "template": {
                 "primary": "主要訊息",
                 "secondary": "次要訊息",
@@ -144,7 +141,7 @@
                     "slider": "滑桿",
                     "buttons": "按鈕"
                 }
-			}
+            }
         },
         "chip": {
             "sub_element_editor": {

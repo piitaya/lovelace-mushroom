@@ -70,9 +70,6 @@
                 "show_position_control": "Управлять позицией?",
                 "show_tilt_position_control": "Управлять наклоном?"
             },
-            "alarm_control_panel": {
-                "show_keypad": "Показ клавиатуры"
-            },
             "template": {
                 "primary": "Основная информация",
                 "secondary": "Второстепенная информация",

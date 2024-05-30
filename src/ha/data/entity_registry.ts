@@ -99,9 +99,14 @@ export interface SwitchAsXEntityOptions {
     entity_id: string;
 }
 
+export interface AlarmControlPanelEntityOptions {
+    default_code?: string | null;
+}
+
 export interface EntityRegistryOptions {
     number?: NumberEntityOptions;
     sensor?: SensorEntityOptions;
+    alarm_control_panel?: AlarmControlPanelEntityOptions;
     lock?: LockEntityOptions;
     weather?: WeatherEntityOptions;
     light?: LightEntityOptions;

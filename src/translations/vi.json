@@ -70,9 +70,6 @@
                 "show_position_control": "Điều khiển vị trí?",
                 "show_tilt_position_control": "Điều khiển độ nghiêng?"
             },
-            "alarm_control_panel": {
-                "show_keypad": "Hiện bàn phím"
-            },
             "template": {
                 "primary": "Thông tin chính",
                 "secondary": "Thông tin phụ",
