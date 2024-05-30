@@ -133,7 +133,6 @@ export class LockCard extends MushroomBaseCard<LockCardConfig, LockEntity> imple
                 <ha-state-icon
                     .hass=${this.hass}
                     .stateObj=${stateObj}
-                    .state=${stateObj}
                     .icon=${icon}
                 ></ha-state-icon>
             </mushroom-shape-icon>
