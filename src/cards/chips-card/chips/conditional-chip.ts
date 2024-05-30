@@ -1,4 +1,3 @@
-import { atLeastHaVersion } from "../../../ha";
 import { loadCustomElement } from "../../../utils/loader";
 import {
     computeChipComponentName,
@@ -7,8 +6,6 @@ import {
 } from "../../../utils/lovelace/chip/chip-element";
 import { ConditionalChipConfig, LovelaceChip } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
-import "./conditional-chip-editor";
-import "./conditional-chip-editor-legacy";
 
 const componentName = computeChipComponentName("conditional");
 
@@ -32,12 +29,10 @@ export const setupConditionChipComponent = async () => {
     // @ts-ignore
     class ConditionalChip extends HuiConditionalBase implements LovelaceChip {
         public static async getConfigElement(): Promise<LovelaceChipEditor> {
-            const version = (document.querySelector("home-assistant")! as any).hass.connection
-                .haVersion;
-            const legacy = !atLeastHaVersion(version, 2023, 11);
-            const suffix = legacy ? "-legacy" : "";
-            const tag = `${computeChipEditorComponentName("conditional")}${suffix}`;
-            return document.createElement(tag) as LovelaceChipEditor;
+            await import("./conditional-chip-editor");
+            return document.createElement(
+                computeChipEditorComponentName("conditional")
+            ) as LovelaceChipEditor;
         }
 
         public static async getStubConfig(): Promise<ConditionalChipConfig> {
