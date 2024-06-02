@@ -54,7 +54,7 @@ export const ALARM_MODES: Record<AlarmMode, AlarmConfig> = {
     armed_vacation: {
         feature: AlarmControlPanelEntityFeature.ARM_VACATION,
         service: "alarm_arm_vacation",
-        icon: "mdi:air-plane",
+        icon: "mdi:airplane",
     },
     armed_custom_bypass: {
         feature: AlarmControlPanelEntityFeature.ARM_CUSTOM_BYPASS,
