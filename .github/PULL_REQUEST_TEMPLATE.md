@@ -28,7 +28,8 @@ This PR fixes or closes issue: fixes #
 -   [ ] 🐛 Bug fix (non-breaking change which fixes an issue)
 -   [ ] 🚀 New feature (non-breaking change which adds functionality)
 -   [ ] 🌎 Translation (addition or update a translation)
--   [x] ⚙️ Tech (code style improvement, performance improvement or dependencies bump)
+-   [ ] ⚙️ Tech (code style improvement, performance improvement or dependencies bump)
+-   [ ] 📚 Documentation (fix or addition in the documentation)
 -   [ ] ⚠️ Breaking change (fix or feature that would cause existing functionality to change)
 
 ## Checklist
