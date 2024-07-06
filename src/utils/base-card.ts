@@ -35,6 +35,10 @@ export class MushroomBaseCard<
 > extends MushroomBaseElement {
     @state() protected _config?: T;
 
+    @property({ reflect: true, type: String })
+    public layout: string | undefined;
+
+    // For backward compatibility (version < 2024.7)
     @property({ attribute: "in-grid", reflect: true, type: Boolean })
     protected _inGrid = false;
 

@@ -178,7 +178,6 @@ export class MediaPlayerCard
             <ha-card
                 class=${classMap({
                     "fill-container": appearance.fill_container,
-                    "in-grid": this._inGrid,
                 })}
             >
                 <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
