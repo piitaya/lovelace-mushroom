@@ -70,6 +70,10 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
 
     @state() private _unsubRenderTemplates: Map<TemplateKey, Promise<UnsubscribeFunc>> = new Map();
 
+    @property({ reflect: true, type: String })
+    public layout: string | undefined;
+
+    // For backward compatibility (version < 2024.7)
     @property({ attribute: "in-grid", reflect: true, type: Boolean })
     protected _inGrid = false;
 
@@ -104,7 +108,7 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
             options.grid_columns = 4;
         }
         if (this._config?.multiline_secondary) {
-            options.grid_rows = undefined
+            options.grid_rows = undefined;
         }
         return options;
     }
@@ -192,10 +196,10 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
                         ${picture
                             ? this.renderPicture(picture)
                             : weatherSvg
-                            ? html`<div slot="icon">${weatherSvg}</div>`
-                            : icon
-                            ? this.renderIcon(icon, iconColor)
-                            : nothing}
+                              ? html`<div slot="icon">${weatherSvg}</div>`
+                              : icon
+                                ? this.renderIcon(icon, iconColor)
+                                : nothing}
                         ${(icon || picture) && badgeIcon
                             ? this.renderBadgeIcon(badgeIcon, badgeColor)
                             : undefined}
