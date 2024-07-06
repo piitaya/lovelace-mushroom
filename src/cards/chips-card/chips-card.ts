@@ -121,7 +121,7 @@ export class ChipsCard extends LitElement implements LovelaceCard {
                     align-items: flex-start;
                     justify-content: flex-start;
                     flex-wrap: wrap;
-                    margin-bottom: calc(-1 * var(--chip-spacing));
+                    gap: var(--chip-spacing);
                 }
                 .chip-container.align-end {
                     justify-content: flex-end;
@@ -131,16 +131,6 @@ export class ChipsCard extends LitElement implements LovelaceCard {
                 }
                 .chip-container.align-justify {
                     justify-content: space-between;
-                }
-                .chip-container * {
-                    margin-bottom: var(--chip-spacing);
-                }
-                .chip-container *:not(:last-child) {
-                    margin-right: var(--chip-spacing);
-                }
-                .chip-container[rtl] *:not(:last-child) {
-                    margin-right: initial;
-                    margin-left: var(--chip-spacing);
                 }
             `,
         ];
