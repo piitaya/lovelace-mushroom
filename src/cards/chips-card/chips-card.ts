@@ -43,6 +43,8 @@ export class ChipsCard extends LitElement implements LovelaceCard {
         };
     }
 
+    @property() public preview?: boolean;
+
     @property() public editMode?: boolean;
 
     @state() private _config?: ChipsCardConfig;
@@ -100,8 +102,9 @@ export class ChipsCard extends LitElement implements LovelaceCard {
         }
         if (this._hass) {
             element.hass = this._hass;
-            element.editMode = this.editMode;
         }
+        element.editMode = this.editMode || this.preview;
+        element.preview = this.preview || this.editMode;
         return html`${element}`;
     }
 
