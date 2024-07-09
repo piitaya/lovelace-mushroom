@@ -4,6 +4,7 @@ import { Info } from "../../info";
 export interface LovelaceChip extends HTMLElement {
     hass?: HomeAssistant;
     editMode?: boolean;
+    preview?: boolean;
     setConfig(config: LovelaceChipConfig);
 }
 
