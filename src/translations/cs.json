@@ -8,11 +8,11 @@
             },
             "info_picker": {
                 "values": {
-                    "default": "Základní informace",
+                    "default": "Výchozí informace",
                     "name": "Název",
                     "state": "Stav",
                     "last-changed": "Poslední změna",
-                    "last-updated": "Poslední update",
+                    "last-updated": "Poslední aktualizace",
                     "none": "Nic"
                 }
             },
@@ -34,8 +34,8 @@
             "alignment_picker": {
                 "values": {
                     "default": "Výchozí zarovnání",
-                    "start": "Začátek",
-                    "end": "Konec",
+                    "start": "Na začátek",
+                    "end": "Na konec",
                     "center": "Na střed",
                     "justify": "Do bloku"
                 }
@@ -46,13 +46,13 @@
                 "icon_color": "Barva ikony",
                 "layout": "Rozložení",
                 "fill_container": "Vyplnit prostor",
-                "primary_info": "Základní informace",
+                "primary_info": "Primární         informace",
                 "secondary_info": "Sekundární informace",
                 "icon_type": "Typ ikony",
                 "content_info": "Obsah",
                 "use_entity_picture": "Použít ikonu entity?",
-                "collapsible_controls": "Skrýt ovládací prvky pokud je VYP",
-                "icon_animation": "Animovaná ikona, pokud je aktivní?"
+                "collapsible_controls": "Pokud je vypnuto, skrýt ovládací prvky",
+                "icon_animation": "Pokud je aktivní, animovat ikonu?"
             },
             "light": {
                 "show_brightness_control": "Ovládání jasu?",
@@ -63,7 +63,7 @@
             },
             "fan": {
                 "show_percentage_control": "Ovládání v procentech?",
-                "show_oscillate_control": "Oscillate control?"
+                "show_oscillate_control": "Ovládání oscilaceM"
             },
             "cover": {
                 "show_buttons_control": "Zobrazit ovládací tlačítka?",
@@ -71,7 +71,7 @@
                 "show_tilt_position_control": "Zobrazit ovládání náklonu?"
             },
             "template": {
-                "primary": "Základní informace",
+                "primary": "Primární informace",
                 "secondary": "Sekundární informace",
                 "multiline_secondary": "Víceřádková sekundární informace?",
                 "entity_extra": "Použito v šablonách a akcích",
@@ -81,10 +81,10 @@
                 "picture": "Obrázek (nahradí ikonu)"
             },
             "title": {
-                "title": "Titulek",
+                "title": "Nadpis",
                 "subtitle": "Popis",
-                "title_tap_action": "Titulek akce klepnutím",
-                "subtitle_tap_action": "Popis akce klepnutím"
+                "title_tap_action": "Akce při klepnutí na nadpis",
+                "subtitle_tap_action": "Akce při klepnutí na popis"
             },
             "chips": {
                 "alignment": "Zarovnání"
@@ -99,21 +99,21 @@
             "vacuum": {
                 "commands": "Příkazy",
                 "commands_list": {
-                    "on_off": "Vyp / Zap"
+                    "on_off": "Zapnout/Vypnout"
                 }
             },
             "media-player": {
-                "use_media_info": "Použít informace o médiích",
-                "use_media_artwork": "Použít ilustrace médií",
+                "use_media_info": "Použít informace z média",
+                "use_media_artwork": "Použít artwork z média",
                 "show_volume_level": "Zobrazit úroveň hlasitosti",
                 "media_controls": "Ovládání médií",
                 "media_controls_list": {
-                    "on_off": "Vyp / Zap",
+                    "on_off": "Zapnout/Vypnout",
                     "shuffle": "Zamíchat",
-                    "previous": "Předchozí skladba",
-                    "play_pause_stop": "hrát/pauza/zastavit",
-                    "next": "Další skladba",
-                    "repeat": "Opakovat"
+                    "previous": "Předchozí stopa",
+                    "play_pause_stop": "Přehrát/Pauza/Zastavit",
+                    "next": "Další stopa",
+                    "repeat": "Režim opakování"
                 },
                 "volume_controls": "Ovládání hlasitosti",
                 "volume_controls_list": {
@@ -132,7 +132,7 @@
             },
             "climate": {
                 "show_temperature_control": "Ovládání teploty?",
-                "hvac_modes": "HVAC Mód"
+                "hvac_modes": "Režimy HVAC"
             },
             "number": {
                 "display_mode": "Režim zobrazení",
@@ -153,14 +153,14 @@
             "chip-picker": {
                 "chips": "Tlačítka",
                 "add": "Přidat tlačítko",
-                "edit": "Editovat",
+                "edit": "Upravit",
                 "clear": "Vymazat",
                 "select": "Vybrat tlačítko",
                 "types": {
                     "action": "Akce",
                     "alarm-control-panel": "Alarm",
                     "back": "Zpět",
-                    "conditional": "Podmínky",
+                    "conditional": "Podmínka",
                     "entity": "Entita",
                     "light": "Světlo",
                     "menu": "Menu",
