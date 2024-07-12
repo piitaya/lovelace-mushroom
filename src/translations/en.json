@@ -78,7 +78,15 @@
                 "content": "Content",
                 "badge_icon": "Badge icon",
                 "badge_color": "Badge color",
-                "picture": "Picture (will replace the icon)"
+                "picture": "Picture (will replace the icon)",
+                "first_button_icon": "First button icon",
+                "first_button_tap_action": "First button tap action",
+                "second_button_icon": "Second button icon",
+                "second_button_tap_action": "Second button tap action",
+                "third_button_icon": "Third button icon",
+                "third_button_tap_action": "Third button tap action",
+                "fourth_button_icon": "Fourth button icon",
+                "fourth_button_tap_action": "Fourth button tap action"
             },
             "title": {
                 "title": "Title",
