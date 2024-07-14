@@ -154,6 +154,31 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
             : this._config?.[key];
     }
 
+    protected parseIcons(text: string | undefined): TemplateResult | undefined {
+        // Skip logic if no secondary is defined
+        if (text === undefined) {
+            return undefined;
+        }
+
+        // Convert :mdi:abc: format strings to HA icons.
+        const parsedText = text.replace(
+            /:([a-z]{3}\:[a-z0-9\-]+):/g,
+            '<ha-icon icon="$1"></ha-icon>'
+        );
+
+        // If initially recorded length & current length match then we have not
+        // parsed any icons
+        if (parsedText.length === text.length) {
+            return html`${parsedText}`;
+        }
+
+        // Otherwise, some icons must have been found. Convert to fragment to avoid icon
+        // markup being escaped
+        const fragment = document.createRange().createContextualFragment(parsedText);
+        // Return content
+        return html`${fragment}`;
+    }
+
     protected render() {
         if (!this._config || !this.hass) {
             return nothing;
@@ -206,7 +231,7 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
                         <mushroom-state-info
                             slot="info"
                             .primary=${primary}
-                            .secondary=${secondary}
+                            .secondary=${this.parseIcons(secondary)}
                             .multiline_secondary=${multiline_secondary}
                         ></mushroom-state-info>
                     </mushroom-state-item>

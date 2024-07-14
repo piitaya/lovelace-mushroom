@@ -30,6 +30,7 @@ export class StateItem extends LitElement {
                 flex: 1;
                 display: flex;
                 flex-direction: column;
+                --mdc-icon-size: 16px;
             }
             .primary {
                 font-weight: var(--card-primary-font-weight);
