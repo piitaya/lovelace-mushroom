@@ -41,10 +41,6 @@ export class MushroomBaseCard<
   @property({ reflect: true, type: String })
   public layout: string | undefined;
 
-  // For backward compatibility (version < 2024.7)
-  @property({ attribute: "in-grid", reflect: true, type: Boolean })
-  protected _inGrid = false;
-
   protected get _stateObj(): E | undefined {
     if (!this._config || !this.hass || !this._config.entity) return undefined;
 
@@ -68,12 +64,6 @@ export class MushroomBaseCard<
     };
   }
 
-  // For backward compatibility
-  public getGridSize(): [number | undefined, number | undefined] {
-    const { grid_columns, grid_rows } = this.getLayoutOptions();
-    return [grid_columns, grid_rows];
-  }
-
   public getCardSize(): number | Promise<number> {
     let height = 1;
     if (!this._config) return height;
@@ -95,7 +85,6 @@ export class MushroomBaseCard<
   }
 
   public getLayoutOptions(): LovelaceLayoutOptions {
-    this._inGrid = true;
     const options = {
       grid_columns: 2,
       grid_rows: 1,
