@@ -32,57 +32,60 @@ import * as zh_Hans from "./translations/zh-Hans.json";
 import * as zh_Hant from "./translations/zh-Hant.json";
 
 const languages: Record<string, unknown> = {
-    ar,
-    bg,
-    ca,
-    cs,
-    da,
-    de,
-    el,
-    en,
-    es,
-    fi,
-    fr,
-    he,
-    hu,
-    id,
-    it,
-    "ko-KR": ko_KR,
-    nb,
-    nl,
-    pl,
-    "pt-BR": pt_BR,
-    "pt-PT": pt_PT,
-    ro,
-    ru,
-    sl,
-    sk,
-    sv,
-    tr,
-    uk,
-    vi,
-    "zh-Hans": zh_Hans,
-    "zh-Hant": zh_Hant,
+  ar,
+  bg,
+  ca,
+  cs,
+  da,
+  de,
+  el,
+  en,
+  es,
+  fi,
+  fr,
+  he,
+  hu,
+  id,
+  it,
+  "ko-KR": ko_KR,
+  nb,
+  nl,
+  pl,
+  "pt-BR": pt_BR,
+  "pt-PT": pt_PT,
+  ro,
+  ru,
+  sl,
+  sk,
+  sv,
+  tr,
+  uk,
+  vi,
+  "zh-Hans": zh_Hans,
+  "zh-Hant": zh_Hant,
 };
 
 const DEFAULT_LANG = "en";
 
 function getTranslatedString(key: string, lang: string): string | undefined {
-    try {
-        return key
-            .split(".")
-            .reduce((o, i) => (o as Record<string, unknown>)[i], languages[lang]) as string;
-    } catch (_) {
-        return undefined;
-    }
+  try {
+    return key
+      .split(".")
+      .reduce(
+        (o, i) => (o as Record<string, unknown>)[i],
+        languages[lang]
+      ) as string;
+  } catch (_) {
+    return undefined;
+  }
 }
 
 export default function setupCustomlocalize(hass?: HomeAssistant) {
-    return function (key: string) {
-        const lang = hass?.locale.language ?? DEFAULT_LANG;
+  return function (key: string) {
+    const lang = hass?.locale.language ?? DEFAULT_LANG;
 
-        let translated = getTranslatedString(key, lang);
-        if (!translated) translated = getTranslatedString(key, DEFAULT_LANG);
-        return translated ?? key;
-    };
+    let translated = getTranslatedString(key, lang);
+    if (!translated) translated = getTranslatedString(key, DEFAULT_LANG);
+    return translated ?? key;
+  };
 }

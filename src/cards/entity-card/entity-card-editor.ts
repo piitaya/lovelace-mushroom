@@ -13,60 +13,69 @@ import { ENTITY_CARD_EDITOR_NAME } from "./const";
 import { EntityCardConfig, entityCardConfigStruct } from "./entity-card-config";
 
 const SCHEMA: HaFormSchema[] = [
-    { name: "entity", selector: { entity: {} } },
-    { name: "name", selector: { text: {} } },
-    {
-        type: "grid",
-        name: "",
-        schema: [
-            { name: "icon", selector: { icon: {} }, context: { icon_entity: "entity" } },
-            { name: "icon_color", selector: { mush_color: {} } },
-        ],
-    },
-    ...APPEARANCE_FORM_SCHEMA,
-    ...computeActionsFormSchema(),
+  { name: "entity", selector: { entity: {} } },
+  { name: "name", selector: { text: {} } },
+  {
+    type: "grid",
+    name: "",
+    schema: [
+      {
+        name: "icon",
+        selector: { icon: {} },
+        context: { icon_entity: "entity" },
+      },
+      { name: "icon_color", selector: { mush_color: {} } },
+    ],
+  },
+  ...APPEARANCE_FORM_SCHEMA,
+  ...computeActionsFormSchema(),
 ];
 
 @customElement(ENTITY_CARD_EDITOR_NAME)
-export class EntityCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
-    @state() private _config?: EntityCardConfig;
+export class EntityCardEditor
+  extends MushroomBaseElement
+  implements LovelaceCardEditor
+{
+  @state() private _config?: EntityCardConfig;
 
-    connectedCallback() {
-        super.connectedCallback();
-        void loadHaComponents();
+  connectedCallback() {
+    super.connectedCallback();
+    void loadHaComponents();
+  }
+
+  public setConfig(config: EntityCardConfig): void {
+    assert(config, entityCardConfigStruct);
+    this._config = config;
+  }
+
+  private _computeLabel = (schema: HaFormSchema) => {
+    const customLocalize = setupCustomlocalize(this.hass!);
+
+    if (GENERIC_LABELS.includes(schema.name)) {
+      return customLocalize(`editor.card.generic.${schema.name}`);
+    }
+    return this.hass!.localize(
+      `ui.panel.lovelace.editor.card.generic.${schema.name}`
+    );
+  };
+
+  protected render() {
+    if (!this.hass || !this._config) {
+      return nothing;
     }
 
-    public setConfig(config: EntityCardConfig): void {
-        assert(config, entityCardConfigStruct);
-        this._config = config;
-    }
+    return html`
+      <ha-form
+        .hass=${this.hass}
+        .data=${this._config}
+        .schema=${SCHEMA}
+        .computeLabel=${this._computeLabel}
+        @value-changed=${this._valueChanged}
+      ></ha-form>
+    `;
+  }
 
-    private _computeLabel = (schema: HaFormSchema) => {
-        const customLocalize = setupCustomlocalize(this.hass!);
-
-        if (GENERIC_LABELS.includes(schema.name)) {
-            return customLocalize(`editor.card.generic.${schema.name}`);
-        }
-        return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
-    };
-
-    protected render() {
-        if (!this.hass || !this._config) {
-            return nothing;
-        }
-
-        return html`
-            <ha-form
-                .hass=${this.hass}
-                .data=${this._config}
-                .schema=${SCHEMA}
-                .computeLabel=${this._computeLabel}
-                @value-changed=${this._valueChanged}
-            ></ha-form>
-        `;
-    }
-
-    private _valueChanged(ev: CustomEvent): void {
-        fireEvent(this, "config-changed", { config: ev.detail.value });
-    }
+  private _valueChanged(ev: CustomEvent): void {
+    fireEvent(this, "config-changed", { config: ev.detail.value });
+  }
 }

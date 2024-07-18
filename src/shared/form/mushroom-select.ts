@@ -6,44 +6,49 @@ import { debounce, nextRender } from "../../ha";
 
 @customElement("mushroom-select")
 export class MushroomSelect extends SelectBase {
-    // @ts-ignore
-    @property({ type: Boolean }) public icon?: boolean;
+  // @ts-ignore
+  @property({ type: Boolean }) public icon?: boolean;
 
-    protected override renderLeadingIcon() {
-        if (!this.icon) {
-            return nothing;
-        }
-
-        return html`<span class="mdc-select__icon"><slot name="icon"></slot></span>`;
+  protected override renderLeadingIcon() {
+    if (!this.icon) {
+      return nothing;
     }
 
-    connectedCallback() {
-        super.connectedCallback();
-        window.addEventListener("translations-updated", this._translationsUpdated);
-    }
+    return html`<span class="mdc-select__icon"
+      ><slot name="icon"></slot
+    ></span>`;
+  }
 
-    disconnectedCallback() {
-        super.disconnectedCallback();
-        window.removeEventListener("translations-updated", this._translationsUpdated);
-    }
+  connectedCallback() {
+    super.connectedCallback();
+    window.addEventListener("translations-updated", this._translationsUpdated);
+  }
 
-    private _translationsUpdated = debounce(async () => {
-        await nextRender();
-        this.layoutOptions();
-    }, 500);
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    window.removeEventListener(
+      "translations-updated",
+      this._translationsUpdated
+    );
+  }
 
-    static override styles = [
-        styles,
-        css`
-            .mdc-select__anchor {
-                height: var(--select-height, 56px) !important;
-            }
-        `,
-    ];
+  private _translationsUpdated = debounce(async () => {
+    await nextRender();
+    this.layoutOptions();
+  }, 500);
+
+  static override styles = [
+    styles,
+    css`
+      .mdc-select__anchor {
+        height: var(--select-height, 56px) !important;
+      }
+    `,
+  ];
 }
 
 declare global {
-    interface HTMLElementTagNameMap {
-        "mushroom-select": MushroomSelect;
-    }
+  interface HTMLElementTagNameMap {
+    "mushroom-select": MushroomSelect;
+  }
 }
