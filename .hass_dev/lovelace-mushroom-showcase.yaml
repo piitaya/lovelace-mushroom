@@ -1,4 +1,4 @@
-title: Mushroom Showcase 
+title: Mushroom Showcase
 views:
   - !include views/light-view.yaml
   - !include views/cover-view.yaml
@@ -16,3 +16,4 @@ views:
   - !include views/humidifier-view.yaml
   - !include views/select-view.yaml
   - !include views/number-view.yaml
+  - !include views/todo-list-view.yaml

@@ -141,6 +141,13 @@
                     "slider": "Schieberegler",
                     "buttons": "Buttons"
                 }
+            },
+            "todo_list": {
+                "add_item_placeholder": "Eintrag hinzufügen …",
+                "clear_completed": "Erledigte entfernen",
+                "status": "{completed_count} von {total_count} erledigt",
+                "checked_icon": "Erledigter Eintrag Icon",
+                "unchecked_icon": "Offener Eintrag Icon"
             }
         },
         "chip": {
