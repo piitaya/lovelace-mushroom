@@ -7,7 +7,7 @@ export const UPDATE_ENTITY_DOMAINS = ["update"];
 export const UPDATE_CARD_DEFAULT_STATE_COLOR = "var(--rgb-grey)";
 
 export const UPDATE_CARD_STATE_COLOR = {
-    on: "var(--rgb-state-update-on)",
-    off: "var(--rgb-state-update-off)",
-    installing: "var(--rgb-state-update-installing)",
+  on: "var(--rgb-state-update-on)",
+  off: "var(--rgb-state-update-off)",
+  installing: "var(--rgb-state-update-installing)",
 };

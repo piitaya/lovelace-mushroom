@@ -5,13 +5,13 @@ import { computeChipComponentName } from "../../../utils/lovelace/chip/chip-elem
 
 @customElement(computeChipComponentName("spacer"))
 export class SpacerChip extends LitElement implements LovelaceChip {
-    public setConfig(): void {}
+  public setConfig(): void {}
 
-    static get styles(): CSSResultGroup {
-        return css`
-            :host {
-                flex-grow: 1;
-            }
-        `;
-    }
+  static get styles(): CSSResultGroup {
+    return css`
+      :host {
+        flex-grow: 1;
+      }
+    `;
+  }
 }

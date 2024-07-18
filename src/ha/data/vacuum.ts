@@ -22,11 +22,11 @@ export const VACUUM_SUPPORT_STATE = 4096;
 export const VACUUM_SUPPORT_START = 8192;
 
 interface VacuumEntityAttributes extends HassEntityAttributeBase {
-    battery_level: number;
-    fan_speed: any;
-    [key: string]: any;
+  battery_level: number;
+  fan_speed: any;
+  [key: string]: any;
 }
 
 export interface VacuumEntity extends HassEntityBase {
-    attributes: VacuumEntityAttributes;
+  attributes: VacuumEntityAttributes;
 }
