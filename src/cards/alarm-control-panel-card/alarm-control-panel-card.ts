@@ -155,22 +155,24 @@ export class AlarmControlPanelCard
           </mushroom-state-item>
           ${actions.length > 0
             ? html`
-                <mushroom-button-group
-                  .fill="${appearance.layout !== "horizontal"}"
-                  ?rtl=${rtl}
-                >
-                  ${actions.map(
-                    (action) => html`
-                      <mushroom-button
-                        @click=${(e) => this._onTap(e, action.mode)}
-                        .disabled=${!isActionEnabled}
-                      >
-                        <ha-icon .icon=${ALARM_MODES[action.mode].icon}>
-                        </ha-icon>
-                      </mushroom-button>
-                    `
-                  )}
-                </mushroom-button-group>
+                <div class="actions">
+                  <mushroom-button-group
+                    .fill="${appearance.layout !== "horizontal"}"
+                    ?rtl=${rtl}
+                  >
+                    ${actions.map(
+                      (action) => html`
+                        <mushroom-button
+                          @click=${(e) => this._onTap(e, action.mode)}
+                          .disabled=${!isActionEnabled}
+                        >
+                          <ha-icon .icon=${ALARM_MODES[action.mode].icon}>
+                          </ha-icon>
+                        </mushroom-button>
+                      `
+                    )}
+                  </mushroom-button-group>
+                </div>
               `
             : nothing}
         </mushroom-card>

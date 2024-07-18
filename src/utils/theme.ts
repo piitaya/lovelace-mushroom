@@ -1,7 +1,7 @@
 import { css } from "lit";
 
 export const themeVariables = css`
-  --spacing: var(--mush-spacing, 12px);
+  --spacing: var(--mush-spacing, 10px);
 
   /* Title */
   --title-padding: var(--mush-title-padding, 24px 12px 8px);
@@ -66,9 +66,10 @@ export const themeVariables = css`
   );
   /* Controls */
   --control-border-radius: var(--mush-control-border-radius, 12px);
-  --control-height: var(--mush-control-height, 40px);
+  --control-height: var(--mush-control-height, 42px);
   --control-button-ratio: var(--mush-control-button-ratio, 1);
   --control-icon-size: var(--mush-control-icon-size, 0.5em);
+  --control-spacing: var(--mush-control-spacing, 12px);
 
   /* Slider */
   --slider-threshold: var(--mush-slider-threshold);
@@ -86,7 +87,7 @@ export const themeVariables = css`
 
   /* Icon */
   --icon-border-radius: var(--mush-icon-border-radius, 50%);
-  --icon-size: var(--mush-icon-size, 40px);
+  --icon-size: var(--mush-icon-size, 36px);
   --icon-symbol-size: var(--mush-icon-symbol-size, 0.6em);
 `;
 

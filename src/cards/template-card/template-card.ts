@@ -87,10 +87,6 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
   @property({ reflect: true, type: String })
   public layout: string | undefined;
 
-  // For backward compatibility (version < 2024.7)
-  @property({ attribute: "in-grid", reflect: true, type: Boolean })
-  protected _inGrid = false;
-
   public getCardSize(): number | Promise<number> {
     let height = 1;
     if (!this._config) return height;
@@ -101,14 +97,7 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
     return height;
   }
 
-  // For backward compatibility
-  public getGridSize(): [number | undefined, number | undefined] {
-    const { grid_columns, grid_rows } = this.getLayoutOptions();
-    return [grid_columns, grid_rows];
-  }
-
   public getLayoutOptions(): LovelaceLayoutOptions {
-    this._inGrid = true;
     const options: LovelaceLayoutOptions = {
       grid_columns: 2,
       grid_rows: 1,

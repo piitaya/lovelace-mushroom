@@ -66,8 +66,13 @@ export class SelectOptionControl extends LitElement {
 
   static get styles(): CSSResultGroup {
     return css`
+      :host {
+        display: flex;
+        height: 100%;
+        align-items: center;
+      }
       mushroom-select {
-        --select-height: 42px;
+        --select-height: var(--control-height);
         width: 100%;
       }
     `;

@@ -16,7 +16,6 @@ export class Card extends LitElement {
           "no-info":
             this.appearance?.primary_info === "none" &&
             this.appearance?.secondary_info === "none",
-          "no-icon": this.appearance?.icon_type === "none",
         })}
       >
         <slot></slot>
@@ -26,6 +25,12 @@ export class Card extends LitElement {
 
   static get styles(): CSSResultGroup {
     return css`
+      :host {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        margin: calc(-1 * var(--ha-card-border-width, 1px));
+      }
       .container {
         display: flex;
         flex-direction: column;
@@ -35,9 +40,6 @@ export class Card extends LitElement {
         justify-content: space-between;
         height: 100%;
       }
-      .container > ::slotted(*:not(:last-child)) {
-        margin-bottom: var(--spacing);
-      }
       .container.horizontal {
         flex-direction: row;
       }
@@ -45,22 +47,18 @@ export class Card extends LitElement {
         flex: 1;
         min-width: 0;
       }
+      .container.horizontal > ::slotted(*.actions) {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        padding-left: 0 !important;
+        --control-spacing: var(--spacing);
+        --control-height: var(--icon-size);
+      }
+      .container > ::slotted(mushroom-state-item) {
+        flex: 1;
+      }
       .container.no-info > ::slotted(mushroom-state-item) {
         flex: none;
-      }
-      .container.no-info.no-icon > ::slotted(mushroom-state-item) {
-        margin-right: 0;
-        margin-left: 0;
-        margin-bottom: 0;
-      }
-      .container.horizontal > ::slotted(*:not(:last-child)) {
-        margin-right: var(--spacing);
-        margin-bottom: 0;
-      }
-      :host([rtl]) .container.horizontal > ::slotted(*:not(:last-child)) {
-        margin-right: initial;
-        margin-left: var(--spacing);
-        margin-bottom: 0;
       }
     `;
   }

@@ -45,18 +45,19 @@ export class StateItem extends LitElement {
 
   static get styles(): CSSResultGroup {
     return css`
+      :host {
+        display: block;
+        height: 100%;
+      }
       .container {
+        height: 100%;
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: flex-start;
-      }
-      .container > *:not(:last-child) {
-        margin-right: var(--spacing);
-      }
-      :host([rtl]) .container > *:not(:last-child) {
-        margin-right: initial;
-        margin-left: var(--spacing);
+        justify-content: center;
+        box-sizing: border-box;
+        padding: var(--spacing);
+        gap: var(--spacing);
       }
       .icon {
         position: relative;
@@ -78,15 +79,6 @@ export class StateItem extends LitElement {
       }
       .container.vertical {
         flex-direction: column;
-      }
-      .container.vertical > *:not(:last-child) {
-        margin-bottom: var(--spacing);
-        margin-right: 0;
-        margin-left: 0;
-      }
-      :host([rtl]) .container.vertical > *:not(:last-child) {
-        margin-right: initial;
-        margin-left: initial;
       }
       .container.vertical .info {
         text-align: center;
