@@ -1,8 +1,8 @@
 export const afterNextRender = (cb: (value: unknown) => void): void => {
-    requestAnimationFrame(() => setTimeout(cb, 0));
+  requestAnimationFrame(() => setTimeout(cb, 0));
 };
 
 export const nextRender = () =>
-    new Promise((resolve) => {
-        afterNextRender(resolve);
-    });
+  new Promise((resolve) => {
+    afterNextRender(resolve);
+  });

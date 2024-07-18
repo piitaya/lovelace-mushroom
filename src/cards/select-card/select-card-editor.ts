@@ -13,63 +13,79 @@ import { loadHaComponents } from "../../utils/loader";
 import { SELECT_CARD_EDITOR_NAME, SELECT_ENTITY_DOMAINS } from "./const";
 import { SelectCardConfig, selectCardConfigStruct } from "./select-card-config";
 
-const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "assist", "none"];
+const actions: UiAction[] = [
+  "more-info",
+  "navigate",
+  "url",
+  "call-service",
+  "assist",
+  "none",
+];
 
 const SCHEMA: HaFormSchema[] = [
-    { name: "entity", selector: { entity: { domain: SELECT_ENTITY_DOMAINS } } },
-    { name: "name", selector: { text: {} } },
-    {
-        type: "grid",
-        name: "",
-        schema: [
-            { name: "icon", selector: { icon: {} }, context: { icon_entity: "entity" } },
-            { name: "icon_color", selector: { mush_color: {} } },
-        ],
-    },
-    ...APPEARANCE_FORM_SCHEMA,
-    ...computeActionsFormSchema(actions),
+  { name: "entity", selector: { entity: { domain: SELECT_ENTITY_DOMAINS } } },
+  { name: "name", selector: { text: {} } },
+  {
+    type: "grid",
+    name: "",
+    schema: [
+      {
+        name: "icon",
+        selector: { icon: {} },
+        context: { icon_entity: "entity" },
+      },
+      { name: "icon_color", selector: { mush_color: {} } },
+    ],
+  },
+  ...APPEARANCE_FORM_SCHEMA,
+  ...computeActionsFormSchema(actions),
 ];
 
 @customElement(SELECT_CARD_EDITOR_NAME)
-export class SelectCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
-    @state() private _config?: SelectCardConfig;
+export class SelectCardEditor
+  extends MushroomBaseElement
+  implements LovelaceCardEditor
+{
+  @state() private _config?: SelectCardConfig;
 
-    connectedCallback() {
-        super.connectedCallback();
-        void loadHaComponents();
+  connectedCallback() {
+    super.connectedCallback();
+    void loadHaComponents();
+  }
+
+  public setConfig(config: SelectCardConfig): void {
+    assert(config, selectCardConfigStruct);
+    this._config = config;
+  }
+
+  private _computeLabel = (schema: HaFormSchema) => {
+    const customLocalize = setupCustomlocalize(this.hass!);
+
+    if (GENERIC_LABELS.includes(schema.name)) {
+      return customLocalize(`editor.card.generic.${schema.name}`);
+    }
+    return this.hass!.localize(
+      `ui.panel.lovelace.editor.card.generic.${schema.name}`
+    );
+  };
+
+  protected render() {
+    if (!this.hass || !this._config) {
+      return nothing;
     }
 
-    public setConfig(config: SelectCardConfig): void {
-        assert(config, selectCardConfigStruct);
-        this._config = config;
-    }
+    return html`
+      <ha-form
+        .hass=${this.hass}
+        .data=${this._config}
+        .schema=${SCHEMA}
+        .computeLabel=${this._computeLabel}
+        @value-changed=${this._valueChanged}
+      ></ha-form>
+    `;
+  }
 
-    private _computeLabel = (schema: HaFormSchema) => {
-        const customLocalize = setupCustomlocalize(this.hass!);
-
-        if (GENERIC_LABELS.includes(schema.name)) {
-            return customLocalize(`editor.card.generic.${schema.name}`);
-        }
-        return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
-    };
-
-    protected render() {
-        if (!this.hass || !this._config) {
-            return nothing;
-        }
-
-        return html`
-            <ha-form
-                .hass=${this.hass}
-                .data=${this._config}
-                .schema=${SCHEMA}
-                .computeLabel=${this._computeLabel}
-                @value-changed=${this._valueChanged}
-            ></ha-form>
-        `;
-    }
-
-    private _valueChanged(ev: CustomEvent): void {
-        fireEvent(this, "config-changed", { config: ev.detail.value });
-    }
+  private _valueChanged(ev: CustomEvent): void {
+    fireEvent(this, "config-changed", { config: ev.detail.value });
+  }
 }

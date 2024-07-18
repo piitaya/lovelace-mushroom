@@ -11,58 +11,73 @@ import { AlarmControlPanelChipConfig } from "../../../utils/lovelace/chip/types"
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { ALARM_CONTROl_PANEL_ENTITY_DOMAINS } from "../../alarm-control-panel-card/const";
 
-const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "assist", "none"];
+const actions: UiAction[] = [
+  "more-info",
+  "navigate",
+  "url",
+  "call-service",
+  "assist",
+  "none",
+];
 
 const SCHEMA: HaFormSchema[] = [
-    { name: "entity", selector: { entity: { domain: ALARM_CONTROl_PANEL_ENTITY_DOMAINS } } },
-    {
-        type: "grid",
-        name: "",
-        schema: [
-            { name: "name", selector: { text: {} } },
-            { name: "content_info", selector: { mush_info: {} } },
-        ],
-    },
-    { name: "icon", selector: { icon: {} }, context: { icon_entity: "entity" } },
-    ...computeActionsFormSchema(actions),
+  {
+    name: "entity",
+    selector: { entity: { domain: ALARM_CONTROl_PANEL_ENTITY_DOMAINS } },
+  },
+  {
+    type: "grid",
+    name: "",
+    schema: [
+      { name: "name", selector: { text: {} } },
+      { name: "content_info", selector: { mush_info: {} } },
+    ],
+  },
+  { name: "icon", selector: { icon: {} }, context: { icon_entity: "entity" } },
+  ...computeActionsFormSchema(actions),
 ];
 
 @customElement(computeChipEditorComponentName("alarm-control-panel"))
-export class AlarmControlPanelChipEditor extends LitElement implements LovelaceChipEditor {
-    @property({ attribute: false }) public hass?: HomeAssistant;
+export class AlarmControlPanelChipEditor
+  extends LitElement
+  implements LovelaceChipEditor
+{
+  @property({ attribute: false }) public hass?: HomeAssistant;
 
-    @state() private _config?: AlarmControlPanelChipConfig;
+  @state() private _config?: AlarmControlPanelChipConfig;
 
-    public setConfig(config: AlarmControlPanelChipConfig): void {
-        this._config = config;
+  public setConfig(config: AlarmControlPanelChipConfig): void {
+    this._config = config;
+  }
+
+  private _computeLabel = (schema: HaFormSchema) => {
+    const customLocalize = setupCustomlocalize(this.hass!);
+
+    if (GENERIC_LABELS.includes(schema.name)) {
+      return customLocalize(`editor.card.generic.${schema.name}`);
+    }
+    return this.hass!.localize(
+      `ui.panel.lovelace.editor.card.generic.${schema.name}`
+    );
+  };
+
+  protected render() {
+    if (!this.hass || !this._config) {
+      return nothing;
     }
 
-    private _computeLabel = (schema: HaFormSchema) => {
-        const customLocalize = setupCustomlocalize(this.hass!);
+    return html`
+      <ha-form
+        .hass=${this.hass}
+        .data=${this._config}
+        .schema=${SCHEMA}
+        .computeLabel=${this._computeLabel}
+        @value-changed=${this._valueChanged}
+      ></ha-form>
+    `;
+  }
 
-        if (GENERIC_LABELS.includes(schema.name)) {
-            return customLocalize(`editor.card.generic.${schema.name}`);
-        }
-        return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
-    };
-
-    protected render() {
-        if (!this.hass || !this._config) {
-            return nothing;
-        }
-
-        return html`
-            <ha-form
-                .hass=${this.hass}
-                .data=${this._config}
-                .schema=${SCHEMA}
-                .computeLabel=${this._computeLabel}
-                @value-changed=${this._valueChanged}
-            ></ha-form>
-        `;
-    }
-
-    private _valueChanged(ev: CustomEvent): void {
-        fireEvent(this, "config-changed", { config: ev.detail.value });
-    }
+  private _valueChanged(ev: CustomEvent): void {
+    fireEvent(this, "config-changed", { config: ev.detail.value });
+  }
 }

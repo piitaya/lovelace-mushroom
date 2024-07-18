@@ -12,65 +12,71 @@ import { LIGHT_ENTITY_DOMAINS } from "../../light-card/const";
 import { LIGHT_LABELS } from "../../light-card/light-card-editor";
 
 const SCHEMA: HaFormSchema[] = [
-    { name: "entity", selector: { entity: { domain: LIGHT_ENTITY_DOMAINS } } },
-    {
-        type: "grid",
-        name: "",
-        schema: [
-            { name: "name", selector: { text: {} } },
-            { name: "content_info", selector: { mush_info: {} } },
-        ],
-    },
-    {
-        type: "grid",
-        name: "",
-        schema: [
-            { name: "icon", selector: { icon: {} }, context: { icon_entity: "entity" } },
-            { name: "use_light_color", selector: { boolean: {} } },
-        ],
-    },
-    ...computeActionsFormSchema(),
+  { name: "entity", selector: { entity: { domain: LIGHT_ENTITY_DOMAINS } } },
+  {
+    type: "grid",
+    name: "",
+    schema: [
+      { name: "name", selector: { text: {} } },
+      { name: "content_info", selector: { mush_info: {} } },
+    ],
+  },
+  {
+    type: "grid",
+    name: "",
+    schema: [
+      {
+        name: "icon",
+        selector: { icon: {} },
+        context: { icon_entity: "entity" },
+      },
+      { name: "use_light_color", selector: { boolean: {} } },
+    ],
+  },
+  ...computeActionsFormSchema(),
 ];
 
 @customElement(computeChipEditorComponentName("light"))
 export class LightChipEditor extends LitElement implements LovelaceChipEditor {
-    @property({ attribute: false }) public hass?: HomeAssistant;
+  @property({ attribute: false }) public hass?: HomeAssistant;
 
-    @state() private _config?: LightChipConfig;
+  @state() private _config?: LightChipConfig;
 
-    public setConfig(config: LightChipConfig): void {
-        this._config = config;
+  public setConfig(config: LightChipConfig): void {
+    this._config = config;
+  }
+
+  private _computeLabel = (schema: HaFormSchema) => {
+    const customLocalize = setupCustomlocalize(this.hass!);
+
+    if (GENERIC_LABELS.includes(schema.name)) {
+      return customLocalize(`editor.card.generic.${schema.name}`);
+    }
+    if (LIGHT_LABELS.includes(schema.name)) {
+      return customLocalize(`editor.card.light.${schema.name}`);
+    }
+    return this.hass!.localize(
+      `ui.panel.lovelace.editor.card.generic.${schema.name}`
+    );
+  };
+
+  protected render() {
+    if (!this.hass || !this._config) {
+      return nothing;
     }
 
-    private _computeLabel = (schema: HaFormSchema) => {
-        const customLocalize = setupCustomlocalize(this.hass!);
+    return html`
+      <ha-form
+        .hass=${this.hass}
+        .data=${this._config}
+        .schema=${SCHEMA}
+        .computeLabel=${this._computeLabel}
+        @value-changed=${this._valueChanged}
+      ></ha-form>
+    `;
+  }
 
-        if (GENERIC_LABELS.includes(schema.name)) {
-            return customLocalize(`editor.card.generic.${schema.name}`);
-        }
-        if (LIGHT_LABELS.includes(schema.name)) {
-            return customLocalize(`editor.card.light.${schema.name}`);
-        }
-        return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
-    };
-
-    protected render() {
-        if (!this.hass || !this._config) {
-            return nothing;
-        }
-
-        return html`
-            <ha-form
-                .hass=${this.hass}
-                .data=${this._config}
-                .schema=${SCHEMA}
-                .computeLabel=${this._computeLabel}
-                @value-changed=${this._valueChanged}
-            ></ha-form>
-        `;
-    }
-
-    private _valueChanged(ev: CustomEvent): void {
-        fireEvent(this, "config-changed", { config: ev.detail.value });
-    }
+  private _valueChanged(ev: CustomEvent): void {
+    fireEvent(this, "config-changed", { config: ev.detail.value });
+  }
 }

@@ -8,40 +8,42 @@ import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { DEFAULT_BACK_ICON } from "./back-chip";
 
 const SCHEMA: HaFormSchema[] = [
-    { name: "icon", selector: { icon: { placeholder: DEFAULT_BACK_ICON } } },
+  { name: "icon", selector: { icon: { placeholder: DEFAULT_BACK_ICON } } },
 ];
 
 @customElement(computeChipEditorComponentName("back"))
 export class BackChipEditor extends LitElement implements LovelaceChipEditor {
-    @property({ attribute: false }) public hass?: HomeAssistant;
+  @property({ attribute: false }) public hass?: HomeAssistant;
 
-    @state() private _config?: EntityChipConfig;
+  @state() private _config?: EntityChipConfig;
 
-    public setConfig(config: EntityChipConfig): void {
-        this._config = config;
+  public setConfig(config: EntityChipConfig): void {
+    this._config = config;
+  }
+
+  private _computeLabel = (schema: HaFormSchema) => {
+    return this.hass!.localize(
+      `ui.panel.lovelace.editor.card.generic.${schema.name}`
+    );
+  };
+
+  protected render() {
+    if (!this.hass || !this._config) {
+      return nothing;
     }
 
-    private _computeLabel = (schema: HaFormSchema) => {
-        return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
-    };
+    return html`
+      <ha-form
+        .hass=${this.hass}
+        .data=${this._config}
+        .schema=${SCHEMA}
+        .computeLabel=${this._computeLabel}
+        @value-changed=${this._valueChanged}
+      ></ha-form>
+    `;
+  }
 
-    protected render() {
-        if (!this.hass || !this._config) {
-            return nothing;
-        }
-
-        return html`
-            <ha-form
-                .hass=${this.hass}
-                .data=${this._config}
-                .schema=${SCHEMA}
-                .computeLabel=${this._computeLabel}
-                @value-changed=${this._valueChanged}
-            ></ha-form>
-        `;
-    }
-
-    private _valueChanged(ev: CustomEvent): void {
-        fireEvent(this, "config-changed", { config: ev.detail.value });
-    }
+  private _valueChanged(ev: CustomEvent): void {
+    fireEvent(this, "config-changed", { config: ev.detail.value });
+  }
 }
