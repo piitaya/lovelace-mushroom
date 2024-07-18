@@ -15,7 +15,9 @@ export type ActionsSharedConfig = {
   double_tap_action?: ActionConfig;
 };
 
-export const computeActionsFormSchema = (actions?: UiAction[]): HaFormSchema[] => {
+export const computeActionsFormSchema = (
+  actions?: UiAction[]
+): HaFormSchema[] => {
   return [
     {
       name: "tap_action",

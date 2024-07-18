@@ -1,11 +1,24 @@
-import { array, assign, boolean, deprecated, object, optional } from "superstruct";
+import {
+  array,
+  assign,
+  boolean,
+  deprecated,
+  object,
+  optional,
+} from "superstruct";
 import { LovelaceCardConfig } from "../../ha";
-import { ActionsSharedConfig, actionsSharedConfigStruct } from "../../shared/config/actions-config";
+import {
+  ActionsSharedConfig,
+  actionsSharedConfigStruct,
+} from "../../shared/config/actions-config";
 import {
   AppearanceSharedConfig,
   appearanceSharedConfigStruct,
 } from "../../shared/config/appearance-config";
-import { EntitySharedConfig, entitySharedConfigStruct } from "../../shared/config/entity-config";
+import {
+  EntitySharedConfig,
+  entitySharedConfigStruct,
+} from "../../shared/config/entity-config";
 import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-config";
 import { AlarmMode } from "../../ha/data/alarm_control_panel";
 
@@ -18,7 +31,11 @@ export type AlarmControlPanelCardConfig = LovelaceCardConfig &
 
 export const alarmControlPanelCardCardConfigStruct = assign(
   lovelaceCardConfigStruct,
-  assign(entitySharedConfigStruct, appearanceSharedConfigStruct, actionsSharedConfigStruct),
+  assign(
+    entitySharedConfigStruct,
+    appearanceSharedConfigStruct,
+    actionsSharedConfigStruct
+  ),
   object({
     states: optional(array()),
     show_keypad: deprecated(optional(boolean()), (_value, ctx) => {

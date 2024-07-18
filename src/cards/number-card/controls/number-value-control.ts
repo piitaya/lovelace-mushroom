@@ -44,8 +44,10 @@ export class NumberValueControl extends LitElement {
     const value = Number(this.entity.state);
 
     const formatOptions =
-      getNumberFormatOptions(this.entity, this.hass.entities[this.entity.entity_id]) ??
-      getDefaultFormatOptions(this.entity.state);
+      getNumberFormatOptions(
+        this.entity,
+        this.hass.entities[this.entity.entity_id]
+      ) ?? getDefaultFormatOptions(this.entity.state);
 
     if (this.displayMode === "buttons") {
       return html`

@@ -48,12 +48,18 @@ export class HumidifierCard
 {
   public static async getConfigElement(): Promise<LovelaceCardEditor> {
     await import("./humidifier-card-editor");
-    return document.createElement(HUMIDIFIER_CARD_EDITOR_NAME) as LovelaceCardEditor;
+    return document.createElement(
+      HUMIDIFIER_CARD_EDITOR_NAME
+    ) as LovelaceCardEditor;
   }
 
-  public static async getStubConfig(hass: HomeAssistant): Promise<HumidifierCardConfig> {
+  public static async getStubConfig(
+    hass: HomeAssistant
+  ): Promise<HumidifierCardConfig> {
     const entities = Object.keys(hass.states);
-    const humidifiers = entities.filter((e) => HUMIDIFIER_ENTITY_DOMAINS.includes(e.split(".")[0]));
+    const humidifiers = entities.filter((e) =>
+      HUMIDIFIER_ENTITY_DOMAINS.includes(e.split(".")[0])
+    );
     return {
       type: `custom:${HUMIDIFIER_CARD_NAME}`,
       entity: humidifiers[0],
@@ -124,7 +130,9 @@ export class HumidifierCard
       this._config.show_target_humidity_control;
 
     return html`
-      <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
+      <ha-card
+        class=${classMap({ "fill-container": appearance.fill_container })}
+      >
         <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
           <mushroom-state-item
             ?rtl=${rtl}
@@ -135,7 +143,9 @@ export class HumidifierCard
               hasDoubleClick: hasAction(this._config.double_tap_action),
             })}
           >
-            ${picture ? this.renderPicture(picture) : this.renderIcon(stateObj, icon)}
+            ${picture
+              ? this.renderPicture(picture)
+              : this.renderIcon(stateObj, icon)}
             ${this.renderBadge(stateObj)}
             ${this.renderStateInfo(stateObj, appearance, name, stateDisplay)};
           </mushroom-state-item>

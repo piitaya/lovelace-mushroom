@@ -74,7 +74,9 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
                       <div class="special-row">
                         <div>
                           <span> ${this._renderChipLabel(chipConf)}</span>
-                          <span class="secondary"> ${this._renderChipSecondary(chipConf)} </span>
+                          <span class="secondary">
+                            ${this._renderChipSecondary(chipConf)}
+                          </span>
                         </div>
                       </div>
                     `}
@@ -82,7 +84,9 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
                       ? nothing
                       : html`
                           <ha-icon-button
-                            .label=${customLocalize("editor.chip.chip-picker.edit")}
+                            .label=${customLocalize(
+                              "editor.chip.chip-picker.edit"
+                            )}
                             class="edit-icon"
                             .index=${index}
                             @click=${this._editChip}
@@ -160,7 +164,9 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
 
   private async _createSortable() {
     if (!Sortable) {
-      const sortableImport = await import("sortablejs/modular/sortable.core.esm");
+      const sortableImport = await import(
+        "sortablejs/modular/sortable.core.esm"
+      );
 
       Sortable = sortableImport.Sortable;
       Sortable.mount(sortableImport.OnSpill);
@@ -244,13 +250,17 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
     return customLocalize(`editor.chip.chip-picker.types.${chipConf.type}`);
   }
 
-  private _renderChipSecondary(chipConf: LovelaceChipConfig): string | undefined {
+  private _renderChipSecondary(
+    chipConf: LovelaceChipConfig
+  ): string | undefined {
     const customLocalize = setupCustomlocalize(this.hass);
     if ("entity" in chipConf && chipConf.entity) {
       return `${this.getEntityName(chipConf.entity) ?? chipConf.entity ?? ""}`;
     }
     if ("chip" in chipConf && chipConf.chip) {
-      const label = customLocalize(`editor.chip.chip-picker.types.${chipConf.chip.type}`);
+      const label = customLocalize(
+        `editor.chip.chip-picker.types.${chipConf.chip.type}`
+      );
       const chipSecondary = this._renderChipSecondary(chipConf.chip);
       if (chipSecondary) {
         return `${this._renderChipSecondary(chipConf.chip)} (via ${label})`;

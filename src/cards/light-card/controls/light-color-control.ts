@@ -1,6 +1,13 @@
 import * as Color from "color";
 import { HassEntity } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, LitElement, TemplateResult, unsafeCSS } from "lit";
+import {
+  css,
+  CSSResultGroup,
+  html,
+  LitElement,
+  TemplateResult,
+  unsafeCSS,
+} from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { HomeAssistant, isActive, isAvailable } from "../../../ha";
 import "../../../shared/slider";
@@ -49,7 +56,8 @@ export class LightColorControl extends LitElement {
 
   protected render(): TemplateResult {
     const colorPercent =
-      this._percent || this._rgbToPercent(this.entity.attributes.rgb_color) * 100;
+      this._percent ||
+      this._rgbToPercent(this.entity.attributes.rgb_color) * 100;
 
     return html`
       <mushroom-slider
@@ -65,9 +73,9 @@ export class LightColorControl extends LitElement {
   }
 
   static get styles(): CSSResultGroup {
-    const gradient = GRADIENT.map(([stop, color]) => `${color} ${(stop as number) * 100}%`).join(
-      ", "
-    );
+    const gradient = GRADIENT.map(
+      ([stop, color]) => `${color} ${(stop as number) * 100}%`
+    ).join(", ");
     return css`
       mushroom-slider {
         --gradient: -webkit-linear-gradient(left, ${unsafeCSS(gradient)});

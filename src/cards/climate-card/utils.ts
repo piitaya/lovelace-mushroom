@@ -41,7 +41,9 @@ export function getHvacModeColor(hvacMode: HvacMode): string {
 }
 
 export function getHvacActionColor(hvacAction: HvacAction): string {
-  return CLIMATE_HVAC_ACTION_COLORS[hvacAction] ?? CLIMATE_HVAC_ACTION_COLORS.off;
+  return (
+    CLIMATE_HVAC_ACTION_COLORS[hvacAction] ?? CLIMATE_HVAC_ACTION_COLORS.off
+  );
 }
 
 export function getHvacModeIcon(hvacMode: HvacMode): string {

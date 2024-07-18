@@ -6,13 +6,18 @@ import { formatTime } from "./format_time";
 import { useAmPm } from "./use_am_pm";
 
 // August 9, 2021, 8:23 AM
-export const formatDateTime = (dateObj: Date, locale: FrontendLocaleData, config: HassConfig) =>
-  formatDateTimeMem(locale, config.time_zone).format(dateObj);
+export const formatDateTime = (
+  dateObj: Date,
+  locale: FrontendLocaleData,
+  config: HassConfig
+) => formatDateTimeMem(locale, config.time_zone).format(dateObj);
 
 const formatDateTimeMem = memoizeOne(
   (locale: FrontendLocaleData, serverTimeZone: string) =>
     new Intl.DateTimeFormat(
-      locale.language === "en" && !useAmPm(locale) ? "en-u-hc-h23" : locale.language,
+      locale.language === "en" && !useAmPm(locale)
+        ? "en-u-hc-h23"
+        : locale.language,
       {
         year: "numeric",
         month: "long",
@@ -35,7 +40,9 @@ export const formatShortDateTimeWithYear = (
 const formatShortDateTimeWithYearMem = memoizeOne(
   (locale: FrontendLocaleData, serverTimeZone: string) =>
     new Intl.DateTimeFormat(
-      locale.language === "en" && !useAmPm(locale) ? "en-u-hc-h23" : locale.language,
+      locale.language === "en" && !useAmPm(locale)
+        ? "en-u-hc-h23"
+        : locale.language,
       {
         year: "numeric",
         month: "short",
@@ -58,7 +65,9 @@ export const formatShortDateTime = (
 const formatShortDateTimeMem = memoizeOne(
   (locale: FrontendLocaleData, serverTimeZone: string) =>
     new Intl.DateTimeFormat(
-      locale.language === "en" && !useAmPm(locale) ? "en-u-hc-h23" : locale.language,
+      locale.language === "en" && !useAmPm(locale)
+        ? "en-u-hc-h23"
+        : locale.language,
       {
         month: "short",
         day: "numeric",
@@ -80,7 +89,9 @@ export const formatDateTimeWithSeconds = (
 const formatDateTimeWithSecondsMem = memoizeOne(
   (locale: FrontendLocaleData, serverTimeZone: string) =>
     new Intl.DateTimeFormat(
-      locale.language === "en" && !useAmPm(locale) ? "en-u-hc-h23" : locale.language,
+      locale.language === "en" && !useAmPm(locale)
+        ? "en-u-hc-h23"
+        : locale.language,
       {
         year: "numeric",
         month: "long",
@@ -99,4 +110,5 @@ export const formatDateTimeNumeric = (
   dateObj: Date,
   locale: FrontendLocaleData,
   config: HassConfig
-) => `${formatDateNumeric(dateObj, locale, config)}, ${formatTime(dateObj, locale, config)}`;
+) =>
+  `${formatDateNumeric(dateObj, locale, config)}, ${formatTime(dateObj, locale, config)}`;

@@ -16,7 +16,10 @@ import {
 } from "../../../ha";
 import "../../../shared/button";
 import "../../../shared/button-group";
-import { computeCloseIcon, computeOpenIcon } from "../../../utils/icons/cover-icon";
+import {
+  computeCloseIcon,
+  computeOpenIcon,
+} from "../../../utils/icons/cover-icon";
 
 @customElement("mushroom-cover-buttons-control")
 export class CoverButtonsControl extends LitElement {
@@ -49,12 +52,16 @@ export class CoverButtonsControl extends LitElement {
 
   private get openDisabled(): boolean {
     const assumedState = this.entity.attributes.assumed_state === true;
-    return (isFullyOpen(this.entity) || isOpening(this.entity)) && !assumedState;
+    return (
+      (isFullyOpen(this.entity) || isOpening(this.entity)) && !assumedState
+    );
   }
 
   private get closedDisabled(): boolean {
     const assumedState = this.entity.attributes.assumed_state === true;
-    return (isFullyClosed(this.entity) || isClosing(this.entity)) && !assumedState;
+    return (
+      (isFullyClosed(this.entity) || isClosing(this.entity)) && !assumedState
+    );
   }
 
   protected render(): TemplateResult {
@@ -74,7 +81,10 @@ export class CoverButtonsControl extends LitElement {
           : undefined}
         ${supportsFeature(this.entity, COVER_SUPPORT_STOP)
           ? html`
-              <mushroom-button .disabled=${!isAvailable(this.entity)} @click=${this._onStopTap}>
+              <mushroom-button
+                .disabled=${!isAvailable(this.entity)}
+                @click=${this._onStopTap}
+              >
                 <ha-icon icon="mdi:stop"></ha-icon>
               </mushroom-button>
             `

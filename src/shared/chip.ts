@@ -1,4 +1,11 @@
-import { css, CSSResultGroup, html, LitElement, nothing, TemplateResult } from "lit";
+import {
+  css,
+  CSSResultGroup,
+  html,
+  LitElement,
+  nothing,
+  TemplateResult,
+} from "lit";
 import { property, customElement } from "lit/decorators.js";
 import { animations } from "../utils/entity-styles";
 
@@ -15,7 +22,9 @@ export class Chip extends LitElement {
   protected render(): TemplateResult {
     return html`
       <ha-card>
-        ${this.avatar ? html` <img class="avatar" src=${this.avatar} /> ` : nothing}
+        ${this.avatar
+          ? html` <img class="avatar" src=${this.avatar} /> `
+          : nothing}
         ${!this.avatarOnly
           ? html`
               <div class="content">
@@ -53,7 +62,9 @@ export class Chip extends LitElement {
           box-sizing: content-box;
         }
         .avatar {
-          --avatar-size: calc(var(--chip-height) - 2 * var(--chip-avatar-padding));
+          --avatar-size: calc(
+            var(--chip-height) - 2 * var(--chip-avatar-padding)
+          );
           border-radius: var(--chip-avatar-border-radius);
           height: var(--avatar-size);
           width: var(--avatar-size);

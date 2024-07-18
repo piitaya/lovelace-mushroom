@@ -1,4 +1,7 @@
-import { HassEntityAttributeBase, HassEntityBase } from "home-assistant-js-websocket";
+import {
+  HassEntityAttributeBase,
+  HassEntityBase,
+} from "home-assistant-js-websocket";
 
 export const enum LightEntityFeature {
   EFFECT = 4,
@@ -34,16 +37,20 @@ const modesSupportingBrightness = [
   LightColorMode.WHITE,
 ];
 
-export const lightSupportsColorMode = (entity: LightEntity, mode: LightColorMode) =>
-  entity.attributes.supported_color_modes?.includes(mode) || false;
+export const lightSupportsColorMode = (
+  entity: LightEntity,
+  mode: LightColorMode
+) => entity.attributes.supported_color_modes?.includes(mode) || false;
 
 export const lightIsInColorMode = (entity: LightEntity) =>
-  (entity.attributes.color_mode && modesSupportingColor.includes(entity.attributes.color_mode)) ||
+  (entity.attributes.color_mode &&
+    modesSupportingColor.includes(entity.attributes.color_mode)) ||
   false;
 
 export const lightSupportsColor = (entity: LightEntity) =>
-  entity.attributes.supported_color_modes?.some((mode) => modesSupportingColor.includes(mode)) ||
-  false;
+  entity.attributes.supported_color_modes?.some((mode) =>
+    modesSupportingColor.includes(mode)
+  ) || false;
 
 export const lightSupportsBrightness = (entity: LightEntity) =>
   entity.attributes.supported_color_modes?.some((mode) =>
@@ -51,9 +58,12 @@ export const lightSupportsBrightness = (entity: LightEntity) =>
   ) || false;
 
 export const lightSupportsFavoriteColors = (entity: LightEntity) =>
-  lightSupportsColor(entity) || lightSupportsColorMode(entity, LightColorMode.COLOR_TEMP);
+  lightSupportsColor(entity) ||
+  lightSupportsColorMode(entity, LightColorMode.COLOR_TEMP);
 
-export const getLightCurrentModeRgbColor = (entity: LightEntity): number[] | undefined =>
+export const getLightCurrentModeRgbColor = (
+  entity: LightEntity
+): number[] | undefined =>
   entity.attributes.color_mode === LightColorMode.RGBWW
     ? entity.attributes.rgbww_color
     : entity.attributes.color_mode === LightColorMode.RGBW

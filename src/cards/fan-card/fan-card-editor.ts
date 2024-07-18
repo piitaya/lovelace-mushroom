@@ -12,7 +12,11 @@ import { loadHaComponents } from "../../utils/loader";
 import { FAN_CARD_EDITOR_NAME, FAN_ENTITY_DOMAINS } from "./const";
 import { FanCardConfig, fanCardConfigStruct } from "./fan-card-config";
 
-const FAN_LABELS = ["icon_animation", "show_percentage_control", "show_oscillate_control"];
+const FAN_LABELS = [
+  "icon_animation",
+  "show_percentage_control",
+  "show_oscillate_control",
+];
 
 const SCHEMA: HaFormSchema[] = [
   { name: "entity", selector: { entity: { domain: FAN_ENTITY_DOMAINS } } },
@@ -43,7 +47,10 @@ const SCHEMA: HaFormSchema[] = [
 ];
 
 @customElement(FAN_CARD_EDITOR_NAME)
-export class FanCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
+export class FanCardEditor
+  extends MushroomBaseElement
+  implements LovelaceCardEditor
+{
   @state() private _config?: FanCardConfig;
 
   connectedCallback() {
@@ -65,7 +72,9 @@ export class FanCardEditor extends MushroomBaseElement implements LovelaceCardEd
     if (FAN_LABELS.includes(schema.name)) {
       return customLocalize(`editor.card.fan.${schema.name}`);
     }
-    return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
+    return this.hass!.localize(
+      `ui.panel.lovelace.editor.card.generic.${schema.name}`
+    );
   };
 
   protected render() {

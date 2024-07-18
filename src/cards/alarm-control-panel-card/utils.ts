@@ -30,5 +30,8 @@ export function isDisarmed(stateObj: HassEntity) {
 }
 
 export function hasCode(stateObj: HassEntity): boolean {
-  return stateObj.attributes.code_format && stateObj.attributes.code_format !== "no_code";
+  return (
+    stateObj.attributes.code_format &&
+    stateObj.attributes.code_format !== "no_code"
+  );
 }

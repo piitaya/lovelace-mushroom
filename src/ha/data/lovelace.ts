@@ -37,7 +37,9 @@ export interface LovelaceResourcesMutableParams {
   url: string;
 }
 
-export type LovelaceDashboard = LovelaceYamlDashboard | LovelaceStorageDashboard;
+export type LovelaceDashboard =
+  | LovelaceYamlDashboard
+  | LovelaceStorageDashboard;
 
 interface LovelaceGenericDashboard {
   id: string;
@@ -64,7 +66,8 @@ export interface LovelaceDashboardMutableParams {
   title: string;
 }
 
-export interface LovelaceDashboardCreateParams extends LovelaceDashboardMutableParams {
+export interface LovelaceDashboardCreateParams
+  extends LovelaceDashboardMutableParams {
   url_path: string;
   mode: "storage";
 }
@@ -196,7 +199,10 @@ export const fetchResources = (conn: Connection): Promise<LovelaceResource[]> =>
     type: "lovelace/resources",
   });
 
-export const createResource = (hass: HomeAssistant, values: LovelaceResourcesMutableParams) =>
+export const createResource = (
+  hass: HomeAssistant,
+  values: LovelaceResourcesMutableParams
+) =>
   hass.callWS<LovelaceResource>({
     type: "lovelace/resources/create",
     ...values,
@@ -219,12 +225,17 @@ export const deleteResource = (hass: HomeAssistant, id: string) =>
     resource_id: id,
   });
 
-export const fetchDashboards = (hass: HomeAssistant): Promise<LovelaceDashboard[]> =>
+export const fetchDashboards = (
+  hass: HomeAssistant
+): Promise<LovelaceDashboard[]> =>
   hass.callWS({
     type: "lovelace/dashboards/list",
   });
 
-export const createDashboard = (hass: HomeAssistant, values: LovelaceDashboardCreateParams) =>
+export const createDashboard = (
+  hass: HomeAssistant,
+  values: LovelaceDashboardCreateParams
+) =>
   hass.callWS<LovelaceDashboard>({
     type: "lovelace/dashboards/create",
     ...values,
@@ -269,7 +280,10 @@ export const saveConfig = (
     config,
   });
 
-export const deleteConfig = (hass: HomeAssistant, urlPath: string | null): Promise<void> =>
+export const deleteConfig = (
+  hass: HomeAssistant,
+  urlPath: string | null
+): Promise<void> =>
   hass.callWS({
     type: "lovelace/config/delete",
     url_path: urlPath,
@@ -286,26 +300,36 @@ export const subscribeLovelaceUpdates = (
     }
   }, "lovelace_updated");
 
-export const getLovelaceCollection = (conn: Connection, urlPath: string | null = null) =>
+export const getLovelaceCollection = (
+  conn: Connection,
+  urlPath: string | null = null
+) =>
   getCollection(
     conn,
     `_lovelace_${urlPath ?? ""}`,
     (conn2) => fetchConfig(conn2, urlPath, false),
     (_conn, store) =>
       subscribeLovelaceUpdates(conn, urlPath, () =>
-        fetchConfig(conn, urlPath, false).then((config) => store.setState(config, true))
+        fetchConfig(conn, urlPath, false).then((config) =>
+          store.setState(config, true)
+        )
       )
   );
 
 // Legacy functions to support cast for Home Assistion < 0.107
-const fetchLegacyConfig = (conn: Connection, force: boolean): Promise<LovelaceConfig> =>
+const fetchLegacyConfig = (
+  conn: Connection,
+  force: boolean
+): Promise<LovelaceConfig> =>
   conn.sendMessagePromise({
     type: "lovelace/config",
     force,
   });
 
-const subscribeLegacyLovelaceUpdates = (conn: Connection, onChange: () => void) =>
-  conn.subscribeEvents(onChange, "lovelace_updated");
+const subscribeLegacyLovelaceUpdates = (
+  conn: Connection,
+  onChange: () => void
+) => conn.subscribeEvents(onChange, "lovelace_updated");
 
 export const getLegacyLovelaceCollection = (conn: Connection) =>
   getCollection(
@@ -314,7 +338,9 @@ export const getLegacyLovelaceCollection = (conn: Connection) =>
     (conn2) => fetchLegacyConfig(conn2, false),
     (_conn, store) =>
       subscribeLegacyLovelaceUpdates(conn, () =>
-        fetchLegacyConfig(conn, false).then((config) => store.setState(config, true))
+        fetchLegacyConfig(conn, false).then((config) =>
+          store.setState(config, true)
+        )
       )
   );
 

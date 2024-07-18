@@ -22,7 +22,9 @@ export class MenuChipEditor extends LitElement implements LovelaceChipEditor {
   }
 
   private _computeLabel = (schema: HaFormSchema) => {
-    return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
+    return this.hass!.localize(
+      `ui.panel.lovelace.editor.card.generic.${schema.name}`
+    );
   };
 
   protected render() {

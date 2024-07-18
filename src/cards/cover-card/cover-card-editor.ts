@@ -36,7 +36,10 @@ const SCHEMA: HaFormSchema[] = [
 ];
 
 @customElement(COVER_CARD_EDITOR_NAME)
-export class CoverCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
+export class CoverCardEditor
+  extends MushroomBaseElement
+  implements LovelaceCardEditor
+{
   @state() private _config?: CoverCardConfig;
 
   connectedCallback() {
@@ -58,7 +61,9 @@ export class CoverCardEditor extends MushroomBaseElement implements LovelaceCard
     if (COVER_LABELS.includes(schema.name)) {
       return customLocalize(`editor.card.cover.${schema.name}`);
     }
-    return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
+    return this.hass!.localize(
+      `ui.panel.lovelace.editor.card.generic.${schema.name}`
+    );
   };
 
   protected render() {

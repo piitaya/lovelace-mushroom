@@ -1,6 +1,16 @@
-import { HassEntityAttributeBase, HassEntityBase } from "home-assistant-js-websocket";
+import {
+  HassEntityAttributeBase,
+  HassEntityBase,
+} from "home-assistant-js-websocket";
 
-export type HvacMode = "off" | "heat" | "cool" | "heat_cool" | "auto" | "dry" | "fan_only";
+export type HvacMode =
+  | "off"
+  | "heat"
+  | "cool"
+  | "heat_cool"
+  | "auto"
+  | "dry"
+  | "fan_only";
 
 export const CLIMATE_PRESET_NONE = "none";
 

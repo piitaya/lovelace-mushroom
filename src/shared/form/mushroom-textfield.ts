@@ -15,7 +15,9 @@ class MushroomTextField extends TextFieldBase {
         (this.invalid || changedProperties.get("invalid") !== undefined)) ||
       changedProperties.has("errorMessage")
     ) {
-      this.setCustomValidity(this.invalid ? this.errorMessage || "Invalid" : "");
+      this.setCustomValidity(
+        this.invalid ? this.errorMessage || "Invalid" : ""
+      );
       this.reportValidity();
     }
   }
@@ -24,7 +26,10 @@ class MushroomTextField extends TextFieldBase {
     return "";
   }
 
-  protected override renderIcon(_icon: string, isTrailingIcon = false): TemplateResult {
+  protected override renderIcon(
+    _icon: string,
+    isTrailingIcon = false
+  ): TemplateResult {
     const type = isTrailingIcon ? "trailing" : "leading";
 
     return html`

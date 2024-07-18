@@ -1,5 +1,12 @@
 import { HassEntity } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, nothing, PropertyValues, TemplateResult } from "lit";
+import {
+  css,
+  CSSResultGroup,
+  html,
+  nothing,
+  PropertyValues,
+  TemplateResult,
+} from "lit";
 import { customElement } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -36,7 +43,13 @@ import {
   ALARM_CONTROl_PANEL_CARD_NAME,
   ALARM_CONTROl_PANEL_ENTITY_DOMAINS,
 } from "./const";
-import { getStateColor, hasCode, isActionsAvailable, isDisarmed, shouldPulse } from "./utils";
+import {
+  getStateColor,
+  hasCode,
+  isActionsAvailable,
+  isDisarmed,
+  shouldPulse,
+} from "./utils";
 
 registerCustomCard({
   type: ALARM_CONTROl_PANEL_CARD_NAME,
@@ -61,10 +74,14 @@ export class AlarmControlPanelCard
 {
   public static async getConfigElement(): Promise<LovelaceCardEditor> {
     await import("./alarm-control-panel-card-editor");
-    return document.createElement(ALARM_CONTROl_PANEL_CARD_EDITOR_NAME) as LovelaceCardEditor;
+    return document.createElement(
+      ALARM_CONTROl_PANEL_CARD_EDITOR_NAME
+    ) as LovelaceCardEditor;
   }
 
-  public static async getStubConfig(hass: HomeAssistant): Promise<AlarmControlPanelCardConfig> {
+  public static async getStubConfig(
+    hass: HomeAssistant
+  ): Promise<AlarmControlPanelCardConfig> {
     const entities = Object.keys(hass.states);
     const panels = entities.filter((e) =>
       ALARM_CONTROl_PANEL_ENTITY_DOMAINS.includes(e.split(".")[0])
@@ -117,7 +134,9 @@ export class AlarmControlPanelCard
     const rtl = computeRTL(this.hass);
 
     return html`
-      <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
+      <ha-card
+        class=${classMap({ "fill-container": appearance.fill_container })}
+      >
         <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
           <mushroom-state-item
             ?rtl=${rtl}
@@ -128,19 +147,26 @@ export class AlarmControlPanelCard
               hasDoubleClick: hasAction(this._config.double_tap_action),
             })}
           >
-            ${picture ? this.renderPicture(picture) : this.renderIcon(stateObj, icon)}
-            ${this.renderBadge(stateObj)} ${this.renderStateInfo(stateObj, appearance, name)};
+            ${picture
+              ? this.renderPicture(picture)
+              : this.renderIcon(stateObj, icon)}
+            ${this.renderBadge(stateObj)}
+            ${this.renderStateInfo(stateObj, appearance, name)};
           </mushroom-state-item>
           ${actions.length > 0
             ? html`
-                <mushroom-button-group .fill="${appearance.layout !== "horizontal"}" ?rtl=${rtl}>
+                <mushroom-button-group
+                  .fill="${appearance.layout !== "horizontal"}"
+                  ?rtl=${rtl}
+                >
                   ${actions.map(
                     (action) => html`
                       <mushroom-button
                         @click=${(e) => this._onTap(e, action.mode)}
                         .disabled=${!isActionEnabled}
                       >
-                        <ha-icon .icon=${ALARM_MODES[action.mode].icon}> </ha-icon>
+                        <ha-icon .icon=${ALARM_MODES[action.mode].icon}>
+                        </ha-icon>
                       </mushroom-button>
                     `
                   )}
@@ -165,7 +191,11 @@ export class AlarmControlPanelCard
         style=${styleMap(iconStyle)}
         class=${classMap({ pulse: shapePulse })}
       >
-        <ha-state-icon .hass=${this.hass} .stateObj=${stateObj} .icon=${icon}></ha-state-icon>
+        <ha-state-icon
+          .hass=${this.hass}
+          .stateObj=${stateObj}
+          .icon=${icon}
+        ></ha-state-icon>
       </mushroom-shape-icon>
     `;
   }

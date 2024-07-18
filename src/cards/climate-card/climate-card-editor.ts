@@ -10,7 +10,11 @@ import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { loadHaComponents } from "../../utils/loader";
-import { ClimateCardConfig, climateCardConfigStruct, HVAC_MODES } from "./climate-card-config";
+import {
+  ClimateCardConfig,
+  climateCardConfigStruct,
+  HVAC_MODES,
+} from "./climate-card-config";
 import { CLIMATE_CARD_EDITOR_NAME, CLIMATE_ENTITY_DOMAINS } from "./const";
 
 const CLIMATE_LABELS = ["hvac_modes", "show_temperature_control"] as string[];
@@ -30,7 +34,9 @@ const computeSchema = memoizeOne((localize: LocalizeFunc): HaFormSchema[] => [
           select: {
             options: HVAC_MODES.map((mode) => ({
               value: mode,
-              label: localize(`component.climate.entity_component._.state.${mode}`),
+              label: localize(
+                `component.climate.entity_component._.state.${mode}`
+              ),
             })),
             mode: "dropdown",
             multiple: true,
@@ -45,7 +51,10 @@ const computeSchema = memoizeOne((localize: LocalizeFunc): HaFormSchema[] => [
 ]);
 
 @customElement(CLIMATE_CARD_EDITOR_NAME)
-export class ClimateCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
+export class ClimateCardEditor
+  extends MushroomBaseElement
+  implements LovelaceCardEditor
+{
   @state() private _config?: ClimateCardConfig;
 
   connectedCallback() {
@@ -67,7 +76,9 @@ export class ClimateCardEditor extends MushroomBaseElement implements LovelaceCa
     if (CLIMATE_LABELS.includes(schema.name)) {
       return customLocalize(`editor.card.climate.${schema.name}`);
     }
-    return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
+    return this.hass!.localize(
+      `ui.panel.lovelace.editor.card.generic.${schema.name}`
+    );
   };
 
   protected render() {

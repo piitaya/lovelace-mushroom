@@ -1,4 +1,7 @@
-import { HassEntityAttributeBase, HassEntityBase } from "home-assistant-js-websocket";
+import {
+  HassEntityAttributeBase,
+  HassEntityBase,
+} from "home-assistant-js-websocket";
 
 export const STATE_ON = "on";
 export const STATE_OFF = "off";

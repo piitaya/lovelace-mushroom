@@ -1,4 +1,7 @@
-import { HassEntityAttributeBase, HassEntityBase } from "home-assistant-js-websocket";
+import {
+  HassEntityAttributeBase,
+  HassEntityBase,
+} from "home-assistant-js-websocket";
 import { supportsFeature } from "../common/entity/supports-feature";
 
 export const COVER_SUPPORT_OPEN = 1;

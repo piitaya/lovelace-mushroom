@@ -14,7 +14,8 @@ export class Card extends LitElement {
           container: true,
           horizontal: this.appearance?.layout === "horizontal",
           "no-info":
-            this.appearance?.primary_info === "none" && this.appearance?.secondary_info === "none",
+            this.appearance?.primary_info === "none" &&
+            this.appearance?.secondary_info === "none",
           "no-icon": this.appearance?.icon_type === "none",
         })}
       >

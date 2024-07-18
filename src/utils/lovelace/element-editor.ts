@@ -1,5 +1,12 @@
 import { dump, load } from "js-yaml";
-import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
+import {
+  css,
+  CSSResultGroup,
+  html,
+  LitElement,
+  PropertyValues,
+  TemplateResult,
+} from "lit";
 import { property, query, state } from "lit/decorators.js";
 import {
   computeRTL,
@@ -108,7 +115,11 @@ export abstract class MushroomElementEditor<T> extends LitElement {
       config: this.value! as any,
       // @ts-ignore
       error: this._errors?.join(", "),
-      guiModeAvailable: !(this.hasWarning || this.hasError || this._guiSupported === false),
+      guiModeAvailable: !(
+        this.hasWarning ||
+        this.hasError ||
+        this._guiSupported === false
+      ),
     });
   }
 
@@ -128,7 +139,11 @@ export abstract class MushroomElementEditor<T> extends LitElement {
     this._guiMode = guiMode;
     fireEvent(this as HTMLElement, "GUImode-changed", {
       guiMode,
-      guiModeAvailable: !(this.hasWarning || this.hasError || this._guiSupported === false),
+      guiModeAvailable: !(
+        this.hasWarning ||
+        this.hasError ||
+        this._guiSupported === false
+      ),
     });
   }
 
@@ -146,7 +161,9 @@ export abstract class MushroomElementEditor<T> extends LitElement {
     this._yamlEditor.codemirror.focus();
   }
 
-  protected async getConfigElement(): Promise<LovelaceGenericElementEditor | undefined> {
+  protected async getConfigElement(): Promise<
+    LovelaceGenericElementEditor | undefined
+  > {
     return undefined;
   }
 
@@ -210,12 +227,16 @@ export abstract class MushroomElementEditor<T> extends LitElement {
           ? html`
               <ha-alert
                 alert-type="warning"
-                .title="${this.hass.localize("ui.errors.config.editor_not_supported")}:"
+                .title="${this.hass.localize(
+                  "ui.errors.config.editor_not_supported"
+                )}:"
               >
                 ${this._warnings!.length > 0 && this._warnings![0] !== undefined
                   ? html`
                       <ul>
-                        ${this._warnings!.map((warning) => html`<li>${warning}</li>`)}
+                        ${this._warnings!.map(
+                          (warning) => html`<li>${warning}</li>`
+                        )}
                       </ul>
                     `
                   : undefined}
@@ -273,7 +294,9 @@ export abstract class MushroomElementEditor<T> extends LitElement {
         this._configElement = undefined;
 
         if (!this.configElementType) {
-          throw new Error(this.hass.localize("ui.errors.config.no_type_provided"));
+          throw new Error(
+            this.hass.localize("ui.errors.config.no_type_provided")
+          );
         }
 
         this._configElementType = this.configElementType;
@@ -301,7 +324,11 @@ export abstract class MushroomElementEditor<T> extends LitElement {
           this._configElement.setConfig(this.value);
         } catch (err: any) {
           const msgs = handleStructError(this.hass, err);
-          throw new GUISupportError("Config is not supported", msgs.warnings, msgs.errors);
+          throw new GUISupportError(
+            "Config is not supported",
+            msgs.warnings,
+            msgs.errors
+          );
         }
       } else {
         this.GUImode = false;

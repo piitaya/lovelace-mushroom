@@ -32,10 +32,15 @@ export class MushroomSubElementEditor extends LitElement {
     return html`
       <div class="header">
         <div class="back-title">
-          <ha-icon-button .label=${this.hass!.localize("ui.common.back")} @click=${this._goBack}>
+          <ha-icon-button
+            .label=${this.hass!.localize("ui.common.back")}
+            @click=${this._goBack}
+          >
             <ha-icon icon="mdi:arrow-left"></ha-icon>
           </ha-icon-button>
-          <span slot="title">${customLocalize(`editor.chip.sub_element_editor.title`)}</span>
+          <span slot="title"
+            >${customLocalize(`editor.chip.sub_element_editor.title`)}</span
+          >
         </div>
         <mwc-button
           slot="secondaryAction"

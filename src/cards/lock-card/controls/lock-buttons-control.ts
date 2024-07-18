@@ -43,7 +43,8 @@ export const LOCK_BUTTONS: LockButton[] = [
     icon: "mdi:door-open",
     title: "open",
     serviceName: "open",
-    isVisible: (entity) => supportsFeature(entity, LOCK_SUPPORT_OPEN) && isUnlocked(entity),
+    isVisible: (entity) =>
+      supportsFeature(entity, LOCK_SUPPORT_OPEN) && isUnlocked(entity),
     isDisabled: (entity) => isActionPending(entity),
   },
 ];
@@ -74,8 +75,11 @@ export class LockButtonsControl extends LitElement {
           (item) => html`
             <mushroom-button
               .entry=${item}
-              .title=${item.title ? customLocalize(`editor.card.lock.${item.title}`) : ""}
-              .disabled=${!isAvailable(this.entity) || item.isDisabled(this.entity)}
+              .title=${item.title
+                ? customLocalize(`editor.card.lock.${item.title}`)
+                : ""}
+              .disabled=${!isAvailable(this.entity) ||
+              item.isDisabled(this.entity)}
               @click=${this.callService}
             >
               <ha-icon .icon=${item.icon}></ha-icon>

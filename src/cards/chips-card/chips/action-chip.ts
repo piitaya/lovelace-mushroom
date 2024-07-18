@@ -14,7 +14,10 @@ import {
   computeChipComponentName,
   computeChipEditorComponentName,
 } from "../../../utils/lovelace/chip/chip-element";
-import { ActionChipConfig, LovelaceChip } from "../../../utils/lovelace/chip/types";
+import {
+  ActionChipConfig,
+  LovelaceChip,
+} from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 
 export const DEFAULT_ACTION_ICON = "mdi:flash";
@@ -23,10 +26,14 @@ export const DEFAULT_ACTION_ICON = "mdi:flash";
 export class ActionChip extends LitElement implements LovelaceChip {
   public static async getConfigElement(): Promise<LovelaceChipEditor> {
     await import("./action-chip-editor");
-    return document.createElement(computeChipEditorComponentName("action")) as LovelaceChipEditor;
+    return document.createElement(
+      computeChipEditorComponentName("action")
+    ) as LovelaceChipEditor;
   }
 
-  public static async getStubConfig(_hass: HomeAssistant): Promise<ActionChipConfig> {
+  public static async getStubConfig(
+    _hass: HomeAssistant
+  ): Promise<ActionChipConfig> {
     return {
       type: `action`,
     };

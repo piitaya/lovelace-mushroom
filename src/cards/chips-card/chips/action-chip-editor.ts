@@ -11,7 +11,13 @@ import { ActionChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { DEFAULT_ACTION_ICON } from "./action-chip";
 
-const actions: UiAction[] = ["navigate", "url", "call-service", "assist", "none"];
+const actions: UiAction[] = [
+  "navigate",
+  "url",
+  "call-service",
+  "assist",
+  "none",
+];
 
 const SCHEMA: HaFormSchema[] = [
   {
@@ -44,7 +50,9 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
     if (GENERIC_LABELS.includes(schema.name)) {
       return customLocalize(`editor.card.generic.${schema.name}`);
     }
-    return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
+    return this.hass!.localize(
+      `ui.panel.lovelace.editor.card.generic.${schema.name}`
+    );
   };
 
   protected render() {

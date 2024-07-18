@@ -26,7 +26,10 @@ import {
   computeChipComponentName,
   computeChipEditorComponentName,
 } from "../../../utils/lovelace/chip/chip-element";
-import { LovelaceChip, TemplateChipConfig } from "../../../utils/lovelace/chip/types";
+import {
+  LovelaceChip,
+  TemplateChipConfig,
+} from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { weatherSVGStyles } from "../../../utils/weather";
 
@@ -37,10 +40,14 @@ type TemplateKey = (typeof TEMPLATE_KEYS)[number];
 export class TemplateChip extends LitElement implements LovelaceChip {
   public static async getConfigElement(): Promise<LovelaceChipEditor> {
     await import("./template-chip-editor");
-    return document.createElement(computeChipEditorComponentName("template")) as LovelaceChipEditor;
+    return document.createElement(
+      computeChipEditorComponentName("template")
+    ) as LovelaceChipEditor;
   }
 
-  public static async getStubConfig(_hass: HomeAssistant): Promise<TemplateChipConfig> {
+  public static async getStubConfig(
+    _hass: HomeAssistant
+  ): Promise<TemplateChipConfig> {
     return {
       type: `template`,
     };
@@ -54,11 +61,17 @@ export class TemplateChip extends LitElement implements LovelaceChip {
     Record<TemplateKey, RenderTemplateResult | undefined>
   > = {};
 
-  @state() private _unsubRenderTemplates: Map<TemplateKey, Promise<UnsubscribeFunc>> = new Map();
+  @state() private _unsubRenderTemplates: Map<
+    TemplateKey,
+    Promise<UnsubscribeFunc>
+  > = new Map();
 
   public setConfig(config: TemplateChipConfig): void {
     TEMPLATE_KEYS.forEach((key) => {
-      if (this._config?.[key] !== config[key] || this._config?.entity != config.entity) {
+      if (
+        this._config?.[key] !== config[key] ||
+        this._config?.entity != config.entity
+      ) {
         this._tryDisconnectKey(key);
       }
     });

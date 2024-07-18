@@ -1,5 +1,12 @@
 import { HassEntity } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, nothing, PropertyValues, TemplateResult } from "lit";
+import {
+  css,
+  CSSResultGroup,
+  html,
+  nothing,
+  PropertyValues,
+  TemplateResult,
+} from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -28,7 +35,11 @@ import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { computeEntityPicture } from "../../utils/info";
-import { FAN_CARD_EDITOR_NAME, FAN_CARD_NAME, FAN_ENTITY_DOMAINS } from "./const";
+import {
+  FAN_CARD_EDITOR_NAME,
+  FAN_CARD_NAME,
+  FAN_ENTITY_DOMAINS,
+} from "./const";
 import "./controls/fan-oscillate-control";
 import "./controls/fan-percentage-control";
 import { FanCardConfig } from "./fan-card-config";
@@ -41,15 +52,22 @@ registerCustomCard({
 });
 
 @customElement(FAN_CARD_NAME)
-export class FanCard extends MushroomBaseCard<FanCardConfig> implements LovelaceCard {
+export class FanCard
+  extends MushroomBaseCard<FanCardConfig>
+  implements LovelaceCard
+{
   public static async getConfigElement(): Promise<LovelaceCardEditor> {
     await import("./fan-card-editor");
     return document.createElement(FAN_CARD_EDITOR_NAME) as LovelaceCardEditor;
   }
 
-  public static async getStubConfig(hass: HomeAssistant): Promise<FanCardConfig> {
+  public static async getStubConfig(
+    hass: HomeAssistant
+  ): Promise<FanCardConfig> {
     const entities = Object.keys(hass.states);
-    const fans = entities.filter((e) => FAN_ENTITY_DOMAINS.includes(e.split(".")[0]));
+    const fans = entities.filter((e) =>
+      FAN_ENTITY_DOMAINS.includes(e.split(".")[0])
+    );
     return {
       type: `custom:${FAN_CARD_NAME}`,
       entity: fans[0],
@@ -136,10 +154,13 @@ export class FanCard extends MushroomBaseCard<FanCardConfig> implements Lovelace
 
     const displayControls =
       (!this._config.collapsible_controls || isActive(stateObj)) &&
-      (this._config.show_percentage_control || this._config.show_oscillate_control);
+      (this._config.show_percentage_control ||
+        this._config.show_oscillate_control);
 
     return html`
-      <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
+      <ha-card
+        class=${classMap({ "fill-container": appearance.fill_container })}
+      >
         <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
           <mushroom-state-item
             ?rtl=${rtl}
@@ -150,7 +171,9 @@ export class FanCard extends MushroomBaseCard<FanCardConfig> implements Lovelace
               hasDoubleClick: hasAction(this._config.double_tap_action),
             })}
           >
-            ${picture ? this.renderPicture(picture) : this.renderIcon(stateObj, icon)}
+            ${picture
+              ? this.renderPicture(picture)
+              : this.renderIcon(stateObj, icon)}
             ${this.renderBadge(stateObj)}
             ${this.renderStateInfo(stateObj, appearance, name, stateDisplay)};
           </mushroom-state-item>
@@ -204,7 +227,11 @@ export class FanCard extends MushroomBaseCard<FanCardConfig> implements Lovelace
         style=${styleMap(iconStyle)}
         .disabled=${!active}
       >
-        <ha-state-icon .hass=${this.hass} .stateObj=${stateObj} .icon=${icon}></ha-state-icon>
+        <ha-state-icon
+          .hass=${this.hass}
+          .stateObj=${stateObj}
+          .icon=${icon}
+        ></ha-state-icon>
       </mushroom-shape-icon>
     `;
   }

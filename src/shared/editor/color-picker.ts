@@ -43,7 +43,9 @@ export class ColorPicker extends LitElement {
         fixedMenuPosition
         naturalMenuWidth
       >
-        <mwc-icon slot="icon">${this.renderColorCircle(this.value || "grey")}</mwc-icon>
+        <mwc-icon slot="icon"
+          >${this.renderColorCircle(this.value || "grey")}</mwc-icon
+        >
         <mwc-list-item value="default">
           ${customLocalize("editor.form.color_picker.values.default")}
         </mwc-list-item>
@@ -51,7 +53,9 @@ export class ColorPicker extends LitElement {
           (color) => html`
             <mwc-list-item .value=${color} graphic="icon">
               ${computeColorName(color)}
-              <mwc-icon slot="graphic">${this.renderColorCircle(color)}</mwc-icon>
+              <mwc-icon slot="graphic"
+                >${this.renderColorCircle(color)}</mwc-icon
+              >
             </mwc-list-item>
           `
         )}

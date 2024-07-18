@@ -1,9 +1,15 @@
 import { HassConfig, HassEntity } from "home-assistant-js-websocket";
 import { UNAVAILABLE, UNKNOWN } from "../../data/entity";
-import { updateIsInstallingFromAttributes, UPDATE_SUPPORT_PROGRESS } from "../../data/update";
+import {
+  updateIsInstallingFromAttributes,
+  UPDATE_SUPPORT_PROGRESS,
+} from "../../data/update";
 import { EntityRegistryDisplayEntry, HomeAssistant } from "../../types";
 import { FrontendLocaleData, TimeZone } from "../../data/translation";
-import { UNIT_TO_MILLISECOND_CONVERT, formatDuration } from "../datetime/duration";
+import {
+  UNIT_TO_MILLISECOND_CONVERT,
+  formatDuration,
+} from "../datetime/duration";
 import { formatDate } from "../datetime/format_date";
 import { formatDateTime } from "../datetime/format_date_time";
 import { formatTime } from "../datetime/format_time";
@@ -43,7 +49,9 @@ export const computeStateDisplay = (
   entities: HomeAssistant["entities"],
   state?: string
 ): string => {
-  const entity = entities[stateObj.entity_id] as EntityRegistryDisplayEntry | undefined;
+  const entity = entities[stateObj.entity_id] as
+    | EntityRegistryDisplayEntry
+    | undefined;
 
   return computeStateDisplayFromEntityAttributes(
     localize,
@@ -90,7 +98,10 @@ export const computeStateDisplayFromEntityAttributes = (
           currency: attributes.unit_of_measurement,
           minimumFractionDigits: 2,
           // Override monetary options with number format
-          ...getNumberFormatOptions({ state, attributes } as HassEntity, entity),
+          ...getNumberFormatOptions(
+            { state, attributes } as HassEntity,
+            entity
+          ),
         });
       } catch (_err) {
         // fallback to default
@@ -158,7 +169,11 @@ export const computeStateDisplayFromEntityAttributes = (
   }
 
   // `counter` `number` and `input_number` domains do not have a unit of measurement but should still use `formatNumber`
-  if (domain === "counter" || domain === "number" || domain === "input_number") {
+  if (
+    domain === "counter" ||
+    domain === "number" ||
+    domain === "input_number"
+  ) {
     // Format as an integer if the value and step are integers
     return formatNumber(
       state,
@@ -169,7 +184,9 @@ export const computeStateDisplayFromEntityAttributes = (
 
   // state is a timestamp
   if (
-    ["button", "event", "input_button", "scene", "stt", "tts"].includes(domain) ||
+    ["button", "event", "input_button", "scene", "stt", "tts"].includes(
+      domain
+    ) ||
     (domain === "sensor" && attributes.device_class === "timestamp")
   ) {
     try {
@@ -207,7 +224,9 @@ export const computeStateDisplayFromEntityAttributes = (
       )) ||
     // Return device class translation
     (attributes.device_class &&
-      localize(`component.${domain}.entity_component.${attributes.device_class}.state.${state}`)) ||
+      localize(
+        `component.${domain}.entity_component.${attributes.device_class}.state.${state}`
+      )) ||
     // Return default translation
     localize(`component.${domain}.entity_component._.state.${state}`) ||
     // We don't know! Return the raw state.

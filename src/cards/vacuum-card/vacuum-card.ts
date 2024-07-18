@@ -25,7 +25,11 @@ import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { computeEntityPicture } from "../../utils/info";
-import { VACUUM_CARD_EDITOR_NAME, VACUUM_CARD_NAME, VACUUM_ENTITY_DOMAINS } from "./const";
+import {
+  VACUUM_CARD_EDITOR_NAME,
+  VACUUM_CARD_NAME,
+  VACUUM_ENTITY_DOMAINS,
+} from "./const";
 import "./controls/vacuum-commands-control";
 import {
   isCommandsControlSupported,
@@ -47,12 +51,18 @@ export class VacuumCard
 {
   public static async getConfigElement(): Promise<LovelaceCardEditor> {
     await import("./vacuum-card-editor");
-    return document.createElement(VACUUM_CARD_EDITOR_NAME) as LovelaceCardEditor;
+    return document.createElement(
+      VACUUM_CARD_EDITOR_NAME
+    ) as LovelaceCardEditor;
   }
 
-  public static async getStubConfig(hass: HomeAssistant): Promise<VacuumCardConfig> {
+  public static async getStubConfig(
+    hass: HomeAssistant
+  ): Promise<VacuumCardConfig> {
     const entities = Object.keys(hass.states);
-    const vacuums = entities.filter((e) => VACUUM_ENTITY_DOMAINS.includes(e.split(".")[0]));
+    const vacuums = entities.filter((e) =>
+      VACUUM_ENTITY_DOMAINS.includes(e.split(".")[0])
+    );
     return {
       type: `custom:${VACUUM_CARD_NAME}`,
       entity: vacuums[0],
@@ -61,7 +71,10 @@ export class VacuumCard
 
   protected get hasControls() {
     if (!this._stateObj || !this._config) return false;
-    return isCommandsControlSupported(this._stateObj, this._config.commands ?? []);
+    return isCommandsControlSupported(
+      this._stateObj,
+      this._config.commands ?? []
+    );
   }
 
   private _handleAction(ev: ActionHandlerEvent) {
@@ -89,7 +102,9 @@ export class VacuumCard
     const commands = this._config?.commands ?? [];
 
     return html`
-      <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
+      <ha-card
+        class=${classMap({ "fill-container": appearance.fill_container })}
+      >
         <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
           <mushroom-state-item
             ?rtl=${rtl}
@@ -100,8 +115,11 @@ export class VacuumCard
               hasDoubleClick: hasAction(this._config.double_tap_action),
             })}
           >
-            ${picture ? this.renderPicture(picture) : this.renderIcon(stateObj, icon)}
-            ${this.renderBadge(stateObj)} ${this.renderStateInfo(stateObj, appearance, name)};
+            ${picture
+              ? this.renderPicture(picture)
+              : this.renderIcon(stateObj, icon)}
+            ${this.renderBadge(stateObj)}
+            ${this.renderStateInfo(stateObj, appearance, name)};
           </mushroom-state-item>
           ${isCommandsControlVisible(stateObj, commands)
             ? html`
@@ -126,13 +144,19 @@ export class VacuumCard
       <mushroom-shape-icon
         slot="icon"
         class=${classMap({
-          returning: isReturningHome(stateObj) && Boolean(this._config?.icon_animation),
-          cleaning: isCleaning(stateObj) && Boolean(this._config?.icon_animation),
+          returning:
+            isReturningHome(stateObj) && Boolean(this._config?.icon_animation),
+          cleaning:
+            isCleaning(stateObj) && Boolean(this._config?.icon_animation),
         })}
         style=${styleMap({})}
         .disabled=${!isActive(stateObj)}
       >
-        <ha-state-icon .hass=${this.hass} .stateObj=${stateObj} .icon=${icon}></ha-state-icon
+        <ha-state-icon
+          .hass=${this.hass}
+          .stateObj=${stateObj}
+          .icon=${icon}
+        ></ha-state-icon
       ></mushroom-shape-icon>
     `;
   }

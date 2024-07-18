@@ -1,16 +1,28 @@
-import { css, CSSResultGroup, html, LitElement, TemplateResult, unsafeCSS } from "lit";
+import {
+  css,
+  CSSResultGroup,
+  html,
+  LitElement,
+  TemplateResult,
+  unsafeCSS,
+} from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { CoverEntity, HomeAssistant, isAvailable } from "../../../ha";
 import "../../../shared/slider";
 import { getTiltPosition } from "../utils";
 
-function createTiltSliderTrackBackgroundGradient(count: number = 24, minStrokeWidth: number = 0.2) {
+function createTiltSliderTrackBackgroundGradient(
+  count: number = 24,
+  minStrokeWidth: number = 0.2
+) {
   const gradient: [number, string][] = [];
 
   for (let i = 0; i < count; i++) {
     const stopOffset1 = i / count;
     const stopOffset2 =
-      stopOffset1 + (i / count ** 2) * (1 - minStrokeWidth) + minStrokeWidth / count;
+      stopOffset1 +
+      (i / count ** 2) * (1 - minStrokeWidth) +
+      minStrokeWidth / count;
 
     if (i !== 0) {
       gradient.push([stopOffset1, "transparent"]);
@@ -66,9 +78,9 @@ export class CoverTiltPositionControl extends LitElement {
   }
 
   static get styles(): CSSResultGroup {
-    const gradient = GRADIENT.map(([stop, color]) => `${color} ${(stop as number) * 100}%`).join(
-      ", "
-    );
+    const gradient = GRADIENT.map(
+      ([stop, color]) => `${color} ${(stop as number) * 100}%`
+    ).join(", ");
     return css`
       mushroom-slider {
         --main-color: var(--slider-color);

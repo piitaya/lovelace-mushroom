@@ -28,7 +28,11 @@ import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { computeEntityPicture } from "../../utils/info";
-import { UPDATE_CARD_EDITOR_NAME, UPDATE_CARD_NAME, UPDATE_ENTITY_DOMAINS } from "./const";
+import {
+  UPDATE_CARD_EDITOR_NAME,
+  UPDATE_CARD_NAME,
+  UPDATE_ENTITY_DOMAINS,
+} from "./const";
 import "./controls/update-buttons-control";
 import { UpdateCardConfig } from "./update-card-config";
 import { getStateColor } from "./utils";
@@ -46,12 +50,18 @@ export class UpdateCard
 {
   public static async getConfigElement(): Promise<LovelaceCardEditor> {
     await import("./update-card-editor");
-    return document.createElement(UPDATE_CARD_EDITOR_NAME) as LovelaceCardEditor;
+    return document.createElement(
+      UPDATE_CARD_EDITOR_NAME
+    ) as LovelaceCardEditor;
   }
 
-  public static async getStubConfig(hass: HomeAssistant): Promise<UpdateCardConfig> {
+  public static async getStubConfig(
+    hass: HomeAssistant
+  ): Promise<UpdateCardConfig> {
     const entities = Object.keys(hass.states);
-    const updates = entities.filter((e) => UPDATE_ENTITY_DOMAINS.includes(e.split(".")[0]));
+    const updates = entities.filter((e) =>
+      UPDATE_ENTITY_DOMAINS.includes(e.split(".")[0])
+    );
     return {
       type: `custom:${UPDATE_CARD_NAME}`,
       entity: updates[0],
@@ -94,7 +104,9 @@ export class UpdateCard
       supportsFeature(stateObj, UPDATE_SUPPORT_INSTALL);
 
     return html`
-      <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
+      <ha-card
+        class=${classMap({ "fill-container": appearance.fill_container })}
+      >
         <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
           <mushroom-state-item
             ?rtl=${rtl}
@@ -105,8 +117,11 @@ export class UpdateCard
               hasDoubleClick: hasAction(this._config.double_tap_action),
             })}
           >
-            ${picture ? this.renderPicture(picture) : this.renderIcon(stateObj, icon)}
-            ${this.renderBadge(stateObj)} ${this.renderStateInfo(stateObj, appearance, name)};
+            ${picture
+              ? this.renderPicture(picture)
+              : this.renderIcon(stateObj, icon)}
+            ${this.renderBadge(stateObj)}
+            ${this.renderStateInfo(stateObj, appearance, name)};
           </mushroom-state-item>
           ${displayControls
             ? html`
@@ -143,7 +158,11 @@ export class UpdateCard
         })}
         style=${styleMap(style)}
       >
-        <ha-state-icon .hass=${this.hass} .stateObj=${stateObj} .icon=${icon}></ha-state-icon>
+        <ha-state-icon
+          .hass=${this.hass}
+          .stateObj=${stateObj}
+          .icon=${icon}
+        ></ha-state-icon>
       </mushroom-shape-icon>
     `;
   }

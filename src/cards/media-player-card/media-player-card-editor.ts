@@ -10,7 +10,10 @@ import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { loadHaComponents } from "../../utils/loader";
-import { MEDIA_PLAYER_CARD_EDITOR_NAME, MEDIA_PLAYER_ENTITY_DOMAINS } from "./const";
+import {
+  MEDIA_PLAYER_CARD_EDITOR_NAME,
+  MEDIA_PLAYER_ENTITY_DOMAINS,
+} from "./const";
 import {
   MEDIA_LAYER_MEDIA_CONTROLS,
   MEDIA_PLAYER_VOLUME_CONTROLS,
@@ -52,7 +55,9 @@ const computeSchema = memoizeOne((localize: LocalizeFunc): HaFormSchema[] => [
           select: {
             options: MEDIA_PLAYER_VOLUME_CONTROLS.map((control) => ({
               value: control,
-              label: localize(`editor.card.media-player.volume_controls_list.${control}`),
+              label: localize(
+                `editor.card.media-player.volume_controls_list.${control}`
+              ),
             })),
             mode: "list",
             multiple: true,
@@ -65,7 +70,9 @@ const computeSchema = memoizeOne((localize: LocalizeFunc): HaFormSchema[] => [
           select: {
             options: MEDIA_LAYER_MEDIA_CONTROLS.map((control) => ({
               value: control,
-              label: localize(`editor.card.media-player.media_controls_list.${control}`),
+              label: localize(
+                `editor.card.media-player.media_controls_list.${control}`
+              ),
             })),
             mode: "list",
             multiple: true,
@@ -79,7 +86,10 @@ const computeSchema = memoizeOne((localize: LocalizeFunc): HaFormSchema[] => [
 ]);
 
 @customElement(MEDIA_PLAYER_CARD_EDITOR_NAME)
-export class MediaCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
+export class MediaCardEditor
+  extends MushroomBaseElement
+  implements LovelaceCardEditor
+{
   @state() private _config?: MediaPlayerCardConfig;
 
   connectedCallback() {
@@ -101,7 +111,9 @@ export class MediaCardEditor extends MushroomBaseElement implements LovelaceCard
     if (MEDIA_LABELS.includes(schema.name)) {
       return customLocalize(`editor.card.media-player.${schema.name}`);
     }
-    return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
+    return this.hass!.localize(
+      `ui.panel.lovelace.editor.card.generic.${schema.name}`
+    );
   };
 
   protected render() {

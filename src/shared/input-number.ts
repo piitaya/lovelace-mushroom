@@ -1,7 +1,20 @@
-import { css, CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from "lit";
+import {
+  css,
+  CSSResultGroup,
+  html,
+  LitElement,
+  PropertyValues,
+  TemplateResult,
+} from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
-import { conditionalClamp, debounce, formatNumber, FrontendLocaleData, round } from "../ha";
+import {
+  conditionalClamp,
+  debounce,
+  formatNumber,
+  FrontendLocaleData,
+  round,
+} from "../ha";
 
 const DEFAULT_STEP = 1;
 const DEFAULT_DEBOUCE_TIME = 2000;
@@ -94,11 +107,17 @@ export class InputNumber extends LitElement {
 
   protected render(): TemplateResult {
     const value =
-      this.value != null ? formatNumber(this.value, this.locale, this.formatOptions) : "-";
+      this.value != null
+        ? formatNumber(this.value, this.locale, this.formatOptions)
+        : "-";
 
     return html`
       <div class="container" id="container">
-        <button class="button minus" @click=${this._decrementValue} .disabled=${this.disabled}>
+        <button
+          class="button minus"
+          @click=${this._decrementValue}
+          .disabled=${this.disabled}
+        >
           <ha-icon icon="mdi:minus"></ha-icon>
         </button>
         <span
@@ -110,7 +129,11 @@ export class InputNumber extends LitElement {
         >
           ${value}
         </span>
-        <button class="button plus" @click=${this._incrementValue} .disabled=${this.disabled}>
+        <button
+          class="button plus"
+          @click=${this._incrementValue}
+          .disabled=${this.disabled}
+        >
           <ha-icon icon="mdi:plus"></ha-icon>
         </button>
       </div>

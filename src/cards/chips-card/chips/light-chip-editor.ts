@@ -55,7 +55,9 @@ export class LightChipEditor extends LitElement implements LovelaceChipEditor {
     if (LIGHT_LABELS.includes(schema.name)) {
       return customLocalize(`editor.card.light.${schema.name}`);
     }
-    return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
+    return this.hass!.localize(
+      `ui.panel.lovelace.editor.card.generic.${schema.name}`
+    );
   };
 
   protected render() {

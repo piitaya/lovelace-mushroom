@@ -18,7 +18,10 @@ import {
   computeChipComponentName,
   computeChipEditorComponentName,
 } from "../../../utils/lovelace/chip/chip-element";
-import { LightChipConfig, LovelaceChip } from "../../../utils/lovelace/chip/types";
+import {
+  LightChipConfig,
+  LovelaceChip,
+} from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { getRGBColor, isColorSuperLight } from "../../light-card/utils";
 
@@ -26,10 +29,14 @@ import { getRGBColor, isColorSuperLight } from "../../light-card/utils";
 export class LightChip extends LitElement implements LovelaceChip {
   public static async getConfigElement(): Promise<LovelaceChipEditor> {
     await import("./light-chip-editor");
-    return document.createElement(computeChipEditorComponentName("light")) as LovelaceChipEditor;
+    return document.createElement(
+      computeChipEditorComponentName("light")
+    ) as LovelaceChipEditor;
   }
 
-  public static async getStubConfig(hass: HomeAssistant): Promise<LightChipConfig> {
+  public static async getStubConfig(
+    hass: HomeAssistant
+  ): Promise<LightChipConfig> {
     const entities = Object.keys(hass.states);
     const lights = entities.filter((e) => e.split(".")[0] === "light");
     return {

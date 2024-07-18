@@ -18,7 +18,10 @@ import {
   computeStateDisplay,
   supportsFeature,
 } from "../../ha";
-import { MediaPlayerCardConfig, MediaPlayerMediaControl } from "./media-player-card-config";
+import {
+  MediaPlayerCardConfig,
+  MediaPlayerMediaControl,
+} from "./media-player-card-config";
 
 export function callService(
   e: MouseEvent,
@@ -37,7 +40,10 @@ export function computeMediaNameDisplay(
   entity: MediaPlayerEntity
 ): string {
   let name = config.name || entity.attributes.friendly_name || "";
-  if (![UNAVAILABLE, UNKNOWN, OFF].includes(entity.state) && config.use_media_info) {
+  if (
+    ![UNAVAILABLE, UNKNOWN, OFF].includes(entity.state) &&
+    config.use_media_info
+  ) {
     if (entity.attributes.media_title) {
       name = entity.attributes.media_title;
     }
@@ -52,15 +58,26 @@ export function computeMediaStateDisplay(
 ): string {
   let state = hass.formatEntityState
     ? hass.formatEntityState(entity)
-    : computeStateDisplay(hass.localize, entity, hass.locale, hass.config, hass.entities);
-  if (![UNAVAILABLE, UNKNOWN, OFF].includes(entity.state) && config.use_media_info) {
+    : computeStateDisplay(
+        hass.localize,
+        entity,
+        hass.locale,
+        hass.config,
+        hass.entities
+      );
+  if (
+    ![UNAVAILABLE, UNKNOWN, OFF].includes(entity.state) &&
+    config.use_media_info
+  ) {
     return computeMediaDescription(entity) || state;
   }
   return state;
 }
 
 export function getVolumeLevel(entity: MediaPlayerEntity) {
-  return entity.attributes.volume_level != null ? entity.attributes.volume_level * 100 : undefined;
+  return entity.attributes.volume_level != null
+    ? entity.attributes.volume_level * 100
+    : undefined;
 }
 
 export function computeMediaIcon(
@@ -69,7 +86,10 @@ export function computeMediaIcon(
 ): string | undefined {
   var icon = config.icon;
 
-  if (![UNAVAILABLE, UNKNOWN, OFF].includes(entity.state) && config.use_media_info) {
+  if (
+    ![UNAVAILABLE, UNKNOWN, OFF].includes(entity.state) &&
+    config.use_media_info
+  ) {
     var app = entity.attributes.app_name?.toLowerCase();
     switch (app) {
       case "spotify":
@@ -109,7 +129,8 @@ export const computeMediaControls = (
   const state = stateObj.state;
 
   if (state === "off") {
-    return supportsFeature(stateObj, MEDIA_PLAYER_SUPPORT_TURN_ON) && controls.includes("on_off")
+    return supportsFeature(stateObj, MEDIA_PLAYER_SUPPORT_TURN_ON) &&
+      controls.includes("on_off")
       ? [
           {
             icon: "mdi:power",
@@ -121,7 +142,10 @@ export const computeMediaControls = (
 
   const buttons: ControlButton[] = [];
 
-  if (supportsFeature(stateObj, MEDIA_PLAYER_SUPPORT_TURN_OFF) && controls.includes("on_off")) {
+  if (
+    supportsFeature(stateObj, MEDIA_PLAYER_SUPPORT_TURN_OFF) &&
+    controls.includes("on_off")
+  ) {
     buttons.push({
       icon: "mdi:power",
       action: "turn_off",
@@ -253,7 +277,9 @@ export const formatMediaTime = (seconds: number | undefined): string => {
 
   let secondsString = new Date(seconds * 1000).toISOString();
   secondsString =
-    seconds > 3600 ? secondsString.substring(11, 16) : secondsString.substring(14, 19);
+    seconds > 3600
+      ? secondsString.substring(11, 16)
+      : secondsString.substring(14, 19);
   return secondsString.replace(/^0+/, "").padStart(4, "0");
 };
 
@@ -277,7 +303,8 @@ export const setMediaPlayerVolume = (
   hass: HomeAssistant,
   entity_id: string,
   volume_level: number
-) => hass.callService("media_player", "volume_set", { entity_id, volume_level });
+) =>
+  hass.callService("media_player", "volume_set", { entity_id, volume_level });
 
 export const handleMediaControlClick = (
   hass: HomeAssistant,

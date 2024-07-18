@@ -1,7 +1,12 @@
 import type { MDCTabBarActivatedEvent } from "@material/tab-bar";
 import { css, CSSResultGroup, html, LitElement, nothing } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
-import { fireEvent, HASSDomEvent, HomeAssistant, LovelaceConfig } from "../../../ha";
+import {
+  fireEvent,
+  HASSDomEvent,
+  HomeAssistant,
+  LovelaceConfig,
+} from "../../../ha";
 import setupCustomlocalize from "../../../localize";
 import "../../../shared/form/mushroom-select";
 import "../../../shared/form/mushroom-textfield";
@@ -18,7 +23,10 @@ import { ConfigChangedEvent } from "../../../utils/lovelace/element-editor";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 
 @customElement(computeChipEditorComponentName("conditional"))
-export class ConditionalChipEditor extends LitElement implements LovelaceChipEditor {
+export class ConditionalChipEditor
+  extends LitElement
+  implements LovelaceChipEditor
+{
   @property({ attribute: false }) public hass?: HomeAssistant;
 
   @property({ attribute: false }) public lovelace?: LovelaceConfig;
@@ -55,11 +63,18 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
     const customLocalize = setupCustomlocalize(this.hass);
 
     return html`
-      <mwc-tab-bar .activeIndex=${this._cardTab ? 1 : 0} @MDCTabBar:activated=${this._selectTab}>
+      <mwc-tab-bar
+        .activeIndex=${this._cardTab ? 1 : 0}
+        @MDCTabBar:activated=${this._selectTab}
+      >
         <mwc-tab
-          .label=${this.hass!.localize("ui.panel.lovelace.editor.card.conditional.conditions")}
+          .label=${this.hass!.localize(
+            "ui.panel.lovelace.editor.card.conditional.conditions"
+          )}
         ></mwc-tab>
-        <mwc-tab .label=${customLocalize("editor.chip.conditional.chip")}></mwc-tab>
+        <mwc-tab
+          .label=${customLocalize("editor.chip.conditional.chip")}
+        ></mwc-tab>
       </mwc-tab-bar>
       ${this._cardTab
         ? html`
@@ -103,7 +118,9 @@ export class ConditionalChipEditor extends LitElement implements LovelaceChipEdi
                       ${CHIP_LIST.map(
                         (chip) => html`
                           <mwc-list-item .value=${chip}>
-                            ${customLocalize(`editor.chip.chip-picker.types.${chip}`)}
+                            ${customLocalize(
+                              `editor.chip.chip-picker.types.${chip}`
+                            )}
                           </mwc-list-item>
                         `
                       )}

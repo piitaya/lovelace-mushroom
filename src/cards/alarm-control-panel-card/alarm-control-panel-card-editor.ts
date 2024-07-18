@@ -15,11 +15,27 @@ import {
   AlarmControlPanelCardConfig,
   alarmControlPanelCardCardConfigStruct,
 } from "./alarm-control-panel-card-config";
-import { ALARM_CONTROl_PANEL_CARD_EDITOR_NAME, ALARM_CONTROl_PANEL_ENTITY_DOMAINS } from "./const";
+import {
+  ALARM_CONTROl_PANEL_CARD_EDITOR_NAME,
+  ALARM_CONTROl_PANEL_ENTITY_DOMAINS,
+} from "./const";
 
-const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "assist", "none"];
+const actions: UiAction[] = [
+  "more-info",
+  "navigate",
+  "url",
+  "call-service",
+  "assist",
+  "none",
+];
 
-const states = ["armed_home", "armed_away", "armed_night", "armed_vacation", "armed_custom_bypass"];
+const states = [
+  "armed_home",
+  "armed_away",
+  "armed_night",
+  "armed_vacation",
+  "armed_custom_bypass",
+];
 
 const computeSchema = memoizeOne((localize: LocalizeFunc): HaFormSchema[] => [
   {
@@ -41,7 +57,10 @@ const computeSchema = memoizeOne((localize: LocalizeFunc): HaFormSchema[] => [
 ]);
 
 @customElement(ALARM_CONTROl_PANEL_CARD_EDITOR_NAME)
-export class SwitchCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
+export class SwitchCardEditor
+  extends MushroomBaseElement
+  implements LovelaceCardEditor
+{
   @state() private _config?: AlarmControlPanelCardConfig;
 
   connectedCallback() {
@@ -79,10 +98,14 @@ export class SwitchCardEditor extends MushroomBaseElement implements LovelaceCar
       return customLocalize(`editor.card.generic.${schema.name}`);
     }
     if (schema.name === "states") {
-      return this.hass!.localize("ui.panel.lovelace.editor.card.alarm-panel.available_states");
+      return this.hass!.localize(
+        "ui.panel.lovelace.editor.card.alarm-panel.available_states"
+      );
     }
 
-    return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
+    return this.hass!.localize(
+      `ui.panel.lovelace.editor.card.generic.${schema.name}`
+    );
   };
 
   private _valueChanged(ev: CustomEvent): void {

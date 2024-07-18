@@ -71,7 +71,10 @@ function getTranslatedString(key: string, lang: string): string | undefined {
   try {
     return key
       .split(".")
-      .reduce((o, i) => (o as Record<string, unknown>)[i], languages[lang]) as string;
+      .reduce(
+        (o, i) => (o as Record<string, unknown>)[i],
+        languages[lang]
+      ) as string;
   } catch (_) {
     return undefined;
   }

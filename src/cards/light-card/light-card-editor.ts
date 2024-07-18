@@ -50,7 +50,10 @@ const SCHEMA: HaFormSchema[] = [
 ];
 
 @customElement(LIGHT_CARD_EDITOR_NAME)
-export class LightCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
+export class LightCardEditor
+  extends MushroomBaseElement
+  implements LovelaceCardEditor
+{
   @state() private _config?: LightCardConfig;
 
   connectedCallback() {
@@ -72,7 +75,9 @@ export class LightCardEditor extends MushroomBaseElement implements LovelaceCard
     if (LIGHT_LABELS.includes(schema.name)) {
       return customLocalize(`editor.card.light.${schema.name}`);
     }
-    return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
+    return this.hass!.localize(
+      `ui.panel.lovelace.editor.card.generic.${schema.name}`
+    );
   };
 
   protected render() {

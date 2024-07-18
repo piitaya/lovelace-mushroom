@@ -1,4 +1,7 @@
-import { HassEntityAttributeBase, HassEntityBase } from "home-assistant-js-websocket";
+import {
+  HassEntityAttributeBase,
+  HassEntityBase,
+} from "home-assistant-js-websocket";
 
 interface LockEntityAttributes extends HassEntityAttributeBase {
   changed_by?: string;

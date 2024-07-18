@@ -1,4 +1,11 @@
-import { css, CSSResultGroup, html, nothing, PropertyValues, TemplateResult } from "lit";
+import {
+  css,
+  CSSResultGroup,
+  html,
+  nothing,
+  PropertyValues,
+  TemplateResult,
+} from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -30,12 +37,20 @@ import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { computeEntityPicture } from "../../utils/info";
 import { ClimateCardConfig } from "./climate-card-config";
-import { CLIMATE_CARD_EDITOR_NAME, CLIMATE_CARD_NAME, CLIMATE_ENTITY_DOMAINS } from "./const";
+import {
+  CLIMATE_CARD_EDITOR_NAME,
+  CLIMATE_CARD_NAME,
+  CLIMATE_ENTITY_DOMAINS,
+} from "./const";
 import "./controls/climate-hvac-modes-control";
 import { isHvacModesVisible } from "./controls/climate-hvac-modes-control";
 import "./controls/climate-temperature-control";
 import { isTemperatureControlVisible } from "./controls/climate-temperature-control";
-import { getHvacActionColor, getHvacActionIcon, getHvacModeColor } from "./utils";
+import {
+  getHvacActionColor,
+  getHvacActionIcon,
+  getHvacModeColor,
+} from "./utils";
 
 type ClimateCardControl = "temperature_control" | "hvac_mode_control";
 
@@ -57,12 +72,18 @@ export class ClimateCard
 {
   public static async getConfigElement(): Promise<LovelaceCardEditor> {
     await import("./climate-card-editor");
-    return document.createElement(CLIMATE_CARD_EDITOR_NAME) as LovelaceCardEditor;
+    return document.createElement(
+      CLIMATE_CARD_EDITOR_NAME
+    ) as LovelaceCardEditor;
   }
 
-  public static async getStubConfig(hass: HomeAssistant): Promise<ClimateCardConfig> {
+  public static async getStubConfig(
+    hass: HomeAssistant
+  ): Promise<ClimateCardConfig> {
     const entities = Object.keys(hass.states);
-    const climates = entities.filter((e) => CLIMATE_ENTITY_DOMAINS.includes(e.split(".")[0]));
+    const climates = entities.filter((e) =>
+      CLIMATE_ENTITY_DOMAINS.includes(e.split(".")[0])
+    );
     return {
       type: `custom:${CLIMATE_CARD_NAME}`,
       entity: climates[0],
@@ -76,7 +97,10 @@ export class ClimateCard
 
     const stateObj = this._stateObj;
     const controls: ClimateCardControl[] = [];
-    if (isTemperatureControlVisible(stateObj) && this._config.show_temperature_control) {
+    if (
+      isTemperatureControlVisible(stateObj) &&
+      this._config.show_temperature_control
+    ) {
       controls.push("temperature_control");
     }
     if (isHvacModesVisible(stateObj, this._config.hvac_modes)) {
@@ -118,7 +142,9 @@ export class ClimateCard
     const isActiveControlSupported = this._activeControl
       ? this._controls.includes(this._activeControl)
       : false;
-    this._activeControl = isActiveControlSupported ? this._activeControl : this._controls[0];
+    this._activeControl = isActiveControlSupported
+      ? this._activeControl
+      : this._controls[0];
   }
 
   private _handleAction(ev: ActionHandlerEvent) {
@@ -151,17 +177,23 @@ export class ClimateCard
           this.hass.entities
         );
     if (stateObj.attributes.current_temperature !== null) {
-      const temperature = formatNumber(stateObj.attributes.current_temperature, this.hass.locale);
+      const temperature = formatNumber(
+        stateObj.attributes.current_temperature,
+        this.hass.locale
+      );
       const unit = this.hass.config.unit_system.temperature;
       stateDisplay += ` - ${temperature} ${unit}`;
     }
     const rtl = computeRTL(this.hass);
 
     const isControlVisible =
-      (!this._config.collapsible_controls || isActive(stateObj)) && this._controls.length;
+      (!this._config.collapsible_controls || isActive(stateObj)) &&
+      this._controls.length;
 
     return html`
-      <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
+      <ha-card
+        class=${classMap({ "fill-container": appearance.fill_container })}
+      >
         <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
           <mushroom-state-item
             ?rtl=${rtl}
@@ -172,14 +204,17 @@ export class ClimateCard
               hasDoubleClick: hasAction(this._config.double_tap_action),
             })}
           >
-            ${picture ? this.renderPicture(picture) : this.renderIcon(stateObj, icon)}
+            ${picture
+              ? this.renderPicture(picture)
+              : this.renderIcon(stateObj, icon)}
             ${this.renderBadge(stateObj)}
             ${this.renderStateInfo(stateObj, appearance, name, stateDisplay)};
           </mushroom-state-item>
           ${isControlVisible
             ? html`
                 <div class="actions" ?rtl=${rtl}>
-                  ${this.renderActiveControl(stateObj)} ${this.renderOtherControls()}
+                  ${this.renderActiveControl(stateObj)}
+                  ${this.renderOtherControls()}
                 </div>
               `
             : nothing}
@@ -196,8 +231,16 @@ export class ClimateCard
     iconStyle["--shape-color"] = `rgba(${color}, 0.2)`;
 
     return html`
-      <mushroom-shape-icon slot="icon" .disabled=${!available} style=${styleMap(iconStyle)}>
-        <ha-state-icon .hass=${this.hass} .stateObj=${stateObj} .icon=${icon}></ha-state-icon>
+      <mushroom-shape-icon
+        slot="icon"
+        .disabled=${!available}
+        style=${styleMap(iconStyle)}
+      >
+        <ha-state-icon
+          .hass=${this.hass}
+          .stateObj=${stateObj}
+          .icon=${icon}
+        ></ha-state-icon>
       </mushroom-shape-icon>
     `;
   }
@@ -232,7 +275,9 @@ export class ClimateCard
   }
 
   private renderOtherControls(): TemplateResult | null {
-    const otherControls = this._controls.filter((control) => control != this._activeControl);
+    const otherControls = this._controls.filter(
+      (control) => control != this._activeControl
+    );
 
     return html`
       ${otherControls.map(

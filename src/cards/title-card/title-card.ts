@@ -39,7 +39,9 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
     return document.createElement(TITLE_CARD_EDITOR_NAME) as LovelaceCardEditor;
   }
 
-  public static async getStubConfig(_hass: HomeAssistant): Promise<TitleCardConfig> {
+  public static async getStubConfig(
+    _hass: HomeAssistant
+  ): Promise<TitleCardConfig> {
     return {
       type: `custom:${TITLE_CARD_NAME}`,
       title: "Hello, {{ user }} !",
@@ -52,7 +54,10 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
     Record<TemplateKey, RenderTemplateResult | undefined>
   > = {};
 
-  @state() private _unsubRenderTemplates: Map<TemplateKey, Promise<UnsubscribeFunc>> = new Map();
+  @state() private _unsubRenderTemplates: Map<
+    TemplateKey,
+    Promise<UnsubscribeFunc>
+  > = new Map();
 
   getCardSize(): number | Promise<number> {
     return 1;
@@ -122,10 +127,12 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
     }
 
     const actionableTitle = Boolean(
-      this._config.title_tap_action && this._config.title_tap_action.action !== "none"
+      this._config.title_tap_action &&
+        this._config.title_tap_action.action !== "none"
     );
     const actionableSubtitle = Boolean(
-      this._config.subtitle_tap_action && this._config.subtitle_tap_action.action !== "none"
+      this._config.subtitle_tap_action &&
+        this._config.subtitle_tap_action.action !== "none"
     );
 
     const rtl = computeRTL(this.hass);
@@ -168,7 +175,9 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
 
   private renderArrow() {
     const rtl = computeRTL(this.hass);
-    return html` <ha-icon .icon=${rtl ? "mdi:chevron-left" : "mdi:chevron-right"}></ha-icon>`;
+    return html` <ha-icon
+      .icon=${rtl ? "mdi:chevron-left" : "mdi:chevron-right"}
+    ></ha-icon>`;
   }
 
   protected updated(changedProps: PropertyValues): void {

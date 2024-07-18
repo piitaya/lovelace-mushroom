@@ -1,5 +1,12 @@
 import { HassEntity } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, nothing, PropertyValues, TemplateResult } from "lit";
+import {
+  css,
+  CSSResultGroup,
+  html,
+  nothing,
+  PropertyValues,
+  TemplateResult,
+} from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -31,7 +38,11 @@ import { cardStyle } from "../../utils/card-styles";
 import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { computeEntityPicture } from "../../utils/info";
-import { NUMBER_CARD_EDITOR_NAME, NUMBER_CARD_NAME, NUMBER_ENTITY_DOMAINS } from "./const";
+import {
+  NUMBER_CARD_EDITOR_NAME,
+  NUMBER_CARD_NAME,
+  NUMBER_ENTITY_DOMAINS,
+} from "./const";
 import "./controls/number-value-control";
 import { NumberCardConfig } from "./number-card-config";
 
@@ -42,15 +53,24 @@ registerCustomCard({
 });
 
 @customElement(NUMBER_CARD_NAME)
-export class NumberCard extends MushroomBaseCard<NumberCardConfig> implements LovelaceCard {
+export class NumberCard
+  extends MushroomBaseCard<NumberCardConfig>
+  implements LovelaceCard
+{
   public static async getConfigElement(): Promise<LovelaceCardEditor> {
     await import("./number-card-editor");
-    return document.createElement(NUMBER_CARD_EDITOR_NAME) as LovelaceCardEditor;
+    return document.createElement(
+      NUMBER_CARD_EDITOR_NAME
+    ) as LovelaceCardEditor;
   }
 
-  public static async getStubConfig(hass: HomeAssistant): Promise<NumberCardConfig> {
+  public static async getStubConfig(
+    hass: HomeAssistant
+  ): Promise<NumberCardConfig> {
     const entities = Object.keys(hass.states);
-    const numbers = entities.filter((e) => NUMBER_ENTITY_DOMAINS.includes(e.split(".")[0]));
+    const numbers = entities.filter((e) =>
+      NUMBER_ENTITY_DOMAINS.includes(e.split(".")[0])
+    );
     return {
       type: `custom:${NUMBER_CARD_NAME}`,
       entity: numbers[0],
@@ -117,8 +137,10 @@ export class NumberCard extends MushroomBaseCard<NumberCardConfig> implements Lo
       const numberValue = formatNumber(
         this.value,
         this.hass.locale,
-        getNumberFormatOptions(stateObj, this.hass.entities[stateObj.entity_id]) ??
-          getDefaultFormatOptions(stateObj.state)
+        getNumberFormatOptions(
+          stateObj,
+          this.hass.entities[stateObj.entity_id]
+        ) ?? getDefaultFormatOptions(stateObj.state)
       );
       stateDisplay = `${numberValue} ${stateObj.attributes.unit_of_measurement ?? ""}`;
     }
@@ -134,7 +156,9 @@ export class NumberCard extends MushroomBaseCard<NumberCardConfig> implements Lo
     }
 
     return html`
-      <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
+      <ha-card
+        class=${classMap({ "fill-container": appearance.fill_container })}
+      >
         <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
           <mushroom-state-item
             ?rtl=${rtl}
@@ -145,7 +169,9 @@ export class NumberCard extends MushroomBaseCard<NumberCardConfig> implements Lo
               hasDoubleClick: hasAction(this._config.double_tap_action),
             })}
           >
-            ${picture ? this.renderPicture(picture) : this.renderIcon(stateObj, icon)}
+            ${picture
+              ? this.renderPicture(picture)
+              : this.renderIcon(stateObj, icon)}
             ${this.renderBadge(stateObj)}
             ${this.renderStateInfo(stateObj, appearance, name, stateDisplay)};
           </mushroom-state-item>
@@ -173,8 +199,16 @@ export class NumberCard extends MushroomBaseCard<NumberCardConfig> implements Lo
       iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
     }
     return html`
-      <mushroom-shape-icon slot="icon" .disabled=${!active} style=${styleMap(iconStyle)}>
-        <ha-state-icon .hass=${this.hass} .stateObj=${stateObj} .icon=${icon}></ha-state-icon>
+      <mushroom-shape-icon
+        slot="icon"
+        .disabled=${!active}
+        style=${styleMap(iconStyle)}
+      >
+        <ha-state-icon
+          .hass=${this.hass}
+          .stateObj=${stateObj}
+          .icon=${icon}
+        ></ha-state-icon>
       </mushroom-shape-icon>
     `;
   }

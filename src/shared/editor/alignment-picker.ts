@@ -58,7 +58,9 @@ export class AlignmentPicker extends LitElement {
         ${ALIGNMENT.map((alignment) => {
           return html`
             <mwc-list-item .value=${alignment} graphic="icon">
-              ${customLocalize(`editor.form.alignment_picker.values.${alignment}`)}
+              ${customLocalize(
+                `editor.form.alignment_picker.values.${alignment}`
+              )}
               <ha-icon slot="graphic" .icon=${ICONS[alignment]}></ha-icon>
             </mwc-list-item>
           `;

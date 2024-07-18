@@ -20,8 +20,11 @@ const formatDateWeekdayDayMem = memoizeOne(
 );
 
 // August 10, 2021
-export const formatDate = (dateObj: Date, locale: FrontendLocaleData, config: HassConfig) =>
-  formatDateMem(locale, config.time_zone).format(dateObj);
+export const formatDate = (
+  dateObj: Date,
+  locale: FrontendLocaleData,
+  config: HassConfig
+) => formatDateMem(locale, config.time_zone).format(dateObj);
 
 const formatDateMem = memoizeOne(
   (locale: FrontendLocaleData, serverTimeZone: string) =>
@@ -41,7 +44,10 @@ export const formatDateNumeric = (
 ) => {
   const formatter = formatDateNumericMem(locale, config.time_zone);
 
-  if (locale.date_format === DateFormat.language || locale.date_format === DateFormat.system) {
+  if (
+    locale.date_format === DateFormat.language ||
+    locale.date_format === DateFormat.system
+  ) {
     return formatter.format(dateObj);
   }
 
@@ -68,10 +74,23 @@ export const formatDateNumeric = (
   return formats[locale.date_format];
 };
 
-const formatDateNumericMem = memoizeOne((locale: FrontendLocaleData, serverTimeZone: string) => {
-  const localeString = locale.date_format === DateFormat.system ? undefined : locale.language;
+const formatDateNumericMem = memoizeOne(
+  (locale: FrontendLocaleData, serverTimeZone: string) => {
+    const localeString =
+      locale.date_format === DateFormat.system ? undefined : locale.language;
 
-  if (locale.date_format === DateFormat.language || locale.date_format === DateFormat.system) {
+    if (
+      locale.date_format === DateFormat.language ||
+      locale.date_format === DateFormat.system
+    ) {
+      return new Intl.DateTimeFormat(localeString, {
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+        timeZone: locale.time_zone === "server" ? serverTimeZone : undefined,
+      });
+    }
+
     return new Intl.DateTimeFormat(localeString, {
       year: "numeric",
       month: "numeric",
@@ -79,18 +98,14 @@ const formatDateNumericMem = memoizeOne((locale: FrontendLocaleData, serverTimeZ
       timeZone: locale.time_zone === "server" ? serverTimeZone : undefined,
     });
   }
-
-  return new Intl.DateTimeFormat(localeString, {
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-    timeZone: locale.time_zone === "server" ? serverTimeZone : undefined,
-  });
-});
+);
 
 // Aug 10
-export const formatDateShort = (dateObj: Date, locale: FrontendLocaleData, config: HassConfig) =>
-  formatDateShortMem(locale, config.time_zone).format(dateObj);
+export const formatDateShort = (
+  dateObj: Date,
+  locale: FrontendLocaleData,
+  config: HassConfig
+) => formatDateShortMem(locale, config.time_zone).format(dateObj);
 
 const formatDateShortMem = memoizeOne(
   (locale: FrontendLocaleData, serverTimeZone: string) =>
@@ -118,8 +133,11 @@ const formatDateMonthYearMem = memoizeOne(
 );
 
 // August
-export const formatDateMonth = (dateObj: Date, locale: FrontendLocaleData, config: HassConfig) =>
-  formatDateMonthMem(locale, config.time_zone).format(dateObj);
+export const formatDateMonth = (
+  dateObj: Date,
+  locale: FrontendLocaleData,
+  config: HassConfig
+) => formatDateMonthMem(locale, config.time_zone).format(dateObj);
 
 const formatDateMonthMem = memoizeOne(
   (locale: FrontendLocaleData, serverTimeZone: string) =>
@@ -130,8 +148,11 @@ const formatDateMonthMem = memoizeOne(
 );
 
 // 2021
-export const formatDateYear = (dateObj: Date, locale: FrontendLocaleData, config: HassConfig) =>
-  formatDateYearMem(locale, config.time_zone).format(dateObj);
+export const formatDateYear = (
+  dateObj: Date,
+  locale: FrontendLocaleData,
+  config: HassConfig
+) => formatDateYearMem(locale, config.time_zone).format(dateObj);
 
 const formatDateYearMem = memoizeOne(
   (locale: FrontendLocaleData, serverTimeZone: string) =>
@@ -142,8 +163,11 @@ const formatDateYearMem = memoizeOne(
 );
 
 // Monday
-export const formatDateWeekday = (dateObj: Date, locale: FrontendLocaleData, config: HassConfig) =>
-  formatDateWeekdayMem(locale, config.time_zone).format(dateObj);
+export const formatDateWeekday = (
+  dateObj: Date,
+  locale: FrontendLocaleData,
+  config: HassConfig
+) => formatDateWeekdayMem(locale, config.time_zone).format(dateObj);
 
 const formatDateWeekdayMem = memoizeOne(
   (locale: FrontendLocaleData, serverTimeZone: string) =>

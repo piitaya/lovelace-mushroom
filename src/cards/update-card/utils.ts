@@ -1,4 +1,7 @@
-import { UPDATE_CARD_DEFAULT_STATE_COLOR, UPDATE_CARD_STATE_COLOR } from "./const";
+import {
+  UPDATE_CARD_DEFAULT_STATE_COLOR,
+  UPDATE_CARD_STATE_COLOR,
+} from "./const";
 
 export function getStateColor(state: string, isInstalling: boolean): string {
   if (isInstalling) {

@@ -1,4 +1,7 @@
-import { HassEntity, HassEntityAttributeBase } from "home-assistant-js-websocket";
+import {
+  HassEntity,
+  HassEntityAttributeBase,
+} from "home-assistant-js-websocket";
 import { FrontendLocaleData, NumberFormat } from "../../data/translation";
 import { EntityRegistryDisplayEntry } from "../../types";
 import { round } from "./round";
@@ -10,8 +13,9 @@ import { round } from "./round";
 export const isNumericState = (stateObj: HassEntity): boolean =>
   isNumericFromAttributes(stateObj.attributes);
 
-export const isNumericFromAttributes = (attributes: HassEntityAttributeBase): boolean =>
-  !!attributes.unit_of_measurement || !!attributes.state_class;
+export const isNumericFromAttributes = (
+  attributes: HassEntityAttributeBase
+): boolean => !!attributes.unit_of_measurement || !!attributes.state_class;
 
 export const numberFormatToLocale = (
   localeOptions: FrontendLocaleData
@@ -42,7 +46,9 @@ export const formatNumber = (
   localeOptions?: FrontendLocaleData,
   options?: Intl.NumberFormatOptions
 ): string => {
-  const locale = localeOptions ? numberFormatToLocale(localeOptions) : undefined;
+  const locale = localeOptions
+    ? numberFormatToLocale(localeOptions)
+    : undefined;
 
   // Polyfill for Number.isNaN, which is more reliable than the global isNaN()
   Number.isNaN =
@@ -51,18 +57,24 @@ export const formatNumber = (
       return typeof input === "number" && isNaN(input);
     };
 
-  if (localeOptions?.number_format !== NumberFormat.none && !Number.isNaN(Number(num)) && Intl) {
+  if (
+    localeOptions?.number_format !== NumberFormat.none &&
+    !Number.isNaN(Number(num)) &&
+    Intl
+  ) {
     try {
-      return new Intl.NumberFormat(locale, getDefaultFormatOptions(num, options)).format(
-        Number(num)
-      );
+      return new Intl.NumberFormat(
+        locale,
+        getDefaultFormatOptions(num, options)
+      ).format(Number(num));
     } catch (err: any) {
       // Don't fail when using "TEST" language
       // eslint-disable-next-line no-console
       console.error(err);
-      return new Intl.NumberFormat(undefined, getDefaultFormatOptions(num, options)).format(
-        Number(num)
-      );
+      return new Intl.NumberFormat(
+        undefined,
+        getDefaultFormatOptions(num, options)
+      ).format(Number(num));
     }
   }
   if (typeof num === "string") {
@@ -97,7 +109,9 @@ export const getNumberFormatOptions = (
   }
   if (entityState.attributes.step != null) {
     return {
-      maximumFractionDigits: Math.ceil(Math.log10(1 / entityState.attributes.step)),
+      maximumFractionDigits: Math.ceil(
+        Math.log10(1 / entityState.attributes.step)
+      ),
     };
   }
   return undefined;
@@ -124,7 +138,8 @@ export const getDefaultFormatOptions = (
   // Keep decimal trailing zeros if they are present in a string numeric value
   if (
     !options ||
-    (options.minimumFractionDigits === undefined && options.maximumFractionDigits === undefined)
+    (options.minimumFractionDigits === undefined &&
+      options.maximumFractionDigits === undefined)
   ) {
     const digits = num.indexOf(".") > -1 ? num.split(".")[1].length : 0;
     defaultOptions.minimumFractionDigits = digits;

@@ -15,7 +15,14 @@ import { UpdateCardConfig, updateCardConfigStruct } from "./update-card-config";
 
 const UPDATE_LABELS = ["show_buttons_control"];
 
-const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "assist", "none"];
+const actions: UiAction[] = [
+  "more-info",
+  "navigate",
+  "url",
+  "call-service",
+  "assist",
+  "none",
+];
 
 const SCHEMA: HaFormSchema[] = [
   { name: "entity", selector: { entity: { domain: UPDATE_ENTITY_DOMAINS } } },
@@ -34,7 +41,10 @@ const SCHEMA: HaFormSchema[] = [
 ];
 
 @customElement(UPDATE_CARD_EDITOR_NAME)
-export class UpdateCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
+export class UpdateCardEditor
+  extends MushroomBaseElement
+  implements LovelaceCardEditor
+{
   @state() private _config?: UpdateCardConfig;
 
   connectedCallback() {
@@ -56,7 +66,9 @@ export class UpdateCardEditor extends MushroomBaseElement implements LovelaceCar
     if (UPDATE_LABELS.includes(schema.name)) {
       return customLocalize(`editor.card.update.${schema.name}`);
     }
-    return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
+    return this.hass!.localize(
+      `ui.panel.lovelace.editor.card.generic.${schema.name}`
+    );
   };
 
   protected render() {

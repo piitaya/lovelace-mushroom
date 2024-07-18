@@ -11,7 +11,12 @@ import { TITLE_CARD_EDITOR_NAME } from "./const";
 import { TitleCardConfig, titleCardConfigStruct } from "./title-card-config";
 
 const actions: UiAction[] = ["navigate", "url", "call-service", "none"];
-const TITLE_LABELS = ["title", "subtitle", "title_tap_action", "subtitle_tap_action"];
+const TITLE_LABELS = [
+  "title",
+  "subtitle",
+  "title_tap_action",
+  "subtitle_tap_action",
+];
 
 const SCHEMA: HaFormSchema[] = [
   {
@@ -34,7 +39,10 @@ const SCHEMA: HaFormSchema[] = [
 ];
 
 @customElement(TITLE_CARD_EDITOR_NAME)
-export class TitleCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
+export class TitleCardEditor
+  extends MushroomBaseElement
+  implements LovelaceCardEditor
+{
   @state() private _config?: TitleCardConfig;
 
   connectedCallback() {
@@ -53,7 +61,9 @@ export class TitleCardEditor extends MushroomBaseElement implements LovelaceCard
     if (TITLE_LABELS.includes(schema.name)) {
       return customLocalize(`editor.card.title.${schema.name}`);
     }
-    return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
+    return this.hass!.localize(
+      `ui.panel.lovelace.editor.card.generic.${schema.name}`
+    );
   };
 
   protected render() {

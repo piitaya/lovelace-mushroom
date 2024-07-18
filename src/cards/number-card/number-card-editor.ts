@@ -11,7 +11,11 @@ import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { loadHaComponents } from "../../utils/loader";
 import { NUMBER_CARD_EDITOR_NAME, NUMBER_ENTITY_DOMAINS } from "./const";
-import { DISPLAY_MODES, NumberCardConfig, NumberCardConfigStruct } from "./number-card-config";
+import {
+  DISPLAY_MODES,
+  NumberCardConfig,
+  NumberCardConfigStruct,
+} from "./number-card-config";
 
 export const NUMBER_LABELS = ["display_mode"];
 
@@ -47,7 +51,10 @@ const computeSchema = memoizeOne((localize: LocalizeFunc): HaFormSchema[] => [
 ]);
 
 @customElement(NUMBER_CARD_EDITOR_NAME)
-export class NumberCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
+export class NumberCardEditor
+  extends MushroomBaseElement
+  implements LovelaceCardEditor
+{
   @state() private _config?: NumberCardConfig;
 
   connectedCallback() {
@@ -71,7 +78,9 @@ export class NumberCardEditor extends MushroomBaseElement implements LovelaceCar
       return customLocalize(`editor.card.generic.${schema.name}`);
     }
 
-    return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
+    return this.hass!.localize(
+      `ui.panel.lovelace.editor.card.generic.${schema.name}`
+    );
   };
 
   protected render() {

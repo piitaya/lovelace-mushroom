@@ -13,7 +13,10 @@ import {
 import setupCustomlocalize from "../localize";
 import "../shared/badge-icon";
 import "../shared/card";
-import { Appearance, AppearanceSharedConfig } from "../shared/config/appearance-config";
+import {
+  Appearance,
+  AppearanceSharedConfig,
+} from "../shared/config/appearance-config";
 import { EntitySharedConfig } from "../shared/config/entity-config";
 import "../shared/shape-avatar";
 import "../shared/shape-icon";
@@ -81,7 +84,10 @@ export class MushroomBaseCard<
     if (
       appearance?.layout !== "horizontal" &&
       this.hasControls &&
-      !("collapsible_controls" in this._config && this._config?.collapsible_controls)
+      !(
+        "collapsible_controls" in this._config &&
+        this._config?.collapsible_controls
+      )
     ) {
       height += 1;
     }
@@ -124,7 +130,9 @@ export class MushroomBaseCard<
     const customLocalize = setupCustomlocalize(this.hass);
 
     return html`
-      <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
+      <ha-card
+        class=${classMap({ "fill-container": appearance.fill_container })}
+      >
         <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
           <mushroom-state-item ?rtl=${rtl} .appearance=${appearance} disabled>
             <mushroom-shape-icon slot="icon" disabled>
@@ -150,7 +158,11 @@ export class MushroomBaseCard<
     const active = isActive(stateObj);
     return html`
       <mushroom-shape-icon slot="icon" .disabled=${!active}>
-        <ha-state-icon .hass=${this.hass} .stateObj=${stateObj} .icon=${icon}></ha-state-icon
+        <ha-state-icon
+          .hass=${this.hass}
+          .stateObj=${stateObj}
+          .icon=${icon}
+        ></ha-state-icon
       ></mushroom-shape-icon>
     `;
   }

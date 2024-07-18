@@ -14,7 +14,9 @@ export class MushroomSelect extends SelectBase {
       return nothing;
     }
 
-    return html`<span class="mdc-select__icon"><slot name="icon"></slot></span>`;
+    return html`<span class="mdc-select__icon"
+      ><slot name="icon"></slot
+    ></span>`;
   }
 
   connectedCallback() {
@@ -24,7 +26,10 @@ export class MushroomSelect extends SelectBase {
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    window.removeEventListener("translations-updated", this._translationsUpdated);
+    window.removeEventListener(
+      "translations-updated",
+      this._translationsUpdated
+    );
   }
 
   private _translationsUpdated = debounce(async () => {

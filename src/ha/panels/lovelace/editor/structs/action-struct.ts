@@ -62,7 +62,15 @@ const actionConfigStructCustom = type({
 });
 
 export const actionConfigStructType = object({
-  action: enums(["none", "toggle", "more-info", "call-service", "url", "navigate", "assist"]),
+  action: enums([
+    "none",
+    "toggle",
+    "more-info",
+    "call-service",
+    "url",
+    "navigate",
+    "assist",
+  ]),
   confirmation: optional(actionConfigStructConfirmation),
 });
 

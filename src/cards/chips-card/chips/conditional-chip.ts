@@ -4,7 +4,10 @@ import {
   computeChipEditorComponentName,
   createChipElement,
 } from "../../../utils/lovelace/chip/chip-element";
-import { ConditionalChipConfig, LovelaceChip } from "../../../utils/lovelace/chip/types";
+import {
+  ConditionalChipConfig,
+  LovelaceChip,
+} from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 
 const componentName = computeChipComponentName("conditional");

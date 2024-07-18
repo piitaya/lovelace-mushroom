@@ -14,7 +14,10 @@ import {
   computeChipComponentName,
   computeChipEditorComponentName,
 } from "../../../utils/lovelace/chip/chip-element";
-import { LovelaceChip, WeatherChipConfig } from "../../../utils/lovelace/chip/types";
+import {
+  LovelaceChip,
+  WeatherChipConfig,
+} from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { getWeatherStateSVG, weatherSVGStyles } from "../../../utils/weather";
 import { HassEntity } from "home-assistant-js-websocket";
@@ -23,10 +26,14 @@ import { HassEntity } from "home-assistant-js-websocket";
 export class WeatherChip extends LitElement implements LovelaceChip {
   public static async getConfigElement(): Promise<LovelaceChipEditor> {
     await import("./weather-chip-editor");
-    return document.createElement(computeChipEditorComponentName("weather")) as LovelaceChipEditor;
+    return document.createElement(
+      computeChipEditorComponentName("weather")
+    ) as LovelaceChipEditor;
   }
 
-  public static async getStubConfig(hass: HomeAssistant): Promise<WeatherChipConfig> {
+  public static async getStubConfig(
+    hass: HomeAssistant
+  ): Promise<WeatherChipConfig> {
     const entities = Object.keys(hass.states);
     const weathers = entities.filter((e) => e.split(".")[0] === "weather");
     return {
@@ -96,7 +103,9 @@ export class WeatherChip extends LitElement implements LovelaceChip {
         })}
       >
         ${weatherIcon}
-        ${displayLabels.length > 0 ? html`<span>${displayLabels.join(" / ")}</span>` : nothing}
+        ${displayLabels.length > 0
+          ? html`<span>${displayLabels.join(" / ")}</span>`
+          : nothing}
       </mushroom-chip>
     `;
   }

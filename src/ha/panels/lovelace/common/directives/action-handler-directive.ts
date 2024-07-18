@@ -1,9 +1,17 @@
 import type { Ripple } from "@material/mwc-ripple";
 import { noChange } from "lit";
-import { AttributePart, directive, Directive, DirectiveParameters } from "lit/directive.js";
+import {
+  AttributePart,
+  directive,
+  Directive,
+  DirectiveParameters,
+} from "lit/directive.js";
 import { fireEvent } from "../../../../common/dom/fire_event";
 import { deepEqual } from "../../../../common/util/deep-equal";
-import { ActionHandlerDetail, ActionHandlerOptions } from "../../../../data/lovelace";
+import {
+  ActionHandlerDetail,
+  ActionHandlerOptions,
+} from "../../../../data/lovelace";
 
 const isTouch =
   "ontouchstart" in window ||
@@ -64,26 +72,38 @@ class ActionHandler extends HTMLElement implements ActionHandler {
     this.appendChild(this.ripple);
     this.ripple.primary = true;
 
-    ["touchcancel", "mouseout", "mouseup", "touchmove", "mousewheel", "wheel", "scroll"].forEach(
-      (ev) => {
-        document.addEventListener(
-          ev,
-          () => {
-            this.cancelled = true;
-            if (this.timer) {
-              this.stopAnimation();
-              clearTimeout(this.timer);
-              this.timer = undefined;
-            }
-          },
-          { passive: true }
-        );
-      }
-    );
+    [
+      "touchcancel",
+      "mouseout",
+      "mouseup",
+      "touchmove",
+      "mousewheel",
+      "wheel",
+      "scroll",
+    ].forEach((ev) => {
+      document.addEventListener(
+        ev,
+        () => {
+          this.cancelled = true;
+          if (this.timer) {
+            this.stopAnimation();
+            clearTimeout(this.timer);
+            this.timer = undefined;
+          }
+        },
+        { passive: true }
+      );
+    });
   }
 
-  public bind(element: ActionHandlerElement, options: ActionHandlerOptions = {}) {
-    if (element.actionHandler && deepEqual(options, element.actionHandler.options)) {
+  public bind(
+    element: ActionHandlerElement,
+    options: ActionHandlerOptions = {}
+  ) {
+    if (
+      element.actionHandler &&
+      deepEqual(options, element.actionHandler.options)
+    ) {
       return;
     }
 
@@ -95,7 +115,10 @@ class ActionHandler extends HTMLElement implements ActionHandler {
       element.removeEventListener("mousedown", element.actionHandler.start!);
       element.removeEventListener("click", element.actionHandler.end!);
 
-      element.removeEventListener("keydown", element.actionHandler.handleKeyDown!);
+      element.removeEventListener(
+        "keydown",
+        element.actionHandler.handleKeyDown!
+      );
     } else {
       element.addEventListener("contextmenu", (ev: Event) => {
         const e = ev || window.event;
@@ -156,7 +179,10 @@ class ActionHandler extends HTMLElement implements ActionHandler {
       if (options.hasHold && this.held) {
         fireEvent(target, "action", { action: "hold" });
       } else if (options.hasDoubleClick) {
-        if ((ev.type === "click" && (ev as MouseEvent).detail < 2) || !this.dblClickTimeout) {
+        if (
+          (ev.type === "click" && (ev as MouseEvent).detail < 2) ||
+          !this.dblClickTimeout
+        ) {
           this.dblClickTimeout = window.setTimeout(() => {
             this.dblClickTimeout = undefined;
             fireEvent(target, "action", { action: "tap" });

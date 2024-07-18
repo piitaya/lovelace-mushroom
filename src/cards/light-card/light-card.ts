@@ -1,4 +1,11 @@
-import { css, CSSResultGroup, html, nothing, PropertyValues, TemplateResult } from "lit";
+import {
+  css,
+  CSSResultGroup,
+  html,
+  nothing,
+  PropertyValues,
+  TemplateResult,
+} from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -29,7 +36,11 @@ import { cardStyle } from "../../utils/card-styles";
 import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { computeEntityPicture } from "../../utils/info";
-import { LIGHT_CARD_EDITOR_NAME, LIGHT_CARD_NAME, LIGHT_ENTITY_DOMAINS } from "./const";
+import {
+  LIGHT_CARD_EDITOR_NAME,
+  LIGHT_CARD_NAME,
+  LIGHT_ENTITY_DOMAINS,
+} from "./const";
 import "./controls/light-brightness-control";
 import "./controls/light-color-control";
 import "./controls/light-color-temp-control";
@@ -44,7 +55,10 @@ import {
   supportsColorTempControl,
 } from "./utils";
 
-type LightCardControl = "brightness_control" | "color_temp_control" | "color_control";
+type LightCardControl =
+  | "brightness_control"
+  | "color_temp_control"
+  | "color_control";
 
 const CONTROLS_ICONS: Record<LightCardControl, string> = {
   brightness_control: "mdi:brightness-4",
@@ -68,9 +82,13 @@ export class LightCard
     return document.createElement(LIGHT_CARD_EDITOR_NAME) as LovelaceCardEditor;
   }
 
-  public static async getStubConfig(hass: HomeAssistant): Promise<LightCardConfig> {
+  public static async getStubConfig(
+    hass: HomeAssistant
+  ): Promise<LightCardConfig> {
     const entities = Object.keys(hass.states);
-    const lights = entities.filter((e) => LIGHT_ENTITY_DOMAINS.includes(e.split(".")[0]));
+    const lights = entities.filter((e) =>
+      LIGHT_ENTITY_DOMAINS.includes(e.split(".")[0])
+    );
     return {
       type: `custom:${LIGHT_CARD_NAME}`,
       entity: lights[0],
@@ -86,10 +104,16 @@ export class LightCard
 
     const stateObj = this._stateObj;
     const controls: LightCardControl[] = [];
-    if (this._config.show_brightness_control && supportsBrightnessControl(stateObj)) {
+    if (
+      this._config.show_brightness_control &&
+      supportsBrightnessControl(stateObj)
+    ) {
       controls.push("brightness_control");
     }
-    if (this._config.show_color_temp_control && supportsColorTempControl(stateObj)) {
+    if (
+      this._config.show_color_temp_control &&
+      supportsColorTempControl(stateObj)
+    ) {
       controls.push("color_temp_control");
     }
     if (this._config.show_color_control && supportsColorControl(stateObj)) {
@@ -147,7 +171,9 @@ export class LightCard
     const isActiveControlSupported = this._activeControl
       ? this._controls.includes(this._activeControl)
       : false;
-    this._activeControl = isActiveControlSupported ? this._activeControl : this._controls[0];
+    this._activeControl = isActiveControlSupported
+      ? this._activeControl
+      : this._controls[0];
   }
 
   private _handleAction(ev: ActionHandlerEvent) {
@@ -186,10 +212,13 @@ export class LightCard
     const rtl = computeRTL(this.hass);
 
     const isControlVisible =
-      (!this._config.collapsible_controls || isActive(stateObj)) && this._controls.length;
+      (!this._config.collapsible_controls || isActive(stateObj)) &&
+      this._controls.length;
 
     return html`
-      <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
+      <ha-card
+        class=${classMap({ "fill-container": appearance.fill_container })}
+      >
         <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
           <mushroom-state-item
             ?rtl=${rtl}
@@ -200,14 +229,17 @@ export class LightCard
               hasDoubleClick: hasAction(this._config.double_tap_action),
             })}
           >
-            ${picture ? this.renderPicture(picture) : this.renderIcon(stateObj, icon)}
+            ${picture
+              ? this.renderPicture(picture)
+              : this.renderIcon(stateObj, icon)}
             ${this.renderBadge(stateObj)}
             ${this.renderStateInfo(stateObj, appearance, name, stateDisplay)};
           </mushroom-state-item>
           ${isControlVisible
             ? html`
                 <div class="actions" ?rtl=${rtl}>
-                  ${this.renderActiveControl(stateObj)} ${this.renderOtherControls()}
+                  ${this.renderActiveControl(stateObj)}
+                  ${this.renderOtherControls()}
                 </div>
               `
             : nothing}
@@ -226,9 +258,11 @@ export class LightCard
       iconStyle["--icon-color"] = `rgb(${color})`;
       iconStyle["--shape-color"] = `rgba(${color}, 0.25)`;
       if (isColorLight(lightRgbColor) && !(this.hass.themes as any).darkMode) {
-        iconStyle["--shape-outline-color"] = `rgba(var(--rgb-primary-text-color), 0.05)`;
+        iconStyle["--shape-outline-color"] =
+          `rgba(var(--rgb-primary-text-color), 0.05)`;
         if (isColorSuperLight(lightRgbColor)) {
-          iconStyle["--icon-color"] = `rgba(var(--rgb-primary-text-color), 0.2)`;
+          iconStyle["--icon-color"] =
+            `rgba(var(--rgb-primary-text-color), 0.2)`;
         }
       }
     } else if (iconColor) {
@@ -237,14 +271,24 @@ export class LightCard
       iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
     }
     return html`
-      <mushroom-shape-icon slot="icon" .disabled=${!active} style=${styleMap(iconStyle)}>
-        <ha-state-icon .hass=${this.hass} .stateObj=${stateObj} .icon=${icon}></ha-state-icon>
+      <mushroom-shape-icon
+        slot="icon"
+        .disabled=${!active}
+        style=${styleMap(iconStyle)}
+      >
+        <ha-state-icon
+          .hass=${this.hass}
+          .stateObj=${stateObj}
+          .icon=${icon}
+        ></ha-state-icon>
       </mushroom-shape-icon>
     `;
   }
 
   private renderOtherControls(): TemplateResult | null {
-    const otherControls = this._controls.filter((control) => control != this._activeControl);
+    const otherControls = this._controls.filter(
+      (control) => control != this._activeControl
+    );
 
     return html`
       ${otherControls.map(
@@ -267,9 +311,14 @@ export class LightCard
           const color = lightRgbColor.join(",");
           sliderStyle["--slider-color"] = `rgb(${color})`;
           sliderStyle["--slider-bg-color"] = `rgba(${color}, 0.2)`;
-          if (isColorLight(lightRgbColor) && !(this.hass.themes as any).darkMode) {
-            sliderStyle["--slider-bg-color"] = `rgba(var(--rgb-primary-text-color), 0.05)`;
-            sliderStyle["--slider-color"] = `rgba(var(--rgb-primary-text-color), 0.15)`;
+          if (
+            isColorLight(lightRgbColor) &&
+            !(this.hass.themes as any).darkMode
+          ) {
+            sliderStyle["--slider-bg-color"] =
+              `rgba(var(--rgb-primary-text-color), 0.05)`;
+            sliderStyle["--slider-color"] =
+              `rgba(var(--rgb-primary-text-color), 0.15)`;
           }
         } else if (iconColor) {
           const iconRgbColor = computeRgbColor(iconColor);
@@ -285,9 +334,16 @@ export class LightCard
           />
         `;
       case "color_temp_control":
-        return html` <mushroom-light-color-temp-control .hass=${this.hass} .entity=${entity} /> `;
+        return html`
+          <mushroom-light-color-temp-control
+            .hass=${this.hass}
+            .entity=${entity}
+          />
+        `;
       case "color_control":
-        return html` <mushroom-light-color-control .hass=${this.hass} .entity=${entity} /> `;
+        return html`
+          <mushroom-light-color-control .hass=${this.hass} .entity=${entity} />
+        `;
       default:
         return nothing;
     }

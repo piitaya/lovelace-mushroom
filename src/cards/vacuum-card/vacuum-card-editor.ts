@@ -11,7 +11,11 @@ import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { loadHaComponents } from "../../utils/loader";
 import { VACUUM_CARD_EDITOR_NAME, VACUUM_ENTITY_DOMAINS } from "./const";
-import { VACUUM_COMMANDS, VacuumCardConfig, vacuumCardConfigStruct } from "./vacuum-card-config";
+import {
+  VACUUM_COMMANDS,
+  VacuumCardConfig,
+  vacuumCardConfigStruct,
+} from "./vacuum-card-config";
 
 const VACUUM_LABELS = ["commands"];
 
@@ -53,7 +57,10 @@ const computeSchema = memoizeOne(
 );
 
 @customElement(VACUUM_CARD_EDITOR_NAME)
-export class VacuumCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
+export class VacuumCardEditor
+  extends MushroomBaseElement
+  implements LovelaceCardEditor
+{
   @state() private _config?: VacuumCardConfig;
 
   connectedCallback() {
@@ -75,7 +82,9 @@ export class VacuumCardEditor extends MushroomBaseElement implements LovelaceCar
     if (VACUUM_LABELS.includes(schema.name)) {
       return customLocalize(`editor.card.vacuum.${schema.name}`);
     }
-    return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
+    return this.hass!.localize(
+      `ui.panel.lovelace.editor.card.generic.${schema.name}`
+    );
   };
 
   protected render() {

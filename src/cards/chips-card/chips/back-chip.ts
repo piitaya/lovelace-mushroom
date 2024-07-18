@@ -5,7 +5,10 @@ import {
   computeChipComponentName,
   computeChipEditorComponentName,
 } from "../../../utils/lovelace/chip/chip-element";
-import { BackChipConfig, LovelaceChip } from "../../../utils/lovelace/chip/types";
+import {
+  BackChipConfig,
+  LovelaceChip,
+} from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 
 export const DEFAULT_BACK_ICON = "mdi:arrow-left";
@@ -14,10 +17,14 @@ export const DEFAULT_BACK_ICON = "mdi:arrow-left";
 export class BackChip extends LitElement implements LovelaceChip {
   public static async getConfigElement(): Promise<LovelaceChipEditor> {
     await import("./back-chip-editor");
-    return document.createElement(computeChipEditorComponentName("back")) as LovelaceChipEditor;
+    return document.createElement(
+      computeChipEditorComponentName("back")
+    ) as LovelaceChipEditor;
   }
 
-  public static async getStubConfig(_hass: HomeAssistant): Promise<BackChipConfig> {
+  public static async getStubConfig(
+    _hass: HomeAssistant
+  ): Promise<BackChipConfig> {
     return {
       type: `back`,
     };
@@ -45,7 +52,11 @@ export class BackChip extends LitElement implements LovelaceChip {
     const rtl = computeRTL(this.hass);
 
     return html`
-      <mushroom-chip ?rtl=${rtl} @action=${this._handleAction} .actionHandler=${actionHandler()}>
+      <mushroom-chip
+        ?rtl=${rtl}
+        @action=${this._handleAction}
+        .actionHandler=${actionHandler()}
+      >
         <ha-state-icon .hass=${this.hass} .icon=${icon}></ha-state-icon>
       </mushroom-chip>
     `;

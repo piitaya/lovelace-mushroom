@@ -1,4 +1,11 @@
-import { css, CSSResultGroup, html, nothing, PropertyValues, TemplateResult } from "lit";
+import {
+  css,
+  CSSResultGroup,
+  html,
+  nothing,
+  PropertyValues,
+  TemplateResult,
+} from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -29,14 +36,21 @@ import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { computeEntityPicture } from "../../utils/info";
 import { Layout } from "../../utils/layout";
-import { COVER_CARD_EDITOR_NAME, COVER_CARD_NAME, COVER_ENTITY_DOMAINS } from "./const";
+import {
+  COVER_CARD_EDITOR_NAME,
+  COVER_CARD_NAME,
+  COVER_ENTITY_DOMAINS,
+} from "./const";
 import "./controls/cover-buttons-control";
 import "./controls/cover-position-control";
 import "./controls/cover-tilt-position-control";
 import { CoverCardConfig } from "./cover-card-config";
 import { getPosition, getStateColor } from "./utils";
 
-type CoverCardControl = "buttons_control" | "position_control" | "tilt_position_control";
+type CoverCardControl =
+  | "buttons_control"
+  | "position_control"
+  | "tilt_position_control";
 
 const CONTROLS_ICONS: Record<CoverCardControl, string> = {
   buttons_control: "mdi:gesture-tap-button",
@@ -60,9 +74,13 @@ export class CoverCard
     return document.createElement(COVER_CARD_EDITOR_NAME) as LovelaceCardEditor;
   }
 
-  public static async getStubConfig(hass: HomeAssistant): Promise<CoverCardConfig> {
+  public static async getStubConfig(
+    hass: HomeAssistant
+  ): Promise<CoverCardConfig> {
     const entities = Object.keys(hass.states);
-    const covers = entities.filter((e) => COVER_ENTITY_DOMAINS.includes(e.split(".")[0]));
+    const covers = entities.filter((e) =>
+      COVER_ENTITY_DOMAINS.includes(e.split(".")[0])
+    );
     return {
       type: `custom:${COVER_CARD_NAME}`,
       entity: covers[0],
@@ -77,7 +95,10 @@ export class CoverCard
 
   get _nextControl(): CoverCardControl | undefined {
     if (this._activeControl) {
-      return this._controls[this._controls.indexOf(this._activeControl) + 1] ?? this._controls[0];
+      return (
+        this._controls[this._controls.indexOf(this._activeControl) + 1] ??
+        this._controls[0]
+      );
     }
     return undefined;
   }
@@ -124,7 +145,9 @@ export class CoverCard
     const isActiveControlSupported = this._activeControl
       ? this._controls.includes(this._activeControl)
       : false;
-    this._activeControl = isActiveControlSupported ? this._activeControl : this._controls[0];
+    this._activeControl = isActiveControlSupported
+      ? this._activeControl
+      : this._controls[0];
   }
 
   protected updated(changedProperties: PropertyValues) {
@@ -188,7 +211,9 @@ export class CoverCard
     const rtl = computeRTL(this.hass);
 
     return html`
-      <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
+      <ha-card
+        class=${classMap({ "fill-container": appearance.fill_container })}
+      >
         <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
           <mushroom-state-item
             ?rtl=${rtl}
@@ -199,7 +224,9 @@ export class CoverCard
               hasDoubleClick: hasAction(this._config.double_tap_action),
             })}
           >
-            ${picture ? this.renderPicture(picture) : this.renderIcon(stateObj, icon)}
+            ${picture
+              ? this.renderPicture(picture)
+              : this.renderIcon(stateObj, icon)}
             ${this.renderBadge(stateObj)}
             ${this.renderStateInfo(stateObj, appearance, name, stateDisplay)};
           </mushroom-state-item>
@@ -224,14 +251,23 @@ export class CoverCard
     iconStyle["--shape-color"] = `rgba(${color}, 0.2)`;
 
     return html`
-      <mushroom-shape-icon slot="icon" .disabled=${!available} style=${styleMap(iconStyle)}>
-        <ha-state-icon .hass=${this.hass} .stateObj=${stateObj} .icon=${icon}></ha-state-icon
+      <mushroom-shape-icon
+        slot="icon"
+        .disabled=${!available}
+        style=${styleMap(iconStyle)}
+      >
+        <ha-state-icon
+          .hass=${this.hass}
+          .stateObj=${stateObj}
+          .icon=${icon}
+        ></ha-state-icon
       ></mushroom-shape-icon>
     `;
   }
 
   private renderNextControlButton() {
-    if (!this._nextControl || this._nextControl == this._activeControl) return nothing;
+    if (!this._nextControl || this._nextControl == this._activeControl)
+      return nothing;
 
     return html`
       <mushroom-button @click=${this._onNextControlTap}>

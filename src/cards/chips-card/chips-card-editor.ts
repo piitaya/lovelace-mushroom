@@ -13,7 +13,12 @@ import {
   string,
   union,
 } from "superstruct";
-import { actionConfigStruct, fireEvent, HASSDomEvent, LovelaceCardEditor } from "../../ha";
+import {
+  actionConfigStruct,
+  fireEvent,
+  HASSDomEvent,
+  LovelaceCardEditor,
+} from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-config";
 import "../../shared/editor/alignment-picker";
@@ -144,7 +149,10 @@ const cardConfigStruct = assign(
 );
 
 @customElement(CHIPS_CARD_EDITOR_NAME)
-export class ChipsCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
+export class ChipsCardEditor
+  extends MushroomBaseElement
+  implements LovelaceCardEditor
+{
   @state() private _config?: ChipsCardConfig;
 
   @state() private _subElementEditorConfig?: SubElementEditorConfig;
@@ -189,7 +197,9 @@ export class ChipsCardEditor extends MushroomBaseElement implements LovelaceCard
     return html`
       <div class="card-config">
         <mushroom-alignment-picker
-          .label="${customLocalize("editor.card.chips.alignment")} (${this.hass.localize(
+          .label="${customLocalize(
+            "editor.card.chips.alignment"
+          )} (${this.hass.localize(
             "ui.panel.lovelace.editor.card.config.optional"
           )})"
           .hass=${this.hass}
@@ -213,7 +223,8 @@ export class ChipsCardEditor extends MushroomBaseElement implements LovelaceCard
       return;
     }
     const target = ev.target! as EditorTarget;
-    const configValue = target.configValue || this._subElementEditorConfig?.type;
+    const configValue =
+      target.configValue || this._subElementEditorConfig?.type;
     const value = target.checked ?? ev.detail.value ?? target.value;
 
     if (configValue === "chip" || (ev.detail && ev.detail.chips)) {

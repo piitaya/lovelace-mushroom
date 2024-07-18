@@ -11,7 +11,10 @@ import "../../shared/chip";
 import { computeDarkMode, MushroomBaseElement } from "../../utils/base-element";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { createChipElement } from "../../utils/lovelace/chip/chip-element";
-import { LovelaceChip, LovelaceChipConfig } from "../../utils/lovelace/chip/types";
+import {
+  LovelaceChip,
+  LovelaceChipConfig,
+} from "../../utils/lovelace/chip/types";
 import "./chips";
 import { setupConditionChipComponent } from "./chips/conditional-chip";
 import { EntityChip } from "./chips/entity-chip";
@@ -35,7 +38,9 @@ export class ChipsCard extends LitElement implements LovelaceCard {
     return document.createElement(CHIPS_CARD_EDITOR_NAME) as LovelaceCardEditor;
   }
 
-  public static async getStubConfig(_hass: HomeAssistant): Promise<ChipsCardConfig> {
+  public static async getStubConfig(
+    _hass: HomeAssistant
+  ): Promise<ChipsCardConfig> {
     const chips = await Promise.all([EntityChip.getStubConfig(_hass)]);
     return {
       type: `custom:${CHIPS_CARD_NAME}`,

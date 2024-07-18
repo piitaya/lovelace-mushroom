@@ -36,13 +36,20 @@ registerCustomCard({
 });
 
 @customElement(ENTITY_CARD_NAME)
-export class EntityCard extends MushroomBaseCard<EntityCardConfig> implements LovelaceCard {
+export class EntityCard
+  extends MushroomBaseCard<EntityCardConfig>
+  implements LovelaceCard
+{
   public static async getConfigElement(): Promise<LovelaceCardEditor> {
     await import("./entity-card-editor");
-    return document.createElement(ENTITY_CARD_EDITOR_NAME) as LovelaceCardEditor;
+    return document.createElement(
+      ENTITY_CARD_EDITOR_NAME
+    ) as LovelaceCardEditor;
   }
 
-  public static async getStubConfig(hass: HomeAssistant): Promise<EntityCardConfig> {
+  public static async getStubConfig(
+    hass: HomeAssistant
+  ): Promise<EntityCardConfig> {
     const entities = Object.keys(hass.states);
     return {
       type: `custom:${ENTITY_CARD_NAME}`,
@@ -74,7 +81,9 @@ export class EntityCard extends MushroomBaseCard<EntityCardConfig> implements Lo
     const rtl = computeRTL(this.hass);
 
     return html`
-      <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
+      <ha-card
+        class=${classMap({ "fill-container": appearance.fill_container })}
+      >
         <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
           <mushroom-state-item
             ?rtl=${rtl}
@@ -85,8 +94,11 @@ export class EntityCard extends MushroomBaseCard<EntityCardConfig> implements Lo
               hasDoubleClick: hasAction(this._config.double_tap_action),
             })}
           >
-            ${picture ? this.renderPicture(picture) : this.renderIcon(stateObj, icon)}
-            ${this.renderBadge(stateObj)} ${this.renderStateInfo(stateObj, appearance, name)};
+            ${picture
+              ? this.renderPicture(picture)
+              : this.renderIcon(stateObj, icon)}
+            ${this.renderBadge(stateObj)}
+            ${this.renderStateInfo(stateObj, appearance, name)};
           </mushroom-state-item>
         </mushroom-card>
       </ha-card>
@@ -103,8 +115,16 @@ export class EntityCard extends MushroomBaseCard<EntityCardConfig> implements Lo
       iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
     }
     return html`
-      <mushroom-shape-icon slot="icon" .disabled=${!active} style=${styleMap(iconStyle)}>
-        <ha-state-icon .hass=${this.hass} .stateObj=${stateObj} .icon=${icon}></ha-state-icon>
+      <mushroom-shape-icon
+        slot="icon"
+        .disabled=${!active}
+        style=${styleMap(iconStyle)}
+      >
+        <ha-state-icon
+          .hass=${this.hass}
+          .stateObj=${stateObj}
+          .icon=${icon}
+        ></ha-state-icon>
       </mushroom-shape-icon>
     `;
   }

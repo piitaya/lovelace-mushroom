@@ -8,7 +8,12 @@ export class Button extends LitElement {
 
   protected render(): TemplateResult {
     return html`
-      <button type="button" class="button" .title=${this.title} .disabled=${this.disabled}>
+      <button
+        type="button"
+        class="button"
+        .title=${this.title}
+        .disabled=${this.disabled}
+      >
         <slot> </slot>
       </button>
     `;

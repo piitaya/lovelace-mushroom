@@ -1,5 +1,10 @@
 import * as Color from "color";
-import { LightColorMode, LightEntity, lightSupportsColor, lightSupportsBrightness } from "../../ha";
+import {
+  LightColorMode,
+  LightEntity,
+  lightSupportsColor,
+  lightSupportsBrightness,
+} from "../../ha";
 
 export function getBrightness(entity: LightEntity): number | undefined {
   return entity.attributes.brightness != null
@@ -14,7 +19,9 @@ export function getColorTemp(entity: LightEntity): number | undefined {
 }
 
 export function getRGBColor(entity: LightEntity): number[] | undefined {
-  return entity.attributes.rgb_color != null ? entity.attributes.rgb_color : undefined;
+  return entity.attributes.rgb_color != null
+    ? entity.attributes.rgb_color
+    : undefined;
 }
 
 export function isColorLight(rgb: number[]): boolean {
@@ -28,8 +35,9 @@ export function isColorSuperLight(rgb: number[]): boolean {
 
 export function supportsColorTempControl(entity: LightEntity): boolean {
   return (
-    entity.attributes.supported_color_modes?.some((m) => [LightColorMode.COLOR_TEMP].includes(m)) ??
-    false
+    entity.attributes.supported_color_modes?.some((m) =>
+      [LightColorMode.COLOR_TEMP].includes(m)
+    ) ?? false
   );
 }
 

@@ -14,7 +14,9 @@ import "../../../shared/button-group";
 import { getHvacModeColor, getHvacModeIcon } from "../utils";
 
 export const isHvacModesVisible = (entity: ClimateEntity, modes?: HvacMode[]) =>
-  (entity.attributes.hvac_modes || []).some((mode) => (modes ?? []).includes(mode));
+  (entity.attributes.hvac_modes || []).some((mode) =>
+    (modes ?? []).includes(mode)
+  );
 
 @customElement("mushroom-climate-hvac-modes-control")
 export class ClimateHvacModesControl extends LitElement {

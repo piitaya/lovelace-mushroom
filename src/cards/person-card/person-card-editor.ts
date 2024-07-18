@@ -13,7 +13,14 @@ import { loadHaComponents } from "../../utils/loader";
 import { PERSON_CARD_EDITOR_NAME, PERSON_ENTITY_DOMAINS } from "./const";
 import { PersonCardConfig, personCardConfigStruct } from "./person-card-config";
 
-const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "assist", "none"];
+const actions: UiAction[] = [
+  "more-info",
+  "navigate",
+  "url",
+  "call-service",
+  "assist",
+  "none",
+];
 
 const SCHEMA: HaFormSchema[] = [
   { name: "entity", selector: { entity: { domain: PERSON_ENTITY_DOMAINS } } },
@@ -24,7 +31,10 @@ const SCHEMA: HaFormSchema[] = [
 ];
 
 @customElement(PERSON_CARD_EDITOR_NAME)
-export class SwitchCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
+export class SwitchCardEditor
+  extends MushroomBaseElement
+  implements LovelaceCardEditor
+{
   @state() private _config?: PersonCardConfig;
 
   connectedCallback() {
@@ -43,7 +53,9 @@ export class SwitchCardEditor extends MushroomBaseElement implements LovelaceCar
     if (GENERIC_LABELS.includes(schema.name)) {
       return customLocalize(`editor.card.generic.${schema.name}`);
     }
-    return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
+    return this.hass!.localize(
+      `ui.panel.lovelace.editor.card.generic.${schema.name}`
+    );
   };
 
   protected render() {

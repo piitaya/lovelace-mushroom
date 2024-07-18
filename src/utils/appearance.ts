@@ -1,10 +1,15 @@
-import { Appearance, AppearanceSharedConfig } from "../shared/config/appearance-config";
+import {
+  Appearance,
+  AppearanceSharedConfig,
+} from "../shared/config/appearance-config";
 import { IconType, Info } from "./info";
 import { Layout } from "./layout";
 
 type AdditionalConfig = { [key: string]: any };
 
-export function computeAppearance(config: AppearanceSharedConfig & AdditionalConfig): Appearance {
+export function computeAppearance(
+  config: AppearanceSharedConfig & AdditionalConfig
+): Appearance {
   return {
     layout: config.layout ?? getDefaultLayout(config),
     fill_container: config.fill_container ?? false,

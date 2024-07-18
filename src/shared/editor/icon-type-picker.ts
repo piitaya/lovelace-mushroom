@@ -47,8 +47,9 @@ export class IconTypePicker extends LitElement {
         ${ICON_TYPES.map((iconType) => {
           return html`
             <mwc-list-item .value=${iconType}>
-              ${customLocalize(`editor.form.icon_type_picker.values.${iconType}`) ||
-              capitalizeFirstLetter(iconType)}
+              ${customLocalize(
+                `editor.form.icon_type_picker.values.${iconType}`
+              ) || capitalizeFirstLetter(iconType)}
             </mwc-list-item>
           `;
         })}

@@ -36,16 +36,25 @@ export class UpdateButtonsControl extends LitElement {
     if (!isAvailable(this.entity)) return true;
     const skippedVersion =
       this.entity.attributes.latest_version &&
-      this.entity.attributes.skipped_version === this.entity.attributes.latest_version;
-    return (!isActive(this.entity) && !skippedVersion) || updateIsInstalling(this.entity);
+      this.entity.attributes.skipped_version ===
+        this.entity.attributes.latest_version;
+    return (
+      (!isActive(this.entity) && !skippedVersion) ||
+      updateIsInstalling(this.entity)
+    );
   }
 
   private get skipDisabled(): boolean {
     if (!isAvailable(this.entity)) return true;
     const skippedVersion =
       this.entity.attributes.latest_version &&
-      this.entity.attributes.skipped_version === this.entity.attributes.latest_version;
-    return skippedVersion || !isActive(this.entity) || updateIsInstalling(this.entity);
+      this.entity.attributes.skipped_version ===
+        this.entity.attributes.latest_version;
+    return (
+      skippedVersion ||
+      !isActive(this.entity) ||
+      updateIsInstalling(this.entity)
+    );
   }
 
   protected render(): TemplateResult {
@@ -53,10 +62,16 @@ export class UpdateButtonsControl extends LitElement {
 
     return html`
       <mushroom-button-group .fill=${this.fill} ?rtl=${rtl}>
-        <mushroom-button .disabled=${this.skipDisabled} @click=${this._handleSkip}>
+        <mushroom-button
+          .disabled=${this.skipDisabled}
+          @click=${this._handleSkip}
+        >
           <ha-icon icon="mdi:cancel"></ha-icon>
         </mushroom-button>
-        <mushroom-button .disabled=${this.installDisabled} @click=${this._handleInstall}>
+        <mushroom-button
+          .disabled=${this.installDisabled}
+          @click=${this._handleInstall}
+        >
           <ha-icon icon="mdi:cellphone-arrow-down"></ha-icon>
         </mushroom-button>
       </mushroom-button-group>

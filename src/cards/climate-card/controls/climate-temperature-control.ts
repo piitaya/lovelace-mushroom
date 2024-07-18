@@ -1,14 +1,21 @@
 import { html, LitElement, nothing, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
-import { ClimateEntity, computeRTL, HomeAssistant, isAvailable, UNIT_F } from "../../../ha";
+import {
+  ClimateEntity,
+  computeRTL,
+  HomeAssistant,
+  isAvailable,
+  UNIT_F,
+} from "../../../ha";
 import "../../../shared/button";
 import "../../../shared/button-group";
 import "../../../shared/input-number";
 
 export const isTemperatureControlVisible = (entity: ClimateEntity) =>
   entity.attributes.temperature != null ||
-  (entity.attributes.target_temp_low != null && entity.attributes.target_temp_high != null);
+  (entity.attributes.target_temp_low != null &&
+    entity.attributes.target_temp_high != null);
 
 @customElement("mushroom-climate-temperature-control")
 export class ClimateTemperatureControl extends LitElement {

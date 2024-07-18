@@ -38,7 +38,11 @@ export class LightColorTempControl extends LitElement {
   static get styles(): CSSResultGroup {
     return css`
       mushroom-slider {
-        --gradient: -webkit-linear-gradient(right, rgb(255, 160, 0) 0%, white 100%);
+        --gradient: -webkit-linear-gradient(
+          right,
+          rgb(255, 160, 0) 0%,
+          white 100%
+        );
       }
     `;
   }

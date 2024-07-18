@@ -9,7 +9,10 @@ import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { loadHaComponents } from "../../utils/loader";
 import { TEMPLATE_CARD_EDITOR_NAME } from "./const";
-import { TemplateCardConfig, templateCardConfigStruct } from "./template-card-config";
+import {
+  TemplateCardConfig,
+  templateCardConfigStruct,
+} from "./template-card-config";
 
 export const TEMPLATE_LABELS = [
   "badge_icon",
@@ -64,7 +67,10 @@ const SCHEMA: HaFormSchema[] = [
 ];
 
 @customElement(TEMPLATE_CARD_EDITOR_NAME)
-export class TemplateCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
+export class TemplateCardEditor
+  extends MushroomBaseElement
+  implements LovelaceCardEditor
+{
   @state() private _config?: TemplateCardConfig;
 
   connectedCallback() {
@@ -91,7 +97,9 @@ export class TemplateCardEditor extends MushroomBaseElement implements LovelaceC
     if (TEMPLATE_LABELS.includes(schema.name)) {
       return customLocalize(`editor.card.template.${schema.name}`);
     }
-    return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
+    return this.hass!.localize(
+      `ui.panel.lovelace.editor.card.generic.${schema.name}`
+    );
   };
 
   protected render() {

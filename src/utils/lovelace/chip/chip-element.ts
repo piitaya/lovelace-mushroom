@@ -1,7 +1,9 @@
 import { PREFIX_NAME } from "../../../const";
 import { LovelaceChip, LovelaceChipConfig } from "./types";
 
-export const createChipElement = (config: LovelaceChipConfig): LovelaceChip | undefined => {
+export const createChipElement = (
+  config: LovelaceChipConfig
+): LovelaceChip | undefined => {
   try {
     const tag = computeChipComponentName(config.type);
     if (customElements.get(tag)) {

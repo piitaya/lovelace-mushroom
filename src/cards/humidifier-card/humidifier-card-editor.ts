@@ -9,8 +9,14 @@ import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { loadHaComponents } from "../../utils/loader";
-import { HUMIDIFIER_CARD_EDITOR_NAME, HUMIDIFIER_ENTITY_DOMAINS } from "./const";
-import { HumidifierCardConfig, humidifierCardConfigStruct } from "./humidifier-card-config";
+import {
+  HUMIDIFIER_CARD_EDITOR_NAME,
+  HUMIDIFIER_ENTITY_DOMAINS,
+} from "./const";
+import {
+  HumidifierCardConfig,
+  humidifierCardConfigStruct,
+} from "./humidifier-card-config";
 
 const HUMIDIFIER_FIELDS = ["show_target_humidity_control"];
 
@@ -34,7 +40,10 @@ const SCHEMA: HaFormSchema[] = [
 ];
 
 @customElement(HUMIDIFIER_CARD_EDITOR_NAME)
-export class HumidifierCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
+export class HumidifierCardEditor
+  extends MushroomBaseElement
+  implements LovelaceCardEditor
+{
   @state() private _config?: HumidifierCardConfig;
 
   connectedCallback() {
@@ -56,7 +65,9 @@ export class HumidifierCardEditor extends MushroomBaseElement implements Lovelac
     if (HUMIDIFIER_FIELDS.includes(schema.name)) {
       return customLocalize(`editor.card.humidifier.${schema.name}`);
     }
-    return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
+    return this.hass!.localize(
+      `ui.panel.lovelace.editor.card.generic.${schema.name}`
+    );
   };
 
   protected render() {

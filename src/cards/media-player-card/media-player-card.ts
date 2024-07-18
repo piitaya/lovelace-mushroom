@@ -1,4 +1,11 @@
-import { css, CSSResultGroup, html, nothing, PropertyValues, TemplateResult } from "lit";
+import {
+  css,
+  CSSResultGroup,
+  html,
+  nothing,
+  PropertyValues,
+  TemplateResult,
+} from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import {
@@ -61,10 +68,14 @@ export class MediaPlayerCard
 {
   public static async getConfigElement(): Promise<LovelaceCardEditor> {
     await import("./media-player-card-editor");
-    return document.createElement(MEDIA_PLAYER_CARD_EDITOR_NAME) as LovelaceCardEditor;
+    return document.createElement(
+      MEDIA_PLAYER_CARD_EDITOR_NAME
+    ) as LovelaceCardEditor;
   }
 
-  public static async getStubConfig(hass: HomeAssistant): Promise<MediaPlayerCardConfig> {
+  public static async getStubConfig(
+    hass: HomeAssistant
+  ): Promise<MediaPlayerCardConfig> {
     const entities = Object.keys(hass.states);
     const mediaPlayers = entities.filter((e) =>
       MEDIA_PLAYER_ENTITY_DOMAINS.includes(e.split(".")[0])
@@ -140,7 +151,9 @@ export class MediaPlayerCard
     const isActiveControlSupported = this._activeControl
       ? this._controls.includes(this._activeControl)
       : false;
-    this._activeControl = isActiveControlSupported ? this._activeControl : this._controls[0];
+    this._activeControl = isActiveControlSupported
+      ? this._activeControl
+      : this._controls[0];
   }
 
   private _handleAction(ev: ActionHandlerEvent) {
@@ -160,7 +173,11 @@ export class MediaPlayerCard
 
     const icon = computeMediaIcon(this._config, stateObj);
     const nameDisplay = computeMediaNameDisplay(this._config, stateObj);
-    const stateDisplay = computeMediaStateDisplay(this._config, stateObj, this.hass);
+    const stateDisplay = computeMediaStateDisplay(
+      this._config,
+      stateObj,
+      this.hass
+    );
     const appearance = computeAppearance(this._config);
     const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
@@ -172,7 +189,8 @@ export class MediaPlayerCard
     const rtl = computeRTL(this.hass);
 
     const isControlVisible =
-      (!this._config.collapsible_controls || isActive(stateObj)) && this._controls.length;
+      (!this._config.collapsible_controls || isActive(stateObj)) &&
+      this._controls.length;
 
     return html`
       <ha-card
@@ -190,9 +208,16 @@ export class MediaPlayerCard
               hasDoubleClick: hasAction(this._config.double_tap_action),
             })}
           >
-            ${picture ? this.renderPicture(picture) : this.renderIcon(stateObj, icon)}
+            ${picture
+              ? this.renderPicture(picture)
+              : this.renderIcon(stateObj, icon)}
             ${this.renderBadge(stateObj)}
-            ${this.renderStateInfo(stateObj, appearance, nameDisplay, stateValue)};
+            ${this.renderStateInfo(
+              stateObj,
+              appearance,
+              nameDisplay,
+              stateValue
+            )};
           </mushroom-state-item>
           ${isControlVisible
             ? html`
@@ -208,7 +233,9 @@ export class MediaPlayerCard
   }
 
   private renderOtherControls(): TemplateResult | null {
-    const otherControls = this._controls.filter((control) => control != this._activeControl);
+    const otherControls = this._controls.filter(
+      (control) => control != this._activeControl
+    );
 
     return html`
       ${otherControls.map(

@@ -25,7 +25,11 @@ import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { computeEntityPicture } from "../../utils/info";
-import { LOCK_CARD_EDITOR_NAME, LOCK_CARD_NAME, LOCK_ENTITY_DOMAINS } from "./const";
+import {
+  LOCK_CARD_EDITOR_NAME,
+  LOCK_CARD_NAME,
+  LOCK_ENTITY_DOMAINS,
+} from "./const";
 import "./controls/lock-buttons-control";
 import { LockCardConfig } from "./lock-card-config";
 import { isActionPending, isLocked, isUnlocked } from "./utils";
@@ -37,15 +41,22 @@ registerCustomCard({
 });
 
 @customElement(LOCK_CARD_NAME)
-export class LockCard extends MushroomBaseCard<LockCardConfig, LockEntity> implements LovelaceCard {
+export class LockCard
+  extends MushroomBaseCard<LockCardConfig, LockEntity>
+  implements LovelaceCard
+{
   public static async getConfigElement(): Promise<LovelaceCardEditor> {
     await import("./lock-card-editor");
     return document.createElement(LOCK_CARD_EDITOR_NAME) as LovelaceCardEditor;
   }
 
-  public static async getStubConfig(hass: HomeAssistant): Promise<LockCardConfig> {
+  public static async getStubConfig(
+    hass: HomeAssistant
+  ): Promise<LockCardConfig> {
     const entities = Object.keys(hass.states);
-    const locks = entities.filter((e) => LOCK_ENTITY_DOMAINS.includes(e.split(".")[0]));
+    const locks = entities.filter((e) =>
+      LOCK_ENTITY_DOMAINS.includes(e.split(".")[0])
+    );
     return {
       type: `custom:${LOCK_CARD_NAME}`,
       entity: locks[0],
@@ -79,7 +90,9 @@ export class LockCard extends MushroomBaseCard<LockCardConfig, LockEntity> imple
     const rtl = computeRTL(this.hass);
 
     return html`
-      <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
+      <ha-card
+        class=${classMap({ "fill-container": appearance.fill_container })}
+      >
         <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
           <mushroom-state-item
             ?rtl=${rtl}
@@ -90,8 +103,11 @@ export class LockCard extends MushroomBaseCard<LockCardConfig, LockEntity> imple
               hasDoubleClick: hasAction(this._config.double_tap_action),
             })}
           >
-            ${picture ? this.renderPicture(picture) : this.renderIcon(stateObj as LockEntity, icon)}
-            ${this.renderBadge(stateObj)} ${this.renderStateInfo(stateObj, appearance, name)};
+            ${picture
+              ? this.renderPicture(picture)
+              : this.renderIcon(stateObj as LockEntity, icon)}
+            ${this.renderBadge(stateObj)}
+            ${this.renderStateInfo(stateObj, appearance, name)};
           </mushroom-state-item>
           <div class="actions" ?rtl=${rtl}>
             <mushroom-lock-buttons-control
@@ -126,8 +142,16 @@ export class LockCard extends MushroomBaseCard<LockCardConfig, LockEntity> imple
     }
 
     return html`
-      <mushroom-shape-icon slot="icon" .disabled=${!available} style=${styleMap(iconStyle)}>
-        <ha-state-icon .hass=${this.hass} .stateObj=${stateObj} .icon=${icon}></ha-state-icon>
+      <mushroom-shape-icon
+        slot="icon"
+        .disabled=${!available}
+        style=${styleMap(iconStyle)}
+      >
+        <ha-state-icon
+          .hass=${this.hass}
+          .stateObj=${stateObj}
+          .icon=${icon}
+        ></ha-state-icon>
       </mushroom-shape-icon>
     `;
   }

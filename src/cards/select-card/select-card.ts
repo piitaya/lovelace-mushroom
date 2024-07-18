@@ -26,7 +26,11 @@ import { cardStyle } from "../../utils/card-styles";
 import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { computeEntityPicture } from "../../utils/info";
-import { SELECT_CARD_EDITOR_NAME, SELECT_CARD_NAME, SELECT_ENTITY_DOMAINS } from "./const";
+import {
+  SELECT_CARD_EDITOR_NAME,
+  SELECT_CARD_NAME,
+  SELECT_ENTITY_DOMAINS,
+} from "./const";
 import "./controls/select-option-control";
 import { SelectCardConfig } from "./select-card-config";
 
@@ -37,15 +41,24 @@ registerCustomCard({
 });
 
 @customElement(SELECT_CARD_NAME)
-export class SelectCard extends MushroomBaseCard<SelectCardConfig> implements LovelaceCard {
+export class SelectCard
+  extends MushroomBaseCard<SelectCardConfig>
+  implements LovelaceCard
+{
   public static async getConfigElement(): Promise<LovelaceCardEditor> {
     await import("./select-card-editor");
-    return document.createElement(SELECT_CARD_EDITOR_NAME) as LovelaceCardEditor;
+    return document.createElement(
+      SELECT_CARD_EDITOR_NAME
+    ) as LovelaceCardEditor;
   }
 
-  public static async getStubConfig(hass: HomeAssistant): Promise<SelectCardConfig> {
+  public static async getStubConfig(
+    hass: HomeAssistant
+  ): Promise<SelectCardConfig> {
     const entities = Object.keys(hass.states);
-    const selects = entities.filter((e) => SELECT_ENTITY_DOMAINS.includes(e.split(".")[0]));
+    const selects = entities.filter((e) =>
+      SELECT_ENTITY_DOMAINS.includes(e.split(".")[0])
+    );
     return {
       type: `custom:${SELECT_CARD_NAME}`,
       entity: selects[0],
@@ -87,7 +100,9 @@ export class SelectCard extends MushroomBaseCard<SelectCardConfig> implements Lo
     }
 
     return html`
-      <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
+      <ha-card
+        class=${classMap({ "fill-container": appearance.fill_container })}
+      >
         <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
           <mushroom-state-item
             ?rtl=${rtl}
@@ -98,8 +113,11 @@ export class SelectCard extends MushroomBaseCard<SelectCardConfig> implements Lo
               hasDoubleClick: hasAction(this._config.double_tap_action),
             })}
           >
-            ${picture ? this.renderPicture(picture) : this.renderIcon(stateObj, icon)}
-            ${this.renderBadge(stateObj)} ${this.renderStateInfo(stateObj, appearance, name)};
+            ${picture
+              ? this.renderPicture(picture)
+              : this.renderIcon(stateObj, icon)}
+            ${this.renderBadge(stateObj)}
+            ${this.renderStateInfo(stateObj, appearance, name)};
           </mushroom-state-item>
           <div class="actions" ?rtl=${rtl}>
             <mushroom-select-option-control
@@ -123,8 +141,16 @@ export class SelectCard extends MushroomBaseCard<SelectCardConfig> implements Lo
       iconStyle["--shape-color"] = `rgba(${iconRgbColor}, 0.2)`;
     }
     return html`
-      <mushroom-shape-icon slot="icon" .disabled=${!active} style=${styleMap(iconStyle)}>
-        <ha-state-icon .hass=${this.hass} .stateObj=${stateObj} .icon=${icon}></ha-state-icon>
+      <mushroom-shape-icon
+        slot="icon"
+        .disabled=${!active}
+        style=${styleMap(iconStyle)}
+      >
+        <ha-state-icon
+          .hass=${this.hass}
+          .stateObj=${stateObj}
+          .icon=${icon}
+        ></ha-state-icon>
       </mushroom-shape-icon>
     `;
   }

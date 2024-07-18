@@ -151,7 +151,8 @@ export const findBatteryChargingEntity = (
   entities.find(
     (entity) =>
       hass.states[entity.entity_id] &&
-      hass.states[entity.entity_id].attributes.device_class === "battery_charging"
+      hass.states[entity.entity_id].attributes.device_class ===
+        "battery_charging"
   );
 
 export const computeEntityRegistryName = (
@@ -197,7 +198,10 @@ export const updateEntityRegistryEntry = (
     ...updates,
   });
 
-export const removeEntityRegistryEntry = (hass: HomeAssistant, entityId: string): Promise<void> =>
+export const removeEntityRegistryEntry = (
+  hass: HomeAssistant,
+  entityId: string
+): Promise<void> =>
   hass.callWS({
     type: "config/entity_registry/remove",
     entity_id: entityId,
@@ -213,10 +217,16 @@ export const fetchEntityRegistryDisplay = (conn: Connection) =>
     type: "config/entity_registry/list_for_display",
   });
 
-const subscribeEntityRegistryUpdates = (conn: Connection, store: Store<EntityRegistryEntry[]>) =>
+const subscribeEntityRegistryUpdates = (
+  conn: Connection,
+  store: Store<EntityRegistryEntry[]>
+) =>
   conn.subscribeEvents(
     debounce(
-      () => fetchEntityRegistry(conn).then((entities) => store.setState(entities, true)),
+      () =>
+        fetchEntityRegistry(conn).then((entities) =>
+          store.setState(entities, true)
+        ),
       500,
       true
     ),
@@ -241,7 +251,10 @@ const subscribeEntityRegistryDisplayUpdates = (
 ) =>
   conn.subscribeEvents(
     debounce(
-      () => fetchEntityRegistryDisplay(conn).then((entities) => store.setState(entities, true)),
+      () =>
+        fetchEntityRegistryDisplay(conn).then((entities) =>
+          store.setState(entities, true)
+        ),
       500,
       true
     ),
@@ -260,26 +273,33 @@ export const subscribeEntityRegistryDisplay = (
     onChange
   );
 
-export const sortEntityRegistryByName = (entries: EntityRegistryEntry[], language: string) =>
+export const sortEntityRegistryByName = (
+  entries: EntityRegistryEntry[],
+  language: string
+) =>
   entries.sort((entry1, entry2) =>
     caseInsensitiveStringCompare(entry1.name || "", entry2.name || "", language)
   );
 
-export const entityRegistryByEntityId = memoizeOne((entries: EntityRegistryEntry[]) => {
-  const entities: Record<string, EntityRegistryEntry> = {};
-  for (const entity of entries) {
-    entities[entity.entity_id] = entity;
+export const entityRegistryByEntityId = memoizeOne(
+  (entries: EntityRegistryEntry[]) => {
+    const entities: Record<string, EntityRegistryEntry> = {};
+    for (const entity of entries) {
+      entities[entity.entity_id] = entity;
+    }
+    return entities;
   }
-  return entities;
-});
+);
 
-export const entityRegistryById = memoizeOne((entries: EntityRegistryEntry[]) => {
-  const entities: Record<string, EntityRegistryEntry> = {};
-  for (const entity of entries) {
-    entities[entity.id] = entity;
+export const entityRegistryById = memoizeOne(
+  (entries: EntityRegistryEntry[]) => {
+    const entities: Record<string, EntityRegistryEntry> = {};
+    for (const entity of entries) {
+      entities[entity.id] = entity;
+    }
+    return entities;
   }
-  return entities;
-});
+);
 
 export const getEntityPlatformLookup = (
   entities: EntityRegistryEntry[]

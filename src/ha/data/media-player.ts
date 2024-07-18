@@ -1,4 +1,7 @@
-import type { HassEntityAttributeBase, HassEntityBase } from "home-assistant-js-websocket";
+import type {
+  HassEntityAttributeBase,
+  HassEntityBase,
+} from "home-assistant-js-websocket";
 import { HomeAssistant } from "../types";
 
 interface MediaPlayerEntityAttributes extends HassEntityAttributeBase {
@@ -28,7 +31,14 @@ interface MediaPlayerEntityAttributes extends HassEntityAttributeBase {
 
 export interface MediaPlayerEntity extends HassEntityBase {
   attributes: MediaPlayerEntityAttributes;
-  state: "playing" | "paused" | "idle" | "off" | "on" | "unavailable" | "unknown";
+  state:
+    | "playing"
+    | "paused"
+    | "idle"
+    | "off"
+    | "on"
+    | "unavailable"
+    | "unknown";
 }
 
 export const MEDIA_PLAYER_SUPPORT_PAUSE = 1;
@@ -108,11 +118,15 @@ export const getCurrentProgress = (stateObj: MediaPlayerEntity): number => {
     return progress;
   }
   progress +=
-    (Date.now() - new Date(stateObj.attributes.media_position_updated_at!).getTime()) / 1000.0;
+    (Date.now() -
+      new Date(stateObj.attributes.media_position_updated_at!).getTime()) /
+    1000.0;
   return progress;
 };
 
-export const computeMediaDescription = (stateObj: MediaPlayerEntity): string => {
+export const computeMediaDescription = (
+  stateObj: MediaPlayerEntity
+): string => {
   let secondaryTitle: string;
 
   switch (stateObj.attributes.media_content_type) {

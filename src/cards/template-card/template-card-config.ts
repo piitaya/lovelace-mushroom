@@ -1,6 +1,17 @@
-import { array, assign, boolean, object, optional, string, union } from "superstruct";
+import {
+  array,
+  assign,
+  boolean,
+  object,
+  optional,
+  string,
+  union,
+} from "superstruct";
 import { LovelaceCardConfig } from "../../ha";
-import { ActionsSharedConfig, actionsSharedConfigStruct } from "../../shared/config/actions-config";
+import {
+  ActionsSharedConfig,
+  actionsSharedConfigStruct,
+} from "../../shared/config/actions-config";
 import {
   AppearanceSharedConfig,
   appearanceSharedConfigStruct,

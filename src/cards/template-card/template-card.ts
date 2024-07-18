@@ -1,5 +1,12 @@
 import { UnsubscribeFunc } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, nothing, PropertyValues, TemplateResult } from "lit";
+import {
+  css,
+  CSSResultGroup,
+  html,
+  nothing,
+  PropertyValues,
+  TemplateResult,
+} from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -50,10 +57,14 @@ type TemplateKey = (typeof TEMPLATE_KEYS)[number];
 export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
   public static async getConfigElement(): Promise<LovelaceCardEditor> {
     await import("./template-card-editor");
-    return document.createElement(TEMPLATE_CARD_EDITOR_NAME) as LovelaceCardEditor;
+    return document.createElement(
+      TEMPLATE_CARD_EDITOR_NAME
+    ) as LovelaceCardEditor;
   }
 
-  public static async getStubConfig(_hass: HomeAssistant): Promise<TemplateCardConfig> {
+  public static async getStubConfig(
+    _hass: HomeAssistant
+  ): Promise<TemplateCardConfig> {
     return {
       type: `custom:${TEMPLATE_CARD_NAME}`,
       primary: "Hello, {{user}}",
@@ -68,7 +79,10 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
     Record<TemplateKey, RenderTemplateResult | undefined>
   > = {};
 
-  @state() private _unsubRenderTemplates: Map<TemplateKey, Promise<UnsubscribeFunc>> = new Map();
+  @state() private _unsubRenderTemplates: Map<
+    TemplateKey,
+    Promise<UnsubscribeFunc>
+  > = new Map();
 
   @property({ reflect: true, type: String })
   public layout: string | undefined;
@@ -115,7 +129,10 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
 
   setConfig(config: TemplateCardConfig): void {
     TEMPLATE_KEYS.forEach((key) => {
-      if (this._config?.[key] !== config[key] || this._config?.entity != config.entity) {
+      if (
+        this._config?.[key] !== config[key] ||
+        this._config?.entity != config.entity
+      ) {
         this._tryDisconnectKey(key);
       }
     });
@@ -174,7 +191,11 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
     const appearance = computeAppearance({
       fill_container: this._config.fill_container,
       layout: this._config.layout,
-      icon_type: Boolean(picture) ? "entity-picture" : Boolean(icon) ? "icon" : "none",
+      icon_type: Boolean(picture)
+        ? "entity-picture"
+        : Boolean(icon)
+          ? "icon"
+          : "none",
       primary_info: Boolean(primary) ? "name" : "none",
       secondary_info: Boolean(secondary) ? "state" : "none",
     });
@@ -182,7 +203,9 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
     const weatherSvg = getWeatherSvgIcon(icon);
 
     return html`
-      <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
+      <ha-card
+        class=${classMap({ "fill-container": appearance.fill_container })}
+      >
         <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
           <mushroom-state-item
             ?rtl=${rtl}

@@ -4,7 +4,13 @@ import { getEntityPicture, HomeAssistant, isAvailable, isUnknown } from "../ha";
 
 const TIMESTAMP_STATE_DOMAINS = ["button", "input_button", "scene"];
 
-export const INFOS = ["name", "state", "last-changed", "last-updated", "none"] as const;
+export const INFOS = [
+  "name",
+  "state",
+  "last-changed",
+  "last-updated",
+  "none",
+] as const;
 export type Info = (typeof INFOS)[number];
 
 export const ICON_TYPES = ["icon", "entity-picture", "none"] as const;
@@ -29,7 +35,11 @@ export function computeInfoDisplay(
         !isUnknown(stateObj)
       ) {
         return html`
-          <ha-relative-time .hass=${hass} .datetime=${stateObj.state} capitalize></ha-relative-time>
+          <ha-relative-time
+            .hass=${hass}
+            .datetime=${stateObj.state}
+            capitalize
+          ></ha-relative-time>
         `;
       } else {
         return state;

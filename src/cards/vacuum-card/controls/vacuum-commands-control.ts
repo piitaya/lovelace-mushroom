@@ -32,7 +32,9 @@ export const isButtonVisible = (
   entity: VacuumEntity,
   button: VacuumButton,
   commands: VacuumCommand[]
-) => isButtonSupported(entity, button, commands) && (!button.isVisible || button.isVisible(entity));
+) =>
+  isButtonSupported(entity, button, commands) &&
+  (!button.isVisible || button.isVisible(entity));
 
 export const isButtonSupported = (
   entity: VacuumEntity,
@@ -40,10 +42,15 @@ export const isButtonSupported = (
   commands: VacuumCommand[]
 ) => button.isSupported(entity) && commands.includes(button.command);
 
-export const isCommandsControlVisible = (entity: VacuumEntity, commands: VacuumCommand[]) =>
-  VACUUM_BUTTONS.some((button) => isButtonVisible(entity, button, commands));
+export const isCommandsControlVisible = (
+  entity: VacuumEntity,
+  commands: VacuumCommand[]
+) => VACUUM_BUTTONS.some((button) => isButtonVisible(entity, button, commands));
 
-export const isCommandsControlSupported = (entity: VacuumEntity, commands: VacuumCommand[]) =>
+export const isCommandsControlSupported = (
+  entity: VacuumEntity,
+  commands: VacuumCommand[]
+) =>
   VACUUM_BUTTONS.some((button) => isButtonSupported(entity, button, commands));
 
 export const VACUUM_BUTTONS: VacuumButton[] = [
@@ -117,7 +124,8 @@ export const VACUUM_BUTTONS: VacuumButton[] = [
     icon: "mdi:home-map-marker",
     serviceName: "return_to_base",
     command: "return_home",
-    isSupported: (entity) => supportsFeature(entity, VACUUM_SUPPORT_RETURN_HOME),
+    isSupported: (entity) =>
+      supportsFeature(entity, VACUUM_SUPPORT_RETURN_HOME),
     isDisabled: () => false,
   },
 ];
@@ -145,11 +153,14 @@ export class CoverButtonsControl extends LitElement {
 
     return html`
       <mushroom-button-group .fill=${this.fill} ?rtl=${rtl}>
-        ${VACUUM_BUTTONS.filter((item) => isButtonVisible(this.entity, item, this.commands)).map(
+        ${VACUUM_BUTTONS.filter((item) =>
+          isButtonVisible(this.entity, item, this.commands)
+        ).map(
           (item) => html`
             <mushroom-button
               .entry=${item}
-              .disabled=${!isAvailable(this.entity) || item.isDisabled(this.entity)}
+              .disabled=${!isAvailable(this.entity) ||
+              item.isDisabled(this.entity)}
               @click=${this.callService}
             >
               <ha-icon .icon=${item.icon}></ha-icon>

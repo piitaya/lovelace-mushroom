@@ -34,7 +34,10 @@ export class MediaPlayerMediaControls extends LitElement {
       <mushroom-button-group .fill=${this.fill} ?rtl=${rtl}>
         ${controls.map(
           (control) => html`
-            <mushroom-button .action=${control.action} @click=${this._handleClick}>
+            <mushroom-button
+              .action=${control.action}
+              @click=${this._handleClick}
+            >
               <ha-icon .icon=${control.icon}></ha-icon>
             </mushroom-button>
           `

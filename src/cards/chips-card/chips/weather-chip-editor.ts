@@ -13,7 +13,14 @@ import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 const WEATHER_ENTITY_DOMAINS = ["weather"];
 const WEATHER_LABELS = ["show_conditions", "show_temperature"];
 
-const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "assist", "none"];
+const actions: UiAction[] = [
+  "more-info",
+  "navigate",
+  "url",
+  "call-service",
+  "assist",
+  "none",
+];
 
 const SCHEMA: HaFormSchema[] = [
   { name: "entity", selector: { entity: { domain: WEATHER_ENTITY_DOMAINS } } },
@@ -29,7 +36,10 @@ const SCHEMA: HaFormSchema[] = [
 ];
 
 @customElement(computeChipEditorComponentName("weather"))
-export class WeatherChipEditor extends LitElement implements LovelaceChipEditor {
+export class WeatherChipEditor
+  extends LitElement
+  implements LovelaceChipEditor
+{
   @property({ attribute: false }) public hass?: HomeAssistant;
 
   @state() private _config?: WeatherChipConfig;
@@ -47,7 +57,9 @@ export class WeatherChipEditor extends LitElement implements LovelaceChipEditor 
     if (WEATHER_LABELS.includes(schema.name)) {
       return customLocalize(`editor.card.weather.${schema.name}`);
     }
-    return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
+    return this.hass!.localize(
+      `ui.panel.lovelace.editor.card.generic.${schema.name}`
+    );
   };
 
   protected render() {

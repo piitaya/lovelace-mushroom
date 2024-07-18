@@ -25,7 +25,11 @@ import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { computeEntityPicture } from "../../utils/info";
-import { PERSON_CARD_EDITOR_NAME, PERSON_CARD_NAME, PERSON_ENTITY_DOMAINS } from "./const";
+import {
+  PERSON_CARD_EDITOR_NAME,
+  PERSON_CARD_NAME,
+  PERSON_ENTITY_DOMAINS,
+} from "./const";
 import { PersonCardConfig } from "./person-card-config";
 import { getStateColor, getStateIcon } from "./utils";
 
@@ -36,15 +40,24 @@ registerCustomCard({
 });
 
 @customElement(PERSON_CARD_NAME)
-export class PersonCard extends MushroomBaseCard<PersonCardConfig> implements LovelaceCard {
+export class PersonCard
+  extends MushroomBaseCard<PersonCardConfig>
+  implements LovelaceCard
+{
   public static async getConfigElement(): Promise<LovelaceCardEditor> {
     await import("./person-card-editor");
-    return document.createElement(PERSON_CARD_EDITOR_NAME) as LovelaceCardEditor;
+    return document.createElement(
+      PERSON_CARD_EDITOR_NAME
+    ) as LovelaceCardEditor;
   }
 
-  public static async getStubConfig(hass: HomeAssistant): Promise<PersonCardConfig> {
+  public static async getStubConfig(
+    hass: HomeAssistant
+  ): Promise<PersonCardConfig> {
     const entities = Object.keys(hass.states);
-    const people = entities.filter((e) => PERSON_ENTITY_DOMAINS.includes(e.split(".")[0]));
+    const people = entities.filter((e) =>
+      PERSON_ENTITY_DOMAINS.includes(e.split(".")[0])
+    );
     return {
       type: `custom:${PERSON_CARD_NAME}`,
       entity: people[0],
@@ -74,7 +87,9 @@ export class PersonCard extends MushroomBaseCard<PersonCardConfig> implements Lo
     const rtl = computeRTL(this.hass);
 
     return html`
-      <ha-card class=${classMap({ "fill-container": appearance.fill_container })}>
+      <ha-card
+        class=${classMap({ "fill-container": appearance.fill_container })}
+      >
         <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
           <mushroom-state-item
             ?rtl=${rtl}
@@ -85,8 +100,11 @@ export class PersonCard extends MushroomBaseCard<PersonCardConfig> implements Lo
               hasDoubleClick: hasAction(this._config.double_tap_action),
             })}
           >
-            ${picture ? this.renderPicture(picture) : this.renderIcon(stateObj, icon)}
-            ${this.renderBadge(stateObj)} ${this.renderStateInfo(stateObj, appearance, name)};
+            ${picture
+              ? this.renderPicture(picture)
+              : this.renderIcon(stateObj, icon)}
+            ${this.renderBadge(stateObj)}
+            ${this.renderStateInfo(stateObj, appearance, name)};
           </mushroom-state-item>
         </mushroom-card>
       </ha-card>

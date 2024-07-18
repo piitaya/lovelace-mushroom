@@ -55,7 +55,9 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
     if (TEMPLATE_LABELS.includes(schema.name)) {
       return customLocalize(`editor.card.template.${schema.name}`);
     }
-    return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
+    return this.hass!.localize(
+      `ui.panel.lovelace.editor.card.generic.${schema.name}`
+    );
   };
 
   protected render() {

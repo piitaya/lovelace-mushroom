@@ -1,4 +1,11 @@
-import { css, CSSResultGroup, html, LitElement, nothing, TemplateResult } from "lit";
+import {
+  css,
+  CSSResultGroup,
+  html,
+  LitElement,
+  nothing,
+  TemplateResult,
+} from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -19,7 +26,10 @@ import {
   computeChipComponentName,
   computeChipEditorComponentName,
 } from "../../../utils/lovelace/chip/chip-element";
-import { EntityChipConfig, LovelaceChip } from "../../../utils/lovelace/chip/types";
+import {
+  EntityChipConfig,
+  LovelaceChip,
+} from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { HassEntity } from "home-assistant-js-websocket";
 
@@ -27,10 +37,14 @@ import { HassEntity } from "home-assistant-js-websocket";
 export class EntityChip extends LitElement implements LovelaceChip {
   public static async getConfigElement(): Promise<LovelaceChipEditor> {
     await import("./entity-chip-editor");
-    return document.createElement(computeChipEditorComponentName("entity")) as LovelaceChipEditor;
+    return document.createElement(
+      computeChipEditorComponentName("entity")
+    ) as LovelaceChipEditor;
   }
 
-  public static async getStubConfig(hass: HomeAssistant): Promise<EntityChipConfig> {
+  public static async getStubConfig(
+    hass: HomeAssistant
+  ): Promise<EntityChipConfig> {
     const entities = Object.keys(hass.states);
     return {
       type: `entity`,
@@ -66,7 +80,9 @@ export class EntityChip extends LitElement implements LovelaceChip {
     const icon = this._config.icon;
     const iconColor = this._config.icon_color;
 
-    const picture = this._config.use_entity_picture ? getEntityPicture(stateObj) : undefined;
+    const picture = this._config.use_entity_picture
+      ? getEntityPicture(stateObj)
+      : undefined;
 
     const stateDisplay = this.hass.formatEntityState
       ? this.hass.formatEntityState(stateObj)
@@ -101,7 +117,9 @@ export class EntityChip extends LitElement implements LovelaceChip {
         .avatar=${picture ? (this.hass as any).hassUrl(picture) : undefined}
         .avatarOnly=${picture && !content}
       >
-        ${!picture ? this.renderIcon(stateObj, icon, iconColor, active) : nothing}
+        ${!picture
+          ? this.renderIcon(stateObj, icon, iconColor, active)
+          : nothing}
         ${content ? html`<span>${content}</span>` : nothing}
       </mushroom-chip>
     `;

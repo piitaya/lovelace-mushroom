@@ -11,7 +11,14 @@ import { AlarmControlPanelChipConfig } from "../../../utils/lovelace/chip/types"
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { ALARM_CONTROl_PANEL_ENTITY_DOMAINS } from "../../alarm-control-panel-card/const";
 
-const actions: UiAction[] = ["more-info", "navigate", "url", "call-service", "assist", "none"];
+const actions: UiAction[] = [
+  "more-info",
+  "navigate",
+  "url",
+  "call-service",
+  "assist",
+  "none",
+];
 
 const SCHEMA: HaFormSchema[] = [
   {
@@ -31,7 +38,10 @@ const SCHEMA: HaFormSchema[] = [
 ];
 
 @customElement(computeChipEditorComponentName("alarm-control-panel"))
-export class AlarmControlPanelChipEditor extends LitElement implements LovelaceChipEditor {
+export class AlarmControlPanelChipEditor
+  extends LitElement
+  implements LovelaceChipEditor
+{
   @property({ attribute: false }) public hass?: HomeAssistant;
 
   @state() private _config?: AlarmControlPanelChipConfig;
@@ -46,7 +56,9 @@ export class AlarmControlPanelChipEditor extends LitElement implements LovelaceC
     if (GENERIC_LABELS.includes(schema.name)) {
       return customLocalize(`editor.card.generic.${schema.name}`);
     }
-    return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
+    return this.hass!.localize(
+      `ui.panel.lovelace.editor.card.generic.${schema.name}`
+    );
   };
 
   protected render() {

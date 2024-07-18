@@ -1,6 +1,11 @@
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { HomeAssistant, HumidifierEntity, isActive, isAvailable } from "../../../ha";
+import {
+  HomeAssistant,
+  HumidifierEntity,
+  isActive,
+  isAvailable,
+} from "../../../ha";
 import "../../../shared/slider";
 
 @customElement("mushroom-humidifier-humidity-control")

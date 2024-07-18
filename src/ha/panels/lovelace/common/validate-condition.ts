@@ -7,14 +7,21 @@ export interface Condition {
   state_not?: string;
 }
 
-export function checkConditionsMet(conditions: Condition[], hass: HomeAssistant): boolean {
+export function checkConditionsMet(
+  conditions: Condition[],
+  hass: HomeAssistant
+): boolean {
   return conditions.every((c) => {
-    const state = hass.states[c.entity] ? hass!.states[c.entity]?.state : UNAVAILABLE;
+    const state = hass.states[c.entity]
+      ? hass!.states[c.entity]?.state
+      : UNAVAILABLE;
 
     return c.state ? state === c.state : state !== c.state_not;
   });
 }
 
 export function validateConditionalConfig(conditions: Condition[]): boolean {
-  return conditions.every((c) => (c.entity && (c.state || c.state_not)) as unknown as boolean);
+  return conditions.every(
+    (c) => (c.entity && (c.state || c.state_not)) as unknown as boolean
+  );
 }

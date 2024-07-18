@@ -7,7 +7,9 @@ export function getPercentage(stateObj: HassEntity) {
 }
 
 export function isOscillating(stateObj: HassEntity) {
-  return stateObj.attributes.oscillating != null ? Boolean(stateObj.attributes.oscillating) : false;
+  return stateObj.attributes.oscillating != null
+    ? Boolean(stateObj.attributes.oscillating)
+    : false;
 }
 
 export function computePercentageStep(stateObj: HassEntity) {

@@ -23,7 +23,8 @@ export const isVolumeControlVisible = (
     supportsFeature(entity, MEDIA_PLAYER_SUPPORT_VOLUME_BUTTONS)) ||
   (controls?.includes("volume_mute") &&
     supportsFeature(entity, MEDIA_PLAYER_SUPPORT_VOLUME_MUTE)) ||
-  (controls?.includes("volume_set") && supportsFeature(entity, MEDIA_PLAYER_SUPPORT_VOLUME_SET));
+  (controls?.includes("volume_set") &&
+    supportsFeature(entity, MEDIA_PLAYER_SUPPORT_VOLUME_SET));
 
 @customElement("mushroom-media-player-volume-control")
 export class MediaPlayerVolumeControls extends LitElement {
@@ -80,7 +81,10 @@ export class MediaPlayerVolumeControls extends LitElement {
       supportsFeature(this.entity, MEDIA_PLAYER_SUPPORT_VOLUME_BUTTONS);
 
     return html`
-      <mushroom-button-group .fill=${this.fill && !displayVolumeSet} ?rtl=${rtl}>
+      <mushroom-button-group
+        .fill=${this.fill && !displayVolumeSet}
+        ?rtl=${rtl}
+      >
         ${displayVolumeSet
           ? html` <mushroom-slider
               .value=${value}

@@ -9,7 +9,10 @@ import type {
   MessageBase,
 } from "home-assistant-js-websocket";
 import type { LocalizeFunc } from "./common/translations/localize";
-import type { FrontendLocaleData, TranslationCategory } from "./data/translation";
+import type {
+  FrontendLocaleData,
+  TranslationCategory,
+} from "./data/translation";
 import type { Themes } from "./data/ws-themes";
 
 declare global {
@@ -218,7 +221,11 @@ export interface HomeAssistant {
     configFlow?: boolean
   ): Promise<LocalizeFunc>;
   formatEntityState(stateObj: HassEntity, state?: string): string;
-  formatEntityAttributeValue(stateObj: HassEntity, attribute: string, value?: string): string;
+  formatEntityAttributeValue(
+    stateObj: HassEntity,
+    attribute: string,
+    value?: string
+  ): string;
   formatEntityAttributeName(stateObj: HassEntity, attribute: string): string;
 }
 

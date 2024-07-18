@@ -26,7 +26,10 @@ import {
 } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { ALARM_CONTROl_PANEL_ENTITY_DOMAINS } from "../../alarm-control-panel-card/const";
-import { getStateColor, shouldPulse } from "../../alarm-control-panel-card/utils";
+import {
+  getStateColor,
+  shouldPulse,
+} from "../../alarm-control-panel-card/utils";
 
 @customElement(computeChipComponentName("alarm-control-panel"))
 export class AlarmControlPanelChip extends LitElement implements LovelaceChip {
@@ -37,7 +40,9 @@ export class AlarmControlPanelChip extends LitElement implements LovelaceChip {
     ) as LovelaceChipEditor;
   }
 
-  public static async getStubConfig(hass: HomeAssistant): Promise<AlarmControlPanelChipConfig> {
+  public static async getStubConfig(
+    hass: HomeAssistant
+  ): Promise<AlarmControlPanelChipConfig> {
     const entities = Object.keys(hass.states);
     const panels = entities.filter((e) =>
       ALARM_CONTROl_PANEL_ENTITY_DOMAINS.includes(e.split(".")[0])

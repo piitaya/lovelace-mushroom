@@ -21,7 +21,9 @@ const getPercentageFromEvent = (e: HammerInput) => {
 
 export const DEFAULT_SLIDER_THRESHOLD = 10;
 const getSliderThreshold = (element: any): number | undefined => {
-  const thresholdValue = window.getComputedStyle(element).getPropertyValue("--slider-threshold");
+  const thresholdValue = window
+    .getComputedStyle(element)
+    .getPropertyValue("--slider-threshold");
   const threshold = parseFloat(thresholdValue);
   return isNaN(threshold) ? DEFAULT_SLIDER_THRESHOLD : threshold;
 };
@@ -122,7 +124,9 @@ export class SliderItem extends LitElement {
         this.controlled = false;
         const percentage = getPercentageFromEvent(e);
         // Prevent from input releasing on a value that doesn't lie on a step
-        this.value = Math.round(this.percentageToValue(percentage) / this.step) * this.step;
+        this.value =
+          Math.round(this.percentageToValue(percentage) / this.step) *
+          this.step;
         this.dispatchEvent(
           new CustomEvent("current-change", {
             detail: {
@@ -143,7 +147,9 @@ export class SliderItem extends LitElement {
         if (this.disabled) return;
         const percentage = getPercentageFromEvent(e);
         // Prevent from input selecting a value that doesn't lie on a step
-        this.value = Math.round(this.percentageToValue(percentage) / this.step) * this.step;
+        this.value =
+          Math.round(this.percentageToValue(percentage) / this.step) *
+          this.step;
         this.dispatchEvent(
           new CustomEvent("change", {
             detail: {
@@ -179,8 +185,12 @@ export class SliderItem extends LitElement {
           })}
         >
           <div class="slider-track-background"></div>
-          ${this.showActive ? html`<div class="slider-track-active"></div>` : nothing}
-          ${this.showIndicator ? html`<div class="slider-track-indicator"></div>` : nothing}
+          ${this.showActive
+            ? html`<div class="slider-track-active"></div>`
+            : nothing}
+          ${this.showIndicator
+            ? html`<div class="slider-track-indicator"></div>`
+            : nothing}
         </div>
       </div>
     `;

@@ -1,4 +1,9 @@
-import { ActionConfig, LovelaceCardConfig, LovelaceViewConfig, ShowViewConfig } from "../../../ha";
+import {
+  ActionConfig,
+  LovelaceCardConfig,
+  LovelaceViewConfig,
+  ShowViewConfig,
+} from "../../../ha";
 import { LovelaceChipConfig } from "../chip/types";
 
 export interface YamlChangedEvent extends Event {

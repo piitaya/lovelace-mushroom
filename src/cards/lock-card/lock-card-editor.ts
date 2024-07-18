@@ -21,7 +21,10 @@ const SCHEMA: HaFormSchema[] = [
 ];
 
 @customElement(LOCK_CARD_EDITOR_NAME)
-export class LockCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
+export class LockCardEditor
+  extends MushroomBaseElement
+  implements LovelaceCardEditor
+{
   @state() private _config?: LockCardConfig;
 
   connectedCallback() {
@@ -40,7 +43,9 @@ export class LockCardEditor extends MushroomBaseElement implements LovelaceCardE
     if (GENERIC_LABELS.includes(schema.name)) {
       return customLocalize(`editor.card.generic.${schema.name}`);
     }
-    return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
+    return this.hass!.localize(
+      `ui.panel.lovelace.editor.card.generic.${schema.name}`
+    );
   };
 
   protected render() {
