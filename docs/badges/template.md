@@ -1,14 +1,14 @@
 # Template badge
 
-![Template light](../images/template-light.png)
-![Template dark](../images/template-dark.png)
+![Template light](../images/template-badge-light.png)
+![Template dark](../images/template-badge-dark.png)
 
 ## Description
 
 A template badge allows you to build a custom badge. You can use `entity` as a variable for the entity set on the badge e.g. `{{ states(entity) }}`.
 
 > [!WARNING]  
-> Home Assistant **2024.8** is required to use custom badges
+> Home Assistant **2024.8** is required to use custom badges.
 
 ## Configuration variables
 

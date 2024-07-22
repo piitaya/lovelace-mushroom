@@ -38,8 +38,8 @@ import { TemplateCardConfig } from "./template-card-config";
 
 registerCustomCard({
   type: TEMPLATE_CARD_NAME,
-  name: "Mushroom Template Card",
-  description: "Card for custom rendering with templates",
+  name: "Mushroom Template",
+  description: "Build your own mushroom card using templates",
 });
 
 const TEMPLATE_KEYS = [

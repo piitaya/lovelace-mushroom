@@ -32,7 +32,7 @@ import { weatherSVGStyles } from "../../utils/weather";
 registerCustomBadge({
   type: TEMPLATE_BADGE_NAME,
   name: "Mushroom Template",
-  description: "Badge for custom rendering with templates",
+  description: "Build your own badge using templates",
 });
 
 const TEMPLATE_KEYS = ["icon", "color", "label", "content", "picture"] as const;
