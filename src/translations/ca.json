@@ -1,177 +1,177 @@
 {
-    "editor": {
-        "form": {
-            "color_picker": {
-                "values": {
-                    "default": "Color per defecte"
-                }
-            },
-            "info_picker": {
-                "values": {
-                    "default": "Informació per defecte",
-                    "name": "Nom",
-                    "state": "Estat",
-                    "last-changed": "Últim Canvi",
-                    "last-updated": "Última Actualització",
-                    "none": "Cap"
-                }
-            },
-            "icon_type_picker": {
-                "values": {
-                    "default": "Tipus per defecte",
-                    "icon": "Icona",
-                    "entity-picture": "Entitat d'imatge",
-                    "none": "Cap"
-                }
-            },
-            "layout_picker": {
-                "values": {
-                    "default": "Distribució per defecte",
-                    "vertical": "Distribució vertical",
-                    "horizontal": "Distribució horitzontal"
-                }
-            },
-            "alignment_picker": {
-                "values": {
-                    "default": "Alineació per defecte",
-                    "start": "Inici",
-                    "end": "Final",
-                    "center": "Centre",
-                    "justify": "Justifica"
-                }
-            }
-        },
-        "card": {
-            "generic": {
-                "icon_color": "Color d'icona",
-                "layout": "Distribució",
-                "fill_container": "Emplena el contenidor",
-                "primary_info": "Informació primaria",
-                "secondary_info": "Informació secundaria",
-                "icon_type": "Tipus d'icona",
-                "content_info": "Contingut",
-                "use_entity_picture": "Fer servir la imatge de l'entitat?",
-                "collapsible_controls": "Amaga els controls en desactivar",
-                "icon_animation": "Animar icona en activar?"
-            },
-            "light": {
-                "show_brightness_control": "Control de brillantor?",
-                "use_light_color": "Fes servir el color del llum",
-                "show_color_temp_control": "Control de la temperatura del color?",
-                "show_color_control": "Control de color?",
-                "incompatible_controls": "Alguns controls no es mostraran si l'entitat no suporta eixa funció."
-            },
-            "fan": {
-                "show_percentage_control": "Control de percentatge?",
-                "show_oscillate_control": "Control d'oscil·lació?"
-            },
-            "cover": {
-                "show_buttons_control": "Botons de control?",
-                "show_position_control": "Control de posició?",
-                "show_tilt_position_control": "Control d'inclinació?"
-            },
-            "template": {
-                "primary": "Informació primaria",
-                "secondary": "Informació secundaria",
-                "multiline_secondary": "Secundaria en varies línies?",
-                "entity_extra": "Utilitzats en plantilles i accions",
-                "content": "Contingut",
-                "badge_icon": "Icona de la insígnia",
-                "badge_color": "Color de la insígnia",
-                "picture": "Imatge (reemplaçarà la icona)"
-            },
-            "title": {
-                "title": "Títol",
-                "subtitle": "Subtítol",
-                "title_tap_action": "Acció en tocar el títol",
-                "subtitle_tap_action": "Acció en tocar el subtítol"
-            },
-            "chips": {
-                "alignment": "Alineació"
-            },
-            "weather": {
-                "show_conditions": "Condicions?",
-                "show_temperature": "Temperatura?"
-            },
-            "update": {
-                "show_buttons_control": "Botons de control?"
-            },
-            "vacuum": {
-                "commands": "Comandaments",
-                "commands_list": {
-                    "on_off": "Engegar/Apagar"
-                }
-            },
-            "media-player": {
-                "use_media_info": "Empra la informació multimèdia",
-                "use_media_artwork": "Fes servir l'art multimèdia",
-                "show_volume_level": "Mostra el nivell de volum",
-                "media_controls": "Controls multimèdia",
-                "media_controls_list": {
-                    "on_off": "Engegar/Apagar",
-                    "shuffle": "Mesclar",
-                    "previous": "Pista anterior",
-                    "play_pause_stop": "Reproduïr/Pausar/Detindre",
-                    "next": "Pista següent",
-                    "repeat": "Mode de repetició"
-                },
-                "volume_controls": "Controls de volum",
-                "volume_controls_list": {
-                    "volume_buttons": "Botons de volum",
-                    "volume_set": "Nivell de volum",
-                    "volume_mute": "Silenci"
-                }
-            },
-            "lock": {
-                "lock": "Bloqueja",
-                "unlock": "Desbloqueja",
-                "open": "Obri"
-            },
-            "humidifier": {
-                "show_target_humidity_control": "Control d'humitat?"
-            },
-            "climate": {
-                "show_temperature_control": "Control de temperatura?",
-                "hvac_modes": "Modes HVAC"
-            },
-            "number": {
-                "display_mode": "Mode de visualització",
-                "display_mode_list": {
-                    "default": "Per defecte (lliscant)",
-                    "slider": "Lliscant",
-                    "buttons": "Botons"
-                }
-            }
-        },
-        "chip": {
-            "sub_element_editor": {
-                "title": "Editor de xips"
-            },
-            "conditional": {
-                "chip": "Xip"
-            },
-            "chip-picker": {
-                "chips": "Xips",
-                "add": "Afegir xip",
-                "edit": "Editar",
-                "clear": "Buidar",
-                "select": "Seleccionar chip",
-                "types": {
-                    "action": "Acció",
-                    "alarm-control-panel": "Alarma",
-                    "back": "Tornar",
-                    "conditional": "Condicional",
-                    "entity": "Entitat",
-                    "light": "Llum",
-                    "menu": "Menú",
-                    "spacer": "Espai",
-                    "template": "Plantilla",
-                    "weather": "Oratge"
-                }
-            }
+  "editor": {
+    "form": {
+      "color_picker": {
+        "values": {
+          "default": "Color per defecte"
         }
+      },
+      "info_picker": {
+        "values": {
+          "default": "Informació per defecte",
+          "name": "Nom",
+          "state": "Estat",
+          "last-changed": "Últim Canvi",
+          "last-updated": "Última Actualització",
+          "none": "Cap"
+        }
+      },
+      "icon_type_picker": {
+        "values": {
+          "default": "Tipus per defecte",
+          "icon": "Icona",
+          "entity-picture": "Entitat d'imatge",
+          "none": "Cap"
+        }
+      },
+      "layout_picker": {
+        "values": {
+          "default": "Distribució per defecte",
+          "vertical": "Distribució vertical",
+          "horizontal": "Distribució horitzontal"
+        }
+      },
+      "alignment_picker": {
+        "values": {
+          "default": "Alineació per defecte",
+          "start": "Inici",
+          "end": "Final",
+          "center": "Centre",
+          "justify": "Justifica"
+        }
+      }
     },
     "card": {
-        "not_found": "No s'ha trobat l'entitat"
+      "generic": {
+        "icon_color": "Color d'icona",
+        "layout": "Distribució",
+        "fill_container": "Emplena el contenidor",
+        "primary_info": "Informació primaria",
+        "secondary_info": "Informació secundaria",
+        "icon_type": "Tipus d'icona",
+        "content_info": "Contingut",
+        "use_entity_picture": "Fer servir la imatge de l'entitat?",
+        "collapsible_controls": "Amaga els controls en desactivar",
+        "icon_animation": "Animar icona en activar?"
+      },
+      "light": {
+        "show_brightness_control": "Control de brillantor?",
+        "use_light_color": "Fes servir el color del llum",
+        "show_color_temp_control": "Control de la temperatura del color?",
+        "show_color_control": "Control de color?",
+        "incompatible_controls": "Alguns controls no es mostraran si l'entitat no suporta eixa funció."
+      },
+      "fan": {
+        "show_percentage_control": "Control de percentatge?",
+        "show_oscillate_control": "Control d'oscil·lació?"
+      },
+      "cover": {
+        "show_buttons_control": "Botons de control?",
+        "show_position_control": "Control de posició?",
+        "show_tilt_position_control": "Control d'inclinació?"
+      },
+      "template": {
+        "primary": "Informació primaria",
+        "secondary": "Informació secundaria",
+        "multiline_secondary": "Secundaria en varies línies?",
+        "entity_extra": "Utilitzats en plantilles i accions",
+        "content": "Contingut",
+        "badge_icon": "Icona de la insígnia",
+        "badge_color": "Color de la insígnia",
+        "picture": "Imatge (reemplaçarà la icona)"
+      },
+      "title": {
+        "title": "Títol",
+        "subtitle": "Subtítol",
+        "title_tap_action": "Acció en tocar el títol",
+        "subtitle_tap_action": "Acció en tocar el subtítol"
+      },
+      "chips": {
+        "alignment": "Alineació"
+      },
+      "weather": {
+        "show_conditions": "Condicions?",
+        "show_temperature": "Temperatura?"
+      },
+      "update": {
+        "show_buttons_control": "Botons de control?"
+      },
+      "vacuum": {
+        "commands": "Comandaments",
+        "commands_list": {
+          "on_off": "Engegar/Apagar"
+        }
+      },
+      "media-player": {
+        "use_media_info": "Empra la informació multimèdia",
+        "use_media_artwork": "Fes servir l'art multimèdia",
+        "show_volume_level": "Mostra el nivell de volum",
+        "media_controls": "Controls multimèdia",
+        "media_controls_list": {
+          "on_off": "Engegar/Apagar",
+          "shuffle": "Mesclar",
+          "previous": "Pista anterior",
+          "play_pause_stop": "Reproduïr/Pausar/Detindre",
+          "next": "Pista següent",
+          "repeat": "Mode de repetició"
+        },
+        "volume_controls": "Controls de volum",
+        "volume_controls_list": {
+          "volume_buttons": "Botons de volum",
+          "volume_set": "Nivell de volum",
+          "volume_mute": "Silenci"
+        }
+      },
+      "lock": {
+        "lock": "Bloqueja",
+        "unlock": "Desbloqueja",
+        "open": "Obri"
+      },
+      "humidifier": {
+        "show_target_humidity_control": "Control d'humitat?"
+      },
+      "climate": {
+        "show_temperature_control": "Control de temperatura?",
+        "hvac_modes": "Modes HVAC"
+      },
+      "number": {
+        "display_mode": "Mode de visualització",
+        "display_mode_list": {
+          "default": "Per defecte (lliscant)",
+          "slider": "Lliscant",
+          "buttons": "Botons"
+        }
+      }
+    },
+    "chip": {
+      "sub_element_editor": {
+        "title": "Editor de xips"
+      },
+      "conditional": {
+        "chip": "Xip"
+      },
+      "chip-picker": {
+        "chips": "Xips",
+        "add": "Afegir xip",
+        "edit": "Editar",
+        "clear": "Buidar",
+        "select": "Seleccionar chip",
+        "types": {
+          "action": "Acció",
+          "alarm-control-panel": "Alarma",
+          "back": "Tornar",
+          "conditional": "Condicional",
+          "entity": "Entitat",
+          "light": "Llum",
+          "menu": "Menú",
+          "spacer": "Espai",
+          "template": "Plantilla",
+          "weather": "Oratge"
+        }
+      }
     }
+  },
+  "card": {
+    "not_found": "No s'ha trobat l'entitat"
+  }
 }

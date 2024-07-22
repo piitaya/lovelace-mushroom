@@ -1,177 +1,177 @@
 {
-    "editor": {
-        "form": {
-            "color_picker": {
-                "values": {
-                    "default": "Alapértelmezett szín"
-                }
-            },
-            "info_picker": {
-                "values": {
-                    "default": "Alepértelmezett információ",
-                    "name": "Név",
-                    "state": "Állapot",
-                    "last-changed": "Utoljára módosítva",
-                    "last-updated": "Utoljára frissítve",
-                    "none": "Egyik sem"
-                }
-            },
-            "icon_type_picker": {
-                "values": {
-                    "default": "Alapértelmezett típus",
-                    "icon": "Ikon",
-                    "entity-picture": "Entitás kép",
-                    "none": "Egyik sem"
-                }
-            },
-            "layout_picker": {
-                "values": {
-                    "default": "Alapértelmezet elrendezés",
-                    "vertical": "Függőleges elrendezés",
-                    "horizontal": "Vízszintes elrendezés"
-                }
-            },
-            "alignment_picker": {
-                "values": {
-                    "default": "Alapértelmezett rendezés",
-                    "start": "Kezdete",
-                    "end": "Vége",
-                    "center": "Közepe",
-                    "justify": "Sorkizárt"
-                }
-            }
-        },
-        "card": {
-            "generic": {
-                "icon_color": "Ikon szín",
-                "layout": "Elrendezés",
-                "fill_container": "Tároló kitöltése",
-                "primary_info": "Elsődleges információ",
-                "secondary_info": "Másodlagos információ",
-                "icon_type": "Ikon típus",
-                "content_info": "Tartalom",
-                "use_entity_picture": "Entitás kép használata",
-                "collapsible_controls": "Vezérlők összezárása kikapcsolt állapotban",
-                "icon_animation": "Ikon animálása aktív állapotban"
-            },
-            "light": {
-                "show_brightness_control": "Fényerő vezérlő",
-                "use_light_color": "Fény szín használata",
-                "show_color_temp_control": "Színhőmérséklet vezérlő",
-                "show_color_control": "Szín vezérlő",
-                "incompatible_controls": "Azok a vezérlők nem lesznek megjelenítve, amelyeket a fényforrás nem támogat."
-            },
-            "fan": {
-                "show_percentage_control": "Százalékos vezérlő",
-                "show_oscillate_control": "Oszcilláció vezérlő"
-            },
-            "cover": {
-                "show_buttons_control": "Vezérlő gombok",
-                "show_position_control": "Pozíció vezérlő",
-                "show_tilt_position_control": "Dőlésszög szabályzó"
-            },
-            "template": {
-                "primary": "Elsődleges információ",
-                "secondary": "Másodlagos információ",
-                "multiline_secondary": "Másodlagost több sorba?",
-                "entity_extra": "Műveletek és sablonok használatakor",
-                "content": "Tartalom",
-                "badge_icon": "Jelvény ikon",
-                "badge_color": "Jelvény szín",
-                "picture": "Kép (lecseréli az ikont)"
-            },
-            "title": {
-                "title": "Fejléc",
-                "subtitle": "Alcím",
-                "title_tap_action": "Fejlécre koppintáskor",
-                "subtitle_tap_action": "Alcímre koppintáskor"
-            },
-            "chips": {
-                "alignment": "Rendezés"
-            },
-            "weather": {
-                "show_conditions": "Állapotok",
-                "show_temperature": "Hőmérséklet"
-            },
-            "update": {
-                "show_buttons_control": "Vezérlő gombok"
-            },
-            "vacuum": {
-                "commands": "Utasítások",
-                "commands_list": {
-                    "on_off": "Ki/Bekapcsolás"
-                }
-            },
-            "media-player": {
-                "use_media_info": "Média infó használata",
-                "use_media_artwork": "Média borító használata",
-                "show_volume_level": "Hangerő mutatása",
-                "media_controls": "Média vezérlők",
-                "media_controls_list": {
-                    "on_off": "Ki/bekapcsolás",
-                    "shuffle": "Véletlen lejátszás",
-                    "previous": "Előző szám",
-                    "play_pause_stop": "Lejátszás/szünet/állj",
-                    "next": "Következő szám",
-                    "repeat": "Ismétlés módja"
-                },
-                "volume_controls": "Hangerő vezérlők",
-                "volume_controls_list": {
-                    "volume_buttons": "Hangerő gombok",
-                    "volume_set": "Hangerő szint",
-                    "volume_mute": "Némítás"
-                }
-            },
-            "lock": {
-                "lock": "Zár",
-                "unlock": "Nyit",
-                "open": "Nyitva"
-            },
-            "humidifier": {
-                "show_target_humidity_control": "Páratartalom vezérlő"
-            },
-            "climate": {
-                "show_temperature_control": "Hőmérséklet vezérlő",
-                "hvac_modes": "HVAC mód"
-            },
-            "number": {
-                "display_mode": "Megjelenítési mód",
-                "display_mode_list": {
-                    "default": "Alepértelmezett (csúszka)",
-                    "slider": "Csúszka",
-                    "buttons": "Gombok"
-                }
-            }
-        },
-        "chip": {
-            "sub_element_editor": {
-                "title": "Chip szerkesztő"
-            },
-            "conditional": {
-                "chip": "Chip"
-            },
-            "chip-picker": {
-                "chips": "Chip-ek",
-                "add": "Chip hozzáadása",
-                "edit": "Szerkesztés",
-                "clear": "Ürítés",
-                "select": "Chip kiválasztása",
-                "types": {
-                    "action": "Művelet",
-                    "alarm-control-panel": "Riasztó",
-                    "back": "Vissza",
-                    "conditional": "Feltételes",
-                    "entity": "Entitás",
-                    "light": "Fényforrás",
-                    "menu": "Menü",
-                    "spacer": "Térköz",
-                    "template": "Sablon",
-                    "weather": "Időjárás"
-                }
-            }
+  "editor": {
+    "form": {
+      "color_picker": {
+        "values": {
+          "default": "Alapértelmezett szín"
         }
+      },
+      "info_picker": {
+        "values": {
+          "default": "Alepértelmezett információ",
+          "name": "Név",
+          "state": "Állapot",
+          "last-changed": "Utoljára módosítva",
+          "last-updated": "Utoljára frissítve",
+          "none": "Egyik sem"
+        }
+      },
+      "icon_type_picker": {
+        "values": {
+          "default": "Alapértelmezett típus",
+          "icon": "Ikon",
+          "entity-picture": "Entitás kép",
+          "none": "Egyik sem"
+        }
+      },
+      "layout_picker": {
+        "values": {
+          "default": "Alapértelmezet elrendezés",
+          "vertical": "Függőleges elrendezés",
+          "horizontal": "Vízszintes elrendezés"
+        }
+      },
+      "alignment_picker": {
+        "values": {
+          "default": "Alapértelmezett rendezés",
+          "start": "Kezdete",
+          "end": "Vége",
+          "center": "Közepe",
+          "justify": "Sorkizárt"
+        }
+      }
     },
     "card": {
-        "not_found": "Entitás nem található"
+      "generic": {
+        "icon_color": "Ikon szín",
+        "layout": "Elrendezés",
+        "fill_container": "Tároló kitöltése",
+        "primary_info": "Elsődleges információ",
+        "secondary_info": "Másodlagos információ",
+        "icon_type": "Ikon típus",
+        "content_info": "Tartalom",
+        "use_entity_picture": "Entitás kép használata",
+        "collapsible_controls": "Vezérlők összezárása kikapcsolt állapotban",
+        "icon_animation": "Ikon animálása aktív állapotban"
+      },
+      "light": {
+        "show_brightness_control": "Fényerő vezérlő",
+        "use_light_color": "Fény szín használata",
+        "show_color_temp_control": "Színhőmérséklet vezérlő",
+        "show_color_control": "Szín vezérlő",
+        "incompatible_controls": "Azok a vezérlők nem lesznek megjelenítve, amelyeket a fényforrás nem támogat."
+      },
+      "fan": {
+        "show_percentage_control": "Százalékos vezérlő",
+        "show_oscillate_control": "Oszcilláció vezérlő"
+      },
+      "cover": {
+        "show_buttons_control": "Vezérlő gombok",
+        "show_position_control": "Pozíció vezérlő",
+        "show_tilt_position_control": "Dőlésszög szabályzó"
+      },
+      "template": {
+        "primary": "Elsődleges információ",
+        "secondary": "Másodlagos információ",
+        "multiline_secondary": "Másodlagost több sorba?",
+        "entity_extra": "Műveletek és sablonok használatakor",
+        "content": "Tartalom",
+        "badge_icon": "Jelvény ikon",
+        "badge_color": "Jelvény szín",
+        "picture": "Kép (lecseréli az ikont)"
+      },
+      "title": {
+        "title": "Fejléc",
+        "subtitle": "Alcím",
+        "title_tap_action": "Fejlécre koppintáskor",
+        "subtitle_tap_action": "Alcímre koppintáskor"
+      },
+      "chips": {
+        "alignment": "Rendezés"
+      },
+      "weather": {
+        "show_conditions": "Állapotok",
+        "show_temperature": "Hőmérséklet"
+      },
+      "update": {
+        "show_buttons_control": "Vezérlő gombok"
+      },
+      "vacuum": {
+        "commands": "Utasítások",
+        "commands_list": {
+          "on_off": "Ki/Bekapcsolás"
+        }
+      },
+      "media-player": {
+        "use_media_info": "Média infó használata",
+        "use_media_artwork": "Média borító használata",
+        "show_volume_level": "Hangerő mutatása",
+        "media_controls": "Média vezérlők",
+        "media_controls_list": {
+          "on_off": "Ki/bekapcsolás",
+          "shuffle": "Véletlen lejátszás",
+          "previous": "Előző szám",
+          "play_pause_stop": "Lejátszás/szünet/állj",
+          "next": "Következő szám",
+          "repeat": "Ismétlés módja"
+        },
+        "volume_controls": "Hangerő vezérlők",
+        "volume_controls_list": {
+          "volume_buttons": "Hangerő gombok",
+          "volume_set": "Hangerő szint",
+          "volume_mute": "Némítás"
+        }
+      },
+      "lock": {
+        "lock": "Zár",
+        "unlock": "Nyit",
+        "open": "Nyitva"
+      },
+      "humidifier": {
+        "show_target_humidity_control": "Páratartalom vezérlő"
+      },
+      "climate": {
+        "show_temperature_control": "Hőmérséklet vezérlő",
+        "hvac_modes": "HVAC mód"
+      },
+      "number": {
+        "display_mode": "Megjelenítési mód",
+        "display_mode_list": {
+          "default": "Alepértelmezett (csúszka)",
+          "slider": "Csúszka",
+          "buttons": "Gombok"
+        }
+      }
+    },
+    "chip": {
+      "sub_element_editor": {
+        "title": "Chip szerkesztő"
+      },
+      "conditional": {
+        "chip": "Chip"
+      },
+      "chip-picker": {
+        "chips": "Chip-ek",
+        "add": "Chip hozzáadása",
+        "edit": "Szerkesztés",
+        "clear": "Ürítés",
+        "select": "Chip kiválasztása",
+        "types": {
+          "action": "Művelet",
+          "alarm-control-panel": "Riasztó",
+          "back": "Vissza",
+          "conditional": "Feltételes",
+          "entity": "Entitás",
+          "light": "Fényforrás",
+          "menu": "Menü",
+          "spacer": "Térköz",
+          "template": "Sablon",
+          "weather": "Időjárás"
+        }
+      }
     }
+  },
+  "card": {
+    "not_found": "Entitás nem található"
+  }
 }

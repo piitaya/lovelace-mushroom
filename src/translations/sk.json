@@ -1,177 +1,177 @@
 {
-    "editor": {
-        "form": {
-            "color_picker": {
-                "values": {
-                    "default": "Predvolená farba"
-                }
-            },
-            "info_picker": {
-                "values": {
-                    "default": "Predvolené informácie",
-                    "name": "Názov",
-                    "state": "Stav",
-                    "last-changed": "Posledná zmena",
-                    "last-updated": "Posledná aktualizácia",
-                    "none": "Žiadna"
-                }
-            },
-            "icon_type_picker": {
-                "values": {
-                    "default": "Predvolený typ",
-                    "icon": "Ikona",
-                    "entity-picture": "Obrázok entity",
-                    "none": "Žiadny"
-                }
-            },
-            "layout_picker": {
-                "values": {
-                    "default": "Predvolené rozloženie",
-                    "vertical": "Zvislé rozloženie",
-                    "horizontal": "Vodorovné rozloženie"
-                }
-            },
-            "alignment_picker": {
-                "values": {
-                    "default": "Predvolené zarovnanie",
-                    "start": "Začiatok",
-                    "end": "Koniec",
-                    "center": "Stred",
-                    "justify": "Vyplniť"
-                }
-            }
-        },
-        "card": {
-            "generic": {
-                "icon_color": "Farba ikony",
-                "layout": "Rozloženie",
-                "fill_container": "Vyplniť priestor",
-                "primary_info": "Základné info",
-                "secondary_info": "Doplnkové info",
-                "icon_type": "Typ ikony",
-                "content_info": "Obsah",
-                "use_entity_picture": "Použiť obrázok entity?",
-                "collapsible_controls": "Skryť ovládanie v stave VYP.",
-                "icon_animation": "Animovaná ikona v stave ZAP?"
-            },
-            "light": {
-                "show_brightness_control": "Ovládanie jasu?",
-                "use_light_color": "Použiť farbu svetla",
-                "show_color_temp_control": "Ovládanie teploty?",
-                "show_color_control": "Ovládanie farby?",
-                "incompatible_controls": "Niektoré ovládacie prvky sa nemusia zobraziť, pokiaľ ich svetlo nepodporuje."
-            },
-            "fan": {
-                "show_percentage_control": "Ovládanie rýchlosti v percentách?",
-                "show_oscillate_control": "Ovládanie oscilácie?"
-            },
-            "cover": {
-                "show_buttons_control": "Zobraziť ovládacie tlačidlá?",
-                "show_position_control": "Ovládanie pozície?",
-                "show_tilt_position_control": "Ovládanie natočenia?"
-            },
-            "template": {
-                "primary": "Základné info",
-                "secondary": "Doplnkové info",
-                "multiline_secondary": "Viacriadkové doplnkové info?",
-                "entity_extra": "Použitá v šablónach a akciách",
-                "content": "Obsah",
-                "badge_icon": "Ikona odznaku",
-                "badge_color": "Farba odznaku",
-                "picture": "Obrázok (nahrádza ikonu)"
-            },
-            "title": {
-                "title": "Nadpis",
-                "subtitle": "Podnadpis",
-                "title_tap_action": "Akcia klepnutia na názov",
-                "subtitle_tap_action": "Akcia klepnutia na titulky"
-            },
-            "chips": {
-                "alignment": "Zarovnanie"
-            },
-            "weather": {
-                "show_conditions": "Zobraziť podmienky?",
-                "show_temperature": "Zobraziť teplotu?"
-            },
-            "update": {
-                "show_buttons_control": "Zobraziť ovládacie tlačidlá?"
-            },
-            "vacuum": {
-                "commands": "Príkazy",
-                "commands_list": {
-                    "on_off": "Zapnúť/Vypnúť"
-                }
-            },
-            "media-player": {
-                "use_media_info": "Použiť info o médiu",
-                "use_media_artwork": "Použiť obrázok z média",
-                "show_volume_level": "Zobraziť úroveň hlasitosti",
-                "media_controls": "Ovládanie média",
-                "media_controls_list": {
-                    "on_off": "Zap / Vyp",
-                    "shuffle": "Premiešať",
-                    "previous": "Predchádzajúca",
-                    "play_pause_stop": "Spustiť/pauza/stop",
-                    "next": "Ďalšia",
-                    "repeat": "Opakovať"
-                },
-                "volume_controls": "Ovládanie hlasitosti",
-                "volume_controls_list": {
-                    "volume_buttons": "Tlačidlá hlasitosti",
-                    "volume_set": "Úroveň hlasitosti",
-                    "volume_mute": "Stlmiť"
-                }
-            },
-            "lock": {
-                "lock": "Zamknuté",
-                "unlock": "Odomknuté",
-                "open": "Otvorené"
-            },
-            "humidifier": {
-                "show_target_humidity_control": "Ovládanie vlhkosti?"
-            },
-            "climate": {
-                "show_temperature_control": "Ovládanie teploty?",
-                "hvac_modes": "HVAC mód"
-            },
-            "number": {
-                "display_mode": "Režim zobrazenia",
-                "display_mode_list": {
-                    "default": "Predvolené (posúvač)",
-                    "slider": "Posúvač",
-                    "buttons": "Tlačidlá"
-                }
-            }
-        },
-        "chip": {
-            "sub_element_editor": {
-                "title": "Editor štítkov"
-            },
-            "conditional": {
-                "chip": "Štítok"
-            },
-            "chip-picker": {
-                "chips": "Štítky",
-                "add": "Pridať štítok",
-                "edit": "Editovať",
-                "clear": "Vymazať",
-                "select": "Vybrať štítok",
-                "types": {
-                    "action": "Akcia",
-                    "alarm-control-panel": "Alarm",
-                    "back": "Späť",
-                    "conditional": "Podmienené",
-                    "entity": "Entita",
-                    "light": "Svetlo",
-                    "menu": "Menu",
-                    "spacer": "Medzera",
-                    "template": "Šablóna",
-                    "weather": "Počasie"
-                }
-            }
+  "editor": {
+    "form": {
+      "color_picker": {
+        "values": {
+          "default": "Predvolená farba"
         }
+      },
+      "info_picker": {
+        "values": {
+          "default": "Predvolené informácie",
+          "name": "Názov",
+          "state": "Stav",
+          "last-changed": "Posledná zmena",
+          "last-updated": "Posledná aktualizácia",
+          "none": "Žiadna"
+        }
+      },
+      "icon_type_picker": {
+        "values": {
+          "default": "Predvolený typ",
+          "icon": "Ikona",
+          "entity-picture": "Obrázok entity",
+          "none": "Žiadny"
+        }
+      },
+      "layout_picker": {
+        "values": {
+          "default": "Predvolené rozloženie",
+          "vertical": "Zvislé rozloženie",
+          "horizontal": "Vodorovné rozloženie"
+        }
+      },
+      "alignment_picker": {
+        "values": {
+          "default": "Predvolené zarovnanie",
+          "start": "Začiatok",
+          "end": "Koniec",
+          "center": "Stred",
+          "justify": "Vyplniť"
+        }
+      }
     },
     "card": {
-        "not_found": "Entita nenájdená"
+      "generic": {
+        "icon_color": "Farba ikony",
+        "layout": "Rozloženie",
+        "fill_container": "Vyplniť priestor",
+        "primary_info": "Základné info",
+        "secondary_info": "Doplnkové info",
+        "icon_type": "Typ ikony",
+        "content_info": "Obsah",
+        "use_entity_picture": "Použiť obrázok entity?",
+        "collapsible_controls": "Skryť ovládanie v stave VYP.",
+        "icon_animation": "Animovaná ikona v stave ZAP?"
+      },
+      "light": {
+        "show_brightness_control": "Ovládanie jasu?",
+        "use_light_color": "Použiť farbu svetla",
+        "show_color_temp_control": "Ovládanie teploty?",
+        "show_color_control": "Ovládanie farby?",
+        "incompatible_controls": "Niektoré ovládacie prvky sa nemusia zobraziť, pokiaľ ich svetlo nepodporuje."
+      },
+      "fan": {
+        "show_percentage_control": "Ovládanie rýchlosti v percentách?",
+        "show_oscillate_control": "Ovládanie oscilácie?"
+      },
+      "cover": {
+        "show_buttons_control": "Zobraziť ovládacie tlačidlá?",
+        "show_position_control": "Ovládanie pozície?",
+        "show_tilt_position_control": "Ovládanie natočenia?"
+      },
+      "template": {
+        "primary": "Základné info",
+        "secondary": "Doplnkové info",
+        "multiline_secondary": "Viacriadkové doplnkové info?",
+        "entity_extra": "Použitá v šablónach a akciách",
+        "content": "Obsah",
+        "badge_icon": "Ikona odznaku",
+        "badge_color": "Farba odznaku",
+        "picture": "Obrázok (nahrádza ikonu)"
+      },
+      "title": {
+        "title": "Nadpis",
+        "subtitle": "Podnadpis",
+        "title_tap_action": "Akcia klepnutia na názov",
+        "subtitle_tap_action": "Akcia klepnutia na titulky"
+      },
+      "chips": {
+        "alignment": "Zarovnanie"
+      },
+      "weather": {
+        "show_conditions": "Zobraziť podmienky?",
+        "show_temperature": "Zobraziť teplotu?"
+      },
+      "update": {
+        "show_buttons_control": "Zobraziť ovládacie tlačidlá?"
+      },
+      "vacuum": {
+        "commands": "Príkazy",
+        "commands_list": {
+          "on_off": "Zapnúť/Vypnúť"
+        }
+      },
+      "media-player": {
+        "use_media_info": "Použiť info o médiu",
+        "use_media_artwork": "Použiť obrázok z média",
+        "show_volume_level": "Zobraziť úroveň hlasitosti",
+        "media_controls": "Ovládanie média",
+        "media_controls_list": {
+          "on_off": "Zap / Vyp",
+          "shuffle": "Premiešať",
+          "previous": "Predchádzajúca",
+          "play_pause_stop": "Spustiť/pauza/stop",
+          "next": "Ďalšia",
+          "repeat": "Opakovať"
+        },
+        "volume_controls": "Ovládanie hlasitosti",
+        "volume_controls_list": {
+          "volume_buttons": "Tlačidlá hlasitosti",
+          "volume_set": "Úroveň hlasitosti",
+          "volume_mute": "Stlmiť"
+        }
+      },
+      "lock": {
+        "lock": "Zamknuté",
+        "unlock": "Odomknuté",
+        "open": "Otvorené"
+      },
+      "humidifier": {
+        "show_target_humidity_control": "Ovládanie vlhkosti?"
+      },
+      "climate": {
+        "show_temperature_control": "Ovládanie teploty?",
+        "hvac_modes": "HVAC mód"
+      },
+      "number": {
+        "display_mode": "Režim zobrazenia",
+        "display_mode_list": {
+          "default": "Predvolené (posúvač)",
+          "slider": "Posúvač",
+          "buttons": "Tlačidlá"
+        }
+      }
+    },
+    "chip": {
+      "sub_element_editor": {
+        "title": "Editor štítkov"
+      },
+      "conditional": {
+        "chip": "Štítok"
+      },
+      "chip-picker": {
+        "chips": "Štítky",
+        "add": "Pridať štítok",
+        "edit": "Editovať",
+        "clear": "Vymazať",
+        "select": "Vybrať štítok",
+        "types": {
+          "action": "Akcia",
+          "alarm-control-panel": "Alarm",
+          "back": "Späť",
+          "conditional": "Podmienené",
+          "entity": "Entita",
+          "light": "Svetlo",
+          "menu": "Menu",
+          "spacer": "Medzera",
+          "template": "Šablóna",
+          "weather": "Počasie"
+        }
+      }
     }
+  },
+  "card": {
+    "not_found": "Entita nenájdená"
+  }
 }

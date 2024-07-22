@@ -1,155 +1,155 @@
 {
-    "editor": {
-        "form": {
-            "color_picker": {
-                "values": {
-                    "default": "Oletusväri"
-                }
-            },
-            "info_picker": {
-                "values": {
-                    "default": "Oletustiedot",
-                    "name": "Nimi",
-                    "state": "Tila",
-                    "last-changed": "Viimeksi muuttunut",
-                    "last-updated": "Viimeksi päivittynyt",
-                    "none": "Ei mitään"
-                }
-            },
-            "icon_type_picker": {
-                "values": {
-                    "default": "Oletustyyppi",
-                    "icon": "Kuvake",
-                    "entity-picture": "Kohteen kuva",
-                    "none": "Ei mitään"
-                }
-            },
-            "layout_picker": {
-                "values": {
-                    "default": "Oletusasettelu",
-                    "vertical": "Pystysuuntainen",
-                    "horizontal": "Vaakasuuntainen"
-                }
-            },
-            "alignment_picker": {
-                "values": {
-                    "default": "Keskitys",
-                    "start": "Alku",
-                    "end": "Loppu",
-                    "center": "Keskitä",
-                    "justify": "Sovita"
-                }
-            }
-        },
-        "card": {
-            "generic": {
-                "icon_color": "Ikonin väri",
-                "layout": "Asettelu",
-                "fill_container": "Täytä alue",
-                "primary_info": "Ensisijaiset tiedot",
-                "secondary_info": "Toissijaiset tiedot",
-                "icon_type": "Kuvakkeen tyyppi",
-                "content_info": "Sisältö",
-                "use_entity_picture": "Käytä kohteen kuvaa?",
-                "collapsible_controls": "Piilota toiminnot off-tilassa",
-                "icon_animation": "Animoi kuvake, kun aktiivinen?"
-            },
-            "light": {
-                "show_brightness_control": "Kirkkauden säätö?",
-                "use_light_color": "Käytä valaisimen väriä",
-                "show_color_temp_control": "Värilämpötilan säätö?",
-                "show_color_control": "Värin säätö?",
-                "incompatible_controls": "Jotkin toiminnot eivät näy, jos valaisimesi ei tue niitä."
-            },
-            "fan": {
-                "show_percentage_control": "Prosentuaalinen säätö?",
-                "show_oscillate_control": "Oskillaation säätö?"
-            },
-            "cover": {
-                "show_buttons_control": "Toimintopainikkeet?",
-                "show_position_control": "Sijainnin hallinta?"
-            },
-            "template": {
-                "primary": "Ensisijaiset tiedot",
-                "secondary": "Toissijaiset tiedot",
-                "multiline_secondary": "Monirivinen toissijainen tieto?",
-                "entity_extra": "Käytetään malleissa ja toiminnoissa",
-                "content": "Sisältö",
-                "badge_icon": "Merkin kuvake",
-                "badge_color": "Merkin väri",
-                "picture": "Kuva (korvaa kuvakkeen)"
-            },
-            "title": {
-                "title": "Otsikko",
-                "subtitle": "Tekstitys"
-            },
-            "chips": {
-                "alignment": "Asettelu"
-            },
-            "weather": {
-                "show_conditions": "Ehdot?",
-                "show_temperature": "Lämpötila?"
-            },
-            "update": {
-                "show_buttons_control": "Toimintopainikkeet?"
-            },
-            "vacuum": {
-                "commands": "Komennot"
-            },
-            "media-player": {
-                "use_media_info": "Käytä median tietoja",
-                "use_media_artwork": "Käytä median kuvituksia",
-                "show_volume_level": "Näytä äänenvoimakkuuden hallinta",
-                "media_controls": "Toiminnot",
-                "media_controls_list": {
-                    "on_off": "Päälle/pois",
-                    "shuffle": "Sekoita",
-                    "previous": "Edellinen kappale",
-                    "play_pause_stop": "Toista/keskeytä/pysäytä",
-                    "next": "Seuraava kappale",
-                    "repeat": "Jatkuva toisto"
-                },
-                "volume_controls": "Äänenvoimakkuuden hallinta",
-                "volume_controls_list": {
-                    "volume_buttons": "Äänenvoimakkuuspainikkeet",
-                    "volume_set": "Äänenvoimakkuus",
-                    "volume_mute": "Mykistä"
-                }
-            },
-            "lock": {
-                "lock": "Lukitse",
-                "unlock": "Poista lukitus",
-                "open": "Avaa"
-            },
-            "humidifier": {
-                "show_target_humidity_control": "Kosteudenhallinta?"
-            }
-        },
-        "chip": {
-            "sub_element_editor": {
-                "title": "Merkkieditori"
-            },
-            "conditional": {
-                "chip": "Merkki"
-            },
-            "chip-picker": {
-                "chips": "Merkit",
-                "add": "Lisää merkki",
-                "edit": "Muokkaa",
-                "clear": "Tyhjennä",
-                "select": "Valitse merkki",
-                "types": {
-                    "action": "Toiminto",
-                    "alarm-control-panel": "Hälytys",
-                    "back": "Takaisin",
-                    "conditional": "Ehdollinen",
-                    "entity": "Kohde",
-                    "light": "Valaisin",
-                    "menu": "Valikko",
-                    "template": "Malli",
-                    "weather": "Sää"
-                }
-            }
+  "editor": {
+    "form": {
+      "color_picker": {
+        "values": {
+          "default": "Oletusväri"
         }
+      },
+      "info_picker": {
+        "values": {
+          "default": "Oletustiedot",
+          "name": "Nimi",
+          "state": "Tila",
+          "last-changed": "Viimeksi muuttunut",
+          "last-updated": "Viimeksi päivittynyt",
+          "none": "Ei mitään"
+        }
+      },
+      "icon_type_picker": {
+        "values": {
+          "default": "Oletustyyppi",
+          "icon": "Kuvake",
+          "entity-picture": "Kohteen kuva",
+          "none": "Ei mitään"
+        }
+      },
+      "layout_picker": {
+        "values": {
+          "default": "Oletusasettelu",
+          "vertical": "Pystysuuntainen",
+          "horizontal": "Vaakasuuntainen"
+        }
+      },
+      "alignment_picker": {
+        "values": {
+          "default": "Keskitys",
+          "start": "Alku",
+          "end": "Loppu",
+          "center": "Keskitä",
+          "justify": "Sovita"
+        }
+      }
+    },
+    "card": {
+      "generic": {
+        "icon_color": "Ikonin väri",
+        "layout": "Asettelu",
+        "fill_container": "Täytä alue",
+        "primary_info": "Ensisijaiset tiedot",
+        "secondary_info": "Toissijaiset tiedot",
+        "icon_type": "Kuvakkeen tyyppi",
+        "content_info": "Sisältö",
+        "use_entity_picture": "Käytä kohteen kuvaa?",
+        "collapsible_controls": "Piilota toiminnot off-tilassa",
+        "icon_animation": "Animoi kuvake, kun aktiivinen?"
+      },
+      "light": {
+        "show_brightness_control": "Kirkkauden säätö?",
+        "use_light_color": "Käytä valaisimen väriä",
+        "show_color_temp_control": "Värilämpötilan säätö?",
+        "show_color_control": "Värin säätö?",
+        "incompatible_controls": "Jotkin toiminnot eivät näy, jos valaisimesi ei tue niitä."
+      },
+      "fan": {
+        "show_percentage_control": "Prosentuaalinen säätö?",
+        "show_oscillate_control": "Oskillaation säätö?"
+      },
+      "cover": {
+        "show_buttons_control": "Toimintopainikkeet?",
+        "show_position_control": "Sijainnin hallinta?"
+      },
+      "template": {
+        "primary": "Ensisijaiset tiedot",
+        "secondary": "Toissijaiset tiedot",
+        "multiline_secondary": "Monirivinen toissijainen tieto?",
+        "entity_extra": "Käytetään malleissa ja toiminnoissa",
+        "content": "Sisältö",
+        "badge_icon": "Merkin kuvake",
+        "badge_color": "Merkin väri",
+        "picture": "Kuva (korvaa kuvakkeen)"
+      },
+      "title": {
+        "title": "Otsikko",
+        "subtitle": "Tekstitys"
+      },
+      "chips": {
+        "alignment": "Asettelu"
+      },
+      "weather": {
+        "show_conditions": "Ehdot?",
+        "show_temperature": "Lämpötila?"
+      },
+      "update": {
+        "show_buttons_control": "Toimintopainikkeet?"
+      },
+      "vacuum": {
+        "commands": "Komennot"
+      },
+      "media-player": {
+        "use_media_info": "Käytä median tietoja",
+        "use_media_artwork": "Käytä median kuvituksia",
+        "show_volume_level": "Näytä äänenvoimakkuuden hallinta",
+        "media_controls": "Toiminnot",
+        "media_controls_list": {
+          "on_off": "Päälle/pois",
+          "shuffle": "Sekoita",
+          "previous": "Edellinen kappale",
+          "play_pause_stop": "Toista/keskeytä/pysäytä",
+          "next": "Seuraava kappale",
+          "repeat": "Jatkuva toisto"
+        },
+        "volume_controls": "Äänenvoimakkuuden hallinta",
+        "volume_controls_list": {
+          "volume_buttons": "Äänenvoimakkuuspainikkeet",
+          "volume_set": "Äänenvoimakkuus",
+          "volume_mute": "Mykistä"
+        }
+      },
+      "lock": {
+        "lock": "Lukitse",
+        "unlock": "Poista lukitus",
+        "open": "Avaa"
+      },
+      "humidifier": {
+        "show_target_humidity_control": "Kosteudenhallinta?"
+      }
+    },
+    "chip": {
+      "sub_element_editor": {
+        "title": "Merkkieditori"
+      },
+      "conditional": {
+        "chip": "Merkki"
+      },
+      "chip-picker": {
+        "chips": "Merkit",
+        "add": "Lisää merkki",
+        "edit": "Muokkaa",
+        "clear": "Tyhjennä",
+        "select": "Valitse merkki",
+        "types": {
+          "action": "Toiminto",
+          "alarm-control-panel": "Hälytys",
+          "back": "Takaisin",
+          "conditional": "Ehdollinen",
+          "entity": "Kohde",
+          "light": "Valaisin",
+          "menu": "Valikko",
+          "template": "Malli",
+          "weather": "Sää"
+        }
+      }
     }
+  }
 }

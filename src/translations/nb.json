@@ -1,110 +1,110 @@
 {
-    "editor": {
-        "form": {
-            "color_picker": {
-                "values": {
-                    "default": "Standard farge"
-                }
-            },
-            "info_picker": {
-                "values": {
-                    "default": "Standard informasjon",
-                    "name": "Navn",
-                    "state": "Tilstand",
-                    "last-changed": "Sist endret",
-                    "last-updated": "Sist oppdatert",
-                    "none": "Ingen"
-                }
-            },
-            "layout_picker": {
-                "values": {
-                    "default": "Standardoppsett",
-                    "vertical": "Vertikalt oppsett",
-                    "horizontal": "Horisontalt oppsett"
-                }
-            },
-            "alignment_picker": {
-                "values": {
-                    "default": "Standard justering",
-                    "start": "Start",
-                    "end": "Slutt",
-                    "center": "Senter",
-                    "justify": "Bekreft"
-                }
-            }
-        },
-        "card": {
-            "generic": {
-                "icon_color": "Ikon farge",
-                "layout": "Oppsett",
-                "primary_info": "Primærinformasjon",
-                "secondary_info": "Sekundærinformasjon",
-                "content_info": "Innhold",
-                "use_entity_picture": "Bruk enhetsbilde?",
-                "icon_animation": "Animer ikon når aktivt?"
-            },
-            "light": {
-                "show_brightness_control": "Lysstyrkekontroll?",
-                "use_light_color": "Bruk lys farge",
-                "show_color_temp_control": "Temperatur fargekontroll?",
-                "show_color_control": "Fargekontroll?",
-                "incompatible_controls": "Noen kontroller vises kanskje ikke hvis lyset ditt ikke støtter denne funksjonen."
-            },
-            "fan": {
-                "show_percentage_control": "Prosentvis kontroll?",
-                "show_oscillate_control": "Oscillerende kontroll?"
-            },
-            "cover": {
-                "show_buttons_control": "Kontollere med knapper?",
-                "show_position_control": "Posisjonskontroll?"
-            },
-            "template": {
-                "primary": "Primærinformasjon",
-                "secondary": "Sekundærinformasjon",
-                "multiline_secondary": "Multiline sekundær?",
-                "entity_extra": "Brukes i maler og handlinger",
-                "content": "Inhold"
-            },
-            "title": {
-                "title": "Tittel",
-                "subtitle": "Undertekst"
-            },
-            "chips": {
-                "alignment": "Justering"
-            },
-            "weather": {
-                "show_conditions": "Forhold?",
-                "show_temperature": "Temperatur?"
-            },
-            "vacuum": {
-                "commands": "Kommandoer"
-            }
-        },
-        "chip": {
-            "sub_element_editor": {
-                "title": "Chip redaktør"
-            },
-            "conditional": {
-                "chip": "Chip"
-            },
-            "chip-picker": {
-                "chips": "Chips",
-                "add": "Legg til chip",
-                "edit": "Endre",
-                "clear": "Klare",
-                "select": "Velg chip",
-                "types": {
-                    "action": "Handling",
-                    "alarm-control-panel": "Alarm",
-                    "back": "Tilbake",
-                    "conditional": "Betinget",
-                    "entity": "Entitet",
-                    "light": "Lys",
-                    "menu": "Meny",
-                    "template": "Mal",
-                    "weather": "Vær"
-                }
-            }
+  "editor": {
+    "form": {
+      "color_picker": {
+        "values": {
+          "default": "Standard farge"
         }
+      },
+      "info_picker": {
+        "values": {
+          "default": "Standard informasjon",
+          "name": "Navn",
+          "state": "Tilstand",
+          "last-changed": "Sist endret",
+          "last-updated": "Sist oppdatert",
+          "none": "Ingen"
+        }
+      },
+      "layout_picker": {
+        "values": {
+          "default": "Standardoppsett",
+          "vertical": "Vertikalt oppsett",
+          "horizontal": "Horisontalt oppsett"
+        }
+      },
+      "alignment_picker": {
+        "values": {
+          "default": "Standard justering",
+          "start": "Start",
+          "end": "Slutt",
+          "center": "Senter",
+          "justify": "Bekreft"
+        }
+      }
+    },
+    "card": {
+      "generic": {
+        "icon_color": "Ikon farge",
+        "layout": "Oppsett",
+        "primary_info": "Primærinformasjon",
+        "secondary_info": "Sekundærinformasjon",
+        "content_info": "Innhold",
+        "use_entity_picture": "Bruk enhetsbilde?",
+        "icon_animation": "Animer ikon når aktivt?"
+      },
+      "light": {
+        "show_brightness_control": "Lysstyrkekontroll?",
+        "use_light_color": "Bruk lys farge",
+        "show_color_temp_control": "Temperatur fargekontroll?",
+        "show_color_control": "Fargekontroll?",
+        "incompatible_controls": "Noen kontroller vises kanskje ikke hvis lyset ditt ikke støtter denne funksjonen."
+      },
+      "fan": {
+        "show_percentage_control": "Prosentvis kontroll?",
+        "show_oscillate_control": "Oscillerende kontroll?"
+      },
+      "cover": {
+        "show_buttons_control": "Kontollere med knapper?",
+        "show_position_control": "Posisjonskontroll?"
+      },
+      "template": {
+        "primary": "Primærinformasjon",
+        "secondary": "Sekundærinformasjon",
+        "multiline_secondary": "Multiline sekundær?",
+        "entity_extra": "Brukes i maler og handlinger",
+        "content": "Inhold"
+      },
+      "title": {
+        "title": "Tittel",
+        "subtitle": "Undertekst"
+      },
+      "chips": {
+        "alignment": "Justering"
+      },
+      "weather": {
+        "show_conditions": "Forhold?",
+        "show_temperature": "Temperatur?"
+      },
+      "vacuum": {
+        "commands": "Kommandoer"
+      }
+    },
+    "chip": {
+      "sub_element_editor": {
+        "title": "Chip redaktør"
+      },
+      "conditional": {
+        "chip": "Chip"
+      },
+      "chip-picker": {
+        "chips": "Chips",
+        "add": "Legg til chip",
+        "edit": "Endre",
+        "clear": "Klare",
+        "select": "Velg chip",
+        "types": {
+          "action": "Handling",
+          "alarm-control-panel": "Alarm",
+          "back": "Tilbake",
+          "conditional": "Betinget",
+          "entity": "Entitet",
+          "light": "Lys",
+          "menu": "Meny",
+          "template": "Mal",
+          "weather": "Vær"
+        }
+      }
     }
+  }
 }

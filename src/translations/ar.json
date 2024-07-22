@@ -1,159 +1,159 @@
 {
-    "editor": {
-        "form": {
-            "color_picker": {
-                "values": {
-                    "default": "اللون الإفتراضي"
-                }
-            },
-            "info_picker": {
-                "values": {
-                    "default": "المعلومات الافتراضية",
-                    "name": "الإسم",
-                    "state": "الحالة",
-                    "last-changed": "آخر تغيير",
-                    "last-updated": "آخر تحديث",
-                    "none": "لا شئ"
-                }
-            },
-            "icon_type_picker": {
-                "values": {
-                    "default": "النوع افتراضي",
-                    "icon": "أيقونة",
-                    "entity-picture": "صورة الكيان",
-                    "none": "لا شئ"
-                }
-            },
-            "layout_picker": {
-                "values": {
-                    "default": "تخطيط افتراضي",
-                    "vertical": "تخطيط رأسي",
-                    "horizontal": "تخطيط أفقي"
-                }
-            },
-            "alignment_picker": {
-                "values": {
-                    "default": "المحاذاة الافتراضية",
-                    "start": "بداية",
-                    "end": "نهاية",
-                    "center": "توسيط",
-                    "justify": "مساواة"
-                }
-            }
-        },
-        "card": {
-            "generic": {
-                "icon_color": "لون الأيقونة",
-                "layout": "التخطيط",
-                "fill_container": "ملئ الحاوية",
-                "primary_info": "المعلومات الأساسية",
-                "secondary_info": "المعلومات الفرعية",
-                "icon_type": "نوع الأيقونة",
-                "content_info": "المحتوى",
-                "use_entity_picture": "استخدم صورة الكيان؟",
-                "collapsible_controls": "تصغير عناصر التحكم عند الإيقاف",
-                "icon_animation": "تحريك الرمز عندما يكون نشطًا؟"
-            },
-            "light": {
-                "show_brightness_control": "التحكم في السطوع؟",
-                "use_light_color": "استخدم لون فاتح",
-                "show_color_temp_control": "التحكم في حرارة اللون؟",
-                "show_color_control": "التحكم في اللون؟",
-                "incompatible_controls": "قد لا يتم عرض بعض عناصر التحكم إذا كان الضوء الخاص بك لا يدعم الميزة."
-            },
-            "fan": {
-                "show_percentage_control": "التحكم في النسبة المئوية؟",
-                "show_oscillate_control": "التحكم في التذبذب؟"
-            },
-            "cover": {
-                "show_buttons_control": "أزرار التحكم؟",
-                "show_position_control": "التحكم في الموقع؟"
-            },
-            "template": {
-                "primary": "المعلومات الأساسية",
-                "secondary": "المعلومات الثانوية",
-                "multiline_secondary": "متعدد الأسطر الثانوية؟",
-                "entity_extra": "تستخدم في القوالب والإجراءات",
-                "content": "المحتوى",
-                "badge_icon": "أيقونة الشارة",
-                "badge_color": "لون الشارة",
-                "picture": "صورة (ستحل محل الأيقونة)"
-            },
-            "title": {
-                "title": "العنوان",
-                "subtitle": "العنوان الفرعي"
-            },
-            "chips": {
-                "alignment": "محاذاة"
-            },
-            "weather": {
-                "show_conditions": "الأحوال الجوية؟",
-                "show_temperature": "الطقس؟"
-            },
-            "update": {
-                "show_buttons_control": "أزرار التحكم؟"
-            },
-            "vacuum": {
-                "commands": "الاوامر"
-            },
-            "media-player": {
-                "use_media_info": "استخدم معلومات الوسائط",
-                "use_media_artwork": "استخدم صورة الوسائط",
-                "show_volume_level": "إظهار مستوى الصوت",
-                "media_controls": "التحكم في الوسائط",
-                "media_controls_list": {
-                    "on_off": "تشغيل/إيقاف",
-                    "shuffle": "خلط",
-                    "previous": "السابق",
-                    "play_pause_stop": "تشغيل/إيقاف مؤقت/إيقاف",
-                    "next": "التالي",
-                    "repeat": "وضع التكرار"
-                },
-                "volume_controls": "التحكم في الصوت",
-                "volume_controls_list": {
-                    "volume_buttons": "أزرار الصوت",
-                    "volume_set": "مستوى الصوت",
-                    "volume_mute": "كتم"
-                }
-            },
-            "lock": {
-                "lock": "مقفل",
-                "unlock": "إلغاء قفل",
-                "open": "مفتوح"
-            },
-            "humidifier": {
-                "show_target_humidity_control": "التحكم في الرطوبة؟?"
-            },
-            "climate": {
-                "show_temperature_control": "التحكم في درجة الحرارة؟",
-                "hvac_modes": "أوضاع HVAC"
-            }
-        },
-        "chip": {
-            "sub_element_editor": {
-                "title": "محرر الرقاقة"
-            },
-            "conditional": {
-                "chip": "رقاقة"
-            },
-            "chip-picker": {
-                "chips": "رقاقات",
-                "add": "أضف رقاقة",
-                "edit": "تعديل",
-                "clear": "مسح",
-                "select": "اختر الرقاقة",
-                "types": {
-                    "action": "إجراء",
-                    "alarm-control-panel": "تنبيه",
-                    "back": "رجوع",
-                    "conditional": "مشروط",
-                    "entity": "الكيان",
-                    "light": "Light",
-                    "menu": "القائمة",
-                    "template": "قالب",
-                    "weather": "الطقس"
-                }
-            }
+  "editor": {
+    "form": {
+      "color_picker": {
+        "values": {
+          "default": "اللون الإفتراضي"
         }
+      },
+      "info_picker": {
+        "values": {
+          "default": "المعلومات الافتراضية",
+          "name": "الإسم",
+          "state": "الحالة",
+          "last-changed": "آخر تغيير",
+          "last-updated": "آخر تحديث",
+          "none": "لا شئ"
+        }
+      },
+      "icon_type_picker": {
+        "values": {
+          "default": "النوع افتراضي",
+          "icon": "أيقونة",
+          "entity-picture": "صورة الكيان",
+          "none": "لا شئ"
+        }
+      },
+      "layout_picker": {
+        "values": {
+          "default": "تخطيط افتراضي",
+          "vertical": "تخطيط رأسي",
+          "horizontal": "تخطيط أفقي"
+        }
+      },
+      "alignment_picker": {
+        "values": {
+          "default": "المحاذاة الافتراضية",
+          "start": "بداية",
+          "end": "نهاية",
+          "center": "توسيط",
+          "justify": "مساواة"
+        }
+      }
+    },
+    "card": {
+      "generic": {
+        "icon_color": "لون الأيقونة",
+        "layout": "التخطيط",
+        "fill_container": "ملئ الحاوية",
+        "primary_info": "المعلومات الأساسية",
+        "secondary_info": "المعلومات الفرعية",
+        "icon_type": "نوع الأيقونة",
+        "content_info": "المحتوى",
+        "use_entity_picture": "استخدم صورة الكيان؟",
+        "collapsible_controls": "تصغير عناصر التحكم عند الإيقاف",
+        "icon_animation": "تحريك الرمز عندما يكون نشطًا؟"
+      },
+      "light": {
+        "show_brightness_control": "التحكم في السطوع؟",
+        "use_light_color": "استخدم لون فاتح",
+        "show_color_temp_control": "التحكم في حرارة اللون؟",
+        "show_color_control": "التحكم في اللون؟",
+        "incompatible_controls": "قد لا يتم عرض بعض عناصر التحكم إذا كان الضوء الخاص بك لا يدعم الميزة."
+      },
+      "fan": {
+        "show_percentage_control": "التحكم في النسبة المئوية؟",
+        "show_oscillate_control": "التحكم في التذبذب؟"
+      },
+      "cover": {
+        "show_buttons_control": "أزرار التحكم؟",
+        "show_position_control": "التحكم في الموقع؟"
+      },
+      "template": {
+        "primary": "المعلومات الأساسية",
+        "secondary": "المعلومات الثانوية",
+        "multiline_secondary": "متعدد الأسطر الثانوية؟",
+        "entity_extra": "تستخدم في القوالب والإجراءات",
+        "content": "المحتوى",
+        "badge_icon": "أيقونة الشارة",
+        "badge_color": "لون الشارة",
+        "picture": "صورة (ستحل محل الأيقونة)"
+      },
+      "title": {
+        "title": "العنوان",
+        "subtitle": "العنوان الفرعي"
+      },
+      "chips": {
+        "alignment": "محاذاة"
+      },
+      "weather": {
+        "show_conditions": "الأحوال الجوية؟",
+        "show_temperature": "الطقس؟"
+      },
+      "update": {
+        "show_buttons_control": "أزرار التحكم؟"
+      },
+      "vacuum": {
+        "commands": "الاوامر"
+      },
+      "media-player": {
+        "use_media_info": "استخدم معلومات الوسائط",
+        "use_media_artwork": "استخدم صورة الوسائط",
+        "show_volume_level": "إظهار مستوى الصوت",
+        "media_controls": "التحكم في الوسائط",
+        "media_controls_list": {
+          "on_off": "تشغيل/إيقاف",
+          "shuffle": "خلط",
+          "previous": "السابق",
+          "play_pause_stop": "تشغيل/إيقاف مؤقت/إيقاف",
+          "next": "التالي",
+          "repeat": "وضع التكرار"
+        },
+        "volume_controls": "التحكم في الصوت",
+        "volume_controls_list": {
+          "volume_buttons": "أزرار الصوت",
+          "volume_set": "مستوى الصوت",
+          "volume_mute": "كتم"
+        }
+      },
+      "lock": {
+        "lock": "مقفل",
+        "unlock": "إلغاء قفل",
+        "open": "مفتوح"
+      },
+      "humidifier": {
+        "show_target_humidity_control": "التحكم في الرطوبة؟?"
+      },
+      "climate": {
+        "show_temperature_control": "التحكم في درجة الحرارة؟",
+        "hvac_modes": "أوضاع HVAC"
+      }
+    },
+    "chip": {
+      "sub_element_editor": {
+        "title": "محرر الرقاقة"
+      },
+      "conditional": {
+        "chip": "رقاقة"
+      },
+      "chip-picker": {
+        "chips": "رقاقات",
+        "add": "أضف رقاقة",
+        "edit": "تعديل",
+        "clear": "مسح",
+        "select": "اختر الرقاقة",
+        "types": {
+          "action": "إجراء",
+          "alarm-control-panel": "تنبيه",
+          "back": "رجوع",
+          "conditional": "مشروط",
+          "entity": "الكيان",
+          "light": "Light",
+          "menu": "القائمة",
+          "template": "قالب",
+          "weather": "الطقس"
+        }
+      }
     }
+  }
 }

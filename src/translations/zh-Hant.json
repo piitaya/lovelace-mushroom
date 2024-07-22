@@ -1,177 +1,177 @@
 {
-    "editor": {
-        "form": {
-            "color_picker": {
-                "values": {
-                    "default": "預設顏色"
-                }
-            },
-            "info_picker": {
-                "values": {
-                    "default": "預設訊息",
-                    "name": "名稱",
-                    "state": "狀態",
-                    "last-changed": "最近變動時間",
-                    "last-updated": "最近更新時間",
-                    "none": "無"
-                }
-            },
-            "icon_type_picker": {
-                "values": {
-                    "default": "預設樣式",
-                    "icon": "圖示",
-                    "entity-picture": "實體圖片",
-                    "none": "無"
-                }
-            },
-            "layout_picker": {
-                "values": {
-                    "default": "預設佈局",
-                    "vertical": "垂直佈局",
-                    "horizontal": "水平佈局"
-                }
-            },
-            "alignment_picker": {
-                "values": {
-                    "default": "預設對齊",
-                    "start": "居左對齊",
-                    "end": "居右對齊",
-                    "center": "居中對齊",
-                    "justify": "兩端對齊"
-                }
-            }
-        },
-        "card": {
-            "generic": {
-                "icon_color": "圖示顏色",
-                "layout": "佈局",
-                "fill_container": "填滿容器",
-                "primary_info": "主要訊息",
-                "secondary_info": "次要訊息",
-                "icon_type": "圖示樣式",
-                "content_info": "內容",
-                "use_entity_picture": "使用實體圖片?",
-                "collapsible_controls": "關閉時隱藏控制項",
-                "icon_animation": "啟動時使用動態圖示?"
-            },
-            "light": {
-                "show_brightness_control": "亮度控制?",
-                "use_light_color": "使用燈光顏色",
-                "show_color_temp_control": "色溫控制?",
-                "show_color_control": "色彩控制?",
-                "incompatible_controls": "不會顯示裝置不支援的控制。"
-            },
-            "fan": {
-                "show_percentage_control": "百分比控制?",
-                "show_oscillate_control": "擺頭控制?"
-            },
-            "cover": {
-                "show_buttons_control": "按鈕控制?",
-                "show_position_control": "位置控制?",
-                "show_tilt_position_control": "角度控制?"
-            },
-            "template": {
-                "primary": "主要訊息",
-                "secondary": "次要訊息",
-                "multiline_secondary": "多行次要訊息?",
-                "entity_extra": "用於模板與動作",
-                "content": "內容",
-                "badge_icon": "角標圖示",
-                "badge_color": "角標顏色",
-                "picture": "圖片 (將會取代圖示)"
-            },
-            "title": {
-                "title": "標題",
-                "subtitle": "副標題",
-                "title_tap_action": "標題點擊動作",
-                "subtitle_tap_action": "副標題點擊動作"
-            },
-            "chips": {
-                "alignment": "對齊"
-            },
-            "weather": {
-                "show_conditions": "狀況?",
-                "show_temperature": "溫度?"
-            },
-            "update": {
-                "show_buttons_control": "按鈕控制?"
-            },
-            "vacuum": {
-                "commands": "指令",
-                "commands_list": {
-                    "on_off": "開啟、關閉"
-                }
-            },
-            "media-player": {
-                "use_media_info": "使用媒體資訊",
-                "use_media_artwork": "使用媒體插圖",
-                "show_volume_level": "顯示音量大小",
-                "media_controls": "媒體控制",
-                "media_controls_list": {
-                    "on_off": "開啟、關閉",
-                    "shuffle": "隨機播放",
-                    "previous": "上一首",
-                    "play_pause_stop": "播放、暫停、停止",
-                    "next": "下一首",
-                    "repeat": "重複播放"
-                },
-                "volume_controls": "音量控制",
-                "volume_controls_list": {
-                    "volume_buttons": "音量按鈕",
-                    "volume_set": "音量等級",
-                    "volume_mute": "靜音"
-                }
-            },
-            "lock": {
-                "lock": "上鎖",
-                "unlock": "解鎖",
-                "open": "打開"
-            },
-            "humidifier": {
-                "show_target_humidity_control": "溼度控制?"
-            },
-            "climate": {
-                "show_temperature_control": "溫度控制?",
-                "hvac_modes": "空調模式"
-            },
-            "number": {
-                "display_mode": "顯示模式",
-                "display_mode_list": {
-                    "default": "預設 (滑桿)",
-                    "slider": "滑桿",
-                    "buttons": "按鈕"
-                }
-            }
-        },
-        "chip": {
-            "sub_element_editor": {
-                "title": "小卡片編輯器"
-            },
-            "conditional": {
-                "chip": "小卡片"
-            },
-            "chip-picker": {
-                "chips": "小卡片",
-                "add": "新增小卡片",
-                "edit": "編輯",
-                "clear": "清除",
-                "select": "選擇小卡片",
-                "types": {
-                    "action": "動作",
-                    "alarm-control-panel": "警報器控制",
-                    "back": "返回",
-                    "conditional": "條件",
-                    "entity": "實體",
-                    "light": "燈光",
-                    "menu": "選單",
-                    "spacer": "佔位符",
-                    "template": "模板",
-                    "weather": "天氣"
-                }
-            }
+  "editor": {
+    "form": {
+      "color_picker": {
+        "values": {
+          "default": "預設顏色"
         }
+      },
+      "info_picker": {
+        "values": {
+          "default": "預設訊息",
+          "name": "名稱",
+          "state": "狀態",
+          "last-changed": "最近變動時間",
+          "last-updated": "最近更新時間",
+          "none": "無"
+        }
+      },
+      "icon_type_picker": {
+        "values": {
+          "default": "預設樣式",
+          "icon": "圖示",
+          "entity-picture": "實體圖片",
+          "none": "無"
+        }
+      },
+      "layout_picker": {
+        "values": {
+          "default": "預設佈局",
+          "vertical": "垂直佈局",
+          "horizontal": "水平佈局"
+        }
+      },
+      "alignment_picker": {
+        "values": {
+          "default": "預設對齊",
+          "start": "居左對齊",
+          "end": "居右對齊",
+          "center": "居中對齊",
+          "justify": "兩端對齊"
+        }
+      }
     },
     "card": {
-        "not_found": "未找到實體"
+      "generic": {
+        "icon_color": "圖示顏色",
+        "layout": "佈局",
+        "fill_container": "填滿容器",
+        "primary_info": "主要訊息",
+        "secondary_info": "次要訊息",
+        "icon_type": "圖示樣式",
+        "content_info": "內容",
+        "use_entity_picture": "使用實體圖片?",
+        "collapsible_controls": "關閉時隱藏控制項",
+        "icon_animation": "啟動時使用動態圖示?"
+      },
+      "light": {
+        "show_brightness_control": "亮度控制?",
+        "use_light_color": "使用燈光顏色",
+        "show_color_temp_control": "色溫控制?",
+        "show_color_control": "色彩控制?",
+        "incompatible_controls": "不會顯示裝置不支援的控制。"
+      },
+      "fan": {
+        "show_percentage_control": "百分比控制?",
+        "show_oscillate_control": "擺頭控制?"
+      },
+      "cover": {
+        "show_buttons_control": "按鈕控制?",
+        "show_position_control": "位置控制?",
+        "show_tilt_position_control": "角度控制?"
+      },
+      "template": {
+        "primary": "主要訊息",
+        "secondary": "次要訊息",
+        "multiline_secondary": "多行次要訊息?",
+        "entity_extra": "用於模板與動作",
+        "content": "內容",
+        "badge_icon": "角標圖示",
+        "badge_color": "角標顏色",
+        "picture": "圖片 (將會取代圖示)"
+      },
+      "title": {
+        "title": "標題",
+        "subtitle": "副標題",
+        "title_tap_action": "標題點擊動作",
+        "subtitle_tap_action": "副標題點擊動作"
+      },
+      "chips": {
+        "alignment": "對齊"
+      },
+      "weather": {
+        "show_conditions": "狀況?",
+        "show_temperature": "溫度?"
+      },
+      "update": {
+        "show_buttons_control": "按鈕控制?"
+      },
+      "vacuum": {
+        "commands": "指令",
+        "commands_list": {
+          "on_off": "開啟、關閉"
+        }
+      },
+      "media-player": {
+        "use_media_info": "使用媒體資訊",
+        "use_media_artwork": "使用媒體插圖",
+        "show_volume_level": "顯示音量大小",
+        "media_controls": "媒體控制",
+        "media_controls_list": {
+          "on_off": "開啟、關閉",
+          "shuffle": "隨機播放",
+          "previous": "上一首",
+          "play_pause_stop": "播放、暫停、停止",
+          "next": "下一首",
+          "repeat": "重複播放"
+        },
+        "volume_controls": "音量控制",
+        "volume_controls_list": {
+          "volume_buttons": "音量按鈕",
+          "volume_set": "音量等級",
+          "volume_mute": "靜音"
+        }
+      },
+      "lock": {
+        "lock": "上鎖",
+        "unlock": "解鎖",
+        "open": "打開"
+      },
+      "humidifier": {
+        "show_target_humidity_control": "溼度控制?"
+      },
+      "climate": {
+        "show_temperature_control": "溫度控制?",
+        "hvac_modes": "空調模式"
+      },
+      "number": {
+        "display_mode": "顯示模式",
+        "display_mode_list": {
+          "default": "預設 (滑桿)",
+          "slider": "滑桿",
+          "buttons": "按鈕"
+        }
+      }
+    },
+    "chip": {
+      "sub_element_editor": {
+        "title": "小卡片編輯器"
+      },
+      "conditional": {
+        "chip": "小卡片"
+      },
+      "chip-picker": {
+        "chips": "小卡片",
+        "add": "新增小卡片",
+        "edit": "編輯",
+        "clear": "清除",
+        "select": "選擇小卡片",
+        "types": {
+          "action": "動作",
+          "alarm-control-panel": "警報器控制",
+          "back": "返回",
+          "conditional": "條件",
+          "entity": "實體",
+          "light": "燈光",
+          "menu": "選單",
+          "spacer": "佔位符",
+          "template": "模板",
+          "weather": "天氣"
+        }
+      }
     }
+  },
+  "card": {
+    "not_found": "未找到實體"
+  }
 }

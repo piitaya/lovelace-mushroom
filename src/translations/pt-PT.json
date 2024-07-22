@@ -1,104 +1,104 @@
 {
-    "editor": {
-        "form": {
-            "color_picker": {
-                "values": {
-                    "default": "Cor padrão"
-                }
-            },
-            "info_picker": {
-                "values": {
-                    "default": "Informações padrão",
-                    "name": "Nome",
-                    "state": "Estado",
-                    "last-changed": "Última alteração",
-                    "last-updated": "Última atualização",
-                    "none": "Nenhum"
-                }
-            },
-            "layout_picker": {
-                "values": {
-                    "default": "Layout padrão",
-                    "vertical": "Layout vertical",
-                    "horizontal": "Layout horizontal"
-                }
-            },
-            "alignment_picker": {
-                "values": {
-                    "default": "Padrão (inicio)",
-                    "end": "Fim",
-                    "center": "Centrado",
-                    "justify": "Justificado"
-                }
-            }
-        },
-        "card": {
-            "generic": {
-                "icon_color": "Cor do ícone?",
-                "layout": "Layout",
-                "primary_info": "Informações primárias",
-                "secondary_info": "Informações secundárias",
-                "use_entity_picture": "Usar imagem da entidade?",
-                "icon_animation": "Animar ícone quando ativo?"
-            },
-            "light": {
-                "show_brightness_control": "Mostrar controle de brilho?",
-                "use_light_color": "Usar cor da luz?",
-                "show_color_temp_control": "Mostrar controle de temperatura?",
-                "show_color_control": "Mostrar controle de cor?",
-                "incompatible_controls": "Alguns controles podem não ser exibidos se a luz não suportar o recurso."
-            },
-            "fan": {
-                "show_percentage_control": "Mostrar controle de porcentagem?",
-                "show_oscillate_control": "Mostrar controle de oscilação?"
-            },
-            "cover": {
-                "show_buttons_control": "Mostrar botões?",
-                "show_position_control": "Mostrar controle de posição?"
-            },
-            "template": {
-                "primary": "Informações primárias",
-                "secondary": "Informações secundárias",
-                "multiline_secondary": "Multilinha secundária?",
-                "content": "Conteúdo"
-            },
-            "title": {
-                "title": "Título",
-                "subtitle": "Subtítulo"
-            },
-            "chips": {
-                "alignment": "Alinhamento"
-            },
-            "weather": {
-                "show_conditions": "Condições?",
-                "show_temperature": "Temperatura?"
-            }
-        },
-        "chip": {
-            "sub_element_editor": {
-                "title": "Editor de fichas"
-            },
-            "conditional": {
-                "chip": "Ficha"
-            },
-            "chip-picker": {
-                "chips": "Fichas",
-                "add": "Adicionar ficha",
-                "edit": "Editar",
-                "clear": "Limpar",
-                "select": "Selecionar ficha",
-                "types": {
-                    "action": "Ação",
-                    "alarm-control-panel": "Alarme",
-                    "back": "Voltar",
-                    "conditional": "Condicional",
-                    "entity": "Entidade",
-                    "light": "Iluminação",
-                    "menu": "Menu",
-                    "template": "Modelo",
-                    "weather": "Clima"
-                }
-            }
+  "editor": {
+    "form": {
+      "color_picker": {
+        "values": {
+          "default": "Cor padrão"
         }
+      },
+      "info_picker": {
+        "values": {
+          "default": "Informações padrão",
+          "name": "Nome",
+          "state": "Estado",
+          "last-changed": "Última alteração",
+          "last-updated": "Última atualização",
+          "none": "Nenhum"
+        }
+      },
+      "layout_picker": {
+        "values": {
+          "default": "Layout padrão",
+          "vertical": "Layout vertical",
+          "horizontal": "Layout horizontal"
+        }
+      },
+      "alignment_picker": {
+        "values": {
+          "default": "Padrão (inicio)",
+          "end": "Fim",
+          "center": "Centrado",
+          "justify": "Justificado"
+        }
+      }
+    },
+    "card": {
+      "generic": {
+        "icon_color": "Cor do ícone?",
+        "layout": "Layout",
+        "primary_info": "Informações primárias",
+        "secondary_info": "Informações secundárias",
+        "use_entity_picture": "Usar imagem da entidade?",
+        "icon_animation": "Animar ícone quando ativo?"
+      },
+      "light": {
+        "show_brightness_control": "Mostrar controle de brilho?",
+        "use_light_color": "Usar cor da luz?",
+        "show_color_temp_control": "Mostrar controle de temperatura?",
+        "show_color_control": "Mostrar controle de cor?",
+        "incompatible_controls": "Alguns controles podem não ser exibidos se a luz não suportar o recurso."
+      },
+      "fan": {
+        "show_percentage_control": "Mostrar controle de porcentagem?",
+        "show_oscillate_control": "Mostrar controle de oscilação?"
+      },
+      "cover": {
+        "show_buttons_control": "Mostrar botões?",
+        "show_position_control": "Mostrar controle de posição?"
+      },
+      "template": {
+        "primary": "Informações primárias",
+        "secondary": "Informações secundárias",
+        "multiline_secondary": "Multilinha secundária?",
+        "content": "Conteúdo"
+      },
+      "title": {
+        "title": "Título",
+        "subtitle": "Subtítulo"
+      },
+      "chips": {
+        "alignment": "Alinhamento"
+      },
+      "weather": {
+        "show_conditions": "Condições?",
+        "show_temperature": "Temperatura?"
+      }
+    },
+    "chip": {
+      "sub_element_editor": {
+        "title": "Editor de fichas"
+      },
+      "conditional": {
+        "chip": "Ficha"
+      },
+      "chip-picker": {
+        "chips": "Fichas",
+        "add": "Adicionar ficha",
+        "edit": "Editar",
+        "clear": "Limpar",
+        "select": "Selecionar ficha",
+        "types": {
+          "action": "Ação",
+          "alarm-control-panel": "Alarme",
+          "back": "Voltar",
+          "conditional": "Condicional",
+          "entity": "Entidade",
+          "light": "Iluminação",
+          "menu": "Menu",
+          "template": "Modelo",
+          "weather": "Clima"
+        }
+      }
     }
+  }
 }

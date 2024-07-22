@@ -1,177 +1,177 @@
 {
-    "editor": {
-        "form": {
-            "color_picker": {
-                "values": {
-                    "default": "Standaard kleur"
-                }
-            },
-            "info_picker": {
-                "values": {
-                    "default": "Standaard informatie",
-                    "name": "Naam",
-                    "state": "Staat",
-                    "last-changed": "Laatst gewijzigd",
-                    "last-updated": "Laatst bijgewerkt",
-                    "none": "Geen"
-                }
-            },
-            "icon_type_picker": {
-                "values": {
-                    "default": "Standaard icoon type",
-                    "icon": "Icoon",
-                    "entity-picture": "Entiteit afbeelding",
-                    "none": "Geen"
-                }
-            },
-            "layout_picker": {
-                "values": {
-                    "default": "Standaard lay-out",
-                    "vertical": "Verticale lay-out",
-                    "horizontal": "Horizontale lay-out"
-                }
-            },
-            "alignment_picker": {
-                "values": {
-                    "default": "Standaard uitlijning",
-                    "start": "Begin",
-                    "end": "Einde",
-                    "center": "Midden",
-                    "justify": "Uitlijnen "
-                }
-            }
-        },
-        "card": {
-            "generic": {
-                "icon_color": "Icoon kleur",
-                "layout": "Lay-out",
-                "fill_container": "Vul container",
-                "primary_info": "Primaire informatie",
-                "secondary_info": "Secundaire informatie",
-                "icon_type": "Icoon type",
-                "content_info": "Inhoud",
-                "use_entity_picture": "Gebruik entiteit afbeelding",
-                "collapsible_controls": "Bedieningselementen verbergen wanneer uitgeschakeld",
-                "icon_animation": "Pictogram animeren indien actief"
-            },
-            "light": {
-                "show_brightness_control": "Bediening helderheid",
-                "use_light_color": "Gebruik licht kleur",
-                "show_color_temp_control": "Bediening kleurtemperatuur",
-                "show_color_control": "Bediening kleur",
-                "incompatible_controls": "Sommige bedieningselementen worden mogelijk niet weergegeven als uw lamp deze functie niet ondersteunt."
-            },
-            "fan": {
-                "show_percentage_control": "Bediening middels percentage",
-                "show_oscillate_control": "Bediening oscillatie"
-            },
-            "cover": {
-                "show_buttons_control": "Toon knoppen",
-                "show_position_control": "Toon positie bediening",
-                "show_tilt_position_control": "Toon tilt control"
-            },
-            "template": {
-                "primary": "Primaire informatie",
-                "secondary": "Secundaire informatie",
-                "multiline_secondary": "Secundaire informatie op meerdere lijnen weergeven",
-                "entity_extra": "Gebruikt in sjablonen en acties",
-                "content": "Inhoud",
-                "badge_icon": "Badge icoon",
-                "badge_color": "Badge kleur",
-                "picture": "Afbeelding (zal het icoon vervangen)"
-            },
-            "title": {
-                "title": "Titel",
-                "subtitle": "Ondertitel",
-                "title_tap_action": "Titel tik actie",
-                "subtitle_tap_action": "Ondertitel tik actie"
-            },
-            "chips": {
-                "alignment": "Uitlijning"
-            },
-            "weather": {
-                "show_conditions": "Weerbeeld",
-                "show_temperature": "Temperatuur"
-            },
-            "update": {
-                "show_buttons_control": "Bedieningsknoppen"
-            },
-            "vacuum": {
-                "commands": "Commando's",
-                "commands_list": {
-                    "on_off": "Zet aan/uit"
-                }
-            },
-            "media-player": {
-                "use_media_info": "Gebruik media informatie",
-                "use_media_artwork": "Gebruik media omslag",
-                "show_volume_level": "Toon volumeniveau",
-                "media_controls": "Mediabediening",
-                "media_controls_list": {
-                    "on_off": "zet aan/uit",
-                    "shuffle": "Shuffle",
-                    "previous": "Vorige nummer",
-                    "play_pause_stop": "Speel/pauze/stop",
-                    "next": "Volgende nummer",
-                    "repeat": "Herhalen"
-                },
-                "volume_controls": "Volumeregeling",
-                "volume_controls_list": {
-                    "volume_buttons": "Volume knoppen",
-                    "volume_set": "Volumeniveau",
-                    "volume_mute": "Dempen"
-                }
-            },
-            "lock": {
-                "lock": "Vergrendel",
-                "unlock": "Ontgrendel",
-                "open": "Open"
-            },
-            "humidifier": {
-                "show_target_humidity_control": "Vochtigheid controle?"
-            },
-            "climate": {
-                "show_temperature_control": "Temperatuur controle",
-                "hvac_modes": "HVAC Modes"
-            },
-            "number": {
-                "display_mode": "Weergave Modus",
-                "display_mode_list": {
-                    "default": "Standaard (schuifbalk)",
-                    "slider": "Schuifbalk",
-                    "buttons": "Knoppen"
-                }
-            }
-        },
-        "chip": {
-            "sub_element_editor": {
-                "title": "Chip editor"
-            },
-            "conditional": {
-                "chip": "Chip"
-            },
-            "chip-picker": {
-                "chips": "Chips",
-                "add": "Toevoegen chip",
-                "edit": "Bewerk",
-                "clear": "Maak leeg",
-                "select": "Selecteer chip",
-                "types": {
-                    "action": "Actie",
-                    "alarm-control-panel": "Alarm",
-                    "back": "Terug",
-                    "conditional": "Voorwaardelijk",
-                    "entity": "Entiteit",
-                    "light": "Licht",
-                    "menu": "Menu",
-                    "spacer": "Afstandhouder",
-                    "template": "Sjabloon",
-                    "weather": "Weer"
-                }
-            }
+  "editor": {
+    "form": {
+      "color_picker": {
+        "values": {
+          "default": "Standaard kleur"
         }
+      },
+      "info_picker": {
+        "values": {
+          "default": "Standaard informatie",
+          "name": "Naam",
+          "state": "Staat",
+          "last-changed": "Laatst gewijzigd",
+          "last-updated": "Laatst bijgewerkt",
+          "none": "Geen"
+        }
+      },
+      "icon_type_picker": {
+        "values": {
+          "default": "Standaard icoon type",
+          "icon": "Icoon",
+          "entity-picture": "Entiteit afbeelding",
+          "none": "Geen"
+        }
+      },
+      "layout_picker": {
+        "values": {
+          "default": "Standaard lay-out",
+          "vertical": "Verticale lay-out",
+          "horizontal": "Horizontale lay-out"
+        }
+      },
+      "alignment_picker": {
+        "values": {
+          "default": "Standaard uitlijning",
+          "start": "Begin",
+          "end": "Einde",
+          "center": "Midden",
+          "justify": "Uitlijnen "
+        }
+      }
     },
     "card": {
-        "not_found": "Entiteit niet gevonden"
+      "generic": {
+        "icon_color": "Icoon kleur",
+        "layout": "Lay-out",
+        "fill_container": "Vul container",
+        "primary_info": "Primaire informatie",
+        "secondary_info": "Secundaire informatie",
+        "icon_type": "Icoon type",
+        "content_info": "Inhoud",
+        "use_entity_picture": "Gebruik entiteit afbeelding",
+        "collapsible_controls": "Bedieningselementen verbergen wanneer uitgeschakeld",
+        "icon_animation": "Pictogram animeren indien actief"
+      },
+      "light": {
+        "show_brightness_control": "Bediening helderheid",
+        "use_light_color": "Gebruik licht kleur",
+        "show_color_temp_control": "Bediening kleurtemperatuur",
+        "show_color_control": "Bediening kleur",
+        "incompatible_controls": "Sommige bedieningselementen worden mogelijk niet weergegeven als uw lamp deze functie niet ondersteunt."
+      },
+      "fan": {
+        "show_percentage_control": "Bediening middels percentage",
+        "show_oscillate_control": "Bediening oscillatie"
+      },
+      "cover": {
+        "show_buttons_control": "Toon knoppen",
+        "show_position_control": "Toon positie bediening",
+        "show_tilt_position_control": "Toon tilt control"
+      },
+      "template": {
+        "primary": "Primaire informatie",
+        "secondary": "Secundaire informatie",
+        "multiline_secondary": "Secundaire informatie op meerdere lijnen weergeven",
+        "entity_extra": "Gebruikt in sjablonen en acties",
+        "content": "Inhoud",
+        "badge_icon": "Badge icoon",
+        "badge_color": "Badge kleur",
+        "picture": "Afbeelding (zal het icoon vervangen)"
+      },
+      "title": {
+        "title": "Titel",
+        "subtitle": "Ondertitel",
+        "title_tap_action": "Titel tik actie",
+        "subtitle_tap_action": "Ondertitel tik actie"
+      },
+      "chips": {
+        "alignment": "Uitlijning"
+      },
+      "weather": {
+        "show_conditions": "Weerbeeld",
+        "show_temperature": "Temperatuur"
+      },
+      "update": {
+        "show_buttons_control": "Bedieningsknoppen"
+      },
+      "vacuum": {
+        "commands": "Commando's",
+        "commands_list": {
+          "on_off": "Zet aan/uit"
+        }
+      },
+      "media-player": {
+        "use_media_info": "Gebruik media informatie",
+        "use_media_artwork": "Gebruik media omslag",
+        "show_volume_level": "Toon volumeniveau",
+        "media_controls": "Mediabediening",
+        "media_controls_list": {
+          "on_off": "zet aan/uit",
+          "shuffle": "Shuffle",
+          "previous": "Vorige nummer",
+          "play_pause_stop": "Speel/pauze/stop",
+          "next": "Volgende nummer",
+          "repeat": "Herhalen"
+        },
+        "volume_controls": "Volumeregeling",
+        "volume_controls_list": {
+          "volume_buttons": "Volume knoppen",
+          "volume_set": "Volumeniveau",
+          "volume_mute": "Dempen"
+        }
+      },
+      "lock": {
+        "lock": "Vergrendel",
+        "unlock": "Ontgrendel",
+        "open": "Open"
+      },
+      "humidifier": {
+        "show_target_humidity_control": "Vochtigheid controle?"
+      },
+      "climate": {
+        "show_temperature_control": "Temperatuur controle",
+        "hvac_modes": "HVAC Modes"
+      },
+      "number": {
+        "display_mode": "Weergave Modus",
+        "display_mode_list": {
+          "default": "Standaard (schuifbalk)",
+          "slider": "Schuifbalk",
+          "buttons": "Knoppen"
+        }
+      }
+    },
+    "chip": {
+      "sub_element_editor": {
+        "title": "Chip editor"
+      },
+      "conditional": {
+        "chip": "Chip"
+      },
+      "chip-picker": {
+        "chips": "Chips",
+        "add": "Toevoegen chip",
+        "edit": "Bewerk",
+        "clear": "Maak leeg",
+        "select": "Selecteer chip",
+        "types": {
+          "action": "Actie",
+          "alarm-control-panel": "Alarm",
+          "back": "Terug",
+          "conditional": "Voorwaardelijk",
+          "entity": "Entiteit",
+          "light": "Licht",
+          "menu": "Menu",
+          "spacer": "Afstandhouder",
+          "template": "Sjabloon",
+          "weather": "Weer"
+        }
+      }
     }
+  },
+  "card": {
+    "not_found": "Entiteit niet gevonden"
+  }
 }

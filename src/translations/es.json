@@ -1,165 +1,165 @@
 {
-    "editor": {
-        "form": {
-            "color_picker": {
-                "values": {
-                    "default": "Color predeterminado"
-                }
-            },
-            "info_picker": {
-                "values": {
-                    "default": "Información predeterminada",
-                    "name": "Nombre",
-                    "state": "Estado",
-                    "last-changed": "Último cambio",
-                    "last-updated": "Última actualización",
-                    "none": "Ninguno"
-                }
-            },
-            "icon_type_picker": {
-                "values": {
-                    "default": "Por defecto",
-                    "icon": "Icono",
-                    "entity-picture": "Imagen de entidad",
-                    "none": "Ninguno"
-                }
-            },
-            "layout_picker": {
-                "values": {
-                    "default": "Diseño predeterminado",
-                    "vertical": "Diseño vertical",
-                    "horizontal": "Diseño horizontal"
-                }
-            },
-            "alignment_picker": {
-                "values": {
-                    "default": "Alineación predeterminada",
-                    "start": "Inicio",
-                    "end": "Final",
-                    "center": "Centrado",
-                    "justify": "Justificado"
-                }
-            }
-        },
-        "card": {
-            "generic": {
-                "icon_color": "Color de icono",
-                "layout": "Diseño",
-                "fill_container": "Rellenar",
-                "primary_info": "Información primaria",
-                "secondary_info": "Información secundaria",
-                "icon_type": "Icono",
-                "content_info": "Contenido",
-                "use_entity_picture": "¿Usar imagen de entidad?",
-                "collapsible_controls": "Contraer controles cuando está apagado",
-                "icon_animation": "¿Icono animado cuando está activo?"
-            },
-            "light": {
-                "show_brightness_control": "¿Controlar brillo?",
-                "use_light_color": "Usar color de la luz",
-                "show_color_temp_control": "¿Controlar temperatura del color?",
-                "show_color_control": "¿Controlar color?",
-                "incompatible_controls": "Es posible que algunos controles no se muestren si la luz no es compatible con esta función."
-            },
-            "fan": {
-                "show_percentage_control": "¿Controlar porcentaje?",
-                "show_oscillate_control": "¿Controlar oscilación?"
-            },
-            "cover": {
-                "show_buttons_control": "¿Botones de control?",
-                "show_position_control": "¿Control de posición?",
-                "show_tilt_position_control": "¿Control de inclinación?"
-            },
-            "template": {
-                "primary": "Información primaria",
-                "secondary": "Información secundaria",
-                "multiline_secondary": "¿Secundaria multilínea?",
-                "entity_extra": "Utilizado en plantillas y acciones.",
-                "content": "Contenido",
-                "badge_icon": "Icono del distintivo",
-                "badge_color": "Color del distintivo",
-                "picture": "Imagen (sustituirá al icono)"
-            },
-            "title": {
-                "title": "Título",
-                "subtitle": "Subtítulo",
-                "title_tap_action": "Acción al tocar el título",
-                "subtitle_tap_action": "Acción al tocar el subtítulo"
-            },
-            "chips": {
-                "alignment": "Alineación"
-            },
-            "weather": {
-                "show_conditions": "¿Condiciones?",
-                "show_temperature": "¿Temperatura?"
-            },
-            "update": {
-                "show_buttons_control": "¿Botones de control?"
-            },
-            "vacuum": {
-                "commands": "Comandos",
-                "commands_list": {
-                    "on_off": "Activar/desactivar"
-                }
-            },
-            "media-player": {
-                "use_media_info": "Usar información multimedia",
-                "use_media_artwork": "Usar ilustraciones multimedia",
-                "show_volume_level": "Mostrar nivel de volumen",
-                "media_controls": "Controles multimedia",
-                "media_controls_list": {
-                    "on_off": "Activar/desactivar",
-                    "shuffle": "Aleatoria",
-                    "previous": "Pista anterior",
-                    "play_pause_stop": "Reproducir/pausa/parar",
-                    "next": "Pista siguiente",
-                    "repeat": "Modo de repetición"
-                },
-                "volume_controls": "Controles de volumen",
-                "volume_controls_list": {
-                    "volume_buttons": "Botones de volumen",
-                    "volume_set": "Nivel de volumen",
-                    "volume_mute": "Silenciar"
-                }
-            },
-            "lock": {
-                "lock": "Bloquear",
-                "unlock": "Desbloquear",
-                "open": "Abrir"
-            },
-            "humidifier": {
-                "show_target_humidity_control": "¿Controlar humedad?"
-            },
-            "climate": {
-                "show_temperature_control": "¿Control de temperatura?",
-                "hvac_modes": "Modos de climatización"
-            }
-        },
-        "chip": {
-            "sub_element_editor": {
-                "title": "Editor de chip"
-            },
-            "conditional": {
-                "chip": "Chip"
-            },
-            "chip-picker": {
-                "chips": "Chips",
-                "add": "Añadir chip",
-                "edit": "Editar",
-                "clear": "Limpiar",
-                "select": "Seleccionar chip",
-                "types": {
-                    "action": "Acción",
-                    "alarm-control-panel": "Alarma",
-                    "back": "Volver",
-                    "conditional": "Condicional",
-                    "entity": "Entidad",
-                    "light": "Luz",
-                    "menu": "Menú",
-                    "template": "Plantilla",
-                    "weather": "Clima"
-                }
-            }
+  "editor": {
+    "form": {
+      "color_picker": {
+        "values": {
+          "default": "Color predeterminado"
         }
+      },
+      "info_picker": {
+        "values": {
+          "default": "Información predeterminada",
+          "name": "Nombre",
+          "state": "Estado",
+          "last-changed": "Último cambio",
+          "last-updated": "Última actualización",
+          "none": "Ninguno"
+        }
+      },
+      "icon_type_picker": {
+        "values": {
+          "default": "Por defecto",
+          "icon": "Icono",
+          "entity-picture": "Imagen de entidad",
+          "none": "Ninguno"
+        }
+      },
+      "layout_picker": {
+        "values": {
+          "default": "Diseño predeterminado",
+          "vertical": "Diseño vertical",
+          "horizontal": "Diseño horizontal"
+        }
+      },
+      "alignment_picker": {
+        "values": {
+          "default": "Alineación predeterminada",
+          "start": "Inicio",
+          "end": "Final",
+          "center": "Centrado",
+          "justify": "Justificado"
+        }
+      }
+    },
+    "card": {
+      "generic": {
+        "icon_color": "Color de icono",
+        "layout": "Diseño",
+        "fill_container": "Rellenar",
+        "primary_info": "Información primaria",
+        "secondary_info": "Información secundaria",
+        "icon_type": "Icono",
+        "content_info": "Contenido",
+        "use_entity_picture": "¿Usar imagen de entidad?",
+        "collapsible_controls": "Contraer controles cuando está apagado",
+        "icon_animation": "¿Icono animado cuando está activo?"
+      },
+      "light": {
+        "show_brightness_control": "¿Controlar brillo?",
+        "use_light_color": "Usar color de la luz",
+        "show_color_temp_control": "¿Controlar temperatura del color?",
+        "show_color_control": "¿Controlar color?",
+        "incompatible_controls": "Es posible que algunos controles no se muestren si la luz no es compatible con esta función."
+      },
+      "fan": {
+        "show_percentage_control": "¿Controlar porcentaje?",
+        "show_oscillate_control": "¿Controlar oscilación?"
+      },
+      "cover": {
+        "show_buttons_control": "¿Botones de control?",
+        "show_position_control": "¿Control de posición?",
+        "show_tilt_position_control": "¿Control de inclinación?"
+      },
+      "template": {
+        "primary": "Información primaria",
+        "secondary": "Información secundaria",
+        "multiline_secondary": "¿Secundaria multilínea?",
+        "entity_extra": "Utilizado en plantillas y acciones.",
+        "content": "Contenido",
+        "badge_icon": "Icono del distintivo",
+        "badge_color": "Color del distintivo",
+        "picture": "Imagen (sustituirá al icono)"
+      },
+      "title": {
+        "title": "Título",
+        "subtitle": "Subtítulo",
+        "title_tap_action": "Acción al tocar el título",
+        "subtitle_tap_action": "Acción al tocar el subtítulo"
+      },
+      "chips": {
+        "alignment": "Alineación"
+      },
+      "weather": {
+        "show_conditions": "¿Condiciones?",
+        "show_temperature": "¿Temperatura?"
+      },
+      "update": {
+        "show_buttons_control": "¿Botones de control?"
+      },
+      "vacuum": {
+        "commands": "Comandos",
+        "commands_list": {
+          "on_off": "Activar/desactivar"
+        }
+      },
+      "media-player": {
+        "use_media_info": "Usar información multimedia",
+        "use_media_artwork": "Usar ilustraciones multimedia",
+        "show_volume_level": "Mostrar nivel de volumen",
+        "media_controls": "Controles multimedia",
+        "media_controls_list": {
+          "on_off": "Activar/desactivar",
+          "shuffle": "Aleatoria",
+          "previous": "Pista anterior",
+          "play_pause_stop": "Reproducir/pausa/parar",
+          "next": "Pista siguiente",
+          "repeat": "Modo de repetición"
+        },
+        "volume_controls": "Controles de volumen",
+        "volume_controls_list": {
+          "volume_buttons": "Botones de volumen",
+          "volume_set": "Nivel de volumen",
+          "volume_mute": "Silenciar"
+        }
+      },
+      "lock": {
+        "lock": "Bloquear",
+        "unlock": "Desbloquear",
+        "open": "Abrir"
+      },
+      "humidifier": {
+        "show_target_humidity_control": "¿Controlar humedad?"
+      },
+      "climate": {
+        "show_temperature_control": "¿Control de temperatura?",
+        "hvac_modes": "Modos de climatización"
+      }
+    },
+    "chip": {
+      "sub_element_editor": {
+        "title": "Editor de chip"
+      },
+      "conditional": {
+        "chip": "Chip"
+      },
+      "chip-picker": {
+        "chips": "Chips",
+        "add": "Añadir chip",
+        "edit": "Editar",
+        "clear": "Limpiar",
+        "select": "Seleccionar chip",
+        "types": {
+          "action": "Acción",
+          "alarm-control-panel": "Alarma",
+          "back": "Volver",
+          "conditional": "Condicional",
+          "entity": "Entidad",
+          "light": "Luz",
+          "menu": "Menú",
+          "template": "Plantilla",
+          "weather": "Clima"
+        }
+      }
     }
+  }
 }

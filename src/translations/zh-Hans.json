@@ -1,177 +1,177 @@
 {
-    "editor": {
-        "form": {
-            "color_picker": {
-                "values": {
-                    "default": "默认颜色"
-                }
-            },
-            "info_picker": {
-                "values": {
-                    "default": "默认信息",
-                    "name": "名称",
-                    "state": "状态",
-                    "last-changed": "变更时间",
-                    "last-updated": "更新时间",
-                    "none": "无"
-                }
-            },
-            "icon_type_picker": {
-                "values": {
-                    "default": "默认类型",
-                    "icon": "图标",
-                    "entity-picture": "实体图片",
-                    "none": "无"
-                }
-            },
-            "layout_picker": {
-                "values": {
-                    "default": "默认布局",
-                    "vertical": "垂直布局",
-                    "horizontal": "水平布局"
-                }
-            },
-            "alignment_picker": {
-                "values": {
-                    "default": "默认",
-                    "start": "左对齐",
-                    "end": "右对齐",
-                    "center": "居中对齐",
-                    "justify": "两端对齐"
-                }
-            }
-        },
-        "card": {
-            "generic": {
-                "icon_color": "图标颜色",
-                "layout": "布局",
-                "fill_container": "填满容器",
-                "primary_info": "首要信息",
-                "secondary_info": "次要信息",
-                "icon_type": "图标类型",
-                "content_info": "内容",
-                "use_entity_picture": "使用实体图片?",
-                "collapsible_controls": "关闭时隐藏控制器",
-                "icon_animation": "激活时使用动态图标?"
-            },
-            "light": {
-                "show_brightness_control": "亮度控制?",
-                "use_light_color": "使用灯光颜色",
-                "show_color_temp_control": "色温控制?",
-                "show_color_control": "颜色控制?",
-                "incompatible_controls": "设备不支持的控制器将不会显示。"
-            },
-            "fan": {
-                "show_percentage_control": "百分比控制?",
-                "show_oscillate_control": "摆动控制?"
-            },
-            "cover": {
-                "show_buttons_control": "按钮控制?",
-                "show_position_control": "位置控制?",
-                "show_tilt_position_control": "角度控制?"
-            },
-            "template": {
-                "primary": "首要信息",
-                "secondary": "次要信息",
-                "multiline_secondary": "多行次要信息?",
-                "entity_extra": "用于模板和动作",
-                "content": "内容",
-                "badge_icon": "徽标图标",
-                "badge_color": "徽标颜色",
-                "picture": "图片 (将会替代图标)"
-            },
-            "title": {
-                "title": "标题",
-                "subtitle": "子标题",
-                "title_tap_action": "标题点击动作",
-                "subtitle_tap_action": "子标题点击动作"
-            },
-            "chips": {
-                "alignment": "对齐"
-            },
-            "weather": {
-                "show_conditions": "条件?",
-                "show_temperature": "温度?"
-            },
-            "update": {
-                "show_buttons_control": "控制按钮?"
-            },
-            "vacuum": {
-                "commands": "命令",
-                "commands_list": {
-                    "on_off": "开/关"
-                }
-            },
-            "media-player": {
-                "use_media_info": "使用媒体信息",
-                "use_media_artwork": "使用媒体插图",
-                "show_volume_level": "显示音量大小",
-                "media_controls": "媒体控制",
-                "media_controls_list": {
-                    "on_off": "开启/关闭",
-                    "shuffle": "随机",
-                    "previous": "上一曲",
-                    "play_pause_stop": "播放/暂停/停止",
-                    "next": "下一曲",
-                    "repeat": "循环模式"
-                },
-                "volume_controls": "音量控制",
-                "volume_controls_list": {
-                    "volume_buttons": "音量按钮",
-                    "volume_set": "音量等级",
-                    "volume_mute": "静音"
-                }
-            },
-            "lock": {
-                "lock": "锁定",
-                "unlock": "解锁",
-                "open": "打开"
-            },
-            "humidifier": {
-                "show_target_humidity_control": "湿度控制?"
-            },
-            "climate": {
-                "show_temperature_control": "温度控制?",
-                "hvac_modes": "空调模式"
-            },
-            "number": {
-                "display_mode": "显示模式",
-                "display_mode_list": {
-                    "default": "默认 (滑块)",
-                    "slider": "滑块",
-                    "buttons": "按钮"
-                }
-            }
-        },
-        "chip": {
-            "sub_element_editor": {
-                "title": "Chip 编辑"
-            },
-            "conditional": {
-                "chip": "Chip"
-            },
-            "chip-picker": {
-                "chips": "Chips",
-                "add": "添加 chip",
-                "edit": "编辑",
-                "clear": "清除",
-                "select": "选择 chip",
-                "types": {
-                    "action": "动作",
-                    "alarm-control-panel": "警戒控制台",
-                    "back": "返回",
-                    "conditional": "条件显示",
-                    "entity": "实体",
-                    "light": "灯光",
-                    "menu": "菜单",
-                    "spacer": "占位符",
-                    "template": "模板",
-                    "weather": "天气"
-                }
-            }
+  "editor": {
+    "form": {
+      "color_picker": {
+        "values": {
+          "default": "默认颜色"
         }
+      },
+      "info_picker": {
+        "values": {
+          "default": "默认信息",
+          "name": "名称",
+          "state": "状态",
+          "last-changed": "变更时间",
+          "last-updated": "更新时间",
+          "none": "无"
+        }
+      },
+      "icon_type_picker": {
+        "values": {
+          "default": "默认类型",
+          "icon": "图标",
+          "entity-picture": "实体图片",
+          "none": "无"
+        }
+      },
+      "layout_picker": {
+        "values": {
+          "default": "默认布局",
+          "vertical": "垂直布局",
+          "horizontal": "水平布局"
+        }
+      },
+      "alignment_picker": {
+        "values": {
+          "default": "默认",
+          "start": "左对齐",
+          "end": "右对齐",
+          "center": "居中对齐",
+          "justify": "两端对齐"
+        }
+      }
     },
     "card": {
-        "not_found": "未找到实体"
+      "generic": {
+        "icon_color": "图标颜色",
+        "layout": "布局",
+        "fill_container": "填满容器",
+        "primary_info": "首要信息",
+        "secondary_info": "次要信息",
+        "icon_type": "图标类型",
+        "content_info": "内容",
+        "use_entity_picture": "使用实体图片?",
+        "collapsible_controls": "关闭时隐藏控制器",
+        "icon_animation": "激活时使用动态图标?"
+      },
+      "light": {
+        "show_brightness_control": "亮度控制?",
+        "use_light_color": "使用灯光颜色",
+        "show_color_temp_control": "色温控制?",
+        "show_color_control": "颜色控制?",
+        "incompatible_controls": "设备不支持的控制器将不会显示。"
+      },
+      "fan": {
+        "show_percentage_control": "百分比控制?",
+        "show_oscillate_control": "摆动控制?"
+      },
+      "cover": {
+        "show_buttons_control": "按钮控制?",
+        "show_position_control": "位置控制?",
+        "show_tilt_position_control": "角度控制?"
+      },
+      "template": {
+        "primary": "首要信息",
+        "secondary": "次要信息",
+        "multiline_secondary": "多行次要信息?",
+        "entity_extra": "用于模板和动作",
+        "content": "内容",
+        "badge_icon": "徽标图标",
+        "badge_color": "徽标颜色",
+        "picture": "图片 (将会替代图标)"
+      },
+      "title": {
+        "title": "标题",
+        "subtitle": "子标题",
+        "title_tap_action": "标题点击动作",
+        "subtitle_tap_action": "子标题点击动作"
+      },
+      "chips": {
+        "alignment": "对齐"
+      },
+      "weather": {
+        "show_conditions": "条件?",
+        "show_temperature": "温度?"
+      },
+      "update": {
+        "show_buttons_control": "控制按钮?"
+      },
+      "vacuum": {
+        "commands": "命令",
+        "commands_list": {
+          "on_off": "开/关"
+        }
+      },
+      "media-player": {
+        "use_media_info": "使用媒体信息",
+        "use_media_artwork": "使用媒体插图",
+        "show_volume_level": "显示音量大小",
+        "media_controls": "媒体控制",
+        "media_controls_list": {
+          "on_off": "开启/关闭",
+          "shuffle": "随机",
+          "previous": "上一曲",
+          "play_pause_stop": "播放/暂停/停止",
+          "next": "下一曲",
+          "repeat": "循环模式"
+        },
+        "volume_controls": "音量控制",
+        "volume_controls_list": {
+          "volume_buttons": "音量按钮",
+          "volume_set": "音量等级",
+          "volume_mute": "静音"
+        }
+      },
+      "lock": {
+        "lock": "锁定",
+        "unlock": "解锁",
+        "open": "打开"
+      },
+      "humidifier": {
+        "show_target_humidity_control": "湿度控制?"
+      },
+      "climate": {
+        "show_temperature_control": "温度控制?",
+        "hvac_modes": "空调模式"
+      },
+      "number": {
+        "display_mode": "显示模式",
+        "display_mode_list": {
+          "default": "默认 (滑块)",
+          "slider": "滑块",
+          "buttons": "按钮"
+        }
+      }
+    },
+    "chip": {
+      "sub_element_editor": {
+        "title": "Chip 编辑"
+      },
+      "conditional": {
+        "chip": "Chip"
+      },
+      "chip-picker": {
+        "chips": "Chips",
+        "add": "添加 chip",
+        "edit": "编辑",
+        "clear": "清除",
+        "select": "选择 chip",
+        "types": {
+          "action": "动作",
+          "alarm-control-panel": "警戒控制台",
+          "back": "返回",
+          "conditional": "条件显示",
+          "entity": "实体",
+          "light": "灯光",
+          "menu": "菜单",
+          "spacer": "占位符",
+          "template": "模板",
+          "weather": "天气"
+        }
+      }
     }
+  },
+  "card": {
+    "not_found": "未找到实体"
+  }
 }

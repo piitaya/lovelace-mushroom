@@ -1,113 +1,113 @@
 {
-    "editor": {
-        "form": {
-            "color_picker": {
-                "values": {
-                    "default": "Varsayılan renk"
-                }
-            },
-            "info_picker": {
-                "values": {
-                    "default": "Varsayılan bilgi",
-                    "name": "İsim",
-                    "state": "Durum",
-                    "last-changed": "Son Değişim",
-                    "last-updated": "Son Güncelleme",
-                    "none": "None"
-                }
-            },
-            "layout_picker": {
-                "values": {
-                    "default": "Varsayılan düzen",
-                    "vertical": "Dikey düzen",
-                    "horizontal": "Yatay düzen"
-                }
-            },
-            "alignment_picker": {
-                "values": {
-                    "default": "Varsayılan hizalama",
-                    "start": "Sola yasla",
-                    "end": "Sağa yasla",
-                    "center": "Ortala",
-                    "justify": "İki yana yasla"
-                }
-            }
-        },
-        "card": {
-            "generic": {
-                "icon_color": "Simge renki",
-                "layout": "Düzen",
-                "primary_info": "Birinci bilgi",
-                "secondary_info": "İkinci bilgi",
-                "content_info": "İçerik",
-                "use_entity_picture": "Varlık resmi kullanılsın",
-                "icon_animation": "Aktif olduğunda simgeyi hareket ettir"
-            },
-            "light": {
-                "show_brightness_control": "Parlaklık kontrolü",
-                "use_light_color": "Işık rengini kullan",
-                "show_color_temp_control": "Renk ısısı kontrolü",
-                "show_color_control": "Renk kontrolü",
-                "incompatible_controls": "Kullandığınız lamba bu özellikleri desteklemiyorsa bazı kontroller görüntülenemeyebilir."
-            },
-            "fan": {
-                "show_percentage_control": "Yüzde kontrolü",
-                "show_oscillate_control": "Salınım kontrolü"
-            },
-            "cover": {
-                "show_buttons_control": "Düğme kontrolleri",
-                "show_position_control": "Pozisyon kontrolü"
-            },
-            "template": {
-                "primary": "Birinci bilgi",
-                "secondary": "İkinci bilgi",
-                "multiline_secondary": "İkinci bilgi çok satır olsun",
-                "entity_extra": "Şablonlarda ve eylemlerde kullanılsın",
-                "content": "İçerik"
-            },
-            "title": {
-                "title": "Başlık",
-                "subtitle": "Altbaşlık"
-            },
-            "chips": {
-                "alignment": "Hizalama"
-            },
-            "weather": {
-                "show_conditions": "Hava koşulu",
-                "show_temperature": "Sıcaklık"
-            },
-            "update": {
-                "show_buttons_control": "Düğme kontrolü"
-            },
-            "vacuum": {
-                "commands": "Komutlar"
-            }
-        },
-        "chip": {
-            "sub_element_editor": {
-                "title": "Chip düzenleyici"
-            },
-            "conditional": {
-                "chip": "Chip"
-            },
-            "chip-picker": {
-                "chips": "Chips",
-                "add": "Chip ekle",
-                "edit": "Düzenle",
-                "clear": "Temizle",
-                "select": "Chip seç",
-                "types": {
-                    "action": "Eylem",
-                    "alarm-control-panel": "Alarm",
-                    "back": "Geri",
-                    "conditional": "Koşullu",
-                    "entity": "Varlık",
-                    "light": "Işık",
-                    "menu": "Menü",
-                    "template": "Şablon",
-                    "weather": "Hava Durumu"
-                }
-            }
+  "editor": {
+    "form": {
+      "color_picker": {
+        "values": {
+          "default": "Varsayılan renk"
         }
+      },
+      "info_picker": {
+        "values": {
+          "default": "Varsayılan bilgi",
+          "name": "İsim",
+          "state": "Durum",
+          "last-changed": "Son Değişim",
+          "last-updated": "Son Güncelleme",
+          "none": "None"
+        }
+      },
+      "layout_picker": {
+        "values": {
+          "default": "Varsayılan düzen",
+          "vertical": "Dikey düzen",
+          "horizontal": "Yatay düzen"
+        }
+      },
+      "alignment_picker": {
+        "values": {
+          "default": "Varsayılan hizalama",
+          "start": "Sola yasla",
+          "end": "Sağa yasla",
+          "center": "Ortala",
+          "justify": "İki yana yasla"
+        }
+      }
+    },
+    "card": {
+      "generic": {
+        "icon_color": "Simge renki",
+        "layout": "Düzen",
+        "primary_info": "Birinci bilgi",
+        "secondary_info": "İkinci bilgi",
+        "content_info": "İçerik",
+        "use_entity_picture": "Varlık resmi kullanılsın",
+        "icon_animation": "Aktif olduğunda simgeyi hareket ettir"
+      },
+      "light": {
+        "show_brightness_control": "Parlaklık kontrolü",
+        "use_light_color": "Işık rengini kullan",
+        "show_color_temp_control": "Renk ısısı kontrolü",
+        "show_color_control": "Renk kontrolü",
+        "incompatible_controls": "Kullandığınız lamba bu özellikleri desteklemiyorsa bazı kontroller görüntülenemeyebilir."
+      },
+      "fan": {
+        "show_percentage_control": "Yüzde kontrolü",
+        "show_oscillate_control": "Salınım kontrolü"
+      },
+      "cover": {
+        "show_buttons_control": "Düğme kontrolleri",
+        "show_position_control": "Pozisyon kontrolü"
+      },
+      "template": {
+        "primary": "Birinci bilgi",
+        "secondary": "İkinci bilgi",
+        "multiline_secondary": "İkinci bilgi çok satır olsun",
+        "entity_extra": "Şablonlarda ve eylemlerde kullanılsın",
+        "content": "İçerik"
+      },
+      "title": {
+        "title": "Başlık",
+        "subtitle": "Altbaşlık"
+      },
+      "chips": {
+        "alignment": "Hizalama"
+      },
+      "weather": {
+        "show_conditions": "Hava koşulu",
+        "show_temperature": "Sıcaklık"
+      },
+      "update": {
+        "show_buttons_control": "Düğme kontrolü"
+      },
+      "vacuum": {
+        "commands": "Komutlar"
+      }
+    },
+    "chip": {
+      "sub_element_editor": {
+        "title": "Chip düzenleyici"
+      },
+      "conditional": {
+        "chip": "Chip"
+      },
+      "chip-picker": {
+        "chips": "Chips",
+        "add": "Chip ekle",
+        "edit": "Düzenle",
+        "clear": "Temizle",
+        "select": "Chip seç",
+        "types": {
+          "action": "Eylem",
+          "alarm-control-panel": "Alarm",
+          "back": "Geri",
+          "conditional": "Koşullu",
+          "entity": "Varlık",
+          "light": "Işık",
+          "menu": "Menü",
+          "template": "Şablon",
+          "weather": "Hava Durumu"
+        }
+      }
     }
+  }
 }
