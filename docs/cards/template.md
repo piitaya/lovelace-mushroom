@@ -14,7 +14,7 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | Name                  | Type            | Default  | Description                                                                                                                         |
 | :-------------------- | :-------------- | :------- | :---------------------------------------------------------------------------------------------------------------------------------- |
 | `entity`              | string          | Optional | Entity for template and actions                                                                                                     |
-| `icon`                | string          | Optional | Icon to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                              |
+| `icon`                | string          | Optional | Icon to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/) \*.                           |
 | `icon_color`          | string          | Optional | Icon color to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                        |
 | `primary`             | string          | Optional | Primary info to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                      |
 | `secondary`           | string          | Optional | Secondary info to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                    |
