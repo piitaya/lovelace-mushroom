@@ -8,6 +8,7 @@ import {
   PropertyValues,
 } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import { classMap } from "lit/directives/class-map.js";
 import { ifDefined } from "lit/directives/if-defined.js";
 import { styleMap } from "lit/directives/style-map.js";
 import {
@@ -211,7 +212,10 @@ export class HuiEntityBadge extends LitElement implements LovelaceBadge {
     return html`
       <div
         style=${styleMap(style)}
-        class="badge"
+        class="badge ${classMap({
+          "text-only": (!icon && !picture && content) ?? false,
+          "icon-only": (!content && (icon || picture)) ?? false,
+        })}"
         @action=${this._handleAction}
         .actionHandler=${actionHandler({
           hasHold: hasAction(this._config!.hold_action),
@@ -339,13 +343,19 @@ export class HuiEntityBadge extends LitElement implements LovelaceBadge {
         object-fit: cover;
         overflow: hidden;
       }
-      .badge.minimal {
+      .badge.icon-only {
         padding: 0;
       }
-      .badge:not(.minimal) img {
+      .badge:not(.icon-only) img {
         margin-left: -6px;
         margin-inline-start: -6px;
         margin-inline-end: initial;
+      }
+      .badge.text-only .content {
+        padding-right: 4px;
+        padding-left: 4px;
+        padding-inline-end: 4px;
+        padding-inline-start: 4px;
       }
     `;
   }
