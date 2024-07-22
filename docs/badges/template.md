@@ -14,17 +14,18 @@ A template badge allows you to build a custom badge. You can use `entity` as a v
 
 All the options are available in the lovelace editor but you can use `yaml` if you want.
 
-| Name                | Type            | Default  | Description                                                                                                                         |
-| :------------------ | :-------------- | :------- | :---------------------------------------------------------------------------------------------------------------------------------- |
-| `icon`              | string          | Optional | Icon to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/) \*.                           |
-| `color`             | string          | Optional | Color to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                             |
-| `label`             | string          | Optional | Label to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                             |
-| `content`           | string          | Optional | Content to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                           |
-| `picture`           | string          | Optional | Picture to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                           |
-| `tap_action`        | action          | `none`   | Home assistant action to perform on tap                                                                                             |
-| `hold_action`       | action          | `none`   | Home assistant action to perform on hold                                                                                            |
-| `double_tap_action` | action          | `none`   | Home assistant action to perform on double_tap                                                                                      |
-| `entity_id`         | `string` `list` | Optional | Only reacts to the state changes of these entities. This can be used if the automatic analysis fails to find all relevant entities. |
+| Name                | Type            | Default  | Description                                                                                                                                     |
+| :------------------ | :-------------- | :------- | :---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `entity`            | string          | Optional | Entity for template and actions                                                                                                                 |
+| `icon`              | string          | Optional | Icon to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/) \*.                                       |
+| `color`             | string          | Optional | Color to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                                         |
+| `label`             | string          | Optional | Label to render. Only displayed if content is not empty. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/). |
+| `content`           | string          | Optional | Content to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                                       |
+| `picture`           | string          | Optional | Picture to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                                       |
+| `tap_action`        | action          | `none`   | Home assistant action to perform on tap                                                                                                         |
+| `hold_action`       | action          | `none`   | Home assistant action to perform on hold                                                                                                        |
+| `double_tap_action` | action          | `none`   | Home assistant action to perform on double_tap                                                                                                  |
+| `entity_id`         | `string` `list` | Optional | Only reacts to the state changes of these entities. This can be used if the automatic analysis fails to find all relevant entities.             |
 
 #### Notes
 
