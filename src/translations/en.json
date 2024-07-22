@@ -43,6 +43,7 @@
     },
     "card": {
       "generic": {
+        "color": "Color",
         "icon_color": "Icon color",
         "layout": "Layout",
         "fill_container": "Fill container",
@@ -75,6 +76,7 @@
         "secondary": "Secondary information",
         "multiline_secondary": "Multiline secondary?",
         "entity_extra": "Used in templates and actions",
+        "label": "Label",
         "content": "Content",
         "badge_icon": "Badge icon",
         "badge_color": "Badge color",

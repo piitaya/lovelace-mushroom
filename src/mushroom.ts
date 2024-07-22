@@ -23,6 +23,8 @@ import "./cards/title-card/title-card";
 import "./cards/update-card/update-card";
 import "./cards/vacuum-card/vacuum-card";
 
+import "./badges/template/template-badge";
+
 console.info(
   `%c🍄 Mushroom 🍄 - ${version}`,
   "color: #ef5350; font-weight: 700;"

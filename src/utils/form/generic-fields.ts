@@ -1,4 +1,5 @@
 export const GENERIC_LABELS = [
+  "color",
   "icon_color",
   "layout",
   "fill_container",
