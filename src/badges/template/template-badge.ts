@@ -304,9 +304,6 @@ export class HuiEntityBadge extends LitElement implements LovelaceBadge {
       [role="button"]:focus {
         outline: none;
       }
-      .badge.active {
-        --badge-color: var(--primary-color);
-      }
       .content {
         display: flex;
         flex-direction: column;
