@@ -26,6 +26,8 @@ import { computeCssColor } from "../../ha/common/color/compute-color";
 import { registerCustomBadge } from "../../utils/custom-badges";
 import { TEMPLATE_BADGE_EDITOR_NAME, TEMPLATE_BADGE_NAME } from "./const";
 import { TemplateBadgeConfig } from "./template-badge-config";
+import { getWeatherSvgIcon } from "../../utils/icons/weather-icon";
+import { weatherSVGStyles } from "../../utils/weather";
 
 registerCustomBadge({
   type: TEMPLATE_BADGE_NAME,
@@ -204,17 +206,22 @@ export class HuiEntityBadge extends LitElement implements LovelaceBadge {
     const label = this.getValue("label");
     const picture = this.getValue("picture");
 
+    const hasContent = !!content;
+    const hasIcon = !!icon || !!picture;
+
     const style = {};
     if (color) {
       style["--badge-color"] = computeCssColor(color);
     }
 
+    const weatherSvg = getWeatherSvgIcon(icon);
+
     return html`
       <div
         style=${styleMap(style)}
         class="badge ${classMap({
-          "text-only": (!icon && !picture && content) ?? false,
-          "icon-only": (!content && (icon || picture)) ?? false,
+          "content-only": (!hasIcon && hasContent) ?? false,
+          "icon-only": (!hasContent && hasIcon) ?? false,
         })}"
         @action=${this._handleAction}
         .actionHandler=${actionHandler({
@@ -227,11 +234,16 @@ export class HuiEntityBadge extends LitElement implements LovelaceBadge {
         <ha-ripple .disabled=${!this.hasAction}></ha-ripple>
         ${picture
           ? html`<img src=${picture} aria-hidden="true" />`
-          : icon
-            ? html`
-                <ha-state-icon .hass=${this.hass} .icon=${icon}></ha-state-icon>
-              `
-            : nothing}
+          : weatherSvg
+            ? weatherSvg
+            : icon
+              ? html`
+                  <ha-state-icon
+                    .hass=${this.hass}
+                    .icon=${icon}
+                  ></ha-state-icon>
+                `
+              : nothing}
         ${content
           ? html`
               <span class="content">
@@ -332,6 +344,11 @@ export class HuiEntityBadge extends LitElement implements LovelaceBadge {
         letter-spacing: 0.1px;
         color: var(--primary-text-color);
       }
+      svg {
+        width: var(--mdc-icon-size);
+        height: var(--mdc-icon-size);
+        display: flex;
+      }
       ha-state-icon {
         color: var(--badge-color);
         line-height: 0;
@@ -351,12 +368,13 @@ export class HuiEntityBadge extends LitElement implements LovelaceBadge {
         margin-inline-start: -6px;
         margin-inline-end: initial;
       }
-      .badge.text-only .content {
+      .badge.content-only .content {
         padding-right: 4px;
         padding-left: 4px;
         padding-inline-end: 4px;
         padding-inline-start: 4px;
       }
+      ${weatherSVGStyles}
     `;
   }
 }
