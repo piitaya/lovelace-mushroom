@@ -1,4 +1,8 @@
-import { LovelaceCardConfig, LovelaceConfig } from "../../data/lovelace";
+import {
+  LovelaceBadgeConfig,
+  LovelaceCardConfig,
+  LovelaceConfig,
+} from "../../data/lovelace";
 import { FrontendLocaleData } from "../../data/translation";
 import { Constructor, HomeAssistant } from "../../types";
 
@@ -24,6 +28,11 @@ export interface Lovelace {
   deleteConfig: () => Promise<void>;
 }
 
+export interface LovelaceBadge extends HTMLElement {
+  hass?: HomeAssistant;
+  setConfig(config: LovelaceBadgeConfig): void;
+}
+
 export interface LovelaceCard extends HTMLElement {
   hass?: HomeAssistant;
   isPanel?: boolean;
@@ -43,6 +52,10 @@ export interface LovelaceCardConstructor extends Constructor<LovelaceCard> {
 
 export interface LovelaceCardEditor extends LovelaceGenericElementEditor {
   setConfig(config: LovelaceCardConfig): void;
+}
+
+export interface LovelaceBadgeEditor extends LovelaceGenericElementEditor {
+  setConfig(config: LovelaceBadgeConfig): void;
 }
 
 export interface LovelaceGenericElementEditor extends HTMLElement {
