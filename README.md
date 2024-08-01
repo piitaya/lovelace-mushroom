@@ -85,6 +85,10 @@ Different cards are available for differents entities :
 -   📑 [Select card](docs/cards/select.md)
 -   🔢 [Number card](docs/cards/number.md)
 
+### Cards
+
+A [template badge](docs/badges/template.md) is available if you're using at least Home Assistant 2024.8. cards are available for differents entities :
+  
 ### Theme customization
 
 Mushroom works without theme but you can add a theme for better experience by installing the [Mushroom Themes](https://github.com/piitaya/lovelace-mushroom-themes). If you want more information about themes, check out the official [Home Assistant documentation about themes][home-assitant-theme-docs].
