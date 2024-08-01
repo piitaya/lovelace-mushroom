@@ -87,7 +87,7 @@ Different cards are available for differents entities :
 
 ### Badges
 
-A [template badge](docs/badges/template.md) is available if you're using at least Home Assistant 2024.8. cards are available for differents entities :
+A [template badge](docs/badges/template.md) is available if you're using at least Home Assistant 2024.8.
   
 ### Theme customization
 
