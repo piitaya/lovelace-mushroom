@@ -10,7 +10,7 @@ import { loadHaComponents } from "../../utils/loader";
 import { TITLE_CARD_EDITOR_NAME } from "./const";
 import { TitleCardConfig, titleCardConfigStruct } from "./title-card-config";
 
-const actions: UiAction[] = ["navigate", "url", "call-service", "none"];
+const actions: UiAction[] = ["navigate", "url", "perform-action", "none"];
 const TITLE_LABELS = [
   "title",
   "subtitle",

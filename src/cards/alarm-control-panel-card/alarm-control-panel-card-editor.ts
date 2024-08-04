@@ -24,7 +24,7 @@ const actions: UiAction[] = [
   "more-info",
   "navigate",
   "url",
-  "call-service",
+  "perform-action",
   "assist",
   "none",
 ];

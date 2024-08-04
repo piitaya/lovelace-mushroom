@@ -14,7 +14,7 @@ import { DEFAULT_ACTION_ICON } from "./action-chip";
 const actions: UiAction[] = [
   "navigate",
   "url",
-  "call-service",
+  "perform-action",
   "assist",
   "none",
 ];

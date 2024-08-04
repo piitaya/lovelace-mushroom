@@ -31,8 +31,9 @@ const actionConfigStructUrl = object({
 });
 
 const actionConfigStructService = object({
-  action: literal("call-service"),
-  service: string(),
+  action: enums(["call-service", "perform-action"]),
+  service: optional(string()),
+  perform_action: optional(string()),
   service_data: optional(object()),
   data: optional(object()),
   target: optional(
@@ -67,6 +68,7 @@ export const actionConfigStructType = object({
     "toggle",
     "more-info",
     "call-service",
+    "perform-action",
     "url",
     "navigate",
     "assist",
@@ -78,6 +80,9 @@ export const actionConfigStruct = dynamic<any>((value) => {
   if (value && typeof value === "object" && "action" in value) {
     switch ((value as BaseActionConfig).action!) {
       case "call-service": {
+        return actionConfigStructService;
+      }
+      case "perform-action": {
         return actionConfigStructService;
       }
       case "fire-dom-event": {

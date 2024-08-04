@@ -65,45 +65,45 @@ cards:
         name: Home
         icon: mdi:home
         tap_action:
-          action: call-service
-          service: device_tracker.see
-          service_data:
+          action: perform-action
+          perform_action: device_tracker.see
+          data:
             dev_id: demo_anne_therese
             location_name: home
       - type: button
         name: Not Home
         icon: mdi:home-export-outline
         tap_action:
-          action: call-service
-          service: device_tracker.see
-          service_data:
+          action: perform-action
+          perform_action: device_tracker.see
+          data:
             dev_id: demo_anne_therese
             location_name: not_home
       - type: button
         name: Unknown
         icon: mdi:help
         tap_action:
-          action: call-service
-          service: device_tracker.see
-          service_data:
+          action: perform-action
+          perform_action: device_tracker.see
+          data:
             dev_id: demo_anne_therese
             location_name: unknown
       - type: button
         name: Living Room
         icon: mdi:sofa
         tap_action:
-          action: call-service
-          service: device_tracker.see
-          service_data:
+          action: perform-action
+          perform_action: device_tracker.see
+          data:
             dev_id: demo_anne_therese
             location_name: Living Room
       - type: button
         name: Office
         icon: mdi:office-building
         tap_action:
-          action: call-service
-          service: device_tracker.see
-          service_data:
+          action: perform-action
+          perform_action: device_tracker.see
+          data:
             dev_id: demo_anne_therese
             gps: [52.37451608362128, 4.888106097860146]
     columns: 3

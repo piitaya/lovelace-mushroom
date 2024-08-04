@@ -1,6 +1,6 @@
 import { css, CSSResultGroup, LitElement, PropertyValues } from "lit";
 import { property } from "lit/decorators.js";
-import { atLeastHaVersion, HomeAssistant } from "../ha";
+import { HomeAssistant } from "../ha";
 import "../shared/badge-icon";
 import "../shared/card";
 import "../shared/shape-avatar";
@@ -17,13 +17,6 @@ export function computeDarkMode(hass?: HomeAssistant): boolean {
 }
 export class MushroomBaseElement extends LitElement {
   @property({ attribute: false }) public hass!: HomeAssistant;
-
-  protected firstUpdated(_changedProperties: PropertyValues): void {
-    this.toggleAttribute(
-      "pre-2024-8",
-      !atLeastHaVersion(this.hass.config.version, 2024, 8)
-    );
-  }
 
   protected updated(changedProps: PropertyValues): void {
     super.updated(changedProps);
@@ -49,12 +42,6 @@ export class MushroomBaseElement extends LitElement {
         :host {
           ${themeColorCss}
           ${themeVariables}
-        }
-        :host([pre-2024-8]) {
-          --spacing: var(--mush-spacing, 12px);
-          --control-height: var(--mush-control-height, 40px);
-          --control-spacing: var(--mush-spacing, 12px);
-          --icon-size: var(--mush-icon-size, 40px);
         }
       `,
     ];
