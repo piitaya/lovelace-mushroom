@@ -1,7 +1,7 @@
 import { html, nothing } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { assert } from "superstruct";
-import { LovelaceCardEditor, fireEvent } from "../../ha";
+import { LovelaceCardEditor, atLeastHaVersion, fireEvent } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { computeActionsFormSchema } from "../../shared/config/actions-config";
 import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
@@ -12,6 +12,7 @@ import { UiAction } from "../../utils/form/ha-selector";
 import { loadHaComponents } from "../../utils/loader";
 import { SELECT_CARD_EDITOR_NAME, SELECT_ENTITY_DOMAINS } from "./const";
 import { SelectCardConfig, selectCardConfigStruct } from "./select-card-config";
+import memoizeOne from "memoize-one";
 
 const actions: UiAction[] = [
   "more-info",
@@ -22,7 +23,7 @@ const actions: UiAction[] = [
   "none",
 ];
 
-const SCHEMA: HaFormSchema[] = [
+const computeSchema = memoizeOne((useCallService: boolean): HaFormSchema[] => [
   { name: "entity", selector: { entity: { domain: SELECT_ENTITY_DOMAINS } } },
   { name: "name", selector: { text: {} } },
   {
@@ -38,8 +39,8 @@ const SCHEMA: HaFormSchema[] = [
     ],
   },
   ...APPEARANCE_FORM_SCHEMA,
-  ...computeActionsFormSchema(actions),
-];
+  ...computeActionsFormSchema(actions, useCallService),
+]);
 
 @customElement(SELECT_CARD_EDITOR_NAME)
 export class SelectCardEditor
@@ -74,11 +75,14 @@ export class SelectCardEditor
       return nothing;
     }
 
+    const useCallService = !atLeastHaVersion(this.hass.config.version, 2024, 8);
+    const schema = computeSchema(useCallService);
+
     return html`
       <ha-form
         .hass=${this.hass}
         .data=${this._config}
-        .schema=${SCHEMA}
+        .schema=${schema}
         .computeLabel=${this._computeLabel}
         @value-changed=${this._valueChanged}
       ></ha-form>
