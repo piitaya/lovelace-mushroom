@@ -144,8 +144,9 @@ npm run build
 ### I don't see the last changes
 
 1. Check that your Home Assistant version is the latest. Some new Mushroom features can only be visible for the latest Home Assistant version.
-2. Check that you have the latest Mushroom version
-3. Clear your cache :
+2. Check that you have the latest Mushroom version on HACS
+3. Check that you have the latest Mushroom version by checking the browser console
+4. Clear your cache :
     - delete mushroom resources (https://my.home-assistant.io/redirect/lovelace_resources/)
     - uninstall Mushroom from HACS
     - reinstall Mushroom from HACS
