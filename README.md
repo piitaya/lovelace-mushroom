@@ -68,22 +68,22 @@ All the Mushroom cards can be configured using Dashboard UI editor.
 Different cards are available for differents entities :
 
 -   🚨 [Alarm card](docs/cards/alarm-control-panel.md)
+-   🔔 [Chips card](docs/cards/chips.md)
+-   🌡 [Climate card](docs/cards/climate.md)
 -   🪟 [Cover card](docs/cards/cover.md)
 -   🪄 [Entity card](docs/cards/entity.md)
 -   💨 [Fan card](docs/cards/fan.md)
+-   💧 [Humidifier card](docs/cards/humidifier.md)
 -   💡 [Light card](docs/cards/light.md)
+-   🔒 [Lock card](docs/cards/lock.md)
+-   📺 [Media card](docs/cards/media-player.md)
+-   🔢 [Number card](docs/cards/number.md)
 -   🙋 [Person card](docs/cards/person.md)
+-   📑 [Select card](docs/cards/select.md)
 -   🛠 [Template card](docs/cards/template.md)
--   🔔 [Chips card](docs/cards/chips.md)
 -   ✏️ [Title card](docs/cards/title.md)
 -   📦 [Update card](docs/cards/update.md)
 -   🧹 [Vacuum card](docs/cards/vacuum.md)
--   📺 [Media card](docs/cards/media-player.md)
--   🔒 [Lock card](docs/cards/lock.md)
--   💧 [Humidifier card](docs/cards/humidifier.md)
--   🌡 [Climate card](docs/cards/climate.md)
--   📑 [Select card](docs/cards/select.md)
--   🔢 [Number card](docs/cards/number.md)
 
 ### Badges
 
