@@ -16,6 +16,10 @@ export class Card extends LitElement {
           "no-info":
             this.appearance?.primary_info === "none" &&
             this.appearance?.secondary_info === "none",
+          "no-content":
+            this.appearance?.primary_info === "none" &&
+            this.appearance?.secondary_info === "none" &&
+            this.appearance?.icon_type === "none",
         })}
       >
         <slot></slot>
@@ -57,8 +61,16 @@ export class Card extends LitElement {
       .container > ::slotted(mushroom-state-item) {
         flex: 1;
       }
-      .container.no-info > ::slotted(mushroom-state-item) {
+      .container.horizontal.no-info > ::slotted(mushroom-state-item) {
         flex: none;
+      }
+      .container.no-content > ::slotted(mushroom-state-item) {
+        display: none;
+      }
+      .container.no-content > ::slotted(.actions) {
+        --control-spacing: var(--spacing);
+        --control-height: var(--icon-size);
+        padding: var(--control-spacing) !important;
       }
     `;
   }
