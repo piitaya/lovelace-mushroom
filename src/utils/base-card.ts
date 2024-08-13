@@ -97,7 +97,14 @@ export class MushroomBaseCard<
     if (appearance.layout === "horizontal") {
       options.grid_columns = 4;
     }
-    if (appearance?.layout !== "horizontal" && this.hasControls) {
+    const collapsible_controls =
+      "collapsible_controls" in this._config &&
+      Boolean(this._config.collapsible_controls);
+    if (
+      appearance?.layout !== "horizontal" &&
+      this.hasControls &&
+      (!collapsible_controls || isActive(this._stateObj!))
+    ) {
       options.grid_rows += 1;
     }
     return options;
