@@ -94,7 +94,6 @@
         "media_controls": "Mediakontroller",
         "media_controls_list": {
           "on_off": "Slå på/av",
-          "shuffle": "Blanda",
           "previous": "Föregående spår",
           "play_pause_stop": "Spela/pausa/stoppa",
           "next": "Nästa spår",
