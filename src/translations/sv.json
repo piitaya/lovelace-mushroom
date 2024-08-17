@@ -37,6 +37,7 @@
         "color": "Färg",
         "icon_color": "Ikonens färg",
         "layout": "Layout",
+        "icon_type": "Ikontyp",
         "primary_info": "Primär information",
         "secondary_info": "Sekundär information",
         "use_entity_picture": "Använd enhetens bild?",
@@ -64,7 +65,7 @@
         "secondary": "Sekundär information",
         "multiline_secondary": "Sekundär med flera rader?",
         "content": "Innehåll",
-        "picture":  "Bild (ersätter ikonen)"
+        "picture": "Bild (ersätter ikonen)"
       },
       "title": {
         "title": "Rubrik",
@@ -102,7 +103,7 @@
         "volume_controls": "Volymkontroller",
         "volume_controls_list": {
           "volume_buttons": "Volymknappar",
-          "volume_set": "Volym nivå",
+          "volume_set": "Volymnivå",
           "volume_mute": "Ljud av"
         }
       },
