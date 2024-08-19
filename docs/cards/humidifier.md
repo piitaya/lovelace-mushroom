@@ -12,7 +12,7 @@ A humidifier card allows you to control a humidifier entity.
 All the options are available in the lovelace editor but you can use `yaml` if you want.
 
 | Name                           | Type                                                | Default     | Description                                                                                     |
-| :----------------------------- | :-------------------------------------------------- | :---------- | :---------------------------------------------------------------------------------------------- | --- |
+| :----------------------------- | :-------------------------------------------------- | :---------- | :---------------------------------------------------------------------------------------------- |
 | `entity`                       | string                                              | Required    | Humidifier entity                                                                               |
 | `icon`                         | string                                              | Optional    | Custom icon                                                                                     |
 | `name`                         | string                                              | Optional    | Custom name                                                                                     |
@@ -22,7 +22,7 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `secondary_info`               | `name` `state` `last-changed` `last-updated` `none` | `state`     | Info to show as secondary info                                                                  |
 | `icon_type`                    | `icon` `entity-picture` `none`                      | `icon`      | Type of icon to display                                                                         |
 | `show_target_humidity_control` | boolean                                             | Optional    | Show target humidity control                                                                    |
-| `collapsible_controls`         | boolean                                             | `false`     | Collapse controls when off. When used in section, it can produce a layout shift for cards below |     |
+| `collapsible_controls`         | boolean                                             | `false`     | Collapse controls when off. When used in section, it can produce a layout shift for cards below |
 | `tap_action`                   | action                                              | `more-info` | Home assistant action to perform on tap                                                         |
 | `hold_action`                  | action                                              | `more-info` | Home assistant action to perform on hold                                                        |
 | `double_tap_action`            | action                                              | `more-info` | Home assistant action to perform on double_tap                                                  |

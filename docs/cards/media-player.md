@@ -12,7 +12,7 @@ A media player card allows you to control a media player entity.
 All the options are available in the lovelace editor but you can use `yaml` if you want.
 
 | Name                   | Type                                                | Default     | Description                                                                                     |
-| :--------------------- | :-------------------------------------------------- | :---------- | :---------------------------------------------------------------------------------------------- | --- |
+| :--------------------- | :-------------------------------------------------- | :---------- | :---------------------------------------------------------------------------------------------- |
 | `entity`               | string                                              | Required    | Media Player entity                                                                             |
 | `icon`                 | string                                              | Optional    | Custom icon                                                                                     |
 | `name`                 | string                                              | Optional    | Custom name                                                                                     |
@@ -25,7 +25,7 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `show_volume_level`    | boolean                                             | `false`     | Show volume level next to media state when media is playing                                     |
 | `media_controls`       | list                                                | `[]`        | List of controls to display (on_off, shuffle, previous, play_pause_stop, next, repeat)          |
 | `volume_controls`      | list                                                | `[]`        | List of controls to display (volume_mute, volume_set, volume_buttons)                           |
-| `collapsible_controls` | boolean                                             | `false`     | Collapse controls when off. When used in section, it can produce a layout shift for cards below |     |
+| `collapsible_controls` | boolean                                             | `false`     | Collapse controls when off. When used in section, it can produce a layout shift for cards below |
 | `tap_action`           | action                                              | `more-info` | Home assistant action to perform on tap                                                         |
 | `hold_action`          | action                                              | `more-info` | Home assistant action to perform on hold                                                        |
 | `double_tap_action`    | action                                              | `more-info` | Home assistant action to perform on double_tap                                                  |
