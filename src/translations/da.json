@@ -3,7 +3,7 @@
     "form": {
       "color_picker": {
         "values": {
-          "default": "Standard farve"
+          "default": "Standardfarve"
         }
       },
       "info_picker": {
@@ -20,7 +20,7 @@
         "values": {
           "default": "Standard type",
           "icon": "Ikon",
-          "entity-picture": "Enheds billede",
+          "entity-picture": "Enhedsbillede",
           "none": "Ingen"
         }
       },
@@ -43,6 +43,7 @@
     },
     "card": {
       "generic": {
+        "color": "Farve",
         "icon_color": "Ikon farve",
         "layout": "Layout",
         "fill_container": "Fyld container",
@@ -50,57 +51,64 @@
         "secondary_info": "Sekundær information",
         "icon_type": "Ikon type",
         "content_info": "Indhold",
-        "use_entity_picture": "Brug enheds billede?",
+        "use_entity_picture": "Brug enhedsbillede?",
         "collapsible_controls": "Skjul kontroller når slukket",
         "icon_animation": "Animér ikon når aktiv?"
       },
       "light": {
         "show_brightness_control": "Lysstyrkekontrol?",
         "use_light_color": "Brug lysfarve",
-        "show_color_temp_control": "Temperatur farvekontrol?",
+        "show_color_temp_control": "Temperaturfarvekontrol?",
         "show_color_control": "Farvekontrol?",
         "incompatible_controls": "Nogle kontroller vises muligvis ikke, hvis dit lys ikke understøtter funktionen."
       },
       "fan": {
-        "show_percentage_control": "Procentvis kontrol?",
-        "show_oscillate_control": "Oscillerende kontrol?"
+        "show_percentage_control": "Procentkontrol?",
+        "show_oscillate_control": "Oscillationskontrol?"
       },
       "cover": {
         "show_buttons_control": "Betjeningsknapper?",
-        "show_position_control": "Positionskontrol?"
+        "show_position_control": "Positionskontrol?",
+        "show_tilt_position_control": "Tiltkontrol?"
       },
       "template": {
         "primary": "Primær information",
         "secondary": "Sekundær information",
-        "multiline_secondary": "Multi-linje skundær?",
-        "entity_extra": "Anvendes i skabelober og handlinger",
+        "multiline_secondary": "Multi-linje sekundær?",
+        "entity_extra": "Anvendes i skabeloner og handlinger",
+        "label": "Label",
         "content": "Indhold",
         "badge_icon": "Badge ikon",
         "badge_color": "Badge farve",
-        "picture": "Billede (erstatter ikonen)"
+        "picture": "Billede (erstatter ikonet)"
       },
       "title": {
         "title": "Titel",
-        "subtitle": "Undertitel"
+        "subtitle": "Undertitel",
+        "title_tap_action": "Title tryk handling",
+        "subtitle_tap_action": "Undertitel tryk handling"
       },
       "chips": {
         "alignment": "Justering"
       },
       "weather": {
-        "show_conditions": "Forhold?",
+        "show_conditions": "Vejrforhold?",
         "show_temperature": "Temperatur?"
       },
       "update": {
         "show_buttons_control": "Betjeningsknapper?"
       },
       "vacuum": {
-        "commands": "Kommandoer"
+        "commands": "Kommandoer",
+        "commands_list": {
+          "on_off": "Slå til/fra"
+        }
       },
       "media-player": {
-        "use_media_info": "Brug medie info",
+        "use_media_info": "Brug medieinformation",
         "use_media_artwork": "Brug mediebilleder",
-        "show_volume_level": "Vis volumen niveau",
-        "media_controls": "Medie kontrol",
+        "show_volume_level": "Vis lydstyrke",
+        "media_controls": "Mediekontrol",
         "media_controls_list": {
           "on_off": "Tænd/Sluk",
           "shuffle": "Bland",
@@ -109,10 +117,10 @@
           "next": "Næste nummer",
           "repeat": "Gentagelsestilstand"
         },
-        "volume_controls": "Volumen kontrol",
+        "volume_controls": "Lydstyrkekontrol",
         "volume_controls_list": {
-          "volume_buttons": "Volumen knapper",
-          "volume_set": "Volumenniveau",
+          "volume_buttons": "Lydstyrkeknapper",
+          "volume_set": "Lydstyrke",
           "volume_mute": "Lydløs"
         }
       },
@@ -122,11 +130,19 @@
         "open": "Åben"
       },
       "humidifier": {
-        "show_target_humidity_control": "Luftfugtigheds kontrol?"
+        "show_target_humidity_control": "Luftfugtighedskontrol?"
       },
       "climate": {
-        "show_temperature_control": "Temperatur kontrol?",
+        "show_temperature_control": "Temperaturkontrol?",
         "hvac_modes": "HVAC-tilstande"
+      },
+      "number": {
+        "display_mode": "Visningstilstand",
+        "display_mode_list": {
+          "default": "Standard (slider)",
+          "slider": "Slider",
+          "buttons": "Knapper"
+        }
       }
     },
     "chip": {
@@ -150,10 +166,14 @@
           "entity": "Enhed",
           "light": "Lys",
           "menu": "Menu",
+          "spacer": "Afstand",
           "template": "Skabelon",
           "weather": "Vejr"
         }
       }
     }
+  },
+  "card": {
+    "not_found": "Enhed ikke fundet"
   }
 }
