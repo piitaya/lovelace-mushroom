@@ -206,7 +206,7 @@ export class HuiEntityBadge extends LitElement implements LovelaceBadge {
     const label = this.getValue("label");
     const picture = this.getValue("picture");
 
-    const hasContent = !!content;
+    const hasInfo = !!content;
     const hasIcon = !!icon || !!picture;
 
     const style = {};
@@ -220,8 +220,8 @@ export class HuiEntityBadge extends LitElement implements LovelaceBadge {
       <div
         style=${styleMap(style)}
         class="badge ${classMap({
-          "content-only": (!hasIcon && hasContent) ?? false,
-          "icon-only": (!hasContent && hasIcon) ?? false,
+          "no-info": !hasInfo,
+          "no-icon": !hasIcon,
         })}"
         @action=${this._handleAction}
         .actionHandler=${actionHandler({
@@ -298,7 +298,12 @@ export class HuiEntityBadge extends LitElement implements LovelaceBadge {
           --ha-badge-border-radius,
           calc(var(--ha-badge-size, 36px) / 2)
         );
-        background-color: var(--card-background-color, white);
+        background: var(
+          --ha-card-background,
+          var(--card-background-color, white)
+        );
+        -webkit-backdrop-filter: var(--ha-card-backdrop-filter, none);
+        backdrop-filter: var(--ha-card-backdrop-filter, none);
         border-width: var(--ha-card-border-width, 1px);
         box-shadow: var(--ha-card-box-shadow, none);
         border-style: solid;
@@ -324,7 +329,7 @@ export class HuiEntityBadge extends LitElement implements LovelaceBadge {
       [role="button"]:focus {
         outline: none;
       }
-      .content {
+      .info {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -332,7 +337,7 @@ export class HuiEntityBadge extends LitElement implements LovelaceBadge {
         padding-inline-end: 4px;
         padding-inline-start: initial;
       }
-      .name {
+      .label {
         font-size: 10px;
         font-style: normal;
         font-weight: 500;
@@ -340,7 +345,7 @@ export class HuiEntityBadge extends LitElement implements LovelaceBadge {
         letter-spacing: 0.1px;
         color: var(--secondary-text-color);
       }
-      .state {
+      .content {
         font-size: 12px;
         font-style: normal;
         font-weight: 500;
@@ -364,15 +369,15 @@ export class HuiEntityBadge extends LitElement implements LovelaceBadge {
         object-fit: cover;
         overflow: hidden;
       }
-      .badge.icon-only {
+      .badge.no-info {
         padding: 0;
       }
-      .badge:not(.icon-only) img {
+      .badge:not(.no-icon):not(.no-info) img {
         margin-left: -6px;
         margin-inline-start: -6px;
         margin-inline-end: initial;
       }
-      .badge.content-only .content {
+      .badge.no-icon .info {
         padding-right: 4px;
         padding-left: 4px;
         padding-inline-end: 4px;
