@@ -246,9 +246,9 @@ export class HuiEntityBadge extends LitElement implements LovelaceBadge {
               : nothing}
         ${content
           ? html`
-              <span class="content">
-                ${label ? html`<span class="name">${label}</span>` : nothing}
-                <span class="state">${content}</span>
+              <span class="info">
+                ${label ? html`<span class="label">${label}</span>` : nothing}
+                <span class="content">${content}</span>
               </span>
             `
           : nothing}
