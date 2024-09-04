@@ -8,11 +8,19 @@
       },
       "info_picker": {
         "values": {
-          "default": "Informações padrão",
+          "default": "Informação padrão",
           "name": "Nome",
           "state": "Estado",
           "last-changed": "Última alteração",
           "last-updated": "Última atualização",
+          "none": "Nenhum"
+        }
+      },
+      "icon_type_picker": {
+        "values": {
+          "default": "Tipo padrão",
+          "icon": "Ícone",
+          "entity-picture": "Imagem da entidade",
           "none": "Nenhum"
         }
       },
@@ -25,8 +33,9 @@
       },
       "alignment_picker": {
         "values": {
-          "default": "Padrão (inicio)",
-          "end": "Final",
+          "default": "Alinhamento padrão",
+          "start": "Início",
+          "end": "Fim",
           "center": "Centro",
           "justify": "Justificado"
         }
@@ -34,37 +43,50 @@
     },
     "card": {
       "generic": {
-        "icon_color": "Cor do ícone?",
+        "color": "Cor",
+        "icon_color": "Cor do ícone",
         "layout": "Layout",
-        "primary_info": "Informações primárias",
-        "secondary_info": "Informações secundárias",
+        "fill_container": "Prencher",
+        "primary_info": "Informação primária",
+        "secondary_info": "Informação secundária",
+        "icon_type": "Tipo do ícone",
+        "content_info": "Conteúdo",
         "use_entity_picture": "Usar imagem da entidade?",
+        "collapsible_controls": "Recolher controles quando desligado",
         "icon_animation": "Animar ícone quando ativo?"
       },
       "light": {
-        "show_brightness_control": "Mostrar controle de brilho?",
-        "use_light_color": "Usar cor da luz?",
-        "show_color_temp_control": "Mostrar controle de temperatura?",
-        "show_color_control": "Mostrar controle de cor?",
+        "show_brightness_control": "Controle de brilho?",
+        "use_light_color": "Usar cor da luz",
+        "show_color_temp_control": "Controle de temperatura de cor?",
+        "show_color_control": "Controle de cor?",
         "incompatible_controls": "Alguns controles podem não ser exibidos se sua luz não suportar o recurso."
       },
       "fan": {
-        "show_percentage_control": "Mostrar controle de porcentagem?",
-        "show_oscillate_control": "Mostrar controle de oscilação?"
+        "show_percentage_control": "Controle de porcentagem?",
+        "show_oscillate_control": "Controle de oscilação?"
       },
       "cover": {
-        "show_buttons_control": "Mostrar botões?",
-        "show_position_control": "Mostrar controle de posição?"
+        "show_buttons_control": "Botões de controle?",
+        "show_position_control": "Controle de posição?",
+        "show_tilt_position_control": "Controle de inclinação?"
       },
       "template": {
-        "primary": "Informações primárias",
-        "secondary": "Informações secundárias",
+        "primary": "Informação primária",
+        "secondary": "Informação secundária",
         "multiline_secondary": "Multilinha secundária?",
-        "content": "Conteúdo"
+        "entity_extra": "Usado em modelos e ações",
+        "label": "Label",
+        "content": "Conteúdo",
+        "badge_icon": "Ícone do badge",
+        "badge_color": "Cor do badge",
+        "picture": "Imagem (irá substituir o ícone)"
       },
       "title": {
         "title": "Título",
-        "subtitle": "Subtítulo"
+        "subtitle": "Legenda",
+        "title_tap_action": "Ação de toque no título",
+        "subtitle_tap_action": "Ação de toque na legenda"
       },
       "chips": {
         "alignment": "Alinhamento"
@@ -72,33 +94,86 @@
       "weather": {
         "show_conditions": "Condições?",
         "show_temperature": "Temperatura?"
+      },
+      "update": {
+        "show_buttons_control": "Botões de controle?"
+      },
+      "vacuum": {
+        "commands": "Comandos",
+        "commands_list": {
+          "on_off": "Ligar/Desligar"
+        }
+      },
+      "media-player": {
+        "use_media_info": "Usar informação da mídia",
+        "use_media_artwork": "Usar arte da mídia",
+        "show_volume_level": "Mostrar nível de volume",
+        "media_controls": "Controles de mídia",
+        "media_controls_list": {
+          "on_off": "Ligar/Desligar",
+          "shuffle": "Embaralhar",
+          "previous": "Faixa anterior",
+          "play_pause_stop": "Reproduzir/pausar/parar",
+          "next": "Próxima faixa",
+          "repeat": "Modo repetição"
+        },
+        "volume_controls": "Controles de volume",
+        "volume_controls_list": {
+          "volume_buttons": "Botões de volume",
+          "volume_set": "Nível de volume",
+          "volume_mute": "Mudo"
+        }
+      },
+      "lock": {
+        "lock": "Bloquear",
+        "unlock": "Desbloquear",
+        "open": "Abrir"
+      },
+      "humidifier": {
+        "show_target_humidity_control": "Controle de umidade?"
+      },
+      "climate": {
+        "show_temperature_control": "Controle de temperatura?",
+        "hvac_modes": "Modos do HVAC"
+      },
+      "number": {
+        "display_mode": "Modo de exibição",
+        "display_mode_list": {
+          "default": "Padrão (deslizante)",
+          "slider": "Deslizante",
+          "buttons": "Botões"
+        }
       }
     },
     "chip": {
       "sub_element_editor": {
-        "title": "Editor de fichas"
+        "title": "Editor de chip"
       },
       "conditional": {
-        "chip": "Ficha"
+        "chip": "Chip"
       },
       "chip-picker": {
-        "chips": "Fichas",
-        "add": "Adicionar ficha",
+        "chips": "Chips",
+        "add": "Adicionar chip",
         "edit": "Editar",
         "clear": "Limpar",
-        "select": "Selecionar ficha",
+        "select": "Selecionar chip",
         "types": {
           "action": "Ação",
           "alarm-control-panel": "Alarme",
           "back": "Voltar",
           "conditional": "Condicional",
           "entity": "Entidade",
-          "light": "Iluminação",
+          "light": "Luz",
           "menu": "Menu",
-          "template": "Modelo",
+          "spacer": "Espaçador",
+          "template": "Template",
           "weather": "Clima"
         }
       }
     }
+  },
+  "card": {
+    "not_found": "Entidade não encontrada"
   }
 }
