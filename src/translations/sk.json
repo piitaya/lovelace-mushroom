@@ -43,6 +43,7 @@
     },
     "card": {
       "generic": {
+        "color": "Farba",
         "icon_color": "Farba ikony",
         "layout": "Rozloženie",
         "fill_container": "Vyplniť priestor",
@@ -75,6 +76,7 @@
         "secondary": "Doplnkové info",
         "multiline_secondary": "Viacriadkové doplnkové info?",
         "entity_extra": "Použitá v šablónach a akciách",
+        "label": "Štítok",
         "content": "Obsah",
         "badge_icon": "Ikona odznaku",
         "badge_color": "Farba odznaku",
