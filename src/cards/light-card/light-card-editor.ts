@@ -32,6 +32,7 @@ const SCHEMA: HaFormSchema[] = [
         context: { icon_entity: "entity" },
       },
       { name: "icon_color", selector: { mush_color: {} } },
+      { name: "slider_height", selector: { mush_height: {} } },
     ],
   },
   ...APPEARANCE_FORM_SCHEMA,

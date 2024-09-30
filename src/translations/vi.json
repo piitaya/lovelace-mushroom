@@ -44,6 +44,7 @@
     "card": {
       "generic": {
         "icon_color": "Màu biểu tượng",
+        "slider_height": "Slider height",
         "layout": "Bố cục",
         "fill_container": "Làm đầy ô chứa",
         "primary_info": "Thông tin chính",

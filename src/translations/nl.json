@@ -44,6 +44,7 @@
     "card": {
       "generic": {
         "icon_color": "Icoon kleur",
+        "slider_height": "Slider height",
         "layout": "Lay-out",
         "fill_container": "Vul container",
         "primary_info": "Primaire informatie",

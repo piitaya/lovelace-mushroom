@@ -44,6 +44,7 @@
     "card": {
       "generic": {
         "icon_color": "Warna ikon",
+        "slider_height": "Slider height",
         "layout": "Tata letak",
         "fill_container": "Isi kontainer",
         "primary_info": "Informasi primer",

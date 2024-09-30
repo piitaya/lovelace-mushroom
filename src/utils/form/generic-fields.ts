@@ -1,6 +1,7 @@
 export const GENERIC_LABELS = [
   "color",
   "icon_color",
+  "slider_height",
   "layout",
   "fill_container",
   "primary_info",

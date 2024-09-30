@@ -36,6 +36,7 @@
       "generic": {
         "color": "Färg",
         "icon_color": "Ikonens färg",
+        "slider_height": "Slider height",
         "layout": "Layout",
         "icon_type": "Ikontyp",
         "primary_info": "Primär information",

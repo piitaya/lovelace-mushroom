@@ -44,6 +44,7 @@
     "card": {
       "generic": {
         "icon_color": "Culoare pictogramă",
+        "slider_height": "Slider height",
         "layout": "Aranjare",
         "fill_container": "Umplere container",
         "primary_info": "Informație principală",

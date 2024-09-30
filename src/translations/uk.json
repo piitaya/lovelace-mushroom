@@ -44,6 +44,7 @@
     "card": {
       "generic": {
         "icon_color": "Колір іконки",
+        "slider_height": "Slider height",
         "layout": "Розташування",
         "fill_container": "Заповнити контейнер",
         "primary_info": "Головна інформація",

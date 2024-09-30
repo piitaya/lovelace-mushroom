@@ -35,6 +35,7 @@
     "card": {
       "generic": {
         "icon_color": "Cor do ícone?",
+        "slider_height": "Slider height",
         "layout": "Layout",
         "primary_info": "Informações primárias",
         "secondary_info": "Informações secundárias",

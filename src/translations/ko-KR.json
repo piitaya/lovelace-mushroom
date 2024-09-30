@@ -44,6 +44,7 @@
     "card": {
       "generic": {
         "icon_color": "아이콘 색",
+        "slider_height": "Slider height",
         "layout": "레이아웃",
         "fill_container": "콘테이너 채우기",
         "primary_info": "기본 정보",

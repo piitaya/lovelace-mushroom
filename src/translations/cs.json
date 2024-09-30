@@ -44,6 +44,7 @@
     "card": {
       "generic": {
         "icon_color": "Barva ikony",
+        "slider_height": "Slider height",
         "layout": "Rozložení",
         "fill_container": "Vyplnit prostor",
         "primary_info": "Primární         informace",

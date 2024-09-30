@@ -302,11 +302,14 @@ export class LightCard
   }
 
   private renderActiveControl(entity: LightEntity) {
+    const slider_height = this._config?.slider_height ?? "32";
+
     switch (this._activeControl) {
       case "brightness_control":
         const lightRgbColor = getRGBColor(entity);
         const sliderStyle = {};
         const iconColor = this._config?.icon_color;
+        sliderStyle["--control-height"] = `${slider_height}px`;
         if (lightRgbColor && this._config?.use_light_color) {
           const color = lightRgbColor.join(",");
           sliderStyle["--slider-color"] = `rgb(${color})`;
@@ -334,15 +337,28 @@ export class LightCard
           />
         `;
       case "color_temp_control":
+        const tempStyle = {};
+
+        tempStyle["--control-height"] = `${slider_height}px`;
+
         return html`
           <mushroom-light-color-temp-control
             .hass=${this.hass}
             .entity=${entity}
+            style=${styleMap(tempStyle)}
           />
         `;
       case "color_control":
+        const colorStyle = {};
+
+        colorStyle["--control-height"] = `${slider_height}px`;
+
         return html`
-          <mushroom-light-color-control .hass=${this.hass} .entity=${entity} />
+          <mushroom-light-color-control
+            .hass=${this.hass}
+            .entity=${entity}
+            style=${styleMap(colorStyle)}
+          />
         `;
       default:
         return nothing;

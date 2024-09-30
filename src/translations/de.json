@@ -44,6 +44,7 @@
     "card": {
       "generic": {
         "icon_color": "Icon-Farbe",
+        "slider_height": "Slider height",
         "layout": "Layout",
         "fill_container": "Container ausfüllen",
         "primary_info": "Primäre Information",
