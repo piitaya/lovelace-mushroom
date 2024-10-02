@@ -45,6 +45,7 @@
       "generic": {
         "color": "Farba",
         "icon_color": "Farba ikony",
+        "slider_height": "Slider height",
         "layout": "Rozloženie",
         "fill_container": "Vyplniť priestor",
         "primary_info": "Základné info",

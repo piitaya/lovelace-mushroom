@@ -45,6 +45,7 @@
       "generic": {
         "color": "Cor",
         "icon_color": "Cor do ícone",
+        "slider_height": "Slider height",
         "layout": "Layout",
         "fill_container": "Prencher",
         "primary_info": "Informação primária",

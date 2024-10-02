@@ -36,6 +36,7 @@
     "card": {
       "generic": {
         "icon_color": "Ikon farge",
+        "slider_height": "Slider height",
         "layout": "Oppsett",
         "primary_info": "Primærinformasjon",
         "secondary_info": "Sekundærinformasjon",

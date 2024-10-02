@@ -44,6 +44,7 @@
     "card": {
       "generic": {
         "icon_color": "图标颜色",
+        "slider_height": "Slider height",
         "layout": "布局",
         "fill_container": "填满容器",
         "primary_info": "首要信息",

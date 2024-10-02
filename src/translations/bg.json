@@ -44,6 +44,7 @@
     "card": {
       "generic": {
         "icon_color": "Цвят на икона",
+        "slider_height": "Slider height",
         "layout": "Оформление",
         "fill_container": "Изпълване на контейнера",
         "primary_info": "Първостепенна информация",

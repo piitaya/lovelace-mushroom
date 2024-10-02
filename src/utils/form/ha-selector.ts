@@ -1,6 +1,7 @@
 import { ActionConfig } from "../../ha";
 import { MushAlignementSelector } from "./custom/ha-selector-mushroom-alignment";
 import { MushColorSelector } from "./custom/ha-selector-mushroom-color";
+import { MushHeightSelector } from "./custom/ha-selector-mushroom-height";
 import { MushIconTypeSelector } from "./custom/ha-selector-mushroom-icon-type";
 import { MushInfoSelector } from "./custom/ha-selector-mushroom-info";
 import { MushLayoutSelector } from "./custom/ha-selector-mushroom-layout";
@@ -10,7 +11,8 @@ type MushSelector =
   | MushLayoutSelector
   | MushInfoSelector
   | MushIconTypeSelector
-  | MushAlignementSelector;
+  | MushAlignementSelector
+  | MushHeightSelector;
 
 export type Selector =
   | ActionSelector

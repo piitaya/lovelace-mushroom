@@ -45,6 +45,7 @@
       "generic": {
         "color": "Farve",
         "icon_color": "Ikon farve",
+        "slider_height": "Slider height",
         "layout": "Layout",
         "fill_container": "Fyld container",
         "primary_info": "Primær information",

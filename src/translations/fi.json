@@ -44,6 +44,7 @@
     "card": {
       "generic": {
         "icon_color": "Ikonin väri",
+        "slider_height": "Slider height",
         "layout": "Asettelu",
         "fill_container": "Täytä alue",
         "primary_info": "Ensisijaiset tiedot",

@@ -44,6 +44,7 @@
     "card": {
       "generic": {
         "icon_color": "Цвет иконки",
+        "slider_height": "Slider height",
         "layout": "Расположение",
         "fill_container": "Заполнение",
         "primary_info": "Основная информация",

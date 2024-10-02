@@ -44,6 +44,7 @@
     "card": {
       "generic": {
         "icon_color": "لون الأيقونة",
+        "slider_height": "Slider height",
         "layout": "التخطيط",
         "fill_container": "ملئ الحاوية",
         "primary_info": "المعلومات الأساسية",

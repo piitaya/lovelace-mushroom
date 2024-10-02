@@ -19,6 +19,7 @@ export type LightCardConfig = LovelaceCardConfig &
   AppearanceSharedConfig &
   ActionsSharedConfig & {
     icon_color?: string;
+    slider_height?: string;
     show_brightness_control?: boolean;
     show_color_temp_control?: boolean;
     show_color_control?: boolean;
@@ -35,6 +36,7 @@ export const lightCardConfigStruct = assign(
   ),
   object({
     icon_color: optional(string()),
+    slider_height: optional(string()),
     show_brightness_control: optional(boolean()),
     show_color_temp_control: optional(boolean()),
     show_color_control: optional(boolean()),
