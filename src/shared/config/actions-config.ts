@@ -30,15 +30,15 @@ export const computeActionsFormSchema = (
   return [
     {
       name: "tap_action",
-      selector: { "ui-action": { actions } },
+      selector: { ui_action: { actions } },
     },
     {
       name: "hold_action",
-      selector: { "ui-action": { actions } },
+      selector: { ui_action: { actions } },
     },
     {
       name: "double_tap_action",
-      selector: { "ui-action": { actions } },
+      selector: { ui_action: { actions } },
     },
   ];
 };
