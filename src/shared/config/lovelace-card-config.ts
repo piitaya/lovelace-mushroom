@@ -6,5 +6,6 @@ export const lovelaceCardConfigStruct = object({
   view_layout: any(),
   type: string(),
   layout_options: any(),
+  grid_options: any(),
   visibility: any(),
 });
