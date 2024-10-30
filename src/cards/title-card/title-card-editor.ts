@@ -30,11 +30,11 @@ const SCHEMA: HaFormSchema[] = [
   { name: "alignment", selector: { mush_alignment: {} } },
   {
     name: "title_tap_action",
-    selector: { "ui-action": { actions } },
+    selector: { ui_action: { actions } },
   },
   {
     name: "subtitle_tap_action",
-    selector: { "ui-action": { actions } },
+    selector: { ui_action: { actions } },
   },
 ];
 
