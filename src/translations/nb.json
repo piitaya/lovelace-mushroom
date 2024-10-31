@@ -160,7 +160,7 @@
         "select": "Velg chip",
         "types": {
           "action": "Handling",
-          "alarm-control-panel": "Alarmtest",
+          "alarm-control-panel": "Alarm",
           "back": "Tilbake",
           "conditional": "Betinget",
           "entity": "Entitet",
