@@ -76,7 +76,7 @@
         "secondary": "Information secondaire",
         "multiline_secondary": "Information secondaire sur plusieurs lignes ?",
         "entity_extra": "Utilisée pour les modèles et les actions",
-        "label": "Etiquette",
+        "label": "Libellé",
         "content": "Contenu",
         "badge_icon": "Icône du badge",
         "badge_color": "Couleur du badge",
