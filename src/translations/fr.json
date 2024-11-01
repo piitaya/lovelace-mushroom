@@ -69,7 +69,7 @@
       "cover": {
         "show_buttons_control": "Contrôle avec boutons ?",
         "show_position_control": "Contrôle de la position ?",
-        "show_tilt_position_control": "Contrôle de l'inclinaison?"        
+        "show_tilt_position_control": "Contrôle de l'inclinaison ?"        
       },
       "template": {
         "primary": "Information principale",
