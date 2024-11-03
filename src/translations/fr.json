@@ -43,6 +43,7 @@
     },
     "card": {
       "generic": {
+        "color": "Couleur",
         "icon_color": "Couleur de l'icône",
         "layout": "Disposition",
         "fill_container": "Remplir le conteneur",
@@ -67,17 +68,19 @@
       },
       "cover": {
         "show_buttons_control": "Contrôle avec boutons ?",
-        "show_position_control": "Contrôle de la position ?"
+        "show_position_control": "Contrôle de la position ?",
+        "show_tilt_position_control": "Contrôle de l'inclinaison ?"        
       },
       "template": {
         "primary": "Information principale",
         "secondary": "Information secondaire",
         "multiline_secondary": "Information secondaire sur plusieurs lignes ?",
-        "entity_extra": "Utilisée pour les templates et les actions",
+        "entity_extra": "Utilisée pour les modèles et les actions",
+        "label": "Libellé",
         "content": "Contenu",
         "badge_icon": "Icône du badge",
         "badge_color": "Couleur du badge",
-        "picture": "Picture (remplacera l'icône)"
+        "picture": "Image (remplacera l'icône)"
       },
       "title": {
         "title": "Titre",
@@ -164,10 +167,13 @@
           "light": "Lumière",
           "menu": "Menu",
           "spacer": "Espacement",
-          "template": "Template",
+          "template": "Modèle",
           "weather": "Météo"
         }
       }
     }
+  },
+  "card": {
+    "not_found": "Entité inconnue"
   }
 }
