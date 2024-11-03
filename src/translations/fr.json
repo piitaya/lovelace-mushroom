@@ -43,7 +43,7 @@
     },
     "card": {
       "generic": {
-        "color": "Coleur",
+        "color": "Couleur",
         "icon_color": "Couleur de l'icône",
         "layout": "Disposition",
         "fill_container": "Remplir le conteneur",
