@@ -121,6 +121,15 @@ export interface LovelaceLayoutOptions {
   grid_rows?: number;
 }
 
+export interface LovelaceGridOptions {
+  columns?: number;
+  rows?: number;
+  min_columns?: number;
+  max_columns?: number;
+  min_rows?: number;
+  max_rows?: number;
+}
+
 export interface ToggleActionConfig extends BaseActionConfig {
   action: "toggle";
 }

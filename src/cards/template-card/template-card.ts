@@ -19,6 +19,7 @@ import {
   HomeAssistant,
   LovelaceCard,
   LovelaceCardEditor,
+  LovelaceGridOptions,
   LovelaceLayoutOptions,
   RenderTemplateResult,
   subscribeRenderTemplate,
@@ -112,6 +113,27 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
     }
     if (this._config?.multiline_secondary) {
       options.grid_rows = undefined;
+    }
+    return options;
+  }
+
+  // For HA < 2024.11
+  public getGridOptions(): LovelaceGridOptions {
+    // No min and max because the content can be dynamic
+    const options: LovelaceGridOptions = {
+      columns: 6,
+      rows: 1,
+    };
+    if (!this._config) return options;
+    const appearance = computeAppearance(this._config);
+    if (appearance.layout === "vertical") {
+      options.rows! += 1;
+    }
+    if (appearance.layout === "horizontal") {
+      options.columns = 12;
+    }
+    if (this._config?.multiline_secondary) {
+      options.rows = undefined;
     }
     return options;
   }
