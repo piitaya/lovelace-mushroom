@@ -26,6 +26,7 @@ class MushroomTextField extends TextFieldBase {
     return "";
   }
 
+  // @ts-ignore
   protected override renderIcon(
     _icon: string,
     isTrailingIcon = false

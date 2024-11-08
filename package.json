@@ -23,27 +23,27 @@
     "color": "^4.2.3",
     "hammerjs": "^2.0.8",
     "home-assistant-js-websocket": "^9.4.0",
-    "lit": "^2.8.0",
+    "lit": "^3.2.1",
     "memoize-one": "^6.0.0",
     "sortablejs": "^1.15.3",
-    "superstruct": "^0.15.2"
+    "superstruct": "^2.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
     "@material/mwc-ripple": "^0.27.0",
     "@material/tab-bar": "^14.0.0",
     "@rollup/plugin-babel": "^6.0.4",
-    "@rollup/plugin-commonjs": "^26.0.3",
+    "@rollup/plugin-commonjs": "^28.0.1",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^15.3.0",
     "@rollup/plugin-terser": "^0.4.4",
-    "@rollup/plugin-typescript": "^11.1.6",
-    "@types/color": "^3.0.6",
+    "@rollup/plugin-typescript": "^12.1.1",
+    "@types/color": "^4.2.0",
     "@types/hammerjs": "^2.0.46",
     "eslint": "^9.14.0",
     "prettier": "^3.3.3",
     "rollup": "^4.18.0",
-    "rollup-plugin-serve": "^2.0.3",
+    "rollup-plugin-serve": "^1.1.1",
     "typescript": "^5.6.3"
   }
 }
