@@ -43,6 +43,7 @@
     },
     "card": {
       "generic": {
+        "color": "顏色",
         "icon_color": "圖示顏色",
         "layout": "佈局",
         "fill_container": "填滿容器",
@@ -75,6 +76,7 @@
         "secondary": "次要訊息",
         "multiline_secondary": "多行次要訊息?",
         "entity_extra": "用於模板與動作",
+        "label": "標籤",
         "content": "內容",
         "badge_icon": "角標圖示",
         "badge_color": "角標顏色",
