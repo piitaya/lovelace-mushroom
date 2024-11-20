@@ -52,7 +52,8 @@
         "content_info": "내용 정보",
         "use_entity_picture": "엔티티 사진 사용",
         "collapsible_controls": "꺼져있을 때 컨트롤 접기",
-        "icon_animation": "활성화 시 아이콘 애니메이션 사용"
+        "icon_animation": "활성화 시 아이콘 애니메이션 사용",
+        "color": ""
       },
       "light": {
         "show_brightness_control": "밝기 컨트롤 표시",
@@ -78,7 +79,8 @@
         "content": "내용",
         "badge_icon": "뱃지 아이콘",
         "badge_color": "뱃지 색",
-        "picture": "그림 (아이콘 대체)"
+        "picture": "그림 (아이콘 대체)",
+        "label": ""
       },
       "title": {
         "title": "제목",
@@ -133,6 +135,14 @@
       "climate": {
         "show_temperature_control": "온도 조절 표시",
         "hvac_modes": "HVAC 모드"
+      },
+      "number": {
+        "display_mode_list": {
+          "buttons": "",
+          "default": "",
+          "slider": ""
+        },
+        "display_mode": ""
       }
     },
     "chip": {
@@ -157,9 +167,13 @@
           "light": "조명",
           "menu": "메뉴",
           "template": "템플릿",
-          "weather": "날씨"
+          "weather": "날씨",
+          "spacer": ""
         }
       }
     }
+  },
+  "card": {
+    "not_found": ""
   }
 }
