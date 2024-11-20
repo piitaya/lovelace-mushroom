@@ -30,7 +30,8 @@
         "layout": "Layout",
         "primary_info": "Primäre Information",
         "secondary_info": "Sekundäre Information",
-        "use_entity_picture": "Entitätsbild verwenden?"
+        "use_entity_picture": "Entitätsbild verwenden?",
+        "color": ""
       },
       "humidifier": {
         "show_target_humidity_control": "Luftfeuchtigkeitssteuerung?"
@@ -83,7 +84,8 @@
         "multiline_secondary": "Mehrzeilig sekundär?",
         "picture": "Bild (ersetzt das Icon)",
         "primary": "Primäre Information",
-        "secondary": "Sekundäre Information"
+        "secondary": "Sekundäre Information",
+        "label": ""
       },
       "title": {
         "subtitle": "Untertitel",
