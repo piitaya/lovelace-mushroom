@@ -52,7 +52,8 @@
         "content_info": "内容",
         "use_entity_picture": "使用实体图片?",
         "collapsible_controls": "关闭时隐藏控制器",
-        "icon_animation": "激活时使用动态图标?"
+        "icon_animation": "激活时使用动态图标?",
+        "color": ""
       },
       "light": {
         "show_brightness_control": "亮度控制?",
@@ -78,7 +79,8 @@
         "content": "内容",
         "badge_icon": "徽标图标",
         "badge_color": "徽标颜色",
-        "picture": "图片 (将会替代图标)"
+        "picture": "图片 (将会替代图标)",
+        "label": ""
       },
       "title": {
         "title": "标题",
