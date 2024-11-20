@@ -4,7 +4,7 @@
 [![release][release-badge]][release-url]
 ![downloads][downloads-badge]
 ![build][build-badge]
-![weblate][translations-badge]
+[![translations][translations-badge]][weblate-url]
 
 <a href="https://www.buymeacoffee.com/piitaya" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/white_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
 
@@ -141,7 +141,7 @@ npm run build
 
 ### Translations
 
-If you want to help translating Mushroom, you can translate it directly from your browser using [Weblate](weblate).
+If you want to help translating Mushroom, you can translate it directly from your browser using [Weblate](weblate-url).
 
 ### Maintainer steps to add a new language
 
@@ -188,4 +188,4 @@ The design is inspired by [7ahang’s work][7ahang] on Behance and [Ui Lovelace 
 [button-card]: https://github.com/custom-cards/button-card
 [7ahang]: https://www.behance.net/gallery/88433905/Redesign-Smart-Home
 [release-url]: https://github.com/piitaya/lovelace-mushroom/releases
-[weblate]: https://hosted.weblate.org/engage/mushroom/
+[weblate-url]: https://hosted.weblate.org/engage/mushroom/
