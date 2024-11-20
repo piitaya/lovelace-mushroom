@@ -52,7 +52,8 @@
         "content_info": "Sisältö",
         "use_entity_picture": "Käytä kohteen kuvaa?",
         "collapsible_controls": "Piilota toiminnot off-tilassa",
-        "icon_animation": "Animoi kuvake, kun aktiivinen?"
+        "icon_animation": "Animoi kuvake, kun aktiivinen?",
+        "color": ""
       },
       "light": {
         "show_brightness_control": "Kirkkauden säätö?",
@@ -67,7 +68,8 @@
       },
       "cover": {
         "show_buttons_control": "Toimintopainikkeet?",
-        "show_position_control": "Sijainnin hallinta?"
+        "show_position_control": "Sijainnin hallinta?",
+        "show_tilt_position_control": ""
       },
       "template": {
         "primary": "Ensisijaiset tiedot",
@@ -77,11 +79,14 @@
         "content": "Sisältö",
         "badge_icon": "Merkin kuvake",
         "badge_color": "Merkin väri",
-        "picture": "Kuva (korvaa kuvakkeen)"
+        "picture": "Kuva (korvaa kuvakkeen)",
+        "label": ""
       },
       "title": {
         "title": "Otsikko",
-        "subtitle": "Tekstitys"
+        "subtitle": "Tekstitys",
+        "subtitle_tap_action": "",
+        "title_tap_action": ""
       },
       "chips": {
         "alignment": "Asettelu"
@@ -94,7 +99,10 @@
         "show_buttons_control": "Toimintopainikkeet?"
       },
       "vacuum": {
-        "commands": "Komennot"
+        "commands": "Komennot",
+        "commands_list": {
+          "on_off": ""
+        }
       },
       "media-player": {
         "use_media_info": "Käytä median tietoja",
@@ -123,6 +131,18 @@
       },
       "humidifier": {
         "show_target_humidity_control": "Kosteudenhallinta?"
+      },
+      "number": {
+        "display_mode_list": {
+          "default": "",
+          "buttons": "",
+          "slider": ""
+        },
+        "display_mode": ""
+      },
+      "climate": {
+        "show_temperature_control": "",
+        "hvac_modes": ""
       }
     },
     "chip": {
@@ -147,9 +167,13 @@
           "light": "Valaisin",
           "menu": "Valikko",
           "template": "Malli",
-          "weather": "Sää"
+          "weather": "Sää",
+          "spacer": ""
         }
       }
     }
+  },
+  "card": {
+    "not_found": ""
   }
 }
