@@ -52,7 +52,8 @@
         "content_info": "Vsebina",
         "use_entity_picture": "Uporabi sliko entitete?",
         "collapsible_controls": "Strni kontrolnike, ko so izklopljeni",
-        "icon_animation": "Animacija ikone, ko je aktivna?"
+        "icon_animation": "Animacija ikone, ko je aktivna?",
+        "color": ""
       },
       "light": {
         "show_brightness_control": "Nadzor svetlosti?",
@@ -78,7 +79,8 @@
         "content": "Vsebina",
         "badge_icon": "Ikona značke",
         "badge_color": "Barva značke",
-        "picture": "Slika (nadomestila bo ikono)"
+        "picture": "Slika (nadomestila bo ikono)",
+        "label": ""
       },
       "title": {
         "title": "Naziv",
