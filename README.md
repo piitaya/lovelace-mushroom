@@ -4,6 +4,7 @@
 [![release][release-badge]][release-url]
 ![downloads][downloads-badge]
 ![build][build-badge]
+![weblate][translations-badge]
 
 <a href="https://www.buymeacoffee.com/piitaya" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/white_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
 
@@ -138,6 +139,10 @@ You can build the `mushroom.js` file in `dist` folder by running the build comma
 npm run build
 ```
 
+### Translations
+
+If you want to help translating Mushroom, you can translate it directly from your browser using [Weblate](weblate).
+
 ### Maintainer steps to add a new language
 
 1. To be compatible with Home Assistant, language tags have to follow [BCP 47](https://www.rfc-editor.org/info/bcp47). A list of most language tags can be found here: [IANA subtag registry](http://www.iana.org/assignments/language-subtag-registry/language-subtag-registry). Examples: `fr`, `fr-CA`, `zh-Hans`.
@@ -172,6 +177,7 @@ The design is inspired by [7ahang’s work][7ahang] on Behance and [Ui Lovelace 
 [release-badge]: https://img.shields.io/github/v/release/piitaya/lovelace-mushroom?style=flat-square
 [downloads-badge]: https://img.shields.io/github/downloads/piitaya/lovelace-mushroom/total?style=flat-square
 [build-badge]: https://img.shields.io/github/actions/workflow/status/piitaya/lovelace-mushroom/build.yml?branch=main&style=flat-square
+[translations-badge]: https://hosted.weblate.org/widget/mushroom/svg-badge.svg
 
 <!-- References -->
 
@@ -182,3 +188,4 @@ The design is inspired by [7ahang’s work][7ahang] on Behance and [Ui Lovelace 
 [button-card]: https://github.com/custom-cards/button-card
 [7ahang]: https://www.behance.net/gallery/88433905/Redesign-Smart-Home
 [release-url]: https://github.com/piitaya/lovelace-mushroom/releases
+[weblate]: https://hosted.weblate.org/engage/mushroom/
