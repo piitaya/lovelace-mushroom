@@ -52,7 +52,8 @@
         "content_info": "Zawartość",
         "use_entity_picture": "Użyć obrazu encji?",
         "collapsible_controls": "Zwiń sterowanie, jeśli wyłączone",
-        "icon_animation": "Animować, gdy aktywny?"
+        "icon_animation": "Animować, gdy aktywny?",
+        "color": ""
       },
       "light": {
         "show_brightness_control": "Sterowanie jasnością?",
@@ -78,11 +79,14 @@
         "content": "Zawartość",
         "badge_icon": "Ikona odznaki",
         "badge_color": "Kolor odznaki",
-        "picture": "Obraz (zamiast ikony)"
+        "picture": "Obraz (zamiast ikony)",
+        "label": ""
       },
       "title": {
         "title": "Tytuł",
-        "subtitle": "Podtytuł"
+        "subtitle": "Podtytuł",
+        "subtitle_tap_action": "",
+        "title_tap_action": ""
       },
       "chips": {
         "alignment": "Wyrównanie"
@@ -95,7 +99,10 @@
         "show_buttons_control": "Przyciski sterujące?"
       },
       "vacuum": {
-        "commands": "Polecenia"
+        "commands": "Polecenia",
+        "commands_list": {
+          "on_off": ""
+        }
       },
       "media-player": {
         "use_media_info": "Użyj informacji o multimediach",
@@ -128,6 +135,14 @@
       "climate": {
         "show_temperature_control": "Sterowanie temperaturą?",
         "hvac_modes": "Tryby urządzenia"
+      },
+      "number": {
+        "display_mode_list": {
+          "slider": "",
+          "default": "",
+          "buttons": ""
+        },
+        "display_mode": ""
       }
     },
     "chip": {
@@ -157,5 +172,8 @@
         }
       }
     }
+  },
+  "card": {
+    "not_found": ""
   }
 }
