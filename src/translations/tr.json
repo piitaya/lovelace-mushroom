@@ -6,7 +6,8 @@
       },
       "cover": {
         "show_buttons_control": "Düğme kontrolleri",
-        "show_position_control": "Pozisyon kontrolü"
+        "show_position_control": "Pozisyon kontrolü",
+        "show_tilt_position_control": ""
       },
       "fan": {
         "show_oscillate_control": "Salınım kontrolü",
@@ -19,7 +20,11 @@
         "layout": "Düzen",
         "primary_info": "Birinci bilgi",
         "secondary_info": "İkinci bilgi",
-        "use_entity_picture": "Varlık resmi kullanılsın"
+        "use_entity_picture": "Varlık resmi kullanılsın",
+        "fill_container": "",
+        "collapsible_controls": "",
+        "color": "",
+        "icon_type": ""
       },
       "light": {
         "incompatible_controls": "Kullandığınız lamba bu özellikleri desteklemiyorsa bazı kontroller görüntülenemeyebilir.",
@@ -33,21 +38,70 @@
         "entity_extra": "Şablonlarda ve eylemlerde kullanılsın",
         "multiline_secondary": "İkinci bilgi çok satır olsun",
         "primary": "Birinci bilgi",
-        "secondary": "İkinci bilgi"
+        "secondary": "İkinci bilgi",
+        "label": "",
+        "picture": "",
+        "badge_icon": "",
+        "badge_color": ""
       },
       "title": {
         "subtitle": "Altbaşlık",
-        "title": "Başlık"
+        "title": "Başlık",
+        "title_tap_action": "",
+        "subtitle_tap_action": ""
       },
       "update": {
         "show_buttons_control": "Düğme kontrolü"
       },
       "vacuum": {
-        "commands": "Komutlar"
+        "commands": "Komutlar",
+        "commands_list": {
+          "on_off": ""
+        }
       },
       "weather": {
         "show_conditions": "Hava koşulu",
         "show_temperature": "Sıcaklık"
+      },
+      "media-player": {
+        "media_controls_list": {
+          "previous": "",
+          "on_off": "",
+          "next": "",
+          "repeat": "",
+          "shuffle": "",
+          "play_pause_stop": ""
+        },
+        "volume_controls": "",
+        "show_volume_level": "",
+        "volume_controls_list": {
+          "volume_set": "",
+          "volume_buttons": "",
+          "volume_mute": ""
+        },
+        "use_media_artwork": "",
+        "use_media_info": "",
+        "media_controls": ""
+      },
+      "lock": {
+        "unlock": "",
+        "lock": "",
+        "open": ""
+      },
+      "climate": {
+        "show_temperature_control": "",
+        "hvac_modes": ""
+      },
+      "number": {
+        "display_mode_list": {
+          "buttons": "",
+          "slider": "",
+          "default": ""
+        },
+        "display_mode": ""
+      },
+      "humidifier": {
+        "show_target_humidity_control": ""
       }
     },
     "chip": {
@@ -66,7 +120,8 @@
           "light": "Işık",
           "menu": "Menü",
           "template": "Şablon",
-          "weather": "Hava Durumu"
+          "weather": "Hava Durumu",
+          "spacer": ""
         }
       },
       "conditional": {
@@ -107,7 +162,18 @@
           "horizontal": "Yatay düzen",
           "vertical": "Dikey düzen"
         }
+      },
+      "icon_type_picker": {
+        "values": {
+          "default": "",
+          "icon": "",
+          "none": "",
+          "entity-picture": ""
+        }
       }
     }
+  },
+  "card": {
+    "not_found": ""
   }
 }
