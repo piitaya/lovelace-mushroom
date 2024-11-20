@@ -52,7 +52,8 @@
         "content_info": "Съдържание",
         "use_entity_picture": "Използвай снимката на обекта?",
         "collapsible_controls": "Свий контролите при изключен",
-        "icon_animation": "Анимирай иконата при активен?"
+        "icon_animation": "Анимирай иконата при активен?",
+        "color": ""
       },
       "light": {
         "show_brightness_control": "Контрол на яркостта?",
@@ -78,11 +79,14 @@
         "content": "Съдържание",
         "badge_icon": "Икона на значка",
         "badge_color": "Цвят на значка",
-        "picture": "Картина (ще замени иконата)"
+        "picture": "Картина (ще замени иконата)",
+        "label": ""
       },
       "title": {
         "title": "Заглавие",
-        "subtitle": "Подзаглавие"
+        "subtitle": "Подзаглавие",
+        "title_tap_action": "",
+        "subtitle_tap_action": ""
       },
       "chips": {
         "alignment": "Подравняване"
@@ -131,6 +135,14 @@
       "climate": {
         "show_temperature_control": "Контрол на температурата?",
         "hvac_modes": "HVAC Режими"
+      },
+      "number": {
+        "display_mode_list": {
+          "default": "",
+          "buttons": "",
+          "slider": ""
+        },
+        "display_mode": ""
       }
     },
     "chip": {
@@ -155,9 +167,13 @@
           "light": "Осветление",
           "menu": "Меню",
           "template": "Шаблон",
-          "weather": "Време"
+          "weather": "Време",
+          "spacer": ""
         }
       }
     }
+  },
+  "card": {
+    "not_found": ""
   }
 }
