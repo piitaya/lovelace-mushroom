@@ -22,6 +22,7 @@
       },
       "generic": {
         "collapsible_controls": "Bedieningselementen verbergen wanneer uitgeschakeld",
+        "color": "",
         "content_info": "Inhoud",
         "fill_container": "Vul container",
         "icon_animation": "Pictogram animeren indien actief",
@@ -80,6 +81,7 @@
         "badge_icon": "Badge icoon",
         "content": "Inhoud",
         "entity_extra": "Gebruikt in sjablonen en acties",
+        "label": "",
         "multiline_secondary": "Secundaire informatie op meerdere lijnen weergeven",
         "picture": "Afbeelding (zal het icoon vervangen)",
         "primary": "Primaire informatie",
