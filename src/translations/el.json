@@ -31,6 +31,14 @@
           "center": "Στοίχιση στο κέντρο",
           "justify": "Πλήρης στοίχιση"
         }
+      },
+      "icon_type_picker": {
+        "values": {
+          "none": "",
+          "default": "",
+          "entity-picture": "",
+          "icon": ""
+        }
       }
     },
     "card": {
@@ -41,7 +49,11 @@
         "secondary_info": "Δευτερεύουσες πληροφορίες",
         "content_info": "Περιεχόμενο",
         "use_entity_picture": "Χρήση εικόνας οντότητας;",
-        "icon_animation": "Κίνηση εικονιδίου όταν είναι ενεργό;"
+        "icon_animation": "Κίνηση εικονιδίου όταν είναι ενεργό;",
+        "fill_container": "",
+        "collapsible_controls": "",
+        "icon_type": "",
+        "color": ""
       },
       "light": {
         "show_brightness_control": "Έλεγχος φωτεινότητας;",
@@ -56,18 +68,25 @@
       },
       "cover": {
         "show_buttons_control": "Έλεγχος κουμπιών;",
-        "show_position_control": "Έλεγχος θέσης;"
+        "show_position_control": "Έλεγχος θέσης;",
+        "show_tilt_position_control": ""
       },
       "template": {
         "primary": "Πρωτεύουσες πληροφορίες",
         "secondary": "Δευτερεύουσες πληροφορίες",
         "multiline_secondary": "Δευτερεύουσες πολλαπλών γραμμών;",
         "entity_extra": "Χρησιμοποιείται σε πρότυπα και ενέργειες",
-        "content": "Περιεχόμενο"
+        "content": "Περιεχόμενο",
+        "picture": "",
+        "badge_icon": "",
+        "badge_color": "",
+        "label": ""
       },
       "title": {
         "title": "Τίτλος",
-        "subtitle": "Υπότιτλος"
+        "subtitle": "Υπότιτλος",
+        "title_tap_action": "",
+        "subtitle_tap_action": ""
       },
       "chips": {
         "alignment": "Ευθυγράμμιση"
@@ -80,7 +99,10 @@
         "show_buttons_control": "Έλεγχος κουμπιών;"
       },
       "vacuum": {
-        "commands": "Εντολές"
+        "commands": "Εντολές",
+        "commands_list": {
+          "on_off": ""
+        }
       },
       "media-player": {
         "use_media_info": "Χρήση πληροφοριών πολυμέσων",
@@ -99,7 +121,28 @@
           "volume_buttons": "Κουμπιά έντασης ήχου",
           "volume_set": "Επίπεδο έντασης ήχου",
           "volume_mute": "Σίγαση"
-        }
+        },
+        "show_volume_level": ""
+      },
+      "climate": {
+        "hvac_modes": "",
+        "show_temperature_control": ""
+      },
+      "humidifier": {
+        "show_target_humidity_control": ""
+      },
+      "number": {
+        "display_mode_list": {
+          "buttons": "",
+          "default": "",
+          "slider": ""
+        },
+        "display_mode": ""
+      },
+      "lock": {
+        "unlock": "",
+        "lock": "",
+        "open": ""
       }
     },
     "chip": {
@@ -124,9 +167,13 @@
           "light": "Φως",
           "menu": "Μενού",
           "template": "Πρότυπο",
-          "weather": "Καιρός"
+          "weather": "Καιρός",
+          "spacer": ""
         }
       }
     }
+  },
+  "card": {
+    "not_found": ""
   }
 }
