@@ -22,7 +22,6 @@
       },
       "generic": {
         "collapsible_controls": "Strni kontrolnike, ko so izklopljeni",
-        "color": "",
         "content_info": "Vsebina",
         "fill_container": "Zapolnitev prostora",
         "icon_animation": "Animacija ikone, ko je aktivna?",
@@ -81,7 +80,6 @@
         "badge_icon": "Ikona značke",
         "content": "Vsebina",
         "entity_extra": "Uporablja se v predlogah in dejanjih",
-        "label": "",
         "multiline_secondary": "Večvrstični sekundarni?",
         "picture": "Slika (nadomestila bo ikono)",
         "primary": "Primarna informacija",

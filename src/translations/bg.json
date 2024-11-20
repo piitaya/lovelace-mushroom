@@ -1,7 +1,4 @@
 {
-  "card": {
-    "not_found": ""
-  },
   "editor": {
     "card": {
       "chips": {
@@ -22,7 +19,6 @@
       },
       "generic": {
         "collapsible_controls": "Свий контролите при изключен",
-        "color": "",
         "content_info": "Съдържание",
         "fill_container": "Изпълване на контейнера",
         "icon_animation": "Анимирай иконата при активен?",
@@ -68,20 +64,11 @@
           "volume_set": "Ниво на звука"
         }
       },
-      "number": {
-        "display_mode": "",
-        "display_mode_list": {
-          "buttons": "",
-          "default": "",
-          "slider": ""
-        }
-      },
       "template": {
         "badge_color": "Цвят на значка",
         "badge_icon": "Икона на значка",
         "content": "Съдържание",
         "entity_extra": "Използван в шаблони и действия",
-        "label": "",
         "multiline_secondary": "Много-редова второстепенна информация?",
         "picture": "Картина (ще замени иконата)",
         "primary": "Първостепенна информация",
@@ -89,9 +76,7 @@
       },
       "title": {
         "subtitle": "Подзаглавие",
-        "subtitle_tap_action": "",
-        "title": "Заглавие",
-        "title_tap_action": ""
+        "title": "Заглавие"
       },
       "update": {
         "show_buttons_control": "Контролни бутони?"
@@ -122,7 +107,6 @@
           "entity": "Обект",
           "light": "Осветление",
           "menu": "Меню",
-          "spacer": "",
           "template": "Шаблон",
           "weather": "Време"
         }

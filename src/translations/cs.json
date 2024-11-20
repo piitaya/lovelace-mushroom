@@ -22,7 +22,6 @@
       },
       "generic": {
         "collapsible_controls": "Pokud je vypnuto, skrýt ovládací prvky",
-        "color": "",
         "content_info": "Obsah",
         "fill_container": "Vyplnit prostor",
         "icon_animation": "Pokud je aktivní, animovat ikonu?",
@@ -81,7 +80,6 @@
         "badge_icon": "Ikona odznaku",
         "content": "Obsah",
         "entity_extra": "Použito v šablonách a akcích",
-        "label": "",
         "multiline_secondary": "Víceřádková sekundární informace?",
         "picture": "Obrázek (nahradí ikonu)",
         "primary": "Primární informace",

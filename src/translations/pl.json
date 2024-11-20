@@ -1,7 +1,4 @@
 {
-  "card": {
-    "not_found": ""
-  },
   "editor": {
     "card": {
       "chips": {
@@ -22,7 +19,6 @@
       },
       "generic": {
         "collapsible_controls": "Zwiń sterowanie, jeśli wyłączone",
-        "color": "",
         "content_info": "Zawartość",
         "fill_container": "Wypełnij zawartością",
         "icon_animation": "Animować, gdy aktywny?",
@@ -68,20 +64,11 @@
           "volume_set": "Poziom głośności"
         }
       },
-      "number": {
-        "display_mode": "",
-        "display_mode_list": {
-          "buttons": "",
-          "default": "",
-          "slider": ""
-        }
-      },
       "template": {
         "badge_color": "Kolor odznaki",
         "badge_icon": "Ikona odznaki",
         "content": "Zawartość",
         "entity_extra": "Używane w szablonach i akcjach",
-        "label": "",
         "multiline_secondary": "Drugorzędne wielowierszowe?",
         "picture": "Obraz (zamiast ikony)",
         "primary": "Informacje główne",
@@ -89,18 +76,13 @@
       },
       "title": {
         "subtitle": "Podtytuł",
-        "subtitle_tap_action": "",
-        "title": "Tytuł",
-        "title_tap_action": ""
+        "title": "Tytuł"
       },
       "update": {
         "show_buttons_control": "Przyciski sterujące?"
       },
       "vacuum": {
-        "commands": "Polecenia",
-        "commands_list": {
-          "on_off": ""
-        }
+        "commands": "Polecenia"
       },
       "weather": {
         "show_conditions": "Warunki?",

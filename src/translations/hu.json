@@ -22,7 +22,6 @@
       },
       "generic": {
         "collapsible_controls": "Vezérlők összezárása kikapcsolt állapotban",
-        "color": "",
         "content_info": "Tartalom",
         "fill_container": "Tároló kitöltése",
         "icon_animation": "Ikon animálása aktív állapotban",
@@ -81,7 +80,6 @@
         "badge_icon": "Jelvény ikon",
         "content": "Tartalom",
         "entity_extra": "Műveletek és sablonok használatakor",
-        "label": "",
         "multiline_secondary": "Másodlagost több sorba?",
         "picture": "Kép (lecseréli az ikont)",
         "primary": "Elsődleges információ",

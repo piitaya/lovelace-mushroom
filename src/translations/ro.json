@@ -1,7 +1,4 @@
 {
-  "card": {
-    "not_found": ""
-  },
   "editor": {
     "card": {
       "chips": {
@@ -23,10 +20,8 @@
       },
       "generic": {
         "collapsible_controls": "Restrângere la dezactivare",
-        "color": "",
         "content_info": "Conținut",
         "fill_container": "Umplere container",
-        "icon_animation": "",
         "icon_color": "Culoare pictogramă",
         "icon_type": "Tip pictogramă",
         "layout": "Aranjare",
@@ -69,20 +64,11 @@
           "volume_set": "Nivel volum"
         }
       },
-      "number": {
-        "display_mode": "",
-        "display_mode_list": {
-          "buttons": "",
-          "default": "",
-          "slider": ""
-        }
-      },
       "template": {
         "badge_color": "Culoare insignă",
         "badge_icon": "Pictogramă insignă",
         "content": "Conținut",
         "entity_extra": "Folosită în șabloane și acțiuni",
-        "label": "",
         "multiline_secondary": "Informație secundară pe mai multe linii?",
         "picture": "Imagine (inlocuiește pictograma)",
         "primary": "Informație principală",
@@ -90,18 +76,13 @@
       },
       "title": {
         "subtitle": "Subtitlu",
-        "subtitle_tap_action": "",
-        "title": "Titlu",
-        "title_tap_action": ""
+        "title": "Titlu"
       },
       "update": {
         "show_buttons_control": "Comenzi control?"
       },
       "vacuum": {
-        "commands": "Comenzi",
-        "commands_list": {
-          "on_off": ""
-        }
+        "commands": "Comenzi"
       },
       "weather": {
         "show_conditions": "Condiții?",
@@ -123,7 +104,6 @@
           "entity": "Entitate",
           "light": "Lumină",
           "menu": "Meniu",
-          "spacer": "",
           "template": "Șablon",
           "weather": "Vreme"
         }

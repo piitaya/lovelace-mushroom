@@ -1,7 +1,4 @@
 {
-  "card": {
-    "not_found": ""
-  },
   "editor": {
     "card": {
       "chips": {
@@ -22,7 +19,6 @@
       },
       "generic": {
         "collapsible_controls": "Contraer controles cuando está apagado",
-        "color": "",
         "content_info": "Contenido",
         "fill_container": "Rellenar",
         "icon_animation": "¿Icono animado cuando está activo?",
@@ -68,20 +64,11 @@
           "volume_set": "Nivel de volumen"
         }
       },
-      "number": {
-        "display_mode": "",
-        "display_mode_list": {
-          "buttons": "",
-          "default": "",
-          "slider": ""
-        }
-      },
       "template": {
         "badge_color": "Color del distintivo",
         "badge_icon": "Icono del distintivo",
         "content": "Contenido",
         "entity_extra": "Utilizado en plantillas y acciones",
-        "label": "",
         "multiline_secondary": "¿Secundaria multilínea?",
         "picture": "Imagen (sustituirá al icono)",
         "primary": "Información primaria",
@@ -122,7 +109,6 @@
           "entity": "Entidad",
           "light": "Luz",
           "menu": "Menú",
-          "spacer": "",
           "template": "Plantilla",
           "weather": "Clima"
         }

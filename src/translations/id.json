@@ -22,7 +22,6 @@
       },
       "generic": {
         "collapsible_controls": "Sembunyikan kontrol saat mati",
-        "color": "",
         "content_info": "Konten",
         "fill_container": "Isi kontainer",
         "icon_animation": "Animasikan ikon saat aktif?",
@@ -81,7 +80,6 @@
         "badge_icon": "Ikon lencana",
         "content": "Konten",
         "entity_extra": "Digunakan dalam templat dan tindakan",
-        "label": "",
         "multiline_secondary": "Info sekunder multibaris?",
         "picture": "Gambar (akan menggantikan ikon)",
         "primary": "Informasi primer",

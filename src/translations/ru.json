@@ -1,7 +1,4 @@
 {
-  "card": {
-    "not_found": ""
-  },
   "editor": {
     "card": {
       "chips": {
@@ -23,10 +20,8 @@
       },
       "generic": {
         "collapsible_controls": "Сворачивать элементы управления при выключении",
-        "color": "",
         "content_info": "Содержимое",
         "fill_container": "Заполнение",
-        "icon_animation": "",
         "icon_color": "Цвет иконки",
         "icon_type": "Тип иконки",
         "layout": "Расположение",
@@ -69,20 +64,11 @@
           "volume_set": "Уровень громкости"
         }
       },
-      "number": {
-        "display_mode": "",
-        "display_mode_list": {
-          "buttons": "",
-          "default": "",
-          "slider": ""
-        }
-      },
       "template": {
         "badge_color": "Цвет значка",
         "badge_icon": "Иконка значка",
         "content": "Содержимое",
         "entity_extra": "Используется в шаблонах и действиях",
-        "label": "",
         "multiline_secondary": "Многострочная Второстепенная информация?",
         "picture": "Изображение (заменить иконку)",
         "primary": "Основная информация",
@@ -90,18 +76,13 @@
       },
       "title": {
         "subtitle": "Подзаголовок",
-        "subtitle_tap_action": "",
-        "title": "Заголовок",
-        "title_tap_action": ""
+        "title": "Заголовок"
       },
       "update": {
         "show_buttons_control": "Кнопки управления?"
       },
       "vacuum": {
-        "commands": "Команды",
-        "commands_list": {
-          "on_off": ""
-        }
+        "commands": "Команды"
       },
       "weather": {
         "show_conditions": "Условия?",
@@ -123,7 +104,6 @@
           "entity": "Объект",
           "light": "Освещение",
           "menu": "Меню",
-          "spacer": "",
           "template": "Шаблон",
           "weather": "Погода"
         }
