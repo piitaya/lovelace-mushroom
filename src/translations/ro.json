@@ -51,7 +51,9 @@
         "icon_type": "Tip pictogramă",
         "content_info": "Conținut",
         "use_entity_picture": "Imagine?",
-        "collapsible_controls": "Restrângere la dezactivare"
+        "collapsible_controls": "Restrângere la dezactivare",
+        "icon_animation": "",
+        "color": ""
       },
       "light": {
         "show_brightness_control": "Comandă pentru strălucire?",
@@ -78,11 +80,14 @@
         "content": "Conținut",
         "badge_icon": "Pictogramă insignă",
         "badge_color": "Culoare insignă",
-        "picture": "Imagine (inlocuiește pictograma)"
+        "picture": "Imagine (inlocuiește pictograma)",
+        "label": ""
       },
       "title": {
         "title": "Titlu",
-        "subtitle": "Subtitlu"
+        "subtitle": "Subtitlu",
+        "title_tap_action": "",
+        "subtitle_tap_action": ""
       },
       "chips": {
         "alignment": "Aliniere"
@@ -95,7 +100,10 @@
         "show_buttons_control": "Comenzi control?"
       },
       "vacuum": {
-        "commands": "Comenzi"
+        "commands": "Comenzi",
+        "commands_list": {
+          "on_off": ""
+        }
       },
       "media-player": {
         "use_media_info": "Informații media",
@@ -128,6 +136,14 @@
       "climate": {
         "show_temperature_control": "Comenzi temperatură?",
         "hvac_modes": "Moduri HVAC"
+      },
+      "number": {
+        "display_mode": "",
+        "display_mode_list": {
+          "default": "",
+          "buttons": "",
+          "slider": ""
+        }
       }
     },
     "chip": {
@@ -152,9 +168,13 @@
           "light": "Lumină",
           "menu": "Meniu",
           "template": "Șablon",
-          "weather": "Vreme"
+          "weather": "Vreme",
+          "spacer": ""
         }
       }
     }
+  },
+  "card": {
+    "not_found": ""
   }
 }
