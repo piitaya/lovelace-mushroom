@@ -30,7 +30,8 @@
         "layout": "Postavitev",
         "primary_info": "Primarna informacija",
         "secondary_info": "Sekundarna informacija",
-        "use_entity_picture": "Uporabi sliko entitete?"
+        "use_entity_picture": "Uporabi sliko entitete?",
+        "color": ""
       },
       "humidifier": {
         "show_target_humidity_control": "Nadzor vlažnosti?"
@@ -83,7 +84,8 @@
         "multiline_secondary": "Večvrstični sekundarni?",
         "picture": "Slika (nadomestila bo ikono)",
         "primary": "Primarna informacija",
-        "secondary": "Sekundarna informacija"
+        "secondary": "Sekundarna informacija",
+        "label": ""
       },
       "title": {
         "subtitle": "Podnaslov",
