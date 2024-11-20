@@ -1,4 +1,7 @@
 {
+  "card": {
+    "not_found": ""
+  },
   "editor": {
     "card": {
       "chips": {
@@ -19,6 +22,7 @@
       },
       "generic": {
         "collapsible_controls": "꺼져있을 때 컨트롤 접기",
+        "color": "",
         "content_info": "내용 정보",
         "fill_container": "콘테이너 채우기",
         "icon_animation": "활성화 시 아이콘 애니메이션 사용",
@@ -64,11 +68,20 @@
           "volume_set": "볼륨 레벨"
         }
       },
+      "number": {
+        "display_mode": "",
+        "display_mode_list": {
+          "buttons": "",
+          "default": "",
+          "slider": ""
+        }
+      },
       "template": {
         "badge_color": "뱃지 색",
         "badge_icon": "뱃지 아이콘",
         "content": "내용",
         "entity_extra": "템플릿 및 작업에 사용",
+        "label": "",
         "multiline_secondary": "Multiline secondary?",
         "picture": "그림 (아이콘 대체)",
         "primary": "기본 정보",
@@ -109,6 +122,7 @@
           "entity": "엔티티",
           "light": "조명",
           "menu": "메뉴",
+          "spacer": "",
           "template": "템플릿",
           "weather": "날씨"
         }
