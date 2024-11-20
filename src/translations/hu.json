@@ -52,7 +52,8 @@
         "content_info": "Tartalom",
         "use_entity_picture": "Entitás kép használata",
         "collapsible_controls": "Vezérlők összezárása kikapcsolt állapotban",
-        "icon_animation": "Ikon animálása aktív állapotban"
+        "icon_animation": "Ikon animálása aktív állapotban",
+        "color": ""
       },
       "light": {
         "show_brightness_control": "Fényerő vezérlő",
@@ -78,7 +79,8 @@
         "content": "Tartalom",
         "badge_icon": "Jelvény ikon",
         "badge_color": "Jelvény szín",
-        "picture": "Kép (lecseréli az ikont)"
+        "picture": "Kép (lecseréli az ikont)",
+        "label": ""
       },
       "title": {
         "title": "Fejléc",
