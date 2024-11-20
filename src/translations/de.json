@@ -52,7 +52,8 @@
         "content_info": "Inhalt",
         "use_entity_picture": "Entitätsbild verwenden?",
         "collapsible_controls": "Schieberegler einklappen, wenn aus",
-        "icon_animation": "Icon animieren, wenn aktiv?"
+        "icon_animation": "Icon animieren, wenn aktiv?",
+        "color": ""
       },
       "light": {
         "show_brightness_control": "Helligkeitsregelung?",
@@ -78,7 +79,8 @@
         "content": "Inhalt",
         "badge_icon": "Badge-Icon",
         "badge_color": "Badge-Farbe",
-        "picture": "Bild (ersetzt das Icon)"
+        "picture": "Bild (ersetzt das Icon)",
+        "label": ""
       },
       "title": {
         "title": "Titel",
