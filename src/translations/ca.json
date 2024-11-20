@@ -52,7 +52,8 @@
         "content_info": "Contingut",
         "use_entity_picture": "Fer servir la imatge de l'entitat?",
         "collapsible_controls": "Amaga els controls en desactivar",
-        "icon_animation": "Animar icona en activar?"
+        "icon_animation": "Animar icona en activar?",
+        "color": ""
       },
       "light": {
         "show_brightness_control": "Control de brillantor?",
@@ -78,7 +79,8 @@
         "content": "Contingut",
         "badge_icon": "Icona de la insígnia",
         "badge_color": "Color de la insígnia",
-        "picture": "Imatge (reemplaçarà la icona)"
+        "picture": "Imatge (reemplaçarà la icona)",
+        "label": ""
       },
       "title": {
         "title": "Títol",
