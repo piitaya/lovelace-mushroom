@@ -27,7 +27,9 @@
         "layout": "Aranjare",
         "primary_info": "Informație principală",
         "secondary_info": "Informație secundară",
-        "use_entity_picture": "Imagine?"
+        "use_entity_picture": "Imagine?",
+        "icon_animation": "",
+        "color": ""
       },
       "humidifier": {
         "show_target_humidity_control": "Comenzi umiditate?"
@@ -72,21 +74,35 @@
         "multiline_secondary": "Informație secundară pe mai multe linii?",
         "picture": "Imagine (inlocuiește pictograma)",
         "primary": "Informație principală",
-        "secondary": "Informație secundară"
+        "secondary": "Informație secundară",
+        "label": ""
       },
       "title": {
         "subtitle": "Subtitlu",
-        "title": "Titlu"
+        "title": "Titlu",
+        "title_tap_action": "",
+        "subtitle_tap_action": ""
       },
       "update": {
         "show_buttons_control": "Comenzi control?"
       },
       "vacuum": {
-        "commands": "Comenzi"
+        "commands": "Comenzi",
+        "commands_list": {
+          "on_off": ""
+        }
       },
       "weather": {
         "show_conditions": "Condiții?",
         "show_temperature": "Temperatură?"
+      },
+      "number": {
+        "display_mode": "",
+        "display_mode_list": {
+          "default": "",
+          "buttons": "",
+          "slider": ""
+        }
       }
     },
     "chip": {
@@ -105,7 +121,8 @@
           "light": "Lumină",
           "menu": "Meniu",
           "template": "Șablon",
-          "weather": "Vreme"
+          "weather": "Vreme",
+          "spacer": ""
         }
       },
       "conditional": {
@@ -156,5 +173,8 @@
         }
       }
     }
+  },
+  "card": {
+    "not_found": ""
   }
 }
