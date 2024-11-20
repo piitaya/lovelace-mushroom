@@ -52,7 +52,8 @@
         "content_info": "Konten",
         "use_entity_picture": "Gunakan gambar entitas?",
         "collapsible_controls": "Sembunyikan kontrol saat mati",
-        "icon_animation": "Animasikan ikon saat aktif?"
+        "icon_animation": "Animasikan ikon saat aktif?",
+        "color": ""
       },
       "light": {
         "show_brightness_control": "Kontrol kecerahan?",
@@ -78,7 +79,8 @@
         "content": "Konten",
         "badge_icon": "Ikon lencana",
         "badge_color": "Warna lencana",
-        "picture": "Gambar (akan menggantikan ikon)"
+        "picture": "Gambar (akan menggantikan ikon)",
+        "label": ""
       },
       "title": {
         "title": "Judul",
