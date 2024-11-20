@@ -30,8 +30,7 @@
         "layout": "Elrendezés",
         "primary_info": "Elsődleges információ",
         "secondary_info": "Másodlagos információ",
-        "use_entity_picture": "Entitás kép használata",
-        "color": ""
+        "use_entity_picture": "Entitás kép használata"
       },
       "humidifier": {
         "show_target_humidity_control": "Páratartalom vezérlő"
@@ -84,8 +83,7 @@
         "multiline_secondary": "Másodlagost több sorba?",
         "picture": "Kép (lecseréli az ikont)",
         "primary": "Elsődleges információ",
-        "secondary": "Másodlagos információ",
-        "label": ""
+        "secondary": "Másodlagos információ"
       },
       "title": {
         "subtitle": "Alcím",

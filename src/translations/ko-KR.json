@@ -27,8 +27,7 @@
         "layout": "레이아웃",
         "primary_info": "기본 정보",
         "secondary_info": "보조 정보",
-        "use_entity_picture": "엔티티 사진 사용",
-        "color": ""
+        "use_entity_picture": "엔티티 사진 사용"
       },
       "humidifier": {
         "show_target_humidity_control": "습도 조절 표시"
@@ -73,8 +72,7 @@
         "multiline_secondary": "Multiline secondary?",
         "picture": "그림 (아이콘 대체)",
         "primary": "기본 정보",
-        "secondary": "보조 정보",
-        "label": ""
+        "secondary": "보조 정보"
       },
       "title": {
         "subtitle": "부제목",
@@ -94,14 +92,6 @@
       "weather": {
         "show_conditions": "조건 표시",
         "show_temperature": "온도 표시"
-      },
-      "number": {
-        "display_mode_list": {
-          "buttons": "",
-          "default": "",
-          "slider": ""
-        },
-        "display_mode": ""
       }
     },
     "chip": {
@@ -120,8 +110,7 @@
           "light": "조명",
           "menu": "메뉴",
           "template": "템플릿",
-          "weather": "날씨",
-          "spacer": ""
+          "weather": "날씨"
         }
       },
       "conditional": {
@@ -172,8 +161,5 @@
         }
       }
     }
-  },
-  "card": {
-    "not_found": ""
   }
 }

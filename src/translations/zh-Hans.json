@@ -30,8 +30,7 @@
         "layout": "布局",
         "primary_info": "首要信息",
         "secondary_info": "次要信息",
-        "use_entity_picture": "使用实体图片?",
-        "color": ""
+        "use_entity_picture": "使用实体图片?"
       },
       "humidifier": {
         "show_target_humidity_control": "湿度控制?"
@@ -84,8 +83,7 @@
         "multiline_secondary": "多行次要信息?",
         "picture": "图片 (将会替代图标)",
         "primary": "首要信息",
-        "secondary": "次要信息",
-        "label": ""
+        "secondary": "次要信息"
       },
       "title": {
         "subtitle": "子标题",

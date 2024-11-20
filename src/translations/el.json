@@ -6,8 +6,7 @@
       },
       "cover": {
         "show_buttons_control": "Έλεγχος κουμπιών;",
-        "show_position_control": "Έλεγχος θέσης;",
-        "show_tilt_position_control": ""
+        "show_position_control": "Έλεγχος θέσης;"
       },
       "fan": {
         "show_oscillate_control": "Έλεγχος ταλάντωσης;",
@@ -20,11 +19,7 @@
         "layout": "Διάταξη",
         "primary_info": "Πρωτεύουσες πληροφορίες",
         "secondary_info": "Δευτερεύουσες πληροφορίες",
-        "use_entity_picture": "Χρήση εικόνας οντότητας;",
-        "icon_type": "",
-        "fill_container": "",
-        "collapsible_controls": "",
-        "color": ""
+        "use_entity_picture": "Χρήση εικόνας οντότητας;"
       },
       "light": {
         "incompatible_controls": "Ορισμένα στοιχεία ελέγχου ενδέχεται να μην εμφανίζονται εάν το φωτιστικό σας δεν υποστηρίζει τη λειτουργία.",
@@ -50,58 +45,28 @@
           "volume_buttons": "Κουμπιά έντασης ήχου",
           "volume_mute": "Σίγαση",
           "volume_set": "Επίπεδο έντασης ήχου"
-        },
-        "show_volume_level": ""
+        }
       },
       "template": {
         "content": "Περιεχόμενο",
         "entity_extra": "Χρησιμοποιείται σε πρότυπα και ενέργειες",
         "multiline_secondary": "Δευτερεύουσες πολλαπλών γραμμών;",
         "primary": "Πρωτεύουσες πληροφορίες",
-        "secondary": "Δευτερεύουσες πληροφορίες",
-        "picture": "",
-        "badge_icon": "",
-        "badge_color": "",
-        "label": ""
+        "secondary": "Δευτερεύουσες πληροφορίες"
       },
       "title": {
         "subtitle": "Υπότιτλος",
-        "title": "Τίτλος",
-        "title_tap_action": "",
-        "subtitle_tap_action": ""
+        "title": "Τίτλος"
       },
       "update": {
         "show_buttons_control": "Έλεγχος κουμπιών;"
       },
       "vacuum": {
-        "commands": "Εντολές",
-        "commands_list": {
-          "on_off": ""
-        }
+        "commands": "Εντολές"
       },
       "weather": {
         "show_conditions": "Συνθήκες;",
         "show_temperature": "Θερμοκρασία;"
-      },
-      "number": {
-        "display_mode": "",
-        "display_mode_list": {
-          "buttons": "",
-          "default": "",
-          "slider": ""
-        }
-      },
-      "lock": {
-        "unlock": "",
-        "lock": "",
-        "open": ""
-      },
-      "climate": {
-        "hvac_modes": "",
-        "show_temperature_control": ""
-      },
-      "humidifier": {
-        "show_target_humidity_control": ""
       }
     },
     "chip": {
@@ -120,8 +85,7 @@
           "light": "Φως",
           "menu": "Μενού",
           "template": "Πρότυπο",
-          "weather": "Καιρός",
-          "spacer": ""
+          "weather": "Καιρός"
         }
       },
       "conditional": {
@@ -162,18 +126,7 @@
           "horizontal": "Οριζόντια διάταξη",
           "vertical": "Κάθετη διάταξη"
         }
-      },
-      "icon_type_picker": {
-        "values": {
-          "none": "",
-          "icon": "",
-          "default": "",
-          "entity-picture": ""
-        }
       }
     }
-  },
-  "card": {
-    "not_found": ""
   }
 }

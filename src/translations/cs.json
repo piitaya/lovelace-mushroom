@@ -30,8 +30,7 @@
         "layout": "Rozložení",
         "primary_info": "Primární informace",
         "secondary_info": "Sekundární informace",
-        "use_entity_picture": "Použít ikonu entity?",
-        "color": ""
+        "use_entity_picture": "Použít ikonu entity?"
       },
       "humidifier": {
         "show_target_humidity_control": "Ovládání vlhkosti?"
@@ -84,8 +83,7 @@
         "multiline_secondary": "Víceřádková sekundární informace?",
         "picture": "Obrázek (nahradí ikonu)",
         "primary": "Primární informace",
-        "secondary": "Sekundární informace",
-        "label": ""
+        "secondary": "Sekundární informace"
       },
       "title": {
         "subtitle": "Popis",

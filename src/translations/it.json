@@ -30,8 +30,7 @@
         "layout": "Disposizione",
         "primary_info": "Informazione primaria",
         "secondary_info": "Informazione secondaria",
-        "use_entity_picture": "Usa l'immagine dell'entità",
-        "color": ""
+        "use_entity_picture": "Usa l'immagine dell'entità"
       },
       "humidifier": {
         "show_target_humidity_control": "Controllo umidità"
@@ -84,8 +83,7 @@
         "multiline_secondary": "Abilita frasi multilinea",
         "picture": "Immagine (sostituirà l'icona)",
         "primary": "Informazione primaria",
-        "secondary": "Informazione secondaria",
-        "label": ""
+        "secondary": "Informazione secondaria"
       },
       "title": {
         "subtitle": "Sottotitolo",

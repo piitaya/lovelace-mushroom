@@ -26,9 +26,7 @@
         "layout": "Layout",
         "primary_info": "Primär information",
         "secondary_info": "Sekundär information",
-        "use_entity_picture": "Använd enhetens bild?",
-        "fill_container": "",
-        "content_info": ""
+        "use_entity_picture": "Använd enhetens bild?"
       },
       "light": {
         "incompatible_controls": "Kontroller som inte stöds av enheten kommer inte visas.",
@@ -49,8 +47,7 @@
           "on_off": "Slå på/av",
           "play_pause_stop": "Spela/pausa/stoppa",
           "previous": "Föregående spår",
-          "repeat": "Upprepa",
-          "shuffle": ""
+          "repeat": "Upprepa"
         },
         "show_volume_level": "Volymkontroll",
         "use_media_artwork": "Visa mediaomslag",
@@ -59,49 +56,28 @@
           "volume_buttons": "Volymknappar",
           "volume_mute": "Ljud av",
           "volume_set": "Volymnivå"
-        },
-        "use_media_info": ""
+        }
       },
       "template": {
         "content": "Innehåll",
         "multiline_secondary": "Sekundär med flera rader?",
         "picture": "Bild (ersätter ikonen)",
         "primary": "Primär information",
-        "secondary": "Sekundär information",
-        "label": "",
-        "badge_color": "",
-        "badge_icon": "",
-        "entity_extra": ""
+        "secondary": "Sekundär information"
       },
       "title": {
         "subtitle": "Underrubrik",
-        "title": "Rubrik",
-        "subtitle_tap_action": "",
-        "title_tap_action": ""
+        "title": "Rubrik"
       },
       "update": {
         "show_buttons_control": "Visa kontrollknappar?"
       },
       "vacuum": {
-        "commands": "Kommandon",
-        "commands_list": {
-          "on_off": ""
-        }
+        "commands": "Kommandon"
       },
       "weather": {
         "show_conditions": "Förhållanden?",
         "show_temperature": "Temperatur?"
-      },
-      "number": {
-        "display_mode_list": {
-          "slider": "",
-          "buttons": "",
-          "default": ""
-        },
-        "display_mode": ""
-      },
-      "humidifier": {
-        "show_target_humidity_control": ""
       }
     },
     "chip": {
@@ -120,8 +96,7 @@
           "light": "Ljus",
           "menu": "Meny",
           "template": "Mall",
-          "weather": "Väder",
-          "spacer": ""
+          "weather": "Väder"
         }
       },
       "conditional": {
@@ -137,8 +112,7 @@
           "center": "Centrerad",
           "default": "Standard (början)",
           "end": "Slutet",
-          "justify": "Anpassa",
-          "start": ""
+          "justify": "Anpassa"
         }
       },
       "color_picker": {
@@ -162,18 +136,7 @@
           "horizontal": "Horisontell",
           "vertical": "Vertikal"
         }
-      },
-      "icon_type_picker": {
-        "values": {
-          "entity-picture": "",
-          "default": "",
-          "icon": "",
-          "none": ""
-        }
       }
     }
-  },
-  "card": {
-    "not_found": ""
   }
 }

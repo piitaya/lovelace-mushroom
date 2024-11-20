@@ -6,8 +6,7 @@
       },
       "cover": {
         "show_buttons_control": "Toimintopainikkeet?",
-        "show_position_control": "Sijainnin hallinta?",
-        "show_tilt_position_control": ""
+        "show_position_control": "Sijainnin hallinta?"
       },
       "fan": {
         "show_oscillate_control": "Oskillaation säätö?",
@@ -23,8 +22,7 @@
         "layout": "Asettelu",
         "primary_info": "Ensisijaiset tiedot",
         "secondary_info": "Toissijaiset tiedot",
-        "use_entity_picture": "Käytä kohteen kuvaa?",
-        "color": ""
+        "use_entity_picture": "Käytä kohteen kuvaa?"
       },
       "humidifier": {
         "show_target_humidity_control": "Kosteudenhallinta?"
@@ -69,39 +67,21 @@
         "multiline_secondary": "Monirivinen toissijainen tieto?",
         "picture": "Kuva (korvaa kuvakkeen)",
         "primary": "Ensisijaiset tiedot",
-        "secondary": "Toissijaiset tiedot",
-        "label": ""
+        "secondary": "Toissijaiset tiedot"
       },
       "title": {
         "subtitle": "Tekstitys",
-        "title": "Otsikko",
-        "subtitle_tap_action": "",
-        "title_tap_action": ""
+        "title": "Otsikko"
       },
       "update": {
         "show_buttons_control": "Toimintopainikkeet?"
       },
       "vacuum": {
-        "commands": "Komennot",
-        "commands_list": {
-          "on_off": ""
-        }
+        "commands": "Komennot"
       },
       "weather": {
         "show_conditions": "Ehdot?",
         "show_temperature": "Lämpötila?"
-      },
-      "climate": {
-        "hvac_modes": "",
-        "show_temperature_control": ""
-      },
-      "number": {
-        "display_mode_list": {
-          "default": "",
-          "buttons": "",
-          "slider": ""
-        },
-        "display_mode": ""
       }
     },
     "chip": {
@@ -120,8 +100,7 @@
           "light": "Valaisin",
           "menu": "Valikko",
           "template": "Malli",
-          "weather": "Sää",
-          "spacer": ""
+          "weather": "Sää"
         }
       },
       "conditional": {
@@ -172,8 +151,5 @@
         }
       }
     }
-  },
-  "card": {
-    "not_found": ""
   }
 }

@@ -30,8 +30,7 @@
         "layout": "Lay-out",
         "primary_info": "Primaire informatie",
         "secondary_info": "Secundaire informatie",
-        "use_entity_picture": "Gebruik entiteit afbeelding",
-        "color": ""
+        "use_entity_picture": "Gebruik entiteit afbeelding"
       },
       "humidifier": {
         "show_target_humidity_control": "Vochtigheid controle?"
@@ -84,8 +83,7 @@
         "multiline_secondary": "Secundaire informatie op meerdere lijnen weergeven",
         "picture": "Afbeelding (zal het icoon vervangen)",
         "primary": "Primaire informatie",
-        "secondary": "Secundaire informatie",
-        "label": ""
+        "secondary": "Secundaire informatie"
       },
       "title": {
         "subtitle": "Ondertitel",

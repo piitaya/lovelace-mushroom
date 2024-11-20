@@ -10,8 +10,7 @@
       },
       "cover": {
         "show_buttons_control": "أزرار التحكم؟",
-        "show_position_control": "التحكم في الموقع؟",
-        "show_tilt_position_control": ""
+        "show_position_control": "التحكم في الموقع؟"
       },
       "fan": {
         "show_oscillate_control": "التحكم في التذبذب؟",
@@ -27,8 +26,7 @@
         "layout": "التخطيط",
         "primary_info": "المعلومات الأساسية",
         "secondary_info": "المعلومات الفرعية",
-        "use_entity_picture": "استخدم صورة الكيان؟",
-        "color": ""
+        "use_entity_picture": "استخدم صورة الكيان؟"
       },
       "humidifier": {
         "show_target_humidity_control": "التحكم في الرطوبة؟?"
@@ -73,35 +71,21 @@
         "multiline_secondary": "متعدد الأسطر الثانوية؟",
         "picture": "صورة (ستحل محل الأيقونة)",
         "primary": "المعلومات الأساسية",
-        "secondary": "المعلومات الثانوية",
-        "label": ""
+        "secondary": "المعلومات الثانوية"
       },
       "title": {
         "subtitle": "العنوان الفرعي",
-        "title": "العنوان",
-        "title_tap_action": "",
-        "subtitle_tap_action": ""
+        "title": "العنوان"
       },
       "update": {
         "show_buttons_control": "أزرار التحكم؟"
       },
       "vacuum": {
-        "commands": "الاوامر",
-        "commands_list": {
-          "on_off": ""
-        }
+        "commands": "الاوامر"
       },
       "weather": {
         "show_conditions": "الأحوال الجوية؟",
         "show_temperature": "الطقس؟"
-      },
-      "number": {
-        "display_mode_list": {
-          "slider": "",
-          "default": "",
-          "buttons": ""
-        },
-        "display_mode": ""
       }
     },
     "chip": {
@@ -120,8 +104,7 @@
           "light": "Light",
           "menu": "القائمة",
           "template": "قالب",
-          "weather": "الطقس",
-          "spacer": ""
+          "weather": "الطقس"
         }
       },
       "conditional": {
@@ -172,8 +155,5 @@
         }
       }
     }
-  },
-  "card": {
-    "not_found": ""
   }
 }

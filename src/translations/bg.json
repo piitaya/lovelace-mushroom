@@ -27,8 +27,7 @@
         "layout": "Оформление",
         "primary_info": "Първостепенна информация",
         "secondary_info": "Второстепенна информация",
-        "use_entity_picture": "Използвай снимката на обекта?",
-        "color": ""
+        "use_entity_picture": "Използвай снимката на обекта?"
       },
       "humidifier": {
         "show_target_humidity_control": "Контрол на влажността?"
@@ -73,14 +72,11 @@
         "multiline_secondary": "Много-редова второстепенна информация?",
         "picture": "Картина (ще замени иконата)",
         "primary": "Първостепенна информация",
-        "secondary": "Второстепенна информация",
-        "label": ""
+        "secondary": "Второстепенна информация"
       },
       "title": {
         "subtitle": "Подзаглавие",
-        "title": "Заглавие",
-        "title_tap_action": "",
-        "subtitle_tap_action": ""
+        "title": "Заглавие"
       },
       "update": {
         "show_buttons_control": "Контролни бутони?"
@@ -94,14 +90,6 @@
       "weather": {
         "show_conditions": "Условия?",
         "show_temperature": "Температура?"
-      },
-      "number": {
-        "display_mode_list": {
-          "default": "",
-          "buttons": "",
-          "slider": ""
-        },
-        "display_mode": ""
       }
     },
     "chip": {
@@ -120,8 +108,7 @@
           "light": "Осветление",
           "menu": "Меню",
           "template": "Шаблон",
-          "weather": "Време",
-          "spacer": ""
+          "weather": "Време"
         }
       },
       "conditional": {
@@ -172,8 +159,5 @@
         }
       }
     }
-  },
-  "card": {
-    "not_found": ""
   }
 }

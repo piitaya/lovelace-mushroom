@@ -30,8 +30,7 @@
         "layout": "Tata letak",
         "primary_info": "Informasi primer",
         "secondary_info": "Informasi sekunder",
-        "use_entity_picture": "Gunakan gambar entitas?",
-        "color": ""
+        "use_entity_picture": "Gunakan gambar entitas?"
       },
       "humidifier": {
         "show_target_humidity_control": "Kontrol kelembapan?"
@@ -84,8 +83,7 @@
         "multiline_secondary": "Info sekunder multibaris?",
         "picture": "Gambar (akan menggantikan ikon)",
         "primary": "Informasi primer",
-        "secondary": "Informasi sekunder",
-        "label": ""
+        "secondary": "Informasi sekunder"
       },
       "title": {
         "subtitle": "Subjudul",

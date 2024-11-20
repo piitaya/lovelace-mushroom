@@ -30,8 +30,7 @@
         "layout": "Bố cục",
         "primary_info": "Thông tin chính",
         "secondary_info": "Thông tin phụ",
-        "use_entity_picture": "Dùng ảnh của thực thể?",
-        "color": ""
+        "use_entity_picture": "Dùng ảnh của thực thể?"
       },
       "humidifier": {
         "show_target_humidity_control": "Điều khiển độ ẩm?"
@@ -84,8 +83,7 @@
         "multiline_secondary": "Nhiều dòng thông tin phụ?",
         "picture": "Ảnh (thay cho biểu tượng)",
         "primary": "Thông tin chính",
-        "secondary": "Thông tin phụ",
-        "label": ""
+        "secondary": "Thông tin phụ"
       },
       "title": {
         "subtitle": "Phụ đề",
