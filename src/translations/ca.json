@@ -30,7 +30,8 @@
         "layout": "Distribució",
         "primary_info": "Informació primaria",
         "secondary_info": "Informació secundaria",
-        "use_entity_picture": "Fer servir la imatge de l'entitat?"
+        "use_entity_picture": "Fer servir la imatge de l'entitat?",
+        "color": ""
       },
       "humidifier": {
         "show_target_humidity_control": "Control d'humitat?"
@@ -83,7 +84,8 @@
         "multiline_secondary": "Secundaria en varies línies?",
         "picture": "Imatge (reemplaçarà la icona)",
         "primary": "Informació primaria",
-        "secondary": "Informació secundaria"
+        "secondary": "Informació secundaria",
+        "label": ""
       },
       "title": {
         "subtitle": "Subtítol",
