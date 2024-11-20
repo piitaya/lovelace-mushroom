@@ -28,7 +28,16 @@
           "default": "Padrão (inicio)",
           "end": "Fim",
           "center": "Centrado",
-          "justify": "Justificado"
+          "justify": "Justificado",
+          "start": ""
+        }
+      },
+      "icon_type_picker": {
+        "values": {
+          "none": "",
+          "entity-picture": "",
+          "icon": "",
+          "default": ""
         }
       }
     },
@@ -39,7 +48,12 @@
         "primary_info": "Informações primárias",
         "secondary_info": "Informações secundárias",
         "use_entity_picture": "Usar imagem da entidade?",
-        "icon_animation": "Animar ícone quando ativo?"
+        "icon_animation": "Animar ícone quando ativo?",
+        "collapsible_controls": "",
+        "color": "",
+        "icon_type": "",
+        "fill_container": "",
+        "content_info": ""
       },
       "light": {
         "show_brightness_control": "Mostrar controle de brilho?",
@@ -54,17 +68,25 @@
       },
       "cover": {
         "show_buttons_control": "Mostrar botões?",
-        "show_position_control": "Mostrar controle de posição?"
+        "show_position_control": "Mostrar controle de posição?",
+        "show_tilt_position_control": ""
       },
       "template": {
         "primary": "Informações primárias",
         "secondary": "Informações secundárias",
         "multiline_secondary": "Multilinha secundária?",
-        "content": "Conteúdo"
+        "content": "Conteúdo",
+        "label": "",
+        "badge_icon": "",
+        "picture": "",
+        "badge_color": "",
+        "entity_extra": ""
       },
       "title": {
         "title": "Título",
-        "subtitle": "Subtítulo"
+        "subtitle": "Subtítulo",
+        "subtitle_tap_action": "",
+        "title_tap_action": ""
       },
       "chips": {
         "alignment": "Alinhamento"
@@ -72,6 +94,55 @@
       "weather": {
         "show_conditions": "Condições?",
         "show_temperature": "Temperatura?"
+      },
+      "vacuum": {
+        "commands_list": {
+          "on_off": ""
+        },
+        "commands": ""
+      },
+      "lock": {
+        "unlock": "",
+        "lock": "",
+        "open": ""
+      },
+      "media-player": {
+        "volume_controls": "",
+        "use_media_artwork": "",
+        "volume_controls_list": {
+          "volume_mute": "",
+          "volume_buttons": "",
+          "volume_set": ""
+        },
+        "media_controls_list": {
+          "on_off": "",
+          "play_pause_stop": "",
+          "previous": "",
+          "next": "",
+          "shuffle": "",
+          "repeat": ""
+        },
+        "show_volume_level": "",
+        "media_controls": "",
+        "use_media_info": ""
+      },
+      "number": {
+        "display_mode_list": {
+          "slider": "",
+          "buttons": "",
+          "default": ""
+        },
+        "display_mode": ""
+      },
+      "humidifier": {
+        "show_target_humidity_control": ""
+      },
+      "update": {
+        "show_buttons_control": ""
+      },
+      "climate": {
+        "show_temperature_control": "",
+        "hvac_modes": ""
       }
     },
     "chip": {
@@ -96,9 +167,13 @@
           "light": "Iluminação",
           "menu": "Menu",
           "template": "Modelo",
-          "weather": "Clima"
+          "weather": "Clima",
+          "spacer": ""
         }
       }
     }
+  },
+  "card": {
+    "not_found": ""
   }
 }
