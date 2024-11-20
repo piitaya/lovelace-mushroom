@@ -51,7 +51,9 @@
         "icon_type": "Тип иконки",
         "content_info": "Содержимое",
         "use_entity_picture": "Использовать изображение объекта?",
-        "collapsible_controls": "Сворачивать элементы управления при выключении"
+        "collapsible_controls": "Сворачивать элементы управления при выключении",
+        "color": "",
+        "icon_animation": ""
       },
       "light": {
         "show_brightness_control": "Управлять яркостью?",
@@ -78,11 +80,14 @@
         "content": "Содержимое",
         "badge_icon": "Иконка значка",
         "badge_color": "Цвет значка",
-        "picture": "Изображение (заменить иконку)"
+        "picture": "Изображение (заменить иконку)",
+        "label": ""
       },
       "title": {
         "title": "Заголовок",
-        "subtitle": "Подзаголовок"
+        "subtitle": "Подзаголовок",
+        "title_tap_action": "",
+        "subtitle_tap_action": ""
       },
       "chips": {
         "alignment": "Выравнивание"
@@ -95,7 +100,10 @@
         "show_buttons_control": "Кнопки управления?"
       },
       "vacuum": {
-        "commands": "Команды"
+        "commands": "Команды",
+        "commands_list": {
+          "on_off": ""
+        }
       },
       "media-player": {
         "use_media_info": "Использовать информацию с медиа-устройства",
@@ -128,6 +136,14 @@
       "climate": {
         "show_temperature_control": "Управлять целевой температурой?",
         "hvac_modes": "Режимы работы"
+      },
+      "number": {
+        "display_mode_list": {
+          "buttons": "",
+          "default": "",
+          "slider": ""
+        },
+        "display_mode": ""
       }
     },
     "chip": {
@@ -152,9 +168,13 @@
           "light": "Освещение",
           "menu": "Меню",
           "template": "Шаблон",
-          "weather": "Погода"
+          "weather": "Погода",
+          "spacer": ""
         }
       }
     }
+  },
+  "card": {
+    "not_found": ""
   }
 }
