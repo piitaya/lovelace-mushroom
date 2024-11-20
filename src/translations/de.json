@@ -22,6 +22,7 @@
       },
       "generic": {
         "collapsible_controls": "Schieberegler einklappen, wenn aus",
+        "color": "",
         "content_info": "Inhalt",
         "fill_container": "Container ausfüllen",
         "icon_animation": "Icon animieren, wenn aktiv?",
@@ -80,6 +81,7 @@
         "badge_icon": "Badge-Icon",
         "content": "Inhalt",
         "entity_extra": "Wird in Vorlagen und Aktionen verwendet",
+        "label": "",
         "multiline_secondary": "Mehrzeilig sekundär?",
         "picture": "Bild (ersetzt das Icon)",
         "primary": "Primäre Information",
