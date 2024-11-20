@@ -31,6 +31,14 @@
           "center": "אמצע",
           "justify": "מוצדק"
         }
+      },
+      "icon_type_picker": {
+        "values": {
+          "none": "",
+          "default": "",
+          "icon": "",
+          "entity-picture": ""
+        }
       }
     },
     "card": {
@@ -43,7 +51,9 @@
         "content_info": "תוכן",
         "use_entity_picture": "השתמש בתמונת ישות",
         "collapsible_controls": "הסתר שליטה כשאר מכובה",
-        "icon_animation": "הנפש אייקון"
+        "icon_animation": "הנפש אייקון",
+        "color": "",
+        "icon_type": ""
       },
       "light": {
         "show_brightness_control": "שליטה בבהירות?",
@@ -58,18 +68,25 @@
       },
       "cover": {
         "show_buttons_control": "הצג כפתורי שליטה",
-        "show_position_control": "הצג פקדי מיקום"
+        "show_position_control": "הצג פקדי מיקום",
+        "show_tilt_position_control": ""
       },
       "template": {
         "primary": "מידע ראשי",
         "secondary": "מידע מישני",
         "multiline_secondary": "מידע מישני רב קווי",
         "entity_extra": "משמש בתבניות ופעולות",
-        "content": "תוכן"
+        "content": "תוכן",
+        "badge_icon": "",
+        "badge_color": "",
+        "label": "",
+        "picture": ""
       },
       "title": {
         "title": "כותרת",
-        "subtitle": "כתובית"
+        "subtitle": "כתובית",
+        "subtitle_tap_action": "",
+        "title_tap_action": ""
       },
       "chips": {
         "alignment": "יישור"
@@ -83,7 +100,10 @@
       },
       "vacuum": {
         "commands": "פקודות",
-        "icon_animation": "הנפשת אייקון"
+        "icon_animation": "הנפשת אייקון",
+        "commands_list": {
+          "on_off": ""
+        }
       },
       "media-player": {
         "use_media_info": "השתמש במידע מדיה",
@@ -112,6 +132,18 @@
       },
       "humidifier": {
         "show_target_humidity_control": "הצג פקדי לחות"
+      },
+      "number": {
+        "display_mode_list": {
+          "default": "",
+          "buttons": "",
+          "slider": ""
+        },
+        "display_mode": ""
+      },
+      "climate": {
+        "hvac_modes": "",
+        "show_temperature_control": ""
       }
     },
     "chip": {
@@ -136,9 +168,13 @@
           "light": "אור",
           "menu": "תפריט",
           "template": "תבנית",
-          "weather": "מזג אוויר"
+          "weather": "מזג אוויר",
+          "spacer": ""
         }
       }
     }
+  },
+  "card": {
+    "not_found": ""
   }
 }
