@@ -27,7 +27,8 @@
         "layout": "Układ",
         "primary_info": "Informacje główne",
         "secondary_info": "Informacje drugorzędne",
-        "use_entity_picture": "Użyć obrazu encji?"
+        "use_entity_picture": "Użyć obrazu encji?",
+        "color": ""
       },
       "humidifier": {
         "show_target_humidity_control": "Sterowanie wilgotnością?"
@@ -72,21 +73,35 @@
         "multiline_secondary": "Drugorzędne wielowierszowe?",
         "picture": "Obraz (zamiast ikony)",
         "primary": "Informacje główne",
-        "secondary": "Informacje drugorzędne"
+        "secondary": "Informacje drugorzędne",
+        "label": ""
       },
       "title": {
         "subtitle": "Podtytuł",
-        "title": "Tytuł"
+        "title": "Tytuł",
+        "subtitle_tap_action": "",
+        "title_tap_action": ""
       },
       "update": {
         "show_buttons_control": "Przyciski sterujące?"
       },
       "vacuum": {
-        "commands": "Polecenia"
+        "commands": "Polecenia",
+        "commands_list": {
+          "on_off": ""
+        }
       },
       "weather": {
         "show_conditions": "Warunki?",
         "show_temperature": "Temperatura?"
+      },
+      "number": {
+        "display_mode_list": {
+          "slider": "",
+          "default": "",
+          "buttons": ""
+        },
+        "display_mode": ""
       }
     },
     "chip": {
@@ -157,5 +172,8 @@
         }
       }
     }
+  },
+  "card": {
+    "not_found": ""
   }
 }
