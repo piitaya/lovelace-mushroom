@@ -27,7 +27,8 @@
         "layout": "Diseño",
         "primary_info": "Información primaria",
         "secondary_info": "Información secundaria",
-        "use_entity_picture": "¿Usar imagen de entidad?"
+        "use_entity_picture": "¿Usar imagen de entidad?",
+        "color": ""
       },
       "humidifier": {
         "show_target_humidity_control": "¿Controlar humedad?"
@@ -72,7 +73,8 @@
         "multiline_secondary": "¿Secundaria multilínea?",
         "picture": "Imagen (sustituirá al icono)",
         "primary": "Información primaria",
-        "secondary": "Información secundaria"
+        "secondary": "Información secundaria",
+        "label": ""
       },
       "title": {
         "subtitle": "Subtítulo",
@@ -92,6 +94,14 @@
       "weather": {
         "show_conditions": "¿Condiciones?",
         "show_temperature": "¿Temperatura?"
+      },
+      "number": {
+        "display_mode": "",
+        "display_mode_list": {
+          "buttons": "",
+          "default": "",
+          "slider": ""
+        }
       }
     },
     "chip": {
@@ -110,7 +120,8 @@
           "light": "Luz",
           "menu": "Menú",
           "template": "Plantilla",
-          "weather": "Clima"
+          "weather": "Clima",
+          "spacer": ""
         }
       },
       "conditional": {
@@ -161,5 +172,8 @@
         }
       }
     }
+  },
+  "card": {
+    "not_found": ""
   }
 }
