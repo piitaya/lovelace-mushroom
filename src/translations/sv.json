@@ -1,82 +1,73 @@
 {
   "editor": {
-    "form": {
-      "color_picker": {
-        "values": {
-          "default": "Standardfärg"
-        }
-      },
-      "info_picker": {
-        "values": {
-          "default": "Förvald information",
-          "name": "Namn",
-          "state": "Status",
-          "last-changed": "Sist ändrad",
-          "last-updated": "Sist uppdaterad",
-          "none": "Ingen"
-        }
-      },
-      "layout_picker": {
-        "values": {
-          "default": "Standard",
-          "vertical": "Vertikal",
-          "horizontal": "Horisontell"
-        }
-      },
-      "alignment_picker": {
-        "values": {
-          "default": "Standard (början)",
-          "end": "Slutet",
-          "center": "Centrerad",
-          "justify": "Anpassa"
-        }
-      }
-    },
     "card": {
-      "generic": {
-        "color": "Färg",
-        "icon_color": "Ikonens färg",
-        "layout": "Layout",
-        "icon_type": "Ikontyp",
-        "primary_info": "Primär information",
-        "secondary_info": "Sekundär information",
-        "use_entity_picture": "Använd enhetens bild?",
-        "collapsible_controls": "Dölj kontroller när enehten är av",
-        "icon_animation": "Animera ikonen när enheten är på?"
+      "chips": {
+        "alignment": "Justering"
       },
-      "light": {
-        "show_brightness_control": "Styr ljushet?",
-        "use_light_color": "Styr ljusets färg",
-        "show_color_temp_control": "Styr färgtemperatur?",
-        "show_color_control": "Styr färg?",
-        "incompatible_controls": "Kontroller som inte stöds av enheten kommer inte visas"
-      },
-      "fan": {
-        "show_percentage_control": "Procentuell kontroll?",
-        "show_oscillate_control": "Kontroll för oscillera?"
+      "climate": {
+        "hvac_modes": "HVAC-lägen",
+        "show_temperature_control": "Temperaturkontroll?"
       },
       "cover": {
         "show_buttons_control": "Visa kontrollknappar?",
         "show_position_control": "Visa positionskontroll?",
         "show_tilt_position_control": "Visa lutningskontroll?"
       },
+      "fan": {
+        "show_oscillate_control": "Kontroll för oscillera?",
+        "show_percentage_control": "Procentuell kontroll?"
+      },
+      "generic": {
+        "collapsible_controls": "Dölj kontroller när enehten är av",
+        "color": "Färg",
+        "icon_animation": "Animera ikonen när enheten är på?",
+        "icon_color": "Ikonens färg",
+        "icon_type": "Ikontyp",
+        "layout": "Layout",
+        "primary_info": "Primär information",
+        "secondary_info": "Sekundär information",
+        "use_entity_picture": "Använd enhetens bild?"
+      },
+      "light": {
+        "incompatible_controls": "Kontroller som inte stöds av enheten kommer inte visas.",
+        "show_brightness_control": "Styr ljushet?",
+        "show_color_control": "Styr färg?",
+        "show_color_temp_control": "Styr färgtemperatur?",
+        "use_light_color": "Styr ljusets färg"
+      },
+      "lock": {
+        "lock": "Lås",
+        "open": "Öppna",
+        "unlock": "Lås upp"
+      },
+      "media-player": {
+        "media_controls": "Mediakontroller",
+        "media_controls_list": {
+          "next": "Nästa spår",
+          "on_off": "Slå på/av",
+          "play_pause_stop": "Spela/pausa/stoppa",
+          "previous": "Föregående spår",
+          "repeat": "Upprepa"
+        },
+        "show_volume_level": "Volymkontroll",
+        "use_media_artwork": "Visa mediaomslag",
+        "volume_controls": "Volymkontroller",
+        "volume_controls_list": {
+          "volume_buttons": "Volymknappar",
+          "volume_mute": "Ljud av",
+          "volume_set": "Volymnivå"
+        }
+      },
       "template": {
-        "primary": "Primär information",
-        "secondary": "Sekundär information",
-        "multiline_secondary": "Sekundär med flera rader?",
         "content": "Innehåll",
-        "picture": "Bild (ersätter ikonen)"
+        "multiline_secondary": "Sekundär med flera rader?",
+        "picture": "Bild (ersätter ikonen)",
+        "primary": "Primär information",
+        "secondary": "Sekundär information"
       },
       "title": {
-        "title": "Rubrik",
-        "subtitle": "Underrubrik"
-      },
-      "chips": {
-        "alignment": "Justering"
-      },
-      "weather": {
-        "show_conditions": "Förhållanden?",
-        "show_temperature": "Temperatur?"
+        "subtitle": "Underrubrik",
+        "title": "Rubrik"
       },
       "update": {
         "show_buttons_control": "Visa kontrollknappar?"
@@ -84,46 +75,17 @@
       "vacuum": {
         "commands": "Kommandon"
       },
-      "climate": {
-        "show_temperature_control": "Temperaturkontroll?",
-        "hvac_modes": "HVAC-lägen"
-      },
-      "media-player": {
-        "use_media_artwork": "Visa mediaomslag",
-        "show_volume_level": "Volymkontroll",
-        "media_controls": "Mediakontroller",
-        "media_controls_list": {
-          "on_off": "Slå på/av",
-          "previous": "Föregående spår",
-          "play_pause_stop": "Spela/pausa/stoppa",
-          "next": "Nästa spår",
-          "repeat": "Upprepa"
-        },
-        "volume_controls": "Volymkontroller",
-        "volume_controls_list": {
-          "volume_buttons": "Volymknappar",
-          "volume_set": "Volymnivå",
-          "volume_mute": "Ljud av"
-        }
-      },
-      "lock": {
-        "lock": "Lås",
-        "unlock": "Lås upp",
-        "open": "Öppna"
+      "weather": {
+        "show_conditions": "Förhållanden?",
+        "show_temperature": "Temperatur?"
       }
     },
     "chip": {
-      "sub_element_editor": {
-        "title": "Chipredigerare"
-      },
-      "conditional": {
-        "chip": "Chip"
-      },
       "chip-picker": {
-        "chips": "Chips",
         "add": "Lägg till chip",
-        "edit": "Redigera",
+        "chips": "Chips",
         "clear": "Rensa",
+        "edit": "Redigera",
         "select": "Välj chip",
         "types": {
           "action": "Åtgärd",
@@ -135,6 +97,44 @@
           "menu": "Meny",
           "template": "Mall",
           "weather": "Väder"
+        }
+      },
+      "conditional": {
+        "chip": "Chip"
+      },
+      "sub_element_editor": {
+        "title": "Chipredigerare"
+      }
+    },
+    "form": {
+      "alignment_picker": {
+        "values": {
+          "center": "Centrerad",
+          "default": "Standard (början)",
+          "end": "Slutet",
+          "justify": "Anpassa"
+        }
+      },
+      "color_picker": {
+        "values": {
+          "default": "Standardfärg"
+        }
+      },
+      "info_picker": {
+        "values": {
+          "default": "Förvald information",
+          "last-changed": "Sist ändrad",
+          "last-updated": "Sist uppdaterad",
+          "name": "Namn",
+          "none": "Ingen",
+          "state": "Status"
+        }
+      },
+      "layout_picker": {
+        "values": {
+          "default": "Standard",
+          "horizontal": "Horisontell",
+          "vertical": "Vertikal"
         }
       }
     }

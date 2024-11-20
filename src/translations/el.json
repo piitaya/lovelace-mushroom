@@ -1,80 +1,62 @@
 {
   "editor": {
-    "form": {
-      "color_picker": {
-        "values": {
-          "default": "Προεπιλεγμένο χρώμα"
-        }
-      },
-      "info_picker": {
-        "values": {
-          "default": "Προεπιλεγμένες πληροφορίες",
-          "name": "Όνομα",
-          "state": "Κατάσταση",
-          "last-changed": "Τελευταία αλλαγή",
-          "last-updated": "Τελευταία ενημέρωση",
-          "none": "Τίποτα"
-        }
-      },
-      "layout_picker": {
-        "values": {
-          "default": "Προεπιλεγμένη διάταξη",
-          "vertical": "Κάθετη διάταξη",
-          "horizontal": "Οριζόντια διάταξη"
-        }
-      },
-      "alignment_picker": {
-        "values": {
-          "default": "Προεπιλεγμένη στοίχιση",
-          "start": "Στοίχιση αριστερά",
-          "end": "Στοίχιση δεξιά",
-          "center": "Στοίχιση στο κέντρο",
-          "justify": "Πλήρης στοίχιση"
-        }
-      }
-    },
     "card": {
-      "generic": {
-        "icon_color": "Χρώμα εικονιδίου",
-        "layout": "Διάταξη",
-        "primary_info": "Πρωτεύουσες πληροφορίες",
-        "secondary_info": "Δευτερεύουσες πληροφορίες",
-        "content_info": "Περιεχόμενο",
-        "use_entity_picture": "Χρήση εικόνας οντότητας;",
-        "icon_animation": "Κίνηση εικονιδίου όταν είναι ενεργό;"
-      },
-      "light": {
-        "show_brightness_control": "Έλεγχος φωτεινότητας;",
-        "use_light_color": "Χρήση χρώματος φωτος",
-        "show_color_temp_control": "Έλεγχος χρώματος θερμοκρασίας;",
-        "show_color_control": "Έλεγχος χρώματος;",
-        "incompatible_controls": "Ορισμένα στοιχεία ελέγχου ενδέχεται να μην εμφανίζονται εάν το φωτιστικό σας δεν υποστηρίζει τη λειτουργία."
-      },
-      "fan": {
-        "show_percentage_control": "Έλεγχος ποσοστού;",
-        "show_oscillate_control": "Έλεγχος ταλάντωσης;"
+      "chips": {
+        "alignment": "Ευθυγράμμιση"
       },
       "cover": {
         "show_buttons_control": "Έλεγχος κουμπιών;",
         "show_position_control": "Έλεγχος θέσης;"
       },
+      "fan": {
+        "show_oscillate_control": "Έλεγχος ταλάντωσης;",
+        "show_percentage_control": "Έλεγχος ποσοστού;"
+      },
+      "generic": {
+        "content_info": "Περιεχόμενο",
+        "icon_animation": "Κίνηση εικονιδίου όταν είναι ενεργό;",
+        "icon_color": "Χρώμα εικονιδίου",
+        "layout": "Διάταξη",
+        "primary_info": "Πρωτεύουσες πληροφορίες",
+        "secondary_info": "Δευτερεύουσες πληροφορίες",
+        "use_entity_picture": "Χρήση εικόνας οντότητας;"
+      },
+      "light": {
+        "incompatible_controls": "Ορισμένα στοιχεία ελέγχου ενδέχεται να μην εμφανίζονται εάν το φωτιστικό σας δεν υποστηρίζει τη λειτουργία.",
+        "show_brightness_control": "Έλεγχος φωτεινότητας;",
+        "show_color_control": "Έλεγχος χρώματος;",
+        "show_color_temp_control": "Έλεγχος χρώματος θερμοκρασίας;",
+        "use_light_color": "Χρήση χρώματος φωτος"
+      },
+      "media-player": {
+        "media_controls": "Έλεγχος πολυμέσων",
+        "media_controls_list": {
+          "next": "Επόμενο κομμάτι",
+          "on_off": "Ενεργοποίηση/απενεργοποίηση",
+          "play_pause_stop": "Αναπαραγωγή/παύση/διακοπή",
+          "previous": "Προηγούμενο κομμάτι",
+          "repeat": "Λειτουργία επανάληψης",
+          "shuffle": "Τυχαία σειρά"
+        },
+        "use_media_artwork": "Χρήση έργων τέχνης πολυμέσων",
+        "use_media_info": "Χρήση πληροφοριών πολυμέσων",
+        "volume_controls": "Χειριστήρια έντασης ήχου",
+        "volume_controls_list": {
+          "volume_buttons": "Κουμπιά έντασης ήχου",
+          "volume_mute": "Σίγαση",
+          "volume_set": "Επίπεδο έντασης ήχου"
+        }
+      },
       "template": {
-        "primary": "Πρωτεύουσες πληροφορίες",
-        "secondary": "Δευτερεύουσες πληροφορίες",
-        "multiline_secondary": "Δευτερεύουσες πολλαπλών γραμμών;",
+        "content": "Περιεχόμενο",
         "entity_extra": "Χρησιμοποιείται σε πρότυπα και ενέργειες",
-        "content": "Περιεχόμενο"
+        "multiline_secondary": "Δευτερεύουσες πολλαπλών γραμμών;",
+        "primary": "Πρωτεύουσες πληροφορίες",
+        "secondary": "Δευτερεύουσες πληροφορίες"
       },
       "title": {
-        "title": "Τίτλος",
-        "subtitle": "Υπότιτλος"
-      },
-      "chips": {
-        "alignment": "Ευθυγράμμιση"
-      },
-      "weather": {
-        "show_conditions": "Συνθήκες;",
-        "show_temperature": "Θερμοκρασία;"
+        "subtitle": "Υπότιτλος",
+        "title": "Τίτλος"
       },
       "update": {
         "show_buttons_control": "Έλεγχος κουμπιών;"
@@ -82,38 +64,17 @@
       "vacuum": {
         "commands": "Εντολές"
       },
-      "media-player": {
-        "use_media_info": "Χρήση πληροφοριών πολυμέσων",
-        "use_media_artwork": "Χρήση έργων τέχνης πολυμέσων",
-        "media_controls": "Έλεγχος πολυμέσων",
-        "media_controls_list": {
-          "on_off": "Ενεργοποίηση/απενεργοποίηση",
-          "shuffle": "Τυχαία σειρά",
-          "previous": "Προηγούμενο κομμάτι",
-          "play_pause_stop": "Αναπαραγωγή/παύση/διακοπή",
-          "next": "Επόμενο κομμάτι",
-          "repeat": "Λειτουργία επανάληψης"
-        },
-        "volume_controls": "Χειριστήρια έντασης ήχου",
-        "volume_controls_list": {
-          "volume_buttons": "Κουμπιά έντασης ήχου",
-          "volume_set": "Επίπεδο έντασης ήχου",
-          "volume_mute": "Σίγαση"
-        }
+      "weather": {
+        "show_conditions": "Συνθήκες;",
+        "show_temperature": "Θερμοκρασία;"
       }
     },
     "chip": {
-      "sub_element_editor": {
-        "title": "Επεξεργαστής Chip"
-      },
-      "conditional": {
-        "chip": "Chip"
-      },
       "chip-picker": {
-        "chips": "Chips",
         "add": "Προσθήκη chip",
-        "edit": "Επεξεργασία",
+        "chips": "Chips",
         "clear": "Καθαρισμός",
+        "edit": "Επεξεργασία",
         "select": "Επιλογή chip",
         "types": {
           "action": "Ενέργεια",
@@ -125,6 +86,45 @@
           "menu": "Μενού",
           "template": "Πρότυπο",
           "weather": "Καιρός"
+        }
+      },
+      "conditional": {
+        "chip": "Chip"
+      },
+      "sub_element_editor": {
+        "title": "Επεξεργαστής Chip"
+      }
+    },
+    "form": {
+      "alignment_picker": {
+        "values": {
+          "center": "Στοίχιση στο κέντρο",
+          "default": "Προεπιλεγμένη στοίχιση",
+          "end": "Στοίχιση δεξιά",
+          "justify": "Πλήρης στοίχιση",
+          "start": "Στοίχιση αριστερά"
+        }
+      },
+      "color_picker": {
+        "values": {
+          "default": "Προεπιλεγμένο χρώμα"
+        }
+      },
+      "info_picker": {
+        "values": {
+          "default": "Προεπιλεγμένες πληροφορίες",
+          "last-changed": "Τελευταία αλλαγή",
+          "last-updated": "Τελευταία ενημέρωση",
+          "name": "Όνομα",
+          "none": "Τίποτα",
+          "state": "Κατάσταση"
+        }
+      },
+      "layout_picker": {
+        "values": {
+          "default": "Προεπιλεγμένη διάταξη",
+          "horizontal": "Οριζόντια διάταξη",
+          "vertical": "Κάθετη διάταξη"
         }
       }
     }

@@ -1,82 +1,73 @@
 {
   "editor": {
-    "form": {
-      "color_picker": {
-        "values": {
-          "default": "צבע ברירת מחדל"
-        }
-      },
-      "info_picker": {
-        "values": {
-          "default": "מידע ברירת מחדל",
-          "name": "שם",
-          "state": "מצב",
-          "last-changed": "שונה לאחרונה",
-          "last-updated": "עודכן לאחרונה",
-          "none": "ריק"
-        }
-      },
-      "layout_picker": {
-        "values": {
-          "default": "סידור ברירת מחדל",
-          "vertical": "סידור מאונך",
-          "horizontal": "סידור מאוזן"
-        }
-      },
-      "alignment_picker": {
-        "values": {
-          "default": "יישור ברירת מחדל",
-          "start": "התחלה",
-          "end": "סוף",
-          "center": "אמצע",
-          "justify": "מוצדק"
-        }
-      }
-    },
     "card": {
-      "generic": {
-        "icon_color": "צבע אייקון",
-        "layout": "סידור",
-        "fill_container": "מלא גבולות",
-        "primary_info": "מידע ראשי",
-        "secondary_info": "מידע מישני",
-        "content_info": "תוכן",
-        "use_entity_picture": "השתמש בתמונת ישות",
-        "collapsible_controls": "הסתר שליטה כשאר מכובה",
-        "icon_animation": "הנפש אייקון"
-      },
-      "light": {
-        "show_brightness_control": "שליטה בבהירות?",
-        "use_light_color": "השתמש בצבע האור",
-        "show_color_temp_control": "הצג פקד גוון תאורה?",
-        "show_color_control": "הצג פקד צבע",
-        "incompatible_controls": "יתכן וחלק מהכפתורים לא יופיעו אם התאורה אינה תומכת בתכונה."
-      },
-      "fan": {
-        "show_percentage_control": "שליטה באחוז?",
-        "show_oscillate_control": "שליטה בהתנדנדות?"
+      "chips": {
+        "alignment": "יישור"
       },
       "cover": {
         "show_buttons_control": "הצג כפתורי שליטה",
         "show_position_control": "הצג פקדי מיקום"
       },
+      "fan": {
+        "show_oscillate_control": "שליטה בהתנדנדות?",
+        "show_percentage_control": "שליטה באחוז?"
+      },
+      "generic": {
+        "collapsible_controls": "הסתר שליטה כשאר מכובה",
+        "content_info": "תוכן",
+        "fill_container": "מלא גבולות",
+        "icon_animation": "הנפש אייקון",
+        "icon_color": "צבע אייקון",
+        "layout": "סידור",
+        "primary_info": "מידע ראשי",
+        "secondary_info": "מידע מישני",
+        "use_entity_picture": "השתמש בתמונת ישות"
+      },
+      "humidifier": {
+        "show_target_humidity_control": "הצג פקדי לחות"
+      },
+      "light": {
+        "incompatible_controls": "יתכן וחלק מהכפתורים לא יופיעו אם התאורה אינה תומכת בתכונה.",
+        "show_brightness_control": "שליטה בבהירות?",
+        "show_color_control": "הצג פקד צבע",
+        "show_color_temp_control": "הצג פקד גוון תאורה?",
+        "use_light_color": "השתמש בצבע האור"
+      },
+      "lock": {
+        "lock": "נעל",
+        "open": "פתח",
+        "unlock": "בטל נעילה"
+      },
+      "media-player": {
+        "media_controls": "שליטה במדיה",
+        "media_controls_list": {
+          "next": "רצועה הבאה",
+          "on_off": "הדלק/כבה",
+          "play_pause_stop": "נגן/השהה/הפסק",
+          "previous": "רצועה קודמת",
+          "repeat": "חזרה",
+          "shuffle": "ערבב"
+        },
+        "show_volume_level": "הצג שליטת ווליום",
+        "use_media_artwork": "השתמש באומנות מדיה",
+        "use_media_info": "השתמש במידע מדיה",
+        "volume_controls": "שליטה בווליום",
+        "volume_controls_list": {
+          "volume_buttons": "כפתורי ווליום",
+          "volume_mute": "השתק",
+          "volume_set": "רמת ווליום"
+        }
+      },
       "template": {
-        "primary": "מידע ראשי",
-        "secondary": "מידע מישני",
-        "multiline_secondary": "מידע מישני רב קווי",
+        "content": "תוכן",
         "entity_extra": "משמש בתבניות ופעולות",
-        "content": "תוכן"
+        "multiline_secondary": "מידע מישני רב קווי",
+        "primary": "מידע ראשי",
+        "secondary": "מידע מישני"
       },
       "title": {
-        "title": "כותרת",
-        "subtitle": "כתובית"
-      },
-      "chips": {
-        "alignment": "יישור"
-      },
-      "weather": {
-        "show_conditions": "הצג תנאים?",
-        "show_temperature": "הצג טמפרטורה?"
+        "subtitle": "כתובית",
+        "title": "כותרת"
       },
       "update": {
         "show_buttons_control": "הצג כפתורי שליטה?"
@@ -85,47 +76,17 @@
         "commands": "פקודות",
         "icon_animation": "הנפשת אייקון"
       },
-      "media-player": {
-        "use_media_info": "השתמש במידע מדיה",
-        "use_media_artwork": "השתמש באומנות מדיה",
-        "show_volume_level": "הצג שליטת ווליום",
-        "media_controls": "שליטה במדיה",
-        "media_controls_list": {
-          "on_off": "הדלק/כבה",
-          "shuffle": "ערבב",
-          "previous": "רצועה קודמת",
-          "play_pause_stop": "נגן/השהה/הפסק",
-          "next": "רצועה הבאה",
-          "repeat": "חזרה"
-        },
-        "volume_controls": "שליטה בווליום",
-        "volume_controls_list": {
-          "volume_buttons": "כפתורי ווליום",
-          "volume_set": "רמת ווליום",
-          "volume_mute": "השתק"
-        }
-      },
-      "lock": {
-        "lock": "נעל",
-        "unlock": "בטל נעילה",
-        "open": "פתח"
-      },
-      "humidifier": {
-        "show_target_humidity_control": "הצג פקדי לחות"
+      "weather": {
+        "show_conditions": "הצג תנאים?",
+        "show_temperature": "הצג טמפרטורה?"
       }
     },
     "chip": {
-      "sub_element_editor": {
-        "title": "עורך שבב"
-      },
-      "conditional": {
-        "chip": "שבב"
-      },
       "chip-picker": {
-        "chips": "שבבים",
         "add": "הוסף שבב",
-        "edit": "ערוך",
+        "chips": "שבבים",
         "clear": "נקה",
+        "edit": "ערוך",
         "select": "בחר שבב",
         "types": {
           "action": "פעולה",
@@ -137,6 +98,45 @@
           "menu": "תפריט",
           "template": "תבנית",
           "weather": "מזג אוויר"
+        }
+      },
+      "conditional": {
+        "chip": "שבב"
+      },
+      "sub_element_editor": {
+        "title": "עורך שבב"
+      }
+    },
+    "form": {
+      "alignment_picker": {
+        "values": {
+          "center": "אמצע",
+          "default": "יישור ברירת מחדל",
+          "end": "סוף",
+          "justify": "מוצדק",
+          "start": "התחלה"
+        }
+      },
+      "color_picker": {
+        "values": {
+          "default": "צבע ברירת מחדל"
+        }
+      },
+      "info_picker": {
+        "values": {
+          "default": "מידע ברירת מחדל",
+          "last-changed": "שונה לאחרונה",
+          "last-updated": "עודכן לאחרונה",
+          "name": "שם",
+          "none": "ריק",
+          "state": "מצב"
+        }
+      },
+      "layout_picker": {
+        "values": {
+          "default": "סידור ברירת מחדל",
+          "horizontal": "סידור מאוזן",
+          "vertical": "סידור מאונך"
         }
       }
     }
