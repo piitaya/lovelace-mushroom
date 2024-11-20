@@ -18,7 +18,7 @@
       },
       "icon_type_picker": {
         "values": {
-          "default": "Standard type", 
+          "default": "Standard type",
           "icon": "Ikon",
           "entity-picture": "Enhetsbilde",
           "none": "Ingen"
@@ -37,7 +37,7 @@
           "start": "Start",
           "end": "Slutt",
           "center": "Senter",
-          "justify": "Blokkjuster" 
+          "justify": "Blokkjuster"
         }
       }
     },
@@ -50,10 +50,10 @@
         "content_info": "Innhold",
         "use_entity_picture": "Bruk enhetsbilde?",
         "icon_animation": "Animer ikon når aktivt?",
-        "color": "Farge", 
-        "fill_container": "Fyll beholder", 
+        "color": "Farge",
+        "fill_container": "Fyll beholder",
         "icon_type": "Ikontype",
-        "collapsible_controls": "Skjul kontroller når av" 
+        "collapsible_controls": "Skjul kontroller når av"
       },
       "light": {
         "show_brightness_control": "Lysstyrkekontroll?",
@@ -69,7 +69,7 @@
       "cover": {
         "show_buttons_control": "Kontrollere med knapper?",
         "show_position_control": "Posisjonskontroll?",
-        "show_tilt_position_control": "Vippe kontroll?" 
+        "show_tilt_position_control": "Vippe kontroll?"
       },
       "template": {
         "primary": "Primærinformasjon",
@@ -106,13 +106,13 @@
       },
       "media-player": {
         "use_media_info": "Bruk mediainformasjon",
-        "use_media_artwork": "Bruk mediabilde", 
-        "show_volume_level": "Vis volumnivå", 
-        "media_controls": "Media kontroller", 
+        "use_media_artwork": "Bruk mediabilde",
+        "show_volume_level": "Vis volumnivå",
+        "media_controls": "Media kontroller",
         "media_controls_list": {
-          "on_off": "Slå på/av", 
-          "shuffle": "Bland", 
-          "previous": "Forrige spor", 
+          "on_off": "Slå på/av",
+          "shuffle": "Bland",
+          "previous": "Forrige spor",
           "play_pause_stop": "Spill/pause/stopp",
           "next": "Neste spor",
           "repeat": "Gjenta"
@@ -133,11 +133,11 @@
         "show_target_humidity_control": "Fuktighetskontroll?"
       },
       "climate": {
-        "show_temperature_control": "Temperaturkontroll?", 
+        "show_temperature_control": "Temperaturkontroll?",
         "hvac_modes": "HVAC-moduser"
       },
       "number": {
-        "display_mode": "Visningsmodus", 
+        "display_mode": "Visningsmodus",
         "display_mode_list": {
           "default": "Standard (skyveknapp)",
           "slider": "Skyveknapp",
