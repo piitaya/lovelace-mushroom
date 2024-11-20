@@ -52,7 +52,8 @@
         "content_info": "المحتوى",
         "use_entity_picture": "استخدم صورة الكيان؟",
         "collapsible_controls": "تصغير عناصر التحكم عند الإيقاف",
-        "icon_animation": "تحريك الرمز عندما يكون نشطًا؟"
+        "icon_animation": "تحريك الرمز عندما يكون نشطًا؟",
+        "color": ""
       },
       "light": {
         "show_brightness_control": "التحكم في السطوع؟",
@@ -67,7 +68,8 @@
       },
       "cover": {
         "show_buttons_control": "أزرار التحكم؟",
-        "show_position_control": "التحكم في الموقع؟"
+        "show_position_control": "التحكم في الموقع؟",
+        "show_tilt_position_control": ""
       },
       "template": {
         "primary": "المعلومات الأساسية",
@@ -77,11 +79,14 @@
         "content": "المحتوى",
         "badge_icon": "أيقونة الشارة",
         "badge_color": "لون الشارة",
-        "picture": "صورة (ستحل محل الأيقونة)"
+        "picture": "صورة (ستحل محل الأيقونة)",
+        "label": ""
       },
       "title": {
         "title": "العنوان",
-        "subtitle": "العنوان الفرعي"
+        "subtitle": "العنوان الفرعي",
+        "title_tap_action": "",
+        "subtitle_tap_action": ""
       },
       "chips": {
         "alignment": "محاذاة"
@@ -94,7 +99,10 @@
         "show_buttons_control": "أزرار التحكم؟"
       },
       "vacuum": {
-        "commands": "الاوامر"
+        "commands": "الاوامر",
+        "commands_list": {
+          "on_off": ""
+        }
       },
       "media-player": {
         "use_media_info": "استخدم معلومات الوسائط",
@@ -127,6 +135,14 @@
       "climate": {
         "show_temperature_control": "التحكم في درجة الحرارة؟",
         "hvac_modes": "أوضاع HVAC"
+      },
+      "number": {
+        "display_mode_list": {
+          "buttons": "",
+          "slider": "",
+          "default": ""
+        },
+        "display_mode": ""
       }
     },
     "chip": {
@@ -151,9 +167,13 @@
           "light": "Light",
           "menu": "القائمة",
           "template": "قالب",
-          "weather": "الطقس"
+          "weather": "الطقس",
+          "spacer": ""
         }
       }
     }
+  },
+  "card": {
+    "not_found": ""
   }
 }
