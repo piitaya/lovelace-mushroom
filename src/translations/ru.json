@@ -27,7 +27,9 @@
         "layout": "Расположение",
         "primary_info": "Основная информация",
         "secondary_info": "Второстепенная информация",
-        "use_entity_picture": "Использовать изображение объекта?"
+        "use_entity_picture": "Использовать изображение объекта?",
+        "color": "",
+        "icon_animation": ""
       },
       "humidifier": {
         "show_target_humidity_control": "Управлять целевым уровенем влажности?"
@@ -72,21 +74,35 @@
         "multiline_secondary": "Многострочная Второстепенная информация?",
         "picture": "Изображение (заменить иконку)",
         "primary": "Основная информация",
-        "secondary": "Второстепенная информация"
+        "secondary": "Второстепенная информация",
+        "label": ""
       },
       "title": {
         "subtitle": "Подзаголовок",
-        "title": "Заголовок"
+        "title": "Заголовок",
+        "subtitle_tap_action": "",
+        "title_tap_action": ""
       },
       "update": {
         "show_buttons_control": "Кнопки управления?"
       },
       "vacuum": {
-        "commands": "Команды"
+        "commands": "Команды",
+        "commands_list": {
+          "on_off": ""
+        }
       },
       "weather": {
         "show_conditions": "Условия?",
         "show_temperature": "Температура?"
+      },
+      "number": {
+        "display_mode_list": {
+          "buttons": "",
+          "default": "",
+          "slider": ""
+        },
+        "display_mode": ""
       }
     },
     "chip": {
@@ -105,7 +121,8 @@
           "light": "Освещение",
           "menu": "Меню",
           "template": "Шаблон",
-          "weather": "Погода"
+          "weather": "Погода",
+          "spacer": ""
         }
       },
       "conditional": {
@@ -156,5 +173,8 @@
         }
       }
     }
+  },
+  "card": {
+    "not_found": ""
   }
 }
