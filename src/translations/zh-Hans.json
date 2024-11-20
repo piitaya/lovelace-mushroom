@@ -22,6 +22,7 @@
       },
       "generic": {
         "collapsible_controls": "关闭时隐藏控制器",
+        "color": "",
         "content_info": "内容",
         "fill_container": "填满容器",
         "icon_animation": "激活时使用动态图标?",
@@ -80,6 +81,7 @@
         "badge_icon": "徽标图标",
         "content": "内容",
         "entity_extra": "用于模板和动作",
+        "label": "",
         "multiline_secondary": "多行次要信息?",
         "picture": "图片 (将会替代图标)",
         "primary": "首要信息",
