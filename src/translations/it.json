@@ -52,7 +52,8 @@
         "content_info": "Contenuto",
         "use_entity_picture": "Usa l'immagine dell'entità",
         "collapsible_controls": "Nascondi i controlli quando spento",
-        "icon_animation": "Anima l'icona quando attiva"
+        "icon_animation": "Anima l'icona quando attiva",
+        "color": ""
       },
       "light": {
         "use_light_color": "Usa il colore della luce",
@@ -78,7 +79,8 @@
         "content": "Contenuto",
         "badge_icon": "Icona del badge",
         "badge_color": "Colore del badge",
-        "picture": "Immagine (sostituirà l'icona)"
+        "picture": "Immagine (sostituirà l'icona)",
+        "label": ""
       },
       "title": {
         "title": "Titolo",
