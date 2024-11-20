@@ -52,7 +52,8 @@
         "content_info": "Nội dung",
         "use_entity_picture": "Dùng ảnh của thực thể?",
         "collapsible_controls": "Thu nhỏ điều kiển khi tắt",
-        "icon_animation": "Biểu tượng chuyển động khi kích hoạt?"
+        "icon_animation": "Biểu tượng chuyển động khi kích hoạt?",
+        "color": ""
       },
       "light": {
         "show_brightness_control": "Điều khiển độ sáng?",
@@ -78,7 +79,8 @@
         "content": "Nội dung",
         "badge_icon": "Biểu tượng huy hiệu",
         "badge_color": "Màu huy hiệu",
-        "picture": "Ảnh (thay cho biểu tượng)"
+        "picture": "Ảnh (thay cho biểu tượng)",
+        "label": ""
       },
       "title": {
         "title": "Tiêu đề",
