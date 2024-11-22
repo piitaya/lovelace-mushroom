@@ -4,7 +4,6 @@ import { classMap } from "lit/directives/class-map.js";
 import {
   actionHandler,
   ActionHandlerEvent,
-  blankBeforePercent,
   computeRTL,
   handleAction,
   hasAction,
@@ -111,7 +110,12 @@ export class HumidifierCard
 
     let stateDisplay = this.hass.formatEntityState(stateObj);
     if (this.humidity) {
-      stateDisplay = `${this.humidity}${blankBeforePercent(this.hass.locale)}%`;
+      const humidity = this.hass.formatEntityAttributeValue(
+        stateObj,
+        "current_humidity",
+        this.humidity
+      );
+      stateDisplay = humidity;
     }
 
     const rtl = computeRTL(this.hass);

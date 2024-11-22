@@ -172,7 +172,7 @@ export class ClimateCard
         stateObj,
         "current_temperature"
       );
-      stateDisplay += ` - ${temperature}`;
+      stateDisplay += ` ⸱ ${temperature}`;
     }
     const rtl = computeRTL(this.hass);
 

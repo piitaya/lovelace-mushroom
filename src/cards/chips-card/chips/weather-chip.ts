@@ -95,7 +95,7 @@ export class WeatherChip extends LitElement implements LovelaceChip {
       >
         ${weatherIcon}
         ${displayLabels.length > 0
-          ? html`<span>${displayLabels.join(" / ")}</span>`
+          ? html`<span>${displayLabels.join(" ⸱ ")}</span>`
           : nothing}
       </mushroom-chip>
     `;

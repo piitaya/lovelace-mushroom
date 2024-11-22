@@ -12,7 +12,6 @@ import { styleMap } from "lit/directives/style-map.js";
 import {
   actionHandler,
   ActionHandlerEvent,
-  blankBeforePercent,
   computeRTL,
   handleAction,
   hasAction,
@@ -45,7 +44,6 @@ import "./controls/light-color-control";
 import "./controls/light-color-temp-control";
 import { LightCardConfig } from "./light-card-config";
 import {
-  getBrightness,
   getRGBColor,
   isColorLight,
   isColorSuperLight,
@@ -157,12 +155,12 @@ export class LightCard
     const stateObj = this._stateObj;
 
     if (!stateObj) return;
-    this.brightness = getBrightness(stateObj);
+    this.brightness = stateObj.attributes.brightness;
   }
 
   private onCurrentBrightnessChange(e: CustomEvent<{ value?: number }>): void {
     if (e.detail.value != null) {
-      this.brightness = e.detail.value;
+      this.brightness = (e.detail.value * 255) / 100;
     }
   }
 
@@ -197,7 +195,12 @@ export class LightCard
 
     let stateDisplay = this.hass.formatEntityState(stateObj);
     if (this.brightness != null) {
-      stateDisplay = `${this.brightness}${blankBeforePercent(this.hass.locale)}%`;
+      const brightness = this.hass.formatEntityAttributeValue(
+        stateObj,
+        "brightness",
+        this.brightness
+      );
+      stateDisplay = brightness;
     }
 
     const rtl = computeRTL(this.hass);

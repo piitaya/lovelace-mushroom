@@ -13,7 +13,6 @@ import { styleMap } from "lit/directives/style-map.js";
 import {
   actionHandler,
   ActionHandlerEvent,
-  blankBeforePercent,
   computeRTL,
   handleAction,
   hasAction,
@@ -138,7 +137,12 @@ export class FanCard
 
     let stateDisplay = this.hass.formatEntityState(stateObj);
     if (this.percentage != null && stateObj.state === "on") {
-      stateDisplay = `${this.percentage}${blankBeforePercent(this.hass.locale)}%`;
+      const percentage = this.hass.formatEntityAttributeValue(
+        stateObj,
+        "percentage",
+        this.percentage
+      );
+      stateDisplay = percentage;
     }
 
     const rtl = computeRTL(this.hass);
