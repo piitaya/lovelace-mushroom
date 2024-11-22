@@ -110,7 +110,7 @@
     "chip": {
       "chip-picker": {
         "add": "Añadir chip",
-        "chips": "Microchips",
+        "chips": "Chips",
         "clear": "Limpiar",
         "edit": "Editar",
         "select": "Seleccionar chip",
@@ -128,7 +128,7 @@
         }
       },
       "conditional": {
-        "chip": "Microchip"
+        "chip": "Chip"
       },
       "sub_element_editor": {
         "title": "Editor de chip"
