@@ -1,3 +1,4 @@
+import { HassEntity } from "home-assistant-js-websocket";
 import {
   css,
   CSSResultGroup,
@@ -13,7 +14,6 @@ import {
   actionHandler,
   ActionHandlerEvent,
   computeRTL,
-  computeStateDisplay,
   getEntityPicture,
   handleAction,
   hasAction,
@@ -31,7 +31,6 @@ import {
   LovelaceChip,
 } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
-import { HassEntity } from "home-assistant-js-websocket";
 
 @customElement(computeChipComponentName("entity"))
 export class EntityChip extends LitElement implements LovelaceChip {
@@ -84,15 +83,7 @@ export class EntityChip extends LitElement implements LovelaceChip {
       ? getEntityPicture(stateObj)
       : undefined;
 
-    const stateDisplay = this.hass.formatEntityState
-      ? this.hass.formatEntityState(stateObj)
-      : computeStateDisplay(
-          this.hass.localize,
-          stateObj,
-          this.hass.locale,
-          this.hass.config,
-          this.hass.entities
-        );
+    const stateDisplay = this.hass.formatEntityState(stateObj);
 
     const active = isActive(stateObj);
 

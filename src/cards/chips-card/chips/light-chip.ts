@@ -6,7 +6,6 @@ import {
   actionHandler,
   ActionHandlerEvent,
   computeRTL,
-  computeStateDisplay,
   handleAction,
   hasAction,
   HomeAssistant,
@@ -80,15 +79,7 @@ export class LightChip extends LitElement implements LovelaceChip {
     const name = this._config.name || stateObj.attributes.friendly_name || "";
     const icon = this._config.icon;
 
-    const stateDisplay = this.hass.formatEntityState
-      ? this.hass.formatEntityState(stateObj)
-      : computeStateDisplay(
-          this.hass.localize,
-          stateObj,
-          this.hass.locale,
-          this.hass.config,
-          this.hass.entities
-        );
+    const stateDisplay = this.hass.formatEntityState(stateObj);
 
     const active = isActive(stateObj);
 

@@ -6,7 +6,6 @@ export * from "./common/datetime/use_am_pm";
 export * from "./common/dom/fire_event";
 export * from "./common/dom/get_main_window";
 export * from "./common/entity/compute_domain";
-export * from "./common/entity/compute_state_display";
 export * from "./common/entity/compute_state_domain";
 export * from "./common/entity/supports-feature";
 export * from "./common/number/clamp";

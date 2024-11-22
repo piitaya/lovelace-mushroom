@@ -15,7 +15,6 @@ import {
   UNAVAILABLE,
   UNKNOWN,
   computeMediaDescription,
-  computeStateDisplay,
   supportsFeature,
 } from "../../ha";
 import {
@@ -56,15 +55,7 @@ export function computeMediaStateDisplay(
   entity: MediaPlayerEntity,
   hass: HomeAssistant
 ): string {
-  let state = hass.formatEntityState
-    ? hass.formatEntityState(entity)
-    : computeStateDisplay(
-        hass.localize,
-        entity,
-        hass.locale,
-        hass.config,
-        hass.entities
-      );
+  let state = hass.formatEntityState(entity);
   if (
     ![UNAVAILABLE, UNKNOWN, OFF].includes(entity.state) &&
     config.use_media_info

@@ -14,7 +14,6 @@ import {
   actionHandler,
   ActionHandlerEvent,
   computeRTL,
-  computeStateDisplay,
   formatNumber,
   getDefaultFormatOptions,
   getNumberFormatOptions,
@@ -124,15 +123,7 @@ export class NumberCard
     const appearance = computeAppearance(this._config);
     const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
-    let stateDisplay = this.hass.formatEntityState
-      ? this.hass.formatEntityState(stateObj)
-      : computeStateDisplay(
-          this.hass.localize,
-          stateObj,
-          this.hass.locale,
-          this.hass.config,
-          this.hass.entities
-        );
+    let stateDisplay = this.hass.formatEntityState(stateObj);
     if (this.value !== undefined) {
       const numberValue = formatNumber(
         this.value,

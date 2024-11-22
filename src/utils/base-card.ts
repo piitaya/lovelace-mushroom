@@ -4,7 +4,6 @@ import { property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import {
   computeRTL,
-  computeStateDisplay,
   HomeAssistant,
   isActive,
   isAvailable,
@@ -293,15 +292,8 @@ export class MushroomBaseCard<
     name: string,
     state?: string
   ): TemplateResult | null {
-    const defaultState = this.hass.formatEntityState
-      ? this.hass.formatEntityState(stateObj)
-      : computeStateDisplay(
-          this.hass.localize,
-          stateObj,
-          this.hass.locale,
-          this.hass.config,
-          this.hass.entities
-        );
+    const defaultState = this.hass.formatEntityState(stateObj);
+
     const displayState = state ?? defaultState;
 
     const primary = computeInfoDisplay(

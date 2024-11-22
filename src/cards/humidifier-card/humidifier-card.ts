@@ -6,7 +6,6 @@ import {
   ActionHandlerEvent,
   blankBeforePercent,
   computeRTL,
-  computeStateDisplay,
   handleAction,
   hasAction,
   HomeAssistant,
@@ -110,15 +109,7 @@ export class HumidifierCard
     const appearance = computeAppearance(this._config);
     const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
-    let stateDisplay = this.hass.formatEntityState
-      ? this.hass.formatEntityState(stateObj)
-      : computeStateDisplay(
-          this.hass.localize,
-          stateObj,
-          this.hass.locale,
-          this.hass.config,
-          this.hass.entities
-        );
+    let stateDisplay = this.hass.formatEntityState(stateObj);
     if (this.humidity) {
       stateDisplay = `${this.humidity}${blankBeforePercent(this.hass.locale)}%`;
     }
