@@ -14,10 +14,6 @@ import {
   actionHandler,
   ActionHandlerEvent,
   computeRTL,
-  computeStateDisplay,
-  formatNumber,
-  getDefaultFormatOptions,
-  getNumberFormatOptions,
   handleAction,
   hasAction,
   HomeAssistant,
@@ -124,25 +120,12 @@ export class NumberCard
     const appearance = computeAppearance(this._config);
     const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
-    let stateDisplay = this.hass.formatEntityState
-      ? this.hass.formatEntityState(stateObj)
-      : computeStateDisplay(
-          this.hass.localize,
-          stateObj,
-          this.hass.locale,
-          this.hass.config,
-          this.hass.entities
-        );
+    let stateDisplay = this.hass.formatEntityState(stateObj);
     if (this.value !== undefined) {
-      const numberValue = formatNumber(
-        this.value,
-        this.hass.locale,
-        getNumberFormatOptions(
-          stateObj,
-          this.hass.entities[stateObj.entity_id]
-        ) ?? getDefaultFormatOptions(stateObj.state)
+      stateDisplay = this.hass.formatEntityState(
+        stateObj,
+        this.value.toString()
       );
-      stateDisplay = `${numberValue} ${stateObj.attributes.unit_of_measurement ?? ""}`;
     }
 
     const rtl = computeRTL(this.hass);

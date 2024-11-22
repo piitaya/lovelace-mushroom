@@ -1,10 +1,10 @@
+import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import {
   actionHandler,
   ActionHandlerEvent,
   computeRTL,
-  computeStateDisplay,
   formatNumber,
   handleAction,
   hasAction,
@@ -20,7 +20,6 @@ import {
 } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { getWeatherStateSVG, weatherSVGStyles } from "../../../utils/weather";
-import { HassEntity } from "home-assistant-js-websocket";
 
 @customElement(computeChipComponentName("weather"))
 export class WeatherChip extends LitElement implements LovelaceChip {
@@ -71,23 +70,15 @@ export class WeatherChip extends LitElement implements LovelaceChip {
     const displayLabels: string[] = [];
 
     if (this._config.show_conditions) {
-      const stateDisplay = this.hass.formatEntityState
-        ? this.hass.formatEntityState(stateObj)
-        : computeStateDisplay(
-            this.hass.localize,
-            stateObj,
-            this.hass.locale,
-            this.hass.config,
-            this.hass.entities
-          );
+      const stateDisplay = this.hass.formatEntityState(stateObj);
       displayLabels.push(stateDisplay);
     }
 
     if (this._config.show_temperature) {
-      const temperatureDisplay = `${formatNumber(
-        stateObj.attributes.temperature,
-        this.hass.locale
-      )} ${this.hass.config.unit_system.temperature}`;
+      const temperatureDisplay = this.hass.formatEntityAttributeValue(
+        stateObj,
+        "temperature"
+      );
       displayLabels.push(temperatureDisplay);
     }
 
@@ -104,7 +95,7 @@ export class WeatherChip extends LitElement implements LovelaceChip {
       >
         ${weatherIcon}
         ${displayLabels.length > 0
-          ? html`<span>${displayLabels.join(" / ")}</span>`
+          ? html`<span>${displayLabels.join(" ⸱ ")}</span>`
           : nothing}
       </mushroom-chip>
     `;

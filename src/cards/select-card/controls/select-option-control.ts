@@ -1,7 +1,7 @@
 import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { computeStateDisplay, HomeAssistant } from "../../../ha";
+import { HomeAssistant } from "../../../ha";
 import "../../../shared/form/mushroom-select";
 import { getCurrentOption, getOptions } from "../utils";
 
@@ -47,16 +47,7 @@ export class SelectOptionControl extends LitElement {
         ${options.map((option) => {
           return html`
             <mwc-list-item .value=${option}>
-              ${this.hass.formatEntityState
-                ? this.hass.formatEntityState(this.entity, option)
-                : computeStateDisplay(
-                    this.hass.localize,
-                    this.entity,
-                    this.hass.locale,
-                    this.hass.config,
-                    this.hass.entities,
-                    option
-                  )}
+              ${this.hass.formatEntityState(this.entity, option)}
             </mwc-list-item>
           `;
         })}

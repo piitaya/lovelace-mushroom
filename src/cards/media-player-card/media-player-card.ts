@@ -11,7 +11,6 @@ import { classMap } from "lit/directives/class-map.js";
 import {
   actionHandler,
   ActionHandlerEvent,
-  blankBeforePercent,
   computeRTL,
   handleAction,
   hasAction,
@@ -45,7 +44,6 @@ import {
   computeMediaIcon,
   computeMediaNameDisplay,
   computeMediaStateDisplay,
-  getVolumeLevel,
 } from "./utils";
 
 type MediaPlayerCardControl = "media_control" | "volume_control";
@@ -137,13 +135,12 @@ export class MediaPlayerCard
     const stateObj = this._stateObj;
 
     if (!stateObj) return;
-    const volume = getVolumeLevel(stateObj);
-    this.volume = volume != null ? Math.round(volume) : volume;
+    this.volume = stateObj.attributes.volume_level;
   }
 
   private onCurrentVolumeChange(e: CustomEvent<{ value?: number }>): void {
     if (e.detail.value != null) {
-      this.volume = e.detail.value;
+      this.volume = e.detail.value / 100;
     }
   }
 
@@ -173,18 +170,22 @@ export class MediaPlayerCard
 
     const icon = computeMediaIcon(this._config, stateObj);
     const nameDisplay = computeMediaNameDisplay(this._config, stateObj);
-    const stateDisplay = computeMediaStateDisplay(
+    const appearance = computeAppearance(this._config);
+    const picture = computeEntityPicture(stateObj, appearance.icon_type);
+    let stateDisplay = computeMediaStateDisplay(
       this._config,
       stateObj,
       this.hass
     );
-    const appearance = computeAppearance(this._config);
-    const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
-    const stateValue =
-      this.volume != null && this._config.show_volume_level
-        ? `${stateDisplay} - ${this.volume}${blankBeforePercent(this.hass.locale)}%`
-        : stateDisplay;
+    if (this.volume != null && this._config.show_volume_level) {
+      const volume = this.hass.formatEntityAttributeValue(
+        stateObj,
+        "volume_level",
+        this.volume
+      );
+      stateDisplay += ` ⸱ ${volume}`;
+    }
 
     const rtl = computeRTL(this.hass);
 
@@ -216,7 +217,7 @@ export class MediaPlayerCard
               stateObj,
               appearance,
               nameDisplay,
-              stateValue
+              stateDisplay
             )};
           </mushroom-state-item>
           ${isControlVisible

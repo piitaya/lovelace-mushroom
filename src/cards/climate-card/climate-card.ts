@@ -14,7 +14,6 @@ import {
   ActionHandlerEvent,
   ClimateEntity,
   computeRTL,
-  computeStateDisplay,
   formatNumber,
   handleAction,
   hasAction,
@@ -167,22 +166,13 @@ export class ClimateCard
     const appearance = computeAppearance(this._config);
     const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
-    let stateDisplay = this.hass.formatEntityState
-      ? this.hass.formatEntityState(stateObj)
-      : computeStateDisplay(
-          this.hass.localize,
-          stateObj,
-          this.hass.locale,
-          this.hass.config,
-          this.hass.entities
-        );
+    let stateDisplay = this.hass.formatEntityState(stateObj);
     if (stateObj.attributes.current_temperature !== null) {
-      const temperature = formatNumber(
-        stateObj.attributes.current_temperature,
-        this.hass.locale
+      const temperature = this.hass.formatEntityAttributeValue(
+        stateObj,
+        "current_temperature"
       );
-      const unit = this.hass.config.unit_system.temperature;
-      stateDisplay += ` - ${temperature} ${unit}`;
+      stateDisplay += ` ⸱ ${temperature}`;
     }
     const rtl = computeRTL(this.hass);
 

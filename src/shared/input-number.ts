@@ -45,7 +45,7 @@ export class InputNumber extends LitElement {
   @property({ type: Number })
   public max?: number;
 
-  @property({ attribute: "false" })
+  @property({ attribute: false })
   public formatOptions: Intl.NumberFormatOptions = {};
 
   @state() pending = false;
