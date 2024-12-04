@@ -21,7 +21,7 @@
         "show_percentage_control": "Ovládanie rýchlosti v percentách?"
       },
       "generic": {
-        "collapsible_controls": "Skryť ovládanie v stave VYP.",
+        "collapsible_controls": "Skryť ovládanie v stave VYP",
         "color": "Farba",
         "content_info": "Obsah",
         "fill_container": "Vyplniť priestor",
@@ -40,7 +40,7 @@
         "incompatible_controls": "Niektoré ovládacie prvky sa nemusia zobraziť, pokiaľ ich svetlo nepodporuje.",
         "show_brightness_control": "Ovládanie jasu?",
         "show_color_control": "Ovládanie farby?",
-        "show_color_temp_control": "Ovládanie teploty?",
+        "show_color_temp_control": "Ovládanie farebnej teploty?",
         "use_light_color": "Použiť farbu svetla"
       },
       "lock": {
@@ -128,7 +128,7 @@
         }
       },
       "conditional": {
-        "chip": "Štítok"
+        "chip": "Čip"
       },
       "sub_element_editor": {
         "title": "Editor štítkov"
