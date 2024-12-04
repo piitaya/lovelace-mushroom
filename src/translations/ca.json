@@ -22,6 +22,7 @@
       },
       "generic": {
         "collapsible_controls": "Amaga els controls en desactivar",
+        "color": "Color",
         "content_info": "Contingut",
         "fill_container": "Emplena el contenidor",
         "icon_animation": "Animar icona en activar?",
@@ -80,6 +81,7 @@
         "badge_icon": "Icona de la insígnia",
         "content": "Contingut",
         "entity_extra": "Utilitzats en plantilles i accions",
+        "label": "Etiqueta",
         "multiline_secondary": "Secundaria en varies línies?",
         "picture": "Imatge (reemplaçarà la icona)",
         "primary": "Informació primaria",
