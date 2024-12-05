@@ -1,41 +1,106 @@
 {
+  "card": {
+    "not_found": "Entidade não encontrada"
+  },
   "editor": {
     "card": {
       "chips": {
         "alignment": "Alinhamento"
       },
+      "climate": {
+        "hvac_modes": "Modos HVAC",
+        "show_temperature_control": "Controlo de temperatura?"
+      },
       "cover": {
-        "show_buttons_control": "Mostrar botões?",
-        "show_position_control": "Mostrar controle de posição?"
+        "show_buttons_control": "Botões de controlo?",
+        "show_position_control": "Controlo de posição?",
+        "show_tilt_position_control": "Controlo de inclinação?"
       },
       "fan": {
-        "show_oscillate_control": "Mostrar controle de oscilação?",
-        "show_percentage_control": "Mostrar controle de porcentagem?"
+        "show_oscillate_control": "Controlo de oscilação?",
+        "show_percentage_control": "Controlo de percentagem?"
       },
       "generic": {
+        "collapsible_controls": "Colapsar controlos quando desligado",
+        "color": "Cor",
+        "content_info": "Conteúdo",
+        "fill_container": "Preencher contentor",
         "icon_animation": "Animar ícone quando ativo?",
-        "icon_color": "Cor do ícone?",
+        "icon_color": "Cor do ícone",
+        "icon_type": "Tipo de ícone",
         "layout": "Layout",
-        "primary_info": "Informações primárias",
-        "secondary_info": "Informações secundárias",
+        "primary_info": "Informação principal",
+        "secondary_info": "Informação secundária",
         "use_entity_picture": "Usar imagem da entidade?"
       },
+      "humidifier": {
+        "show_target_humidity_control": "Controlo de humidade?"
+      },
       "light": {
-        "incompatible_controls": "Alguns controles podem não ser exibidos se a luz não suportar o recurso.",
-        "show_brightness_control": "Mostrar controle de brilho?",
-        "show_color_control": "Mostrar controle de cor?",
-        "show_color_temp_control": "Mostrar controle de temperatura?",
-        "use_light_color": "Usar cor da luz?"
+        "incompatible_controls": "Alguns controlos podem não ser exibidos se a luz não suportar a funcionalidade.",
+        "show_brightness_control": "Controlo de brilho?",
+        "show_color_control": "Controlo de cor?",
+        "show_color_temp_control": "Controlo de temperatura da cor?",
+        "use_light_color": "Usar cor da luz"
+      },
+      "lock": {
+        "lock": "Trancar",
+        "open": "Aberto",
+        "unlock": "Destrancar"
+      },
+      "media-player": {
+        "media_controls": "Controlos de media",
+        "media_controls_list": {
+          "next": "Próxima faixa",
+          "on_off": "Ligar/Desligar",
+          "play_pause_stop": "Tocar/pausa/stop",
+          "previous": "Faixa anterior",
+          "repeat": "Modo repetir",
+          "shuffle": "Baralhar"
+        },
+        "show_volume_level": "Mostrar nível do volume",
+        "use_media_artwork": "Usar arte do media",
+        "use_media_info": "Usar informação do media",
+        "volume_controls": "Controlos de volume",
+        "volume_controls_list": {
+          "volume_buttons": "Botões de volume",
+          "volume_mute": "Calar",
+          "volume_set": "Nível do volume"
+        }
+      },
+      "number": {
+        "display_mode": "Modo de exibição",
+        "display_mode_list": {
+          "buttons": "Botões",
+          "default": "Por defeito (slider)",
+          "slider": "Deslizador"
+        }
       },
       "template": {
+        "badge_color": "Cor do crachá",
+        "badge_icon": "Icóne do crachá",
         "content": "Conteúdo",
-        "multiline_secondary": "Multilinha secundária?",
-        "primary": "Informações primárias",
-        "secondary": "Informações secundárias"
+        "entity_extra": "Usado em modelos e ações",
+        "label": "Rótulo",
+        "multiline_secondary": "Secundária multilinha?",
+        "picture": "Imagem (irá substituir o ícone)",
+        "primary": "Informação principal",
+        "secondary": "Informação secundária"
       },
       "title": {
         "subtitle": "Subtítulo",
-        "title": "Título"
+        "subtitle_tap_action": "Ação ao tocar no subtítulo",
+        "title": "Título",
+        "title_tap_action": "Ação ao tocar no título"
+      },
+      "update": {
+        "show_buttons_control": "Botões de controlo?"
+      },
+      "vacuum": {
+        "commands": "Comandos",
+        "commands_list": {
+          "on_off": "Ligar/Desligar"
+        }
       },
       "weather": {
         "show_conditions": "Condições?",
@@ -57,6 +122,7 @@
           "entity": "Entidade",
           "light": "Iluminação",
           "menu": "Menu",
+          "spacer": "Espaçador",
           "template": "Modelo",
           "weather": "Clima"
         }
@@ -72,14 +138,23 @@
       "alignment_picker": {
         "values": {
           "center": "Centrado",
-          "default": "Padrão (inicio)",
+          "default": "Alinhamento predefinido",
           "end": "Fim",
-          "justify": "Justificado"
+          "justify": "Justificado",
+          "start": "Início"
         }
       },
       "color_picker": {
         "values": {
           "default": "Cor padrão"
+        }
+      },
+      "icon_type_picker": {
+        "values": {
+          "default": "Tipo predefinido",
+          "entity-picture": "Entidade de imagem",
+          "icon": "Ícone",
+          "none": "Nenhum"
         }
       },
       "info_picker": {
