@@ -70,6 +70,7 @@ export class NumberValueControl extends LitElement {
         .disabled=${!isAvailable(this.entity)}
         .inactive=${!isActive(this.entity)}
         .showActive=${true}
+        .showIndicator=${true}
         .min=${this.entity.attributes.min}
         .max=${this.entity.attributes.max}
         .step=${this.entity.attributes.step}
