@@ -44,6 +44,7 @@ export class HumidifierHumidityControl extends LitElement {
       .disabled=${!isAvailable(this.entity)}
       .inactive=${!isActive(this.entity)}
       .showActive=${true}
+      .showIndicator=${true}
       .min=${min}
       .max=${max}
       @change=${this.onChange}
