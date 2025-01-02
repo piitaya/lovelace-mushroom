@@ -38,6 +38,7 @@ export class CoverPositionControl extends LitElement {
         .value=${position}
         .disabled=${!isAvailable(this.entity)}
         .showActive=${true}
+        .showIndicator=${true}
         @change=${this.onChange}
         @current-change=${this.onCurrentChange}
       />

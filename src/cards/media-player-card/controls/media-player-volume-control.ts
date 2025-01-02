@@ -93,6 +93,7 @@ export class MediaPlayerVolumeControls extends LitElement {
               .showActive=${true}
               .min=${0}
               .max=${100}
+              .showIndicator=${true}
               @change=${this.handleSliderChange}
               @current-change=${this.handleSliderCurrentChange}
             />`
