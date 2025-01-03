@@ -22,6 +22,7 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `primary_info`      | `name` `state` `last-changed` `last-updated` `none` | `name`      | Info to show as primary info                                                        |
 | `secondary_info`    | `name` `state` `last-changed` `last-updated` `none` | `state`     | Info to show as secondary info                                                      |
 | `icon_type`         | `icon` `entity-picture` `none`                      | `icon`      | Type of icon to display                                                             |
+| `display_mode`      | `slider` `buttons`                                  | `slider`    | Type of control to display (button or slider)                                       |
 | `tap_action`        | action                                              | `more-info` | Home assistant action to perform on tap                                             |
 | `hold_action`       | action                                              | `more-info` | Home assistant action to perform on hold                                            |
 | `double_tap_action` | action                                              | `more-info` | Home assistant action to perform on double_tap                                      |
