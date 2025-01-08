@@ -16,7 +16,6 @@ import {
   EditSubElementEvent,
   SubElementEditorConfig,
 } from "../../utils/lovelace/editor/types";
-import { mdiGestureTap, mdiListBox, mdiPalette } from "@mdi/js";
 import "./area-card-chips-editor";
 
 const SCHEMA: HaFormSchema[] = [
@@ -25,7 +24,7 @@ const SCHEMA: HaFormSchema[] = [
     name: "appearance",
     type: "expandable",
     flatten: true,
-    iconPath: mdiPalette,
+    //iconPath: mdiPalette,
     schema: [
       { name: "name", selector: { text: {} } },
       {
@@ -47,7 +46,7 @@ const SCHEMA: HaFormSchema[] = [
     name: "interactions",
     type: "expandable",
     flatten: true,
-    iconPath: mdiGestureTap,
+    //iconPath: mdiGestureTap,
     schema: [...computeActionsFormSchema()],
   },
 ];
@@ -118,7 +117,6 @@ export class AreaCardEditor
         style="margin-top: 1.5rem;border-radius: var(--ha-card-border-radius,6px);"
       >
         <div slot="header">
-          <ha-svg-icon .path=${mdiListBox}></ha-svg-icon>
           ${this.hass!.localize(
             "ui.panel.lovelace.editor.card.generic.features"
           )}
