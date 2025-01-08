@@ -29,6 +29,7 @@ import { LovelaceChipConfig } from "../../utils/lovelace/chip/types";
 import { createChipElement } from "../../utils/lovelace/chip/chip-element";
 import { MushroomBaseCard } from "../../utils/base-card";
 import { EntityChip } from "./chips/entity-chip";
+import { LightChip } from "./chips/light-chip";
 
 registerCustomCard({
   type: AREA_CARD_NAME,
@@ -50,12 +51,21 @@ export class AreaCard
     hass: HomeAssistant
   ): Promise<AreaCardConfig> {
     const areas = Object.keys(hass.areas);
-    const chips = await Promise.all([EntityChip.getStubConfig(hass)]);
+    const chips = await Promise.all([
+      LightChip.getStubConfig(hass),
+      EntityChip.getStubConfig(hass, "cover"),
+      EntityChip.getStubConfig(hass, "fan"),
+      EntityChip.getStubConfig(hass, "climate"),
+    ]);
     return {
       type: `custom:${AREA_CARD_NAME}`,
       icon: "mdi:texture-box",
       area: areas[0],
-      chips,
+      chips: chips.filter((c) => c.entity),
+      layout: "horizontal",
+      tap_action: { action: "none" },
+      hold_action: { action: "none" },
+      double_tap_action: { action: "none" },
     };
   }
 

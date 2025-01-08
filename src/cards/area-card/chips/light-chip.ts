@@ -41,6 +41,7 @@ export class LightChip extends LitElement implements LovelaceChip {
     return {
       type: `light`,
       entity: lights[0],
+      content_info: "none",
     };
   }
 

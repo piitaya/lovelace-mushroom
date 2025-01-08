@@ -42,12 +42,17 @@ export class EntityChip extends LitElement implements LovelaceChip {
   }
 
   public static async getStubConfig(
-    hass: HomeAssistant
+    hass: HomeAssistant,
+    domain?: string
   ): Promise<EntityChipConfig> {
     const entities = Object.keys(hass.states);
+    const domainEntities = domain
+      ? entities.filter((e) => e.split(".")[0] === domain)
+      : entities;
     return {
       type: `entity`,
-      entity: entities[0],
+      entity: domainEntities[0],
+      content_info: "none",
     };
   }
 
