@@ -6,7 +6,6 @@ import { Info } from "../../info";
 
 export type MushInfoSelector = {
   mush_info: {
-    default_info?: Info;
     infos?: Info[];
   };
 };
