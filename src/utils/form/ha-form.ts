@@ -18,7 +18,8 @@ export type HaFormSchema =
   | HaFormMultiSelectSchema
   | HaFormTimeSchema
   | HaFormSelector
-  | HaFormGridSchema;
+  | HaFormGridSchema
+  | HaFormExpandableSchema;
 
 export interface HaFormBaseSchema {
   name: string;
@@ -33,6 +34,14 @@ export interface HaFormBaseSchema {
   context?: Record<string, string>;
 }
 
+export interface HaFormExpandableSchema extends HaFormBaseSchema {
+  type: "expandable";
+  name: string;
+  iconPath?: string;
+  column_min_width?: string;
+  flatten: boolean;
+  schema: HaFormSchema[];
+}
 export interface HaFormGridSchema extends HaFormBaseSchema {
   type: "grid";
   name: "";
