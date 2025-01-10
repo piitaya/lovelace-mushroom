@@ -20,27 +20,19 @@ import "./area-card-chips-editor";
 
 const SCHEMA: HaFormSchema[] = [
   { name: "area", selector: { area: {} } },
+  { name: "name", selector: { text: {} } },
   {
-    name: "appearance",
-    type: "expandable",
-    flatten: true,
-    //iconPath: mdiPalette,
+    type: "grid",
+    name: "",
     schema: [
-      { name: "name", selector: { text: {} } },
       {
-        type: "grid",
-        name: "",
-        schema: [
-          {
-            name: "icon",
-            selector: { icon: {} },
-          },
-          { name: "icon_color", selector: { mush_color: {} } },
-        ],
+        name: "icon",
+        selector: { icon: {} },
       },
-      { name: "layout", selector: { mush_layout: {} } },
+      { name: "icon_color", selector: { mush_color: {} } },
     ],
   },
+  { name: "layout", selector: { mush_layout: {} } },
 
   {
     name: "interactions",

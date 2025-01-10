@@ -121,7 +121,11 @@ export class AreaCard
             ></mushroom-state-info>
           </mushroom-state-item>
           <div class="chip-container action ${layout}" ?rtl=${rtl}>
-            ${this._config.chips.map((chip) => this.renderChip(chip))}
+            ${!["default", undefined].includes(this._config.layout)
+              ? this._config.chips.map((chip) => this.renderChip(chip))
+              : this._config.chips
+                  .slice(0, 2)
+                  .map((chip) => this.renderChip(chip))}
           </div>
         </mushroom-card>
       </ha-card>
@@ -198,6 +202,8 @@ export class AreaCard
           align-items: center;
           justify-content: flex-end;
           padding-right: 0.5rem;
+          margin-top: -4rem;
+          height: 56px;
         }
         .chip-container.layout-horizontal {
           align-items: center;
