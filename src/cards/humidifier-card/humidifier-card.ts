@@ -1,6 +1,7 @@
 import { css, CSSResultGroup, html, nothing } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
+import { styleMap } from "lit/directives/style-map.js";
 import {
   actionHandler,
   ActionHandlerEvent,
@@ -10,6 +11,7 @@ import {
   HomeAssistant,
   HumidifierEntity,
   isActive,
+  isAvailable,
   LovelaceCard,
   LovelaceCardEditor,
 } from "../../ha";
@@ -109,13 +111,12 @@ export class HumidifierCard
     const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
     let stateDisplay = this.hass.formatEntityState(stateObj);
-    if (this.humidity) {
+    if (stateObj.attributes.current_humidity !== null) {
       const humidity = this.hass.formatEntityAttributeValue(
         stateObj,
-        "current_humidity",
-        this.humidity
+        "current_humidity"
       );
-      stateDisplay = humidity;
+      stateDisplay += ` ⸱ ${humidity}`;
     }
 
     const rtl = computeRTL(this.hass);
@@ -157,6 +158,35 @@ export class HumidifierCard
             : nothing}
         </mushroom-card>
       </ha-card>
+    `;
+  }
+
+  protected renderBadge(entity: HumidifierEntity) {
+    const unavailable = !isAvailable(entity);
+    if (unavailable) {
+      return super.renderBadge(entity);
+    } else {
+      return this.renderActionBadge(entity);
+    }
+  }
+
+  renderActionBadge(entity: HumidifierEntity) {
+    const action = entity.attributes.action;
+    if (!action || action == "off") return nothing;
+
+    const color = action == "idle" ? "var(--rgb-disabled)" : "var(--rgb-state-humidifier)";
+    const icon = "mdi:water-percent";
+
+    if (!icon) return nothing;
+
+    return html`
+      <mushroom-badge-icon
+        slot="badge"
+        .icon=${icon}
+        style=${styleMap({
+          "--main-color": `rgb(${color})`,
+        })}
+      ></mushroom-badge-icon>
     `;
   }
 
