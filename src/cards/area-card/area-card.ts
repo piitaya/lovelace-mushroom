@@ -202,8 +202,6 @@ export class AreaCard
         }
         .chip-container.layout-vertical {
           justify-content: center;
-          margin-top: -0.5rem;
-          margin-bottom: 0.5rem;
         }
       `,
     ];
