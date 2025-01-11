@@ -98,10 +98,11 @@ export class AreaCard
     const picture = area.picture;
 
     const rtl = computeRTL(this.hass);
-
+    console.log(layout);
     return html`
       <ha-card
         class=${classMap({ "fill-container": appearance.fill_container })}
+        style="height:auto!important;"
       >
         <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
           <mushroom-state-item
@@ -119,12 +120,8 @@ export class AreaCard
               .primary=${name}
             ></mushroom-state-info>
           </mushroom-state-item>
-          <div class="chip-container action ${layout}" ?rtl=${rtl}>
-            ${!["default", undefined].includes(this._config.layout)
-              ? this._config.chips.map((chip) => this.renderChip(chip))
-              : this._config.chips
-                  .slice(0, 2)
-                  .map((chip) => this.renderChip(chip))}
+          <div class="chip-container actions ${layout}" ?rtl=${rtl}>
+            ${this._config.chips.map((chip) => this.renderChip(chip))}
           </div>
         </mushroom-card>
       </ha-card>
@@ -197,13 +194,7 @@ export class AreaCard
           flex-wrap: wrap;
           gap: var(--chip-spacing);
         }
-        .chip-container.layout-default {
-          align-items: center;
-          justify-content: flex-end;
-          padding-right: 0.5rem;
-          margin-top: -4rem;
-          height: 56px;
-        }
+
         .chip-container.layout-horizontal {
           align-items: center;
           justify-content: flex-end;
