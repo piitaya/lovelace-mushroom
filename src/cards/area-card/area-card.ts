@@ -94,7 +94,6 @@ export class AreaCard
     let layout = this._config.layout
       ? `layout-${this._config.layout}`
       : `layout-default`;
-    console.log(this._config.layout);
 
     const picture = area.picture;
 

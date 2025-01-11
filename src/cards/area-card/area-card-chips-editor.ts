@@ -186,9 +186,8 @@ export class AreaCardEditorChips extends MushroomBaseElement {
     }
 
     let newChip: LovelaceChipConfig;
-
     // Check if a stub config exists
-    const elClass = getChipElementClass(value) as any;
+    const elClass = getChipElementClass(`area-${value}`) as any;
 
     if (elClass && elClass.getStubConfig) {
       newChip = (await elClass.getStubConfig(this.hass)) as LovelaceChipConfig;
