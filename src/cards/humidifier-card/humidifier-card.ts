@@ -66,7 +66,6 @@ export class HumidifierCard
     };
   }
 
-  @state() private humidity?: number;
 
   protected get hasControls(): boolean {
     return Boolean(this._config?.show_target_humidity_control);
@@ -86,12 +85,6 @@ export class HumidifierCard
 
   private _handleAction(ev: ActionHandlerEvent) {
     handleAction(this, this.hass!, this._config!, ev.detail.action!);
-  }
-
-  private onCurrentHumidityChange(e: CustomEvent<{ value?: number }>): void {
-    if (e.detail.value != null) {
-      this.humidity = e.detail.value;
-    }
   }
 
   protected render() {
@@ -151,7 +144,6 @@ export class HumidifierCard
                   <mushroom-humidifier-humidity-control
                     .hass=${this.hass}
                     .entity=${stateObj}
-                    @current-change=${this.onCurrentHumidityChange}
                   ></mushroom-humidifier-humidity-control>
                 </div>
               `
@@ -162,11 +154,10 @@ export class HumidifierCard
   }
 
   protected renderBadge(entity: HumidifierEntity) {
-    const unavailable = !isAvailable(entity);
-    if (unavailable) {
-      return super.renderBadge(entity);
-    } else {
+    if (isAvailable(entity)) {
       return this.renderActionBadge(entity);
+    } else {
+      return super.renderBadge(entity);
     }
   }
 
@@ -175,14 +166,11 @@ export class HumidifierCard
     if (!action || action == "off") return nothing;
 
     const color = action == "idle" ? "var(--rgb-disabled)" : "var(--rgb-state-humidifier)";
-    const icon = "mdi:water-percent";
-
-    if (!icon) return nothing;
 
     return html`
       <mushroom-badge-icon
         slot="badge"
-        .icon=${icon}
+        .icon=${"mdi:water-percent"}
         style=${styleMap({
           "--main-color": `rgb(${color})`,
         })}
