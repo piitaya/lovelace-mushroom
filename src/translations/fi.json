@@ -21,7 +21,7 @@
         "show_percentage_control": "Prosentuaalinen säätö?"
       },
       "generic": {
-        "collapsible_controls": "Piilota toiminnot off-tilassa",
+        "collapsible_controls": "Supista säätimet ollessa pois-tilassa",
         "color": "Väri",
         "content_info": "Sisältö",
         "fill_container": "Täytä alue",
