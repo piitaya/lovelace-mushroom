@@ -7,6 +7,7 @@ import {
   assign,
   boolean,
   dynamic,
+  enums,
   literal,
   object,
   optional,
@@ -72,7 +73,7 @@ const menuChipConfigStruct = object({
 const quickbarChipConfigStruct = object({
   type: literal("quickbar"),
   icon: optional(string()),
-  icon_color: optional(string()),
+  mode: optional(enums(["command", "device", "entity"])),
 });
 
 const weatherChipConfigStruct = object({
