@@ -52,6 +52,11 @@ export type MenuChipConfig = {
   icon?: string;
 };
 
+export type QuickBarChipConfig = {
+  type: "quickbar";
+  icon?: string;
+}
+
 export type WeatherChipConfig = {
   type: "weather";
   entity?: string;
@@ -103,6 +108,7 @@ export type LovelaceChipConfig =
   | BackChipConfig
   | EntityChipConfig
   | MenuChipConfig
+  | QuickBarChipConfig
   | WeatherChipConfig
   | TemplateChipConfig
   | ConditionalChipConfig

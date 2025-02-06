@@ -69,6 +69,12 @@ const menuChipConfigStruct = object({
   icon_color: optional(string()),
 });
 
+const quickbarChipConfigStruct = object({
+  type: literal("quickbar"),
+  icon: optional(string()),
+  icon_color: optional(string()),
+});
+
 const weatherChipConfigStruct = object({
   type: literal("weather"),
   entity: optional(string()),
@@ -125,6 +131,8 @@ const chipsConfigStruct = dynamic<any>((value) => {
         return entityChipConfigStruct;
       case "menu":
         return menuChipConfigStruct;
+      case "quickbar":
+        return quickbarChipConfigStruct;
       case "weather":
         return weatherChipConfigStruct;
       case "conditional":
