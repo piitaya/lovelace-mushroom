@@ -52,9 +52,16 @@ export type MenuChipConfig = {
   icon?: string;
 };
 
+export const enum QuickBarMode {
+  Command = "command",
+  Device = "device",
+  Entity = "entity",
+}
+
 export type QuickBarChipConfig = {
   type: "quickbar";
   icon?: string;
+  mode?: QuickBarMode;
 }
 
 export type WeatherChipConfig = {
@@ -123,6 +130,7 @@ export const CHIP_LIST: LovelaceChipConfig["type"][] = [
   "entity",
   "light",
   "menu",
+  "quickbar",
   "spacer",
   "template",
   "weather",

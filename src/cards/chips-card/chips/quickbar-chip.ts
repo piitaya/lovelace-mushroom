@@ -19,23 +19,13 @@ import {
 } from "../../../utils/lovelace/chip/chip-element";
 import {
   LovelaceChip,
+  QuickBarMode,
   QuickBarChipConfig,
 } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 
 export const DEFAULT_QUICKBAR_ICON = "mdi:magnify";
-
-export const enum QuickBarMode {
-  Command = "command",
-  Device = "device",
-  Entity = "entity",
-}
-
-export interface QuickBarParams {
-  entityFilter?: string;
-  mode?: QuickBarMode;
-  hint?: string;
-}
+export const DEFAULT_QUICKBAR_MODE = QuickBarMode.Entity;
 
 @customElement(computeChipComponentName("quickbar"))
 export class QuickBarChip extends LitElement implements LovelaceChip {
@@ -63,10 +53,27 @@ export class QuickBarChip extends LitElement implements LovelaceChip {
   }
 
   private _handleAction() {
+    if (!this.hass || !this._config) {
+      return;
+    }
+    const mode = this._config.mode || DEFAULT_QUICKBAR_MODE;
+    let key: string;
+    switch (mode) {
+      case QuickBarMode.Command:
+        key = "c";
+        break;
+      case QuickBarMode.Device:
+        key = "d";
+        break;
+      case QuickBarMode.Entity:
+        key = "e";
+        break;
+    }
+
     const event = new KeyboardEvent("keydown", {
       bubbles: true,
       composed: true,
-      key: "e"
+      key: key,
     });
     this.dispatchEvent(event);
   }

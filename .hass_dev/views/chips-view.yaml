@@ -112,7 +112,11 @@ cards:
         chips:
           - type: quickbar
           - type: quickbar
-            icon: mdi:home
+            icon: mdi:tablet-cellphone
+            mode: device
+          - type: quickbar
+            icon: mdi:gesture-tap-button
+            mode: command
   - type: vertical-stack
     title: Action chip
     cards:

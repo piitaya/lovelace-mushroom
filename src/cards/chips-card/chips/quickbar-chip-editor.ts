@@ -5,10 +5,11 @@ import { HaFormSchema } from "../../../utils/form/ha-form";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
 import { EntityChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
-import { DEFAULT_QUICKBAR_ICON } from "./quickbar-chip";
+import { DEFAULT_QUICKBAR_ICON, DEFAULT_QUICKBAR_MODE } from "./quickbar-chip";
 
 const SCHEMA: HaFormSchema[] = [
   { name: "icon", selector: { icon: { placeholder: DEFAULT_QUICKBAR_ICON } } },
+  { name: "mode", selector: { icon: { placeholder: DEFAULT_QUICKBAR_MODE } } },
 ];
 
 @customElement(computeChipEditorComponentName("quickbar"))
