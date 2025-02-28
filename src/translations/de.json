@@ -1,163 +1,179 @@
 {
-    "editor": {
-        "form": {
-            "color_picker": {
-                "values": {
-                    "default": "Standardfarbe"
-                }
-            },
-            "info_picker": {
-                "values": {
-                    "default": "Standard-Information",
-                    "name": "Name",
-                    "state": "Zustand",
-                    "last-changed": "Letzte Änderung",
-                    "last-updated": "Letzte Aktualisierung",
-                    "none": "Keine"
-                }
-            },
-            "icon_type_picker": {
-                "values": {
-                    "default": "Standard-Typ",
-                    "icon": "Icon",
-                    "entity-picture": "Entitätsbild",
-                    "none": "Keines"
-                }
-            },
-            "layout_picker": {
-                "values": {
-                    "default": "Standard-Layout",
-                    "vertical": "Vertikales Layout",
-                    "horizontal": "Horizontales Layout"
-                }
-            },
-            "alignment_picker": {
-                "values": {
-                    "default": "Standard",
-                    "start": "Anfang",
-                    "end": "Ende",
-                    "center": "Mitte",
-                    "justify": "Ausrichten"
-                }
-            }
+  "card": {
+    "not_found": "Entität nicht gefunden"
+  },
+  "editor": {
+    "card": {
+      "chips": {
+        "alignment": "Ausrichtung"
+      },
+      "climate": {
+        "hvac_modes": "HVAC-Modi",
+        "show_temperature_control": "Temperatursteuerung?"
+      },
+      "cover": {
+        "show_buttons_control": "Schaltflächensteuerung?",
+        "show_position_control": "Positionssteuerung?",
+        "show_tilt_position_control": "Winkelsteuerung?"
+      },
+      "fan": {
+        "show_oscillate_control": "Oszillationssteuerung?",
+        "show_percentage_control": "Prozentuale Kontrolle?"
+      },
+      "generic": {
+        "collapsible_controls": "Schieberegler einklappen, wenn aus",
+        "color": "Farbe",
+        "content_info": "Inhalt",
+        "fill_container": "Container ausfüllen",
+        "icon_animation": "Icon animieren, wenn aktiv?",
+        "icon_color": "Icon-Farbe",
+        "icon_type": "Icon-Typ",
+        "layout": "Layout",
+        "primary_info": "Primäre Information",
+        "secondary_info": "Sekundäre Information",
+        "use_entity_picture": "Entitätsbild verwenden?"
+      },
+      "humidifier": {
+        "show_target_humidity_control": "Luftfeuchtigkeitssteuerung?"
+      },
+      "light": {
+        "incompatible_controls": "Einige Steuerelemente werden möglicherweise nicht angezeigt, wenn Ihr Licht diese Funktion nicht unterstützt.",
+        "show_brightness_control": "Helligkeitsregelung?",
+        "show_color_control": "Farbsteuerung?",
+        "show_color_temp_control": "Farbtemperatursteuerung?",
+        "use_light_color": "Farbsteuerung verwenden"
+      },
+      "lock": {
+        "lock": "Verriegeln",
+        "open": "Öffnen",
+        "unlock": "Entriegeln"
+      },
+      "media-player": {
+        "media_controls": "Mediensteuerung",
+        "media_controls_list": {
+          "next": "Nächster Titel",
+          "on_off": "Ein/Aus",
+          "play_pause_stop": "Play/Pause/Stop",
+          "previous": "Vorheriger Titel",
+          "repeat": "Wiederholen",
+          "shuffle": "Zufällige Wiedergabe"
         },
-        "card": {
-            "generic": {
-                "icon_color": "Icon-Farbe",
-                "layout": "Layout",
-                "fill_container": "Container ausfüllen",
-                "primary_info": "Primäre Information",
-                "secondary_info": "Sekundäre Information",
-                "icon_type": "Icon-Typ",
-                "content_info": "Inhalt",
-                "use_entity_picture": "Entitätsbild verwenden?",
-                "collapsible_controls": "Schieberegler einklappen, wenn aus"
-            },
-            "light": {
-                "show_brightness_control": "Helligkeitsregelung?",
-                "use_light_color": "Farbsteuerung verwenden",
-                "show_color_temp_control": "Farbtemperatursteuerung?",
-                "show_color_control": "Farbsteuerung?",
-                "incompatible_controls": "Einige Steuerelemente werden möglicherweise nicht angezeigt, wenn Ihr Licht diese Funktion nicht unterstützt."
-            },
-            "fan": {
-                "icon_animation": "Icon animieren, wenn aktiv?",
-                "show_percentage_control": "Prozentuale Kontrolle?",
-                "show_oscillate_control": "Oszillationssteuerung?"
-            },
-            "cover": {
-                "show_buttons_control": "Schaltflächensteuerung?",
-                "show_position_control": "Positionssteuerung?",
-                "show_tilt_position_control": "Winkelsteuerung?"
-            },
-            "alarm_control_panel": {
-                "show_keypad": "Keypad anzeigen"
-            },
-            "template": {
-                "primary": "Primäre Information",
-                "secondary": "Sekundäre Information",
-                "multiline_secondary": "Mehrzeilig sekundär?",
-                "entity_extra": "Wird in Vorlagen und Aktionen verwendet",
-                "content": "Inhalt",
-                "badge_icon": "Badge-Icon",
-                "badge_color": "Badge-Farbe",
-                "picture": "Bild (ersetzt das Icon)"
-            },
-            "title": {
-                "title": "Titel",
-                "subtitle": "Untertitel"
-            },
-            "chips": {
-                "alignment": "Ausrichtung"
-            },
-            "weather": {
-                "show_conditions": "Bedingungen?",
-                "show_temperature": "Temperatur?"
-            },
-            "update": {
-                "show_buttons_control": "Schaltflächensteuerung?"
-            },
-            "vacuum": {
-                "commands": "Befehle"
-            },
-            "media-player": {
-                "use_media_info": "Medieninfos verwenden",
-                "use_media_artwork": "Mediengrafik verwenden",
-                "show_volume_level": "Lautstärke-Level anzeigen",
-                "media_controls": "Mediensteuerung",
-                "media_controls_list": {
-                    "on_off": "Ein/Aus",
-                    "shuffle": "Zufällige Wiedergabe",
-                    "previous": "Vorheriger Titel",
-                    "play_pause_stop": "Play/Pause/Stop",
-                    "next": "Nächster Titel",
-                    "repeat": "Wiederholen"
-                },
-                "volume_controls": "Lautstärkesteuerung",
-                "volume_controls_list": {
-                    "volume_buttons": "Lautstärke-Buttons",
-                    "volume_set": "Lautstärke-Level",
-                    "volume_mute": "Stumm"
-                }
-            },
-            "lock": {
-                "lock": "Verriegeln",
-                "unlock": "Entriegeln",
-                "open": "Öffnen"
-            },
-            "humidifier": {
-                "show_target_humidity_control": "Luftfeuchtigkeitssteuerung?"
-            },
-            "climate": {
-                "show_temperature_control": "Temperatursteuerung?",
-                "hvac_modes": "HVAC-Modi"
-            }
-        },
-        "chip": {
-            "sub_element_editor": {
-                "title": "Chip Editor"
-            },
-            "conditional": {
-                "chip": "Chip"
-            },
-            "chip-picker": {
-                "chips": "Chips",
-                "add": "Chip hinzufügen",
-                "edit": "Editieren",
-                "clear": "Löschen",
-                "select": "Chip auswählen",
-                "types": {
-                    "action": "Aktion",
-                    "alarm-control-panel": "Alarm",
-                    "back": "Zurück",
-                    "conditional": "Bedingung",
-                    "entity": "Entität",
-                    "light": "Licht",
-                    "menu": "Menü",
-                    "template": "Vorlage",
-                    "weather": "Wetter"
-                }
-            }
+        "show_volume_level": "Lautstärke-Level anzeigen",
+        "use_media_artwork": "Mediengrafik verwenden",
+        "use_media_info": "Medieninfos verwenden",
+        "volume_controls": "Lautstärkesteuerung",
+        "volume_controls_list": {
+          "volume_buttons": "Lautstärke-Buttons",
+          "volume_mute": "Stumm",
+          "volume_set": "Lautstärke-Level"
         }
+      },
+      "number": {
+        "display_mode": "Anzeigemodus",
+        "display_mode_list": {
+          "buttons": "Buttons",
+          "default": "Standard (Schieberegler)",
+          "slider": "Schieberegler"
+        }
+      },
+      "template": {
+        "badge_color": "Badge-Farbe",
+        "badge_icon": "Badge-Icon",
+        "content": "Inhalt",
+        "entity_extra": "Wird in Vorlagen und Aktionen verwendet",
+        "label": "Beschriftung",
+        "multiline_secondary": "Mehrzeilig sekundär?",
+        "picture": "Bild (ersetzt das Icon)",
+        "primary": "Primäre Information",
+        "secondary": "Sekundäre Information"
+      },
+      "title": {
+        "subtitle": "Untertitel",
+        "subtitle_tap_action": "Untertitel Tipp-Aktion",
+        "title": "Titel",
+        "title_tap_action": "Titel Tipp-Aktion"
+      },
+      "update": {
+        "show_buttons_control": "Schaltflächensteuerung?"
+      },
+      "vacuum": {
+        "commands": "Befehle",
+        "commands_list": {
+          "on_off": "An/Ausschalten"
+        }
+      },
+      "weather": {
+        "show_conditions": "Bedingungen?",
+        "show_temperature": "Temperatur?"
+      }
+    },
+    "chip": {
+      "chip-picker": {
+        "add": "Chip hinzufügen",
+        "chips": "Chips",
+        "clear": "Löschen",
+        "edit": "Editieren",
+        "select": "Chip auswählen",
+        "types": {
+          "action": "Aktion",
+          "alarm-control-panel": "Alarm",
+          "back": "Zurück",
+          "conditional": "Bedingung",
+          "entity": "Entität",
+          "light": "Licht",
+          "menu": "Menü",
+          "spacer": "Abstand",
+          "template": "Vorlage",
+          "weather": "Wetter"
+        }
+      },
+      "conditional": {
+        "chip": "Chip"
+      },
+      "sub_element_editor": {
+        "title": "Chip Editor"
+      }
+    },
+    "form": {
+      "alignment_picker": {
+        "values": {
+          "center": "Mitte",
+          "default": "Standard",
+          "end": "Ende",
+          "justify": "Ausrichten",
+          "start": "Anfang"
+        }
+      },
+      "color_picker": {
+        "values": {
+          "default": "Standardfarbe"
+        }
+      },
+      "icon_type_picker": {
+        "values": {
+          "default": "Standard-Typ",
+          "entity-picture": "Entitätsbild",
+          "icon": "Icon",
+          "none": "Keines"
+        }
+      },
+      "info_picker": {
+        "values": {
+          "default": "Standard-Information",
+          "last-changed": "Letzte Änderung",
+          "last-updated": "Letzte Aktualisierung",
+          "name": "Name",
+          "none": "Keine",
+          "state": "Zustand"
+        }
+      },
+      "layout_picker": {
+        "values": {
+          "default": "Standard-Layout",
+          "horizontal": "Horizontales Layout",
+          "vertical": "Vertikales Layout"
+        }
+      }
     }
+  }
 }

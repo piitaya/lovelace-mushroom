@@ -1,0 +1,177 @@
+{
+  "card": {
+    "not_found": "Entiteta ni najdena"
+  },
+  "editor": {
+    "card": {
+      "chips": {
+        "alignment": "Poravnava"
+      },
+      "climate": {
+        "hvac_modes": "HVAC načini",
+        "show_temperature_control": "Nadzor temperature?"
+      },
+      "cover": {
+        "show_buttons_control": "Gumbi za upravljanje?",
+        "show_position_control": "Nadzor položaja?",
+        "show_tilt_position_control": "Nadzor nagiba?"
+      },
+      "fan": {
+        "show_oscillate_control": "Kontrola nihanja?",
+        "show_percentage_control": "Kontrola v odstotkih?"
+      },
+      "generic": {
+        "collapsible_controls": "Strni kontrolnike, ko so izklopljeni",
+        "content_info": "Vsebina",
+        "fill_container": "Zapolnitev prostora",
+        "icon_animation": "Animacija ikone, ko je aktivna?",
+        "icon_color": "Barva ikone",
+        "icon_type": "Vrsta ikone",
+        "layout": "Postavitev",
+        "primary_info": "Primarna informacija",
+        "secondary_info": "Sekundarna informacija",
+        "use_entity_picture": "Uporabi sliko entitete?"
+      },
+      "humidifier": {
+        "show_target_humidity_control": "Nadzor vlažnosti?"
+      },
+      "light": {
+        "incompatible_controls": "Nekateri kontrolniki morda ne bodo prikazani, če vaša luč ne podpira te funkcije.",
+        "show_brightness_control": "Nadzor svetlosti?",
+        "show_color_control": "Nadzor barv?",
+        "show_color_temp_control": "Nadzor temperature barve?",
+        "use_light_color": "Uporabi svetlo barvo"
+      },
+      "lock": {
+        "lock": "Zaklepanje",
+        "open": "Odprto",
+        "unlock": "Odkleni"
+      },
+      "media-player": {
+        "media_controls": "Nadzor medijev",
+        "media_controls_list": {
+          "next": "Naslednja skladba",
+          "on_off": "Vklop/izklop",
+          "play_pause_stop": "Predvajaj/pavza/ustavi",
+          "previous": "Prejšnja skladba",
+          "repeat": "Ponavljajoči način",
+          "shuffle": "Naključno"
+        },
+        "show_volume_level": "Pokaži raven glasnosti",
+        "use_media_artwork": "Uporabite medijsko umetniško delo",
+        "use_media_info": "Uporabite informacije o medijih",
+        "volume_controls": "Kontrole glasnosti",
+        "volume_controls_list": {
+          "volume_buttons": "Gumbi za glasnost",
+          "volume_mute": "Tiho",
+          "volume_set": "Raven glasnosti"
+        }
+      },
+      "number": {
+        "display_mode": "Način prikaza",
+        "display_mode_list": {
+          "buttons": "Gumbi",
+          "default": "Privzeto (drsnik)",
+          "slider": "Drsnik"
+        }
+      },
+      "template": {
+        "badge_color": "Barva značke",
+        "badge_icon": "Ikona značke",
+        "content": "Vsebina",
+        "entity_extra": "Uporablja se v predlogah in dejanjih",
+        "multiline_secondary": "Večvrstični sekundarni?",
+        "picture": "Slika (nadomestila bo ikono)",
+        "primary": "Primarna informacija",
+        "secondary": "Sekundarna informacija"
+      },
+      "title": {
+        "subtitle": "Podnaslov",
+        "subtitle_tap_action": "Dejanje dotika podnapisov",
+        "title": "Naziv",
+        "title_tap_action": "Dejanje dotika naslova"
+      },
+      "update": {
+        "show_buttons_control": "Gumbi za upravljanje?"
+      },
+      "vacuum": {
+        "commands": "Ukazi",
+        "commands_list": {
+          "on_off": "Vklop/izklop"
+        }
+      },
+      "weather": {
+        "show_conditions": "Pogoji?",
+        "show_temperature": "Temperatura?"
+      }
+    },
+    "chip": {
+      "chip-picker": {
+        "add": "Dodaj čip",
+        "chips": "Čipi",
+        "clear": "Pobriši",
+        "edit": "Uredi",
+        "select": "Izbira čipa",
+        "types": {
+          "action": "Dejanje",
+          "alarm-control-panel": "Alarm",
+          "back": "Nazaj",
+          "conditional": "Pogojno",
+          "entity": "Entiteta",
+          "light": "Svetloba",
+          "menu": "Meni",
+          "spacer": "Distančnik",
+          "template": "Predloga",
+          "weather": "Vreme"
+        }
+      },
+      "conditional": {
+        "chip": "Ćiš"
+      },
+      "sub_element_editor": {
+        "title": "Urejevalnik čipov"
+      }
+    },
+    "form": {
+      "alignment_picker": {
+        "values": {
+          "center": "Center",
+          "default": "Privzeta poravnava",
+          "end": "Konec",
+          "justify": "Poravnava",
+          "start": "Pričetek"
+        }
+      },
+      "color_picker": {
+        "values": {
+          "default": "Privzeta barva"
+        }
+      },
+      "icon_type_picker": {
+        "values": {
+          "default": "Privzeta vrsta",
+          "entity-picture": "Slika entitete",
+          "icon": "Ikona",
+          "none": "Brez"
+        }
+      },
+      "info_picker": {
+        "values": {
+          "default": "Privzete informacije",
+          "last-changed": "Zadnja sprememba",
+          "last-updated": "Zadnja posodobitev",
+          "name": "Naziv",
+          "none": "Brez",
+          "state": "Stanje"
+        }
+      },
+      "layout_picker": {
+        "values": {
+          "default": "Privzeta postavitev",
+          "horizontal": "Horizontalna postavitev",
+          "vertical": "Vertikalna postavitev"
+        }
+      }
+    }
+  }
+}

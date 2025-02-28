@@ -6,27 +6,27 @@
 // leading edge, instead of the trailing.
 
 export const debounce = <T extends any[]>(
-    func: (...args: T) => void,
-    wait: number,
-    immediate = false
+  func: (...args: T) => void,
+  wait: number,
+  immediate = false
 ) => {
-    let timeout: number | undefined;
-    const debouncedFunc = (...args: T): void => {
-        const later = () => {
-            timeout = undefined;
-            if (!immediate) {
-                func(...args);
-            }
-        };
-        const callNow = immediate && !timeout;
-        clearTimeout(timeout);
-        timeout = window.setTimeout(later, wait);
-        if (callNow) {
-            func(...args);
-        }
+  let timeout: number | undefined;
+  const debouncedFunc = (...args: T): void => {
+    const later = () => {
+      timeout = undefined;
+      if (!immediate) {
+        func(...args);
+      }
     };
-    debouncedFunc.cancel = () => {
-        clearTimeout(timeout);
-    };
-    return debouncedFunc;
+    const callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = window.setTimeout(later, wait);
+    if (callNow) {
+      func(...args);
+    }
+  };
+  debouncedFunc.cancel = () => {
+    clearTimeout(timeout);
+  };
+  return debouncedFunc;
 };

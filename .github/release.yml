@@ -1,22 +1,22 @@
 changelog:
-  exclude:
-    labels:
-      - ignore-for-release
-    authors:
-      - octocat
-  categories:
-    - title: Breaking Changes 🛠
-      labels:
-        - breaking-change
-    - title: New Features 🎉
-      labels:
-        - enhancement
-    - title: Fixes 🐛
-      labels:
-        - bug
-    - title: Translations 🌍
-      labels:
-        - translations
-    - title: Other Changes
-      labels:
-        - "*"
+    exclude:
+        labels:
+            - ignore-for-release
+        authors:
+            - octocat
+    categories:
+        - title: Breaking Changes 🛠
+          labels:
+              - breaking-change
+        - title: New Features 🎉
+          labels:
+              - enhancement
+        - title: Fixes 🐛
+          labels:
+              - bug
+        - title: Translations 🌍
+          labels:
+              - translations
+        - title: Other Changes
+          labels:
+              - "*"

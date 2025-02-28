@@ -1,0 +1,165 @@
+{
+  "editor": {
+    "card": {
+      "chips": {
+        "alignment": "정렬"
+      },
+      "climate": {
+        "hvac_modes": "HVAC 모드",
+        "show_temperature_control": "온도 조절 표시"
+      },
+      "cover": {
+        "show_buttons_control": "컨트롤 버튼 표시",
+        "show_position_control": "위치 컨트롤 표시",
+        "show_tilt_position_control": "기울기 컨트롤 표시"
+      },
+      "fan": {
+        "show_oscillate_control": "오실레이트 컨트롤",
+        "show_percentage_control": "퍼센트 컨트롤"
+      },
+      "generic": {
+        "collapsible_controls": "꺼져있을 때 컨트롤 접기",
+        "content_info": "내용 정보",
+        "fill_container": "콘테이너 채우기",
+        "icon_animation": "활성화 시 아이콘 애니메이션 사용",
+        "icon_color": "아이콘 색",
+        "icon_type": "아이콘 타입",
+        "layout": "레이아웃",
+        "primary_info": "기본 정보",
+        "secondary_info": "보조 정보",
+        "use_entity_picture": "엔티티 사진 사용"
+      },
+      "humidifier": {
+        "show_target_humidity_control": "습도 조절 표시"
+      },
+      "light": {
+        "incompatible_controls": "조명이 기능을 지원하지 않는 경우 일부 컨트롤이 표시되지 않을 수 있습니다.",
+        "show_brightness_control": "밝기 컨트롤 표시",
+        "show_color_control": "색 컨트롤 표시",
+        "show_color_temp_control": "색 온도 컨트롤 표시",
+        "use_light_color": "조명 색 사용"
+      },
+      "lock": {
+        "lock": "잠금",
+        "open": "열기",
+        "unlock": "잠금 해제"
+      },
+      "media-player": {
+        "media_controls": "미디어 컨트롤",
+        "media_controls_list": {
+          "next": "다음 트랙",
+          "on_off": "켜기/끄기",
+          "play_pause_stop": "재생/일시 정지/정지",
+          "previous": "이전 트랙",
+          "repeat": "반복 모드",
+          "shuffle": "섞기"
+        },
+        "show_volume_level": "볼륨 레벨 표시",
+        "use_media_artwork": "미디어 아트워크 사용",
+        "use_media_info": "미디어 정보 사용",
+        "volume_controls": "볼륨 컨트롤",
+        "volume_controls_list": {
+          "volume_buttons": "볼륨 버튼",
+          "volume_mute": "음소거",
+          "volume_set": "볼륨 레벨"
+        }
+      },
+      "template": {
+        "badge_color": "뱃지 색",
+        "badge_icon": "뱃지 아이콘",
+        "content": "내용",
+        "entity_extra": "템플릿 및 작업에 사용",
+        "multiline_secondary": "Multiline secondary?",
+        "picture": "그림 (아이콘 대체)",
+        "primary": "기본 정보",
+        "secondary": "보조 정보"
+      },
+      "title": {
+        "subtitle": "부제목",
+        "subtitle_tap_action": "부제목 탭 액션",
+        "title": "제목",
+        "title_tap_action": "제목 탭 액션"
+      },
+      "update": {
+        "show_buttons_control": "컨트롤 버튼 표시"
+      },
+      "vacuum": {
+        "commands": "명령어",
+        "commands_list": {
+          "on_off": "켜기/끄기"
+        }
+      },
+      "weather": {
+        "show_conditions": "조건 표시",
+        "show_temperature": "온도 표시"
+      }
+    },
+    "chip": {
+      "chip-picker": {
+        "add": "칩 추가",
+        "chips": "칩",
+        "clear": "클리어",
+        "edit": "수정",
+        "select": "칩 선택",
+        "types": {
+          "action": "액션",
+          "alarm-control-panel": "알람",
+          "back": "이전",
+          "conditional": "Conditional",
+          "entity": "엔티티",
+          "light": "조명",
+          "menu": "메뉴",
+          "template": "템플릿",
+          "weather": "날씨"
+        }
+      },
+      "conditional": {
+        "chip": "칩"
+      },
+      "sub_element_editor": {
+        "title": "칩 에디터"
+      }
+    },
+    "form": {
+      "alignment_picker": {
+        "values": {
+          "center": "중앙",
+          "default": "기본 정렬",
+          "end": "끝",
+          "justify": "행 정렬",
+          "start": "시작"
+        }
+      },
+      "color_picker": {
+        "values": {
+          "default": "기본 색"
+        }
+      },
+      "icon_type_picker": {
+        "values": {
+          "default": "기본 타입",
+          "entity-picture": "엔티티 사진",
+          "icon": "아이콘",
+          "none": "없음"
+        }
+      },
+      "info_picker": {
+        "values": {
+          "default": "기본 정보",
+          "last-changed": "마지막 변경",
+          "last-updated": "마지막 업데이트",
+          "name": "이름",
+          "none": "없음",
+          "state": "상태"
+        }
+      },
+      "layout_picker": {
+        "values": {
+          "default": "기본 레이아웃",
+          "horizontal": "수평 레이아웃",
+          "vertical": "수직 레이아웃"
+        }
+      }
+    }
+  }
+}

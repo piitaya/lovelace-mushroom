@@ -1,0 +1,179 @@
+{
+  "card": {
+    "not_found": "Entitas tidak ditemukan"
+  },
+  "editor": {
+    "card": {
+      "chips": {
+        "alignment": "Perataan"
+      },
+      "climate": {
+        "hvac_modes": "Mode HVAC",
+        "show_temperature_control": "Kontrol suhu?"
+      },
+      "cover": {
+        "show_buttons_control": "Tombol kontrol?",
+        "show_position_control": "Kontrol posisi?",
+        "show_tilt_position_control": "Kontrol kemiringan?"
+      },
+      "fan": {
+        "show_oscillate_control": "Kontrol osilasi?",
+        "show_percentage_control": "Kontrol persentase?"
+      },
+      "generic": {
+        "collapsible_controls": "Sembunyikan kontrol saat mati",
+        "color": "Warna",
+        "content_info": "Konten",
+        "fill_container": "Isi kontainer",
+        "icon_animation": "Animasikan ikon saat aktif?",
+        "icon_color": "Warna ikon",
+        "icon_type": "Tipe ikon",
+        "layout": "Tata letak",
+        "primary_info": "Informasi primer",
+        "secondary_info": "Informasi sekunder",
+        "use_entity_picture": "Gunakan gambar entitas?"
+      },
+      "humidifier": {
+        "show_target_humidity_control": "Kontrol kelembapan?"
+      },
+      "light": {
+        "incompatible_controls": "Beberapa kontrol mungkin tidak ditampilkan jika lampu Anda tidak mendukung fitur tersebut.",
+        "show_brightness_control": "Kontrol kecerahan?",
+        "show_color_control": "Kontrol warna?",
+        "show_color_temp_control": "Kontrol suhu warna?",
+        "use_light_color": "Gunakan warna lampu"
+      },
+      "lock": {
+        "lock": "Kunci",
+        "open": "Buka",
+        "unlock": "Buka kunci"
+      },
+      "media-player": {
+        "media_controls": "Kontrol media",
+        "media_controls_list": {
+          "next": "Lagu berikutnya",
+          "on_off": "Nyalakan/Matikan",
+          "play_pause_stop": "Putar/jeda/stop",
+          "previous": "Lagu sebelumnya",
+          "repeat": "Mode pengulangan",
+          "shuffle": "Acak"
+        },
+        "show_volume_level": "Tampilkan level volume",
+        "use_media_artwork": "Gunakan gambar seni media",
+        "use_media_info": "Gunakan info media",
+        "volume_controls": "Kontrol volume",
+        "volume_controls_list": {
+          "volume_buttons": "Tombol volume",
+          "volume_mute": "Bisukan",
+          "volume_set": "Level volume"
+        }
+      },
+      "number": {
+        "display_mode": "Mode Tampilan",
+        "display_mode_list": {
+          "buttons": "Tombol",
+          "default": "Bawaan (geser)",
+          "slider": "Geser"
+        }
+      },
+      "template": {
+        "badge_color": "Warna lencana",
+        "badge_icon": "Ikon lencana",
+        "content": "Konten",
+        "entity_extra": "Digunakan dalam templat dan tindakan",
+        "label": "Label",
+        "multiline_secondary": "Info sekunder multibaris?",
+        "picture": "Gambar (akan menggantikan ikon)",
+        "primary": "Informasi primer",
+        "secondary": "Informasi sekunder"
+      },
+      "title": {
+        "subtitle": "Subjudul",
+        "subtitle_tap_action": "Tindakan ketuk subjudul",
+        "title": "Judul",
+        "title_tap_action": "Tindakan ketuk judul"
+      },
+      "update": {
+        "show_buttons_control": "Tombol kontrol?"
+      },
+      "vacuum": {
+        "commands": "Perintah",
+        "commands_list": {
+          "on_off": "Nyalakan/Matikan"
+        }
+      },
+      "weather": {
+        "show_conditions": "Kondisi?",
+        "show_temperature": "Suhu?"
+      }
+    },
+    "chip": {
+      "chip-picker": {
+        "add": "Tambah cip",
+        "chips": "Cip",
+        "clear": "Hapus",
+        "edit": "Edit",
+        "select": "Pilih cip",
+        "types": {
+          "action": "Tindakan",
+          "alarm-control-panel": "Alarm",
+          "back": "Kembali",
+          "conditional": "Kondisional",
+          "entity": "Entitas",
+          "light": "Lampu",
+          "menu": "Menu",
+          "spacer": "Pemisah",
+          "template": "Templat",
+          "weather": "Cuaca"
+        }
+      },
+      "conditional": {
+        "chip": "Cip"
+      },
+      "sub_element_editor": {
+        "title": "Editor cip"
+      }
+    },
+    "form": {
+      "alignment_picker": {
+        "values": {
+          "center": "Tengah",
+          "default": "Perataan bawaan",
+          "end": "Akhir",
+          "justify": "Rata kanan-kiri",
+          "start": "Awal"
+        }
+      },
+      "color_picker": {
+        "values": {
+          "default": "Warna bawaan"
+        }
+      },
+      "icon_type_picker": {
+        "values": {
+          "default": "Tipe bawaan",
+          "entity-picture": "Gambar entitas",
+          "icon": "Ikon",
+          "none": "Tidak ada"
+        }
+      },
+      "info_picker": {
+        "values": {
+          "default": "Informasi bawaan",
+          "last-changed": "Terakhir Diubah",
+          "last-updated": "Terakhir Diperbarui",
+          "name": "Nama",
+          "none": "Tidak ada",
+          "state": "Status"
+        }
+      },
+      "layout_picker": {
+        "values": {
+          "default": "Tata letak bawaan",
+          "horizontal": "Tata letak horizontal",
+          "vertical": "Tata letak vertikal"
+        }
+      }
+    }
+  }
+}

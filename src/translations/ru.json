@@ -1,0 +1,160 @@
+{
+  "editor": {
+    "card": {
+      "chips": {
+        "alignment": "Выравнивание"
+      },
+      "climate": {
+        "hvac_modes": "Режимы работы",
+        "show_temperature_control": "Управлять целевой температурой?"
+      },
+      "cover": {
+        "show_buttons_control": "Добавить кнопки управления?",
+        "show_position_control": "Управлять позицией?",
+        "show_tilt_position_control": "Управлять наклоном?"
+      },
+      "fan": {
+        "icon_animation": "Анимировать иконку когда включено?",
+        "show_oscillate_control": "Oscillate control?",
+        "show_percentage_control": "Управлять процентами?"
+      },
+      "generic": {
+        "collapsible_controls": "Сворачивать элементы управления при выключении",
+        "content_info": "Содержимое",
+        "fill_container": "Заполнение",
+        "icon_color": "Цвет иконки",
+        "icon_type": "Тип иконки",
+        "layout": "Расположение",
+        "primary_info": "Основная информация",
+        "secondary_info": "Второстепенная информация",
+        "use_entity_picture": "Использовать изображение объекта?"
+      },
+      "humidifier": {
+        "show_target_humidity_control": "Управлять целевым уровенем влажности?"
+      },
+      "light": {
+        "incompatible_controls": "Некоторые элементы управления могут не отображаться, если ваш светильник не поддерживает эти функции.",
+        "show_brightness_control": "Управлять яркостью?",
+        "show_color_control": "Управлять цветом?",
+        "show_color_temp_control": "Управлять цветовой температурой?",
+        "use_light_color": "Использовать текущий цвет света"
+      },
+      "lock": {
+        "lock": "Закрыто",
+        "open": "Открыто",
+        "unlock": "Разблокировано"
+      },
+      "media-player": {
+        "media_controls": "Управление медиа-устройством",
+        "media_controls_list": {
+          "next": "Следующий трек",
+          "on_off": "Включение/выключение",
+          "play_pause_stop": "Воспроизведение/пауза/остановка",
+          "previous": "Предыдущий трек",
+          "repeat": "Режим повтора",
+          "shuffle": "Перемешивание"
+        },
+        "show_volume_level": "Показать уровень громкости",
+        "use_media_artwork": "Использовать обложку с медиа-устройства",
+        "use_media_info": "Использовать информацию с медиа-устройства",
+        "volume_controls": "Регулятор громкости",
+        "volume_controls_list": {
+          "volume_buttons": "Кнопки громкости",
+          "volume_mute": "Без звука",
+          "volume_set": "Уровень громкости"
+        }
+      },
+      "template": {
+        "badge_color": "Цвет значка",
+        "badge_icon": "Иконка значка",
+        "content": "Содержимое",
+        "entity_extra": "Используется в шаблонах и действиях",
+        "multiline_secondary": "Многострочная Второстепенная информация?",
+        "picture": "Изображение (заменить иконку)",
+        "primary": "Основная информация",
+        "secondary": "Второстепенная информация"
+      },
+      "title": {
+        "subtitle": "Подзаголовок",
+        "title": "Заголовок"
+      },
+      "update": {
+        "show_buttons_control": "Кнопки управления?"
+      },
+      "vacuum": {
+        "commands": "Команды"
+      },
+      "weather": {
+        "show_conditions": "Условия?",
+        "show_temperature": "Температура?"
+      }
+    },
+    "chip": {
+      "chip-picker": {
+        "add": "Добавить мини-карточку",
+        "chips": "Мини-карточки",
+        "clear": "Очистить",
+        "edit": "Изменить",
+        "select": "Выбрать мини-карточку",
+        "types": {
+          "action": "Действие",
+          "alarm-control-panel": "Тревога",
+          "back": "Назад",
+          "conditional": "Условия",
+          "entity": "Объект",
+          "light": "Освещение",
+          "menu": "Меню",
+          "template": "Шаблон",
+          "weather": "Погода"
+        }
+      },
+      "conditional": {
+        "chip": "Мини-карточка"
+      },
+      "sub_element_editor": {
+        "title": "Редактор мини-карточек"
+      }
+    },
+    "form": {
+      "alignment_picker": {
+        "values": {
+          "center": "По центру",
+          "default": "Выравнивание по умолчанию",
+          "end": "К концу",
+          "justify": "На всю ширину",
+          "start": "К началу"
+        }
+      },
+      "color_picker": {
+        "values": {
+          "default": "Цвет по умолчанию"
+        }
+      },
+      "icon_type_picker": {
+        "values": {
+          "default": "По умолчанию",
+          "entity-picture": "Изображение",
+          "icon": "Иконка",
+          "none": "Нет"
+        }
+      },
+      "info_picker": {
+        "values": {
+          "default": "По умолчанию",
+          "last-changed": "Последнее изменение",
+          "last-updated": "Последнее обновление",
+          "name": "Имя",
+          "none": "Нет",
+          "state": "Статус"
+        }
+      },
+      "layout_picker": {
+        "values": {
+          "default": "Расположение по умолчанию",
+          "horizontal": "Горизонтальное расположение",
+          "vertical": "Вертикальное расположение"
+        }
+      }
+    }
+  }
+}

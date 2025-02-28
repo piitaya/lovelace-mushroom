@@ -1,0 +1,179 @@
+{
+  "card": {
+    "not_found": "No s'ha trobat l'entitat"
+  },
+  "editor": {
+    "card": {
+      "chips": {
+        "alignment": "Alineació"
+      },
+      "climate": {
+        "hvac_modes": "Modes HVAC",
+        "show_temperature_control": "Control de temperatura?"
+      },
+      "cover": {
+        "show_buttons_control": "Botons de control?",
+        "show_position_control": "Control de posició?",
+        "show_tilt_position_control": "Control d'inclinació?"
+      },
+      "fan": {
+        "show_oscillate_control": "Control d'oscil·lació?",
+        "show_percentage_control": "Control de percentatge?"
+      },
+      "generic": {
+        "collapsible_controls": "Amaga els controls en desactivar",
+        "color": "Color",
+        "content_info": "Contingut",
+        "fill_container": "Emplena el contenidor",
+        "icon_animation": "Animar icona en activar?",
+        "icon_color": "Color d'icona",
+        "icon_type": "Tipus d'icona",
+        "layout": "Distribució",
+        "primary_info": "Informació primaria",
+        "secondary_info": "Informació secundaria",
+        "use_entity_picture": "Fer servir la imatge de l'entitat?"
+      },
+      "humidifier": {
+        "show_target_humidity_control": "Control d'humitat?"
+      },
+      "light": {
+        "incompatible_controls": "Alguns controls no es mostraran si l'entitat no suporta eixa funció.",
+        "show_brightness_control": "Control de brillantor?",
+        "show_color_control": "Control de color?",
+        "show_color_temp_control": "Control de la temperatura del color?",
+        "use_light_color": "Fes servir el color del llum"
+      },
+      "lock": {
+        "lock": "Bloqueja",
+        "open": "Obri",
+        "unlock": "Desbloqueja"
+      },
+      "media-player": {
+        "media_controls": "Controls multimèdia",
+        "media_controls_list": {
+          "next": "Pista següent",
+          "on_off": "Engegar/Apagar",
+          "play_pause_stop": "Reproduïr/Pausar/Detindre",
+          "previous": "Pista anterior",
+          "repeat": "Mode de repetició",
+          "shuffle": "Mesclar"
+        },
+        "show_volume_level": "Mostra el nivell de volum",
+        "use_media_artwork": "Fes servir l'art multimèdia",
+        "use_media_info": "Empra la informació multimèdia",
+        "volume_controls": "Controls de volum",
+        "volume_controls_list": {
+          "volume_buttons": "Botons de volum",
+          "volume_mute": "Silenci",
+          "volume_set": "Nivell de volum"
+        }
+      },
+      "number": {
+        "display_mode": "Mode de visualització",
+        "display_mode_list": {
+          "buttons": "Botons",
+          "default": "Per defecte (lliscant)",
+          "slider": "Lliscant"
+        }
+      },
+      "template": {
+        "badge_color": "Color de la insígnia",
+        "badge_icon": "Icona de la insígnia",
+        "content": "Contingut",
+        "entity_extra": "Utilitzats en plantilles i accions",
+        "label": "Etiqueta",
+        "multiline_secondary": "Secundaria en varies línies?",
+        "picture": "Imatge (reemplaçarà la icona)",
+        "primary": "Informació primaria",
+        "secondary": "Informació secundaria"
+      },
+      "title": {
+        "subtitle": "Subtítol",
+        "subtitle_tap_action": "Acció en tocar el subtítol",
+        "title": "Títol",
+        "title_tap_action": "Acció en tocar el títol"
+      },
+      "update": {
+        "show_buttons_control": "Botons de control?"
+      },
+      "vacuum": {
+        "commands": "Comandaments",
+        "commands_list": {
+          "on_off": "Engegar/Apagar"
+        }
+      },
+      "weather": {
+        "show_conditions": "Condicions?",
+        "show_temperature": "Temperatura?"
+      }
+    },
+    "chip": {
+      "chip-picker": {
+        "add": "Afegir xip",
+        "chips": "Xips",
+        "clear": "Buidar",
+        "edit": "Editar",
+        "select": "Seleccionar chip",
+        "types": {
+          "action": "Acció",
+          "alarm-control-panel": "Alarma",
+          "back": "Tornar",
+          "conditional": "Condicional",
+          "entity": "Entitat",
+          "light": "Llum",
+          "menu": "Menú",
+          "spacer": "Espai",
+          "template": "Plantilla",
+          "weather": "Oratge"
+        }
+      },
+      "conditional": {
+        "chip": "Xip"
+      },
+      "sub_element_editor": {
+        "title": "Editor de xips"
+      }
+    },
+    "form": {
+      "alignment_picker": {
+        "values": {
+          "center": "Centre",
+          "default": "Alineació per defecte",
+          "end": "Final",
+          "justify": "Justifica",
+          "start": "Inici"
+        }
+      },
+      "color_picker": {
+        "values": {
+          "default": "Color per defecte"
+        }
+      },
+      "icon_type_picker": {
+        "values": {
+          "default": "Tipus per defecte",
+          "entity-picture": "Entitat d'imatge",
+          "icon": "Icona",
+          "none": "Cap"
+        }
+      },
+      "info_picker": {
+        "values": {
+          "default": "Informació per defecte",
+          "last-changed": "Últim Canvi",
+          "last-updated": "Última Actualització",
+          "name": "Nom",
+          "none": "Cap",
+          "state": "Estat"
+        }
+      },
+      "layout_picker": {
+        "values": {
+          "default": "Distribució per defecte",
+          "horizontal": "Distribució horitzontal",
+          "vertical": "Distribució vertical"
+        }
+      }
+    }
+  }
+}

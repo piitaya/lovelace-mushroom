@@ -5,7 +5,7 @@
 
 ## Description
 
-A lock card allow you to control a lock entity.
+A lock card allows you to control a lock entity.
 
 ## Configuration variables
 
@@ -31,4 +31,4 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | :------------------------------- | :----- | :------------- | :-------------------------- |
 | `--mush-rgb-state-lock-locked`   | string | `--rgb-green`  | Locked state color          |
 | `--mush-rgb-state-lock-unlocked` | string | `--rgb-red`    | Unlocked state color        |
-| `--mush-rgb-state-lock-pending`  | string | `--rgb-orqnge` | Pending action status color |
+| `--mush-rgb-state-lock-pending`  | string | `--rgb-orange` | Pending action status color |

@@ -1,163 +1,179 @@
 {
-    "editor": {
-        "form": {
-            "color_picker": {
-                "values": {
-                    "default": "Domyślny kolor"
-                }
-            },
-            "info_picker": {
-                "values": {
-                    "default": "Domyślne informacje",
-                    "name": "Nazwa",
-                    "state": "Stan",
-                    "last-changed": "Ostatnia zmiana",
-                    "last-updated": "Ostatnia aktualizacja",
-                    "none": "Brak"
-                }
-            },
-            "icon_type_picker": {
-                "values": {
-                    "default": "Domyślny typ",
-                    "icon": "Ikona",
-                    "entity-picture": "Obraz encji",
-                    "none": "Brak"
-                }
-            },
-            "layout_picker": {
-                "values": {
-                    "default": "Układ domyślny",
-                    "vertical": "Układ pionowy",
-                    "horizontal": "Układ poziomy"
-                }
-            },
-            "alignment_picker": {
-                "values": {
-                    "default": "Wyrównanie domyślne",
-                    "start": "Wyrównanie do lewej",
-                    "end": "Wyrównanie do prawej",
-                    "center": "Wyśrodkowanie",
-                    "justify": "Justowanie"
-                }
-            }
+  "card": {
+    "not_found": "Nie znaleziono encji"
+  },
+  "editor": {
+    "card": {
+      "chips": {
+        "alignment": "Wyrównanie"
+      },
+      "climate": {
+        "hvac_modes": "Tryby urządzenia",
+        "show_temperature_control": "Sterowanie temperaturą?"
+      },
+      "cover": {
+        "show_buttons_control": "Przyciski sterujące?",
+        "show_position_control": "Sterowanie położeniem?",
+        "show_tilt_position_control": "Sterowanie poziomem otwarcia?"
+      },
+      "fan": {
+        "show_oscillate_control": "Sterowanie oscylacją?",
+        "show_percentage_control": "Sterowanie procentowe?"
+      },
+      "generic": {
+        "collapsible_controls": "Zwiń sterowanie, jeśli wyłączone",
+        "color": "Kolor",
+        "content_info": "Zawartość",
+        "fill_container": "Wypełnij zawartością",
+        "icon_animation": "Animować, gdy aktywny?",
+        "icon_color": "Kolor ikony",
+        "icon_type": "Typ ikony",
+        "layout": "Układ",
+        "primary_info": "Informacje główne",
+        "secondary_info": "Informacje drugorzędne",
+        "use_entity_picture": "Użyć obrazu encji?"
+      },
+      "humidifier": {
+        "show_target_humidity_control": "Sterowanie wilgotnością?"
+      },
+      "light": {
+        "incompatible_controls": "Niektóre funkcje są niewidoczne, jeśli światło ich nie obsługuje.",
+        "show_brightness_control": "Sterowanie jasnością?",
+        "show_color_control": "Sterowanie kolorami?",
+        "show_color_temp_control": "Sterowanie temperaturą światła?",
+        "use_light_color": "Użyj koloru światła"
+      },
+      "lock": {
+        "lock": "Zablokuj",
+        "open": "Otwórz",
+        "unlock": "Odblokuj"
+      },
+      "media-player": {
+        "media_controls": "Sterowanie multimediami",
+        "media_controls_list": {
+          "next": "Następne nagranie",
+          "on_off": "Włącz/wyłącz",
+          "play_pause_stop": "Odtwórz/Pauza/Zatrzymaj",
+          "previous": "Poprzednie nagranie",
+          "repeat": "Powtarzanie",
+          "shuffle": "Losowo"
         },
-        "card": {
-            "generic": {
-                "icon_color": "Kolor ikony",
-                "layout": "Układ",
-                "fill_container": "Wypełnij zawartością",
-                "primary_info": "Informacje główne",
-                "secondary_info": "Informacje drugorzędne",
-                "icon_type": "Typ ikony",
-                "content_info": "Zawartość",
-                "use_entity_picture": "Użyć obrazu encji?",
-                "collapsible_controls": "Zwiń sterowanie, jeśli wyłączone"
-            },
-            "light": {
-                "show_brightness_control": "Sterowanie jasnością?",
-                "use_light_color": "Użyj koloru światła",
-                "show_color_temp_control": "Sterowanie temperaturą światła?",
-                "show_color_control": "Sterowanie kolorami?",
-                "incompatible_controls": "Niektóre funkcje są niewidoczne, jeśli światło ich nie obsługuje."
-            },
-            "fan": {
-                "icon_animation": "Animować, gdy aktywny?",
-                "show_percentage_control": "Sterowanie procentowe?",
-                "show_oscillate_control": "Sterowanie oscylacją?"
-            },
-            "cover": {
-                "show_buttons_control": "Przyciski sterujące?",
-                "show_position_control": "Sterowanie położeniem?",
-                "show_tilt_position_control": "Sterowanie poziomem otwarcia?"
-            },
-            "alarm_control_panel": {
-                "show_keypad": "Wyświetl klawiaturę"
-            },
-            "template": {
-                "primary": "Informacje główne",
-                "secondary": "Informacje drugorzędne",
-                "multiline_secondary": "Drugorzędne wielowierszowe?",
-                "entity_extra": "Używane w szablonach i akcjach",
-                "content": "Zawartość",
-                "badge_icon": "Ikona odznaki",
-                "badge_color": "Kolor odznaki",
-                "picture": "Obraz (zamiast ikony)"
-            },
-            "title": {
-                "title": "Tytuł",
-                "subtitle": "Podtytuł"
-            },
-            "chips": {
-                "alignment": "Wyrównanie"
-            },
-            "weather": {
-                "show_conditions": "Warunki?",
-                "show_temperature": "Temperatura?"
-            },
-            "update": {
-                "show_buttons_control": "Przyciski sterujące?"
-            },
-            "vacuum": {
-                "commands": "Polecenia"
-            },
-            "media-player": {
-                "use_media_info": "Użyj informacji o multimediach",
-                "use_media_artwork": "Użyj okładek multimediów",
-                "show_volume_level": "Wyświetl poziom głośności",
-                "media_controls": "Sterowanie multimediami",
-                "media_controls_list": {
-                    "on_off": "Włącz/wyłącz",
-                    "shuffle": "Losowo",
-                    "previous": "Poprzednie nagranie",
-                    "play_pause_stop": "Odtwórz/Pauza/Zatrzymaj",
-                    "next": "Następne nagranie",
-                    "repeat": "Powtarzanie"
-                },
-                "volume_controls": "Sterowanie głośnością",
-                "volume_controls_list": {
-                    "volume_buttons": "Przyciski głośności",
-                    "volume_set": "Poziom głośności",
-                    "volume_mute": "Wycisz"
-                }
-            },
-            "lock": {
-                "lock": "Zablokuj",
-                "unlock": "Odblokuj",
-                "open": "Otwórz"
-            },
-            "humidifier": {
-                "show_target_humidity_control": "Sterowanie wilgotnością?"
-            },
-            "climate": {
-                "show_temperature_control": "Sterowanie temperaturą?",
-                "hvac_modes": "Tryby urządzenia"
-            }
-        },
-        "chip": {
-            "sub_element_editor": {
-                "title": "Edytor czipów"
-            },
-            "conditional": {
-                "chip": "Czip"
-            },
-            "chip-picker": {
-                "chips": "Czipy",
-                "add": "Dodaj czip",
-                "edit": "Edytuj",
-                "clear": "Wyczyść",
-                "select": "Wybierz czip",
-                "types": {
-                    "action": "Akcja",
-                    "alarm-control-panel": "Alarm",
-                    "back": "Wstecz",
-                    "conditional": "Warunkowy",
-                    "entity": "Encja",
-                    "light": "Światło",
-                    "menu": "Menu",
-                    "template": "Szablon",
-                    "weather": "Pogoda"
-                }
-            }
+        "show_volume_level": "Wyświetl poziom głośności",
+        "use_media_artwork": "Użyj okładek multimediów",
+        "use_media_info": "Użyj informacji o multimediach",
+        "volume_controls": "Sterowanie głośnością",
+        "volume_controls_list": {
+          "volume_buttons": "Przyciski głośności",
+          "volume_mute": "Wycisz",
+          "volume_set": "Poziom głośności"
         }
+      },
+      "number": {
+        "display_mode": "Sposób wyświetlania",
+        "display_mode_list": {
+          "buttons": "Przyciski",
+          "default": "Domyślnie (suwak)",
+          "slider": "Suwak"
+        }
+      },
+      "template": {
+        "badge_color": "Kolor odznaki",
+        "badge_icon": "Ikona odznaki",
+        "content": "Zawartość",
+        "entity_extra": "Używane w szablonach i akcjach",
+        "label": "Etykieta",
+        "multiline_secondary": "Drugorzędne wielowierszowe?",
+        "picture": "Obraz (zamiast ikony)",
+        "primary": "Informacje główne",
+        "secondary": "Informacje drugorzędne"
+      },
+      "title": {
+        "subtitle": "Podtytuł",
+        "subtitle_tap_action": "Akcja na podtytule",
+        "title": "Tytuł",
+        "title_tap_action": "Akcja na tytule"
+      },
+      "update": {
+        "show_buttons_control": "Przyciski sterujące?"
+      },
+      "vacuum": {
+        "commands": "Polecenia",
+        "commands_list": {
+          "on_off": "Włącz/Wyłącz"
+        }
+      },
+      "weather": {
+        "show_conditions": "Warunki?",
+        "show_temperature": "Temperatura?"
+      }
+    },
+    "chip": {
+      "chip-picker": {
+        "add": "Dodaj czip",
+        "chips": "Czipy",
+        "clear": "Wyczyść",
+        "edit": "Edytuj",
+        "select": "Wybierz czip",
+        "types": {
+          "action": "Akcja",
+          "alarm-control-panel": "Alarm",
+          "back": "Wstecz",
+          "conditional": "Warunkowy",
+          "entity": "Encja",
+          "light": "Światło",
+          "menu": "Menu",
+          "spacer": "Odstęp",
+          "template": "Szablon",
+          "weather": "Pogoda"
+        }
+      },
+      "conditional": {
+        "chip": "Czip"
+      },
+      "sub_element_editor": {
+        "title": "Edytor czipów"
+      }
+    },
+    "form": {
+      "alignment_picker": {
+        "values": {
+          "center": "Wyśrodkowanie",
+          "default": "Wyrównanie domyślne",
+          "end": "Wyrównanie do prawej",
+          "justify": "Justowanie",
+          "start": "Wyrównanie do lewej"
+        }
+      },
+      "color_picker": {
+        "values": {
+          "default": "Domyślny kolor"
+        }
+      },
+      "icon_type_picker": {
+        "values": {
+          "default": "Domyślny typ",
+          "entity-picture": "Obraz encji",
+          "icon": "Ikona",
+          "none": "Brak"
+        }
+      },
+      "info_picker": {
+        "values": {
+          "default": "Domyślne informacje",
+          "last-changed": "Ostatnia zmiana",
+          "last-updated": "Ostatnia aktualizacja",
+          "name": "Nazwa",
+          "none": "Brak",
+          "state": "Stan"
+        }
+      },
+      "layout_picker": {
+        "values": {
+          "default": "Układ domyślny",
+          "horizontal": "Układ poziomy",
+          "vertical": "Układ pionowy"
+        }
+      }
     }
+  }
 }

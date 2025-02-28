@@ -75,12 +75,10 @@ cards:
           - type: custom:mushroom-template-card
             primary: Hello, {{user}}
             secondary: How are you?
-            hide_icon: true
             icon: mdi:home
             layout: "vertical"
       - type: custom:mushroom-template-card
         primary: Hello, {{user}}
         secondary: How are you?
-        hide_icon: true
         icon: mdi:home
         layout: "horizontal"

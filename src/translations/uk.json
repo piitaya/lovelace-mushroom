@@ -1,0 +1,177 @@
+{
+  "card": {
+    "not_found": "Сутність не знайдено"
+  },
+  "editor": {
+    "card": {
+      "chips": {
+        "alignment": "Вирівнювання"
+      },
+      "climate": {
+        "hvac_modes": "Режими",
+        "show_temperature_control": "Керування температурою?"
+      },
+      "cover": {
+        "show_buttons_control": "Кнопки керування?",
+        "show_position_control": "Керування позицією?",
+        "show_tilt_position_control": "Керування нахилом?"
+      },
+      "fan": {
+        "show_oscillate_control": "Керування повротом?",
+        "show_percentage_control": "Керування швидкістю?"
+      },
+      "generic": {
+        "collapsible_controls": "Приховувати елементи керування коли вимкнено?",
+        "content_info": "Вміст",
+        "fill_container": "Заповнити контейнер",
+        "icon_animation": "Анімувати іконку при активації?",
+        "icon_color": "Колір іконки",
+        "icon_type": "Тип іконки",
+        "layout": "Розташування",
+        "primary_info": "Головна інформація",
+        "secondary_info": "Додаткова інформація",
+        "use_entity_picture": "Використовувати зображення сутності?"
+      },
+      "humidifier": {
+        "show_target_humidity_control": "Керування вологістю?"
+      },
+      "light": {
+        "incompatible_controls": "Деякі елементи керування можуть не відображатись якщо ваш пристрій не підтримує цю функцію.",
+        "show_brightness_control": "Контроль яскравості?",
+        "show_color_control": "Керування кольором світла?",
+        "show_color_temp_control": "Керування температурою світла?",
+        "use_light_color": "Використовувати колір світла"
+      },
+      "lock": {
+        "lock": "Зачинити",
+        "open": "Відкрити",
+        "unlock": "Відчинити"
+      },
+      "media-player": {
+        "media_controls": "Керування медіа",
+        "media_controls_list": {
+          "next": "Наступний трек",
+          "on_off": "Увімкнути/Вимкнути",
+          "play_pause_stop": "Відтворити/пауза/стоп",
+          "previous": "Попередній трек",
+          "repeat": "Режим повторення",
+          "shuffle": "Перемішати"
+        },
+        "show_volume_level": "Показати рівень гучності",
+        "use_media_artwork": "Використовувати зображення медіа",
+        "use_media_info": "Використовувати інформацію медіа",
+        "volume_controls": "Елементи керування гучністю",
+        "volume_controls_list": {
+          "volume_buttons": "Кнопки гучності",
+          "volume_mute": "Вимк. звук",
+          "volume_set": "Рівень гучності"
+        }
+      },
+      "number": {
+        "display_mode": "Відображати режим",
+        "display_mode_list": {
+          "buttons": "Кнопки",
+          "default": "За замовчуванням (повзунок)",
+          "slider": "Повзунок"
+        }
+      },
+      "template": {
+        "badge_color": "Колір значка",
+        "badge_icon": "Іконка значка",
+        "content": "Вміст",
+        "entity_extra": "Використовується в шаблонах та діях",
+        "multiline_secondary": "Багаторядкова додаткова інформація?",
+        "picture": "Зображення (замінить іконку)",
+        "primary": "Головна інформація",
+        "secondary": "Додаткова інформація"
+      },
+      "title": {
+        "subtitle": "Підзаголовок",
+        "subtitle_tap_action": "Дія при дотику до підзаголовку",
+        "title": "Заголовок",
+        "title_tap_action": "Дія при дотику до заголовку"
+      },
+      "update": {
+        "show_buttons_control": "Кнопки керування?"
+      },
+      "vacuum": {
+        "commands": "Команди",
+        "commands_list": {
+          "on_off": "Увімкнути/Вимкнути"
+        }
+      },
+      "weather": {
+        "show_conditions": "Умови?",
+        "show_temperature": "Температура?"
+      }
+    },
+    "chip": {
+      "chip-picker": {
+        "add": "Додати міні-картку",
+        "chips": "Міні-картки",
+        "clear": "Очистити",
+        "edit": "Редагувати",
+        "select": "Обрати міні-картку",
+        "types": {
+          "action": "Дія",
+          "alarm-control-panel": "Сигналізація",
+          "back": "Назад",
+          "conditional": "Умовна",
+          "entity": "Сутність",
+          "light": "Світло",
+          "menu": "Меню",
+          "spacer": "Порожнє місце",
+          "template": "Вручну",
+          "weather": "Погода"
+        }
+      },
+      "conditional": {
+        "chip": "Міні-картка"
+      },
+      "sub_element_editor": {
+        "title": "Редактор міні-карток"
+      }
+    },
+    "form": {
+      "alignment_picker": {
+        "values": {
+          "center": "По центру",
+          "default": "Вирівнювання за замовчуванням",
+          "end": "В кінці",
+          "justify": "Вирівняти",
+          "start": "На початку"
+        }
+      },
+      "color_picker": {
+        "values": {
+          "default": "Колір за замовчуванням"
+        }
+      },
+      "icon_type_picker": {
+        "values": {
+          "default": "За замовчуванням",
+          "entity-picture": "Зображення сутності",
+          "icon": "Іконка",
+          "none": "Нічого"
+        }
+      },
+      "info_picker": {
+        "values": {
+          "default": "Інформація за замовчуванням",
+          "last-changed": "Востаннє змінено",
+          "last-updated": "Востаннє оновлено",
+          "name": "Назва",
+          "none": "Нічого",
+          "state": "Стан"
+        }
+      },
+      "layout_picker": {
+        "values": {
+          "default": "Розташування за замовчуванням",
+          "horizontal": "Горизонтальне розташування",
+          "vertical": "Вертикальне розташування"
+        }
+      }
+    }
+  }
+}

@@ -1,162 +1,180 @@
 {
-    "editor": {
-        "form": {
-            "color_picker": {
-                "values": {
-                    "default": "Couleur par défaut"
-                }
-            },
-            "info_picker": {
-                "values": {
-                    "default": "Information par défaut",
-                    "name": "Nom",
-                    "state": "État",
-                    "last-changed": "Dernière modification",
-                    "last-updated": "Dernière mise à jour",
-                    "none": "Aucune"
-                }
-            },
-            "icon_type_picker": {
-                "values": {
-                    "default": "Type par défaut",
-                    "icon": "Icône",
-                    "entity-picture": "Image de l'entité",
-                    "none": "Aucune"
-                }
-            },
-            "layout_picker": {
-                "values": {
-                    "default": "Disposition par défault",
-                    "vertical": "Disposition verticale",
-                    "horizontal": "Disposition horizontale"
-                }
-            },
-            "alignment_picker": {
-                "values": {
-                    "default": "Alignement par défaut",
-                    "start": "Début",
-                    "end": "Fin",
-                    "center": "Centré",
-                    "justify": "Justifié"
-                }
-            }
+  "card": {
+    "not_found": "Entité inconnue"
+  },
+  "editor": {
+    "card": {
+      "chips": {
+        "alignment": "Alignement"
+      },
+      "climate": {
+        "hvac_modes": "Modes du thermostat",
+        "show_temperature_control": "Contrôle de la température ?"
+      },
+      "cover": {
+        "show_buttons_control": "Contrôle avec boutons ?",
+        "show_position_control": "Contrôle de la position ?",
+        "show_tilt_position_control": "Contrôle de l'inclinaison ?"
+      },
+      "fan": {
+        "show_oscillate_control": "Contrôle de l'oscillation ?",
+        "show_percentage_control": "Contrôle de la vitesse ?"
+      },
+      "generic": {
+        "collapsible_controls": "Reduire les contrôles quand éteint",
+        "color": "Couleur",
+        "content_info": "Contenu",
+        "fill_container": "Remplir le conteneur",
+        "icon_animation": "Animation de l'icône ?",
+        "icon_color": "Couleur de l'icône",
+        "icon_type": "Type d'icône",
+        "layout": "Disposition",
+        "primary_info": "Information principale",
+        "secondary_info": "Information secondaire",
+        "use_entity_picture": "Utiliser l'image de l'entité ?"
+      },
+      "humidifier": {
+        "show_target_humidity_control": "Contrôle d'humidité ?"
+      },
+      "light": {
+        "incompatible_controls": "Certains contrôles peuvent ne pas être affichés si votre lumière ne supporte pas la fonctionnalité.",
+        "show_brightness_control": "Contrôle de luminosité ?",
+        "show_color_control": "Contrôle de la couleur ?",
+        "show_color_temp_control": "Contrôle de la température ?",
+        "use_light_color": "Utiliser la couleur de la lumière"
+      },
+      "lock": {
+        "lock": "Verrouiller",
+        "open": "Ouvrir",
+        "unlock": "Déverrouiller"
+      },
+      "media-player": {
+        "media_controls": "Contrôles du media",
+        "media_controls_list": {
+          "next": "Suivant",
+          "on_off": "Allumer/Éteindre",
+          "play_pause_stop": "Lecture/pause/stop",
+          "previous": "Précédent",
+          "repeat": "Mode de répétition",
+          "shuffle": "Lecture aléatoire"
         },
-        "card": {
-            "generic": {
-                "icon_color": "Couleur de l'icône",
-                "layout": "Disposition",
-                "fill_container": "Remplir le conteneur",
-                "primary_info": "Information principale",
-                "secondary_info": "Information secondaire",
-                "icon_type": "Type d'icône",
-                "content_info": "Contenu",
-                "use_entity_picture": "Utiliser l'image de l'entité ?",
-                "collapsible_controls": "Reduire les contrôles quand éteint"
-            },
-            "light": {
-                "show_brightness_control": "Contrôle de luminosité ?",
-                "use_light_color": "Utiliser la couleur de la lumière",
-                "show_color_temp_control": "Contrôle de la température ?",
-                "show_color_control": "Contrôle de la couleur ?",
-                "incompatible_controls": "Certains contrôles peuvent ne pas être affichés si votre lumière ne supporte pas la fonctionnalité."
-            },
-            "fan": {
-                "icon_animation": "Animation de l'icône ?",
-                "show_percentage_control": "Contrôle de la vitesse ?",
-                "show_oscillate_control": "Contrôle de l'oscillation ?"
-            },
-            "cover": {
-                "show_buttons_control": "Contrôle avec boutons ?",
-                "show_position_control": "Contrôle de la position ?"
-            },
-            "alarm_control_panel": {
-                "show_keypad": "Afficher le clavier"
-            },
-            "template": {
-                "primary": "Information principale",
-                "secondary": "Information secondaire",
-                "multiline_secondary": "Information secondaire sur plusieurs lignes ?",
-                "entity_extra": "Utilisée pour les templates et les actions",
-                "content": "Contenu",
-                "badge_icon": "Icône du badge",
-                "badge_color": "Couleur du badge",
-                "picture": "Picture (remplacera l'icône)"
-            },
-            "title": {
-                "title": "Titre",
-                "subtitle": "Sous-titre"
-            },
-            "chips": {
-                "alignment": "Alignement"
-            },
-            "weather": {
-                "show_conditons": "Conditions ?",
-                "show_temperature": "Température ?"
-            },
-            "update": {
-                "show_buttons_control": "Contrôle avec boutons ?"
-            },
-            "vacuum": {
-                "commands": "Commandes"
-            },
-            "media-player": {
-                "use_media_info": "Utiliser les informations du media",
-                "use_media_artwork": "Utiliser l'illustration du media",
-                "show_volume_level": "Afficher le niveau de volume",
-                "media_controls": "Contrôles du media",
-                "media_controls_list": {
-                    "on_off": "Allumer/Éteindre",
-                    "shuffle": "Lecture aléatoire",
-                    "previous": "Précédent",
-                    "play_pause_stop": "Lecture/pause/stop",
-                    "next": "Suivant",
-                    "repeat": "Mode de répétition"
-                },
-                "volume_controls": "Contrôles du volume",
-                "volume_controls_list": {
-                    "volume_buttons": "Bouton de volume",
-                    "volume_set": "Niveau de volume",
-                    "volume_mute": "Muet"
-                }
-            },
-            "lock": {
-                "lock": "Verrouiller",
-                "unlock": "Déverrouiller",
-                "open": "Ouvrir"
-            },
-            "humidifier": {
-                "show_target_humidity_control": "Contrôle d'humidité ?"
-            },
-            "climate": {
-                "show_temperature_control": "Contrôle de la température?",
-                "hvac_modes": "Modes du thermostat"
-            }
-        },
-        "chip": {
-            "sub_element_editor": {
-                "title": "Éditeur de \"chip\""
-            },
-            "conditional": {
-                "chip": "Chip"
-            },
-            "chip-picker": {
-                "chips": "\"Chips\"",
-                "add": "Ajouter une \"chip\"",
-                "edit": "Modifier",
-                "clear": "Effacer",
-                "select": "Sélectionner une \"chip\"",
-                "types": {
-                    "action": "Action",
-                    "alarm-control-panel": "Alarme",
-                    "back": "Retour",
-                    "conditional": "Conditionnel",
-                    "entity": "Entité",
-                    "light": "Lumière",
-                    "menu": "Menu",
-                    "template": "Template",
-                    "weather": "Météo"
-                }
-            }
+        "show_volume_level": "Afficher le niveau de volume",
+        "use_media_artwork": "Utiliser l'illustration du media",
+        "use_media_info": "Utiliser les informations du media",
+        "volume_controls": "Contrôles du volume",
+        "volume_controls_list": {
+          "volume_buttons": "Bouton de volume",
+          "volume_mute": "Muet",
+          "volume_set": "Niveau de volume"
         }
+      },
+      "number": {
+        "display_mode": "Mode d'affichage",
+        "display_mode_list": {
+          "buttons": "Boutons",
+          "default": "Par défaut (Curseur)",
+          "slider": "Curseur"
+        }
+      },
+      "template": {
+        "badge_color": "Couleur du badge",
+        "badge_icon": "Icône du badge",
+        "content": "Contenu",
+        "entity_extra": "Utilisée pour les modèles et les actions",
+        "label": "Libellé",
+        "multiline_secondary": "Information secondaire sur plusieurs lignes ?",
+        "picture": "Image (remplacera l'icône)",
+        "primary": "Information principale",
+        "secondary": "Information secondaire"
+      },
+      "title": {
+        "subtitle": "Sous-titre",
+        "subtitle_tap_action": "Appui sur le sous-titre",
+        "title": "Titre",
+        "title_tap_action": "Appui sur le titre"
+      },
+      "update": {
+        "show_buttons_control": "Contrôle avec boutons ?"
+      },
+      "vacuum": {
+        "commands": "Commandes",
+        "commands_list": {
+          "on_off": "Allumer/Éteindre"
+        }
+      },
+      "weather": {
+        "show_conditions": "Conditions ?",
+        "show_conditons": "Conditions ?",
+        "show_temperature": "Température ?"
+      }
+    },
+    "chip": {
+      "chip-picker": {
+        "add": "Ajouter une \"chip\"",
+        "chips": "\"Chips\"",
+        "clear": "Effacer",
+        "edit": "Modifier",
+        "select": "Sélectionner une \"chip\"",
+        "types": {
+          "action": "Action",
+          "alarm-control-panel": "Alarme",
+          "back": "Retour",
+          "conditional": "Conditionnel",
+          "entity": "Entité",
+          "light": "Lumière",
+          "menu": "Menu",
+          "spacer": "Espacement",
+          "template": "Modèle",
+          "weather": "Météo"
+        }
+      },
+      "conditional": {
+        "chip": "Chip"
+      },
+      "sub_element_editor": {
+        "title": "Éditeur de \"chip\""
+      }
+    },
+    "form": {
+      "alignment_picker": {
+        "values": {
+          "center": "Centré",
+          "default": "Alignement par défaut",
+          "end": "Fin",
+          "justify": "Justifié",
+          "start": "Début"
+        }
+      },
+      "color_picker": {
+        "values": {
+          "default": "Couleur par défaut"
+        }
+      },
+      "icon_type_picker": {
+        "values": {
+          "default": "Type par défaut",
+          "entity-picture": "Image de l'entité",
+          "icon": "Icône",
+          "none": "Aucune"
+        }
+      },
+      "info_picker": {
+        "values": {
+          "default": "Information par défaut",
+          "last-changed": "Dernière modification",
+          "last-updated": "Dernière mise à jour",
+          "name": "Nom",
+          "none": "Aucune",
+          "state": "État"
+        }
+      },
+      "layout_picker": {
+        "values": {
+          "default": "Disposition par défault",
+          "horizontal": "Disposition horizontale",
+          "vertical": "Disposition verticale"
+        }
+      }
     }
+  }
 }

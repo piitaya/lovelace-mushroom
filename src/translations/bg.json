@@ -1,0 +1,163 @@
+{
+  "editor": {
+    "card": {
+      "chips": {
+        "alignment": "Подравняване"
+      },
+      "climate": {
+        "hvac_modes": "HVAC Режими",
+        "show_temperature_control": "Контрол на температурата?"
+      },
+      "cover": {
+        "show_buttons_control": "Контролни бутони?",
+        "show_position_control": "Контрол на позицията?",
+        "show_tilt_position_control": "Контрол на наклона?"
+      },
+      "fan": {
+        "show_oscillate_control": "Контрол на трептенето?",
+        "show_percentage_control": "Процентов контрол?"
+      },
+      "generic": {
+        "collapsible_controls": "Свий контролите при изключен",
+        "content_info": "Съдържание",
+        "fill_container": "Изпълване на контейнера",
+        "icon_animation": "Анимирай иконата при активен?",
+        "icon_color": "Цвят на икона",
+        "icon_type": "Тип на икона",
+        "layout": "Оформление",
+        "primary_info": "Първостепенна информация",
+        "secondary_info": "Второстепенна информация",
+        "use_entity_picture": "Използвай снимката на обекта?"
+      },
+      "humidifier": {
+        "show_target_humidity_control": "Контрол на влажността?"
+      },
+      "light": {
+        "incompatible_controls": "Някои опции могат да бъдат скрити при условие че осветителното тяло не поддържа фунцията.",
+        "show_brightness_control": "Контрол на яркостта?",
+        "show_color_control": "Контрол на цвета?",
+        "show_color_temp_control": "Контрол на температурата?",
+        "use_light_color": "Използвай цвета на светлината"
+      },
+      "lock": {
+        "lock": "Заключен",
+        "open": "Отворен",
+        "unlock": "Отключен"
+      },
+      "media-player": {
+        "media_controls": "Контрол на Медиата",
+        "media_controls_list": {
+          "next": "Следващ",
+          "on_off": "Вкл./Изкл.",
+          "play_pause_stop": "Пусни/пауза/стоп",
+          "previous": "Предишен",
+          "repeat": "Повтаряне",
+          "shuffle": "Разбъркано"
+        },
+        "show_volume_level": "Покажи контрола за звук",
+        "use_media_artwork": "Използвай визуалните детайли от медията",
+        "use_media_info": "Използвай информация от медията",
+        "volume_controls": "Контрол на звука",
+        "volume_controls_list": {
+          "volume_buttons": "Бутони за звук",
+          "volume_mute": "Заглуши",
+          "volume_set": "Ниво на звука"
+        }
+      },
+      "template": {
+        "badge_color": "Цвят на значка",
+        "badge_icon": "Икона на значка",
+        "content": "Съдържание",
+        "entity_extra": "Използван в шаблони и действия",
+        "multiline_secondary": "Много-редова второстепенна информация?",
+        "picture": "Картина (ще замени иконата)",
+        "primary": "Първостепенна информация",
+        "secondary": "Второстепенна информация"
+      },
+      "title": {
+        "subtitle": "Подзаглавие",
+        "title": "Заглавие"
+      },
+      "update": {
+        "show_buttons_control": "Контролни бутони?"
+      },
+      "vacuum": {
+        "commands": "Конади",
+        "commands_list": {
+          "on_off": "Вкл./Изкл."
+        }
+      },
+      "weather": {
+        "show_conditions": "Условия?",
+        "show_temperature": "Температура?"
+      }
+    },
+    "chip": {
+      "chip-picker": {
+        "add": "Добави чип",
+        "chips": "Чипове",
+        "clear": "Изчисти",
+        "edit": "Редактирай",
+        "select": "Избери чип",
+        "types": {
+          "action": "Действия",
+          "alarm-control-panel": "Аларма",
+          "back": "Назад",
+          "conditional": "Условни",
+          "entity": "Обект",
+          "light": "Осветление",
+          "menu": "Меню",
+          "template": "Шаблон",
+          "weather": "Време"
+        }
+      },
+      "conditional": {
+        "chip": "Чип"
+      },
+      "sub_element_editor": {
+        "title": "Чип редактор"
+      }
+    },
+    "form": {
+      "alignment_picker": {
+        "values": {
+          "center": "Център",
+          "default": "Основно подравняване",
+          "end": "Край",
+          "justify": "Подравнен",
+          "start": "Старт"
+        }
+      },
+      "color_picker": {
+        "values": {
+          "default": "Основен цвят"
+        }
+      },
+      "icon_type_picker": {
+        "values": {
+          "default": "Основен тип",
+          "entity-picture": "Картина на обекта",
+          "icon": "Икона",
+          "none": "Липсва"
+        }
+      },
+      "info_picker": {
+        "values": {
+          "default": "Основна информация",
+          "last-changed": "Последно Променен",
+          "last-updated": "Последно Актуализиран",
+          "name": "Име",
+          "none": "Липсва",
+          "state": "Състояние"
+        }
+      },
+      "layout_picker": {
+        "values": {
+          "default": "Основно оформление",
+          "horizontal": "Хоризонтално оформление",
+          "vertical": "Вертикално оформление"
+        }
+      }
+    }
+  }
+}

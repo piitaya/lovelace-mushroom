@@ -59,6 +59,7 @@ cards:
         cards:
           - type: custom:mushroom-humidifier-card
             entity: humidifier.humidifier
+            show_target_humidity_control: true
       - type: grid
         columns: 2
         square: false
@@ -66,6 +67,8 @@ cards:
           - type: custom:mushroom-humidifier-card
             entity: humidifier.humidifier
             layout: "vertical"
+            show_target_humidity_control: true
       - type: custom:mushroom-humidifier-card
         entity: humidifier.humidifier
         layout: "horizontal"
+        show_target_humidity_control: true

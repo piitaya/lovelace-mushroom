@@ -1,142 +1,179 @@
 {
-    "editor": {
-        "form": {
-            "color_picker": {
-                "values": {
-                    "default": "Standaard kleur"
-                }
-            },
-            "info_picker": {
-                "values": {
-                    "default": "Standaard informatie",
-                    "name": "Naam",
-                    "state": "Staat",
-                    "last-changed": "Laatst gewijzigd",
-                    "last-updated": "Laatst bijgewerkt",
-                    "none": "Geen"
-                }
-            },
-            "layout_picker": {
-                "values": {
-                    "default": "Standaard lay-out",
-                    "vertical": "Verticale lay-out",
-                    "horizontal": "Horizontale lay-out"
-                }
-            },
-            "alignment_picker": {
-                "values": {
-                    "default": "Standaard uitlijning",
-                    "start": "Begin",
-                    "end": "Einde",
-                    "center": "Midden",
-                    "justify": "Uitlijnen "
-                }
-            }
+  "card": {
+    "not_found": "Entiteit niet gevonden"
+  },
+  "editor": {
+    "card": {
+      "chips": {
+        "alignment": "Uitlijning"
+      },
+      "climate": {
+        "hvac_modes": "HVAC Modes",
+        "show_temperature_control": "Temperatuur controle"
+      },
+      "cover": {
+        "show_buttons_control": "Toon knoppen",
+        "show_position_control": "Toon positie bediening",
+        "show_tilt_position_control": "Toon tilt control"
+      },
+      "fan": {
+        "show_oscillate_control": "Bediening oscillatie",
+        "show_percentage_control": "Bediening middels percentage"
+      },
+      "generic": {
+        "collapsible_controls": "Bedieningselementen verbergen wanneer uitgeschakeld",
+        "color": "Kleur",
+        "content_info": "Inhoud",
+        "fill_container": "Vul container",
+        "icon_animation": "Pictogram animeren indien actief",
+        "icon_color": "Icoon kleur",
+        "icon_type": "Icoon type",
+        "layout": "Lay-out",
+        "primary_info": "Primaire informatie",
+        "secondary_info": "Secundaire informatie",
+        "use_entity_picture": "Gebruik entiteit afbeelding"
+      },
+      "humidifier": {
+        "show_target_humidity_control": "Vochtigheid controle?"
+      },
+      "light": {
+        "incompatible_controls": "Sommige bedieningselementen worden mogelijk niet weergegeven als uw lamp deze functie niet ondersteunt.",
+        "show_brightness_control": "Bediening helderheid",
+        "show_color_control": "Bediening kleur",
+        "show_color_temp_control": "Bediening kleurtemperatuur",
+        "use_light_color": "Gebruik licht kleur"
+      },
+      "lock": {
+        "lock": "Vergrendel",
+        "open": "Open",
+        "unlock": "Ontgrendel"
+      },
+      "media-player": {
+        "media_controls": "Mediabediening",
+        "media_controls_list": {
+          "next": "Volgende nummer",
+          "on_off": "Zet aan/uit",
+          "play_pause_stop": "Speel/pauze/stop",
+          "previous": "Vorige nummer",
+          "repeat": "Herhalen",
+          "shuffle": "Shuffle"
         },
-        "card": {
-            "generic": {
-                "icon_color": "Icoon kleur",
-                "layout": "Lay-out",
-                "primary_info": "Primaire informatie",
-                "secondary_info": "Secundaire informatie",
-                "content_info": "Inhoud",
-                "use_entity_picture": "Gebruik entiteit afbeelding",
-                "collapsible_controls": "Bedieningselementen verbergen wanneer uitgeschakeld"
-            },
-            "light": {
-                "show_brightness_control": "Bediening helderheid",
-                "use_light_color": "Gebruik licht kleur",
-                "show_color_temp_control": "Bediening kleurtemperatuur",
-                "show_color_control": "Bediening kleur",
-                "incompatible_controls": "Sommige bedieningselementen worden mogelijk niet weergegeven als uw lamp deze functie niet ondersteunt."
-            },
-            "fan": {
-                "icon_animation": "Pictogram animeren indien actief",
-                "show_percentage_control": "Bediening middels percentage",
-                "show_oscillate_control": "Bediening oscillatie"
-            },
-            "cover": {
-                "show_buttons_control": "Toon knoppen",
-                "show_position_control": "Toon positie bediening"
-            },
-            "alarm_control_panel": {
-                "show_keypad": "Toon toetsenbord"
-            },
-            "template": {
-                "primary": "Primaire informatie",
-                "secondary": "Secundaire informatie",
-                "multiline_secondary": "Meerlijnig secundair?",
-                "entity_extra": "Gebruikt in sjablonen en acties",
-                "content": "Inhoud"
-            },
-            "title": {
-                "title": "Titel",
-                "subtitle": "Ondertitel"
-            },
-            "chips": {
-                "alignment": "Uitlijning"
-            },
-            "weather": {
-                "show_conditions": "Weerbeeld",
-                "show_temperature": "Temperatuur"
-            },
-            "update": {
-                "show_buttons_control": "Bedieningsknoppen?"
-            },
-            "vacuum": {
-                "commands": "Commando's"
-            },
-            "media-player": {
-                "use_media_info": "Gebruik media informatie",
-                "use_media_artwork": "Gebruik media omslag",
-                "show_volume_level": "Toon volumeniveau",
-                "media_controls": "Mediabediening",
-                "media_controls_list": {
-                    "on_off": "zet aan/uit",
-                    "shuffle": "Shuffle",
-                    "previous": "Vorige nummer",
-                    "play_pause_stop": "Speel/pauze/stop",
-                    "next": "Volgende nummer",
-                    "repeat": "Herhalen"
-                },
-                "volume_controls": "Volumeregeling",
-                "volume_controls_list": {
-                    "volume_buttons": "Volume knoppen",
-                    "volume_set": "Volumeniveau",
-                    "volume_mute": "Dempen"
-                }
-            },
-            "lock": {
-                "lock": "Vergrendel",
-                "unlock": "Ontgrendel",
-                "open": "Open"
-            }
-        },
-        "chip": {
-            "sub_element_editor": {
-                "title": "Chip-editor"
-            },
-            "conditional": {
-                "chip": "Chip"
-            },
-            "chip-picker": {
-                "chips": "Chips",
-                "add": "Toevoegen chip",
-                "edit": "Bewerk",
-                "clear": "Maak leeg",
-                "select": "Selecteer chip",
-                "types": {
-                    "action": "Actie",
-                    "alarm-control-panel": "Alarm",
-                    "back": "Terug",
-                    "conditional": "Voorwaardelijk",
-                    "entity": "Entiteit",
-                    "light": "Licht",
-                    "menu": "Menu",
-                    "template": "Sjabloon",
-                    "weather": "Weer"
-                }
-            }
+        "show_volume_level": "Toon volumeniveau",
+        "use_media_artwork": "Gebruik media omslag",
+        "use_media_info": "Gebruik media informatie",
+        "volume_controls": "Volumeregeling",
+        "volume_controls_list": {
+          "volume_buttons": "Volume knoppen",
+          "volume_mute": "Dempen",
+          "volume_set": "Volumeniveau"
         }
+      },
+      "number": {
+        "display_mode": "Weergave Modus",
+        "display_mode_list": {
+          "buttons": "Knoppen",
+          "default": "Standaard (schuifbalk)",
+          "slider": "Schuifbalk"
+        }
+      },
+      "template": {
+        "badge_color": "Badge kleur",
+        "badge_icon": "Badge icoon",
+        "content": "Inhoud",
+        "entity_extra": "Gebruikt in sjablonen en acties",
+        "label": "Label",
+        "multiline_secondary": "Secundaire informatie op meerdere lijnen weergeven",
+        "picture": "Afbeelding (zal het icoon vervangen)",
+        "primary": "Primaire informatie",
+        "secondary": "Secundaire informatie"
+      },
+      "title": {
+        "subtitle": "Ondertitel",
+        "subtitle_tap_action": "Ondertitel tik actie",
+        "title": "Titel",
+        "title_tap_action": "Titel tik actie"
+      },
+      "update": {
+        "show_buttons_control": "Bedieningsknoppen"
+      },
+      "vacuum": {
+        "commands": "Commando's",
+        "commands_list": {
+          "on_off": "Zet aan/uit"
+        }
+      },
+      "weather": {
+        "show_conditions": "Weerbeeld",
+        "show_temperature": "Temperatuur"
+      }
+    },
+    "chip": {
+      "chip-picker": {
+        "add": "Toevoegen chip",
+        "chips": "Chips",
+        "clear": "Maak leeg",
+        "edit": "Bewerk",
+        "select": "Selecteer chip",
+        "types": {
+          "action": "Actie",
+          "alarm-control-panel": "Alarm",
+          "back": "Terug",
+          "conditional": "Voorwaardelijk",
+          "entity": "Entiteit",
+          "light": "Licht",
+          "menu": "Menu",
+          "spacer": "Afstandhouder",
+          "template": "Sjabloon",
+          "weather": "Weer"
+        }
+      },
+      "conditional": {
+        "chip": "Chip"
+      },
+      "sub_element_editor": {
+        "title": "Chip editor"
+      }
+    },
+    "form": {
+      "alignment_picker": {
+        "values": {
+          "center": "Midden",
+          "default": "Standaard uitlijning",
+          "end": "Einde",
+          "justify": "Uitlijnen",
+          "start": "Begin"
+        }
+      },
+      "color_picker": {
+        "values": {
+          "default": "Standaard kleur"
+        }
+      },
+      "icon_type_picker": {
+        "values": {
+          "default": "Standaard icoon type",
+          "entity-picture": "Entiteit afbeelding",
+          "icon": "Icoon",
+          "none": "Geen"
+        }
+      },
+      "info_picker": {
+        "values": {
+          "default": "Standaard informatie",
+          "last-changed": "Laatst gewijzigd",
+          "last-updated": "Laatst bijgewerkt",
+          "name": "Naam",
+          "none": "Geen",
+          "state": "Staat"
+        }
+      },
+      "layout_picker": {
+        "values": {
+          "default": "Standaard lay-out",
+          "horizontal": "Horizontale lay-out",
+          "vertical": "Verticale lay-out"
+        }
+      }
     }
+  }
 }

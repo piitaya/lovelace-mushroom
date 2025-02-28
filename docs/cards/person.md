@@ -5,7 +5,7 @@
 
 ## Description
 
-A cover card allow you to control a person entity.
+A person card allows you to control a person entity.
 
 ## Configuration variables
 

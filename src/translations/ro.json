@@ -1,0 +1,160 @@
+{
+  "editor": {
+    "card": {
+      "chips": {
+        "alignment": "Aliniere"
+      },
+      "climate": {
+        "hvac_modes": "Moduri HVAC",
+        "show_temperature_control": "Comenzi temperatură?"
+      },
+      "cover": {
+        "show_buttons_control": "Comenzi pentru control?",
+        "show_position_control": "Comandă pentru poziție?",
+        "show_tilt_position_control": "Comandă pentru înclinare?"
+      },
+      "fan": {
+        "icon_animation": "Animare pictograma la activare?",
+        "show_oscillate_control": "Comandă oscilație?",
+        "show_percentage_control": "Comandă procent?"
+      },
+      "generic": {
+        "collapsible_controls": "Restrângere la dezactivare",
+        "content_info": "Conținut",
+        "fill_container": "Umplere container",
+        "icon_color": "Culoare pictogramă",
+        "icon_type": "Tip pictogramă",
+        "layout": "Aranjare",
+        "primary_info": "Informație principală",
+        "secondary_info": "Informație secundară",
+        "use_entity_picture": "Imagine?"
+      },
+      "humidifier": {
+        "show_target_humidity_control": "Comenzi umiditate?"
+      },
+      "light": {
+        "incompatible_controls": "Unele comenzi ar putea să nu fie afișate dacă lumina nu suportă această caracteristică.",
+        "show_brightness_control": "Comandă pentru strălucire?",
+        "show_color_control": "Comandă pentru culoare?",
+        "show_color_temp_control": "Comandă pentru temperatură de culoare?",
+        "use_light_color": "Folosește culoarea luminii"
+      },
+      "lock": {
+        "lock": "Încuie",
+        "open": "Deschide",
+        "unlock": "Descuie"
+      },
+      "media-player": {
+        "media_controls": "Comenzi media",
+        "media_controls_list": {
+          "next": "Pista următoare",
+          "on_off": "Pornit/Oprit",
+          "play_pause_stop": "Redare/Pauză/Stop",
+          "previous": "Pista anterioară",
+          "repeat": "Mod repetare",
+          "shuffle": "Amestecare"
+        },
+        "show_volume_level": "Nivel volum",
+        "use_media_artwork": "Grafică media",
+        "use_media_info": "Informații media",
+        "volume_controls": "Comenzi volum",
+        "volume_controls_list": {
+          "volume_buttons": "Comenzi volum",
+          "volume_mute": "Dezactivare sunet",
+          "volume_set": "Nivel volum"
+        }
+      },
+      "template": {
+        "badge_color": "Culoare insignă",
+        "badge_icon": "Pictogramă insignă",
+        "content": "Conținut",
+        "entity_extra": "Folosită în șabloane și acțiuni",
+        "multiline_secondary": "Informație secundară pe mai multe linii?",
+        "picture": "Imagine (inlocuiește pictograma)",
+        "primary": "Informație principală",
+        "secondary": "Informație secundară"
+      },
+      "title": {
+        "subtitle": "Subtitlu",
+        "title": "Titlu"
+      },
+      "update": {
+        "show_buttons_control": "Comenzi control?"
+      },
+      "vacuum": {
+        "commands": "Comenzi"
+      },
+      "weather": {
+        "show_conditions": "Condiții?",
+        "show_temperature": "Temperatură?"
+      }
+    },
+    "chip": {
+      "chip-picker": {
+        "add": "Adaugă jeton",
+        "chips": "Jetoane",
+        "clear": "Șterge",
+        "edit": "Modifică",
+        "select": "Alege jeton",
+        "types": {
+          "action": "Acțiune",
+          "alarm-control-panel": "Alarmă",
+          "back": "Înapoi",
+          "conditional": "Condițional",
+          "entity": "Entitate",
+          "light": "Lumină",
+          "menu": "Meniu",
+          "template": "Șablon",
+          "weather": "Vreme"
+        }
+      },
+      "conditional": {
+        "chip": "Jeton"
+      },
+      "sub_element_editor": {
+        "title": "Editor jeton"
+      }
+    },
+    "form": {
+      "alignment_picker": {
+        "values": {
+          "center": "Centrat",
+          "default": "Aliniere implicită",
+          "end": "Dreapta",
+          "justify": "Umplere",
+          "start": "Stânga"
+        }
+      },
+      "color_picker": {
+        "values": {
+          "default": "Culoare implicită"
+        }
+      },
+      "icon_type_picker": {
+        "values": {
+          "default": "Tip implicit",
+          "entity-picture": "Imagine",
+          "icon": "Pictogramă",
+          "none": "Niciuna"
+        }
+      },
+      "info_picker": {
+        "values": {
+          "default": "Informație implicită",
+          "last-changed": "Ultima modificare",
+          "last-updated": "Ultima actulizare",
+          "name": "Nume",
+          "none": "Niciuna",
+          "state": "Stare"
+        }
+      },
+      "layout_picker": {
+        "values": {
+          "default": "Aranjare implicită",
+          "horizontal": "Orizontală",
+          "vertical": "Verticală"
+        }
+      }
+    }
+  }
+}
