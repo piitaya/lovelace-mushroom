@@ -11,6 +11,7 @@ import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { ifDefined } from "lit/directives/if-defined.js";
 import { styleMap } from "lit/directives/style-map.js";
+import hash from "object-hash/dist/object_hash";
 import {
   actionHandler,
   ActionHandlerEvent,
@@ -24,10 +25,17 @@ import {
 } from "../../ha";
 import { computeCssColor } from "../../ha/common/color/compute-color";
 import { registerCustomBadge } from "../../utils/custom-badges";
-import { TEMPLATE_BADGE_EDITOR_NAME, TEMPLATE_BADGE_NAME } from "./const";
-import { TemplateBadgeConfig } from "./template-badge-config";
 import { getWeatherSvgIcon } from "../../utils/icons/weather-icon";
 import { weatherSVGStyles } from "../../utils/weather";
+import { TEMPLATE_BADGE_EDITOR_NAME, TEMPLATE_BADGE_NAME } from "./const";
+import { TemplateBadgeConfig } from "./template-badge-config";
+import { CacheManager } from "../../utils/cache-manager";
+
+const templateCache = new CacheManager<TemplateResults>(1000);
+
+type TemplateResults = Partial<
+  Record<TemplateKey, RenderTemplateResult | undefined>
+>;
 
 registerCustomBadge({
   type: TEMPLATE_BADGE_NAME,
@@ -62,9 +70,7 @@ export class HuiEntityBadge extends LitElement implements LovelaceBadge {
 
   @state() protected _config?: TemplateBadgeConfig;
 
-  @state() private _templateResults: Partial<
-    Record<TemplateKey, RenderTemplateResult | undefined>
-  > = {};
+  @state() private _templateResults?: TemplateResults;
 
   @state() private _unsubRenderTemplates: Map<
     TemplateKey,
@@ -77,9 +83,34 @@ export class HuiEntityBadge extends LitElement implements LovelaceBadge {
   }
 
   public disconnectedCallback() {
+    super.disconnectedCallback();
     this._tryDisconnect();
+
+    if (this._config && this._templateResults) {
+      const key = this._computeCacheKey();
+      templateCache.set(key, this._templateResults);
+    }
   }
 
+  private _computeCacheKey() {
+    return hash(this._config);
+  }
+
+  protected willUpdate(_changedProperties: PropertyValues): void {
+    super.willUpdate(_changedProperties);
+    if (!this._config) {
+      return;
+    }
+
+    if (!this._templateResults) {
+      const key = this._computeCacheKey();
+      if (templateCache.has(key)) {
+        this._templateResults = templateCache.get(key)!;
+      } else {
+        this._templateResults = {};
+      }
+    }
+  }
   protected updated(changedProps: PropertyValues): void {
     super.updated(changedProps);
     if (!this._config || !this.hass) {
@@ -267,7 +298,7 @@ export class HuiEntityBadge extends LitElement implements LovelaceBadge {
 
   private getValue(key: TemplateKey) {
     return this.isTemplate(key)
-      ? this._templateResults[key]?.result?.toString()
+      ? this._templateResults?.[key]?.result?.toString()
       : this._config?.[key];
   }
 
