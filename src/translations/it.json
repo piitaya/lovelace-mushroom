@@ -22,6 +22,7 @@
       },
       "generic": {
         "collapsible_controls": "Nascondi i controlli quando spento",
+        "color": "Colore",
         "content_info": "Contenuto",
         "fill_container": "Riempi il contenitore",
         "icon_animation": "Anima l'icona quando attiva",
@@ -80,6 +81,7 @@
         "badge_icon": "Icona del badge",
         "content": "Contenuto",
         "entity_extra": "Usato in templates ed azioni",
+        "label": "Etichetta",
         "multiline_secondary": "Abilita frasi multilinea",
         "picture": "Immagine (sostituirà l'icona)",
         "primary": "Informazione primaria",
