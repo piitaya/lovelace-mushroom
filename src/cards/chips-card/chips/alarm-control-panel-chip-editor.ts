@@ -1,6 +1,7 @@
 import { html, LitElement, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { atLeastHaVersion, fireEvent, HomeAssistant } from "../../../ha";
+import memoizeOne from "memoize-one";
+import { fireEvent, HomeAssistant } from "../../../ha";
 import setupCustomlocalize from "../../../localize";
 import { computeActionsFormSchema } from "../../../shared/config/actions-config";
 import { GENERIC_LABELS } from "../../../utils/form/generic-fields";
@@ -10,7 +11,6 @@ import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chi
 import { AlarmControlPanelChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { ALARM_CONTROl_PANEL_ENTITY_DOMAINS } from "../../alarm-control-panel-card/const";
-import memoizeOne from "memoize-one";
 
 const actions: UiAction[] = [
   "more-info",
@@ -21,7 +21,7 @@ const actions: UiAction[] = [
   "none",
 ];
 
-const computeSchema = memoizeOne((useCallService: boolean): HaFormSchema[] => [
+const computeSchema = memoizeOne((): HaFormSchema[] => [
   {
     name: "entity",
     selector: { entity: { domain: ALARM_CONTROl_PANEL_ENTITY_DOMAINS } },
@@ -35,7 +35,7 @@ const computeSchema = memoizeOne((useCallService: boolean): HaFormSchema[] => [
     ],
   },
   { name: "icon", selector: { icon: {} }, context: { icon_entity: "entity" } },
-  ...computeActionsFormSchema(actions, useCallService),
+  ...computeActionsFormSchema(actions),
 ]);
 
 @customElement(computeChipEditorComponentName("alarm-control-panel"))
@@ -67,8 +67,7 @@ export class AlarmControlPanelChipEditor
       return nothing;
     }
 
-    const useCallService = !atLeastHaVersion(this.hass.config.version, 2024, 8);
-    const schema = computeSchema(useCallService);
+    const schema = computeSchema();
 
     return html`
       <ha-form
