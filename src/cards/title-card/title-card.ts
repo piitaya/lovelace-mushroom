@@ -311,6 +311,7 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
           background: none;
           border: none;
           box-shadow: none;
+          text-align: var(--card-text-align, inherit);
         }
         .header div * {
           margin: 0;
