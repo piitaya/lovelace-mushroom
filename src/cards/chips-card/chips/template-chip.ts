@@ -10,6 +10,7 @@ import {
 } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
+import hash from "object-hash/dist/object_hash";
 import {
   actionHandler,
   ActionHandlerEvent,
@@ -20,6 +21,7 @@ import {
   RenderTemplateResult,
   subscribeRenderTemplate,
 } from "../../../ha";
+import { CacheManager } from "../../../utils/cache-manager";
 import { computeRgbColor } from "../../../utils/colors";
 import { getWeatherSvgIcon } from "../../../utils/icons/weather-icon";
 import {
@@ -32,6 +34,12 @@ import {
 } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { weatherSVGStyles } from "../../../utils/weather";
+
+const templateCache = new CacheManager<TemplateResults>(1000);
+
+type TemplateResults = Partial<
+  Record<TemplateKey, RenderTemplateResult | undefined>
+>;
 
 const TEMPLATE_KEYS = ["content", "icon", "icon_color", "picture"] as const;
 type TemplateKey = (typeof TEMPLATE_KEYS)[number];
@@ -57,9 +65,7 @@ export class TemplateChip extends LitElement implements LovelaceChip {
 
   @state() private _config?: TemplateChipConfig;
 
-  @state() private _templateResults: Partial<
-    Record<TemplateKey, RenderTemplateResult | undefined>
-  > = {};
+  @state() private _templateResults?: TemplateResults;
 
   @state() private _unsubRenderTemplates: Map<
     TemplateKey,
@@ -92,7 +98,33 @@ export class TemplateChip extends LitElement implements LovelaceChip {
   }
 
   public disconnectedCallback() {
+    super.disconnectedCallback();
     this._tryDisconnect();
+
+    if (this._config && this._templateResults) {
+      const key = this._computeCacheKey();
+      templateCache.set(key, this._templateResults);
+    }
+  }
+
+  private _computeCacheKey() {
+    return hash(this._config);
+  }
+
+  protected willUpdate(_changedProperties: PropertyValues): void {
+    super.willUpdate(_changedProperties);
+    if (!this._config) {
+      return;
+    }
+
+    if (!this._templateResults) {
+      const key = this._computeCacheKey();
+      if (templateCache.has(key)) {
+        this._templateResults = templateCache.get(key)!;
+      } else {
+        this._templateResults = {};
+      }
+    }
   }
 
   private _handleAction(ev: ActionHandlerEvent) {
@@ -106,7 +138,7 @@ export class TemplateChip extends LitElement implements LovelaceChip {
 
   private getValue(key: TemplateKey) {
     return this.isTemplate(key)
-      ? this._templateResults[key]?.result?.toString()
+      ? this._templateResults?.[key]?.result?.toString()
       : this._config?.[key];
   }
 
@@ -132,7 +164,7 @@ export class TemplateChip extends LitElement implements LovelaceChip {
           hasDoubleClick: hasAction(this._config.double_tap_action),
         })}
         .avatar=${picture ? (this.hass as any).hassUrl(picture) : undefined}
-        .avatarOnly=${picture && !content}
+        .avatarOnly=${(picture && !content) || false}
       >
         ${!picture
           ? weatherSvg
