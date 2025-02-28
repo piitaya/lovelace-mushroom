@@ -66,7 +66,6 @@ export class HumidifierCard
     };
   }
 
-
   protected get hasControls(): boolean {
     return Boolean(this._config?.show_target_humidity_control);
   }
@@ -165,12 +164,14 @@ export class HumidifierCard
     const action = entity.attributes.action;
     if (!action || action == "off") return nothing;
 
-    const color = action == "idle" ? "var(--rgb-disabled)" : "var(--rgb-state-humidifier)";
+    const color =
+      action === "idle" ? "var(--rgb-disabled)" : "var(--rgb-state-humidifier)";
+    const icon = action === "idle" ? "mdi:clock-outline" : "mdi:water-percent";
 
     return html`
       <mushroom-badge-icon
         slot="badge"
-        .icon=${"mdi:water-percent"}
+        .icon=${icon}
         style=${styleMap({
           "--main-color": `rgb(${color})`,
         })}
