@@ -1,4 +1,4 @@
-import Color from "color";
+import * as Color from "color";
 import { HassEntity } from "home-assistant-js-websocket";
 import {
   css,

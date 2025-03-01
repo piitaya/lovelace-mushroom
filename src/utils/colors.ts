@@ -1,5 +1,5 @@
 import { css } from "lit";
-import Color from "color";
+import * as Color from "color";
 
 export const COLORS = [
   "primary",
