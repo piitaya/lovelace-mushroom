@@ -20,7 +20,7 @@
   "dependencies": {
     "@material/mwc-select": "^0.27.0",
     "@material/mwc-textfield": "^0.27.0",
-    "color": "^5.0.0",
+    "color": "^4.2.3",
     "hammerjs": "^2.0.8",
     "home-assistant-js-websocket": "^9.4.0",
     "lit": "^3.2.1",
