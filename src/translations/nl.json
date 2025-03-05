@@ -18,7 +18,8 @@
       },
       "fan": {
         "show_oscillate_control": "Bediening oscillatie",
-        "show_percentage_control": "Bediening middels percentage"
+        "show_percentage_control": "Bediening middels percentage",
+        "show_direction_control": "Richtingscontrole?"
       },
       "generic": {
         "collapsible_controls": "Bedieningselementen verbergen wanneer uitgeschakeld",

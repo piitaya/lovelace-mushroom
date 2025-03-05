@@ -16,6 +16,7 @@ const FAN_LABELS = [
   "icon_animation",
   "show_percentage_control",
   "show_oscillate_control",
+  "show_direction_control"
 ];
 
 const SCHEMA: HaFormSchema[] = [
@@ -40,6 +41,7 @@ const SCHEMA: HaFormSchema[] = [
     schema: [
       { name: "show_percentage_control", selector: { boolean: {} } },
       { name: "show_oscillate_control", selector: { boolean: {} } },
+      { name: "show_direction_control", selector: { boolean: {} } },
       { name: "collapsible_controls", selector: { boolean: {} } },
     ],
   },

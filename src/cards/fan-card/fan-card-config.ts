@@ -21,6 +21,7 @@ export type FanCardConfig = LovelaceCardConfig &
     icon_animation?: boolean;
     show_percentage_control?: boolean;
     show_oscillate_control?: boolean;
+    show_direction_control?: boolean;
     collapsible_controls?: boolean;
   };
 
@@ -35,6 +36,7 @@ export const fanCardConfigStruct = assign(
     icon_animation: optional(boolean()),
     show_percentage_control: optional(boolean()),
     show_oscillate_control: optional(boolean()),
+    show_direction_control: optional(boolean()),
     collapsible_controls: optional(boolean()),
   })
 );

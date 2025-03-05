@@ -48,6 +48,7 @@ cards:
         name: Multiple controls
         show_percentage_control: true
         show_oscillate_control: true
+        show_direction_control: true
       - type: custom:mushroom-fan-card
         entity: fan.living_room_fan
         name: Collapsible controls
@@ -66,6 +67,7 @@ cards:
             entity: fan.living_room_fan
             show_percentage_control: true
             show_oscillate_control: true
+            show_direction_control: true
       - type: grid
         columns: 2
         square: false
@@ -74,9 +76,11 @@ cards:
             entity: fan.living_room_fan
             show_percentage_control: true
             show_oscillate_control: true
+            show_direction_control: true
             layout: "vertical"
       - type: custom:mushroom-fan-card
         entity: fan.living_room_fan
         show_percentage_control: true
         show_oscillate_control: true
+        show_direction_control: true
         layout: "horizontal"

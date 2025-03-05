@@ -18,7 +18,8 @@
       },
       "fan": {
         "show_oscillate_control": "Contrôle de l'oscillation ?",
-        "show_percentage_control": "Contrôle de la vitesse ?"
+        "show_percentage_control": "Contrôle de la vitesse ?",
+        "show_direction_control": "Contrôle de direction?"
       },
       "generic": {
         "collapsible_controls": "Reduire les contrôles quand éteint",
