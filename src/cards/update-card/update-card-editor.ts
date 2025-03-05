@@ -1,7 +1,8 @@
 import { html, nothing } from "lit";
 import { customElement, state } from "lit/decorators.js";
+import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
-import { LovelaceCardEditor, atLeastHaVersion, fireEvent } from "../../ha";
+import { LovelaceCardEditor, fireEvent } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { computeActionsFormSchema } from "../../shared/config/actions-config";
 import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
@@ -12,7 +13,6 @@ import { UiAction } from "../../utils/form/ha-selector";
 import { loadHaComponents } from "../../utils/loader";
 import { UPDATE_CARD_EDITOR_NAME, UPDATE_ENTITY_DOMAINS } from "./const";
 import { UpdateCardConfig, updateCardConfigStruct } from "./update-card-config";
-import memoizeOne from "memoize-one";
 
 const UPDATE_LABELS = ["show_buttons_control"];
 
@@ -25,7 +25,7 @@ const actions: UiAction[] = [
   "none",
 ];
 
-const computeSchema = memoizeOne((useCallService: boolean): HaFormSchema[] => [
+const computeSchema = memoizeOne((): HaFormSchema[] => [
   { name: "entity", selector: { entity: { domain: UPDATE_ENTITY_DOMAINS } } },
   { name: "name", selector: { text: {} } },
   { name: "icon", selector: { icon: {} }, context: { icon_entity: "entity" } },
@@ -38,7 +38,7 @@ const computeSchema = memoizeOne((useCallService: boolean): HaFormSchema[] => [
       { name: "collapsible_controls", selector: { boolean: {} } },
     ],
   },
-  ...computeActionsFormSchema(actions, useCallService),
+  ...computeActionsFormSchema(actions),
 ]);
 
 @customElement(UPDATE_CARD_EDITOR_NAME)
@@ -77,8 +77,7 @@ export class UpdateCardEditor
       return nothing;
     }
 
-    const useCallService = !atLeastHaVersion(this.hass.config.version, 2024, 8);
-    const schema = computeSchema(useCallService);
+    const schema = computeSchema();
 
     return html`
       <ha-form

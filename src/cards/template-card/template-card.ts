@@ -10,6 +10,7 @@ import {
 import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
+import hash from "object-hash/dist/object_hash";
 import {
   actionHandler,
   ActionHandlerEvent,
@@ -29,6 +30,7 @@ import "../../shared/state-info";
 import "../../shared/state-item";
 import { computeAppearance } from "../../utils/appearance";
 import { MushroomBaseElement } from "../../utils/base-element";
+import { CacheManager } from "../../utils/cache-manager";
 import { cardStyle } from "../../utils/card-styles";
 import { computeRgbColor } from "../../utils/colors";
 import { registerCustomCard } from "../../utils/custom-cards";
@@ -36,6 +38,12 @@ import { getWeatherSvgIcon } from "../../utils/icons/weather-icon";
 import { weatherSVGStyles } from "../../utils/weather";
 import { TEMPLATE_CARD_EDITOR_NAME, TEMPLATE_CARD_NAME } from "./const";
 import { TemplateCardConfig } from "./template-card-config";
+
+const templateCache = new CacheManager<TemplateResults>(1000);
+
+type TemplateResults = Partial<
+  Record<TemplateKey, RenderTemplateResult | undefined>
+>;
 
 registerCustomCard({
   type: TEMPLATE_CARD_NAME,
@@ -76,9 +84,7 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
 
   @state() private _config?: TemplateCardConfig;
 
-  @state() private _templateResults: Partial<
-    Record<TemplateKey, RenderTemplateResult | undefined>
-  > = {};
+  @state() private _templateResults?: TemplateResults;
 
   @state() private _unsubRenderTemplates: Map<
     TemplateKey,
@@ -164,7 +170,33 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
   }
 
   public disconnectedCallback() {
+    super.disconnectedCallback();
     this._tryDisconnect();
+
+    if (this._config && this._templateResults) {
+      const key = this._computeCacheKey();
+      templateCache.set(key, this._templateResults);
+    }
+  }
+
+  private _computeCacheKey() {
+    return hash(this._config);
+  }
+
+  protected willUpdate(_changedProperties: PropertyValues): void {
+    super.willUpdate(_changedProperties);
+    if (!this._config) {
+      return;
+    }
+
+    if (!this._templateResults) {
+      const key = this._computeCacheKey();
+      if (templateCache.has(key)) {
+        this._templateResults = templateCache.get(key)!;
+      } else {
+        this._templateResults = {};
+      }
+    }
   }
 
   private _handleAction(ev: ActionHandlerEvent) {
@@ -178,7 +210,7 @@ export class TemplateCard extends MushroomBaseElement implements LovelaceCard {
 
   private getValue(key: TemplateKey) {
     return this.isTemplate(key)
-      ? this._templateResults[key]?.result?.toString()
+      ? this._templateResults?.[key]?.result?.toString()
       : this._config?.[key];
   }
 
