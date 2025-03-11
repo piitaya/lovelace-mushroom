@@ -18,8 +18,7 @@
       },
       "fan": {
         "show_oscillate_control": "¿Controlar oscilación?",
-        "show_percentage_control": "¿Controlar porcentaje?",
-        "show_direction_control": "¿Control de dirección?"
+        "show_percentage_control": "¿Controlar porcentaje?"
       },
       "generic": {
         "collapsible_controls": "Contraer controles cuando está apagado",

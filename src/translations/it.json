@@ -18,8 +18,7 @@
       },
       "fan": {
         "show_oscillate_control": "Controllo oscillazione",
-        "show_percentage_control": "Controllo potenza",
-        "show_direction_control": "Controllo direzione?"
+        "show_percentage_control": "Controllo potenza"
       },
       "generic": {
         "collapsible_controls": "Nascondi i controlli quando spento",

@@ -18,8 +18,7 @@
       },
       "fan": {
         "show_oscillate_control": "Oszillationssteuerung?",
-        "show_percentage_control": "Prozentuale Kontrolle?",
-        "show_direction_control": "Richtungssteuerung?"
+        "show_percentage_control": "Prozentuale Kontrolle?"
       },
       "generic": {
         "collapsible_controls": "Schieberegler einklappen, wenn aus",
