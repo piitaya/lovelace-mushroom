@@ -141,7 +141,7 @@ npm run build
 
 ### Translations
 
-If you want to help translating Mushroom, you can translate it directly from your browser using [Weblate](weblate-url).
+If you want to help translating Mushroom, you can translate it directly from your browser using [Weblate][weblate-url].
 
 ### Maintainer steps to add a new language
 
