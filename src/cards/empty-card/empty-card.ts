@@ -3,6 +3,7 @@ import { customElement, property } from "lit/decorators.js";
 import {
   LovelaceCard,
   LovelaceCardEditor,
+  type LovelaceGridOptions,
   type LovelaceLayoutOptions,
 } from "../../ha";
 import { MushroomBaseCard } from "../../utils/base-card";
@@ -30,10 +31,9 @@ export class EmptyCard extends MushroomBaseCard implements LovelaceCard {
     return 1;
   }
 
-  public getLayoutOptions(): LovelaceLayoutOptions {
+  public getGridOptions(): LovelaceGridOptions {
     return {
-      grid_columns: 1,
-      grid_rows: 1,
+      rows: 1,
     };
   }
 
