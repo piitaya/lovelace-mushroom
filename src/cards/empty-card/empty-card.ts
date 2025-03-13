@@ -1,13 +1,11 @@
-import { css, CSSResultGroup, html, nothing } from "lit";
+import { css, html, nothing } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import {
   LovelaceCard,
   LovelaceCardEditor,
   type LovelaceGridOptions,
-  type LovelaceLayoutOptions,
 } from "../../ha";
 import { MushroomBaseCard } from "../../utils/base-card";
-import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { EMPTY_CARD_EDITOR_NAME, EMPTY_CARD_NAME } from "./const";
 

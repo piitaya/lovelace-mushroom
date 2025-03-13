@@ -1,13 +1,11 @@
-import { html, nothing } from "lit";
+import { html } from "lit";
 import { customElement, state } from "lit/decorators.js";
-import { assert } from "superstruct";
 import { LovelaceCardEditor } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { HaFormSchema } from "../../utils/form/ha-form";
-import { loadHaComponents } from "../../utils/loader";
 import { EMPTY_CARD_EDITOR_NAME } from "./const";
-import { EmptyCardConfig, emptyCardConfigStruct } from "./empty-card-config";
+import { EmptyCardConfig } from "./empty-card-config";
 
 const SCHEMA: HaFormSchema[] = [
   {
@@ -20,33 +18,15 @@ const SCHEMA: HaFormSchema[] = [
 export class EntityCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
   @state() private _config?: EmptyCardConfig;
 
-  connectedCallback() {
-    super.connectedCallback();
-    void loadHaComponents();
-  }
-
   public setConfig(): void {
     // No config necessary
   }
 
-  private _computeLabel = () => {
-    const customLocalize = setupCustomlocalize(this.hass!);
-
-    return customLocalize("editor.card.empty.no_config_options");
-  };
-
   protected render() {
-    if (!this.hass || !this._config) {
-      return nothing;
-    }
+    const customLocalize = setupCustomlocalize(this.hass);
 
     return html`
-      <ha-form
-        .hass=${this.hass}
-        .data=${{}}
-        .schema=${SCHEMA}
-        .computeLabel=${this._computeLabel}
-      ></ha-form>
+      <p>${customLocalize("editor.card.empty.no_config_options")}</p>
     `;
   }
 }

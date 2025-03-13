@@ -56,7 +56,7 @@
         "icon_animation": "Animate icon when active?"
       },
       "empty": {
-        "no_config_options": "This card has no config options, use the Layout tab to set the size."
+        "no_config_options": "This card has no config options."
       },
       "light": {
         "show_brightness_control": "Brightness control?",

@@ -34,7 +34,7 @@
         "use_entity_picture": "Entitätsbild verwenden?"
       },
       "empty": {
-        "no_config_options": "Diese Karte hat keine Optionen. Verwenden Sie den Layout-Tab, um die Größe festzulegen."
+        "no_config_options": "Diese Karte hat keine Optionen."
       },
       "humidifier": {
         "show_target_humidity_control": "Luftfeuchtigkeitssteuerung?"
