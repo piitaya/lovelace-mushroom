@@ -55,6 +55,9 @@
         "collapsible_controls": "Collapse controls when off",
         "icon_animation": "Animate icon when active?"
       },
+      "empty": {
+        "no_config_options": "This card has no config options."
+      },
       "light": {
         "show_brightness_control": "Brightness control?",
         "use_light_color": "Use light color",
