@@ -17,6 +17,7 @@
         "show_tilt_position_control": "Sterowanie poziomem otwarcia?"
       },
       "fan": {
+        "show_direction_control": "Kontrola kierunku?",
         "show_oscillate_control": "Sterowanie oscylacją?",
         "show_percentage_control": "Sterowanie procentowe?"
       },

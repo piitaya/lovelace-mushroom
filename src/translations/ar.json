@@ -17,6 +17,7 @@
         "show_tilt_position_control": "التحكم في الإمالة؟"
       },
       "fan": {
+        "show_direction_control": "التحكم بالإتجاه؟",
         "show_oscillate_control": "التحكم في التذبذب؟",
         "show_percentage_control": "التحكم في النسبة المئوية؟"
       },
