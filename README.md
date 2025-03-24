@@ -79,6 +79,7 @@ Different cards are available for differents entities :
 -   🌡 [Climate card](docs/cards/climate.md)
 -   🪟 [Cover card](docs/cards/cover.md)
 -   🪄 [Entity card](docs/cards/entity.md)
+-   🕳 [Empty card](docs/cards/empty.md)
 -   💨 [Fan card](docs/cards/fan.md)
 -   💧 [Humidifier card](docs/cards/humidifier.md)
 -   💡 [Light card](docs/cards/light.md)
