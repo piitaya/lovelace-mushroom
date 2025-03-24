@@ -1,11 +1,11 @@
-import { css, html, nothing } from "lit";
+import { css, CSSResultGroup, html, nothing } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import {
   LovelaceCard,
   LovelaceCardEditor,
   type LovelaceGridOptions,
 } from "../../ha";
-import { MushroomBaseCard } from "../../utils/base-card";
+import { MushroomBaseElement } from "../../utils/base-element";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { EMPTY_CARD_EDITOR_NAME, EMPTY_CARD_NAME } from "./const";
 
@@ -17,7 +17,7 @@ registerCustomCard({
 });
 
 @customElement(EMPTY_CARD_NAME)
-export class EmptyCard extends MushroomBaseCard implements LovelaceCard {
+export class EmptyCard extends MushroomBaseElement implements LovelaceCard {
   @property({ type: Boolean }) public preview = false;
 
   public static async getConfigElement(): Promise<LovelaceCardEditor> {
@@ -32,6 +32,7 @@ export class EmptyCard extends MushroomBaseCard implements LovelaceCard {
   public getGridOptions(): LovelaceGridOptions {
     return {
       rows: 1,
+      columns: 6,
     };
   }
 
@@ -44,26 +45,33 @@ export class EmptyCard extends MushroomBaseCard implements LovelaceCard {
       return nothing;
     }
 
-    return html`<ha-card>
-      <ha-icon icon="mdi:dots-horizontal"></ha-icon>
-    </ha-card>`;
+    return html`
+      <ha-card>
+        <ha-icon icon="mdi:dots-horizontal"></ha-icon>
+      </ha-card>
+    `;
   }
 
-  static styles = css`
-    :host {
-      display: block;
-      height: 100%;
-    }
+  static get styles(): CSSResultGroup {
+    return [
+      super.styles,
+      css`
+        :host {
+          display: block;
+          height: 100%;
+        }
 
-    ha-card {
-      background: none;
-      height: 100%;
-      min-height: 56px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      --mdc-icon-size: 40px;
-      --icon-primary-color: var(--divider-color, rgba(0, 0, 0, 0.12));
-    }
-  `;
+        ha-card {
+          background: none;
+          height: 100%;
+          min-height: 56px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          --mdc-icon-size: 40px;
+          --icon-primary-color: var(--divider-color, rgba(0, 0, 0, 0.12));
+        }
+      `,
+    ];
+  }
 }
