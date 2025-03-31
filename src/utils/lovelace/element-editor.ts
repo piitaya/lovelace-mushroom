@@ -18,7 +18,11 @@ import {
   LovelaceConfig,
 } from "../../ha";
 import { LovelaceChipConfig } from "./chip/types";
-import { EditSubElementEvent, GUIModeChangedEvent } from "./editor/types";
+import {
+  EditDetailElementEvent,
+  EditSubElementEvent,
+  GUIModeChangedEvent,
+} from "./editor/types";
 import { GUISupportError } from "./gui-support-error";
 import { LovelaceGenericElementEditor } from "./types";
 
@@ -33,7 +37,8 @@ declare global {
     // @ts-ignore
     "config-changed": ConfigChangedEvent;
     "GUImode-changed": GUIModeChangedEvent;
-    "edit-detail-element": EditSubElementEvent;
+    "edit-detail-element": EditDetailElementEvent;
+    "edit-sub-element": EditSubElementEvent;
   }
 }
 
