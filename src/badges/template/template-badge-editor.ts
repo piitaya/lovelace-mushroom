@@ -64,7 +64,7 @@ export class TemplateBadgeEditor
     if (schema.name === "entity") {
       return `${this.hass!.localize(
         "ui.panel.lovelace.editor.card.generic.entity"
-      )} (${customLocalize("editor.card.template.entity_extra")})`;
+      )} (${customLocalize("editor.card.template.entity_helper")})`;
     }
     if (GENERIC_LABELS.includes(schema.name)) {
       return customLocalize(`editor.card.generic.${schema.name}`);

@@ -28,6 +28,7 @@ export * from "./data/update";
 export * from "./data/vacuum";
 export * from "./data/ws-templates";
 export * from "./data/ws-themes";
+export * from "./panels/lovelace/card-features/types";
 export * from "./panels/lovelace/common/directives/action-handler-directive";
 export * from "./panels/lovelace/common/entity/turn-on-off-entities";
 export * from "./panels/lovelace/common/entity/turn-on-off-entity";

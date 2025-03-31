@@ -1,6 +1,8 @@
 import {
   ActionConfig,
+  LovelaceBadgeConfig,
   LovelaceCardConfig,
+  LovelaceCardFeatureConfig,
   LovelaceViewConfig,
   ShowViewConfig,
 } from "../../../ha";
@@ -45,12 +47,12 @@ export interface EntityConfig {
   image?: string;
 }
 
-export interface EntitiesEditorEvent {
-  detail?: {
+export interface EntitiesEditorEvent extends CustomEvent {
+  detail: {
     entities?: EntityConfig[];
     item?: any;
   };
-  target?: EventTarget;
+  target: EventTarget | null;
 }
 
 export interface EditorTarget extends EventTarget {
@@ -68,10 +70,24 @@ export interface Card {
   description?: string;
   showElement?: boolean;
   isCustom?: boolean;
+  isSuggested?: boolean;
+}
+
+export interface Badge {
+  type: string;
+  name?: string;
+  description?: string;
+  showElement?: boolean;
+  isCustom?: boolean;
+  isSuggested?: boolean;
+}
+
+export interface LovelaceHeaderFooterConfig {
+  type: "buttons" | "graph" | "picture";
 }
 
 export interface HeaderFooter {
-  type: string;
+  type: LovelaceHeaderFooterConfig["type"];
   icon?: string;
 }
 
@@ -79,12 +95,32 @@ export interface CardPickTarget extends EventTarget {
   config: LovelaceCardConfig;
 }
 
-export interface SubElementEditorConfig {
-  index?: number;
-  elementConfig?: LovelaceChipConfig;
-  type: string;
+export interface BadgePickTarget extends EventTarget {
+  config: LovelaceBadgeConfig;
 }
 
-export interface EditSubElementEvent {
+export interface SubElementEditorConfig {
+  index?: number;
+  elementConfig?: LovelaceCardFeatureConfig | LovelaceChipConfig;
+  saveElementConfig?: (elementConfig: any) => void;
+  context?: any;
+  type:
+    | "header"
+    | "footer"
+    | "row"
+    | "feature"
+    | "element"
+    | "heading-badge"
+    | "chip";
+}
+
+export interface EditSubElementEvent<T = any, C = any> {
+  type: SubElementEditorConfig["type"];
+  context?: C;
+  config: T;
+  saveConfig: (config: T) => void;
+}
+
+export interface EditDetailElementEvent {
   subElementConfig: SubElementEditorConfig;
 }

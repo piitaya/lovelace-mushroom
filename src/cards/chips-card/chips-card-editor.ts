@@ -26,8 +26,8 @@ import { MushroomBaseElement } from "../../utils/base-element";
 import { loadHaComponents } from "../../utils/loader";
 import { LovelaceChipConfig } from "../../utils/lovelace/chip/types";
 import {
+  EditDetailElementEvent,
   EditorTarget,
-  EditSubElementEvent,
   SubElementEditorConfig,
 } from "../../utils/lovelace/editor/types";
 import "../../utils/lovelace/sub-element-editor";
@@ -295,7 +295,7 @@ export class ChipsCardEditor
     fireEvent(this, "config-changed", { config: this._config });
   }
 
-  private _editDetailElement(ev: HASSDomEvent<EditSubElementEvent>): void {
+  private _editDetailElement(ev: HASSDomEvent<EditDetailElementEvent>): void {
     this._subElementEditorConfig = ev.detail.subElementConfig;
   }
 
