@@ -17,6 +17,7 @@
         "show_tilt_position_control": "Contrôle de l'inclinaison ?"
       },
       "fan": {
+        "show_direction_control": "Contrôle de la direction?",
         "show_oscillate_control": "Contrôle de l'oscillation ?",
         "show_percentage_control": "Contrôle de la vitesse ?"
       },
