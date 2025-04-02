@@ -1,35 +1,49 @@
 {
+  "card": {
+    "not_found": "היישות לא נמצאה"
+  },
   "editor": {
     "card": {
       "chips": {
         "alignment": "יישור"
       },
+      "climate": {
+        "hvac_modes": "מצבי שואב אבק",
+        "show_temperature_control": "בקרת טמפרטורה?"
+      },
       "cover": {
-        "show_buttons_control": "הצג כפתורי שליטה",
-        "show_position_control": "הצג פקדי מיקום"
+        "show_buttons_control": "הצג כפתורי שליטה?",
+        "show_position_control": "הצג פקדי מיקום?",
+        "show_tilt_position_control": "שליטה בהטייה?"
+      },
+      "empty": {
+        "no_config_options": "לכרטיסיה זו אין אפשרויות להגדרה."
       },
       "fan": {
+        "show_direction_control": "שליטה בכיוון?",
         "show_oscillate_control": "שליטה בהתנדנדות?",
         "show_percentage_control": "שליטה באחוז?"
       },
       "generic": {
         "collapsible_controls": "הסתר שליטה כשאר מכובה",
+        "color": "צבע",
         "content_info": "תוכן",
         "fill_container": "מלא גבולות",
-        "icon_animation": "הנפש אייקון",
+        "icon_animation": "הנפש צלמית אם פעיל?",
         "icon_color": "צבע אייקון",
+        "icon_type": "סוג צלמית",
         "layout": "סידור",
         "primary_info": "מידע ראשי",
         "secondary_info": "מידע מישני",
-        "use_entity_picture": "השתמש בתמונת ישות"
+        "use_entity_picture": "השתמש בתמונת הישות?"
       },
       "humidifier": {
-        "show_target_humidity_control": "הצג פקדי לחות"
+        "show_target_humidity_control": "הצג פקדי לחות?"
       },
       "light": {
         "incompatible_controls": "יתכן וחלק מהכפתורים לא יופיעו אם התאורה אינה תומכת בתכונה.",
         "show_brightness_control": "שליטה בבהירות?",
-        "show_color_control": "הצג פקד צבע",
+        "show_color_control": "הצג פקד צבע?",
         "show_color_temp_control": "הצג פקד גוון תאורה?",
         "use_light_color": "השתמש בצבע האור"
       },
@@ -58,22 +72,39 @@
           "volume_set": "רמת ווליום"
         }
       },
+      "number": {
+        "display_mode": "הגדרת מצב תצוגה",
+        "display_mode_list": {
+          "buttons": "לחצנים",
+          "default": "ברירת מחדל (סרגל גלילה)",
+          "slider": "סרגל גלילה"
+        }
+      },
       "template": {
+        "badge_color": "צבע תג",
+        "badge_icon": "צלמית תג",
         "content": "תוכן",
         "entity_extra": "משמש בתבניות ופעולות",
-        "multiline_secondary": "מידע מישני רב קווי",
+        "label": "תווית",
+        "multiline_secondary": "מידע משני בשורות?",
+        "picture": "תמונה (תחליף את הצלמית)",
         "primary": "מידע ראשי",
         "secondary": "מידע מישני"
       },
       "title": {
         "subtitle": "כתובית",
-        "title": "כותרת"
+        "subtitle_tap_action": "פעולה בלחיצה על כותרת משנה",
+        "title": "כותרת",
+        "title_tap_action": "פעולה בלחיצה על הכותרת"
       },
       "update": {
         "show_buttons_control": "הצג כפתורי שליטה?"
       },
       "vacuum": {
         "commands": "פקודות",
+        "commands_list": {
+          "on_off": "כיבוי/הדלקה"
+        },
         "icon_animation": "הנפשת אייקון"
       },
       "weather": {
@@ -96,6 +127,7 @@
           "entity": "ישות",
           "light": "אור",
           "menu": "תפריט",
+          "spacer": "מרווח",
           "template": "תבנית",
           "weather": "מזג אוויר"
         }
@@ -120,6 +152,14 @@
       "color_picker": {
         "values": {
           "default": "צבע ברירת מחדל"
+        }
+      },
+      "icon_type_picker": {
+        "values": {
+          "default": "סוג ברירת מחדל",
+          "entity-picture": "תמונת יישות",
+          "icon": "צלמית",
+          "none": "ריק"
         }
       },
       "info_picker": {
