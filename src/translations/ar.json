@@ -16,6 +16,9 @@
         "show_position_control": "التحكم في الموقع؟",
         "show_tilt_position_control": "التحكم في الإمالة؟"
       },
+      "empty": {
+        "no_config_options": "لا تحتوي هذه البطاقة على خيارات التكوين."
+      },
       "fan": {
         "show_direction_control": "التحكم بالإتجاه؟",
         "show_oscillate_control": "التحكم في التذبذب؟",
