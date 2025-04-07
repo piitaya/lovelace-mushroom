@@ -1,59 +1,120 @@
 {
+  "card": {
+    "not_found": "Varlık bulunamadı"
+  },
   "editor": {
     "card": {
       "chips": {
         "alignment": "Hizalama"
       },
+      "climate": {
+        "hvac_modes": "HVAC Modları",
+        "show_temperature_control": "Sıcaklık kontrolü?"
+      },
       "cover": {
-        "show_buttons_control": "Düğme kontrolleri",
-        "show_position_control": "Pozisyon kontrolü"
+        "show_buttons_control": "Düğme kontrolleri?",
+        "show_position_control": "Pozisyon kontrolü?",
+        "show_tilt_position_control": "Eğim kontrolü?"
+      },
+      "empty": {
+        "no_config_options": "Bu kartın yapılandırma seçeneği yok."
       },
       "fan": {
-        "show_oscillate_control": "Salınım kontrolü",
-        "show_percentage_control": "Yüzde kontrolü"
+        "show_direction_control": "Yön kontrolü?",
+        "show_oscillate_control": "Salınım kontrolü?",
+        "show_percentage_control": "Yüzde kontrolü?"
       },
       "generic": {
+        "collapsible_controls": "Kapalıyken kontrolleri daralt",
+        "color": "Renk",
         "content_info": "İçerik",
-        "icon_animation": "Aktif olduğunda simgeyi hareket ettir",
+        "fill_container": "Alanı doldur",
+        "icon_animation": "Aktif olduğunda simgeyi hareket ettir?",
         "icon_color": "Simge renki",
+        "icon_type": "İkon tipi",
         "layout": "Düzen",
         "primary_info": "Birinci bilgi",
         "secondary_info": "İkinci bilgi",
-        "use_entity_picture": "Varlık resmi kullanılsın"
+        "use_entity_picture": "Varlık resmi kullanılsın?"
+      },
+      "humidifier": {
+        "show_target_humidity_control": "Nem kontrolü?"
       },
       "light": {
         "incompatible_controls": "Kullandığınız lamba bu özellikleri desteklemiyorsa bazı kontroller görüntülenemeyebilir.",
-        "show_brightness_control": "Parlaklık kontrolü",
-        "show_color_control": "Renk kontrolü",
-        "show_color_temp_control": "Renk ısısı kontrolü",
+        "show_brightness_control": "Parlaklık kontrolü?",
+        "show_color_control": "Renk kontrolü?",
+        "show_color_temp_control": "Renk ısısı kontrolü?",
         "use_light_color": "Işık rengini kullan"
       },
+      "lock": {
+        "lock": "Kilitle",
+        "open": "Aç",
+        "unlock": "Kilidi aç"
+      },
+      "media-player": {
+        "media_controls": "Medya kontrolleri",
+        "media_controls_list": {
+          "next": "Sonraki parça",
+          "on_off": "Aç/Kapat",
+          "play_pause_stop": "Oynat/duraklat/durdur",
+          "previous": "Önceki parça",
+          "repeat": "Tekrarlama modu",
+          "shuffle": "Karışık çal"
+        },
+        "show_volume_level": "Ses seviyesini göster",
+        "use_media_artwork": "Medya resimlerini kullan",
+        "use_media_info": "Medya bilgilerini kullan",
+        "volume_controls": "Ses seviyesi kontrolleri",
+        "volume_controls_list": {
+          "volume_buttons": "Ses butonları",
+          "volume_mute": "Sessize al",
+          "volume_set": "Ses seviyesi"
+        }
+      },
+      "number": {
+        "display_mode": "Görüntüleme Modu",
+        "display_mode_list": {
+          "buttons": "Butonlar",
+          "default": "Varsayılan (kayan)",
+          "slider": "Kayan"
+        }
+      },
       "template": {
+        "badge_color": "Rozet rengi",
+        "badge_icon": "Rozet simgesi",
         "content": "İçerik",
         "entity_extra": "Şablonlarda ve eylemlerde kullanılsın",
-        "multiline_secondary": "İkinci bilgi çok satır olsun",
+        "label": "Etiket",
+        "multiline_secondary": "İkinci bilgi çok satır olsun?",
+        "picture": "Resim (ikonun yerine geçecek)",
         "primary": "Birinci bilgi",
         "secondary": "İkinci bilgi"
       },
       "title": {
         "subtitle": "Altbaşlık",
-        "title": "Başlık"
+        "subtitle_tap_action": "Dokunma eylemi alt başlığı",
+        "title": "Başlık",
+        "title_tap_action": "Dokunma eylemi başlığı"
       },
       "update": {
-        "show_buttons_control": "Düğme kontrolü"
+        "show_buttons_control": "Düğme kontrolü?"
       },
       "vacuum": {
-        "commands": "Komutlar"
+        "commands": "Komutlar",
+        "commands_list": {
+          "on_off": "Aç/Kapat"
+        }
       },
       "weather": {
-        "show_conditions": "Hava koşulu",
-        "show_temperature": "Sıcaklık"
+        "show_conditions": "Hava koşulu?",
+        "show_temperature": "Sıcaklık?"
       }
     },
     "chip": {
       "chip-picker": {
         "add": "Chip ekle",
-        "chips": "Chips",
+        "chips": "Chipler",
         "clear": "Temizle",
         "edit": "Düzenle",
         "select": "Chip seç",
@@ -65,6 +126,7 @@
           "entity": "Varlık",
           "light": "Işık",
           "menu": "Menü",
+          "spacer": "Boşluk",
           "template": "Şablon",
           "weather": "Hava Durumu"
         }
@@ -89,6 +151,14 @@
       "color_picker": {
         "values": {
           "default": "Varsayılan renk"
+        }
+      },
+      "icon_type_picker": {
+        "values": {
+          "default": "Varsayılan tip",
+          "entity-picture": "Varlık resmi",
+          "icon": "Simge",
+          "none": "Hiçbiri"
         }
       },
       "info_picker": {
