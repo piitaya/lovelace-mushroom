@@ -1,4 +1,4 @@
-import { assign, boolean, object, optional } from "superstruct";
+import { assign, boolean, object, optional, array, string } from "superstruct";
 import { LovelaceCardConfig } from "../../ha";
 import {
   ActionsSharedConfig,
@@ -19,7 +19,9 @@ export type HumidifierCardConfig = LovelaceCardConfig &
   AppearanceSharedConfig &
   ActionsSharedConfig & {
     show_target_humidity_control?: boolean;
+    show_mode_control?: boolean;
     collapsible_controls?: boolean;
+    available_modes?: string[];
   };
 
 export const humidifierCardConfigStruct = assign(
@@ -31,6 +33,8 @@ export const humidifierCardConfigStruct = assign(
   ),
   object({
     show_target_humidity_control: optional(boolean()),
+    show_mode_control: optional(boolean()),
     collapsible_controls: optional(boolean()),
+    available_modes: optional(array(string())),
   })
 );
