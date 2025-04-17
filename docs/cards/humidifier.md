@@ -23,6 +23,8 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `icon_type`                    | `icon` `entity-picture` `none`                      | `icon`      | Type of icon to display                                                                         |
 | `show_target_humidity_control` | boolean                                             | Optional    | Show target humidity control                                                                    |
 | `collapsible_controls`         | boolean                                             | `false`     | Collapse controls when off. When used in section, it can produce a layout shift for cards below |
+| `show_mode_control`            | boolean                                             | `false`     | Show mode control                                                                               |
+| `available_modes`              | List                                                | `[]`        | Available humidifier modes (auto, normal, eco, away, boost, comfort, home, sleep, baby)         |
 | `tap_action`                   | action                                              | `more-info` | Home assistant action to perform on tap                                                         |
 | `hold_action`                  | action                                              | `more-info` | Home assistant action to perform on hold                                                        |
 | `double_tap_action`            | action                                              | `more-info` | Home assistant action to perform on double_tap                                                  |
