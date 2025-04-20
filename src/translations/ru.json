@@ -1,4 +1,7 @@
 {
+  "card": {
+    "not_found": "Сущность не найдена"
+  },
   "editor": {
     "card": {
       "chips": {
@@ -13,15 +16,21 @@
         "show_position_control": "Управлять позицией?",
         "show_tilt_position_control": "Управлять наклоном?"
       },
+      "empty": {
+        "no_config_options": "Эта карточка не имеет опций конфигурации."
+      },
       "fan": {
         "icon_animation": "Анимировать иконку когда включено?",
+        "show_direction_control": "Направление?",
         "show_oscillate_control": "Oscillate control?",
         "show_percentage_control": "Управлять процентами?"
       },
       "generic": {
         "collapsible_controls": "Сворачивать элементы управления при выключении",
+        "color": "Цвет",
         "content_info": "Содержимое",
         "fill_container": "Заполнение",
+        "icon_animation": "Анимировать иконку, когда активна?",
         "icon_color": "Цвет иконки",
         "icon_type": "Тип иконки",
         "layout": "Расположение",
@@ -64,11 +73,20 @@
           "volume_set": "Уровень громкости"
         }
       },
+      "number": {
+        "display_mode": "Режим отображения",
+        "display_mode_list": {
+          "buttons": "Кнопки",
+          "default": "Стандартно (слайдер)",
+          "slider": "Слайдер"
+        }
+      },
       "template": {
         "badge_color": "Цвет значка",
         "badge_icon": "Иконка значка",
         "content": "Содержимое",
         "entity_extra": "Используется в шаблонах и действиях",
+        "label": "Ярлык",
         "multiline_secondary": "Многострочная Второстепенная информация?",
         "picture": "Изображение (заменить иконку)",
         "primary": "Основная информация",
@@ -76,13 +94,18 @@
       },
       "title": {
         "subtitle": "Подзаголовок",
-        "title": "Заголовок"
+        "subtitle_tap_action": "Действие при нажатии на подзаголовок",
+        "title": "Заголовок",
+        "title_tap_action": "Действие при нажатии на заголовок"
       },
       "update": {
         "show_buttons_control": "Кнопки управления?"
       },
       "vacuum": {
-        "commands": "Команды"
+        "commands": "Команды",
+        "commands_list": {
+          "on_off": "Включить/выключить"
+        }
       },
       "weather": {
         "show_conditions": "Условия?",
@@ -104,6 +127,7 @@
           "entity": "Объект",
           "light": "Освещение",
           "menu": "Меню",
+          "spacer": "Пробел",
           "template": "Шаблон",
           "weather": "Погода"
         }
