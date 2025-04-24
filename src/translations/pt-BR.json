@@ -16,7 +16,11 @@
         "show_position_control": "Controle de posição?",
         "show_tilt_position_control": "Controle de inclinação?"
       },
+      "empty": {
+        "no_config_options": "Esse card não possui opções de configuração."
+      },
       "fan": {
+        "show_direction_control": "Controle de direção?",
         "show_oscillate_control": "Controle de oscilação?",
         "show_percentage_control": "Controle de porcentagem?"
       },
@@ -24,7 +28,7 @@
         "collapsible_controls": "Recolher controles quando desligado",
         "color": "Cor",
         "content_info": "Conteúdo",
-        "fill_container": "Prencher",
+        "fill_container": "Preencher espaço",
         "icon_animation": "Animar ícone quando ativo?",
         "icon_color": "Cor do ícone",
         "icon_type": "Tipo do ícone",
