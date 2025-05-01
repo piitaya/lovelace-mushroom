@@ -79,6 +79,7 @@ Different cards are available for differents entities :
 -   🌡 [Climate card](docs/cards/climate.md)
 -   🪟 [Cover card](docs/cards/cover.md)
 -   🪄 [Entity card](docs/cards/entity.md)
+-   🕳 [Empty card](docs/cards/empty.md)
 -   💨 [Fan card](docs/cards/fan.md)
 -   💧 [Humidifier card](docs/cards/humidifier.md)
 -   💡 [Light card](docs/cards/light.md)
@@ -141,7 +142,7 @@ npm run build
 
 ### Translations
 
-If you want to help translating Mushroom, you can translate it directly from your browser using [Weblate](weblate-url).
+If you want to help translating Mushroom, you can translate it directly from your browser using [Weblate][weblate-url].
 
 ### Maintainer steps to add a new language
 

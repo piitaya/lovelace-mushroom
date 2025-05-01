@@ -16,12 +16,17 @@
         "show_position_control": "位置控制?",
         "show_tilt_position_control": "角度控制?"
       },
+      "empty": {
+        "no_config_options": "这个卡片没有可配置的选项。"
+      },
       "fan": {
+        "show_direction_control": "方向控制？",
         "show_oscillate_control": "摆动控制?",
         "show_percentage_control": "百分比控制?"
       },
       "generic": {
         "collapsible_controls": "关闭时隐藏控制器",
+        "color": "颜色",
         "content_info": "内容",
         "fill_container": "填满容器",
         "icon_animation": "激活时使用动态图标?",
@@ -80,6 +85,7 @@
         "badge_icon": "徽标图标",
         "content": "内容",
         "entity_extra": "用于模板和动作",
+        "label": "标签",
         "multiline_secondary": "多行次要信息?",
         "picture": "图片 (将会替代图标)",
         "primary": "首要信息",

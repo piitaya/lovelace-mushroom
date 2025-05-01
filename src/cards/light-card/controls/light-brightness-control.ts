@@ -38,6 +38,7 @@ export class LightBrighnessControl extends LitElement {
         .disabled=${!isAvailable(this.entity)}
         .inactive=${!isActive(this.entity)}
         .showActive=${true}
+        min=${1}
         @change=${this.onChange}
         @current-change=${this.onCurrentChange}
       />

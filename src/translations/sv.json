@@ -17,6 +17,7 @@
         "show_tilt_position_control": "Visa lutningskontroll?"
       },
       "fan": {
+        "show_direction_control": "Riktningskontroll?",
         "show_oscillate_control": "Kontroll för oscillera?",
         "show_percentage_control": "Procentuell kontroll?"
       },

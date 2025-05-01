@@ -3,6 +3,7 @@ import { css, CSSResultGroup, html, nothing, PropertyValues } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { ifDefined } from "lit/directives/if-defined.js";
+import hash from "object-hash/dist/object_hash";
 import {
   actionHandler,
   ActionHandlerEvent,
@@ -18,10 +19,17 @@ import "../../shared/shape-icon";
 import "../../shared/state-info";
 import "../../shared/state-item";
 import { MushroomBaseElement } from "../../utils/base-element";
+import { CacheManager } from "../../utils/cache-manager";
 import { cardStyle } from "../../utils/card-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { TITLE_CARD_EDITOR_NAME, TITLE_CARD_NAME } from "./const";
 import { TitleCardConfig } from "./title-card-config";
+
+const templateCache = new CacheManager<TemplateResults>(1000);
+
+type TemplateResults = Partial<
+  Record<TemplateKey, RenderTemplateResult | undefined>
+>;
 
 registerCustomCard({
   type: TITLE_CARD_NAME,
@@ -50,9 +58,7 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
 
   @state() private _config?: TitleCardConfig;
 
-  @state() private _templateResults: Partial<
-    Record<TemplateKey, RenderTemplateResult | undefined>
-  > = {};
+  @state() private _templateResults?: TemplateResults;
 
   @state() private _unsubRenderTemplates: Map<
     TemplateKey,
@@ -86,7 +92,33 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
   }
 
   public disconnectedCallback() {
+    super.disconnectedCallback();
     this._tryDisconnect();
+
+    if (this._config && this._templateResults) {
+      const key = this._computeCacheKey();
+      templateCache.set(key, this._templateResults);
+    }
+  }
+
+  private _computeCacheKey() {
+    return hash(this._config);
+  }
+
+  protected willUpdate(_changedProperties: PropertyValues): void {
+    super.willUpdate(_changedProperties);
+    if (!this._config) {
+      return;
+    }
+
+    if (!this._templateResults) {
+      const key = this._computeCacheKey();
+      if (templateCache.has(key)) {
+        this._templateResults = templateCache.get(key)!;
+      } else {
+        this._templateResults = {};
+      }
+    }
   }
 
   public isTemplate(key: TemplateKey) {
@@ -96,7 +128,7 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
 
   private getValue(key: TemplateKey) {
     return this.isTemplate(key)
-      ? this._templateResults[key]?.result?.toString()
+      ? this._templateResults?.[key]?.result?.toString()
       : this._config?.[key];
   }
 
@@ -279,6 +311,7 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
           background: none;
           border: none;
           box-shadow: none;
+          text-align: var(--card-text-align, inherit);
         }
         .header div * {
           margin: 0;

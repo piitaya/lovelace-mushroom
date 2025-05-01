@@ -1,4 +1,7 @@
 {
+  "card": {
+    "not_found": "لم يتم العثور على الكيان"
+  },
   "editor": {
     "card": {
       "chips": {
@@ -10,14 +13,20 @@
       },
       "cover": {
         "show_buttons_control": "أزرار التحكم؟",
-        "show_position_control": "التحكم في الموقع؟"
+        "show_position_control": "التحكم في الموقع؟",
+        "show_tilt_position_control": "التحكم في الإمالة؟"
+      },
+      "empty": {
+        "no_config_options": "لا تحتوي هذه البطاقة على خيارات التكوين."
       },
       "fan": {
+        "show_direction_control": "التحكم بالإتجاه؟",
         "show_oscillate_control": "التحكم في التذبذب؟",
         "show_percentage_control": "التحكم في النسبة المئوية؟"
       },
       "generic": {
         "collapsible_controls": "تصغير عناصر التحكم عند الإيقاف",
+        "color": "اللون",
         "content_info": "المحتوى",
         "fill_container": "ملئ الحاوية",
         "icon_animation": "تحريك الرمز عندما يكون نشطًا؟",
@@ -63,11 +72,20 @@
           "volume_set": "مستوى الصوت"
         }
       },
+      "number": {
+        "display_mode": "وضع العرض",
+        "display_mode_list": {
+          "buttons": "الأزرار",
+          "default": "الافتراضي(سحب)",
+          "slider": "سحب"
+        }
+      },
       "template": {
         "badge_color": "لون الشارة",
         "badge_icon": "أيقونة الشارة",
         "content": "المحتوى",
         "entity_extra": "تستخدم في القوالب والإجراءات",
+        "label": "التسمية",
         "multiline_secondary": "متعدد الأسطر الثانوية؟",
         "picture": "صورة (ستحل محل الأيقونة)",
         "primary": "المعلومات الأساسية",
@@ -75,13 +93,18 @@
       },
       "title": {
         "subtitle": "العنوان الفرعي",
-        "title": "العنوان"
+        "subtitle_tap_action": "إجراء النقر على العنوان الفرعي",
+        "title": "العنوان",
+        "title_tap_action": "إجراء النقر على العنوان"
       },
       "update": {
         "show_buttons_control": "أزرار التحكم؟"
       },
       "vacuum": {
-        "commands": "الاوامر"
+        "commands": "الاوامر",
+        "commands_list": {
+          "on_off": "تشغيل/إيقاف"
+        }
       },
       "weather": {
         "show_conditions": "الأحوال الجوية؟",
@@ -101,8 +124,9 @@
           "back": "رجوع",
           "conditional": "مشروط",
           "entity": "الكيان",
-          "light": "Light",
+          "light": "مظيء",
           "menu": "القائمة",
+          "spacer": "مساحة",
           "template": "قالب",
           "weather": "الطقس"
         }

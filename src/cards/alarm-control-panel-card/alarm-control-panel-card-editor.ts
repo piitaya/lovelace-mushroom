@@ -2,12 +2,7 @@ import { html, nothing } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
-import {
-  LocalizeFunc,
-  LovelaceCardEditor,
-  atLeastHaVersion,
-  fireEvent,
-} from "../../ha";
+import { LocalizeFunc, LovelaceCardEditor, fireEvent } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { computeActionsFormSchema } from "../../shared/config/actions-config";
 import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
@@ -42,32 +37,28 @@ const states = [
   "armed_custom_bypass",
 ];
 
-const computeSchema = memoizeOne(
-  (localize: LocalizeFunc, useCallService: boolean): HaFormSchema[] => [
-    {
-      name: "entity",
-      selector: { entity: { domain: ALARM_CONTROl_PANEL_ENTITY_DOMAINS } },
-    },
-    { name: "name", selector: { text: {} } },
-    {
-      name: "icon",
-      selector: { icon: {} },
-      context: { icon_entity: "entity" },
-    },
-    ...APPEARANCE_FORM_SCHEMA,
-    {
-      type: "multi_select",
-      name: "states",
-      options: states.map((state) => [
-        state,
-        localize(
-          `ui.card.alarm_control_panel.${state.replace("armed", "arm")}`
-        ),
-      ]) as [string, string][],
-    },
-    ...computeActionsFormSchema(actions, useCallService),
-  ]
-);
+const computeSchema = memoizeOne((localize: LocalizeFunc): HaFormSchema[] => [
+  {
+    name: "entity",
+    selector: { entity: { domain: ALARM_CONTROl_PANEL_ENTITY_DOMAINS } },
+  },
+  { name: "name", selector: { text: {} } },
+  {
+    name: "icon",
+    selector: { icon: {} },
+    context: { icon_entity: "entity" },
+  },
+  ...APPEARANCE_FORM_SCHEMA,
+  {
+    type: "multi_select",
+    name: "states",
+    options: states.map((state) => [
+      state,
+      localize(`ui.card.alarm_control_panel.${state.replace("armed", "arm")}`),
+    ]) as [string, string][],
+  },
+  ...computeActionsFormSchema(actions),
+]);
 
 @customElement(ALARM_CONTROl_PANEL_CARD_EDITOR_NAME)
 export class SwitchCardEditor
@@ -91,8 +82,7 @@ export class SwitchCardEditor
       return nothing;
     }
 
-    const useCallService = !atLeastHaVersion(this.hass.config.version, 2024, 8);
-    const schema = computeSchema(this.hass!.localize, useCallService);
+    const schema = computeSchema(this.hass!.localize);
 
     return html`
       <ha-form
