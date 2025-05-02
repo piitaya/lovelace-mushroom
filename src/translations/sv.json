@@ -16,6 +16,9 @@
         "show_position_control": "Visa positionskontroll?",
         "show_tilt_position_control": "Visa lutningskontroll?"
       },
+      "empty": {
+        "no_config_options": "Detta kort har inga konfigurationsalternativ."
+      },
       "fan": {
         "show_direction_control": "Riktningskontroll?",
         "show_oscillate_control": "Kontroll för oscillera?",
