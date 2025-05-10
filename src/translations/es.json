@@ -16,7 +16,11 @@
         "show_position_control": "¿Control de posición?",
         "show_tilt_position_control": "¿Control de inclinación?"
       },
+      "empty": {
+        "no_config_options": "Esta carta no tiene opciones de config."
+      },
       "fan": {
+        "show_direction_control": "¿Control de dirección?",
         "show_oscillate_control": "¿Controlar oscilación?",
         "show_percentage_control": "¿Controlar porcentaje?"
       },
