@@ -4,6 +4,17 @@
   },
   "editor": {
     "card": {
+      "bar": {
+        "min": "Giá trị tối thiểu",
+        "max": "Giá trị tối đa",
+        "enable_color_severity": "Bật độ nghiêm trọng màu sắc",
+        "severity_direction": "Hướng màu",
+        "severity_direction_list": {
+          "default": "Mặc định (tiến)",
+          "forward": "Tiến",
+          "reverse": "Lùi"
+        }
+      },
       "chips": {
         "alignment": "Căn chỉnh"
       },

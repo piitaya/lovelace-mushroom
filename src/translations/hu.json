@@ -4,6 +4,17 @@
   },
   "editor": {
     "card": {
+      "bar": {
+        "min": "Minimum érték",
+        "max": "Maximum érték",
+        "enable_color_severity": "Szín erősség engedélyezése",
+        "severity_direction": "Szín iránya",
+        "severity_direction_list": {
+          "default": "Alapértelmezett (előre)",
+          "forward": "Előre",
+          "reverse": "Visszafelé"
+        }
+      },
       "chips": {
         "alignment": "Rendezés"
       },
