@@ -4,6 +4,17 @@
   },
   "editor": {
     "card": {
+      "bar": {
+        "min": "Valor mínim",
+        "max": "Valor màxim",
+        "enable_color_severity": "Activa la severitat del color",
+        "severity_direction": "Direcció del color",
+        "severity_direction_list": {
+          "default": "Per defecte (endavant)",
+          "forward": "Endavant",
+          "reverse": "Enrere"
+        }
+      },
       "chips": {
         "alignment": "Alineació"
       },

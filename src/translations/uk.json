@@ -4,6 +4,17 @@
   },
   "editor": {
     "card": {
+      "bar": {
+        "min": "Мінімальне значення",
+        "max": "Максимальне значення",
+        "enable_color_severity": "Увімкнути інтенсивність кольору",
+        "severity_direction": "Напрям кольору",
+        "severity_direction_list": {
+          "default": "Типово (вперед)",
+          "forward": "Вперед",
+          "reverse": "Назад"
+        }
+      },
       "chips": {
         "alignment": "Вирівнювання"
       },

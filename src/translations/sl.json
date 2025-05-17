@@ -4,6 +4,17 @@
   },
   "editor": {
     "card": {
+      "bar": {
+        "min": "Najmanjša vrednost",
+        "max": "Največja vrednost",
+        "enable_color_severity": "Omogoči barvno resnost",
+        "severity_direction": "Smer barve",
+        "severity_direction_list": {
+          "default": "Privzeto (naprej)",
+          "forward": "Naprej",
+          "reverse": "Nazaj"
+        }
+      },
       "chips": {
         "alignment": "Poravnava"
       },

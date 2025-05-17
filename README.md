@@ -75,6 +75,7 @@ All the Mushroom cards can be configured using Dashboard UI editor.
 Different cards are available for differents entities :
 
 -   🚨 [Alarm card](docs/cards/alarm-control-panel.md)
+-   🍫 [Bar card](docs/cards/bar.md)
 -   🔔 [Chips card](docs/cards/chips.md)
 -   🌡 [Climate card](docs/cards/climate.md)
 -   🪟 [Cover card](docs/cards/cover.md)

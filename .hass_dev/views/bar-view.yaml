@@ -1,0 +1,95 @@
+title: Bar
+icon: mdi:chart-bar
+cards:
+  - type: grid
+    square: false
+    columns: 1
+    cards:
+      - type: custom:mushroom-number-card
+        entity: number.large_range
+        grid_options:
+          columns: 12
+          rows: 2
+        name: Number card, control value for demo
+      - type: custom:mushroom-bar-card
+        entity: number.large_range
+        name: Default number
+        fill_container: true
+        grid_options: &ref_0
+          columns: 6
+          rows: 2
+      - type: custom:mushroom-bar-card
+        entity: number.large_range
+        name: Vertical number
+        layout: vertical
+      - type: custom:mushroom-bar-card
+        entity: number.large_range
+        name: With disabled actions
+        fill_container: true
+        grid_options: *ref_0
+        tap_action:
+          action: none
+      - type: custom:mushroom-bar-card
+        entity: number.large_range
+        name: Horizontal number
+        layout: horizontal
+      - type: custom:mushroom-bar-card
+        entity: number.large_range
+        name: Severity and icon color
+        layout: horizontal
+        enable_color_severity: true
+        icon_color: deep-purple
+      - type: custom:mushroom-bar-card
+        entity: number.large_range
+        name: Reverse severity colors
+        layout: horizontal
+        enable_color_severity: true
+        icon_color: deep-purple
+        severity_direction: reverse
+      - type: custom:mushroom-bar-card
+        entity: number.large_range
+        name: Set custom min and max
+        layout: horizontal
+        min: 250
+        max: 750
+  - type: grid
+    square: false
+    columns: 1
+    cards:
+      - type: custom:mushroom-bar-card
+        entity: sensor.outside_temperature
+        enable_color_severity: false
+        icon_color: red
+        name: Sensor with custom icon and color
+        icon: mdi:chart-bar
+        fill_container: true
+        grid_options:
+          columns: 12
+          rows: 2
+      - type: custom:mushroom-bar-card
+        entity: sensor.outside_temperature
+        enable_color_severity: true
+        icon_color: deep-purple
+        name: Sensor with custom icon color and color severity
+        icon: ''
+        fill_container: true
+        grid_options: &ref_1
+          columns: 12
+          rows: 2
+      - type: custom:mushroom-bar-card
+        entity: sensor.outside_temperature
+        enable_color_severity: true
+        name: Set custom min and max
+        icon: ''
+        fill_container: true
+        grid_options: *ref_1
+        min: 0
+        max: 35
+      - type: custom:mushroom-bar-card
+        entity: air_quality.demo_air_quality_home
+        severity_direction: forward
+        enable_color_severity: true
+        name: Air quality example
+        grid_options:
+          columns: 9
+          rows: 2

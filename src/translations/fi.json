@@ -4,6 +4,17 @@
   },
   "editor": {
     "card": {
+      "bar": {
+        "min": "Pienin arvo",
+        "max": "Suurin arvo",
+        "enable_color_severity": "Ota käyttöön väriteho",
+        "severity_direction": "Värin suunta",
+        "severity_direction_list": {
+          "default": "Oletus (eteenpäin)",
+          "forward": "Eteenpäin",
+          "reverse": "Taaksepäin"
+        }
+      },
       "chips": {
         "alignment": "Asettelu"
       },

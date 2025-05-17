@@ -4,6 +4,17 @@
   },
   "editor": {
     "card": {
+      "bar": {
+        "min": "ערך מינימלי",
+        "max": "ערך מקסימלי",
+        "enable_color_severity": "הפעל חומרת צבע",
+        "severity_direction": "כיוון הצבע",
+        "severity_direction_list": {
+          "default": "ברירת מחדל (קדימה)",
+          "forward": "קדימה",
+          "reverse": "אחורה"
+        }
+      },
       "chips": {
         "alignment": "יישור"
       },

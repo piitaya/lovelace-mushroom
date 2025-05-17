@@ -1,6 +1,17 @@
 {
   "editor": {
     "card": {
+      "bar": {
+        "min": "최소값",
+        "max": "최대값",
+        "enable_color_severity": "색상 심각도 사용",
+        "severity_direction": "색상 방향",
+        "severity_direction_list": {
+          "default": "기본값 (순방향)",
+          "forward": "순방향",
+          "reverse": "역방향"
+        }
+      },
       "chips": {
         "alignment": "정렬"
       },

@@ -4,6 +4,17 @@
   },
   "editor": {
     "card": {
+      "bar": {
+        "min": "Minvärde",
+        "max": "Maxvärde",
+        "enable_color_severity": "Aktivera färgintensitet",
+        "severity_direction": "Färgriktning",
+        "severity_direction_list": {
+          "default": "Standard (framåt)",
+          "forward": "Framåt",
+          "reverse": "Bakåt"
+        }
+      },
       "chips": {
         "alignment": "Justering"
       },

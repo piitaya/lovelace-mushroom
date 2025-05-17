@@ -4,6 +4,17 @@
   },
   "editor": {
     "card": {
+      "bar": {
+        "min": "最小值",
+        "max": "最大值",
+        "enable_color_severity": "启用颜色严重性",
+        "severity_direction": "颜色方向",
+        "severity_direction_list": {
+          "default": "默认（向前）",
+          "forward": "向前",
+          "reverse": "向后"
+        }
+      },
       "chips": {
         "alignment": "对齐"
       },

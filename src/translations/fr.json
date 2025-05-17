@@ -4,6 +4,17 @@
   },
   "editor": {
     "card": {
+      "bar": {
+        "min": "Valeur min",
+        "max": "Valeur max",
+        "enable_color_severity": "Gravité de la couleur",
+        "severity_direction": "Ordre des couleurs",
+        "severity_direction_list": {
+          "default": "Par défaut (avant)",
+          "forward": "Avant",
+          "reverse": "Arrière"
+        }
+      },
       "chips": {
         "alignment": "Alignement"
       },
