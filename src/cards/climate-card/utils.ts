@@ -24,7 +24,7 @@ export const CLIMATE_HVAC_MODE_ICONS: Record<HvacMode, string> = {
   dry: "mdi:water-percent",
   fan_only: "mdi:fan",
   heat: "mdi:fire",
-  heat_cool: "mdi:autorenew",
+  heat_cool: "mdi:sun-snowflake-variant",
   off: "mdi:power",
 };
 
