@@ -1,6 +1,17 @@
 {
   "editor": {
     "card": {
+      "bar": {
+        "min": "Valoare minimă",
+        "max": "Valoare maximă",
+        "enable_color_severity": "Activează severitatea culorii",
+        "severity_direction": "Direcția culorii",
+        "severity_direction_list": {
+          "default": "Implicit (înainte)",
+          "forward": "Înainte",
+          "reverse": "Înapoi"
+        }
+      },
       "chips": {
         "alignment": "Aliniere"
       },

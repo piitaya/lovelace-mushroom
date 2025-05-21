@@ -3,7 +3,18 @@
     "not_found": "Entitas tidak ditemukan"
   },
   "editor": {
-    "card": {
+    "card": {    
+      "bar": {
+        "min": "Nilai minimum",
+        "max": "Nilai maksimum",
+        "enable_color_severity": "Aktifkan tingkat warna",
+        "severity_direction": "Arah warna",
+        "severity_direction_list": {
+          "default": "Bawaan (maju)",
+          "forward": "Maju",
+          "reverse": "Mundur"
+        }
+      },
       "chips": {
         "alignment": "Perataan"
       },

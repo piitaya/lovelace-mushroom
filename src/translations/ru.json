@@ -4,6 +4,17 @@
   },
   "editor": {
     "card": {
+      "bar": {
+        "min": "Минимальное значение",
+        "max": "Максимальное значение",
+        "enable_color_severity": "Изменение цвета",
+        "severity_direction": "Порядок цветов",
+        "severity_direction_list": {
+          "default": "Стандартно (прямой)",
+          "forward": "Прямой",
+          "reverse": "Обратный"
+        }
+      },
       "chips": {
         "alignment": "Выравнивание"
       },

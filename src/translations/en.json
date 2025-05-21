@@ -147,6 +147,17 @@
           "slider": "Slider",
           "buttons": "Buttons"
         }
+      },
+      "bar": {
+        "min": "Min value",
+        "max": "Max value",
+        "enable_color_severity": "Color severity",
+        "severity_direction": "Color order",
+        "severity_direction_list": {
+          "default": "Default (forward)",
+          "forward": "Forward",
+          "reverse": "Reverse"
+        }
       }
     },
     "chip": {

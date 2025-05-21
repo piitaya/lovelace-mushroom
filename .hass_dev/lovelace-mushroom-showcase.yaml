@@ -16,3 +16,4 @@ views:
   - !include views/humidifier-view.yaml
   - !include views/select-view.yaml
   - !include views/number-view.yaml
+  - !include views/bar-view.yaml
