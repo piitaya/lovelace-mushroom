@@ -12,12 +12,15 @@ import { loadHaComponents } from "../../utils/loader";
 import { LOCK_CARD_EDITOR_NAME, LOCK_ENTITY_DOMAINS } from "./const";
 import { LockCardConfig, lockCardConfigStruct } from "./lock-card-config";
 
+const LOCK_LABELS = ["show_open_button_when_locked"];
+
 const SCHEMA: HaFormSchema[] = [
   { name: "entity", selector: { entity: { domain: LOCK_ENTITY_DOMAINS } } },
   { name: "name", selector: { text: {} } },
   { name: "icon", selector: { icon: {} }, context: { icon_entity: "entity" } },
   ...APPEARANCE_FORM_SCHEMA,
   ...computeActionsFormSchema(),
+  { name: "show_open_button_when_locked", selector: { boolean: {} } },
 ];
 
 @customElement(LOCK_CARD_EDITOR_NAME)
@@ -42,6 +45,9 @@ export class LockCardEditor
 
     if (GENERIC_LABELS.includes(schema.name)) {
       return customLocalize(`editor.card.generic.${schema.name}`);
+    }
+    if (LOCK_LABELS.includes(schema.name)) {
+      return customLocalize(`editor.card.lock.${schema.name}`);
     }
     return this.hass!.localize(
       `ui.panel.lovelace.editor.card.generic.${schema.name}`
