@@ -131,7 +131,8 @@
       "lock": {
         "lock": "Lock",
         "unlock": "Unlock",
-        "open": "Open"
+        "open": "Open",
+        "show_open_button_when_locked": "Show open button when locked?"
       },
       "humidifier": {
         "show_target_humidity_control": "Humidity control?"

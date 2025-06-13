@@ -46,7 +46,8 @@
       "lock": {
         "lock": "Vergrendel",
         "open": "Open",
-        "unlock": "Ontgrendel"
+        "unlock": "Ontgrendel",
+        "show_open_button_when_locked": "Toon open-knop wanneer vergrendeld?"
       },
       "media-player": {
         "media_controls": "Mediabediening",
