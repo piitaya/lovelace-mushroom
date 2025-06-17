@@ -8,39 +8,43 @@
         "alignment": "Uitlijning"
       },
       "climate": {
-        "hvac_modes": "HVAC Modes",
-        "show_temperature_control": "Temperatuur controle"
+        "hvac_modes": "HVAC-Modi",
+        "show_temperature_control": "Temperatuur bediening?"
       },
       "cover": {
-        "show_buttons_control": "Toon knoppen",
-        "show_position_control": "Toon positie bediening",
-        "show_tilt_position_control": "Toon tilt control"
+        "show_buttons_control": "Bedieningsknoppen?",
+        "show_position_control": "Positie bediening?",
+        "show_tilt_position_control": "Kantel bediening?"
+      },
+      "empty": {
+        "no_config_options": "Deze kaart heeft geen configuratie opties."
       },
       "fan": {
-        "show_oscillate_control": "Bediening oscillatie",
-        "show_percentage_control": "Bediening middels percentage"
+        "show_direction_control": "Richting bediening?",
+        "show_oscillate_control": "Oscillatie bediening?",
+        "show_percentage_control": "Bediening middels percentage?"
       },
       "generic": {
         "collapsible_controls": "Bedieningselementen verbergen wanneer uitgeschakeld",
         "color": "Kleur",
         "content_info": "Inhoud",
         "fill_container": "Vul container",
-        "icon_animation": "Pictogram animeren indien actief",
+        "icon_animation": "Icoon animeren indien actief?",
         "icon_color": "Icoon kleur",
         "icon_type": "Icoon type",
         "layout": "Lay-out",
         "primary_info": "Primaire informatie",
         "secondary_info": "Secundaire informatie",
-        "use_entity_picture": "Gebruik entiteit afbeelding"
+        "use_entity_picture": "Gebruik afbeelding van entiteit?"
       },
       "humidifier": {
-        "show_target_humidity_control": "Vochtigheid controle?"
+        "show_target_humidity_control": "Vochtigheid bediening?"
       },
       "light": {
         "incompatible_controls": "Sommige bedieningselementen worden mogelijk niet weergegeven als uw lamp deze functie niet ondersteunt.",
-        "show_brightness_control": "Bediening helderheid",
-        "show_color_control": "Bediening kleur",
-        "show_color_temp_control": "Bediening kleurtemperatuur",
+        "show_brightness_control": "Helderheidsbediening?",
+        "show_color_control": "Kleur bediening?",
+        "show_color_temp_control": "Kleurtemperatuur bediening?",
         "use_light_color": "Gebruik licht kleur"
       },
       "lock": {
@@ -56,12 +60,12 @@
           "play_pause_stop": "Speel/pauze/stop",
           "previous": "Vorige nummer",
           "repeat": "Herhalen",
-          "shuffle": "Shuffle"
+          "shuffle": "Willekeurig afspelen"
         },
         "show_volume_level": "Toon volumeniveau",
         "use_media_artwork": "Gebruik media omslag",
         "use_media_info": "Gebruik media informatie",
-        "volume_controls": "Volumeregeling",
+        "volume_controls": "Volumebediening",
         "volume_controls_list": {
           "volume_buttons": "Volume knoppen",
           "volume_mute": "Dempen",
@@ -82,7 +86,7 @@
         "content": "Inhoud",
         "entity_extra": "Gebruikt in sjablonen en acties",
         "label": "Label",
-        "multiline_secondary": "Secundaire informatie op meerdere lijnen weergeven",
+        "multiline_secondary": "Secundaire informatie op meerdere regels tonen?",
         "picture": "Afbeelding (zal het icoon vervangen)",
         "primary": "Primaire informatie",
         "secondary": "Secundaire informatie"
@@ -94,7 +98,7 @@
         "title_tap_action": "Titel tik actie"
       },
       "update": {
-        "show_buttons_control": "Bedieningsknoppen"
+        "show_buttons_control": "Bedieningsknoppen?"
       },
       "vacuum": {
         "commands": "Commando's",
@@ -103,8 +107,8 @@
         }
       },
       "weather": {
-        "show_conditions": "Weerbeeld",
-        "show_temperature": "Temperatuur"
+        "show_conditions": "Weersomstandigheden?",
+        "show_temperature": "Temperatuur?"
       }
     },
     "chip": {
@@ -131,7 +135,7 @@
         "chip": "Chip"
       },
       "sub_element_editor": {
-        "title": "Chip editor"
+        "title": "Chip-editor"
       }
     },
     "form": {
