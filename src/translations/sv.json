@@ -55,7 +55,7 @@
         "incompatible_controls": "Kontroller som inte stöds av enheten kommer inte visas.",
         "show_brightness_control": "Styr ljushet?",
         "show_color_control": "Styr färg?",
-        "show_color_temp_control": "Styr färgtemperatur?",
+        "show_color_temp_control": "Färgtemperaturkontroll?",
         "use_light_color": "Styr ljusets färg"
       },
       "lock": {

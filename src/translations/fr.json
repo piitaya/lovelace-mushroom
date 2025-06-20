@@ -27,8 +27,11 @@
         "show_position_control": "Contrôle de la position ?",
         "show_tilt_position_control": "Contrôle de l'inclinaison ?"
       },
+      "empty": {
+        "no_config_options": "Cette carte n'a pas de paramètres."
+      },
       "fan": {
-        "show_direction_control": "Contrôle de la direction?",
+        "show_direction_control": "Contrôle de la direction ?",
         "show_oscillate_control": "Contrôle de l'oscillation ?",
         "show_percentage_control": "Contrôle de la vitesse ?"
       },
