@@ -126,6 +126,7 @@
           "entity": "Entity",
           "light": "Light",
           "menu": "Menu",
+          "quickbar": "Quickbar",
           "spacer": "Spacer",
           "template": "Template",
           "weather": "Weather"
