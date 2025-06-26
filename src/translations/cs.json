@@ -4,6 +4,17 @@
   },
   "editor": {
     "card": {
+      "bar": {
+        "min": "Minimální hodnota",
+        "max": "Maximální hodnota",
+        "enable_color_severity": "Povolit závažnost barev",
+        "severity_direction": "Směr barvy",
+        "severity_direction_list": {
+          "default": "Výchozí (dopředu)",
+          "forward": "Dopředu",
+          "reverse": "Zpět"
+        }
+      },
       "chips": {
         "alignment": "Zarovnání"
       },
