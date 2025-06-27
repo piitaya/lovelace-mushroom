@@ -1,4 +1,11 @@
-import { css, CSSResultGroup, html, nothing } from "lit";
+import {
+  css,
+  CSSResultGroup,
+  html,
+  nothing,
+  PropertyValues,
+  TemplateResult,
+} from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -33,7 +40,15 @@ import {
   HUMIDIFIER_ENTITY_DOMAINS,
 } from "./const";
 import "./controls/humidifier-humidity-control";
+import "./controls/humidifier-modes-control";
 import { HumidifierCardConfig } from "./humidifier-card-config";
+
+type HumidifierCardControl = "humidity_control" | "mode_control";
+
+const CONTROLS_ICONS: Record<HumidifierCardControl, string> = {
+  humidity_control: "mdi:water-percent",
+  mode_control: "mdi:water",
+};
 
 registerCustomCard({
   type: HUMIDIFIER_CARD_NAME,
@@ -46,6 +61,10 @@ export class HumidifierCard
   extends MushroomBaseCard<HumidifierCardConfig, HumidifierEntity>
   implements LovelaceCard
 {
+  connectedCallback() {
+    super.connectedCallback();
+  }
+
   public static async getConfigElement(): Promise<LovelaceCardEditor> {
     await import("./humidifier-card-editor");
     return document.createElement(
@@ -66,8 +85,36 @@ export class HumidifierCard
     };
   }
 
+  @state() private _activeControl?: HumidifierCardControl;
+
+  private get _controls(): HumidifierCardControl[] {
+    if (!this._config || !this._stateObj) {
+      return [];
+    }
+
+    const stateObj = this._stateObj;
+    const controls: HumidifierCardControl[] = [];
+
+    if (this._config.show_target_humidity_control) {
+      controls.push("humidity_control");
+    }
+    if (
+      this._config.show_mode_control &&
+      this._config.available_modes?.length
+    ) {
+      controls.push("mode_control");
+    }
+
+    return controls;
+  }
+
   protected get hasControls(): boolean {
-    return Boolean(this._config?.show_target_humidity_control);
+    return this._controls.length > 0;
+  }
+
+  _onControlTap(ctrl, e): void {
+    e.stopPropagation();
+    this._activeControl = ctrl;
   }
 
   setConfig(config: HumidifierCardConfig): void {
@@ -80,6 +127,23 @@ export class HumidifierCard
       },
       ...config,
     });
+    this.updateActiveControl();
+  }
+
+  protected updated(changedProperties: PropertyValues) {
+    super.updated(changedProperties);
+    if (this.hass && changedProperties.has("hass")) {
+      this.updateActiveControl();
+    }
+  }
+
+  updateActiveControl() {
+    const isActiveControlSupported = this._activeControl
+      ? this._controls.includes(this._activeControl)
+      : false;
+    this._activeControl = isActiveControlSupported
+      ? this._activeControl
+      : this._controls[0];
   }
 
   private _handleAction(ev: ActionHandlerEvent) {
@@ -103,10 +167,13 @@ export class HumidifierCard
     const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
     let stateDisplay = this.hass.formatEntityState(stateObj);
-    if (stateObj.attributes.current_humidity !== null) {
+
+    const { current_humidity, humidity } = stateObj.attributes;
+    if (!!current_humidity || !!humidity) {
+      console.log("current_humidity", stateObj.attributes.current_humidity);
       const humidity = this.hass.formatEntityAttributeValue(
         stateObj,
-        "current_humidity"
+        current_humidity ? "current_humidity" : "humidity"
       );
       stateDisplay += ` ⸱ ${humidity}`;
     }
@@ -115,7 +182,7 @@ export class HumidifierCard
 
     const displayControls =
       (!this._config.collapsible_controls || isActive(stateObj)) &&
-      this._config.show_target_humidity_control;
+      this._controls.length;
 
     return html`
       <ha-card
@@ -140,16 +207,58 @@ export class HumidifierCard
           ${displayControls
             ? html`
                 <div class="actions" ?rtl=${rtl}>
-                  <mushroom-humidifier-humidity-control
-                    .hass=${this.hass}
-                    .entity=${stateObj}
-                  ></mushroom-humidifier-humidity-control>
+                  ${this.renderActiveControl(stateObj)}
+                  ${this.renderOtherControls()}
                 </div>
               `
             : nothing}
         </mushroom-card>
       </ha-card>
     `;
+  }
+
+  private renderOtherControls(): TemplateResult | null {
+    if (this._controls.length <= 1) return null;
+
+    return html`
+      <div class="other-controls">
+        ${this._controls.map((control) =>
+          control !== this._activeControl
+            ? html`
+                <mushroom-button
+                  @click=${(e) => this._onControlTap(control, e)}
+                >
+                  <ha-icon .icon=${CONTROLS_ICONS[control]}></ha-icon>
+                </mushroom-button>
+              `
+            : nothing
+        )}
+      </div>
+    `;
+  }
+
+  private renderActiveControl(entity: HumidifierEntity): TemplateResult | null {
+    if (!this._activeControl || !this._config) return null;
+
+    switch (this._activeControl) {
+      case "humidity_control":
+        return html`
+          <mushroom-humidifier-humidity-control
+            .hass=${this.hass}
+            .entity=${entity}
+          ></mushroom-humidifier-humidity-control>
+        `;
+      case "mode_control":
+        return html`
+          <mushroom-humidifier-modes-control
+            .hass=${this.hass}
+            .entity=${entity}
+            .modes=${this._config.available_modes}
+          ></mushroom-humidifier-modes-control>
+        `;
+      default:
+        return null;
+    }
   }
 
   protected renderBadge(entity: HumidifierEntity) {
@@ -191,8 +300,15 @@ export class HumidifierCard
           --icon-color: rgb(var(--rgb-state-humidifier));
           --shape-color: rgba(var(--rgb-state-humidifier), 0.2);
         }
-        mushroom-humidifier-humidity-control {
+        mushroom-humidifier-humidity-control,
+        mushroom-humidifier-modes-control {
           flex: 1;
+        }
+        .other-controls {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-end;
+          gap: 8px;
         }
       `,
     ];
