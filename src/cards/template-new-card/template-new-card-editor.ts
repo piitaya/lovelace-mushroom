@@ -49,6 +49,7 @@ export const TILE_LABELS = [
 ];
 
 export const HELPERS = [
+  "area",
   "entity",
   "badge_text",
   "multiline_secondary",
@@ -72,10 +73,28 @@ export class TemplateCardEditor
     this._config = config;
   }
 
+  private _featureContext = memoizeOne(
+    (config: TemplateNewCardConfig): LovelaceCardFeatureContext => {
+      return {
+        entity_id: config.entity,
+        area_id: config.area,
+      };
+    }
+  );
+
   private _schema = memoizeOne(
     (localize: LocalizeFunc) =>
       [
-        { name: "entity", selector: { entity: {} } },
+        {
+          name: "context",
+          flatten: true,
+          type: "expandable",
+          icon: "mdi:shape",
+          schema: [
+            { name: "entity", selector: { entity: {} } },
+            { name: "area", selector: { area: {} } },
+          ],
+        },
         {
           name: "content",
           flatten: true,
@@ -260,8 +279,7 @@ export class TemplateCardEditor
       data.content_layout === "vertical"
     );
 
-    const entityId = this._config.entity;
-    const stateObj = entityId ? this.hass!.states[entityId] : undefined;
+    const featureContext = this._featureContext(this._config);
 
     return html`
       <ha-form
@@ -291,7 +309,7 @@ export class TemplateCardEditor
           ></ha-form>
           <hui-card-features-editor
             .hass=${this.hass}
-            .stateObj=${stateObj}
+            .context=${featureContext}
             .features=${this._config!.features ?? []}
             @features-changed=${this._featuresChanged}
             @edit-detail-element=${this._editDetailElement}

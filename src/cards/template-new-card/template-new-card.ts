@@ -50,6 +50,11 @@ const TEMPLATE_KEYS = [
 
 type TemplateKey = (typeof TEMPLATE_KEYS)[number];
 
+export interface LovelaceCardFeatureContext {
+  entity_id?: string;
+  area_id?: string;
+}
+
 @customElement(TEMPLATE_CARD_NEW_NAME)
 export class Template extends LitElement implements LovelaceCard {
   public static async getConfigElement(): Promise<LovelaceCardEditor> {
@@ -162,6 +167,7 @@ export class Template extends LitElement implements LovelaceCard {
             config: this._config,
             user: this.hass.user!.name,
             entity: this._config.entity,
+            area: this._config.area,
           },
           strict: true,
         }
@@ -215,6 +221,15 @@ export class Template extends LitElement implements LovelaceCard {
       ...config,
     };
   }
+
+  private _featureContext = memoizeOne(
+    (config: TemplateNewCardConfig): LovelaceCardFeatureContext => {
+      return {
+        entity_id: config.entity,
+        area_id: config.area,
+      };
+    }
+  );
 
   private getValue(key: TemplateKey) {
     const value = this._getTemplateKeyValue(key);
@@ -342,7 +357,6 @@ export class Template extends LitElement implements LovelaceCard {
     const containerOrientationClass =
       featurePosition === "inline" ? "horizontal" : "";
 
-    const stateObj = entityId ? this.hass.states[entityId] : undefined;
     const multilineSecondary = this._config.multiline_secondary;
 
     const secondaryInfo = secondary
@@ -355,6 +369,8 @@ export class Template extends LitElement implements LovelaceCard {
           >
         `
       : undefined;
+
+    const featureContext = this._featureContext(this._config);
 
     return html`
       <ha-card style=${styleMap(style)}>
@@ -427,13 +443,14 @@ export class Template extends LitElement implements LovelaceCard {
                 `
               : nothing}
           </div>
-          ${features.length > 0 && stateObj
+          ${features.length > 0
             ? html`
                 <hui-card-features
                   .hass=${this.hass}
-                  .stateObj=${stateObj}
+                  .context=${featureContext}
                   .color=${cssColor}
                   .features=${features}
+                  .position=${featurePosition}
                 ></hui-card-features>
               `
             : nothing}

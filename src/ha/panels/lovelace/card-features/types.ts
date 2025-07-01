@@ -4,4 +4,5 @@ export type LovelaceCardFeatureConfig = {
 
 export interface LovelaceCardFeatureContext {
   entity_id?: string;
+  area_id?: string;
 }

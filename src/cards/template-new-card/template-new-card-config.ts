@@ -21,6 +21,7 @@ export type MushroomBadgeConfig = {
 
 export type TemplateNewCardConfig = LovelaceCardConfig & {
   entity?: string;
+  area?: string;
   // Content
   primary?: string;
   secondary?: string;
@@ -51,7 +52,10 @@ export type TemplateNewCardConfig = LovelaceCardConfig & {
 export const templateNewCardConfigStruct = assign(
   lovelaceCardConfigStruct,
   object({
+    // Context
     entity: optional(string()),
+    area: optional(string()),
+    // Content
     primary: optional(string()),
     secondary: optional(string()),
     color: optional(string()),
