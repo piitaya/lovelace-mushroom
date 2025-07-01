@@ -81,12 +81,15 @@
         }
       },
       "template": {
+        "area_helper": "Used in templates and features",
+        "area": "Area",
         "badge_color": "Badge color",
         "badge_icon": "Badge icon",
         "badge_text_helper": "If set, it will replace the icon.",
         "badge_text": "Badge text",
         "badge": "Badge",
         "content": "Content",
+        "context": "Context",
         "entity_helper": "Used in templates, actions and features",
         "label": "Label",
         "layout": "Layout",

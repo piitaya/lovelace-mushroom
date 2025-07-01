@@ -1,51 +1,85 @@
 import {
+  any,
   array,
   assign,
   boolean,
+  enums,
   object,
   optional,
   string,
   union,
 } from "superstruct";
-import { LovelaceCardConfig } from "../../ha";
-import {
-  ActionsSharedConfig,
-  actionsSharedConfigStruct,
-} from "../../shared/config/actions-config";
-import {
-  AppearanceSharedConfig,
-  appearanceSharedConfigStruct,
-} from "../../shared/config/appearance-config";
+import { ActionConfig, actionConfigStruct, LovelaceCardConfig } from "../../ha";
+import { LovelaceCardFeatureConfig } from "../../ha/panels/lovelace/card-features/types";
 import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-config";
 
-export type TemplateCardConfig = LovelaceCardConfig &
-  AppearanceSharedConfig &
-  ActionsSharedConfig & {
-    entity?: string;
-    icon?: string;
-    icon_color?: string;
-    primary?: string;
-    secondary?: string;
-    badge_icon?: string;
-    badge_color?: string;
-    picture?: string;
-    multiline_secondary?: boolean;
-    entity_id?: string | string[];
-  };
+export type TemplateCardConfig = LovelaceCardConfig & {
+  entity?: string;
+  area?: string;
+  // Content
+  primary?: string;
+  secondary?: string;
+  color?: string;
+  icon?: string;
+  picture?: string;
+  // Badges
+  badge_icon?: string;
+  badge_text?: string;
+  badge_color?: string;
+  // Style
+  vertical?: boolean;
+  multiline_secondary?: boolean;
+  // Interactions
+  tap_action?: ActionConfig;
+  hold_action?: ActionConfig;
+  double_tap_action?: ActionConfig;
+  icon_tap_action?: ActionConfig;
+  icon_hold_action?: ActionConfig;
+  icon_double_tap_action?: ActionConfig;
+  // Features
+  features?: LovelaceCardFeatureConfig[];
+  features_position?: "bottom" | "inline";
+  // Entity IDs for template
+  entity_id?: string | string[];
+  // Backwards compatibility from legacy template card
+  /**
+   * @deprecated Use color instead
+   */
+  icon_color?: string;
+};
 
 export const templateCardConfigStruct = assign(
   lovelaceCardConfigStruct,
-  assign(appearanceSharedConfigStruct, actionsSharedConfigStruct),
   object({
+    // Context
     entity: optional(string()),
-    icon: optional(string()),
-    icon_color: optional(string()),
+    area: optional(string()),
+    // Content
     primary: optional(string()),
     secondary: optional(string()),
-    badge_icon: optional(string()),
-    badge_color: optional(string()),
+    color: optional(string()),
+    icon: optional(string()),
     picture: optional(string()),
+    // Badges
+    badge_icon: optional(string()),
+    badge_text: optional(string()),
+    badge_color: optional(string()),
+    // Style
+    vertical: optional(boolean()),
     multiline_secondary: optional(boolean()),
+    // Interactions
+    tap_action: optional(actionConfigStruct),
+    hold_action: optional(actionConfigStruct),
+    double_tap_action: optional(actionConfigStruct),
+    icon_tap_action: optional(actionConfigStruct),
+    icon_hold_action: optional(actionConfigStruct),
+    icon_double_tap_action: optional(actionConfigStruct),
+    // Features
+    features: optional(array(any())),
+    features_position: optional(enums(["bottom", "inline"])),
+    // Entity IDs for template
     entity_id: optional(union([string(), array(string())])),
+    // Backwards compatibility from legacy template card
+    icon_color: optional(string()),
   })
 );
