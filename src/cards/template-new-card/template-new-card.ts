@@ -530,16 +530,12 @@ export class Template extends LitElement implements LovelaceCard {
         --badge-color,
         var(--secondary-text-color)
       );
-      font-size: 11px;
-      font-weight: 700;
     }
     ha-tile-info {
       position: relative;
       min-width: 0;
       transition: background-color 180ms ease-in-out;
       box-sizing: border-box;
-      // Set the icon size to the font size of text
-      --mdc-icon-size: 1em;
     }
     hui-card-features {
       --feature-color: var(--tile-color);
@@ -554,5 +550,6 @@ export class Template extends LitElement implements LovelaceCard {
     }
     .secondary.multiline {
       white-space: pre-wrap;
+    }
   `;
 }
