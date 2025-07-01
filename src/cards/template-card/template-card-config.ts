@@ -12,6 +12,7 @@ import {
 import { ActionConfig, actionConfigStruct, LovelaceCardConfig } from "../../ha";
 import { LovelaceCardFeatureConfig } from "../../ha/panels/lovelace/card-features/types";
 import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-config";
+import { layoutStruct } from "../../utils/layout";
 
 export type TemplateCardConfig = LovelaceCardConfig & {
   entity?: string;
@@ -46,6 +47,10 @@ export type TemplateCardConfig = LovelaceCardConfig & {
    * @deprecated Use color instead
    */
   icon_color?: string;
+  /**
+   * @deprecated Use vertical instead
+   */
+  layout?: string;
 };
 
 export const templateCardConfigStruct = assign(
@@ -81,5 +86,6 @@ export const templateCardConfigStruct = assign(
     entity_id: optional(union([string(), array(string())])),
     // Backwards compatibility from legacy template card
     icon_color: optional(string()),
+    layout: optional(string()),
   })
 );
