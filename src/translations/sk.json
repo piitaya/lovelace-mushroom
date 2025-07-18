@@ -16,7 +16,11 @@
         "show_position_control": "Ovládanie pozície?",
         "show_tilt_position_control": "Ovládanie natočenia?"
       },
+      "empty": {
+        "no_config_options": "Táto karta nemá žiadne možnosti konfigurácie."
+      },
       "fan": {
+        "show_direction_control": "Ovládanie smeru?",
         "show_oscillate_control": "Ovládanie oscilácie?",
         "show_percentage_control": "Ovládanie rýchlosti v percentách?"
       },
