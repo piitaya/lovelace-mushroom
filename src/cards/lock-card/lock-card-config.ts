@@ -17,7 +17,9 @@ import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-conf
 export type LockCardConfig = LovelaceCardConfig &
   EntitySharedConfig &
   AppearanceSharedConfig &
-  ActionsSharedConfig;
+  ActionsSharedConfig & {
+    show_open_button_when_locked?: boolean;
+  };
 
 export const lockCardConfigStruct = assign(
   lovelaceCardConfigStruct,
@@ -25,5 +27,8 @@ export const lockCardConfigStruct = assign(
     entitySharedConfigStruct,
     appearanceSharedConfigStruct,
     actionsSharedConfigStruct
-  )
+  ),
+  object({
+    show_open_button_when_locked: optional(boolean()),
+  })
 );
