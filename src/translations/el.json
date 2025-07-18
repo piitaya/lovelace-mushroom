@@ -1,6 +1,17 @@
 {
   "editor": {
     "card": {
+      "bar": {
+        "min": "Ελάχιστη τιμή",
+        "max": "Μέγιστη τιμή",
+        "enable_color_severity": "Ενεργοποίηση έντασης χρώματος",
+        "severity_direction": "Κατεύθυνση χρώματος",
+        "severity_direction_list": {
+          "default": "Προεπιλογή (προς τα εμπρός)",
+          "forward": "Προς τα εμπρός",
+          "reverse": "Ανάποδα"
+        }
+      },
       "chips": {
         "alignment": "Ευθυγράμμιση"
       },

@@ -4,6 +4,17 @@
   },
   "editor": {
     "card": {
+      "bar": {
+        "min": "Minimumwaarde",
+        "max": "Maximumwaarde",
+        "enable_color_severity": "Kleurintensiteit inschakelen",
+        "severity_direction": "Kleurrichting",
+        "severity_direction_list": {
+          "default": "Standaard (vooruit)",
+          "forward": "Vooruit",
+          "reverse": "Achteruit"
+        }
+      },
       "chips": {
         "alignment": "Uitlijning"
       },

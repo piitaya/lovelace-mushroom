@@ -4,6 +4,17 @@
   },
   "editor": {
     "card": {
+      "bar": {
+        "min": "Minimalwert",
+        "max": "Maximalwert",
+        "enable_color_severity": "Farbintensität aktivieren",
+        "severity_direction": "Farbrichtung",
+        "severity_direction_list": {
+          "default": "Standard (vorwärts)",
+          "forward": "Vorwärts",
+          "reverse": "Rückwärts"
+        }
+      },
       "chips": {
         "alignment": "Ausrichtung"
       },

@@ -1,6 +1,17 @@
 {
   "editor": {
     "card": {
+      "bar": {
+        "min": "Минимална стойност",
+        "max": "Максимална стойност",
+        "enable_color_severity": "Активиране на цветова интензивност",
+        "severity_direction": "Посока на цветовата тежест",
+        "severity_direction_list": {
+          "default": "По подразбиране (напред)",
+          "forward": "Напред",
+          "reverse": "Обратно"
+        }
+      },
       "chips": {
         "alignment": "Подравняване"
       },
