@@ -6,6 +6,7 @@ import "./utils/form/custom/ha-selector-mushroom-info";
 import "./utils/form/custom/ha-selector-mushroom-layout";
 
 import "./cards/alarm-control-panel-card/alarm-control-panel-card";
+import "./cards/bar-card/bar-card";
 import "./cards/chips-card/chips-card";
 import "./cards/climate-card/climate-card";
 import "./cards/cover-card/cover-card";

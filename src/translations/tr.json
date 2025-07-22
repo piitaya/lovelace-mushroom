@@ -4,6 +4,17 @@
   },
   "editor": {
     "card": {
+      "bar": {
+        "min": "Minimum değer",
+        "max": "Maksimum değer",
+        "enable_color_severity": "Renk şiddetini etkinleştir",
+        "severity_direction": "Renk yönü",
+        "severity_direction_list": {
+          "default": "Varsayılan (ileri)",
+          "forward": "İleri",
+          "reverse": "Geri"
+        }
+      },
       "chips": {
         "alignment": "Hizalama"
       },

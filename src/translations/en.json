@@ -80,6 +80,17 @@
           "slider": "Slider"
         }
       },
+      "bar": {
+        "min": "Min value",
+        "max": "Max value",
+        "enable_color_severity": "Color severity",
+        "severity_direction": "Color order",
+        "severity_direction_list": {
+          "default": "Default (forward)",
+          "forward": "Forward",
+          "reverse": "Reverse"
+        }
+      },
       "template": {
         "badge_color": "Badge color",
         "badge_icon": "Badge icon",
