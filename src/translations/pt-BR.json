@@ -126,6 +126,7 @@
           "entity": "Entidade",
           "light": "Luz",
           "menu": "Menu",
+          "quickbar": "Barra rápida",
           "spacer": "Espaçador",
           "template": "Template",
           "weather": "Clima"
