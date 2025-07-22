@@ -2,6 +2,7 @@ import type { MDCTabBarActivatedEvent } from "@material/tab-bar";
 import { css, CSSResultGroup, html, LitElement, nothing } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import {
+  atLeastHaVersion,
   fireEvent,
   HASSDomEvent,
   HomeAssistant,
@@ -55,11 +56,24 @@ export class ConditionalChipEditor
     this._cardEditorEl?.focusYamlEditor();
   }
 
-  protected render() {
-    if (!this.hass || !this._config) {
-      return nothing;
-    }
+  private _renderNewTab() {
+    const customLocalize = setupCustomlocalize(this.hass);
 
+    return html`
+      <sl-tab-group @sl-tab-show=${this._selectTab}>
+        <sl-tab slot="nav" panel="conditions" .active=${!this._cardTab}>
+          ${this.hass!.localize(
+            "ui.panel.lovelace.editor.card.conditional.conditions"
+          )}
+        </sl-tab>
+        <sl-tab slot="nav" panel="chip" .active=${this._cardTab}>
+          ${customLocalize("editor.chip.conditional.chip")}
+        </sl-tab>
+      </sl-tab-group>
+    `;
+  }
+
+  private _renderOldTab() {
     const customLocalize = setupCustomlocalize(this.hass);
 
     return html`
@@ -76,6 +90,20 @@ export class ConditionalChipEditor
           .label=${customLocalize("editor.chip.conditional.chip")}
         ></mwc-tab>
       </mwc-tab-bar>
+    `;
+  }
+
+  protected render() {
+    if (!this.hass || !this._config) {
+      return nothing;
+    }
+
+    const customLocalize = setupCustomlocalize(this.hass);
+
+    return html`
+      ${atLeastHaVersion(this.hass!.connection.haVersion, 2025, 5, 0)
+        ? this._renderNewTab()
+        : this._renderOldTab()}
       ${this._cardTab
         ? html`
             <div class="card">
@@ -138,7 +166,11 @@ export class ConditionalChipEditor
     `;
   }
 
-  private _selectTab(ev: MDCTabBarActivatedEvent): void {
+  private _selectTab(ev: CustomEvent): void {
+    if (atLeastHaVersion(this.hass!.connection.haVersion, 2025, 5, 0)) {
+      this._cardTab = ev.detail.name === "chip";
+      return;
+    }
     this._cardTab = ev.detail.index === 1;
   }
 
@@ -225,6 +257,14 @@ export class ConditionalChipEditor
     return css`
       mwc-tab-bar {
         border-bottom: 1px solid var(--divider-color);
+      }
+      sl-tab {
+        flex: 1;
+      }
+
+      sl-tab::part(base) {
+        width: 100%;
+        justify-content: center;
       }
       .card {
         margin-top: 8px;
