@@ -4,6 +4,17 @@
   },
   "editor": {
     "card": {
+      "bar": {
+        "min": "القيمة الدنيا",
+        "max": "القيمة القصوى",
+        "enable_color_severity": "تمكين شدة اللون",
+        "severity_direction": "اتجاه اللون",
+        "severity_direction_list": {
+          "default": "افتراضي (إلى الأمام)",
+          "forward": "إلى الأمام",
+          "reverse": "عكسي"
+        }
+      },
       "chips": {
         "alignment": "محاذاة"
       },
