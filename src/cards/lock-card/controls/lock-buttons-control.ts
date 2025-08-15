@@ -19,35 +19,40 @@ interface LockButton {
   isDisabled: (entity: LockEntity) => boolean;
 }
 
-export const LOCK_BUTTONS: LockButton[] = [
-  {
-    icon: "mdi:lock",
-    title: "lock",
-    serviceName: "lock",
-    isVisible: (entity) => isUnlocked(entity),
-    isDisabled: () => false,
-  },
-  {
-    icon: "mdi:lock-open",
-    title: "unlock",
-    serviceName: "unlock",
-    isVisible: (entity) => isLocked(entity),
-    isDisabled: () => false,
-  },
-  {
-    icon: "mdi:lock-clock",
-    isVisible: (entity) => isActionPending(entity),
-    isDisabled: () => true,
-  },
-  {
-    icon: "mdi:door-open",
-    title: "open",
-    serviceName: "open",
-    isVisible: (entity) =>
-      supportsFeature(entity, LOCK_SUPPORT_OPEN) && isUnlocked(entity),
-    isDisabled: (entity) => isActionPending(entity),
-  },
-];
+export function getLockButtons(
+  show_open_button_when_locked: boolean
+): LockButton[] {
+  return [
+    {
+      icon: "mdi:lock",
+      title: "lock",
+      serviceName: "lock",
+      isVisible: (entity) => isUnlocked(entity),
+      isDisabled: () => false,
+    },
+    {
+      icon: "mdi:lock-open",
+      title: "unlock",
+      serviceName: "unlock",
+      isVisible: (entity) => isLocked(entity),
+      isDisabled: () => false,
+    },
+    {
+      icon: "mdi:lock-clock",
+      isVisible: (entity) => isActionPending(entity),
+      isDisabled: () => true,
+    },
+    {
+      icon: "mdi:door-open",
+      title: "open",
+      serviceName: "open",
+      isVisible: (entity) =>
+        supportsFeature(entity, LOCK_SUPPORT_OPEN) &&
+        (isUnlocked(entity) || show_open_button_when_locked),
+      isDisabled: (entity) => isActionPending(entity),
+    },
+  ];
+}
 
 @customElement("mushroom-lock-buttons-control")
 export class LockButtonsControl extends LitElement {
@@ -56,6 +61,9 @@ export class LockButtonsControl extends LitElement {
   @property({ attribute: false }) public entity!: LockEntity;
 
   @property({ type: Boolean }) public fill: boolean = false;
+
+  @property({ type: Boolean }) public show_open_button_when_locked: boolean =
+    false;
 
   private callService(e: CustomEvent) {
     e.stopPropagation();
@@ -70,22 +78,24 @@ export class LockButtonsControl extends LitElement {
     const customLocalize = setupCustomlocalize(this.hass!);
 
     return html`
-      <mushroom-button-group .fill=${this.fill} ?rtl=${rtl}
-        >${LOCK_BUTTONS.filter((item) => item.isVisible(this.entity)).map(
-          (item) => html`
-            <mushroom-button
-              .entry=${item}
-              .title=${item.title
-                ? customLocalize(`editor.card.lock.${item.title}`)
-                : ""}
-              .disabled=${!isAvailable(this.entity) ||
-              item.isDisabled(this.entity)}
-              @click=${this.callService}
-            >
-              <ha-icon .icon=${item.icon}></ha-icon>
-            </mushroom-button>
-          `
-        )}</mushroom-button-group
+      <mushroom-button-group .fill=${this.fill} ?rtl=${rtl}>
+        ${getLockButtons(this.show_open_button_when_locked)
+          .filter((item) => item.isVisible(this.entity))
+          .map(
+            (item) => html`
+              <mushroom-button
+                .entry=${item}
+                .title=${item.title
+                  ? customLocalize(`editor.card.lock.${item.title}`)
+                  : ""}
+                .disabled=${!isAvailable(this.entity) ||
+                item.isDisabled(this.entity)}
+                @click=${this.callService}
+              >
+                <ha-icon .icon=${item.icon}></ha-icon>
+              </mushroom-button>
+            `
+          )}</mushroom-button-group
       >
     `;
   }
