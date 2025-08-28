@@ -126,6 +126,7 @@
           "entity": "Enhet",
           "light": "Ljus",
           "menu": "Meny",
+          "quickbar": "Snabbfält",
           "spacer": "Avståndshållare",
           "template": "Mall",
           "weather": "Väder"
