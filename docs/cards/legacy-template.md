@@ -1,9 +1,15 @@
 # Legacy template Card
 
+> ⚠️ **Note**  
+> This is the **legacy version** of the Template Card.  
+> It is kept for backward compatibility but does not support all the features of the new [Template Card](./template.md).  
+> **Use the new Template Card whenever possible.**
+
 ![Template light](../images/legacy-template-light.png)  
 ![Template dark](../images/legacy-template-dark.png)
 
 ## Description
+
 
 The **Legacy Template Card** allows you to build a customizable card while maintaining backward compatibility with older dashboards. It exists to ensure dashboards using **card-mod** or custom theming are not broken.  
 
