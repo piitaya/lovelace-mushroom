@@ -12,8 +12,9 @@ import {
 import { ActionConfig, actionConfigStruct, LovelaceCardConfig } from "../../ha";
 import { LovelaceCardFeatureConfig } from "../../ha/panels/lovelace/card-features/types";
 import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-config";
+import { layoutStruct } from "../../utils/layout";
 
-export type MushroomCardConfig = LovelaceCardConfig & {
+export type TemplateCardConfig = LovelaceCardConfig & {
   entity?: string;
   area?: string;
   // Content
@@ -41,9 +42,18 @@ export type MushroomCardConfig = LovelaceCardConfig & {
   features_position?: "bottom" | "inline";
   // Entity IDs for template
   entity_id?: string | string[];
+  // Backwards compatibility from legacy template card
+  /**
+   * @deprecated Use color instead
+   */
+  icon_color?: string;
+  /**
+   * @deprecated Use vertical instead
+   */
+  layout?: string;
 };
 
-export const mushroomCardConfigStruct = assign(
+export const templateCardConfigStruct = assign(
   lovelaceCardConfigStruct,
   object({
     // Context
@@ -74,5 +84,8 @@ export const mushroomCardConfigStruct = assign(
     features_position: optional(enums(["bottom", "inline"])),
     // Entity IDs for template
     entity_id: optional(union([string(), array(string())])),
+    // Backwards compatibility from legacy template card
+    icon_color: optional(string()),
+    layout: optional(string()),
   })
 );

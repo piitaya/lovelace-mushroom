@@ -21,10 +21,11 @@ import {
   EditDetailElementEvent,
   EditSubElementEvent,
 } from "../../utils/lovelace/editor/types";
+import { TEMPLATE_CARD_EDITOR_NAME } from "./const";
 import {
-  MushroomCardConfig,
-  mushroomCardConfigStruct,
-} from "./mushroom-card-config";
+  TemplateCardConfig,
+  templateCardConfigStruct,
+} from "./template-card-config";
 
 export const TEMPLATE_LABELS = [
   "area",
@@ -57,20 +58,20 @@ export const HELPERS = [
   "picture",
 ];
 
-@customElement("mushroom-card-editor")
+@customElement(TEMPLATE_CARD_EDITOR_NAME)
 export class TemplateCardEditor
   extends MushroomBaseElement
   implements LovelaceCardEditor
 {
-  @state() private _config?: MushroomCardConfig;
+  @state() private _config?: TemplateCardConfig;
 
   connectedCallback() {
     super.connectedCallback();
     void loadHaComponents();
   }
 
-  public setConfig(config: MushroomCardConfig): void {
-    assert(config, mushroomCardConfigStruct);
+  public setConfig(config: TemplateCardConfig): void {
+    assert(config, templateCardConfigStruct);
     this._config = config;
     if (this._config.icon_color) {
       delete this._config.icon_color;
@@ -87,7 +88,7 @@ export class TemplateCardEditor
   }
 
   private _featureContext = memoizeOne(
-    (config: MushroomCardConfig): LovelaceCardFeatureContext => {
+    (config: TemplateCardConfig): LovelaceCardFeatureContext => {
       return {
         entity_id: config.entity,
         area_id: config.area,
@@ -344,7 +345,7 @@ export class TemplateCardEditor
     }
 
     const features = ev.detail.features as LovelaceCardFeatureConfig[];
-    const config: MushroomCardConfig = {
+    const config: TemplateCardConfig = {
       ...this._config,
       features,
     };
@@ -388,9 +389,9 @@ export class TemplateCardEditor
       return;
     }
 
-    const newConfig = ev.detail.value as MushroomCardConfig;
+    const newConfig = ev.detail.value as TemplateCardConfig;
 
-    const config: MushroomCardConfig = {
+    const config: TemplateCardConfig = {
       features: this._config.features,
       ...newConfig,
     };
