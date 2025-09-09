@@ -24,8 +24,8 @@ All options are available in the **Lovelace editor**, but you can also configure
 
 | Name                | Type          | Default  | Description                                                                                           |
 | :------------------ | :------------ | :------- | :---------------------------------------------------------------------------------------------------- |
-| `entity`            | string        | Optional | Entity used for templating and actions.                                                               |
-| `area`                   | string        | Optional | Area used for templating and card features.   
+| `entity`            | string        | Optional | Entity used for templating and interactions.                                                               |
+| `area`                   | string        | Optional | Area used for templating.   
 | `icon`              | string        | Optional | Icon to display. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/). |
 | `color`             | string        | Optional | Color applied to the icon or badge. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                                           |
 | `label`             | string        | Optional | Label displayed below the badge. Only shown if not empty. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                       |
