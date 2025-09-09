@@ -28,6 +28,7 @@ import {
   migrateTemplateCardConfig,
   TemplateCardConfig,
   templateCardConfigStruct,
+  templateCardNeedsMigration,
 } from "./template-card-config";
 
 export const TEMPLATE_CARD_LABELS = [
@@ -64,6 +65,8 @@ export class MushroomTemplateCardEditor
 
   @state() private _config?: TemplateCardConfig;
 
+  @state() private _legacyConfig?: TemplateCardConfig;
+
   connectedCallback() {
     super.connectedCallback();
     void loadHaComponents();
@@ -71,6 +74,12 @@ export class MushroomTemplateCardEditor
 
   public setConfig(config: TemplateCardConfig): void {
     assert(config, templateCardConfigStruct);
+    if (templateCardNeedsMigration(config)) {
+      this._legacyConfig = { ...config };
+      this._legacyConfig.type = "custom:mushroom-legacy-template-card";
+    } else {
+      delete this._legacyConfig;
+    }
     this._config = migrateTemplateCardConfig(config);
   }
 
@@ -266,12 +275,24 @@ export class MushroomTemplateCardEditor
     return undefined;
   };
 
+  private _done = () => {
+    this._legacyConfig = undefined;
+  };
+
+  private _revertToLegacy = () => {
+    if (!this._legacyConfig) {
+      return;
+    }
+    fireEvent(this, "config-changed", { config: this._legacyConfig });
+  };
+
   protected render() {
     if (!this.hass || !this._config) {
       return nothing;
     }
 
     const schema = this._schema(this.hass.localize);
+    const customLocalize = setupCustomlocalize(this.hass!);
 
     const data = {
       ...this._config,
@@ -291,6 +312,39 @@ export class MushroomTemplateCardEditor
     const featureContext = this._featureContext(this._config);
 
     return html`
+      ${this._legacyConfig
+        ? html`
+            <ha-alert
+              alert-type="info"
+              .title=${customLocalize("migration.title")}
+            >
+              <div>
+                ${customLocalize("migration.description", {
+                  link: html`
+                    <a
+                      href="https://github.com/piitaya/lovelace-mushroom/releases/tag/v5.0.0"
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      >release note</a
+                    >
+                  `,
+                })}
+              </div>
+              <div class="actions">
+                <ha-button
+                  appearance="plain"
+                  size="small"
+                  @click=${this._revertToLegacy}
+                >
+                  ${customLocalize("migration.revert")}
+                </ha-button>
+                <ha-button size="small" @click=${this._done}>
+                  ${customLocalize("migration.ok")}
+                </ha-button>
+              </div>
+            </ha-alert>
+          `
+        : nothing}
       <ha-form
         .hass=${this.hass}
         .data=${data}
@@ -424,6 +478,24 @@ export class MushroomTemplateCardEditor
         }
         ha-expansion-panel ha-icon {
           color: var(--secondary-text-color);
+        }
+        ha-alert {
+          margin-bottom: 16px;
+          display: block;
+        }
+        ha-alert a {
+          color: var(--primary-color);
+        }
+        ha-alert .actions {
+          display: flex;
+          width: 100%;
+          flex: 1;
+          align-items: flex-end;
+          flex-direction: row;
+          justify-content: flex-end;
+          gap: 8px;
+          margin-top: 8px;
+          border-radius: 8px;
         }
       `,
     ];

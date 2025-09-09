@@ -51,6 +51,10 @@ export type TemplateCardConfig = LovelaceCardConfig & {
    * @deprecated Use vertical instead
    */
   layout?: string;
+  /**
+   * @deprecated Use grid_options instead
+   */
+  fill_container?: boolean;
 };
 
 export const templateCardConfigStruct = assign(
@@ -87,6 +91,7 @@ export const templateCardConfigStruct = assign(
     // Backwards compatibility from legacy template card
     icon_color: optional(string()),
     layout: optional(string()),
+    fill_container: optional(boolean()),
   })
 );
 
@@ -106,5 +111,12 @@ export const migrateTemplateCardConfig = (
       newConfig.vertical = config.layout === "vertical";
     }
   }
+  delete newConfig.fill_container;
   return newConfig;
+};
+
+export const templateCardNeedsMigration = (
+  config: TemplateCardConfig
+): boolean => {
+  return Boolean(config.icon_color || config.layout || config.fill_container);
 };

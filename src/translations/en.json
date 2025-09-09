@@ -102,6 +102,7 @@
         "badge": "Badge",
         "content": "Content",
         "entity_helper": "Used in templates, interaction and features",
+        "entity_helper_legacy": "Used in templates and interactions",
         "label": "Label",
         "layout": "Layout",
         "multiline_secondary_helper": "The card may be taller to fit the text and will not always align with the grid system.",
@@ -206,5 +207,11 @@
         }
       }
     }
+  },
+  "migration": {
+    "title": "Card updated",
+    "description": "Your card’s configuration has been migrated to the new version. You can find more information about the changes in the {link}.",
+    "revert": "Revert",
+    "ok": "Ok"
   }
 }

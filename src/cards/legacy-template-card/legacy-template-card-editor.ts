@@ -89,7 +89,7 @@ export class TemplateCardEditor
     if (schema.name === "entity") {
       return `${this.hass!.localize(
         "ui.panel.lovelace.editor.card.generic.entity"
-      )} (${customLocalize("editor.card.template.entity_extra")})`;
+      )}`;
     }
     if (GENERIC_LABELS.includes(schema.name)) {
       return customLocalize(`editor.card.generic.${schema.name}`);
@@ -100,6 +100,14 @@ export class TemplateCardEditor
     return this.hass!.localize(
       `ui.panel.lovelace.editor.card.generic.${schema.name}`
     );
+  };
+
+  private _computeHelper = (schema: HaFormSchema) => {
+    const customLocalize = setupCustomlocalize(this.hass!);
+    if (schema.name === "entity") {
+      return customLocalize("editor.card.template.entity_helper_legacy");
+    }
+    return undefined;
   };
 
   protected render() {
@@ -113,6 +121,7 @@ export class TemplateCardEditor
         .data=${this._config}
         .schema=${SCHEMA}
         .computeLabel=${this._computeLabel}
+        .computeHelper=${this._computeHelper}
         @value-changed=${this._valueChanged}
       ></ha-form>
     `;
