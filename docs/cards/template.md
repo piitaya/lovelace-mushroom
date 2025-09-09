@@ -35,9 +35,43 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `features_position`      | string          | `bottom` | Where the card features should be displayed. I can be either `bottom` or `inline`. When using inline, only the first feature is displayed.                       |
 | `entity_id`              | `string` `list` | Optional | Only reacts to the state changes of these entities. This can be used if the automatic analysis fails to find all relevant entities.                              |
 
+### Available colors
+
+Color tokens are available by you can also use regular hexadecimal color.
+
+- primary
+- accent
+- disabled
+- primary-text
+- secondary-text
+- disabled-text
+- red
+- pink
+- purple
+- deep-purple
+- indigo
+- blue
+- light-blue
+- cyan
+- teal
+- green
+- light-green
+- lime
+- yellow
+- amber
+- orange
+- deep-orange
+- brown
+- light-grey
+- grey
+- dark-grey
+- blue-grey
+- black
+- white
+
 #### Notes
 
-\* You can render weather svg icons using [weather state](https://developers.home-assistant.io/docs/core/entity/weather/#recommended-values-for-state-and-condition) as icon :
+You can render weather svg icons using [weather state](https://developers.home-assistant.io/docs/core/entity/weather/#recommended-values-for-state-and-condition) as icon :
 
 - weather-clear-night
 - weather-cloudy
