@@ -68,7 +68,7 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
       type: `custom:mushroom-template-card`,
       primary: "Hello, {{user}}",
       secondary: "How are you?",
-      icon: "mdi:home",
+      icon: "mdi:mushroom",
     };
   }
 
