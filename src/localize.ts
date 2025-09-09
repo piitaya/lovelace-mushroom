@@ -1,3 +1,4 @@
+import { IntlMessageFormat } from "intl-messageformat";
 import { HomeAssistant } from "./ha";
 import * as ar from "./translations/ar.json";
 import * as bg from "./translations/bg.json";
@@ -22,8 +23,8 @@ import * as pt_BR from "./translations/pt-BR.json";
 import * as pt_PT from "./translations/pt-PT.json";
 import * as ro from "./translations/ro.json";
 import * as ru from "./translations/ru.json";
-import * as sl from "./translations/sl.json";
 import * as sk from "./translations/sk.json";
+import * as sl from "./translations/sl.json";
 import * as sv from "./translations/sv.json";
 import * as tr from "./translations/tr.json";
 import * as uk from "./translations/uk.json";
@@ -81,11 +82,14 @@ function getTranslatedString(key: string, lang: string): string | undefined {
 }
 
 export default function setupCustomlocalize(hass?: HomeAssistant) {
-  return function (key: string) {
+  return function (key: string, argObject: Record<string, any> = {}) {
     const lang = hass?.locale.language ?? DEFAULT_LANG;
 
     let translated = getTranslatedString(key, lang);
     if (!translated) translated = getTranslatedString(key, DEFAULT_LANG);
-    return translated ?? key;
+
+    if (!translated) return key;
+    const translatedMessage = new IntlMessageFormat(translated, lang);
+    return translatedMessage.format<string>(argObject) as string;
   };
 }

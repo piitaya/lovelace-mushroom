@@ -3,6 +3,14 @@
     "not_found": "Entity not found"
   },
   "editor": {
+    "section": {
+      "context": "Context",
+      "content": "Content",
+      "features": "Features",
+      "interactions": "Interactions",
+      "layout": "Layout",
+      "badge": "Badge"
+    },
     "card": {
       "chips": {
         "alignment": "Alignment"
@@ -25,7 +33,8 @@
         "show_percentage_control": "Percentage control?"
       },
       "generic": {
-        "collapsible_controls": "Collapse controls when off",
+        "entity": "Entity",
+        "area": "Area",
         "color": "Color",
         "content_info": "Content",
         "fill_container": "Fill container",
@@ -35,7 +44,10 @@
         "layout": "Layout",
         "primary_info": "Primary information",
         "secondary_info": "Secondary information",
-        "use_entity_picture": "Use entity picture?"
+        "use_entity_picture": "Use entity picture?",
+        "collapsible_controls": "Collapse controls when off",
+        "picture": "Picture",
+        "picture_helper": "If set, it will replace the icon."
       },
       "humidifier": {
         "show_target_humidity_control": "Humidity control?"
@@ -81,13 +93,20 @@
         }
       },
       "template": {
+        "area_helper": "Used in templates and features",
+        "area": "Area",
         "badge_color": "Badge color",
         "badge_icon": "Badge icon",
+        "badge_text_helper": "If set, it will replace the icon.",
+        "badge_text": "Badge text",
+        "badge": "Badge",
         "content": "Content",
-        "entity_extra": "Used in templates and actions",
+        "entity_helper": "Used in templates, interaction and features",
+        "entity_helper_legacy": "Used in templates and interactions",
         "label": "Label",
-        "multiline_secondary": "Multiline secondary?",
-        "picture": "Picture (will replace the icon)",
+        "layout": "Layout",
+        "multiline_secondary_helper": "The card may be taller to fit the text and will not always align with the grid system.",
+        "multiline_secondary": "Allow multiline secondary information",
         "primary": "Primary information",
         "secondary": "Secondary information"
       },
@@ -109,6 +128,14 @@
       "weather": {
         "show_conditions": "Conditions?",
         "show_temperature": "Temperature?"
+      }
+    },
+    "badge": {
+      "template": {
+        "label": "Label",
+        "content": "Content",
+        "entity_helper": "Used in templates and interactions",
+        "area_helper":"Used in templates"
       }
     },
     "chip": {
@@ -180,5 +207,11 @@
         }
       }
     }
+  },
+  "migration": {
+    "title": "Card updated",
+    "description": "Your card’s configuration has been migrated to the new version. You can find more information about the changes in the {link}.",
+    "revert": "Revert",
+    "ok": "Ok"
   }
 }

@@ -1,77 +1,71 @@
-import { html, nothing } from "lit";
-import { customElement, state } from "lit/decorators.js";
+import { css, html, LitElement, nothing } from "lit";
+import { customElement, property, state } from "lit/decorators.js";
+import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
-import { LovelaceCardEditor, fireEvent } from "../../ha";
+import {
+  fireEvent,
+  HASSDomEvent,
+  LocalizeFunc,
+  LovelaceCardEditor,
+  type HomeAssistant,
+} from "../../ha";
+import {
+  LovelaceCardFeatureConfig,
+  LovelaceCardFeatureContext,
+} from "../../ha/panels/lovelace/card-features/types";
 import setupCustomlocalize from "../../localize";
-import { computeActionsFormSchema } from "../../shared/config/actions-config";
-import { MushroomBaseElement } from "../../utils/base-element";
-import { GENERIC_LABELS } from "../../utils/form/generic-fields";
+import {
+  GENERIC_HELPERS,
+  GENERIC_LABELS,
+} from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { loadHaComponents } from "../../utils/loader";
-import { TEMPLATE_CARD_EDITOR_NAME } from "./const";
 import {
+  EditDetailElementEvent,
+  EditSubElementEvent,
+} from "../../utils/lovelace/editor/types";
+import {
+  migrateTemplateCardConfig,
   TemplateCardConfig,
   templateCardConfigStruct,
+  templateCardNeedsMigration,
 } from "./template-card-config";
 
-export const TEMPLATE_LABELS = [
-  "badge_icon",
+export const TEMPLATE_CARD_LABELS = [
   "badge_color",
-  "content",
+  "badge_icon",
+  "badge_text",
   "primary",
   "secondary",
   "multiline_secondary",
-  "picture",
 ];
 
-const SCHEMA: HaFormSchema[] = [
-  { name: "entity", selector: { entity: {} } },
-  {
-    name: "icon",
-    selector: { template: {} },
-  },
-  {
-    name: "icon_color",
-    selector: { template: {} },
-  },
-  {
-    name: "primary",
-    selector: { template: {} },
-  },
-  {
-    name: "secondary",
-    selector: { template: {} },
-  },
-  {
-    name: "badge_icon",
-    selector: { template: {} },
-  },
-  {
-    name: "badge_color",
-    selector: { template: {} },
-  },
-  {
-    name: "picture",
-    selector: { template: {} },
-  },
-  {
-    type: "grid",
-    name: "",
-    schema: [
-      { name: "layout", selector: { mush_layout: {} } },
-      { name: "fill_container", selector: { boolean: {} } },
-      { name: "multiline_secondary", selector: { boolean: {} } },
-    ],
-  },
-  ...computeActionsFormSchema(),
+export const TILE_LABELS = [
+  "content_layout",
+  "vertical",
+  "features_position",
+  "icon_tap_action",
+  "icon_hold_action",
+  "icon_double_tap_action",
 ];
 
-@customElement(TEMPLATE_CARD_EDITOR_NAME)
-export class TemplateCardEditor
-  extends MushroomBaseElement
+export const TEMPLATE_CARD_HELPERS = [
+  "area",
+  "entity",
+  "badge_text",
+  "multiline_secondary",
+];
+
+@customElement("mushroom-template-card-editor")
+export class MushroomTemplateCardEditor
+  extends LitElement
   implements LovelaceCardEditor
 {
+  @property({ attribute: false }) public hass!: HomeAssistant;
+
   @state() private _config?: TemplateCardConfig;
+
+  @state() private _legacyConfig?: TemplateCardConfig;
 
   connectedCallback() {
     super.connectedCallback();
@@ -80,26 +74,216 @@ export class TemplateCardEditor
 
   public setConfig(config: TemplateCardConfig): void {
     assert(config, templateCardConfigStruct);
-    this._config = config;
+    if (templateCardNeedsMigration(config)) {
+      this._legacyConfig = { ...config };
+      this._legacyConfig.type = "custom:mushroom-legacy-template-card";
+    } else {
+      delete this._legacyConfig;
+    }
+    this._config = migrateTemplateCardConfig(config);
   }
+
+  private _featureContext = memoizeOne(
+    (config: TemplateCardConfig): LovelaceCardFeatureContext => {
+      return {
+        entity_id: config.entity,
+        area_id: config.area,
+      };
+    }
+  );
+
+  private _schema = memoizeOne(
+    (localize: LocalizeFunc) =>
+      [
+        {
+          name: "context",
+          flatten: true,
+          type: "expandable",
+          icon: "mdi:shape",
+          schema: [
+            { name: "entity", selector: { entity: {} } },
+            { name: "area", selector: { area: {} } },
+          ],
+        },
+        {
+          name: "content",
+          flatten: true,
+          type: "expandable",
+          icon: "mdi:text-short",
+          schema: [
+            { name: "primary", selector: { template: {} } },
+            { name: "secondary", selector: { template: {} } },
+            { name: "color", selector: { template: {} } },
+            { name: "icon", selector: { template: {} } },
+            { name: "picture", selector: { template: {} } },
+          ],
+        },
+        {
+          name: "badge",
+          type: "expandable",
+          flatten: true,
+          icon: "mdi:square-rounded-badge-outline",
+
+          schema: [
+            { name: "badge_icon", selector: { template: {} } },
+            { name: "badge_text", selector: { template: {} } },
+            { name: "badge_color", selector: { template: {} } },
+          ],
+        },
+        {
+          name: "layout",
+          type: "expandable",
+          flatten: true,
+          icon: "mdi:image-text",
+          schema: [
+            {
+              name: "content_layout",
+              required: true,
+              selector: {
+                select: {
+                  mode: "box",
+                  options: ["horizontal", "vertical"].map((value) => ({
+                    label: localize(
+                      `ui.panel.lovelace.editor.card.tile.content_layout_options.${value}`
+                    ),
+                    value,
+                    image: {
+                      src: `/static/images/form/tile_content_layout_${value}.svg`,
+                      src_dark: `/static/images/form/tile_content_layout_${value}_dark.svg`,
+                      flip_rtl: true,
+                    },
+                  })),
+                },
+              },
+            },
+            {
+              name: "multiline_secondary",
+              selector: { boolean: {} },
+            },
+          ],
+        },
+        {
+          name: "interactions",
+          type: "expandable",
+          flatten: true,
+          icon: "mdi:gesture-tap",
+          schema: [
+            {
+              name: "tap_action",
+              selector: {
+                ui_action: {
+                  default_action: "none",
+                },
+              },
+            },
+            {
+              name: "icon_tap_action",
+              selector: {
+                ui_action: {
+                  default_action: "none",
+                },
+              },
+            },
+            {
+              name: "",
+              type: "optional_actions",
+              flatten: true,
+              schema: (
+                [
+                  "hold_action",
+                  "icon_hold_action",
+                  "double_tap_action",
+                  "icon_double_tap_action",
+                ] as const
+              ).map((action) => ({
+                name: action,
+                selector: {
+                  ui_action: {
+                    default_action: "none" as const,
+                  },
+                },
+              })),
+            },
+          ],
+        },
+      ] as const satisfies readonly HaFormSchema[]
+  );
+
+  private _featuresSchema = memoizeOne(
+    (localize: LocalizeFunc, vertical: boolean) =>
+      [
+        {
+          name: "features_position",
+          required: true,
+          selector: {
+            select: {
+              mode: "box",
+              options: ["bottom", "inline"].map((value) => ({
+                label: localize(
+                  `ui.panel.lovelace.editor.card.tile.features_position_options.${value}`
+                ),
+                description: localize(
+                  `ui.panel.lovelace.editor.card.tile.features_position_options.${value}_description`
+                ),
+                value,
+                image: {
+                  src: `/static/images/form/tile_features_position_${value}.svg`,
+                  src_dark: `/static/images/form/tile_features_position_${value}_dark.svg`,
+                  flip_rtl: true,
+                },
+                disabled: vertical && value === "inline",
+              })),
+            },
+          },
+        },
+      ] as const satisfies readonly HaFormSchema[]
+  );
 
   private _computeLabel = (schema: HaFormSchema) => {
     const customLocalize = setupCustomlocalize(this.hass!);
 
-    if (schema.name === "entity") {
-      return `${this.hass!.localize(
-        "ui.panel.lovelace.editor.card.generic.entity"
-      )} (${customLocalize("editor.card.template.entity_extra")})`;
+    if (schema.type === "expandable") {
+      return customLocalize(`editor.section.${schema.name}`);
     }
     if (GENERIC_LABELS.includes(schema.name)) {
       return customLocalize(`editor.card.generic.${schema.name}`);
     }
-    if (TEMPLATE_LABELS.includes(schema.name)) {
+    if (TEMPLATE_CARD_LABELS.includes(schema.name)) {
       return customLocalize(`editor.card.template.${schema.name}`);
+    }
+    if (TILE_LABELS.includes(schema.name)) {
+      return this.hass!.localize(
+        `ui.panel.lovelace.editor.card.tile.${schema.name}`
+      );
     }
     return this.hass!.localize(
       `ui.panel.lovelace.editor.card.generic.${schema.name}`
     );
+  };
+
+  private _computeHelper = (schema: HaFormSchema) => {
+    if (schema.type === "expandable") {
+      return undefined;
+    }
+    const customLocalize = setupCustomlocalize(this.hass!);
+    if (GENERIC_HELPERS.includes(schema.name)) {
+      return customLocalize(`editor.card.generic.${schema.name}_helper`);
+    }
+    if (TEMPLATE_CARD_HELPERS.includes(schema.name)) {
+      return customLocalize(`editor.card.template.${schema.name}_helper`);
+    }
+    return undefined;
+  };
+
+  private _done = () => {
+    this._legacyConfig = undefined;
+  };
+
+  private _revertToLegacy = () => {
+    if (!this._legacyConfig) {
+      return;
+    }
+    fireEvent(this, "config-changed", { config: this._legacyConfig });
   };
 
   protected render() {
@@ -107,18 +291,219 @@ export class TemplateCardEditor
       return nothing;
     }
 
+    const schema = this._schema(this.hass.localize);
+    const customLocalize = setupCustomlocalize(this.hass!);
+
+    const data = {
+      ...this._config,
+      content_layout: this._config.vertical ? "vertical" : "horizontal",
+    };
+
+    // Default features position to bottom and force it to bottom in vertical mode
+    if (!data.features_position || data.vertical) {
+      data.features_position = "bottom";
+    }
+
+    const featuresSchema = this._featuresSchema(
+      this.hass.localize,
+      data.content_layout === "vertical"
+    );
+
+    const featureContext = this._featureContext(this._config);
+
     return html`
+      ${this._legacyConfig
+        ? html`
+            <ha-alert
+              alert-type="info"
+              .title=${customLocalize("migration.title")}
+            >
+              <div>
+                ${customLocalize("migration.description", {
+                  link: html`
+                    <a
+                      href="https://github.com/piitaya/lovelace-mushroom/releases/tag/v5.0.0"
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      >release note</a
+                    >
+                  `,
+                })}
+              </div>
+              <div class="actions">
+                <ha-button
+                  appearance="plain"
+                  size="small"
+                  @click=${this._revertToLegacy}
+                >
+                  ${customLocalize("migration.revert")}
+                </ha-button>
+                <ha-button size="small" @click=${this._done}>
+                  ${customLocalize("migration.ok")}
+                </ha-button>
+              </div>
+            </ha-alert>
+          `
+        : nothing}
       <ha-form
         .hass=${this.hass}
-        .data=${this._config}
-        .schema=${SCHEMA}
+        .data=${data}
+        .schema=${schema}
         .computeLabel=${this._computeLabel}
+        .computeHelper=${this._computeHelper}
         @value-changed=${this._valueChanged}
       ></ha-form>
+      <ha-expansion-panel outlined>
+        <ha-icon slot="leading-icon" icon="mdi:list-box"></ha-icon>
+        <h3 slot="header">
+          ${this.hass!.localize(
+            "ui.panel.lovelace.editor.card.generic.features"
+          )}
+        </h3>
+        <div class="content">
+          <ha-form
+            class="features-form"
+            .hass=${this.hass}
+            .data=${data}
+            .schema=${featuresSchema}
+            .computeLabel=${this._computeLabel}
+            .computeHelper=${this._computeHelper}
+            @value-changed=${this._valueChanged}
+          ></ha-form>
+          <hui-card-features-editor
+            .hass=${this.hass}
+            .context=${featureContext}
+            .features=${this._config!.features ?? []}
+            @features-changed=${this._featuresChanged}
+            @edit-detail-element=${this._editDetailElement}
+          ></hui-card-features-editor>
+        </div>
+      </ha-expansion-panel>
     `;
   }
 
+  private _featuresChanged(ev: CustomEvent) {
+    ev.stopPropagation();
+    if (!this._config || !this.hass) {
+      return;
+    }
+
+    const features = ev.detail.features as LovelaceCardFeatureConfig[];
+    const config: TemplateCardConfig = {
+      ...this._config,
+      features,
+    };
+
+    if (features.length === 0) {
+      delete config.features;
+    }
+
+    fireEvent(this, "config-changed", { config });
+  }
+
+  private _editDetailElement(ev: HASSDomEvent<EditDetailElementEvent>): void {
+    const index = ev.detail.subElementConfig.index;
+    const config = this._config!.features![index!];
+
+    const featureContext = this._featureContext(this._config!);
+
+    fireEvent(this, "edit-sub-element", {
+      config: config,
+      saveConfig: (newConfig) => this._updateFeature(index!, newConfig),
+      context: featureContext,
+      type: "feature",
+    } as EditSubElementEvent<
+      LovelaceCardFeatureConfig,
+      LovelaceCardFeatureContext
+    >);
+  }
+
+  private _updateFeature(index: number, feature: LovelaceCardFeatureConfig) {
+    const features = this._config!.features!.concat();
+    features[index] = feature;
+    const config = { ...this._config!, features };
+    fireEvent(this, "config-changed", {
+      config: config,
+    });
+  }
+
   private _valueChanged(ev: CustomEvent): void {
-    fireEvent(this, "config-changed", { config: ev.detail.value });
+    ev.stopPropagation();
+    if (!this._config || !this.hass) {
+      return;
+    }
+
+    const newConfig = ev.detail.value as TemplateCardConfig;
+
+    const config: TemplateCardConfig = {
+      features: this._config.features,
+      ...newConfig,
+    };
+
+    // Convert content_layout to vertical
+    if (config.content_layout) {
+      config.vertical = config.content_layout === "vertical";
+      delete config.content_layout;
+    }
+    if (!config.vertical) {
+      delete config.vertical;
+    }
+
+    fireEvent(this, "config-changed", { config });
+  }
+
+  static get styles() {
+    return [
+      css`
+        ha-form {
+          display: block;
+          margin-bottom: 24px;
+        }
+        .features-form {
+          margin-bottom: 8px;
+        }
+        ha-expansion-panel {
+          display: block;
+          --expansion-panel-content-padding: 0;
+          border-radius: 6px;
+          --ha-card-border-radius: 6px;
+        }
+        ha-expansion-panel .content {
+          padding: 12px;
+        }
+        ha-expansion-panel > *[slot="header"] {
+          margin: 0;
+          font-size: inherit;
+          font-weight: inherit;
+        }
+        ha-expansion-panel ha-icon {
+          color: var(--secondary-text-color);
+        }
+        ha-alert {
+          margin-bottom: 16px;
+          display: block;
+        }
+        ha-alert a {
+          color: var(--primary-color);
+        }
+        ha-alert .actions {
+          display: flex;
+          width: 100%;
+          flex: 1;
+          align-items: flex-end;
+          flex-direction: row;
+          justify-content: flex-end;
+          gap: 8px;
+          margin-top: 8px;
+          border-radius: 8px;
+        }
+      `,
+    ];
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "mushroom-template-card-editor": MushroomTemplateCardEditor;
   }
 }

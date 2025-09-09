@@ -8,7 +8,7 @@ import { HaFormSchema } from "../../../utils/form/ha-form";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
 import { TemplateChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
-import { TEMPLATE_LABELS } from "../../template-card/template-card-editor";
+import { TEMPLATE_LABELS } from "../../legacy-template-card/legacy-template-card-editor";
 
 const SCHEMA: HaFormSchema[] = [
   { name: "entity", selector: { entity: {} } },
@@ -47,7 +47,7 @@ export class EntityChipEditor extends LitElement implements LovelaceChipEditor {
     if (schema.name === "entity") {
       return `${this.hass!.localize(
         "ui.panel.lovelace.editor.card.generic.entity"
-      )} (${customLocalize("editor.card.template.entity_extra")})`;
+      )} (${customLocalize("editor.card.template.entity_helper")})`;
     }
     if (GENERIC_LABELS.includes(schema.name)) {
       return customLocalize(`editor.card.generic.${schema.name}`);
