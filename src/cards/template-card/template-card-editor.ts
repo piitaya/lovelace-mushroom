@@ -75,14 +75,14 @@ export class TemplateCardEditor
     this._config = config;
     if (this._config.icon_color) {
       delete this._config.icon_color;
-      if (!this._config.color == null) {
-        this._config.color = this._config.icon_color;
+      if (this._config.color == null) {
+        this._config.color = config.icon_color;
       }
     }
     if (this._config.layout) {
       delete this._config.layout;
-      if (!this._config.vertical == null) {
-        this._config.vertical = this._config.layout === "vertical";
+      if (this._config.vertical == null) {
+        this._config.vertical = config.layout === "vertical";
       }
     }
   }
