@@ -1,49 +1,97 @@
-# Template card
+# Legacy template Card
 
-![Template light](../images/legacy-template-light.png)
+![Template light](../images/legacy-template-light.png)  
 ![Template dark](../images/legacy-template-dark.png)
 
 ## Description
 
-A template card allows you to build a custom card. You can use `entity` as a variable for the entity set on the card e.g. `{{ states(entity) }}`.
+The **Legacy Template Card** allows you to build a customizable card while maintaining backward compatibility with older dashboards. It exists to ensure dashboards using **card-mod** or custom theming are not broken.  
 
-## Configuration variables
+You can use [templating](https://www.home-assistant.io/docs/configuration/templating/) in most fields.  
+When defining an `entity`, you can reference it inside templates with the `entity` variable. For example:  
 
-All the options are available in the lovelace editor but you can use `yaml` if you want.
+```yaml
+primary: "{{ states(entity) }}"
+````
 
-| Name                  | Type            | Default  | Description                                                                                                                         |
-| :-------------------- | :-------------- | :------- | :---------------------------------------------------------------------------------------------------------------------------------- |
-| `entity`              | string          | Optional | Entity for template and actions                                                                                                     |
-| `icon`                | string          | Optional | Icon to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/) \*.                           |
-| `icon_color`          | string          | Optional | Icon color to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                        |
-| `primary`             | string          | Optional | Primary info to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                      |
-| `secondary`           | string          | Optional | Secondary info to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                    |
-| `badge_icon`          | string          | Optional | Badge icon to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                        |
-| `badge_color`         | string          | Optional | Badge icon color to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                  |
-| `picture`             | string          | Optional | Picture to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                           |
-| `multiline_secondary` | boolean         | `false`  | Enables support for multiline text for the secondary info.                                                                          |
-| `layout`              | string          | Optional | Layout of the card. Vertical, horizontal and default layout are supported                                                           |
-| `fill_container`      | boolean         | `false`  | Fill container or not. Useful when card is in a grid, vertical or horizontal layout                                                 |
-| `tap_action`          | action          | `none`   | Home assistant action to perform on tap                                                                                             |
-| `hold_action`         | action          | `none`   | Home assistant action to perform on hold                                                                                            |
-| `double_tap_action`   | action          | `none`   | Home assistant action to perform on double_tap                                                                                      |
-| `entity_id`           | `string` `list` | Optional | Only reacts to the state changes of these entities. This can be used if the automatic analysis fails to find all relevant entities. |
+---
 
-#### Notes
+## Configuration
 
-\* You can render weather svg icons using [weather state](https://developers.home-assistant.io/docs/core/entity/weather/#recommended-values-for-state-and-condition) as icon :
+All options are available in the **Lovelace editor**, but you can also configure the card directly in **YAML**.
 
-- weather-clear-night
-- weather-cloudy
-- weather-fog
-- weather-lightning
-- weather-lightning-rainy
-- weather-partlycloudy
-- weather-pouring
-- weather-rainy
-- weather-hail
-- weather-snowy
-- weather-snowy-rainy
-- weather-sunny
-- weather-windy
-- weather-windy-variant
+| Name                  | Type          | Default  | Description                                                                                                   |
+| :-------------------- | :------------ | :------- | :------------------------------------------------------------------------------------------------------------ |
+| `entity`              | string        | Optional | Entity used for templating and actions.                                                                       |
+| `icon`                | string        | Optional | Icon to display. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).         |
+| `icon_color`          | string        | Optional | Color applied to the icon. Supports templating.                                                               |
+| `primary`             | string        | Optional | Primary text (main label). Supports templating.                                                               |
+| `secondary`           | string        | Optional | Secondary text (subtitle or status). Supports templating.                                                     |
+| `badge_icon`          | string        | Optional | Icon displayed as a badge. Supports templating.                                                               |
+| `badge_color`         | string        | Optional | Color applied to the badge icon. Supports templating.                                                         |
+| `picture`             | string        | Optional | Image to display instead of an icon. Supports templating.                                                     |
+| `multiline_secondary` | boolean       | `false`  | If `true`, secondary text can span multiple lines.                                                            |
+| `layout`              | string        | Optional | Layout of the card. Supported values: `default`, `vertical`, or `horizontal`.                                 |
+| `fill_container`      | boolean       | `false`  | If `true`, the card expands to fill its container. Useful in grids or when using vertical/horizontal layouts. |
+| `tap_action`          | action        | `none`   | Action performed when the card is tapped.                                                                     |
+| `hold_action`         | action        | `none`   | Action performed when the card is long-pressed.                                                               |
+| `double_tap_action`   | action        | `none`   | Action performed when the card is double-tapped.                                                              |
+| `entity_id`           | string / list | Optional | Restricts updates to these entities. Useful if automatic detection misses dependencies.                       |
+
+---
+
+## Notes
+
+* Most fields support [templating](https://www.home-assistant.io/docs/configuration/templating/).
+* You can render **weather SVG icons** by using the [standard weather entity states](https://developers.home-assistant.io/docs/core/entity/weather/#recommended-values-for-state-and-condition) as icon values:
+
+  ```
+  weather-clear-night
+  weather-cloudy
+  weather-fog
+  weather-lightning
+  weather-lightning-rainy
+  weather-partlycloudy
+  weather-pouring
+  weather-rainy
+  weather-hail
+  weather-snowy
+  weather-snowy-rainy
+  weather-sunny
+  weather-windy
+  weather-windy-variant
+  ```
+
+---
+
+## Example YAML
+
+```yaml
+type: custom:mushroom-legacy-template-card
+entity: light.living_room
+icon: mdi:lightbulb
+icon_color: >
+  {% if is_state(entity, 'on') %}
+    yellow
+  {% else %}
+    grey
+  {% endif %}
+primary: "{{ state_attr(entity, 'friendly_name') }}"
+secondary: "Brightness: {{ state_attr(entity, 'brightness') | int }}"
+tap_action:
+  action: toggle
+```
+
+This configuration:
+
+* Displays a light bulb icon that changes color depending on the state.
+* Shows the entity’s friendly name as the primary text.
+* Shows the brightness level as secondary text.
+* Toggles the light when tapped.
+
+```
+
+---
+
+⚡ Do you also want me to create a **“Differences between Template Card and Legacy Template Card”** section in markdown so users know when to use one vs the other?
+```
