@@ -3,6 +3,14 @@
     "not_found": "Entity not found"
   },
   "editor": {
+    "section": {
+      "context": "Context",
+      "content": "Content",
+      "features": "Features",
+      "interactions": "Interactions",
+      "layout": "Layout",
+      "badge": "Badge"
+    },
     "card": {
       "chips": {
         "alignment": "Alignment"
@@ -25,7 +33,8 @@
         "show_percentage_control": "Percentage control?"
       },
       "generic": {
-        "collapsible_controls": "Collapse controls when off",
+        "entity": "Entity",
+        "area": "Area",
         "color": "Color",
         "content_info": "Content",
         "fill_container": "Fill container",
@@ -35,7 +44,10 @@
         "layout": "Layout",
         "primary_info": "Primary information",
         "secondary_info": "Secondary information",
-        "use_entity_picture": "Use entity picture?"
+        "use_entity_picture": "Use entity picture?",
+        "collapsible_controls": "Collapse controls when off",
+        "picture": "Picture",
+        "picture_helper": "If set, it will replace the icon."
       },
       "humidifier": {
         "show_target_humidity_control": "Humidity control?"
@@ -89,14 +101,11 @@
         "badge_text": "Badge text",
         "badge": "Badge",
         "content": "Content",
-        "context": "Context",
-        "entity_helper": "Used in templates, actions and features",
+        "entity_helper": "Used in templates, interaction and features",
         "label": "Label",
         "layout": "Layout",
         "multiline_secondary_helper": "The card may be taller to fit the text and will not always align with the grid system.",
         "multiline_secondary": "Allow multiline secondary information",
-        "picture_helper": "If set, it will replace the icon.",
-        "picture": "Picture",
         "primary": "Primary information",
         "secondary": "Secondary information"
       },
@@ -118,6 +127,14 @@
       "weather": {
         "show_conditions": "Conditions?",
         "show_temperature": "Temperature?"
+      }
+    },
+    "badge": {
+      "template": {
+        "label": "Label",
+        "content": "Content",
+        "entity_helper": "Used in templates and interactions",
+        "area_helper":"Used in templates"
       }
     },
     "chip": {

@@ -14,7 +14,10 @@ import {
   LovelaceCardFeatureContext,
 } from "../../ha/panels/lovelace/card-features/types";
 import setupCustomlocalize from "../../localize";
-import { GENERIC_LABELS } from "../../utils/form/generic-fields";
+import {
+  GENERIC_HELPERS,
+  GENERIC_LABELS,
+} from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { loadHaComponents } from "../../utils/loader";
 import {
@@ -26,18 +29,13 @@ import {
   templateCardConfigStruct,
 } from "./template-card-config";
 
-export const TEMPLATE_LABELS = [
-  "area",
+export const TEMPLATE_CARD_LABELS = [
   "badge_color",
   "badge_icon",
   "badge_text",
-  "badge",
-  "context",
-  "layout",
-  "multiline_secondary",
-  "picture",
   "primary",
   "secondary",
+  "multiline_secondary",
 ];
 
 export const TILE_LABELS = [
@@ -49,12 +47,11 @@ export const TILE_LABELS = [
   "icon_double_tap_action",
 ];
 
-export const HELPERS = [
+export const TEMPLATE_CARD_HELPERS = [
   "area",
   "entity",
   "badge_text",
   "multiline_secondary",
-  "picture",
 ];
 
 @customElement("mushroom-template-card-editor")
@@ -247,15 +244,13 @@ export class MushroomTemplateCardEditor
   private _computeLabel = (schema: HaFormSchema) => {
     const customLocalize = setupCustomlocalize(this.hass!);
 
-    if (schema.name === "entity") {
-      return this.hass!.localize(
-        "ui.panel.lovelace.editor.card.generic.entity"
-      );
+    if (schema.type === "expandable") {
+      return customLocalize(`editor.section.${schema.name}`);
     }
     if (GENERIC_LABELS.includes(schema.name)) {
       return customLocalize(`editor.card.generic.${schema.name}`);
     }
-    if (TEMPLATE_LABELS.includes(schema.name)) {
+    if (TEMPLATE_CARD_LABELS.includes(schema.name)) {
       return customLocalize(`editor.card.template.${schema.name}`);
     }
     if (TILE_LABELS.includes(schema.name)) {
@@ -269,9 +264,14 @@ export class MushroomTemplateCardEditor
   };
 
   private _computeHelper = (schema: HaFormSchema) => {
+    if (schema.type === "expandable") {
+      return undefined;
+    }
     const customLocalize = setupCustomlocalize(this.hass!);
-
-    if (HELPERS.includes(schema.name)) {
+    if (GENERIC_HELPERS.includes(schema.name)) {
+      return customLocalize(`editor.card.generic.${schema.name}_helper`);
+    }
+    if (TEMPLATE_CARD_HELPERS.includes(schema.name)) {
       return customLocalize(`editor.card.template.${schema.name}_helper`);
     }
     return undefined;

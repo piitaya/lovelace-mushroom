@@ -9,6 +9,7 @@ import { lovelaceBadgeConfigStruct } from "../../shared/config/lovelace-badge-co
 export type TemplateBadgeConfig = LovelaceBadgeConfig &
   ActionsSharedConfig & {
     entity?: string;
+    area?: string;
     icon?: string;
     color?: string;
     label?: string;
@@ -22,6 +23,7 @@ export const templateBadgeConfigStruct = assign(
   actionsSharedConfigStruct,
   object({
     entity: optional(string()),
+    area: optional(string()),
     icon: optional(string()),
     color: optional(string()),
     label: optional(string()),
