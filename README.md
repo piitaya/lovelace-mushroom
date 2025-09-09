@@ -94,7 +94,7 @@ Different cards are available for differents entities :
 
 ### Legacy cards
 
-Some cards are considered as legacy and are not available in the card picker :
+Some cards are considered as legacy, are not available in the card picker but you can still use them :
 
 - 🛠 [Legacy Template card](docs/cards/legacy-template.md)
 
