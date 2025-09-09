@@ -89,3 +89,22 @@ export const templateCardConfigStruct = assign(
     layout: optional(string()),
   })
 );
+
+export const migrateTemplateCardConfig = (
+  config: TemplateCardConfig
+): TemplateCardConfig => {
+  const newConfig = { ...config };
+  if (newConfig.icon_color) {
+    delete newConfig.icon_color;
+    if (newConfig.color == null) {
+      newConfig.color = config.icon_color;
+    }
+  }
+  if (newConfig.layout) {
+    delete newConfig.layout;
+    if (newConfig.vertical == null) {
+      newConfig.vertical = config.layout === "vertical";
+    }
+  }
+  return newConfig;
+};

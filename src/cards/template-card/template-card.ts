@@ -22,7 +22,10 @@ import { computeCssColor } from "../../ha/common/color/compute-color";
 import { isTemplate } from "../../ha/common/string/has-template";
 import { CacheManager } from "../../utils/cache-manager";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { TemplateCardConfig } from "./template-card-config";
+import {
+  migrateTemplateCardConfig,
+  TemplateCardConfig,
+} from "./template-card-config";
 
 registerCustomCard({
   type: "mushroom-template-card",
@@ -219,21 +222,7 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
   }
 
   public setConfig(config: TemplateCardConfig): void {
-    this._config = {
-      ...config,
-    };
-    if (this._config.icon_color) {
-      delete this._config.icon_color;
-      if (this._config.color == null) {
-        this._config.color = config.icon_color;
-      }
-    }
-    if (this._config.layout) {
-      delete this._config.layout;
-      if (this._config.vertical == null) {
-        this._config.vertical = config.layout === "vertical";
-      }
-    }
+    this._config = migrateTemplateCardConfig(config);
   }
 
   private _featureContext = memoizeOne(

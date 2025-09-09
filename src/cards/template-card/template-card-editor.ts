@@ -25,6 +25,7 @@ import {
   EditSubElementEvent,
 } from "../../utils/lovelace/editor/types";
 import {
+  migrateTemplateCardConfig,
   TemplateCardConfig,
   templateCardConfigStruct,
 } from "./template-card-config";
@@ -70,19 +71,7 @@ export class MushroomTemplateCardEditor
 
   public setConfig(config: TemplateCardConfig): void {
     assert(config, templateCardConfigStruct);
-    this._config = config;
-    if (this._config.icon_color) {
-      delete this._config.icon_color;
-      if (this._config.color == null) {
-        this._config.color = config.icon_color;
-      }
-    }
-    if (this._config.layout) {
-      delete this._config.layout;
-      if (this._config.vertical == null) {
-        this._config.vertical = config.layout === "vertical";
-      }
-    }
+    this._config = migrateTemplateCardConfig(config);
   }
 
   private _featureContext = memoizeOne(
