@@ -234,7 +234,6 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
         this._config.vertical = config.layout === "vertical";
       }
     }
-    console.log(this._config);
   }
 
   private _featureContext = memoizeOne(
