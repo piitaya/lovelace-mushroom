@@ -551,6 +551,10 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
         var(--secondary-text-color)
       );
     }
+    ha-tile-badge span {
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
     ha-tile-info {
       position: relative;
       min-width: 0;
