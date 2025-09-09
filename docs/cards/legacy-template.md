@@ -48,7 +48,6 @@ All options are available in the **Lovelace editor**, but you can also configure
 
 ## Notes
 
-* Most fields support [templating](https://www.home-assistant.io/docs/configuration/templating/).
 * You can render **weather SVG icons** by using the [standard weather entity states](https://developers.home-assistant.io/docs/core/entity/weather/#recommended-values-for-state-and-condition) as icon values:
 
   ```
