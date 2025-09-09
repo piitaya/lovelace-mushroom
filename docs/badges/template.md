@@ -38,6 +38,43 @@ All options are available in the **Lovelace editor**, but you can also configure
 
 ---
 
+## Available Colors
+
+You can use **color tokens** (theme-aware) or regular **hexadecimal colors**.
+
+### Theme color tokens
+
+* `primary`
+* `accent`
+* `disabled`
+* `primary-text`
+* `secondary-text`
+* `disabled-text`
+* `red`
+* `pink`
+* `purple`
+* `deep-purple`
+* `indigo`
+* `blue`
+* `light-blue`
+* `cyan`
+* `teal`
+* `green`
+* `light-green`
+* `lime`
+* `yellow`
+* `amber`
+* `orange`
+* `deep-orange`
+* `brown`
+* `light-grey`
+* `grey`
+* `dark-grey`
+* `blue-grey`
+* `black`
+* `white`
+
+---
 ## Notes
 
 * You can render **weather SVG icons** by using the [standard weather entity states](https://developers.home-assistant.io/docs/core/entity/weather/#recommended-values-for-state-and-condition) as icon values:
