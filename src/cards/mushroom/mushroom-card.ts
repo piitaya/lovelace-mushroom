@@ -22,13 +22,12 @@ import { computeCssColor } from "../../ha/common/color/compute-color";
 import { isTemplate } from "../../ha/common/string/has-template";
 import { CacheManager } from "../../utils/cache-manager";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { TEMPLATE_CARD_EDITOR_NAME, TEMPLATE_CARD_NAME } from "./const";
-import { TemplateCardConfig } from "./template-card-config";
+import { MushroomCardConfig } from "./mushroom-card-config";
 
 registerCustomCard({
-  type: TEMPLATE_CARD_NAME,
-  name: "Mushroom Template",
-  description: "Build your own Mushroom card using templates",
+  type: "mushroom-card",
+  name: "Mushroom",
+  description: "Build your own card using templates",
 });
 
 const templateCache = new CacheManager<TemplateResults>(1000);
@@ -55,24 +54,22 @@ export interface LovelaceCardFeatureContext {
   area_id?: string;
 }
 
-@customElement(TEMPLATE_CARD_NAME)
+@customElement("mushroom-card")
 export class Template extends LitElement implements LovelaceCard {
   public static async getConfigElement(): Promise<LovelaceCardEditor> {
-    await import("./template-card-editor");
-    return document.createElement(
-      TEMPLATE_CARD_EDITOR_NAME
-    ) as LovelaceCardEditor;
+    await import("./mushroom-card-editor");
+    return document.createElement("mushroom-card") as LovelaceCardEditor;
   }
 
-  public static getStubConfig(): TemplateCardConfig {
+  public static getStubConfig(): MushroomCardConfig {
     return {
-      type: `custom:${TEMPLATE_CARD_NAME}`,
+      type: `custom:mushroom-card`,
     };
   }
 
   @property({ attribute: false }) public hass?: HomeAssistant;
 
-  @state() private _config?: TemplateCardConfig;
+  @state() private _config?: MushroomCardConfig;
 
   @state() private _templateResults?: TemplateResults;
 
@@ -216,7 +213,7 @@ export class Template extends LitElement implements LovelaceCard {
     }
   }
 
-  public setConfig(config: TemplateCardConfig): void {
+  public setConfig(config: MushroomCardConfig): void {
     this._config = {
       ...config,
     };
@@ -235,7 +232,7 @@ export class Template extends LitElement implements LovelaceCard {
   }
 
   private _featureContext = memoizeOne(
-    (config: TemplateCardConfig): LovelaceCardFeatureContext => {
+    (config: MushroomCardConfig): LovelaceCardFeatureContext => {
       return {
         entity_id: config.entity,
         area_id: config.area,
@@ -323,14 +320,14 @@ export class Template extends LitElement implements LovelaceCard {
     );
   }
 
-  private _featurePosition = memoizeOne((config: TemplateCardConfig) => {
+  private _featurePosition = memoizeOne((config: MushroomCardConfig) => {
     if (config.vertical) {
       return "bottom";
     }
     return config.features_position || "bottom";
   });
 
-  private _displayedFeatures = memoizeOne((config: TemplateCardConfig) => {
+  private _displayedFeatures = memoizeOne((config: MushroomCardConfig) => {
     const features = config.features || [];
     const featurePosition = this._featurePosition(config);
 
