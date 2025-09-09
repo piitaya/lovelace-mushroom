@@ -1,89 +1,141 @@
-# Template card
+# Template Card
 
-![Template light](../images/template-light.png)
+![Template light](../images/template-light.png)  
 ![Template dark](../images/template-dark.png)
 
 ## Description
 
-A template card allows you to build a custom card. You can use `entity` as a variable for the entity set on the card e.g. `{{ states(entity) }}`.
+The **Template Card** allows you to build fully customizable cards for your dashboard.  
+You can use [templating](https://www.home-assistant.io/docs/configuration/templating/) in most fields.  
 
-## Configuration variables
+When defining an `entity` or an `area`, you can reference them inside templates with the `entity` and `area` variables. For example:  
 
-All the options are available in the lovelace editor but you can use `yaml` if you want.
+```yaml
+primary: "{{ states(entity) }}"
+secondary: "Area: {{ area_name(area) }}"
+````
 
-| Name                     | Type            | Default  | Description                                                                                                                                                      |
-| :----------------------- | :-------------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `entity`                 | string          | Optional | Entity for template, actions and card features                                                                                                                   |
-| `area`                   | string          | Optional | Entity for template and card features                                                                                                                            |
-| `icon`                   | string          | Optional | Icon to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/) \*.                                                        |
-| `color`                  | string          | Optional | Color to render. Used for icon, background effect and some card features. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/). |
-| `picture`                | string          | Optional | Picture to render. It will replace the icon. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                              |
-| `primary`                | string          | Optional | Primary info displayed in the. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                                            |
-| `secondary`              | string          | Optional | Secondary info to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                                                 |
-| `badge_icon`             | string          | Optional | Badge icon to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                                                     |
-| `badge_text`             | string          | Optional | Badge text to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                                                     |
-| `badge_color`            | string          | Optional | Badge color to render. May contain [templates](https://www.home-assistant.io/docs/configuration/templating/).                                                    |
-| `multiline_secondary`    | boolean         | `false`  | Enables support for multiline text for the secondary info.                                                                                                       |
-| `vertical`               | boolean         | Optional | Displayed the icon and the content verticaly or not                                                                                                              |
-| `tap_action`             | action          | `none`   | Home assistant action to perform on tap                                                                                                                          |
-| `hold_action`            | action          | `none`   | Home assistant action to perform on hold                                                                                                                         |
-| `double_tap_action`      | action          | `none`   | Home assistant action to perform on double_tap                                                                                                                   |
-| `icon_tap_action`        | action          | `none`   | Home assistant action to perform on icon tap                                                                                                                     |
-| `icon_hold_action`       | action          | `none`   | Home assistant action to perform on icon hold                                                                                                                    |
-| `icon_double_tap_action` | action          | `none`   | Home assistant action to perform on icon double_tap                                                                                                              |
-| `features`               | action          | `none`   | Card features to displayed on the card                                                                                                                           |
-| `features_position`      | string          | `bottom` | Where the card features should be displayed. I can be either `bottom` or `inline`. When using inline, only the first feature is displayed.                       |
-| `entity_id`              | `string` `list` | Optional | Only reacts to the state changes of these entities. This can be used if the automatic analysis fails to find all relevant entities.                              |
+---
 
-### Available colors
+## Configuration
 
-Color tokens are available by you can also use regular hexadecimal color.
+All options are available in the **Lovelace editor**, but you can also configure the card directly in **YAML**.
 
-- primary
-- accent
-- disabled
-- primary-text
-- secondary-text
-- disabled-text
-- red
-- pink
-- purple
-- deep-purple
-- indigo
-- blue
-- light-blue
-- cyan
-- teal
-- green
-- light-green
-- lime
-- yellow
-- amber
-- orange
-- deep-orange
-- brown
-- light-grey
-- grey
-- dark-grey
-- blue-grey
-- black
-- white
+| Name                     | Type          | Default  | Description                                                                                                                                        |
+| :----------------------- | :------------ | :------- | :------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `entity`                 | string        | Optional | Entity used for templating, actions, and card features.                                                                                            |
+| `area`                   | string        | Optional | Area used for templating and card features.                                                                                                        |
+| `icon`                   | string        | Optional | Icon to display. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                                              |
+| `color`                  | string        | Optional | Color applied to the icon, background effects, and card features. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                       |
+| `picture`                | string        | Optional | Image to display instead of an icon. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                                                                                          |
+| `primary`                | string        | Optional | Primary text (main label). Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                                                                                               |
+| `secondary`              | string        | Optional | Secondary text (subtitle or status). Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                                                                                         |
+| `badge_icon`             | string        | Optional | Icon displayed as a badge. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                                                                                                 |
+| `badge_text`             | string        | Optional | Text displayed inside the badge. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                                                                                             |
+| `badge_color`            | string        | Optional | Color applied to the badge. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                                                                                                  |
+| `multiline_secondary`    | boolean       | `false`  | If `true`, secondary text can span multiple lines.                                                                                                 |
+| `vertical`               | boolean       | `false` | If `true`, displays the icon above the text (vertical layout).                                                                                     |
+| `tap_action`             | action        | `none`   | Action performed when the card is tapped.                                                                                                          |
+| `hold_action`            | action        | `none`   | Action performed when the card is long-pressed.                                                                                                    |
+| `double_tap_action`      | action        | `none`   | Action performed when the card is double-tapped.                                                                                                   |
+| `icon_tap_action`        | action        | `none`   | Action performed when the icon is tapped.                                                                                                          |
+| `icon_hold_action`       | action        | `none`   | Action performed when the icon is long-pressed.                                                                                                    |
+| `icon_double_tap_action` | action        | `none`   | Action performed when the icon is double-tapped.                                                                                                   |
+| `features`               | list          | `none`   | Card features to display (e.g., controls or extra info).                                                                                           |
+| `features_position`      | string        | `bottom` | Where features are displayed: `bottom` (below the card) or `inline` (next to content). Note: when using `inline`, only the first feature is shown. |
+| `entity_id`              | string / list | Optional | Restricts template updates to these entities. Useful if automatic detection misses dependencies.                                                            |
 
-#### Notes
+---
 
-You can render weather svg icons using [weather state](https://developers.home-assistant.io/docs/core/entity/weather/#recommended-values-for-state-and-condition) as icon :
+## Available Colors
 
-- weather-clear-night
-- weather-cloudy
-- weather-fog
-- weather-lightning
-- weather-lightning-rainy
-- weather-partlycloudy
-- weather-pouring
-- weather-rainy
-- weather-hail
-- weather-snowy
-- weather-snowy-rainy
-- weather-sunny
-- weather-windy
-- weather-windy-variant
+You can use **color tokens** (theme-aware) or regular **hexadecimal colors**.
+
+### Theme color tokens
+
+* `primary`
+* `accent`
+* `disabled`
+* `primary-text`
+* `secondary-text`
+* `disabled-text`
+* `red`
+* `pink`
+* `purple`
+* `deep-purple`
+* `indigo`
+* `blue`
+* `light-blue`
+* `cyan`
+* `teal`
+* `green`
+* `light-green`
+* `lime`
+* `yellow`
+* `amber`
+* `orange`
+* `deep-orange`
+* `brown`
+* `light-grey`
+* `grey`
+* `dark-grey`
+* `blue-grey`
+* `black`
+* `white`
+
+---
+
+## Notes
+
+* Most fields support [templating](https://www.home-assistant.io/docs/configuration/templating/).
+* You can render **weather SVG icons** by using the [standard weather entity states](https://developers.home-assistant.io/docs/core/entity/weather/#recommended-values-for-state-and-condition) as icon values:
+
+  ```
+  weather-clear-night
+  weather-cloudy
+  weather-fog
+  weather-lightning
+  weather-lightning-rainy
+  weather-partlycloudy
+  weather-pouring
+  weather-rainy
+  weather-hail
+  weather-snowy
+  weather-snowy-rainy
+  weather-sunny
+  weather-windy
+  weather-windy-variant
+  ```
+
+---
+
+## Example YAML
+
+```yaml
+type: custom:mushroom-template-card
+entity: light.living_room_floor_lamp
+area: living_room
+icon: mdi:lightbulb
+color: |
+  {% if is_state(entity, 'on') %}
+    amber
+  {% else %}
+    disabled
+  {% endif %}
+primary: "{{ state_attr(entity, 'friendly_name') }}"
+secondary: Located in {{ area_name(area) }}
+tap_action:
+  action: more-info
+icon_tap_action:
+  action: toggle
+
+```
+
+This configuration:
+
+* Displays a light bulb icon that changes color depending on the state.
+* Shows the entity’s friendly name as the primary text.
+* Displays the area name as secondary text.
+* Toggles the light when tapped on the icon.
+* Display more info dialog when tapped on the card
+
