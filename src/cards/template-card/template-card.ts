@@ -22,11 +22,10 @@ import { computeCssColor } from "../../ha/common/color/compute-color";
 import { isTemplate } from "../../ha/common/string/has-template";
 import { CacheManager } from "../../utils/cache-manager";
 import { registerCustomCard } from "../../utils/custom-cards";
-import { TEMPLATE_CARD_EDITOR_NAME, TEMPLATE_CARD_NAME } from "./const";
 import { TemplateCardConfig } from "./template-card-config";
 
 registerCustomCard({
-  type: TEMPLATE_CARD_NAME,
+  type: "mushroom-template-card",
   name: "Mushroom Template",
   description: "Build your own Mushroom card using templates",
 });
@@ -55,18 +54,21 @@ export interface LovelaceCardFeatureContext {
   area_id?: string;
 }
 
-@customElement(TEMPLATE_CARD_NAME)
-export class Template extends LitElement implements LovelaceCard {
+@customElement("mushroom-template-card")
+export class MushroomTemplateCard extends LitElement implements LovelaceCard {
   public static async getConfigElement(): Promise<LovelaceCardEditor> {
     await import("./template-card-editor");
     return document.createElement(
-      TEMPLATE_CARD_EDITOR_NAME
+      "mushroom-template-card-editor"
     ) as LovelaceCardEditor;
   }
 
   public static getStubConfig(): TemplateCardConfig {
     return {
-      type: `custom:${TEMPLATE_CARD_NAME}`,
+      type: `custom:mushroom-template-card`,
+      primary: "Hello, {{user}}",
+      secondary: "How are you?",
+      icon: "mdi:home",
     };
   }
 
@@ -582,4 +584,10 @@ export class Template extends LitElement implements LovelaceCard {
       white-space: pre-wrap;
     }
   `;
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "mushroom-template-card": MushroomTemplateCard;
+  }
 }

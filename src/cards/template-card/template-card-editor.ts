@@ -1,19 +1,19 @@
-import { css, html, nothing } from "lit";
-import { customElement, state } from "lit/decorators.js";
+import { css, html, LitElement, nothing } from "lit";
+import { customElement, property, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import {
+  fireEvent,
   HASSDomEvent,
   LocalizeFunc,
   LovelaceCardEditor,
-  fireEvent,
+  type HomeAssistant,
 } from "../../ha";
 import {
   LovelaceCardFeatureConfig,
   LovelaceCardFeatureContext,
 } from "../../ha/panels/lovelace/card-features/types";
 import setupCustomlocalize from "../../localize";
-import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { loadHaComponents } from "../../utils/loader";
@@ -21,7 +21,6 @@ import {
   EditDetailElementEvent,
   EditSubElementEvent,
 } from "../../utils/lovelace/editor/types";
-import { TEMPLATE_CARD_EDITOR_NAME } from "./const";
 import {
   TemplateCardConfig,
   templateCardConfigStruct,
@@ -58,11 +57,13 @@ export const HELPERS = [
   "picture",
 ];
 
-@customElement(TEMPLATE_CARD_EDITOR_NAME)
-export class TemplateCardEditor
-  extends MushroomBaseElement
+@customElement("mushroom-template-card-editor")
+export class MushroomTemplateCardEditor
+  extends LitElement
   implements LovelaceCardEditor
 {
+  @property({ attribute: false }) public hass!: HomeAssistant;
+
   @state() private _config?: TemplateCardConfig;
 
   connectedCallback() {
@@ -437,5 +438,11 @@ export class TemplateCardEditor
         }
       `,
     ];
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "mushroom-template-card-editor": MushroomTemplateCardEditor;
   }
 }

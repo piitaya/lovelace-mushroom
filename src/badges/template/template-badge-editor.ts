@@ -1,14 +1,12 @@
-import { html, nothing } from "lit";
-import { customElement, state } from "lit/decorators.js";
+import { html, LitElement, nothing } from "lit";
+import { customElement, property, state } from "lit/decorators.js";
 import { assert } from "superstruct";
-import { LovelaceBadgeEditor, fireEvent } from "../../ha";
+import { fireEvent, LovelaceBadgeEditor, type HomeAssistant } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { computeActionsFormSchema } from "../../shared/config/actions-config";
-import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { loadHaComponents } from "../../utils/loader";
-import { TEMPLATE_BADGE_EDITOR_NAME } from "./const";
 import {
   TemplateBadgeConfig,
   templateBadgeConfigStruct,
@@ -41,11 +39,13 @@ const SCHEMA: HaFormSchema[] = [
   ...computeActionsFormSchema(),
 ];
 
-@customElement(TEMPLATE_BADGE_EDITOR_NAME)
-export class TemplateBadgeEditor
-  extends MushroomBaseElement
+@customElement("mushroom-template-badge-editor")
+export class MushroomTemplateBadgeEditor
+  extends LitElement
   implements LovelaceBadgeEditor
 {
+  @property({ attribute: false }) public hass!: HomeAssistant;
+
   @state() private _config?: TemplateBadgeConfig;
 
   connectedCallback() {
@@ -95,5 +95,11 @@ export class TemplateBadgeEditor
 
   private _valueChanged(ev: CustomEvent): void {
     fireEvent(this, "config-changed", { config: ev.detail.value });
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "mushroom-template-badge-editor": MushroomTemplateBadgeEditor;
   }
 }
