@@ -24,6 +24,7 @@ import {
   EditDetailElementEvent,
   EditSubElementEvent,
 } from "../../utils/lovelace/editor/types";
+import { getEntityDefaultTileIconAction } from "./template-card";
 import {
   migrateTemplateCardConfig,
   TemplateCardConfig,
@@ -93,7 +94,7 @@ export class MushroomTemplateCardEditor
   );
 
   private _schema = memoizeOne(
-    (localize: LocalizeFunc) =>
+    (localize: LocalizeFunc, entityId: string | undefined) =>
       [
         {
           name: "context",
@@ -172,7 +173,7 @@ export class MushroomTemplateCardEditor
               name: "tap_action",
               selector: {
                 ui_action: {
-                  default_action: "none",
+                  default_action: entityId ? "more-info" : "none",
                 },
               },
             },
@@ -180,7 +181,9 @@ export class MushroomTemplateCardEditor
               name: "icon_tap_action",
               selector: {
                 ui_action: {
-                  default_action: "none",
+                  default_action: entityId
+                    ? getEntityDefaultTileIconAction(entityId)
+                    : "none",
                 },
               },
             },
@@ -291,7 +294,7 @@ export class MushroomTemplateCardEditor
       return nothing;
     }
 
-    const schema = this._schema(this.hass.localize);
+    const schema = this._schema(this.hass.localize, this._config.entity);
     const customLocalize = setupCustomlocalize(this.hass!);
 
     const data = {

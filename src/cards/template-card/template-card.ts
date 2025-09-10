@@ -9,6 +9,8 @@ import hash from "object-hash/dist/object_hash";
 import {
   actionHandler,
   ActionHandlerEvent,
+  computeDomain,
+  DOMAINS_TOGGLE,
   handleAction,
   hasAction,
   HomeAssistant,
@@ -26,6 +28,15 @@ import {
   migrateTemplateCardConfig,
   TemplateCardConfig,
 } from "./template-card-config";
+
+export const getEntityDefaultTileIconAction = (entityId: string) => {
+  const domain = computeDomain(entityId);
+  const supportsIconAction =
+    DOMAINS_TOGGLE.has(domain) ||
+    ["button", "input_button", "scene"].includes(domain);
+
+  return supportsIconAction ? "toggle" : "none";
+};
 
 registerCustomCard({
   type: "mushroom-template-card",
@@ -223,6 +234,17 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
 
   public setConfig(config: TemplateCardConfig): void {
     this._config = migrateTemplateCardConfig(config);
+
+    if (this._config.entity) {
+      if (!this._config.tap_action) {
+        this._config.tap_action = { action: "more-info" };
+      }
+      if (!this._config.icon_tap_action) {
+        this._config.icon_tap_action = {
+          action: getEntityDefaultTileIconAction(this._config.entity),
+        };
+      }
+    }
   }
 
   private _featureContext = memoizeOne(

@@ -8,3 +8,15 @@ export const BINARY_STATE_OFF = "off";
 /** Temperature units. */
 export const UNIT_C = "°C";
 export const UNIT_F = "°F";
+
+/** Domains where we allow toggle in Lovelace. */
+export const DOMAINS_TOGGLE = new Set([
+  "fan",
+  "input_boolean",
+  "light",
+  "switch",
+  "group",
+  "automation",
+  "humidifier",
+  "valve",
+]);
