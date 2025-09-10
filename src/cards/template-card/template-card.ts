@@ -267,8 +267,16 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
     const featuresPosition =
       this._config && this._featurePosition(this._config);
     const featuresCount = this._config?.features?.length || 0;
+
+    const hasContent = Boolean(
+      this._config?.icon ||
+        this._config?.picture ||
+        this._config?.primary ||
+        this._config?.secondary
+    );
+
     return (
-      1 +
+      (hasContent || featuresPosition === "inline" ? 1 : 0) +
       (this._config?.vertical ? 1 : 0) +
       (featuresPosition === "inline" ? 0 : featuresCount)
     );
@@ -276,12 +284,23 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
 
   public getGridOptions(): LovelaceGridOptions {
     let columns: number | undefined = 6;
-    let rows: number | undefined = 1;
+    let rows: number | undefined = 0;
+
+    const hasContent = Boolean(
+      this._config?.icon ||
+        this._config?.picture ||
+        this._config?.primary ||
+        this._config?.secondary
+    );
+
+    rows = hasContent ? 1 : 0;
+
     const featurePosition = this._config && this._featurePosition(this._config);
     const featuresCount = this._config?.features?.length || 0;
     if (featuresCount) {
       if (featurePosition === "inline") {
         columns = 12;
+        rows = 1;
       } else {
         rows += featuresCount;
       }
@@ -356,7 +375,6 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
     if (!this._config || !this.hass) {
       return nothing;
     }
-    const entityId = this._config.entity;
 
     const contentClasses = { vertical: Boolean(this._config.vertical) };
 
@@ -396,6 +414,14 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
 
     const featureContext = this._featureContext(this._config);
 
+    const featureOnly =
+      features.length > 0 && !icon && !picture && !primary && !secondary;
+
+    const containerClasses = classMap({
+      horizontal: featurePosition === "inline",
+      "feature-only": featureOnly,
+    });
+
     return html`
       <ha-card style=${styleMap(style)}>
         <div
@@ -412,61 +438,62 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
         >
           <ha-ripple .disabled=${!this._hasCardAction}></ha-ripple>
         </div>
-        <div class="container ${containerOrientationClass}">
-          <div class="content ${classMap(contentClasses)}">
-            ${icon || picture
-              ? html`
-                  <ha-tile-icon
-                    role=${ifDefined(
-                      this._hasIconAction ? "button" : undefined
-                    )}
-                    tabindex=${ifDefined(this._hasIconAction ? "0" : undefined)}
-                    @action=${this._handleIconAction}
-                    .actionHandler=${actionHandler({
-                      disabled: !this._hasIconAction,
-                      hasHold: hasAction(this._config!.icon_hold_action),
-                      hasDoubleClick: hasAction(
-                        this._config!.icon_double_tap_action
-                      ),
-                    })}
-                    .interactive=${this._hasIconAction}
-                    .imageUrl=${picture}
-                  >
-                    <ha-state-icon
-                      slot="icon"
-                      .icon=${icon}
-                      .hass=${this.hass}
-                    ></ha-state-icon>
-                    ${badgeIcon || badgeText
-                      ? html`
-                          <ha-tile-badge
-                            style=${styleMap({
-                              "--badge-color": badgeCssColor,
-                            })}
-                          >
-                            ${badgeText
-                              ? html`
-                                  <span style="line-height: 1;">
-                                    ${badgeText}
-                                  </span>
-                                `
-                              : html`<ha-icon .icon=${badgeIcon}> </ha-icon>`}
-                          </ha-tile-badge>
-                        `
-                      : nothing}
-                  </ha-tile-icon>
-                `
-              : nothing}
-            ${primary || secondary
-              ? html`
-                  <ha-tile-info
-                    id="info"
-                    .primary=${primary}
-                    .secondary=${secondaryInfo}
-                  ></ha-tile-info>
-                `
-              : nothing}
-          </div>
+        <div class="container ${containerClasses}">
+          ${icon || picture || primary || secondary
+            ? html`<div class="content ${classMap(contentClasses)}">
+                ${icon || picture
+                  ? html`
+                      <ha-tile-icon
+                        role=${ifDefined(
+                          this._hasIconAction ? "button" : undefined
+                        )}
+                        tabindex=${ifDefined(
+                          this._hasIconAction ? "0" : undefined
+                        )}
+                        @action=${this._handleIconAction}
+                        .actionHandler=${actionHandler({
+                          disabled: !this._hasIconAction,
+                          hasHold: hasAction(this._config!.icon_hold_action),
+                          hasDoubleClick: hasAction(
+                            this._config!.icon_double_tap_action
+                          ),
+                        })}
+                        .interactive=${this._hasIconAction}
+                        .imageUrl=${picture}
+                      >
+                        <ha-state-icon
+                          slot="icon"
+                          .icon=${icon}
+                          .hass=${this.hass}
+                        ></ha-state-icon>
+                        ${badgeIcon || badgeText
+                          ? html`
+                              <ha-tile-badge
+                                style=${styleMap({
+                                  "--badge-color": badgeCssColor,
+                                })}
+                              >
+                                ${badgeText
+                                  ? html`<span>${badgeText}</span>`
+                                  : html`<ha-icon .icon=${badgeIcon}>
+                                    </ha-icon>`}
+                              </ha-tile-badge>
+                            `
+                          : nothing}
+                      </ha-tile-icon>
+                    `
+                  : nothing}
+                ${primary || secondary
+                  ? html`
+                      <ha-tile-info
+                        id="info"
+                        .primary=${primary}
+                        .secondary=${secondaryInfo}
+                      ></ha-tile-info>
+                    `
+                  : nothing}
+              </div> `
+            : nothing}
           ${features.length > 0
             ? html`
                 <hui-card-features
@@ -575,6 +602,8 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
     ha-tile-badge span {
       font-size: 0.8rem;
       font-weight: bold;
+      height: 16px;
+      line-height: 16px;
     }
     ha-tile-info {
       position: relative;
@@ -595,6 +624,27 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
     }
     .secondary.multiline {
       white-space: pre-wrap;
+    }
+    .container.feature-only {
+      justify-content: flex-end;
+    }
+    .container.feature-only hui-card-features {
+      flex: 1;
+      width: 100%;
+      padding: 12px 12px 12px 12px;
+    }
+    .container.feature-only.horizontal hui-card-features {
+      padding: 0 12px;
+    }
+    .container.horizontal .content:not(:has(ha-tile-info)) {
+      flex: none;
+    }
+    .container.horizontal:not(:has(ha-tile-info)) hui-card-features {
+      width: auto;
+      flex: 1;
+    }
+    .container.horizontal:not(:has(ha-tile-info)) .content {
+      flex: none;
     }
   `;
 }
