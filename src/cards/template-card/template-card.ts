@@ -28,6 +28,8 @@ import {
   migrateTemplateCardConfig,
   TemplateCardConfig,
 } from "./template-card-config";
+import { getWeatherSvgIcon } from "../../utils/icons/weather-icon";
+import { weatherSVGStyles } from "../../utils/weather";
 
 export const getEntityDefaultTileIconAction = (entityId: string) => {
   const domain = computeDomain(entityId);
@@ -389,15 +391,14 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
     const badgeText = this.getValue("badge_text");
     const badgeCssColor = badgeColor ? computeCssColor(badgeColor) : undefined;
 
+    const weatherSvg = getWeatherSvgIcon(icon);
+
     const style = {
       "--tile-color": cssColor,
     };
 
     const featurePosition = this._featurePosition(this._config);
     const features = this._displayedFeatures(this._config);
-
-    const containerOrientationClass =
-      featurePosition === "inline" ? "horizontal" : "";
 
     const multilineSecondary = this._config.multiline_secondary;
 
@@ -460,12 +461,15 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
                         })}
                         .interactive=${this._hasIconAction}
                         .imageUrl=${picture}
+                        class=${weatherSvg ? "weather" : ""}
                       >
-                        <ha-state-icon
-                          slot="icon"
-                          .icon=${icon}
-                          .hass=${this.hass}
-                        ></ha-state-icon>
+                        ${weatherSvg
+                          ? html`<div slot="icon">${weatherSvg}</div>`
+                          : html`<ha-state-icon
+                              slot="icon"
+                              .icon=${icon}
+                              .hass=${this.hass}
+                            ></ha-state-icon>`}
                         ${badgeIcon || badgeText
                           ? html`
                               <ha-tile-badge
@@ -510,143 +514,155 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
     `;
   }
 
-  static styles = css`
-    :host {
-      --tile-color: var(--state-inactive-color);
-      -webkit-tap-highlight-color: transparent;
-    }
-    ha-card:has(.background:focus-visible) {
-      --shadow-default: var(--ha-card-box-shadow, 0 0 0 0 transparent);
-      --shadow-focus: 0 0 0 1px var(--tile-color);
-      border-color: var(--tile-color);
-      box-shadow: var(--shadow-default), var(--shadow-focus);
-    }
-    ha-card {
-      --ha-ripple-color: var(--tile-color);
-      --ha-ripple-hover-opacity: 0.04;
-      --ha-ripple-pressed-opacity: 0.12;
-      height: 100%;
-      transition:
-        box-shadow 180ms ease-in-out,
-        border-color 180ms ease-in-out;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    [role="button"] {
-      cursor: pointer;
-      pointer-events: auto;
-    }
-    [role="button"]:focus {
-      outline: none;
-    }
-    .background {
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      border-radius: var(--ha-card-border-radius, 12px);
-      margin: calc(-1 * var(--ha-card-border-width, 1px));
-      overflow: hidden;
-    }
-    .container {
-      margin: calc(-1 * var(--ha-card-border-width, 1px));
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-    .container.horizontal {
-      flex-direction: row;
-    }
+  static styles = [
+    weatherSVGStyles,
+    css`
+      :host {
+        --tile-color: var(--state-inactive-color);
+        -webkit-tap-highlight-color: transparent;
+      }
+      ha-card:has(.background:focus-visible) {
+        --shadow-default: var(--ha-card-box-shadow, 0 0 0 0 transparent);
+        --shadow-focus: 0 0 0 1px var(--tile-color);
+        border-color: var(--tile-color);
+        box-shadow: var(--shadow-default), var(--shadow-focus);
+      }
+      ha-card {
+        --ha-ripple-color: var(--tile-color);
+        --ha-ripple-hover-opacity: 0.04;
+        --ha-ripple-pressed-opacity: 0.12;
+        height: 100%;
+        transition:
+          box-shadow 180ms ease-in-out,
+          border-color 180ms ease-in-out;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      [role="button"] {
+        cursor: pointer;
+        pointer-events: auto;
+      }
+      [role="button"]:focus {
+        outline: none;
+      }
+      .background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        border-radius: var(--ha-card-border-radius, 12px);
+        margin: calc(-1 * var(--ha-card-border-width, 1px));
+        overflow: hidden;
+      }
+      .container {
+        margin: calc(-1 * var(--ha-card-border-width, 1px));
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+      .container.horizontal {
+        flex-direction: row;
+      }
 
-    .content {
-      position: relative;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      padding: 10px;
-      flex: 1;
-      min-width: 0;
-      box-sizing: border-box;
-      pointer-events: none;
-      gap: 10px;
-    }
+      .content {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 10px;
+        flex: 1;
+        min-width: 0;
+        box-sizing: border-box;
+        pointer-events: none;
+        gap: 10px;
+      }
 
-    .vertical {
-      flex-direction: column;
-      text-align: center;
-      justify-content: center;
-    }
-    .vertical ha-tile-info {
-      width: 100%;
-      flex: none;
-    }
-    ha-tile-icon {
-      --tile-icon-color: var(--tile-color);
-      position: relative;
-      padding: 6px;
-      margin: -6px;
-    }
-    ha-tile-badge {
-      position: absolute;
-      top: 3px;
-      right: 3px;
-      inset-inline-end: 3px;
-      inset-inline-start: initial;
-      --tile-badge-background-color: var(
-        --badge-color,
-        var(--secondary-text-color)
-      );
-    }
-    ha-tile-badge span {
-      font-size: 0.8rem;
-      font-weight: bold;
-      height: 16px;
-      line-height: 16px;
-    }
-    ha-tile-info {
-      position: relative;
-      min-width: 0;
-      transition: background-color 180ms ease-in-out;
-      box-sizing: border-box;
-    }
-    hui-card-features {
-      --feature-color: var(--tile-color);
-      padding: 0 12px 12px 12px;
-    }
-    .container.horizontal hui-card-features {
-      width: calc(50% - var(--column-gap, 0px) / 2 - 12px);
-      flex: none;
-      --feature-height: 36px;
-      padding: 0 12px;
-      padding-inline-start: 0;
-    }
-    .secondary.multiline {
-      white-space: pre-wrap;
-    }
-    .container.feature-only {
-      justify-content: flex-end;
-    }
-    .container.feature-only hui-card-features {
-      flex: 1;
-      width: 100%;
-      padding: 12px 12px 12px 12px;
-    }
-    .container.feature-only.horizontal hui-card-features {
-      padding: 0 12px;
-    }
-    .container.horizontal .content:not(:has(ha-tile-info)) {
-      flex: none;
-    }
-    .container.horizontal:not(:has(ha-tile-info)) hui-card-features {
-      width: auto;
-      flex: 1;
-    }
-    .container.horizontal:not(:has(ha-tile-info)) .content {
-      flex: none;
-    }
-  `;
+      .vertical {
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+      }
+      .vertical ha-tile-info {
+        width: 100%;
+        flex: none;
+      }
+      ha-tile-icon {
+        --tile-icon-color: var(--tile-color);
+        position: relative;
+        padding: 6px;
+        margin: -6px;
+      }
+      ha-tile-icon.weather svg {
+        width: 36px;
+        height: 36px;
+        display: flex;
+      }
+      ha-tile-icon.weather {
+        --tile-icon-opacity: 0;
+        --tile-icon-hover-opacity: 0;
+      }
+      ha-tile-badge {
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        inset-inline-end: 3px;
+        inset-inline-start: initial;
+        --tile-badge-background-color: var(
+          --badge-color,
+          var(--secondary-text-color)
+        );
+      }
+      ha-tile-badge span {
+        font-size: 0.8rem;
+        font-weight: bold;
+        height: 16px;
+        line-height: 16px;
+      }
+      ha-tile-info {
+        position: relative;
+        min-width: 0;
+        transition: background-color 180ms ease-in-out;
+        box-sizing: border-box;
+      }
+      hui-card-features {
+        --feature-color: var(--tile-color);
+        padding: 0 12px 12px 12px;
+      }
+      .container.horizontal hui-card-features {
+        width: calc(50% - var(--column-gap, 0px) / 2 - 12px);
+        flex: none;
+        --feature-height: 36px;
+        padding: 0 12px;
+        padding-inline-start: 0;
+      }
+      .secondary.multiline {
+        white-space: pre-wrap;
+      }
+      .container.feature-only {
+        justify-content: flex-end;
+      }
+      .container.feature-only hui-card-features {
+        flex: 1;
+        width: 100%;
+        padding: 12px 12px 12px 12px;
+      }
+      .container.feature-only.horizontal hui-card-features {
+        padding: 0 12px;
+      }
+      .container.horizontal .content:not(:has(ha-tile-info)) {
+        flex: none;
+      }
+      .container.horizontal:not(:has(ha-tile-info)) hui-card-features {
+        width: auto;
+        flex: 1;
+      }
+      .container.horizontal:not(:has(ha-tile-info)) .content {
+        flex: none;
+      }
+    `,
+  ];
 }
 
 declare global {
