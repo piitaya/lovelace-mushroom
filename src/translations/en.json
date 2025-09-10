@@ -101,7 +101,7 @@
         "badge_text": "Badge text",
         "badge": "Badge",
         "content": "Content",
-        "entity_helper": "Used in templates, interaction and features",
+        "entity_helper": "Used in templates, interactions and features",
         "entity_helper_legacy": "Used in templates and interactions",
         "label": "Label",
         "layout": "Layout",
