@@ -9,6 +9,8 @@ import hash from "object-hash/dist/object_hash";
 import {
   actionHandler,
   ActionHandlerEvent,
+  computeDomain,
+  DOMAINS_TOGGLE,
   handleAction,
   hasAction,
   HomeAssistant,
@@ -26,6 +28,15 @@ import {
   migrateTemplateCardConfig,
   TemplateCardConfig,
 } from "./template-card-config";
+
+export const getEntityDefaultTileIconAction = (entityId: string) => {
+  const domain = computeDomain(entityId);
+  const supportsIconAction =
+    DOMAINS_TOGGLE.has(domain) ||
+    ["button", "input_button", "scene"].includes(domain);
+
+  return supportsIconAction ? "toggle" : "none";
+};
 
 registerCustomCard({
   type: "mushroom-template-card",
@@ -223,6 +234,17 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
 
   public setConfig(config: TemplateCardConfig): void {
     this._config = migrateTemplateCardConfig(config);
+
+    if (this._config.entity) {
+      if (!this._config.tap_action) {
+        this._config.tap_action = { action: "more-info" };
+      }
+      if (!this._config.icon_tap_action) {
+        this._config.icon_tap_action = {
+          action: getEntityDefaultTileIconAction(this._config.entity),
+        };
+      }
+    }
   }
 
   private _featureContext = memoizeOne(
@@ -253,14 +275,13 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
   }
 
   public getGridOptions(): LovelaceGridOptions {
-    const columns = 6;
-    let min_columns = 6;
+    let columns: number | undefined = 6;
     let rows: number | undefined = 1;
     const featurePosition = this._config && this._featurePosition(this._config);
     const featuresCount = this._config?.features?.length || 0;
     if (featuresCount) {
       if (featurePosition === "inline") {
-        min_columns = 12;
+        columns = 12;
       } else {
         rows += featuresCount;
       }
@@ -341,14 +362,14 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
 
     const icon = this.getValue("icon");
     const color = this.getValue("color");
-    const cssColor = color ? computeCssColor(color) : "";
+    const cssColor = color ? computeCssColor(color) : undefined;
     const primary = this.getValue("primary");
     const secondary = this.getValue("secondary");
     const picture = this.getValue("picture");
     const badgeIcon = this.getValue("badge_icon");
     const badgeColor = this.getValue("badge_color");
     const badgeText = this.getValue("badge_text");
-    const badgeCssColor = badgeColor ? computeCssColor(badgeColor) : "";
+    const badgeCssColor = badgeColor ? computeCssColor(badgeColor) : undefined;
 
     const style = {
       "--tile-color": cssColor,
@@ -393,7 +414,7 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
         </div>
         <div class="container ${containerOrientationClass}">
           <div class="content ${classMap(contentClasses)}">
-            ${icon
+            ${icon || picture
               ? html`
                   <ha-tile-icon
                     role=${ifDefined(
