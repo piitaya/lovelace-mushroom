@@ -27,7 +27,6 @@ import { computeCssColor } from "../../ha/common/color/compute-color";
 import { registerCustomBadge } from "../../utils/custom-badges";
 import { getWeatherSvgIcon } from "../../utils/icons/weather-icon";
 import { weatherSVGStyles } from "../../utils/weather";
-import { TEMPLATE_BADGE_EDITOR_NAME, TEMPLATE_BADGE_NAME } from "./const";
 import { TemplateBadgeConfig } from "./template-badge-config";
 import { CacheManager } from "../../utils/cache-manager";
 
@@ -38,7 +37,7 @@ type TemplateResults = Partial<
 >;
 
 registerCustomBadge({
-  type: TEMPLATE_BADGE_NAME,
+  type: "mushroom-template-badge",
   name: "Mushroom Template",
   description: "Build your own badge using templates",
 });
@@ -46,12 +45,12 @@ registerCustomBadge({
 const TEMPLATE_KEYS = ["icon", "color", "label", "content", "picture"] as const;
 type TemplateKey = (typeof TEMPLATE_KEYS)[number];
 
-@customElement(TEMPLATE_BADGE_NAME)
-export class HuiEntityBadge extends LitElement implements LovelaceBadge {
+@customElement("mushroom-template-badge")
+export class MushroomTemplateBadge extends LitElement implements LovelaceBadge {
   public static async getConfigElement(): Promise<LovelaceBadgeEditor> {
     await import("./template-badge-editor");
     return document.createElement(
-      TEMPLATE_BADGE_EDITOR_NAME
+      "mushroom-template-badge-editor"
     ) as LovelaceBadgeEditor;
   }
 
@@ -59,7 +58,7 @@ export class HuiEntityBadge extends LitElement implements LovelaceBadge {
     _hass: HomeAssistant
   ): Promise<TemplateBadgeConfig> {
     return {
-      type: `custom:${TEMPLATE_BADGE_NAME}`,
+      type: `custom:mushroom-template-badge`,
       content: "Hello",
       icon: "mdi:mushroom",
       color: "red",
@@ -420,6 +419,6 @@ export class HuiEntityBadge extends LitElement implements LovelaceBadge {
 
 declare global {
   interface HTMLElementTagNameMap {
-    "hui-entity-badge": HuiEntityBadge;
+    "mushroom-template-badge": MushroomTemplateBadge;
   }
 }

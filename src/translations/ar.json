@@ -44,7 +44,7 @@
         "incompatible_controls": "قد لا يتم عرض بعض عناصر التحكم إذا كان الضوء الخاص بك لا يدعم الميزة.",
         "show_brightness_control": "التحكم في السطوع؟",
         "show_color_control": "التحكم في اللون؟",
-        "show_color_temp_control": "التحكم في حرارة اللون؟",
+        "show_color_temp_control": "التحكم في درجة حرارة اللون؟",
         "use_light_color": "استخدم لون فاتح"
       },
       "lock": {
@@ -126,6 +126,7 @@
           "entity": "الكيان",
           "light": "مظيء",
           "menu": "القائمة",
+          "quickbar": "تبويب سريع",
           "spacer": "مساحة",
           "template": "قالب",
           "weather": "الطقس"

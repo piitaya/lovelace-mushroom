@@ -59,6 +59,13 @@ An light chip allows you to display light.
 
 A menu chip allows you to open the drawer in mobile.
 
+### Quickbar chip
+
+![Chip quickbar light](../images/chip-quickbar-light.png)
+![Chip quickbar dark](../images/chip-quickbar-dark.png)
+
+The quickbar chip allows you to launch the quickbar in mobile. You may choose to open the entity, device, or command panel. Defaults to entity.
+
 ### Spacer chip
 
 ![Chip menu light](../images/chip-spacer-light.png)

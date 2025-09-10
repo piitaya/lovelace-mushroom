@@ -16,13 +16,16 @@
         "show_position_control": "Visa positionskontroll?",
         "show_tilt_position_control": "Visa lutningskontroll?"
       },
+      "empty": {
+        "no_config_options": "Detta kort har inga konfigurationsalternativ."
+      },
       "fan": {
         "show_direction_control": "Riktningskontroll?",
         "show_oscillate_control": "Kontroll för oscillera?",
         "show_percentage_control": "Procentuell kontroll?"
       },
       "generic": {
-        "collapsible_controls": "Dölj kontroller när enehten är av",
+        "collapsible_controls": "Dölj kontroller när enheten är av",
         "color": "Färg",
         "content_info": "Innehåll",
         "fill_container": "Fyll container",
@@ -41,7 +44,7 @@
         "incompatible_controls": "Kontroller som inte stöds av enheten kommer inte visas.",
         "show_brightness_control": "Styr ljushet?",
         "show_color_control": "Styr färg?",
-        "show_color_temp_control": "Styr färgtemperatur?",
+        "show_color_temp_control": "Färgtemperaturkontroll?",
         "use_light_color": "Styr ljusets färg"
       },
       "lock": {
@@ -123,6 +126,7 @@
           "entity": "Enhet",
           "light": "Ljus",
           "menu": "Meny",
+          "quickbar": "Snabbfält",
           "spacer": "Avståndshållare",
           "template": "Mall",
           "weather": "Väder"

@@ -3,6 +3,14 @@
     "not_found": "Entité inconnue"
   },
   "editor": {
+    "badge": {
+      "template": {
+        "area_helper": "Utilisée dans les modèles",
+        "content": "Contenu",
+        "entity_helper": "Utilisée dans les modèles et les interactions",
+        "label": "Libellé"
+      }
+    },
     "card": {
       "chips": {
         "alignment": "Alignement"
@@ -16,20 +24,27 @@
         "show_position_control": "Contrôle de la position ?",
         "show_tilt_position_control": "Contrôle de l'inclinaison ?"
       },
+      "empty": {
+        "no_config_options": "Cette carte n'a pas de paramètres."
+      },
       "fan": {
-        "show_direction_control": "Contrôle de la direction?",
+        "show_direction_control": "Contrôle de la direction ?",
         "show_oscillate_control": "Contrôle de l'oscillation ?",
         "show_percentage_control": "Contrôle de la vitesse ?"
       },
       "generic": {
+        "area": "Pièce",
         "collapsible_controls": "Reduire les contrôles quand éteint",
         "color": "Couleur",
         "content_info": "Contenu",
+        "entity": "Entité",
         "fill_container": "Remplir le conteneur",
         "icon_animation": "Animation de l'icône ?",
         "icon_color": "Couleur de l'icône",
         "icon_type": "Type d'icône",
         "layout": "Disposition",
+        "picture": "Image",
+        "picture_helper": "Si définie, elle remplacera l'icône.",
         "primary_info": "Information principale",
         "secondary_info": "Information secondaire",
         "use_entity_picture": "Utiliser l'image de l'entité ?"
@@ -41,7 +56,7 @@
         "incompatible_controls": "Certains contrôles peuvent ne pas être affichés si votre lumière ne supporte pas la fonctionnalité.",
         "show_brightness_control": "Contrôle de luminosité ?",
         "show_color_control": "Contrôle de la couleur ?",
-        "show_color_temp_control": "Contrôle de la température ?",
+        "show_color_temp_control": "Contrôle de la température ?",
         "use_light_color": "Utiliser la couleur de la lumière"
       },
       "lock": {
@@ -78,12 +93,21 @@
         }
       },
       "template": {
+        "area": "Pièce",
+        "area_helper": "Utilisée dans les modèles et les fonctionnalités",
+        "badge": "Badge",
         "badge_color": "Couleur du badge",
         "badge_icon": "Icône du badge",
+        "badge_text": "Texte du badge",
+        "badge_text_helper": "Si définie, elle remplacera l'icône.",
         "content": "Contenu",
         "entity_extra": "Utilisée pour les modèles et les actions",
+        "entity_helper": "Utilisée dans les modèles, les interactions et les fonctionnalités",
+        "entity_helper_legacy": "Utilisé dans les modèles et les interactions",
         "label": "Libellé",
-        "multiline_secondary": "Information secondaire sur plusieurs lignes ?",
+        "layout": "Disposition",
+        "multiline_secondary": "Autoriser les informations secondaires sur plusieurs lignes",
+        "multiline_secondary_helper": "La carte peut être plus haute pour s'adapter au texte et ne s'alignera pas toujours avec le système de grille.",
         "picture": "Image (remplacera l'icône)",
         "primary": "Information principale",
         "secondary": "Information secondaire"
@@ -124,6 +148,7 @@
           "entity": "Entité",
           "light": "Lumière",
           "menu": "Menu",
+          "quickbar": "Barre d'accès rapide",
           "spacer": "Espacement",
           "template": "Modèle",
           "weather": "Météo"
@@ -176,6 +201,20 @@
           "vertical": "Disposition verticale"
         }
       }
+    },
+    "section": {
+      "badge": "Badge",
+      "content": "Contenu",
+      "context": "Contexte",
+      "features": "Fonctionnalités",
+      "interactions": "Interactions",
+      "layout": "Disposition"
     }
+  },
+  "migration": {
+    "description": "La configuration de votre carte a été migrée vers la nouvelle version. Vous pouvez trouver plus d’informations sur les changements dans le {lien}.",
+    "ok": "Ok",
+    "revert": "Revenir en arrière",
+    "title": "Carte mise à jour"
   }
 }

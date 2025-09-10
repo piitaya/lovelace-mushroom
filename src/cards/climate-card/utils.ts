@@ -19,12 +19,12 @@ export const CLIMATE_HVAC_ACTION_COLORS: Record<HvacAction, string> = {
 };
 
 export const CLIMATE_HVAC_MODE_ICONS: Record<HvacMode, string> = {
-  auto: "mdi:calendar-sync",
+  auto: "mdi:thermostat-auto",
   cool: "mdi:snowflake",
   dry: "mdi:water-percent",
   fan_only: "mdi:fan",
   heat: "mdi:fire",
-  heat_cool: "mdi:autorenew",
+  heat_cool: "mdi:sun-snowflake-variant",
   off: "mdi:power",
 };
 

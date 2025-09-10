@@ -106,6 +106,18 @@ cards:
           - type: menu
             icon: mdi:home
   - type: vertical-stack
+    title: QuickBar chips
+    cards:
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: quickbar
+          - type: quickbar
+            icon: mdi:tablet-cellphone
+            mode: device
+          - type: quickbar
+            icon: mdi:gesture-tap-button
+            mode: command
+  - type: vertical-stack
     title: Action chip
     cards:
       - type: custom:mushroom-chips-card

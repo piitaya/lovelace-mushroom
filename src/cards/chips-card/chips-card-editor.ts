@@ -7,6 +7,7 @@ import {
   assign,
   boolean,
   dynamic,
+  enums,
   literal,
   object,
   optional,
@@ -26,8 +27,8 @@ import { MushroomBaseElement } from "../../utils/base-element";
 import { loadHaComponents } from "../../utils/loader";
 import { LovelaceChipConfig } from "../../utils/lovelace/chip/types";
 import {
+  EditDetailElementEvent,
   EditorTarget,
-  EditSubElementEvent,
   SubElementEditorConfig,
 } from "../../utils/lovelace/editor/types";
 import "../../utils/lovelace/sub-element-editor";
@@ -67,6 +68,12 @@ const menuChipConfigStruct = object({
   type: literal("menu"),
   icon: optional(string()),
   icon_color: optional(string()),
+});
+
+const quickbarChipConfigStruct = object({
+  type: literal("quickbar"),
+  icon: optional(string()),
+  mode: optional(enums(["command", "device", "entity"])),
 });
 
 const weatherChipConfigStruct = object({
@@ -125,6 +132,8 @@ const chipsConfigStruct = dynamic<any>((value) => {
         return entityChipConfigStruct;
       case "menu":
         return menuChipConfigStruct;
+      case "quickbar":
+        return quickbarChipConfigStruct;
       case "weather":
         return weatherChipConfigStruct;
       case "conditional":
@@ -295,7 +304,7 @@ export class ChipsCardEditor
     fireEvent(this, "config-changed", { config: this._config });
   }
 
-  private _editDetailElement(ev: HASSDomEvent<EditSubElementEvent>): void {
+  private _editDetailElement(ev: HASSDomEvent<EditDetailElementEvent>): void {
     this._subElementEditorConfig = ev.detail.subElementConfig;
   }
 
