@@ -114,7 +114,7 @@
     "chip": {
       "chip-picker": {
         "add": "添加 chip",
-        "chips": "Chips",
+        "chips": "小卡片",
         "clear": "清除",
         "edit": "编辑",
         "select": "选择 chip",
@@ -126,13 +126,14 @@
           "entity": "实体",
           "light": "灯光",
           "menu": "菜单",
+          "quickbar": "快捷栏",
           "spacer": "占位符",
           "template": "模板",
           "weather": "天气"
         }
       },
       "conditional": {
-        "chip": "Chip"
+        "chip": "小卡片"
       },
       "sub_element_editor": {
         "title": "Chip 编辑"
