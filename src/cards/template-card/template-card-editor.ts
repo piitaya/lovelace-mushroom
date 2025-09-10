@@ -325,7 +325,7 @@ export class MushroomTemplateCardEditor
                 ${customLocalize("migration.description", {
                   link: html`
                     <a
-                      href="https://github.com/piitaya/lovelace-mushroom/releases/tag/v5.0.0"
+                      href="https://github.com/piitaya/lovelace-mushroom/releases/tag/v5.0.4"
                       target="_blank"
                       rel="noreferrer noopener"
                       >release note</a
