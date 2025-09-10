@@ -253,14 +253,13 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
   }
 
   public getGridOptions(): LovelaceGridOptions {
-    const columns = 6;
-    let min_columns = 6;
+    let columns: number | undefined = 6;
     let rows: number | undefined = 1;
     const featurePosition = this._config && this._featurePosition(this._config);
     const featuresCount = this._config?.features?.length || 0;
     if (featuresCount) {
       if (featurePosition === "inline") {
-        min_columns = 12;
+        columns = 12;
       } else {
         rows += featuresCount;
       }
@@ -341,14 +340,14 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
 
     const icon = this.getValue("icon");
     const color = this.getValue("color");
-    const cssColor = color ? computeCssColor(color) : "";
+    const cssColor = color ? computeCssColor(color) : undefined;
     const primary = this.getValue("primary");
     const secondary = this.getValue("secondary");
     const picture = this.getValue("picture");
     const badgeIcon = this.getValue("badge_icon");
     const badgeColor = this.getValue("badge_color");
     const badgeText = this.getValue("badge_text");
-    const badgeCssColor = badgeColor ? computeCssColor(badgeColor) : "";
+    const badgeCssColor = badgeColor ? computeCssColor(badgeColor) : undefined;
 
     const style = {
       "--tile-color": cssColor,
@@ -393,7 +392,7 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
         </div>
         <div class="container ${containerOrientationClass}">
           <div class="content ${classMap(contentClasses)}">
-            ${icon
+            ${icon || picture
               ? html`
                   <ha-tile-icon
                     role=${ifDefined(
