@@ -38,6 +38,10 @@ All options are available in the **Lovelace editor**, but you can also configure
 
 ---
 
+## Theming
+
+This badge is not compatible with Mushroom themes because it based on the official [badges](https://www.home-assistant.io/dashboards/badges/).
+
 ## Available Colors
 
 You can use **color tokens** (theme-aware) or regular **hexadecimal colors**.
