@@ -47,6 +47,10 @@ All options are available in the **Lovelace editor**, but you can also configure
 
 ---
 
+## Theming
+
+This card is not compatible with Mushroom themes because it based on the official [Tile card](https://www.home-assistant.io/dashboards/tile/). If you want a theme compatible card, use the [Legacy Template Card](./legacy-template.md).
+
 ## Available Colors
 
 You can use **color tokens** (theme-aware) or regular **hexadecimal colors**.
