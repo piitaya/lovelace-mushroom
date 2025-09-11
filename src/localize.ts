@@ -89,7 +89,15 @@ export default function setupCustomlocalize(hass?: HomeAssistant) {
     if (!translated) translated = getTranslatedString(key, DEFAULT_LANG);
 
     if (!translated) return key;
-    const translatedMessage = new IntlMessageFormat(translated, lang);
-    return translatedMessage.format<string>(argObject) as string;
+    try {
+      const translatedMessage = new IntlMessageFormat(translated, lang);
+      return translatedMessage.format<string>(argObject) as string;
+    } catch (e) {
+      console.error(
+        `Error formatting message for key "${key}" with lang "${lang}":`,
+        e
+      );
+      return translated;
+    }
   };
 }
