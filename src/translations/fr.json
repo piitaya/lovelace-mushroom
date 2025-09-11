@@ -212,7 +212,7 @@
     }
   },
   "migration": {
-    "description": "La configuration de votre carte a été migrée vers la nouvelle version. Vous pouvez trouver plus d’informations sur les changements dans {lien}.",
+    "description": "La configuration de votre carte a été migrée vers la nouvelle version. Vous pouvez trouver plus d’informations sur les changements dans {link}.",
     "ok": "Ok",
     "post": "l'article sur Github",
     "revert": "Revenir en arrière",
