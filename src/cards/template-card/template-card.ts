@@ -602,6 +602,7 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
       ha-tile-icon.weather {
         --tile-icon-opacity: 0;
         --tile-icon-hover-opacity: 0;
+        --tile-icon-border-radius: 0;
       }
       ha-tile-badge {
         position: absolute;
