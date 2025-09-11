@@ -210,7 +210,8 @@
   },
   "migration": {
     "title": "Card updated",
-    "description": "Your card’s configuration has been migrated to the new version. You can find more information about the changes in the {link}.",
+    "description": "Your card’s configuration has been migrated to the new version. You can find more information about the changes in {link}.",
+    "post": "the GitHub post",
     "revert": "Revert",
     "ok": "Ok"
   }
