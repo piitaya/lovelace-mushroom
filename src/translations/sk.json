@@ -3,6 +3,14 @@
     "not_found": "Entita nenájdená"
   },
   "editor": {
+    "badge": {
+      "template": {
+        "area_helper": "Používa sa v šablónach",
+        "content": "Obsah",
+        "entity_helper": "Používa sa v šablónach a interakciách",
+        "label": "Nápis"
+      }
+    },
     "card": {
       "chips": {
         "alignment": "Zarovnanie"
@@ -25,14 +33,18 @@
         "show_percentage_control": "Ovládanie rýchlosti v percentách?"
       },
       "generic": {
+        "area": "Oblasť",
         "collapsible_controls": "Skryť ovládanie v stave VYP",
         "color": "Farba",
         "content_info": "Obsah",
+        "entity": "Entita",
         "fill_container": "Vyplniť priestor",
         "icon_animation": "Animovaná ikona v stave ZAP?",
         "icon_color": "Farba ikony",
         "icon_type": "Typ ikony",
         "layout": "Rozloženie",
+        "picture": "Obrázok",
+        "picture_helper": "Ak je nastavené, nahradí ikonu.",
         "primary_info": "Základné info",
         "secondary_info": "Doplnkové info",
         "use_entity_picture": "Použiť obrázok entity?"
@@ -44,7 +56,7 @@
         "incompatible_controls": "Niektoré ovládacie prvky sa nemusia zobraziť, pokiaľ ich svetlo nepodporuje.",
         "show_brightness_control": "Ovládanie jasu?",
         "show_color_control": "Ovládanie farby?",
-        "show_color_temp_control": "Ovládanie farebnej teploty?",
+        "show_color_temp_control": "Ovládanie teploty farby?",
         "use_light_color": "Použiť farbu svetla"
       },
       "lock": {
@@ -81,12 +93,21 @@
         }
       },
       "template": {
+        "area": "Oblasť",
+        "area_helper": "Používa sa v šablónach a funkciách",
+        "badge": "Odznak",
         "badge_color": "Farba odznaku",
         "badge_icon": "Ikona odznaku",
+        "badge_text": "Text odznaku",
+        "badge_text_helper": "Ak je nastavené, nahradí ikonu.",
         "content": "Obsah",
         "entity_extra": "Použitá v šablónach a akciách",
+        "entity_helper": "Používa sa v šablónach, interakciách a funkciách",
+        "entity_helper_legacy": "Používa sa v šablónach a interakciách",
         "label": "Štítok",
-        "multiline_secondary": "Viacriadkové doplnkové info?",
+        "layout": "Rozloženie",
+        "multiline_secondary": "Povoliť viacriadkové doplnkové informácie",
+        "multiline_secondary_helper": "Karta môže byť vyššia, aby sa do nej vošiel text, a nemusí byť vždy zarovnaná s mriežkovým systémom.",
         "picture": "Obrázok (nahrádza ikonu)",
         "primary": "Základné info",
         "secondary": "Doplnkové info"
@@ -178,6 +199,21 @@
           "vertical": "Zvislé rozloženie"
         }
       }
+    },
+    "section": {
+      "badge": "Odznak",
+      "content": "Obsah",
+      "context": "Kontext",
+      "features": "Funkcie",
+      "interactions": "Interakcie",
+      "layout": "Rozloženie"
     }
+  },
+  "migration": {
+    "description": "Nastavenie vašej karty bolo prenesené do novej verzie. Viac informácií o zmenách nájdete na {link}.",
+    "ok": "Ok",
+    "post": "príspevku na GitHub",
+    "revert": "Vrátiť späť",
+    "title": "Karta aktualizovaná"
   }
 }
