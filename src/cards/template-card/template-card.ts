@@ -378,8 +378,6 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
       return nothing;
     }
 
-    const contentClasses = { vertical: Boolean(this._config.vertical) };
-
     const icon = this.getValue("icon");
     const color = this.getValue("color");
     const cssColor = color ? computeCssColor(color) : undefined;
@@ -423,6 +421,10 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
       "feature-only": featureOnly,
     });
 
+    const contentClasses = classMap({
+      vertical: Boolean(this._config.vertical),
+    });
+
     return html`
       <ha-card style=${styleMap(style)}>
         <div
@@ -441,7 +443,7 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
         </div>
         <div class="container ${containerClasses}">
           ${icon || picture || primary || secondary
-            ? html`<div class="content ${classMap(contentClasses)}">
+            ? html`<div class="content ${contentClasses}">
                 ${icon || picture
                   ? html`
                       <ha-tile-icon
