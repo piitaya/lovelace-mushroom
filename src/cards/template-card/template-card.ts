@@ -9,6 +9,7 @@ import hash from "object-hash/dist/object_hash";
 import {
   actionHandler,
   ActionHandlerEvent,
+  atLeastHaVersion,
   computeDomain,
   DOMAINS_TOGGLE,
   handleAction,
@@ -400,17 +401,6 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
 
     const multilineSecondary = this._config.multiline_secondary;
 
-    const secondaryInfo = secondary
-      ? html`
-          <span
-            style=${styleMap({
-              "white-space": multilineSecondary ? "pre-wrap" : "nowrap",
-            })}
-            >${secondary}</span
-          >
-        `
-      : undefined;
-
     const featureContext = this._featureContext(this._config);
 
     const featureOnly =
@@ -424,6 +414,9 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
     const contentClasses = classMap({
       vertical: Boolean(this._config.vertical),
     });
+
+    const { haVersion } = this.hass.connection;
+    const supportTileInfoSlot = atLeastHaVersion(haVersion, 2025, 10, 0);
 
     return html`
       <ha-card style=${styleMap(style)}>
@@ -493,9 +486,33 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
                   ? html`
                       <ha-tile-info
                         id="info"
-                        .primary=${primary}
-                        .secondary=${secondaryInfo}
-                      ></ha-tile-info>
+                        .primary=${supportTileInfoSlot ? undefined : primary}
+                        .secondary=${supportTileInfoSlot
+                          ? undefined
+                          : html`
+                              <span
+                                style=${styleMap({
+                                  "white-space": multilineSecondary
+                                    ? "pre-wrap"
+                                    : "nowrap",
+                                })}
+                                >${secondary?.trim()}</span
+                              >
+                            `}
+                      >
+                        ${supportTileInfoSlot
+                          ? html`
+                              <span slot="primary">${primary}</span>
+                              <span
+                                slot="secondary"
+                                class=${classMap({
+                                  multiline: Boolean(multilineSecondary),
+                                })}
+                                >${secondary}</span
+                              >
+                            `
+                          : nothing}
+                      </ha-tile-info>
                     `
                   : nothing}
               </div> `
@@ -590,6 +607,11 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
         width: 100%;
         flex: none;
       }
+
+      .multiline {
+        white-space: pre-wrap;
+      }
+
       ha-tile-icon {
         --tile-icon-color: var(--tile-color);
         position: relative;
@@ -639,9 +661,6 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
         --feature-height: 36px;
         padding: 0 12px;
         padding-inline-start: 0;
-      }
-      .secondary.multiline {
-        white-space: pre-wrap;
       }
       .container.feature-only {
         justify-content: flex-end;
