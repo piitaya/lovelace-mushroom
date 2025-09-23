@@ -174,6 +174,14 @@ export class ClimateCard
       );
       stateDisplay += ` ⸱ ${temperature}`;
     }
+    if (stateObj.attributes.current_humidity !== null) {
+      const humidity = this.hass.formatEntityAttributeValue(
+        stateObj,
+        "current_humidity"
+      );
+      stateDisplay += ` ⸱ ${humidity}`;
+    }
+    
     const rtl = computeRTL(this.hass);
 
     const isControlVisible =
