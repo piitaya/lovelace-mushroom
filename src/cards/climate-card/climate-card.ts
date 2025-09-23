@@ -167,6 +167,12 @@ export class ClimateCard
     const picture = computeEntityPicture(stateObj, appearance.icon_type);
 
     let stateDisplay = this.hass.formatEntityState(stateObj);
+    if (stateObj.attributes.hvac_action !== null) {
+      stateDisplay = this.hass.formatEntityAttributeValue(
+        stateObj,
+        "hvac_action"
+      );
+    }
     if (stateObj.attributes.current_temperature !== null) {
       const temperature = this.hass.formatEntityAttributeValue(
         stateObj,
