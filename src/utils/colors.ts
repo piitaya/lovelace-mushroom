@@ -1,5 +1,5 @@
+import { rgb } from "culori";
 import { css } from "lit";
-import * as Color from "color";
 
 export const COLORS = [
   "primary",
@@ -38,7 +38,12 @@ export function computeRgbColor(color: string): string {
     return `var(--rgb-${color})`;
   } else if (color.startsWith("#")) {
     try {
-      return Color.rgb(color).rgb().array().join(", ");
+      const rgbColor = rgb(color);
+      if (rgbColor) {
+        const { r, g, b } = rgbColor;
+        return `${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)}`;
+      }
+      return "";
     } catch (err) {
       return "";
     }
@@ -53,7 +58,7 @@ export function computeColorName(color: string): string {
     .join(" ");
 }
 
-function capitalizeFirstLetter(string) {
+function capitalizeFirstLetter(string: string): string {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 

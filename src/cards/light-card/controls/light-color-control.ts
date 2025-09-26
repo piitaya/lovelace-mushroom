@@ -1,4 +1,4 @@
-import * as Color from "color";
+import { hsv, rgb } from "culori";
 import { HassEntity } from "home-assistant-js-websocket";
 import {
   css,
@@ -31,13 +31,30 @@ export class LightColorControl extends LitElement {
   _percent = 0;
 
   _percentToRGB(percent: number): number[] {
-    const color = Color.hsv(360 * percent, 100, 100);
-    return color.rgb().array();
+    const rgbColor = rgb({
+      mode: "hsv" as const,
+      h: 360 * percent,
+      s: 1,
+      v: 1,
+    });
+    if (rgbColor) {
+      return [
+        Math.round(rgbColor.r * 255),
+        Math.round(rgbColor.g * 255),
+        Math.round(rgbColor.b * 255),
+      ];
+    }
+    return [0, 0, 0];
   }
 
   _rgbToPercent(rgb: number[]): number {
-    const color = Color.rgb(rgb);
-    return color.hsv().hue() / 360;
+    const hsvColor = hsv({
+      mode: "rgb",
+      r: rgb[0] / 255,
+      g: rgb[1] / 255,
+      b: rgb[2] / 255,
+    });
+    return (hsvColor?.h || 0) / 360;
   }
 
   onChange(e: CustomEvent<{ value: number }>): void {
