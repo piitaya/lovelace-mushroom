@@ -1,5 +1,3 @@
-import * as Color from "color";
-
 export const THEME_COLORS = new Set([
   "primary",
   "accent",

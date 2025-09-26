@@ -1,4 +1,4 @@
-import * as Color from "color";
+import { rgb, lch } from "culori";
 import {
   LightColorMode,
   LightEntity,
@@ -25,12 +25,24 @@ export function getRGBColor(entity: LightEntity): number[] | undefined {
 }
 
 export function isColorLight(rgb: number[]): boolean {
-  const color = Color.rgb(rgb);
-  return color.l() > 96;
+  const color = {
+    mode: "rgb" as const,
+    r: rgb[0] / 255,
+    g: rgb[1] / 255,
+    b: rgb[2] / 255,
+  };
+  const lchColor = lch(color);
+  return (lchColor?.l || 0) > 96;
 }
 export function isColorSuperLight(rgb: number[]): boolean {
-  const color = Color.rgb(rgb);
-  return color.l() > 97;
+  const color = {
+    mode: "rgb" as const,
+    r: rgb[0] / 255,
+    g: rgb[1] / 255,
+    b: rgb[2] / 255,
+  };
+  const lchColor = lch(color);
+  return (lchColor?.l || 0) > 97;
 }
 
 export function supportsColorTempControl(entity: LightEntity): boolean {
