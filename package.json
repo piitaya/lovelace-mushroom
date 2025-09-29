@@ -1,6 +1,6 @@
 {
   "name": "mushroom-cards",
-  "version": "5.0.6",
+  "version": "5.0.7",
   "description": "Home Assistant Mushroom Cards",
   "main": "index.js",
   "scripts": {
@@ -39,7 +39,7 @@
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-terser": "^0.4.4",
-    "@rollup/plugin-typescript": "^12.1.4",   
+    "@rollup/plugin-typescript": "^12.1.4",
     "@types/culori": "^4.0.1",
     "@types/hammerjs": "^2.0.46",
     "eslint": "^9.36.0",
