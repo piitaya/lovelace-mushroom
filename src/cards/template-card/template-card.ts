@@ -416,7 +416,7 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
     });
 
     const { haVersion } = this.hass.connection;
-    const supportTileInfoSlot = atLeastHaVersion(haVersion, 2025, 10, 0);
+    const supportTileInfoSlot = atLeastHaVersion(haVersion, 2025, 10);
 
     return html`
       <ha-card style=${styleMap(style)}>
