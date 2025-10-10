@@ -455,7 +455,9 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
                           ),
                         })}
                         .interactive=${this._hasIconAction}
-                        .imageUrl=${picture}
+                        .imageUrl=${picture
+                          ? this.hass.hassUrl(picture)
+                          : undefined}
                         class=${weatherSvg ? "weather" : ""}
                       >
                         ${weatherSvg
