@@ -13,9 +13,12 @@ export class LightColorTempControl extends LitElement {
   onChange(e: CustomEvent<{ value: number }>): void {
     const value = e.detail.value;
 
+    // Convert mireds to kelvin (kelvin = 1,000,000 / mireds)
+    const kelvin = Math.round(1000000 / value);
+
     this.hass.callService("light", "turn_on", {
       entity_id: this.entity.entity_id,
-      color_temp: value,
+      color_temp_kelvin: kelvin,
     });
   }
 

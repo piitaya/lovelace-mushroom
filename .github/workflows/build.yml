@@ -1,14 +1,14 @@
 name: Build
 on:
-    pull_request:
-    push:
+  pull_request:
+  push:
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v2
-            - name: Install
-              run: npm ci
-            - name: Build
-              run: npm run build
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install
+        run: npm ci
+      - name: Build
+        run: npm run build

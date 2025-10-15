@@ -62,7 +62,7 @@ export type QuickBarChipConfig = {
   type: "quickbar";
   icon?: string;
   mode?: QuickBarMode;
-}
+};
 
 export type WeatherChipConfig = {
   type: "weather";

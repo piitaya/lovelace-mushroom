@@ -135,7 +135,7 @@
         "label": "Label",
         "content": "Content",
         "entity_helper": "Used in templates and interactions",
-        "area_helper":"Used in templates"
+        "area_helper": "Used in templates"
       }
     },
     "chip": {

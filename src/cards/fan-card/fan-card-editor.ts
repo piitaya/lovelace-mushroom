@@ -16,7 +16,7 @@ const FAN_LABELS = [
   "icon_animation",
   "show_percentage_control",
   "show_oscillate_control",
-  "show_direction_control"
+  "show_direction_control",
 ];
 
 const SCHEMA: HaFormSchema[] = [

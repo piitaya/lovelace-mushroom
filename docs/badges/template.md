@@ -1,4 +1,4 @@
-# Template Badge 
+# Template Badge
 
 ![Template light](../images/template-badge-light.png)  
 ![Template dark](../images/template-badge-dark.png)
@@ -6,15 +6,14 @@
 ## Description
 
 The **Template Badge** allows you to create a fully customizable badge for your dashboard.  
-It supports [templating](https://www.home-assistant.io/docs/configuration/templating/) in most fields.  
+It supports [templating](https://www.home-assistant.io/docs/configuration/templating/) in most fields.
 
-When defining an `entity` or an `area`, you can reference them inside templates with the `entity` and `area` variables. For example:  
+When defining an `entity` or an `area`, you can reference them inside templates with the `entity` and `area` variables. For example:
 
 ```yaml
 content: "{{ states(entity) }}"
 label: "{{ area_name(area) }}"
-````
-
+```
 
 ---
 
@@ -22,19 +21,19 @@ label: "{{ area_name(area) }}"
 
 All options are available in the **Lovelace editor**, but you can also configure the badge directly in **YAML**.
 
-| Name                | Type          | Default  | Description                                                                                           |
-| :------------------ | :------------ | :------- | :---------------------------------------------------------------------------------------------------- |
-| `entity`            | string        | Optional | Entity used for templating and interactions.                                                               |
-| `area`                   | string        | Optional | Area used for templating.   
-| `icon`              | string        | Optional | Icon to display. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/). |
-| `color`             | string        | Optional | Color applied to the icon or badge. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                                           |
-| `label`             | string        | Optional | Label displayed below the badge. Only shown if not empty. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                       |
-| `content`           | string        | Optional | Main content inside the badge (e.g., state, text, number). Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                    |
-| `picture`           | string        | Optional | Image to display instead of an icon. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                                          |
-| `tap_action`        | action        | `none`   | Action performed when the badge is tapped.                                                            |
-| `hold_action`       | action        | `none`   | Action performed when the badge is long-pressed.                                                      |
-| `double_tap_action` | action        | `none`   | Action performed when the badge is double-tapped.                                                     |
-| `entity_id`         | string / list | Optional | Restricts updates to these entities. Useful if automatic detection misses dependencies.               |
+| Name                | Type          | Default  | Description                                                                                                                                     |
+| :------------------ | :------------ | :------- | :---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `entity`            | string        | Optional | Entity used for templating and interactions.                                                                                                    |
+| `area`              | string        | Optional | Area used for templating.                                                                                                                       |
+| `icon`              | string        | Optional | Icon to display. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                                           |
+| `color`             | string        | Optional | Color applied to the icon or badge. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                        |
+| `label`             | string        | Optional | Label displayed below the badge. Only shown if not empty. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).  |
+| `content`           | string        | Optional | Main content inside the badge (e.g., state, text, number). Supports [templating](https://www.home-assistant.io/docs/configuration/templating/). |
+| `picture`           | string        | Optional | Image to display instead of an icon. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                       |
+| `tap_action`        | action        | `none`   | Action performed when the badge is tapped.                                                                                                      |
+| `hold_action`       | action        | `none`   | Action performed when the badge is long-pressed.                                                                                                |
+| `double_tap_action` | action        | `none`   | Action performed when the badge is double-tapped.                                                                                               |
+| `entity_id`         | string / list | Optional | Restricts updates to these entities. Useful if automatic detection misses dependencies.                                                         |
 
 ---
 
@@ -48,40 +47,41 @@ You can use **color tokens** (theme-aware) or regular **hexadecimal colors**.
 
 ### Theme color tokens
 
-* `primary`
-* `accent`
-* `disabled`
-* `primary-text`
-* `secondary-text`
-* `disabled-text`
-* `red`
-* `pink`
-* `purple`
-* `deep-purple`
-* `indigo`
-* `blue`
-* `light-blue`
-* `cyan`
-* `teal`
-* `green`
-* `light-green`
-* `lime`
-* `yellow`
-* `amber`
-* `orange`
-* `deep-orange`
-* `brown`
-* `light-grey`
-* `grey`
-* `dark-grey`
-* `blue-grey`
-* `black`
-* `white`
+- `primary`
+- `accent`
+- `disabled`
+- `primary-text`
+- `secondary-text`
+- `disabled-text`
+- `red`
+- `pink`
+- `purple`
+- `deep-purple`
+- `indigo`
+- `blue`
+- `light-blue`
+- `cyan`
+- `teal`
+- `green`
+- `light-green`
+- `lime`
+- `yellow`
+- `amber`
+- `orange`
+- `deep-orange`
+- `brown`
+- `light-grey`
+- `grey`
+- `dark-grey`
+- `blue-grey`
+- `black`
+- `white`
 
 ---
+
 ## Notes
 
-* You can render **weather SVG icons** by using the [standard weather entity states](https://developers.home-assistant.io/docs/core/entity/weather/#recommended-values-for-state-and-condition) as icon values:
+- You can render **weather SVG icons** by using the [standard weather entity states](https://developers.home-assistant.io/docs/core/entity/weather/#recommended-values-for-state-and-condition) as icon values:
 
   ```
   weather-clear-night
@@ -122,11 +122,11 @@ tap_action:
 
 This configuration:
 
-* Displays a thermometer icon.
-* Changes the badge color to **red** if the temperature is above 25°C, otherwise **blue**.
-* Shows *Living Room* as the label.
-* Displays the current temperature as the main badge content.
-* Opens the more-info dialog on tap.
+- Displays a thermometer icon.
+- Changes the badge color to **red** if the temperature is above 25°C, otherwise **blue**.
+- Shows _Living Room_ as the label.
+- Displays the current temperature as the main badge content.
+- Opens the more-info dialog on tap.
 
 ```
 

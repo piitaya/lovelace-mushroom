@@ -13,9 +13,9 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 
 | Name                | Type                                                | Default     | Description                                                                         |
 | :------------------ | :-------------------------------------------------- | :---------- | :---------------------------------------------------------------------------------- |
-| `entity`            | string                                              | Required    | Select or input_select Entity                                                                              |
+| `entity`            | string                                              | Required    | Select or input_select Entity                                                       |
 | `icon`              | string                                              | Optional    | Custom icon                                                                         |
-| `icon_color`        | string                                              | `blue`      | Custom color for icon when entity state is active                                |
+| `icon_color`        | string                                              | `blue`      | Custom color for icon when entity state is active                                   |
 | `name`              | string                                              | Optional    | Custom name                                                                         |
 | `layout`            | string                                              | Optional    | Layout of the card. Vertical, horizontal and default layout are supported           |
 | `fill_container`    | boolean                                             | `false`     | Fill container or not. Useful when card is in a grid, vertical or horizontal layout |

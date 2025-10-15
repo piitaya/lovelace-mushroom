@@ -196,13 +196,13 @@ export class FanCard
                       `
                     : nothing}
                   ${this._config.show_direction_control
-                  ? html`
-                      <mushroom-fan-direction-control
-                        .hass=${this.hass}
-                        .entity=${stateObj}
-                      ></mushroom-fan-direction-control>
-                    `
-                  : nothing}
+                    ? html`
+                        <mushroom-fan-direction-control
+                          .hass=${this.hass}
+                          .entity=${stateObj}
+                        ></mushroom-fan-direction-control>
+                      `
+                    : nothing}
                 </div>
               `
             : nothing}

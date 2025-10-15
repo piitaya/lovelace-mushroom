@@ -10,15 +10,14 @@
 
 ## Description
 
-
-The **Legacy Template Card** allows you to build a customizable card while maintaining backward compatibility with older dashboards. It exists to ensure dashboards using **card-mod** or custom theming are not broken.  
+The **Legacy Template Card** allows you to build a customizable card while maintaining backward compatibility with older dashboards. It exists to ensure dashboards using **card-mod** or custom theming are not broken.
 
 You can use [templating](https://www.home-assistant.io/docs/configuration/templating/) in most fields.  
-When defining an `entity`, you can reference it inside templates with the `entity` variable. For example:  
+When defining an `entity`, you can reference it inside templates with the `entity` variable. For example:
 
 ```yaml
 primary: "{{ states(entity) }}"
-````
+```
 
 ---
 
@@ -48,7 +47,7 @@ All options are available in the **Lovelace editor**, but you can also configure
 
 ## Notes
 
-* You can render **weather SVG icons** by using the [standard weather entity states](https://developers.home-assistant.io/docs/core/entity/weather/#recommended-values-for-state-and-condition) as icon values:
+- You can render **weather SVG icons** by using the [standard weather entity states](https://developers.home-assistant.io/docs/core/entity/weather/#recommended-values-for-state-and-condition) as icon values:
 
   ```
   weather-clear-night
@@ -89,10 +88,10 @@ tap_action:
 
 This configuration:
 
-* Displays a light bulb icon that changes color depending on the state.
-* Shows the entity’s friendly name as the primary text.
-* Shows the brightness level as secondary text.
-* Toggles the light when tapped.
+- Displays a light bulb icon that changes color depending on the state.
+- Shows the entity’s friendly name as the primary text.
+- Shows the brightness level as secondary text.
+- Toggles the light when tapped.
 
 ```
 
