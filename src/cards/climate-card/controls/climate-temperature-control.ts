@@ -12,10 +12,20 @@ import "../../../shared/button";
 import "../../../shared/button-group";
 import "../../../shared/input-number";
 
-export const isTemperatureControlVisible = (entity: ClimateEntity) =>
-  entity.attributes.temperature != null ||
-  (entity.attributes.target_temp_low != null &&
-    entity.attributes.target_temp_high != null);
+export const isTemperatureControlVisible = (entity: ClimateEntity) => {
+  const mode = entity.state;
+  if (["heat", "cool"].includes(mode)) {
+    return entity.attributes.temperature != null;
+  }
+  if (["heat_cool", "auto"].includes(mode)) {
+    return (
+      entity.attributes.target_temp_low != null &&
+      entity.attributes.target_temp_high != null
+    );
+  }
+  return false;
+};
+
 
 @customElement("mushroom-climate-temperature-control")
 export class ClimateTemperatureControl extends LitElement {
@@ -58,71 +68,75 @@ export class ClimateTemperatureControl extends LitElement {
     });
   }
 
-  protected render(): TemplateResult {
-    const rtl = computeRTL(this.hass);
+protected render(): TemplateResult {
+  const rtl = computeRTL(this.hass);
+  const available = isAvailable(this.entity);
+  const hvacMode = this.entity.state;
 
-    const available = isAvailable(this.entity);
+  const formatOptions: Intl.NumberFormatOptions =
+    this._stepSize === 1
+      ? { maximumFractionDigits: 0 }
+      : { minimumFractionDigits: 1, maximumFractionDigits: 1 };
 
-    const formatOptions: Intl.NumberFormatOptions =
-      this._stepSize === 1
-        ? {
-            maximumFractionDigits: 0,
-          }
-        : {
-            minimumFractionDigits: 1,
-            maximumFractionDigits: 1,
-          };
+  const modeStyle = (mode: "heat" | "cool") => ({
+    "--bg-color": `rgba(var(--rgb-state-climate-${mode}), 0.05)`,
+    "--icon-color": `rgb(var(--rgb-state-climate-${mode}))`,
+    "--text-color": `rgb(var(--rgb-state-climate-${mode}))`,
+  });
 
-    const modeStyle = (mode: "heat" | "cool") => ({
-      "--bg-color": `rgba(var(--rgb-state-climate-${mode}), 0.05)`,
-      "--icon-color": `rgb(var(--rgb-state-climate-${mode}))`,
-      "--text-color": `rgb(var(--rgb-state-climate-${mode}))`,
-    });
+  const hasSingle = this.entity.attributes.temperature != null;
+  const hasRange =
+    this.entity.attributes.target_temp_low != null &&
+    this.entity.attributes.target_temp_high != null;
 
-    return html`
-      <mushroom-button-group .fill=${this.fill} ?rtl=${rtl}>
-        ${this.entity.attributes.temperature != null
-          ? html`
-              <mushroom-input-number
-                .locale=${this.hass.locale}
-                .value=${this.entity.attributes.temperature}
-                .step=${this._stepSize}
-                .min=${this.entity.attributes.min_temp}
-                .max=${this.entity.attributes.max_temp}
-                .disabled=${!available}
-                .formatOptions=${formatOptions}
-                @change=${this.onValueChange}
-              ></mushroom-input-number>
-            `
-          : nothing}
-        ${this.entity.attributes.target_temp_low != null &&
-        this.entity.attributes.target_temp_high != null
-          ? html`
-              <mushroom-input-number
-                style=${styleMap(modeStyle("heat"))}
-                .locale=${this.hass.locale}
-                .value=${this.entity.attributes.target_temp_low}
-                .step=${this._stepSize}
-                .min=${this.entity.attributes.min_temp}
-                .max=${this.entity.attributes.max_temp}
-                .disabled=${!available}
-                .formatOptions=${formatOptions}
-                @change=${this.onLowValueChange}
-              ></mushroom-input-number
-              ><mushroom-input-number
-                style=${styleMap(modeStyle("cool"))}
-                .locale=${this.hass.locale}
-                .value=${this.entity.attributes.target_temp_high}
-                .step=${this._stepSize}
-                .min=${this.entity.attributes.min_temp}
-                .max=${this.entity.attributes.max_temp}
-                .disabled=${!available}
-                .formatOptions=${formatOptions}
-                @change=${this.onHighValueChange}
-              ></mushroom-input-number>
-            `
-          : nothing}
-      </mushroom-button-group>
-    `;
-  }
+  return html`
+    <mushroom-button-group .fill=${this.fill} ?rtl=${rtl}>
+      ${["heat", "cool"].includes(hvacMode) && hasSingle
+        ? html`
+            <mushroom-input-number
+              .locale=${this.hass.locale}
+              .value=${this.entity.attributes.temperature}
+              .step=${this._stepSize}
+              .min=${this.entity.attributes.min_temp}
+              .max=${this.entity.attributes.max_temp}
+              .disabled=${!available}
+              .formatOptions=${formatOptions}
+              @change=${this.onValueChange}
+            ></mushroom-input-number>
+          `
+        : nothing}
+
+      ${["heat_cool", "auto"].includes(hvacMode) && hasRange
+        ? html`
+            <mushroom-input-number
+              style=${styleMap(modeStyle("heat"))}
+              .locale=${this.hass.locale}
+              .value=${this.entity.attributes.target_temp_low}
+              .step=${this._stepSize}
+              .min=${this.entity.attributes.min_temp}
+              .max=${this.entity.attributes.max_temp}
+              .disabled=${!available}
+              .formatOptions=${formatOptions}
+              @change=${this.onLowValueChange}
+            ></mushroom-input-number>
+            <mushroom-input-number
+              style=${styleMap(modeStyle("cool"))}
+              .locale=${this.hass.locale}
+              .value=${this.entity.attributes.target_temp_high}
+              .step=${this._stepSize}
+              .min=${this.entity.attributes.min_temp}
+              .max=${this.entity.attributes.max_temp}
+              .disabled=${!available}
+              .formatOptions=${formatOptions}
+              @change=${this.onHighValueChange}
+            ></mushroom-input-number>
+          `
+        : nothing}
+    </mushroom-button-group>
+  `;
 }
+}
+
+
+
+
