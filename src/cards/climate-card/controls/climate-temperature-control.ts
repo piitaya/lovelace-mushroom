@@ -26,7 +26,6 @@ export const isTemperatureControlVisible = (entity: ClimateEntity) => {
   return false;
 };
 
-
 @customElement("mushroom-climate-temperature-control")
 export class ClimateTemperatureControl extends LitElement {
   @property({ attribute: false }) public hass!: HomeAssistant;
@@ -68,75 +67,75 @@ export class ClimateTemperatureControl extends LitElement {
     });
   }
 
-protected render(): TemplateResult {
-  const rtl = computeRTL(this.hass);
-  const available = isAvailable(this.entity);
-  const hvacMode = this.entity.state;
+  protected render(): TemplateResult {
+    const rtl = computeRTL(this.hass);
 
-  const formatOptions: Intl.NumberFormatOptions =
-    this._stepSize === 1
-      ? { maximumFractionDigits: 0 }
-      : { minimumFractionDigits: 1, maximumFractionDigits: 1 };
+    const available = isAvailable(this.entity);
 
-  const modeStyle = (mode: "heat" | "cool") => ({
-    "--bg-color": `rgba(var(--rgb-state-climate-${mode}), 0.05)`,
-    "--icon-color": `rgb(var(--rgb-state-climate-${mode}))`,
-    "--text-color": `rgb(var(--rgb-state-climate-${mode}))`,
-  });
+    const hvacMode = this.entity.state;
 
-  const hasSingle = this.entity.attributes.temperature != null;
-  const hasRange =
-    this.entity.attributes.target_temp_low != null &&
-    this.entity.attributes.target_temp_high != null;
+    const formatOptions: Intl.NumberFormatOptions =
+      this._stepSize === 1
+        ? {
+            maximumFractionDigits: 0,
+          }
+        : {
+            minimumFractionDigits: 1,
+            maximumFractionDigits: 1,
+          };
 
-  return html`
-    <mushroom-button-group .fill=${this.fill} ?rtl=${rtl}>
-      ${["heat", "cool"].includes(hvacMode) && hasSingle
-        ? html`
-            <mushroom-input-number
-              .locale=${this.hass.locale}
-              .value=${this.entity.attributes.temperature}
-              .step=${this._stepSize}
-              .min=${this.entity.attributes.min_temp}
-              .max=${this.entity.attributes.max_temp}
-              .disabled=${!available}
-              .formatOptions=${formatOptions}
-              @change=${this.onValueChange}
-            ></mushroom-input-number>
-          `
-        : nothing}
+    const modeStyle = (mode: "heat" | "cool") => ({
+      "--bg-color": `rgba(var(--rgb-state-climate-${mode}), 0.05)`,
+      "--icon-color": `rgb(var(--rgb-state-climate-${mode}))`,
+      "--text-color": `rgb(var(--rgb-state-climate-${mode}))`,
+    });
 
-      ${["heat_cool", "auto"].includes(hvacMode) && hasRange
-        ? html`
-            <mushroom-input-number
-              style=${styleMap(modeStyle("heat"))}
-              .locale=${this.hass.locale}
-              .value=${this.entity.attributes.target_temp_low}
-              .step=${this._stepSize}
-              .min=${this.entity.attributes.min_temp}
-              .max=${this.entity.attributes.max_temp}
-              .disabled=${!available}
-              .formatOptions=${formatOptions}
-              @change=${this.onLowValueChange}
-            ></mushroom-input-number>
-            <mushroom-input-number
-              style=${styleMap(modeStyle("cool"))}
-              .locale=${this.hass.locale}
-              .value=${this.entity.attributes.target_temp_high}
-              .step=${this._stepSize}
-              .min=${this.entity.attributes.min_temp}
-              .max=${this.entity.attributes.max_temp}
-              .disabled=${!available}
-              .formatOptions=${formatOptions}
-              @change=${this.onHighValueChange}
-            ></mushroom-input-number>
-          `
-        : nothing}
-    </mushroom-button-group>
-  `;
+    return html`
+      <mushroom-button-group .fill=${this.fill} ?rtl=${rtl}>
+        ${["heat", "cool"].includes(hvacMode) &&
+        this.entity.attributes.temperature != null
+          ? html`
+              <mushroom-input-number
+                .locale=${this.hass.locale}
+                .value=${this.entity.attributes.temperature}
+                .step=${this._stepSize}
+                .min=${this.entity.attributes.min_temp}
+                .max=${this.entity.attributes.max_temp}
+                .disabled=${!available}
+                .formatOptions=${formatOptions}
+                @change=${this.onValueChange}
+              ></mushroom-input-number>
+            `
+          : nothing}
+        ${["heat_cool", "auto"].includes(hvacMode) &&
+        this.entity.attributes.target_temp_low != null &&
+        this.entity.attributes.target_temp_high != null
+          ? html`
+              <mushroom-input-number
+                style=${styleMap(modeStyle("heat"))}
+                .locale=${this.hass.locale}
+                .value=${this.entity.attributes.target_temp_low}
+                .step=${this._stepSize}
+                .min=${this.entity.attributes.min_temp}
+                .max=${this.entity.attributes.max_temp}
+                .disabled=${!available}
+                .formatOptions=${formatOptions}
+                @change=${this.onLowValueChange}
+              ></mushroom-input-number
+              ><mushroom-input-number
+                style=${styleMap(modeStyle("cool"))}
+                .locale=${this.hass.locale}
+                .value=${this.entity.attributes.target_temp_high}
+                .step=${this._stepSize}
+                .min=${this.entity.attributes.min_temp}
+                .max=${this.entity.attributes.max_temp}
+                .disabled=${!available}
+                .formatOptions=${formatOptions}
+                @change=${this.onHighValueChange}
+              ></mushroom-input-number>
+            `
+          : nothing}
+      </mushroom-button-group>
+    `;
+  }
 }
-}
-
-
-
-
