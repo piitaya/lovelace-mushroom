@@ -12,10 +12,19 @@ import "../../../shared/button";
 import "../../../shared/button-group";
 import "../../../shared/input-number";
 
-export const isTemperatureControlVisible = (entity: ClimateEntity) =>
-  entity.attributes.temperature != null ||
-  (entity.attributes.target_temp_low != null &&
-    entity.attributes.target_temp_high != null);
+export const isTemperatureControlVisible = (entity: ClimateEntity) => {
+  const mode = entity.state;
+  if (["heat", "cool"].includes(mode)) {
+    return entity.attributes.temperature != null;
+  }
+  if (["heat_cool", "auto"].includes(mode)) {
+    return (
+      entity.attributes.target_temp_low != null &&
+      entity.attributes.target_temp_high != null
+    );
+  }
+  return false;
+};
 
 @customElement("mushroom-climate-temperature-control")
 export class ClimateTemperatureControl extends LitElement {
@@ -63,6 +72,8 @@ export class ClimateTemperatureControl extends LitElement {
 
     const available = isAvailable(this.entity);
 
+    const hvacMode = this.entity.state;
+
     const formatOptions: Intl.NumberFormatOptions =
       this._stepSize === 1
         ? {
@@ -81,7 +92,8 @@ export class ClimateTemperatureControl extends LitElement {
 
     return html`
       <mushroom-button-group .fill=${this.fill} ?rtl=${rtl}>
-        ${this.entity.attributes.temperature != null
+        ${["heat", "cool"].includes(hvacMode) &&
+        this.entity.attributes.temperature != null
           ? html`
               <mushroom-input-number
                 .locale=${this.hass.locale}
@@ -95,7 +107,8 @@ export class ClimateTemperatureControl extends LitElement {
               ></mushroom-input-number>
             `
           : nothing}
-        ${this.entity.attributes.target_temp_low != null &&
+        ${["heat_cool", "auto"].includes(hvacMode) &&
+        this.entity.attributes.target_temp_low != null &&
         this.entity.attributes.target_temp_high != null
           ? html`
               <mushroom-input-number
