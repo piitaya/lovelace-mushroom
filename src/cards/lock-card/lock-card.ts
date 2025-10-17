@@ -33,6 +33,7 @@ import {
 import "./controls/lock-buttons-control";
 import { LockCardConfig } from "./lock-card-config";
 import { isActionPending, isLocked, isUnlocked } from "./utils";
+import { FanCardConfig } from "../fan-card/fan-card-config";
 
 registerCustomCard({
   type: LOCK_CARD_NAME,
@@ -65,6 +66,18 @@ export class LockCard
 
   protected get hasControls(): boolean {
     return true;
+  }
+
+  setConfig(config: FanCardConfig): void {
+    super.setConfig({
+      tap_action: {
+        action: "toggle",
+      },
+      hold_action: {
+        action: "more-info",
+      },
+      ...config,
+    });
   }
 
   private _handleAction(ev: ActionHandlerEvent) {
@@ -114,6 +127,8 @@ export class LockCard
               .hass=${this.hass}
               .entity=${stateObj}
               .fill=${appearance.layout !== "horizontal"}
+              .show_open_button_when_locked=${this._config
+                .show_open_button_when_locked}
             >
             </mushroom-lock-buttons-control>
           </div>
