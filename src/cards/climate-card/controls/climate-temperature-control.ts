@@ -3,28 +3,22 @@ import { customElement, property } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import {
   ClimateEntity,
+  ClimateEntityFeature,
+  computeStateDomain,
   computeRTL,
   HomeAssistant,
   isAvailable,
+  supportsFeature,
   UNIT_F,
 } from "../../../ha";
 import "../../../shared/button";
 import "../../../shared/button-group";
 import "../../../shared/input-number";
 
-export const isTemperatureControlVisible = (entity: ClimateEntity) => {
-  const mode = entity.state;
-  if (["heat", "cool"].includes(mode)) {
-    return entity.attributes.temperature != null;
-  }
-  if (["heat_cool", "auto"].includes(mode)) {
-    return (
-      entity.attributes.target_temp_low != null &&
-      entity.attributes.target_temp_high != null
-    );
-  }
-  return false;
-};
+export const isTemperatureControlVisible = (entity: ClimateEntity) =>
+  entity.attributes.temperature != null ||
+  (entity.attributes.target_temp_low != null &&
+    entity.attributes.target_temp_high != null);
 
 @customElement("mushroom-climate-temperature-control")
 export class ClimateTemperatureControl extends LitElement {
@@ -39,6 +33,25 @@ export class ClimateTemperatureControl extends LitElement {
       return this.entity.attributes.target_temp_step;
     }
     return this.hass!.config.unit_system.temperature === UNIT_F ? 1 : 0.5;
+  }
+
+  private _supportsTarget(): boolean {
+    const domain = computeStateDomain(this.entity as any);
+    return (
+      domain === "climate" &&
+      supportsFeature(this.entity as any, ClimateEntityFeature.TARGET_TEMPERATURE)
+    );
+  }
+
+  private _supportsTargetRange(): boolean {
+    const domain = computeStateDomain(this.entity as any);
+    return (
+      domain === "climate" &&
+      supportsFeature(
+        this.entity as any,
+        ClimateEntityFeature.TARGET_TEMPERATURE_RANGE
+      )
+    );
   }
 
   onValueChange(e: CustomEvent<{ value: number }>): void {
@@ -69,20 +82,12 @@ export class ClimateTemperatureControl extends LitElement {
 
   protected render(): TemplateResult {
     const rtl = computeRTL(this.hass);
-
     const available = isAvailable(this.entity);
-
-    const hvacMode = this.entity.state;
 
     const formatOptions: Intl.NumberFormatOptions =
       this._stepSize === 1
-        ? {
-            maximumFractionDigits: 0,
-          }
-        : {
-            minimumFractionDigits: 1,
-            maximumFractionDigits: 1,
-          };
+        ? { maximumFractionDigits: 0 }
+        : { minimumFractionDigits: 1, maximumFractionDigits: 1 };
 
     const modeStyle = (mode: "heat" | "cool") => ({
       "--bg-color": `rgba(var(--rgb-state-climate-${mode}), 0.05)`,
@@ -90,10 +95,21 @@ export class ClimateTemperatureControl extends LitElement {
       "--text-color": `rgb(var(--rgb-state-climate-${mode}))`,
     });
 
+    const supportsSingle = this._supportsTarget();
+    const supportsRange = this._supportsTargetRange();
+
+    const hasSingle = this.entity.attributes.temperature != null;
+    const hasRange =
+      this.entity.attributes.target_temp_low != null &&
+      this.entity.attributes.target_temp_high != null;
+
+
+    const showSingle = supportsSingle && hasSingle;
+    const showRange = !showSingle && supportsRange && hasRange;
+
     return html`
       <mushroom-button-group .fill=${this.fill} ?rtl=${rtl}>
-        ${["heat", "cool"].includes(hvacMode) &&
-        this.entity.attributes.temperature != null
+        ${showSingle
           ? html`
               <mushroom-input-number
                 .locale=${this.hass.locale}
@@ -107,9 +123,7 @@ export class ClimateTemperatureControl extends LitElement {
               ></mushroom-input-number>
             `
           : nothing}
-        ${["heat_cool", "auto"].includes(hvacMode) &&
-        this.entity.attributes.target_temp_low != null &&
-        this.entity.attributes.target_temp_high != null
+        ${showRange
           ? html`
               <mushroom-input-number
                 style=${styleMap(modeStyle("heat"))}
