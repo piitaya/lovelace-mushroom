@@ -3,6 +3,14 @@
     "not_found": "Không tìm thấy thực thể"
   },
   "editor": {
+    "section": {
+      "context": "Ngữ cảnh",
+      "content": "Ngữ cảnh",
+      "features": "Tính năng",
+      "interactions": "Tương tác",
+      "layout": "Bố cục",
+      "badge": "Huy hiệu"
+    },
     "card": {
       "chips": {
         "alignment": "Căn chỉnh"
@@ -16,12 +24,18 @@
         "show_position_control": "Điều khiển vị trí?",
         "show_tilt_position_control": "Điều khiển độ nghiêng?"
       },
+      "empty": {
+        "no_config_options": "Thẻ này không có tùy chọn cấu hình."
+      },
       "fan": {
+        "show_direction_control": "Điều khiển hướng?",
         "show_oscillate_control": "Điều khiển xoay?",
-        "show_percentage_control": "Điều khiển dạng phần trăm?"
+        "show_percentage_control": "Điều khiển phần trăm?"
       },
       "generic": {
-        "collapsible_controls": "Thu nhỏ điều kiển khi tắt",
+        "entity": "Thực thể",
+        "area": "Khu vực",
+        "color": "Màu",
         "content_info": "Nội dung",
         "fill_container": "Làm đầy ô chứa",
         "icon_animation": "Biểu tượng chuyển động khi kích hoạt?",
@@ -30,7 +44,10 @@
         "layout": "Bố cục",
         "primary_info": "Thông tin chính",
         "secondary_info": "Thông tin phụ",
-        "use_entity_picture": "Dùng ảnh của thực thể?"
+        "use_entity_picture": "Dùng ảnh của thực thể?",
+        "collapsible_controls": "Thu nhỏ điều kiển khi tắt",
+        "picture": "Hình ảnh",
+        "picture_helper": "Nếu đặt, nó sẽ thay cho biểu tượng."
       },
       "humidifier": {
         "show_target_humidity_control": "Điều khiển độ ẩm?"
@@ -76,12 +93,20 @@
         }
       },
       "template": {
+        "area_helper": "Dùng trong bản mẫu và tính năng",
+        "area": "Khu vực",
         "badge_color": "Màu huy hiệu",
         "badge_icon": "Biểu tượng huy hiệu",
+        "badge_text_helper": "Nếu đặt, nó sẽ thay thế biểu tượng.",
+        "badge_text": "Chữ trong huy hiệu",
+        "badge": "Huy hiệu",
         "content": "Nội dung",
-        "entity_extra": "Được sử dụng trong bản mẫu và hành động",
-        "multiline_secondary": "Nhiều dòng thông tin phụ?",
-        "picture": "Ảnh (thay cho biểu tượng)",
+        "entity_helper": "Dùng trong bản mẫu, tương tác và tính năng",
+        "entity_helper_legacy": "Dùng trong bản mẫu và tương tác",
+        "label": "Nhãn",
+        "layout": "Bố cục",
+        "multiline_secondary_helper": "Thẻ có thể được kéo cao lên để vừa với văn bản và không phải lúc nào cũng vừa vặn với hệ thống lưới.",
+        "multiline_secondary": "Cho phép nhiều dòng thông tin phụ",
         "primary": "Thông tin chính",
         "secondary": "Thông tin phụ"
       },
@@ -105,6 +130,14 @@
         "show_temperature": "Nhiệt độ?"
       }
     },
+    "badge": {
+      "template": {
+        "label": "Nhãn",
+        "content": "Nội dung",
+        "entity_helper": "Dùng trong bản mẫu và tương tác",
+        "area_helper": "Dùng trong bản mẫu"
+      }
+    },
     "chip": {
       "chip-picker": {
         "add": "Thêm phỉnh",
@@ -120,6 +153,7 @@
           "entity": "Thực thể",
           "light": "Đèn",
           "menu": "Trình đơn",
+          "quickbar": "Thanh nhanh",
           "spacer": "Ngăn cách",
           "template": "Mẫu",
           "weather": "Thời tiết"
@@ -173,5 +207,12 @@
         }
       }
     }
+  },
+  "migration": {
+    "title": "Thẻ đã cập nhật",
+    "description": "Cấu hình thẻ của bạn đã được nhập thành phiên bản mới. Bạn có thể tìm thêm thông tin về thay đổi tại {link}.",
+    "post": "bài trên GitHub",
+    "revert": "Đảo ngược",
+    "ok": "Ok"
   }
 }
