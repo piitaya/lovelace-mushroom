@@ -173,7 +173,6 @@
           "default": "Default alignment",
           "end": "End",
           "justify": "Justify",
-          "justify-center": "Justify center",
           "start": "Start"
         }
       },

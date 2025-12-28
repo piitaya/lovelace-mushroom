@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "rollup -c --watch --bundleConfigAsCjs",
-    "build": "rollup -c --bundleConfigAsCjs",
+    "build": "rollup -c --bundleConfigAsCjs && gzip -f -k dist/mushroom.js",
     "format": "prettier --write .",
     "start:hass-stable": "docker run --rm -p8123:8123 -v ./.hass_dev:/config homeassistant/home-assistant:stable",
     "start:hass": "docker run --rm -p8123:8123 -v ./.hass_dev:/config homeassistant/home-assistant:beta",

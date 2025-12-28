@@ -87,11 +87,32 @@ export class ChipsCard extends LitElement implements LovelaceCard {
     }
 
     const rtl = computeRTL(this._hass);
+    const chips = this._config.chips;
 
+    // justify 模式：分成三部分渲染（左边 | 中间容器 | 右边）
+    if (this._config.alignment === "justify" && chips.length >= 2) {
+      const firstChip = chips[0];
+      const lastChip = chips[chips.length - 1];
+      const middleChips = chips.slice(1, -1);
+
+      return html`
+        <ha-card>
+          <div class="chip-container ${alignment}" ?rtl=${rtl}>
+            <div class="left-section">${this.renderChip(firstChip)}</div>
+            <div class="center-wrapper">
+              ${middleChips.map((chip) => this.renderChip(chip))}
+            </div>
+            <div class="right-section">${this.renderChip(lastChip)}</div>
+          </div>
+        </ha-card>
+      `;
+    }
+
+    // 其他对齐模式：正常渲染
     return html`
       <ha-card>
         <div class="chip-container ${alignment}" ?rtl=${rtl}>
-          ${this._config.chips.map((chip) => this.renderChip(chip))}
+          ${chips.map((chip) => this.renderChip(chip))}
         </div>
       </ha-card>
     `;
@@ -137,24 +158,66 @@ export class ChipsCard extends LitElement implements LovelaceCard {
         .chip-container.align-center {
           justify-content: center;
         }
+        /* 
+         * justify 布局核心逻辑（手机通知栏风格）：
+         * - 使用 CSS Grid 三列布局：左侧固定 | 中间弹性 | 右侧固定
+         * - 桌面端：中间区域单行，超出不换行
+         * - 移动端：中间区域支持换行
+         * - 隐藏的条件元素完全不占用任何空间
+         */
         .chip-container.align-justify {
-          justify-content: space-between;
+          display: grid;
+          grid-template-columns: auto 1fr auto;
+          grid-template-areas: "left center right";
+          align-items: center;
+          width: 100%;
+          gap: 8px;
         }
-        .chip-container.align-justify-center {
+        /* 左侧区域 */
+        .chip-container.align-justify > .left-section {
+          grid-area: left;
+          display: flex;
+          align-items: center;
+          flex-shrink: 0;
+        }
+        /* 右侧区域 */
+        .chip-container.align-justify > .right-section {
+          grid-area: right;
+          display: flex;
+          align-items: center;
+          flex-shrink: 0;
+        }
+        /* 中间区域：默认单行，不换行 */
+        .chip-container.align-justify > .center-wrapper {
+          grid-area: center;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: nowrap; /* 桌面端不换行 */
+          align-items: center;
           justify-content: center;
+          gap: 4px;
+          overflow: hidden; /* 超出隐藏 */
         }
-        .chip-container.align-justify-center::before {
-          content: "";
-          flex: 1;
-          order: -1;
+        
+        /* 移动端响应式：屏幕宽度 ≤ 600px 时启用换行 */
+        @media screen and (max-width: 600px) {
+          .chip-container.align-justify > .center-wrapper {
+            flex-wrap: wrap; /* 移动端换行 */
+            overflow: visible;
+          }
         }
-        .chip-container.align-justify-center::after {
-          content: "";
-          flex: 1;
-          order: 999;
+        
+        /* 
+         * 条件芯片的关键处理：
+         * 使用 display: contents 让隐藏时完全不占位
+         * 子元素直接参与父容器布局
+         */
+        mushroom-conditional-chip {
+          display: contents;
         }
-        .chip-container.align-justify-center > mushroom-conditional-chip:not(:has(> *)) {
-          display: none;
+        mushroom-conditional-chip[hidden],
+        mushroom-conditional-chip:empty {
+          display: none !important;
         }
       `,
     ];
