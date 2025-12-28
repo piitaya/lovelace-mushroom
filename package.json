@@ -1,6 +1,6 @@
 {
   "name": "mushroom-cards",
-  "version": "5.0.8",
+  "version": "5.0.8-justify-center",
   "description": "Home Assistant Mushroom Cards",
   "main": "index.js",
   "scripts": {
