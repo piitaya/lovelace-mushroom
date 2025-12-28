@@ -146,6 +146,7 @@
           "default": "默认",
           "end": "右对齐",
           "justify": "两端对齐",
+          "justify-center": "分散居中",
           "start": "左对齐"
         }
       },

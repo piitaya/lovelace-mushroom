@@ -140,6 +140,18 @@ export class ChipsCard extends LitElement implements LovelaceCard {
         .chip-container.align-justify {
           justify-content: space-between;
         }
+        .chip-container.align-justify-center {
+          justify-content: center;
+        }
+        .chip-container.align-justify-center > * {
+          margin: 0;
+        }
+        .chip-container.align-justify-center > *:first-child {
+          margin-right: auto;
+        }
+        .chip-container.align-justify-center > *:last-child {
+          margin-left: auto;
+        }
       `,
     ];
   }

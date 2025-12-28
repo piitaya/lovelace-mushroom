@@ -4,7 +4,14 @@ import { HomeAssistant } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import "./../form/mushroom-select";
 
-const ALIGNMENT = ["default", "start", "center", "end", "justify"] as const;
+const ALIGNMENT = [
+  "default",
+  "start",
+  "center",
+  "end",
+  "justify",
+  "justify-center",
+] as const;
 type Alignment = (typeof ALIGNMENT)[number];
 
 const ICONS: Record<Alignment, string> = {
@@ -13,6 +20,7 @@ const ICONS: Record<Alignment, string> = {
   center: "mdi:format-align-center",
   end: "mdi:format-align-right",
   justify: "mdi:format-align-justify",
+  "justify-center": "mdi:format-horizontal-center",
 };
 
 @customElement("mushroom-alignment-picker")
