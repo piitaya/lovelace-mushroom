@@ -143,14 +143,15 @@ export class ChipsCard extends LitElement implements LovelaceCard {
         .chip-container.align-justify-center {
           justify-content: center;
         }
-        .chip-container.align-justify-center > * {
-          margin: 0;
-        }
         .chip-container.align-justify-center > *:first-child {
-          margin-right: auto;
+          margin-right: auto !important;
         }
         .chip-container.align-justify-center > *:last-child {
-          margin-left: auto;
+          margin-left: auto !important;
+        }
+        /* 解决隐藏条件芯片导致的空隙问题 */
+        .chip-container.align-justify-center > mushroom-conditional-chip:not(:has(> *)) {
+          display: none;
         }
       `,
     ];
