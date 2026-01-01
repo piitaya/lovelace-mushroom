@@ -22,7 +22,7 @@ import {
   LovelaceChip,
 } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
-import { getRGBColor, isColorSuperLight } from "../../light-card/utils";
+import { getRGBColor, improveColorContrast } from "../../light-card/utils";
 
 @customElement(computeChipComponentName("light"))
 export class LightChip extends LitElement implements LovelaceChip {
@@ -86,11 +86,10 @@ export class LightChip extends LitElement implements LovelaceChip {
     const lightRgbColor = getRGBColor(stateObj);
     const iconStyle = {};
     if (lightRgbColor && this._config?.use_light_color) {
-      const color = lightRgbColor.join(",");
+      const color = !(this.hass.themes as any).darkMode
+        ? improveColorContrast(lightRgbColor).join(",")
+        : lightRgbColor.join(",");
       iconStyle["--color"] = `rgb(${color})`;
-      if (isColorSuperLight(lightRgbColor)) {
-        iconStyle["--color"] = `rgba(var(--rgb-primary-text-color), 0.2)`;
-      }
     }
 
     const content = computeInfoDisplay(

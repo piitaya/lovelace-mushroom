@@ -45,8 +45,7 @@ import "./controls/light-color-temp-control";
 import { LightCardConfig } from "./light-card-config";
 import {
   getRGBColor,
-  isColorLight,
-  isColorSuperLight,
+  improveColorContrast,
   supportsBrightnessControl,
   supportsColorControl,
   supportsColorTempControl,
@@ -248,17 +247,11 @@ export class LightCard
     const iconStyle = {};
     const iconColor = this._config?.icon_color;
     if (lightRgbColor && this._config?.use_light_color) {
-      const color = lightRgbColor.join(",");
+      const color = !(this.hass.themes as any).darkMode
+        ? improveColorContrast(lightRgbColor).join(",")
+        : lightRgbColor.join(",");
       iconStyle["--icon-color"] = `rgb(${color})`;
       iconStyle["--shape-color"] = `rgba(${color}, 0.25)`;
-      if (isColorLight(lightRgbColor) && !(this.hass.themes as any).darkMode) {
-        iconStyle["--shape-outline-color"] =
-          `rgba(var(--rgb-primary-text-color), 0.05)`;
-        if (isColorSuperLight(lightRgbColor)) {
-          iconStyle["--icon-color"] =
-            `rgba(var(--rgb-primary-text-color), 0.2)`;
-        }
-      }
     } else if (iconColor) {
       const iconRgbColor = computeRgbColor(iconColor);
       iconStyle["--icon-color"] = `rgb(${iconRgbColor})`;
@@ -302,23 +295,16 @@ export class LightCard
         const sliderStyle = {};
         const iconColor = this._config?.icon_color;
         if (lightRgbColor && this._config?.use_light_color) {
-          const color = lightRgbColor.join(",");
+          const color = !(this.hass.themes as any).darkMode
+            ? improveColorContrast(lightRgbColor).join(",")
+            : lightRgbColor.join(",");
           sliderStyle["--slider-color"] = `rgb(${color})`;
           sliderStyle["--slider-bg-color"] = `rgba(${color}, 0.2)`;
-          if (
-            isColorLight(lightRgbColor) &&
-            !(this.hass.themes as any).darkMode
-          ) {
-            sliderStyle["--slider-bg-color"] =
-              `rgba(var(--rgb-primary-text-color), 0.05)`;
-            sliderStyle["--slider-color"] =
-              `rgba(var(--rgb-primary-text-color), 0.15)`;
-          }
         } else if (iconColor) {
           const iconRgbColor = computeRgbColor(iconColor);
           sliderStyle["--slider-color"] = `rgb(${iconRgbColor})`;
           sliderStyle["--slider-bg-color"] = `rgba(${iconRgbColor}, 0.2)`;
-        }
+        } 
         return html`
           <mushroom-light-brightness-control
             .hass=${this.hass}

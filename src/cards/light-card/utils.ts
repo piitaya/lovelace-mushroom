@@ -1,4 +1,4 @@
-import { rgb, lch } from "culori";
+import { rgb, hsv} from "culori";
 import {
   LightColorMode,
   LightEntity,
@@ -24,25 +24,27 @@ export function getRGBColor(entity: LightEntity): number[] | undefined {
     : undefined;
 }
 
-export function isColorLight(rgb: number[]): boolean {
-  const color = {
+export function improveColorContrast(rgbColor: number[]): number[] {
+  let { h, s, v } = hsv({
     mode: "rgb" as const,
-    r: rgb[0] / 255,
-    g: rgb[1] / 255,
-    b: rgb[2] / 255,
-  };
-  const lchColor = lch(color);
-  return (lchColor?.l || 0) > 96;
-}
-export function isColorSuperLight(rgb: number[]): boolean {
-  const color = {
-    mode: "rgb" as const,
-    r: rgb[0] / 255,
-    g: rgb[1] / 255,
-    b: rgb[2] / 255,
-  };
-  const lchColor = lch(color);
-  return (lchColor?.l || 0) > 97;
+    r: rgbColor[0] / 255,
+    g: rgbColor[1] / 255,
+    b: rgbColor[2] / 255,
+  });
+  if (v > 0.85 && s < 0.4) {
+    if (s < 0.1) {
+      v = Math.min(v, 225/255);
+    } else {
+      s = 0.4;
+    }
+    const adjustedRgb = rgb({ mode: "hsv", h, s, v });
+    return [
+      Math.round(adjustedRgb.r * 255),
+      Math.round(adjustedRgb.g * 255),
+      Math.round(adjustedRgb.b * 255)
+    ];
+  }
+  return rgbColor;
 }
 
 export function supportsColorTempControl(entity: LightEntity): boolean {
