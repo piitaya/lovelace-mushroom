@@ -173,14 +173,14 @@ export class ClimateCard
         "hvac_action"
       );
     }
-    if (stateObj.attributes.current_temperature !== null) {
+    if (stateObj.attributes.current_temperature != null) {
       const temperature = this.hass.formatEntityAttributeValue(
         stateObj,
         "current_temperature"
       );
       stateDisplay += ` ⸱ ${temperature}`;
     }
-    if (stateObj.attributes.current_humidity !== null) {
+    if (stateObj.attributes.current_humidity != null) {
       const humidity = this.hass.formatEntityAttributeValue(
         stateObj,
         "current_humidity"
