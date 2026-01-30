@@ -460,13 +460,15 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
                           : undefined}
                         class=${weatherSvg ? "weather" : ""}
                       >
-                        ${weatherSvg
-                          ? html`<div slot="icon">${weatherSvg}</div>`
-                          : html`<ha-state-icon
-                              slot="icon"
-                              .icon=${icon}
-                              .hass=${this.hass}
-                            ></ha-state-icon>`}
+                        ${picture
+                          ? nothing
+                          : weatherSvg
+                            ? html`<div slot="icon">${weatherSvg}</div>`
+                            : html`<ha-state-icon
+                                slot="icon"
+                                .icon=${icon}
+                                .hass=${this.hass}
+                              ></ha-state-icon>`}
                         ${badgeIcon || badgeText
                           ? html`
                               <ha-tile-badge
