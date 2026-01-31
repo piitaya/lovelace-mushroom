@@ -1,4 +1,4 @@
-import { rgb, hsv} from "culori";
+import { hsv2rgb, rgb2hsv } from "../../ha/common/color/convert-color";
 import {
   LightColorMode,
   LightEntity,
@@ -25,26 +25,15 @@ export function getRGBColor(entity: LightEntity): number[] | undefined {
 }
 
 export function improveColorContrast(rgbColor: number[]): number[] {
-  let { h, s, v } = hsv({
-    mode: "rgb" as const,
-    r: rgbColor[0] / 255,
-    g: rgbColor[1] / 255,
-    b: rgbColor[2] / 255,
-  });
-  if (v > 0.85 && s < 0.4) {
-    if (s < 0.1) {
-      v = Math.min(v, 225/255);
+  const hsvColor = rgb2hsv([rgbColor[0], rgbColor[1], rgbColor[2]]);
+  if (hsvColor[1] < 0.4) {
+    if (hsvColor[1] < 0.1) {
+      hsvColor[2] = 225;
     } else {
-      s = 0.4;
+      hsvColor[1] = 0.4;
     }
-    const adjustedRgb = rgb({ mode: "hsv", h, s, v });
-    return [
-      Math.round(adjustedRgb.r * 255),
-      Math.round(adjustedRgb.g * 255),
-      Math.round(adjustedRgb.b * 255)
-    ];
   }
-  return rgbColor;
+  return hsv2rgb(hsvColor);
 }
 
 export function supportsColorTempControl(entity: LightEntity): boolean {
