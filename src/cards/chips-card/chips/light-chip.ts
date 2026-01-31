@@ -86,9 +86,7 @@ export class LightChip extends LitElement implements LovelaceChip {
     const lightRgbColor = getRGBColor(stateObj);
     const iconStyle = {};
     if (lightRgbColor && this._config?.use_light_color) {
-      const color = !(this.hass.themes as any).darkMode
-        ? improveColorContrast(lightRgbColor).join(",")
-        : lightRgbColor.join(",");
+      const color = improveColorContrast(lightRgbColor).join(",")
       iconStyle["--color"] = `rgb(${color})`;
     }
 

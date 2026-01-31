@@ -247,9 +247,7 @@ export class LightCard
     const iconStyle = {};
     const iconColor = this._config?.icon_color;
     if (lightRgbColor && this._config?.use_light_color) {
-      const color = !(this.hass.themes as any).darkMode
-        ? improveColorContrast(lightRgbColor).join(",")
-        : lightRgbColor.join(",");
+      const color = improveColorContrast(lightRgbColor).join(",")
       iconStyle["--icon-color"] = `rgb(${color})`;
       iconStyle["--shape-color"] = `rgba(${color}, 0.25)`;
     } else if (iconColor) {
@@ -295,9 +293,7 @@ export class LightCard
         const sliderStyle = {};
         const iconColor = this._config?.icon_color;
         if (lightRgbColor && this._config?.use_light_color) {
-          const color = !(this.hass.themes as any).darkMode
-            ? improveColorContrast(lightRgbColor).join(",")
-            : lightRgbColor.join(",");
+          const color = improveColorContrast(lightRgbColor).join(",")
           sliderStyle["--slider-color"] = `rgb(${color})`;
           sliderStyle["--slider-bg-color"] = `rgba(${color}, 0.2)`;
         } else if (iconColor) {
