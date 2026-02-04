@@ -68,6 +68,13 @@ export default [
       inlineDynamicImports: true,
     },
     plugins,
+    onwarn: (warning, warn)=>{
+      // Ignore circular dependency warnings from culori library
+      if (warning.code === "CIRCULAR_DEPENDENCY" && warning.ids?.some(id => id.includes("node_modules/culori"))) {
+        return;
+      }
+      warn(warning);
+    },
     moduleContext: (id) => {
       const thisAsWindowForModules = [
         "node_modules/@formatjs/intl-utils/lib/src/diff.js",

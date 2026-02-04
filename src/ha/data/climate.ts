@@ -76,3 +76,4 @@ export const enum ClimateEntityFeature {
   TURN_OFF = 128,
   TURN_ON = 256,
   SWING_HORIZONTAL_MODE = 512,
+}
