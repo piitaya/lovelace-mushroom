@@ -22,6 +22,8 @@ import "./cards/vacuum-card/vacuum-card";
 
 import "./badges/template/template-badge";
 
+import "./card-features";
+
 console.info(
   `%c🍄 Mushroom 🍄 - ${version}`,
   "color: #ef5350; font-weight: 700;"
