@@ -206,6 +206,12 @@
           "vertical": "Vertical layout"
         }
       }
+    },
+    "card_feature": {
+      "light_color": {
+        "show_hue": "Show hue",
+        "show_saturation": "Show saturation"
+      }
     }
   },
   "migration": {
