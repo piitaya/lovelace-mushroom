@@ -325,18 +325,18 @@ export class LightCard
             .entity=${entity}
             style=${styleMap(sliderStyle)}
             @current-change=${this.onCurrentBrightnessChange}
-          />
+          ></mushroom-light-brightness-control>
         `;
       case "color_temp_control":
         return html`
           <mushroom-light-color-temp-control
             .hass=${this.hass}
             .entity=${entity}
-          />
+          ></mushroom-light-color-temp-control>
         `;
       case "color_control":
         return html`
-          <mushroom-light-color-control .hass=${this.hass} .entity=${entity} />
+          <mushroom-light-color-control .hass=${this.hass} .entity=${entity}></mushroom-light-color-control>
         `;
       default:
         return nothing;

@@ -272,7 +272,7 @@ export class MediaPlayerCard
             .controls=${volume_controls}
             .fill=${layout !== "horizontal"}
             @current-change=${this.onCurrentVolumeChange}
-          />
+          ></mushroom-media-player-volume-control>
         `;
       default:
         return nothing;

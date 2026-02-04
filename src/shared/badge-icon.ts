@@ -8,7 +8,7 @@ export class BadgeIcon extends LitElement {
   protected render(): TemplateResult {
     return html`
       <div class="badge">
-        <ha-icon .icon=${this.icon} />
+        <ha-icon .icon=${this.icon}></ha-icon>
       </div>
     `;
   }
