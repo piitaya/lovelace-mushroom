@@ -75,7 +75,7 @@ export class NumberValueControl extends LitElement {
         .step=${this.entity.attributes.step}
         @change=${this.onChange}
         @current-change=${this.onCurrentChange}
-      />
+      ></mushroom-slider>
     `;
   }
 

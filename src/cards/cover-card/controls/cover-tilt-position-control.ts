@@ -73,7 +73,7 @@ export class CoverTiltPositionControl extends LitElement {
         .showIndicator=${true}
         @change=${this.onChange}
         @current-change=${this.onCurrentChange}
-      />
+      ></mushroom-slider>
     `;
   }
 
