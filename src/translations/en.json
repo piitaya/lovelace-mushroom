@@ -211,6 +211,12 @@
       "light_color": {
         "show_hue": "Show hue",
         "show_saturation": "Show saturation"
+      },
+      "combine": {
+        "features": "Combined features",
+        "layout": "Layout",
+        "edit": "Edit",
+        "remove": "Delete"
       }
     }
   },
