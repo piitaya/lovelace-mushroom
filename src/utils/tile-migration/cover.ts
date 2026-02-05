@@ -1,6 +1,6 @@
 import { LovelaceCardConfig } from "../../ha";
 import { LovelaceCardFeatureConfig } from "../../ha/panels/lovelace/card-features/types";
-import { migrateCommonConfig, TileCardConfig } from "./common";
+import { migrateCommonConfig, TileCardConfig, wrapInCombine } from "./common";
 
 /**
  * Cover Card → Tile Card Migration
@@ -27,6 +27,6 @@ export function migrateCoverCard(config: LovelaceCardConfig): TileCardConfig {
     features.push({ type: "cover-tilt-position" });
   }
 
-  if (features.length > 0) result.features = features;
+  if (features.length > 0) result.features = wrapInCombine(features);
   return result;
 }
