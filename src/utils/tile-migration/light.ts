@@ -1,6 +1,6 @@
 import { LovelaceCardConfig } from "../../ha";
 import { LovelaceCardFeatureConfig } from "../../ha/panels/lovelace/card-features/types";
-import { migrateCommonConfig, TileCardConfig } from "./common";
+import { migrateCommonConfig, TileCardConfig, wrapInCombine } from "./common";
 
 /**
  * Light Card → Tile Card Migration
@@ -35,6 +35,6 @@ export function migrateLightCard(config: LovelaceCardConfig): TileCardConfig {
     });
   }
 
-  if (features.length > 0) result.features = features;
+  if (features.length > 0) result.features = wrapInCombine(features);
   return result;
 }

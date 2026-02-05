@@ -1,6 +1,6 @@
 import { LovelaceCardConfig } from "../../ha";
 import { LovelaceCardFeatureConfig } from "../../ha/panels/lovelace/card-features/types";
-import { migrateCommonConfig, TileCardConfig } from "./common";
+import { migrateCommonConfig, TileCardConfig, wrapInCombine } from "./common";
 
 /**
  * Climate Card → Tile Card Migration
@@ -26,6 +26,6 @@ export function migrateClimateCard(config: LovelaceCardConfig): TileCardConfig {
     features.push({ type: "target-temperature" });
   }
 
-  if (features.length > 0) result.features = features;
+  if (features.length > 0) result.features = wrapInCombine(features);
   return result;
 }
