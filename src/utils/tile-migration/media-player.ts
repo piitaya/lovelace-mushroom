@@ -1,19 +1,19 @@
 import { LovelaceCardConfig } from "../../ha";
 import { LovelaceCardFeatureConfig } from "../../ha/panels/lovelace/card-features/types";
-import { migrateCommonConfig, TileCardConfig } from "./common";
+import { migrateCommonConfig, TileCardConfig, wrapInCombine } from "./common";
 
 /**
  * Media Player Card → Tile Card Migration
  *
  * Mapped:
- *   volume_controls (volume_set)    → feature: media-player-volume-slider
+ *   use_media_info                   → state_content: ["media_title", "media_artist"]
+ *   media_controls (any)             → feature: media-player-playback
+ *   volume_controls (volume_set)     → feature: media-player-volume-slider
+ *   volume_controls (volume_buttons) → feature: media-player-volume-buttons
  *
  * Not mapped (no tile equivalent):
- *   use_media_info                  - tile card shows state natively
  *   show_volume_level               - no direct tile equivalent
  *   volume_controls (volume_mute)   - no tile feature for mute toggle
- *   volume_controls (volume_buttons) - no tile feature for volume buttons
- *   media_controls (all)            - no tile features for media transport
  *   collapsible_controls            - not supported by tile card
  */
 export function migrateMediaPlayerCard(
@@ -22,10 +22,24 @@ export function migrateMediaPlayerCard(
   const result = migrateCommonConfig(config);
   const features: LovelaceCardFeatureConfig[] = [];
 
+  // use_media_info → show media title and artist as state content
+  if (config.use_media_info) {
+    result.state_content = ["media_title", "media_artist"];
+  }
+
+  // media_controls → playback feature
+  if (config.media_controls?.length) {
+    features.push({ type: "media-player-playback" });
+  }
+
+  // volume_controls
   if (config.volume_controls?.includes("volume_set")) {
     features.push({ type: "media-player-volume-slider" });
   }
+  if (config.volume_controls?.includes("volume_buttons")) {
+    features.push({ type: "media-player-volume-buttons" });
+  }
 
-  if (features.length > 0) result.features = features;
+  if (features.length > 0) result.features = wrapInCombine(features);
   return result;
 }
