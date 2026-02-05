@@ -6,18 +6,25 @@ import { migrateCommonConfig, TileCardConfig, wrapInCombine } from "./common";
  * Light Card → Tile Card Migration
  *
  * Mapped:
- *   icon_color                → color
+ *   icon_color                → color (fixed color when use_light_color is false)
+ *   use_light_color           → omit color (tile auto-derives from entity state)
  *   show_brightness_control   → feature: light-brightness
  *   show_color_temp_control   → feature: light-color-temp
  *   show_color_control        → features: mushroom-light-hue-card-feature
  *                               + mushroom-light-saturation-card-feature
  *
  * Not mapped (no tile equivalent):
- *   use_light_color           - tile card uses entity color natively
  *   collapsible_controls      - not supported by tile card
  */
 export function migrateLightCard(config: LovelaceCardConfig): TileCardConfig {
   const result = migrateCommonConfig(config);
+
+  // When use_light_color is enabled, remove fixed color so tile card
+  // auto-derives color from the light entity's current state.
+  if (config.use_light_color) {
+    delete result.color;
+  }
+
   const features: LovelaceCardFeatureConfig[] = [];
 
   if (config.show_brightness_control) {
