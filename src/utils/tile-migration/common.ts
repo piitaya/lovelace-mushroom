@@ -41,6 +41,24 @@ export interface TileCardConfig extends LovelaceCardConfig {
  *   fill_container - handled by grid_options in tile card
  *   icon_type:"none" - tile card always shows an icon
  */
+/**
+ * Wrap multiple features in a compact combine feature so they display
+ * as a single row with a toggle button. If there is only one feature
+ * (or none), returns the array unchanged.
+ */
+export function wrapInCombine(
+  features: LovelaceCardFeatureConfig[]
+): LovelaceCardFeatureConfig[] {
+  if (features.length <= 1) return features;
+  return [
+    {
+      type: "custom:mushroom-combine-card-feature",
+      layout: "compact",
+      features,
+    },
+  ];
+}
+
 export function migrateCommonConfig(
   config: LovelaceCardConfig
 ): TileCardConfig {
