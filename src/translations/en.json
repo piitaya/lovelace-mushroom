@@ -222,7 +222,7 @@
   },
   "tile_migration": {
     "title": "Migrate to Tile",
-    "description": "Convert this card to a Mushroom Template card using the tile layout and features system.",
+    "description": "Convert this card to a native Tile card with card features.",
     "migrate": "Migrate"
   },
   "migration": {
