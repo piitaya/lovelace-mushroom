@@ -6,7 +6,7 @@ import {
   type LovelaceCardConfig,
 } from "../../ha";
 import setupCustomlocalize from "../../localize";
-import { migrateCardToTile } from "../../utils/tile-migration";
+import { migrateCardToTile } from "../../utils/tile-migration/index";
 
 @customElement("mushroom-migrate-to-tile")
 export class MigrateToTile extends LitElement {
