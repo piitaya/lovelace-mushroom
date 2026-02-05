@@ -6,6 +6,7 @@ import { LovelaceCardEditor, fireEvent } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { computeActionsFormSchema } from "../../shared/config/actions-config";
 import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
+import "../../shared/editor/migrate-to-tile";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
@@ -80,6 +81,10 @@ export class UpdateCardEditor
     const schema = computeSchema();
 
     return html`
+      <mushroom-migrate-to-tile
+        .hass=${this.hass}
+        .config=${this._config}
+      ></mushroom-migrate-to-tile>
       <ha-form
         .hass=${this.hass}
         .data=${this._config}
