@@ -1,4 +1,4 @@
-import { rgb, lch } from "culori";
+import { hsv2rgb, rgb2hsv } from "../../ha/common/color/convert-color";
 import {
   LightColorMode,
   LightEntity,
@@ -24,25 +24,16 @@ export function getRGBColor(entity: LightEntity): number[] | undefined {
     : undefined;
 }
 
-export function isColorLight(rgb: number[]): boolean {
-  const color = {
-    mode: "rgb" as const,
-    r: rgb[0] / 255,
-    g: rgb[1] / 255,
-    b: rgb[2] / 255,
-  };
-  const lchColor = lch(color);
-  return (lchColor?.l || 0) > 96;
-}
-export function isColorSuperLight(rgb: number[]): boolean {
-  const color = {
-    mode: "rgb" as const,
-    r: rgb[0] / 255,
-    g: rgb[1] / 255,
-    b: rgb[2] / 255,
-  };
-  const lchColor = lch(color);
-  return (lchColor?.l || 0) > 97;
+export function improveColorContrast(rgbColor: number[]): number[] {
+  const hsvColor = rgb2hsv([rgbColor[0], rgbColor[1], rgbColor[2]]);
+  if (hsvColor[1] < 0.4) {
+    if (hsvColor[1] < 0.1) {
+      hsvColor[2] = 225;
+    } else {
+      hsvColor[1] = 0.4;
+    }
+  }
+  return hsv2rgb(hsvColor);
 }
 
 export function supportsColorTempControl(entity: LightEntity): boolean {
