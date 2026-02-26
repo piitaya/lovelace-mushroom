@@ -8,9 +8,6 @@ import nodeResolve from "@rollup/plugin-node-resolve";
 import terser from "@rollup/plugin-terser";
 import typescript from "@rollup/plugin-typescript";
 import serve from "rollup-plugin-serve";
-import ignore from "./rollup-plugins/rollup-ignore-plugin.js";
-
-const IGNORED_FILES = [];
 
 const dev = process.env.ROLLUP_WATCH;
 
@@ -25,9 +22,6 @@ const serveOptions = {
 };
 
 const plugins = [
-  ignore({
-    files: IGNORED_FILES.map((file) => require.resolve(file)),
-  }),
   typescript({
     declaration: false,
   }),

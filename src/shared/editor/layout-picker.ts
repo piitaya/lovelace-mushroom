@@ -1,10 +1,21 @@
 import { css, CSSResultGroup, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import {
+  mdiCardTextOutline,
+  mdiFocusFieldHorizontal,
+  mdiFocusFieldVertical,
+} from "@mdi/js";
 import { HomeAssistant } from "../../ha";
 import setupCustomlocalize from "../../localize";
 
 const LAYOUTS = ["default", "horizontal", "vertical"] as const;
 type Layout = (typeof LAYOUTS)[number];
+
+const ICONS: Record<Layout, string> = {
+  default: mdiCardTextOutline,
+  horizontal: mdiFocusFieldHorizontal,
+  vertical: mdiFocusFieldVertical,
+};
 
 @customElement("mushroom-layout-picker")
 export class LayoutPicker extends LitElement {
@@ -35,6 +46,7 @@ export class LayoutPicker extends LitElement {
     const options = LAYOUTS.map((layout) => ({
       value: layout,
       label: customLocalize(`editor.form.layout_picker.values.${layout}`),
+      iconPath: ICONS[layout],
     }));
 
     return html`
