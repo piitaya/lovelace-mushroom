@@ -18,8 +18,7 @@
   },
   "license": "ISC",
   "dependencies": {
-    "@material/mwc-select": "^0.27.0",
-    "@material/mwc-textfield": "^0.27.0",
+    "@mdi/js": "^7.4.47",
     "culori": "^4.0.1",
     "hammerjs": "^2.0.8",
     "home-assistant-js-websocket": "^9.5.0",
@@ -33,7 +32,6 @@
   "devDependencies": {
     "@babel/core": "^7.28.4",
     "@babel/preset-env": "^7.28.3",
-    "@material/mwc-ripple": "^0.27.0",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-commonjs": "^28.0.6",
     "@rollup/plugin-json": "^6.1.0",

@@ -4,7 +4,6 @@ import { guard } from "lit/directives/guard.js";
 import type { SortableEvent } from "sortablejs";
 import { fireEvent, sortableStyles } from "../../ha";
 import setupCustomlocalize from "../../localize";
-import "../../shared/form/mushroom-select";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { getChipElementClass } from "../../utils/lovelace/chip-element-editor";
 import { CHIP_LIST, LovelaceChipConfig } from "../../utils/lovelace/chip/types";
@@ -107,21 +106,14 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
               )
         )}
       </div>
-      <mushroom-select
+      <ha-select
         .label=${customLocalize("editor.chip.chip-picker.add")}
+        .options=${CHIP_LIST.map((chip) => ({
+          value: chip,
+          label: customLocalize(`editor.chip.chip-picker.types.${chip}`),
+        }))}
         @selected=${this._addChips}
-        @closed=${(e) => e.stopPropagation()}
-        fixedMenuPosition
-        naturalMenuWidth
-      >
-        ${CHIP_LIST.map(
-          (chip) => html`
-            <mwc-list-item .value=${chip}>
-              ${customLocalize(`editor.chip.chip-picker.types.${chip}`)}
-            </mwc-list-item>
-          `
-        )}
-      </mushroom-select>
+      ></ha-select>
     `;
   }
 
@@ -181,9 +173,9 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
     });
   }
 
-  private async _addChips(ev: any): Promise<void> {
+  private async _addChips(ev: CustomEvent<{ value?: string }>): Promise<void> {
     const target = ev.target! as EditorTarget;
-    const value = target.value as string;
+    const value = (ev.detail.value ?? "") as string;
 
     if (value === "") {
       return;
@@ -291,7 +283,7 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
           display: flex;
         }
 
-        mushroom-select {
+        ha-select {
           width: 100%;
         }
 

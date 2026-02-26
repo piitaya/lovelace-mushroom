@@ -3,7 +3,6 @@ import { customElement, property } from "lit/decorators.js";
 import { HomeAssistant } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { ICON_TYPES } from "../../utils/info";
-import "../form/mushroom-select";
 
 @customElement("mushroom-icon-type-picker")
 export class IconTypePicker extends LitElement {
@@ -15,9 +14,9 @@ export class IconTypePicker extends LitElement {
 
   @property() public hass!: HomeAssistant;
 
-  _selectChanged(ev) {
-    const value = ev.target.value;
-    if (value) {
+  _selectChanged(ev: CustomEvent<{ value?: string }>) {
+    const value = ev.detail.value;
+    if (value !== undefined) {
       this.dispatchEvent(
         new CustomEvent("value-changed", {
           detail: {
@@ -31,35 +30,32 @@ export class IconTypePicker extends LitElement {
   render() {
     const customLocalize = setupCustomlocalize(this.hass);
 
+    const options = [
+      {
+        value: "default",
+        label: customLocalize("editor.form.icon_type_picker.values.default"),
+      },
+      ...ICON_TYPES.map((iconType) => ({
+        value: iconType,
+        label:
+          customLocalize(`editor.form.icon_type_picker.values.${iconType}`) ||
+          capitalizeFirstLetter(iconType),
+      })),
+    ];
+
     return html`
-      <mushroom-select
+      <ha-select
         .label=${this.label}
-        .configValue=${this.configValue}
-        @selected=${this._selectChanged}
-        @closed=${(e) => e.stopPropagation()}
         .value=${this.value || "default"}
-        fixedMenuPosition
-        naturalMenuWidth
-      >
-        <mwc-list-item value="default">
-          ${customLocalize("editor.form.icon_type_picker.values.default")}
-        </mwc-list-item>
-        ${ICON_TYPES.map((iconType) => {
-          return html`
-            <mwc-list-item .value=${iconType}>
-              ${customLocalize(
-                `editor.form.icon_type_picker.values.${iconType}`
-              ) || capitalizeFirstLetter(iconType)}
-            </mwc-list-item>
-          `;
-        })}
-      </mushroom-select>
+        .options=${options}
+        @selected=${this._selectChanged}
+      ></ha-select>
     `;
   }
 
   static get styles(): CSSResultGroup {
     return css`
-      mushroom-select {
+      ha-select {
         width: 100%;
       }
     `;

@@ -8,8 +8,6 @@ import {
   LovelaceConfig,
 } from "../../../ha";
 import setupCustomlocalize from "../../../localize";
-import "../../../shared/form/mushroom-select";
-import "../../../shared/form/mushroom-textfield";
 import { loadHaComponents } from "../../../utils/loader";
 import { getChipElementClass } from "../../../utils/lovelace/chip-element-editor";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
@@ -129,23 +127,16 @@ export class ConditionalChipEditor
                     ></mushroom-chip-element-editor>
                   `
                 : html`
-                    <mushroom-select
+                    <ha-select
                       .label=${customLocalize("editor.chip.chip-picker.select")}
+                      .options=${CHIP_LIST.map((chip) => ({
+                        value: chip,
+                        label: customLocalize(
+                          `editor.chip.chip-picker.types.${chip}`
+                        ),
+                      }))}
                       @selected=${this._handleChipPicked}
-                      @closed=${(e) => e.stopPropagation()}
-                      fixedMenuPosition
-                      naturalMenuWidth
-                    >
-                      ${CHIP_LIST.map(
-                        (chip) => html`
-                          <mwc-list-item .value=${chip}>
-                            ${customLocalize(
-                              `editor.chip.chip-picker.types.${chip}`
-                            )}
-                          </mwc-list-item>
-                        `
-                      )}
-                    </mushroom-select>
+                    ></ha-select>
                   `}
             </div>
           `
@@ -180,8 +171,10 @@ export class ConditionalChipEditor
     this._guiModeAvailable = ev.detail.guiModeAvailable;
   }
 
-  private async _handleChipPicked(ev: CustomEvent): Promise<void> {
-    const value = (ev.target as any).value;
+  private async _handleChipPicked(
+    ev: CustomEvent<{ value?: string }>
+  ): Promise<void> {
+    const value = ev.detail.value ?? "";
 
     if (value === "") {
       return;
@@ -194,7 +187,7 @@ export class ConditionalChipEditor
     if (elClass && elClass.getStubConfig) {
       newChip = (await elClass.getStubConfig(this.hass)) as LovelaceChipConfig;
     } else {
-      newChip = { type: value };
+      newChip = { type: value } as LovelaceChipConfig;
     }
 
     (ev.target as any).value = "";
@@ -264,7 +257,7 @@ export class ConditionalChipEditor
         border: 1px solid var(--divider-color);
         padding: 12px;
       }
-      .card mushroom-select {
+      .card ha-select {
         width: 100%;
         margin-top: 0px;
       }

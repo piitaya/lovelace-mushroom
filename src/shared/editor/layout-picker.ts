@@ -2,16 +2,9 @@ import { css, CSSResultGroup, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { HomeAssistant } from "../../ha";
 import setupCustomlocalize from "../../localize";
-import "./../form/mushroom-select";
 
 const LAYOUTS = ["default", "horizontal", "vertical"] as const;
 type Layout = (typeof LAYOUTS)[number];
-
-const ICONS: Record<Layout, string> = {
-  default: "mdi:card-text-outline",
-  vertical: "mdi:focus-field-vertical",
-  horizontal: "mdi:focus-field-horizontal",
-};
 
 @customElement("mushroom-layout-picker")
 export class LayoutPicker extends LitElement {
@@ -23,9 +16,9 @@ export class LayoutPicker extends LitElement {
 
   @property() public hass!: HomeAssistant;
 
-  _selectChanged(ev) {
-    const value = ev.target.value;
-    if (value) {
+  _selectChanged(ev: CustomEvent<{ value?: string }>) {
+    const value = ev.detail.value;
+    if (value !== undefined) {
       this.dispatchEvent(
         new CustomEvent("value-changed", {
           detail: {
@@ -39,35 +32,24 @@ export class LayoutPicker extends LitElement {
   render() {
     const customLocalize = setupCustomlocalize(this.hass);
 
-    const value = this.value || "default";
+    const options = LAYOUTS.map((layout) => ({
+      value: layout,
+      label: customLocalize(`editor.form.layout_picker.values.${layout}`),
+    }));
 
     return html`
-      <mushroom-select
-        icon
+      <ha-select
         .label=${this.label}
-        .configValue=${this.configValue}
+        .value=${this.value || "default"}
+        .options=${options}
         @selected=${this._selectChanged}
-        @closed=${(e) => e.stopPropagation()}
-        .value=${value}
-        fixedMenuPosition
-        naturalMenuWidth
-      >
-        <ha-icon slot="icon" .icon=${ICONS[value as Layout]}></ha-icon>
-        ${LAYOUTS.map(
-          (layout) => html`
-            <mwc-list-item .value=${layout} graphic="icon">
-              ${customLocalize(`editor.form.layout_picker.values.${layout}`)}
-              <ha-icon slot="graphic" .icon=${ICONS[layout]}></ha-icon>
-            </mwc-list-item>
-          `
-        )}
-      </mushroom-select>
+      ></ha-select>
     `;
   }
 
   static get styles(): CSSResultGroup {
     return css`
-      mushroom-select {
+      ha-select {
         width: 100%;
       }
     `;

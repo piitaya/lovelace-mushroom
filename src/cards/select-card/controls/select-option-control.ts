@@ -2,7 +2,6 @@ import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { HomeAssistant } from "../../../ha";
-import "../../../shared/form/mushroom-select";
 import { getCurrentOption, getOptions } from "../utils";
 
 @customElement("mushroom-select-option-control")
@@ -11,8 +10,8 @@ export class SelectOptionControl extends LitElement {
 
   @property({ attribute: false }) public entity!: HassEntity;
 
-  _selectChanged(ev) {
-    const value = ev.target.value;
+  _selectChanged(ev: CustomEvent) {
+    const value = ev.detail.item.value;
 
     const currentValue = getCurrentOption(this.entity);
 
@@ -21,7 +20,7 @@ export class SelectOptionControl extends LitElement {
     }
   }
 
-  _setValue(option) {
+  _setValue(option: string) {
     const entityId = this.entity.entity_id;
     const domain = entityId.split(".")[0];
 
@@ -34,24 +33,20 @@ export class SelectOptionControl extends LitElement {
   render() {
     const value = getCurrentOption(this.entity);
 
-    const options = getOptions(this.entity);
+    const options = getOptions(this.entity).map((option) => ({
+      value: option,
+      label: this.hass.formatEntityState(this.entity, option),
+    }));
 
     return html`
-      <mushroom-select
-        @selected=${this._selectChanged}
-        @closed=${(e) => e.stopPropagation()}
+      <ha-control-select-menu
+        show-arrow
+        hide-label
+        .hass=${this.hass}
         .value=${value ?? ""}
-        naturalMenuWidth
-        fixedMenuPosition
-      >
-        ${options.map((option) => {
-          return html`
-            <mwc-list-item .value=${option}>
-              ${this.hass.formatEntityState(this.entity, option)}
-            </mwc-list-item>
-          `;
-        })}
-      </mushroom-select>
+        .options=${options}
+        @wa-select=${this._selectChanged}
+      ></ha-control-select-menu>
     `;
   }
 
@@ -62,9 +57,10 @@ export class SelectOptionControl extends LitElement {
         height: 100%;
         align-items: center;
       }
-      mushroom-select {
-        --select-height: var(--control-height);
+      ha-control-select-menu {
         width: 100%;
+        --control-select-menu-height: var(--control-height);
+        --control-select-menu-border-radius: var(--control-border-radius);
       }
     `;
   }

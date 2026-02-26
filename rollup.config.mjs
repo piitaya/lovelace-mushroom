@@ -10,15 +10,7 @@ import typescript from "@rollup/plugin-typescript";
 import serve from "rollup-plugin-serve";
 import ignore from "./rollup-plugins/rollup-ignore-plugin.js";
 
-const IGNORED_FILES = [
-  "@material/mwc-notched-outline/mwc-notched-outline.js",
-  "@material/mwc-ripple/mwc-ripple.js",
-  "@material/mwc-list/mwc-list.js",
-  "@material/mwc-list/mwc-list-item.js",
-  "@material/mwc-menu/mwc-menu.js",
-  "@material/mwc-menu/mwc-menu-surface.js",
-  "@material/mwc-icon/mwc-icon.js",
-];
+const IGNORED_FILES = [];
 
 const dev = process.env.ROLLUP_WATCH;
 

@@ -4,7 +4,6 @@ import { styleMap } from "lit/directives/style-map.js";
 import { HomeAssistant } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { COLORS, computeColorName, computeRgbColor } from "../../utils/colors";
-import "./../form/mushroom-select";
 
 @customElement("mushroom-color-picker")
 export class ColorPicker extends LitElement {
@@ -16,9 +15,9 @@ export class ColorPicker extends LitElement {
 
   @property() public hass!: HomeAssistant;
 
-  _selectChanged(ev) {
-    const value = ev.target.value;
-    if (value) {
+  _selectChanged(ev: CustomEvent<{ value?: string }>) {
+    const value = ev.detail.value;
+    if (value !== undefined) {
       this.dispatchEvent(
         new CustomEvent("value-changed", {
           detail: {
@@ -32,59 +31,31 @@ export class ColorPicker extends LitElement {
   render() {
     const customLocalize = setupCustomlocalize(this.hass);
 
-    return html`
-      <mushroom-select
-        .icon=${Boolean(this.value)}
-        .label=${this.label}
-        .configValue=${this.configValue}
-        @selected=${this._selectChanged}
-        @closed=${(e) => e.stopPropagation()}
-        .value=${this.value || "default"}
-        fixedMenuPosition
-        naturalMenuWidth
-      >
-        <mwc-icon slot="icon"
-          >${this.renderColorCircle(this.value || "grey")}</mwc-icon
-        >
-        <mwc-list-item value="default">
-          ${customLocalize("editor.form.color_picker.values.default")}
-        </mwc-list-item>
-        ${COLORS.map(
-          (color) => html`
-            <mwc-list-item .value=${color} graphic="icon">
-              ${computeColorName(color)}
-              <mwc-icon slot="graphic"
-                >${this.renderColorCircle(color)}</mwc-icon
-              >
-            </mwc-list-item>
-          `
-        )}
-      </mushroom-select>
-    `;
-  }
+    const options = [
+      {
+        value: "default",
+        label: customLocalize("editor.form.color_picker.values.default"),
+      },
+      ...COLORS.map((color) => ({
+        value: color,
+        label: computeColorName(color),
+      })),
+    ];
 
-  private renderColorCircle(color: string) {
     return html`
-      <span
-        class="circle-color"
-        style=${styleMap({
-          "--main-color": computeRgbColor(color),
-        })}
-      ></span>
+      <ha-select
+        .label=${this.label}
+        .value=${this.value || "default"}
+        .options=${options}
+        @selected=${this._selectChanged}
+      ></ha-select>
     `;
   }
 
   static get styles(): CSSResultGroup {
     return css`
-      mushroom-select {
+      ha-select {
         width: 100%;
-      }
-      .circle-color {
-        display: block;
-        background-color: rgb(var(--main-color));
-        border-radius: 10px;
-        width: 20px;
-        height: 20px;
       }
     `;
   }
