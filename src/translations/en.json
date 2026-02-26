@@ -62,7 +62,8 @@
       "lock": {
         "lock": "Lock",
         "open": "Open",
-        "unlock": "Unlock"
+        "unlock": "Unlock",
+        "show_open_button_when_locked": "Show open button when locked?"
       },
       "media-player": {
         "media_controls": "Media controls",
