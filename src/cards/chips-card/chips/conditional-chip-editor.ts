@@ -1,7 +1,6 @@
 import { css, CSSResultGroup, html, LitElement, nothing } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import {
-  atLeastHaVersion,
   fireEvent,
   HASSDomEvent,
   HomeAssistant,
@@ -61,39 +60,20 @@ export class ConditionalChipEditor
     const customLocalize = setupCustomlocalize(this.hass);
 
     return html`
-      ${atLeastHaVersion(this.hass.connection.haVersion, 2025, 10)
-        ? html`
-            <ha-tab-group @wa-tab-show=${this._selectTab}>
-              <ha-tab-group-tab
-                slot="nav"
-                panel="conditions"
-                .active=${!this._cardTab}
-              >
-                ${this.hass!.localize(
-                  "ui.panel.lovelace.editor.card.conditional.conditions"
-                )}
-              </ha-tab-group-tab>
-              <ha-tab-group-tab
-                slot="nav"
-                panel="chip"
-                .active=${this._cardTab}
-              >
-                ${customLocalize("editor.chip.conditional.chip")}
-              </ha-tab-group-tab>
-            </ha-tab-group>
-          `
-        : html`
-            <sl-tab-group @sl-tab-show=${this._selectTab}>
-              <sl-tab slot="nav" panel="conditions" .active=${!this._cardTab}>
-                ${this.hass!.localize(
-                  "ui.panel.lovelace.editor.card.conditional.conditions"
-                )}
-              </sl-tab>
-              <sl-tab slot="nav" panel="chip" .active=${this._cardTab}>
-                ${customLocalize("editor.chip.conditional.chip")}
-              </sl-tab>
-            </sl-tab-group>
-          `}
+      <ha-tab-group @wa-tab-show=${this._selectTab}>
+        <ha-tab-group-tab
+          slot="nav"
+          panel="conditions"
+          .active=${!this._cardTab}
+        >
+          ${this.hass!.localize(
+            "ui.panel.lovelace.editor.card.conditional.conditions"
+          )}
+        </ha-tab-group-tab>
+        <ha-tab-group-tab slot="nav" panel="chip" .active=${this._cardTab}>
+          ${customLocalize("editor.chip.conditional.chip")}
+        </ha-tab-group-tab>
+      </ha-tab-group>
       ${this._cardTab
         ? html`
             <div class="card">
@@ -237,14 +217,6 @@ export class ConditionalChipEditor
 
   static get styles(): CSSResultGroup {
     return css`
-      sl-tab {
-        flex: 1;
-      }
-      sl-tab::part(base) {
-        width: 100%;
-        justify-content: center;
-      }
-
       ha-tab-group-tab {
         flex: 1;
       }
