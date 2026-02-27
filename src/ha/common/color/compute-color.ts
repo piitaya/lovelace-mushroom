@@ -29,6 +29,7 @@ export const THEME_COLORS = new Set([
 const YAML_ONLY_THEMES_COLORS = new Set([
   "primary-text",
   "secondary-text",
+  "disabled-text",
   "disabled",
 ]);
 
