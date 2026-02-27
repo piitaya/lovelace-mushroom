@@ -205,7 +205,7 @@ export class ChipsCardEditor
 
     return html`
       <div class="card-config">
-        <ha-selector-select
+        <ha-selector
           .hass=${this.hass}
           .label="${customLocalize(
             "editor.card.chips.alignment"
@@ -220,7 +220,7 @@ export class ChipsCardEditor
             },
           }}
           @value-changed=${this._alignmentChanged}
-        ></ha-selector-select>
+        ></ha-selector>
       </div>
       <mushroom-chips-card-chips-editor
         .hass=${this.hass}

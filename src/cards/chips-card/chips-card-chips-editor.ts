@@ -110,7 +110,7 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
       </div>
       ${keyed(
         this._selectorKey,
-        html`<ha-selector-select
+        html`<ha-selector
           .hass=${this.hass}
           .label=${customLocalize("editor.chip.chip-picker.add")}
           .value=${""}
@@ -124,7 +124,7 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
             },
           }}
           @value-changed=${this._addChips}
-        ></ha-selector-select>`
+        ></ha-selector>`
       )}
     `;
   }

@@ -106,7 +106,7 @@ export class ConditionalChipEditor
                       @GUImode-changed=${this._handleGUIModeChanged}
                     ></mushroom-chip-element-editor>
                   `
-                : html`<ha-selector-select
+                : html`<ha-selector
                     .hass=${this.hass}
                     .label=${customLocalize("editor.chip.chip-picker.select")}
                     .value=${""}
@@ -122,7 +122,7 @@ export class ConditionalChipEditor
                       },
                     }}
                     @value-changed=${this._handleChipPicked}
-                  ></ha-selector-select>`}
+                  ></ha-selector>`}
             </div>
           `
         : html`
