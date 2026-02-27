@@ -5,7 +5,7 @@ import { assert } from "superstruct";
 import { LocalizeFunc, LovelaceCardEditor, fireEvent } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { computeActionsFormSchema } from "../../shared/config/actions-config";
-import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
+import { computeAppearanceFormSchema } from "../../shared/config/appearance-config";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
@@ -35,7 +35,7 @@ const computeSchema = memoizeOne(
         { name: "icon_animation", selector: { boolean: {} } },
       ],
     },
-    ...APPEARANCE_FORM_SCHEMA,
+    ...computeAppearanceFormSchema(customLocalize),
     {
       name: "commands",
       selector: {

@@ -106,18 +106,23 @@ export class ConditionalChipEditor
                       @GUImode-changed=${this._handleGUIModeChanged}
                     ></mushroom-chip-element-editor>
                   `
-                : html`
-                    <ha-select
-                      .label=${customLocalize("editor.chip.chip-picker.select")}
-                      .options=${CHIP_LIST.map((chip) => ({
-                        value: chip,
-                        label: customLocalize(
-                          `editor.chip.chip-picker.types.${chip}`
-                        ),
-                      }))}
-                      @selected=${this._handleChipPicked}
-                    ></ha-select>
-                  `}
+                : html`<ha-selector-select
+                    .hass=${this.hass}
+                    .label=${customLocalize("editor.chip.chip-picker.select")}
+                    .value=${""}
+                    .selector=${{
+                      select: {
+                        options: CHIP_LIST.map((chip) => ({
+                          value: chip,
+                          label: customLocalize(
+                            `editor.chip.chip-picker.types.${chip}`
+                          ),
+                        })),
+                        mode: "dropdown",
+                      },
+                    }}
+                    @value-changed=${this._handleChipPicked}
+                  ></ha-selector-select>`}
             </div>
           `
         : html`
@@ -152,7 +157,7 @@ export class ConditionalChipEditor
   }
 
   private async _handleChipPicked(
-    ev: CustomEvent<{ value?: string }>
+    ev: CustomEvent
   ): Promise<void> {
     const value = ev.detail.value ?? "";
 

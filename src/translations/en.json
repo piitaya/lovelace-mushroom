@@ -111,6 +111,7 @@
         "secondary": "Secondary information"
       },
       "title": {
+        "alignment": "Alignment",
         "subtitle": "Subtitle",
         "subtitle_tap_action": "Subtitle tap action",
         "title": "Title",

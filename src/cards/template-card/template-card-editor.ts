@@ -33,6 +33,7 @@ import {
 } from "./template-card-config";
 
 export const TEMPLATE_CARD_LABELS = [
+  "area",
   "badge_color",
   "badge_icon",
   "badge_text",

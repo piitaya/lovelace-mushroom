@@ -1,10 +1,11 @@
 import { html, nothing } from "lit";
 import { customElement, state } from "lit/decorators.js";
+import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
-import { LovelaceCardEditor, fireEvent } from "../../ha";
+import { LocalizeFunc, LovelaceCardEditor, fireEvent } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { computeActionsFormSchema } from "../../shared/config/actions-config";
-import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
+import { computeAppearanceFormSchema } from "../../shared/config/appearance-config";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
@@ -16,10 +17,10 @@ const FAN_LABELS = [
   "icon_animation",
   "show_percentage_control",
   "show_oscillate_control",
-  "show_direction_control"
+  "show_direction_control",
 ];
 
-const SCHEMA: HaFormSchema[] = [
+const computeSchema = memoizeOne((localize: LocalizeFunc): HaFormSchema[] => [
   { name: "entity", selector: { entity: { domain: FAN_ENTITY_DOMAINS } } },
   { name: "name", selector: { text: {} } },
   {
@@ -34,7 +35,7 @@ const SCHEMA: HaFormSchema[] = [
       { name: "icon_animation", selector: { boolean: {} } },
     ],
   },
-  ...APPEARANCE_FORM_SCHEMA,
+  ...computeAppearanceFormSchema(localize),
   {
     type: "grid",
     name: "",
@@ -46,7 +47,7 @@ const SCHEMA: HaFormSchema[] = [
     ],
   },
   ...computeActionsFormSchema(),
-];
+]);
 
 @customElement(FAN_CARD_EDITOR_NAME)
 export class FanCardEditor
@@ -84,11 +85,14 @@ export class FanCardEditor
       return nothing;
     }
 
+    const customLocalize = setupCustomlocalize(this.hass);
+    const schema = computeSchema(customLocalize);
+
     return html`
       <ha-form
         .hass=${this.hass}
         .data=${this._config}
-        .schema=${SCHEMA}
+        .schema=${schema}
         .computeLabel=${this._computeLabel}
         @value-changed=${this._valueChanged}
       ></ha-form>

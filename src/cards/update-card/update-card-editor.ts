@@ -2,10 +2,10 @@ import { html, nothing } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
-import { LovelaceCardEditor, fireEvent } from "../../ha";
+import { LocalizeFunc, LovelaceCardEditor, fireEvent } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { computeActionsFormSchema } from "../../shared/config/actions-config";
-import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
+import { computeAppearanceFormSchema } from "../../shared/config/appearance-config";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
@@ -25,11 +25,11 @@ const actions: UiAction[] = [
   "none",
 ];
 
-const computeSchema = memoizeOne((): HaFormSchema[] => [
+const computeSchema = memoizeOne((localize: LocalizeFunc): HaFormSchema[] => [
   { name: "entity", selector: { entity: { domain: UPDATE_ENTITY_DOMAINS } } },
   { name: "name", selector: { text: {} } },
   { name: "icon", selector: { icon: {} }, context: { icon_entity: "entity" } },
-  ...APPEARANCE_FORM_SCHEMA,
+  ...computeAppearanceFormSchema(localize),
   {
     type: "grid",
     name: "",
@@ -77,7 +77,8 @@ export class UpdateCardEditor
       return nothing;
     }
 
-    const schema = computeSchema();
+    const customLocalize = setupCustomlocalize(this.hass!);
+    const schema = computeSchema(customLocalize);
 
     return html`
       <ha-form

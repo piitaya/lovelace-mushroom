@@ -1,10 +1,11 @@
 import { html, nothing } from "lit";
 import { customElement, state } from "lit/decorators.js";
+import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
-import { LovelaceCardEditor, fireEvent } from "../../ha";
+import { LocalizeFunc, LovelaceCardEditor, fireEvent } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { computeActionsFormSchema } from "../../shared/config/actions-config";
-import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
+import { computeAppearanceFormSchema } from "../../shared/config/appearance-config";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
@@ -12,7 +13,7 @@ import { loadHaComponents } from "../../utils/loader";
 import { ENTITY_CARD_EDITOR_NAME } from "./const";
 import { EntityCardConfig, entityCardConfigStruct } from "./entity-card-config";
 
-const SCHEMA: HaFormSchema[] = [
+const computeSchema = memoizeOne((localize: LocalizeFunc): HaFormSchema[] => [
   { name: "entity", selector: { entity: {} } },
   { name: "name", selector: { text: {} } },
   {
@@ -24,12 +25,12 @@ const SCHEMA: HaFormSchema[] = [
         selector: { icon: {} },
         context: { icon_entity: "entity" },
       },
-      { name: "icon_color", selector: { mush_color: {} } },
+      { name: "icon_color", selector: { ui_color: {} } },
     ],
   },
-  ...APPEARANCE_FORM_SCHEMA,
+  ...computeAppearanceFormSchema(localize),
   ...computeActionsFormSchema(),
-];
+]);
 
 @customElement(ENTITY_CARD_EDITOR_NAME)
 export class EntityCardEditor
@@ -64,11 +65,14 @@ export class EntityCardEditor
       return nothing;
     }
 
+    const customLocalize = setupCustomlocalize(this.hass);
+    const schema = computeSchema(customLocalize);
+
     return html`
       <ha-form
         .hass=${this.hass}
         .data=${this._config}
-        .schema=${SCHEMA}
+        .schema=${schema}
         .computeLabel=${this._computeLabel}
         @value-changed=${this._valueChanged}
       ></ha-form>

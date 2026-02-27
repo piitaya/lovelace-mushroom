@@ -4,6 +4,7 @@ import memoizeOne from "memoize-one";
 import { fireEvent, HomeAssistant } from "../../../ha";
 import setupCustomlocalize from "../../../localize";
 import { computeActionsFormSchema } from "../../../shared/config/actions-config";
+import { computeInfoOptions } from "../../../shared/config/appearance-config";
 import { GENERIC_LABELS } from "../../../utils/form/generic-fields";
 import { HaFormSchema } from "../../../utils/form/ha-form";
 import { UiAction } from "../../../utils/form/ha-selector";
@@ -21,22 +22,36 @@ const actions: UiAction[] = [
   "none",
 ];
 
-const computeSchema = memoizeOne((): HaFormSchema[] => [
-  {
-    name: "entity",
-    selector: { entity: { domain: ALARM_CONTROl_PANEL_ENTITY_DOMAINS } },
-  },
-  {
-    type: "grid",
-    name: "",
-    schema: [
-      { name: "name", selector: { text: {} } },
-      { name: "content_info", selector: { mush_info: {} } },
-    ],
-  },
-  { name: "icon", selector: { icon: {} }, context: { icon_entity: "entity" } },
-  ...computeActionsFormSchema(actions),
-]);
+const computeSchema = memoizeOne(
+  (customLocalize: ReturnType<typeof setupCustomlocalize>): HaFormSchema[] => [
+    {
+      name: "entity",
+      selector: { entity: { domain: ALARM_CONTROl_PANEL_ENTITY_DOMAINS } },
+    },
+    {
+      type: "grid",
+      name: "",
+      schema: [
+        { name: "name", selector: { text: {} } },
+        {
+          name: "content_info",
+          selector: {
+            select: {
+              options: computeInfoOptions(customLocalize),
+              mode: "dropdown",
+            },
+          },
+        },
+      ],
+    },
+    {
+      name: "icon",
+      selector: { icon: {} },
+      context: { icon_entity: "entity" },
+    },
+    ...computeActionsFormSchema(actions),
+  ]
+);
 
 @customElement(computeChipEditorComponentName("alarm-control-panel"))
 export class AlarmControlPanelChipEditor
@@ -67,7 +82,8 @@ export class AlarmControlPanelChipEditor
       return nothing;
     }
 
-    const schema = computeSchema();
+    const customLocalize = setupCustomlocalize(this.hass);
+    const schema = computeSchema(customLocalize);
 
     return html`
       <ha-form

@@ -29,7 +29,7 @@ const computeSchema = memoizeOne((): HaFormSchema[] => [
         name: "icon",
         selector: { icon: { placeholder: DEFAULT_ACTION_ICON } },
       },
-      { name: "icon_color", selector: { mush_color: {} } },
+      { name: "icon_color", selector: { ui_color: {} } },
     ],
   },
   ...computeActionsFormSchema(actions),

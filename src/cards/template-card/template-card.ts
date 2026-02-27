@@ -9,6 +9,7 @@ import hash from "object-hash/dist/object_hash";
 import {
   actionHandler,
   ActionHandlerEvent,
+  atLeastHaVersion,
   computeDomain,
   DOMAINS_TOGGLE,
   handleAction,
@@ -415,6 +416,9 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
       vertical: Boolean(this._config.vertical),
     });
 
+    const { haVersion } = this.hass.connection;
+    const supportTileIconHandlerOptions = atLeastHaVersion(haVersion, 2026, 2);
+
     const iconActionHandlerOptions: ActionHandlerOptions = {
       disabled: !this._hasIconAction,
       hasHold: hasAction(this._config!.icon_hold_action),
@@ -450,7 +454,12 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
                           this._hasIconAction ? "0" : undefined
                         )}
                         @action=${this._handleIconAction}
-                        .actionHandlerOptions=${iconActionHandlerOptions}
+                        .actionHandlerOptions=${supportTileIconHandlerOptions
+                          ? iconActionHandlerOptions
+                          : undefined}
+                        .actionHandler=${!supportTileIconHandlerOptions
+                          ? actionHandler(iconActionHandlerOptions)
+                          : undefined}
                         .interactive=${this._hasIconAction}
                         .imageUrl=${picture
                           ? this.hass.hassUrl(picture)

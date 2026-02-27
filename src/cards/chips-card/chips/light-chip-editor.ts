@@ -1,8 +1,10 @@
 import { html, LitElement, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { fireEvent, HomeAssistant } from "../../../ha";
+import memoizeOne from "memoize-one";
+import { fireEvent, HomeAssistant, LocalizeFunc } from "../../../ha";
 import setupCustomlocalize from "../../../localize";
 import { computeActionsFormSchema } from "../../../shared/config/actions-config";
+import { computeInfoOptions } from "../../../shared/config/appearance-config";
 import { GENERIC_LABELS } from "../../../utils/form/generic-fields";
 import { HaFormSchema } from "../../../utils/form/ha-form";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
@@ -11,14 +13,25 @@ import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { LIGHT_ENTITY_DOMAINS } from "../../light-card/const";
 import { LIGHT_LABELS } from "../../light-card/light-card-editor";
 
-const SCHEMA: HaFormSchema[] = [
-  { name: "entity", selector: { entity: { domain: LIGHT_ENTITY_DOMAINS } } },
+const computeSchema = memoizeOne((localize: LocalizeFunc): HaFormSchema[] => [
+  {
+    name: "entity",
+    selector: { entity: { domain: LIGHT_ENTITY_DOMAINS } },
+  },
   {
     type: "grid",
     name: "",
     schema: [
       { name: "name", selector: { text: {} } },
-      { name: "content_info", selector: { mush_info: {} } },
+      {
+        name: "content_info",
+        selector: {
+          select: {
+            options: computeInfoOptions(localize),
+            mode: "dropdown",
+          },
+        },
+      },
     ],
   },
   {
@@ -34,7 +47,7 @@ const SCHEMA: HaFormSchema[] = [
     ],
   },
   ...computeActionsFormSchema(),
-];
+]);
 
 @customElement(computeChipEditorComponentName("light"))
 export class LightChipEditor extends LitElement implements LovelaceChipEditor {
@@ -65,11 +78,14 @@ export class LightChipEditor extends LitElement implements LovelaceChipEditor {
       return nothing;
     }
 
+    const customLocalize = setupCustomlocalize(this.hass);
+    const schema = computeSchema(customLocalize);
+
     return html`
       <ha-form
         .hass=${this.hass}
         .data=${this._config}
-        .schema=${SCHEMA}
+        .schema=${schema}
         .computeLabel=${this._computeLabel}
         @value-changed=${this._valueChanged}
       ></ha-form>
