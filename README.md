@@ -81,6 +81,7 @@ Different cards are available for differents entities :
 - 🕳 [Empty card](docs/cards/empty.md)
 - 💨 [Fan card](docs/cards/fan.md)
 - 💧 [Humidifier card](docs/cards/humidifier.md)
+- 📅 [Input datetime card](docs/cards/input-datetime.md)
 - 💡 [Light card](docs/cards/light.md)
 - 🔒 [Lock card](docs/cards/lock.md)
 - 📺 [Media card](docs/cards/media-player.md)
