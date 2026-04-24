@@ -30,6 +30,7 @@ export type TemplateCardConfig = LovelaceCardConfig & {
   // Style
   vertical?: boolean;
   multiline_secondary?: boolean;
+  icon_animation?: boolean;
   // Interactions
   tap_action?: ActionConfig;
   hold_action?: ActionConfig;
@@ -76,6 +77,7 @@ export const templateCardConfigStruct = assign(
     // Style
     vertical: optional(boolean()),
     multiline_secondary: optional(boolean()),
+    icon_animation: optional(boolean()),
     // Interactions
     tap_action: optional(actionConfigStruct),
     hold_action: optional(actionConfigStruct),
