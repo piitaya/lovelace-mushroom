@@ -25,6 +25,7 @@ import {
 import { computeCssColor } from "../../ha/common/color/compute-color";
 import { isTemplate } from "../../ha/common/string/has-template";
 import { CacheManager } from "../../utils/cache-manager";
+import { animation } from "../../utils/entity-styles";
 import { registerCustomCard } from "../../utils/custom-cards";
 import {
   migrateTemplateCardConfig,
@@ -464,7 +465,10 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
                         .imageUrl=${picture
                           ? this.hass.hassUrl(picture)
                           : undefined}
-                        class=${weatherSvg ? "weather" : ""}
+                        class=${classMap({
+                          weather: Boolean(weatherSvg),
+                          spin: Boolean(this._config?.icon_animation),
+                        })}
                       >
                         ${picture
                           ? nothing
@@ -526,6 +530,7 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
 
   static styles = [
     weatherSVGStyles,
+    animation.spin,
     css`
       :host {
         --tile-color: var(--state-inactive-color);
@@ -608,6 +613,9 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
         position: relative;
         padding: 6px;
         margin: -6px;
+      }
+      .spin ha-state-icon {
+        animation: 1s infinite linear spin;
       }
       ha-tile-icon.weather svg {
         width: 36px;

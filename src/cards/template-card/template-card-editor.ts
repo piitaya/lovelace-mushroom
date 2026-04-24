@@ -162,6 +162,10 @@ export class MushroomTemplateCardEditor
               name: "multiline_secondary",
               selector: { boolean: {} },
             },
+            {
+              name: "icon_animation",
+              selector: { boolean: {} },
+            },
           ],
         },
         {
