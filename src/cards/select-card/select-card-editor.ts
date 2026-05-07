@@ -10,6 +10,7 @@ import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { UiAction } from "../../utils/form/ha-selector";
+import { computeNameSchema } from "../../utils/form/name-schema";
 import { loadHaComponents } from "../../utils/loader";
 import { SELECT_CARD_EDITOR_NAME, SELECT_ENTITY_DOMAINS } from "./const";
 import { SelectCardConfig, selectCardConfigStruct } from "./select-card-config";
@@ -23,24 +24,26 @@ const actions: UiAction[] = [
   "none",
 ];
 
-const computeSchema = memoizeOne((localize: LocalizeFunc): HaFormSchema[] => [
-  { name: "entity", selector: { entity: { domain: SELECT_ENTITY_DOMAINS } } },
-  { name: "name", selector: { text: {} } },
-  {
-    type: "grid",
-    name: "",
-    schema: [
-      {
-        name: "icon",
-        selector: { icon: {} },
-        context: { icon_entity: "entity" },
-      },
-      { name: "icon_color", selector: { ui_color: {} } },
-    ],
-  },
-  ...computeAppearanceFormSchema(localize),
-  ...computeActionsFormSchema(actions),
-]);
+const computeSchema = memoizeOne(
+  (localize: LocalizeFunc, version: string): HaFormSchema[] => [
+    { name: "entity", selector: { entity: { domain: SELECT_ENTITY_DOMAINS } } },
+    computeNameSchema(version),
+    {
+      type: "grid",
+      name: "",
+      schema: [
+        {
+          name: "icon",
+          selector: { icon: {} },
+          context: { icon_entity: "entity" },
+        },
+        { name: "icon_color", selector: { ui_color: {} } },
+      ],
+    },
+    ...computeAppearanceFormSchema(localize),
+    ...computeActionsFormSchema(actions),
+  ]
+);
 
 @customElement(SELECT_CARD_EDITOR_NAME)
 export class SelectCardEditor
@@ -76,7 +79,7 @@ export class SelectCardEditor
     }
 
     const customLocalize = setupCustomlocalize(this.hass!);
-    const schema = computeSchema(customLocalize);
+    const schema = computeSchema(customLocalize, this.hass!.config.version);
 
     return html`
       <ha-form

@@ -9,6 +9,7 @@ import { computeAppearanceFormSchema } from "../../shared/config/appearance-conf
 import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
+import { computeNameSchema } from "../../utils/form/name-schema";
 import { loadHaComponents } from "../../utils/loader";
 import { LIGHT_CARD_EDITOR_NAME, LIGHT_ENTITY_DOMAINS } from "./const";
 import { LightCardConfig, lightCardConfigStruct } from "./light-card-config";
@@ -20,35 +21,37 @@ export const LIGHT_LABELS = [
   "show_color_control",
 ];
 
-const computeSchema = memoizeOne((localize: LocalizeFunc): HaFormSchema[] => [
-  { name: "entity", selector: { entity: { domain: LIGHT_ENTITY_DOMAINS } } },
-  { name: "name", selector: { text: {} } },
-  {
-    type: "grid",
-    name: "",
-    schema: [
-      {
-        name: "icon",
-        selector: { icon: {} },
-        context: { icon_entity: "entity" },
-      },
-      { name: "icon_color", selector: { ui_color: {} } },
-    ],
-  },
-  ...computeAppearanceFormSchema(localize),
-  {
-    type: "grid",
-    name: "",
-    schema: [
-      { name: "use_light_color", selector: { boolean: {} } },
-      { name: "show_brightness_control", selector: { boolean: {} } },
-      { name: "show_color_temp_control", selector: { boolean: {} } },
-      { name: "show_color_control", selector: { boolean: {} } },
-      { name: "collapsible_controls", selector: { boolean: {} } },
-    ],
-  },
-  ...computeActionsFormSchema(),
-]);
+const computeSchema = memoizeOne(
+  (localize: LocalizeFunc, version: string): HaFormSchema[] => [
+    { name: "entity", selector: { entity: { domain: LIGHT_ENTITY_DOMAINS } } },
+    computeNameSchema(version),
+    {
+      type: "grid",
+      name: "",
+      schema: [
+        {
+          name: "icon",
+          selector: { icon: {} },
+          context: { icon_entity: "entity" },
+        },
+        { name: "icon_color", selector: { ui_color: {} } },
+      ],
+    },
+    ...computeAppearanceFormSchema(localize),
+    {
+      type: "grid",
+      name: "",
+      schema: [
+        { name: "use_light_color", selector: { boolean: {} } },
+        { name: "show_brightness_control", selector: { boolean: {} } },
+        { name: "show_color_temp_control", selector: { boolean: {} } },
+        { name: "show_color_control", selector: { boolean: {} } },
+        { name: "collapsible_controls", selector: { boolean: {} } },
+      ],
+    },
+    ...computeActionsFormSchema(),
+  ]
+);
 
 @customElement(LIGHT_CARD_EDITOR_NAME)
 export class LightCardEditor
@@ -87,7 +90,7 @@ export class LightCardEditor
     }
 
     const customLocalize = setupCustomlocalize(this.hass);
-    const schema = computeSchema(customLocalize);
+    const schema = computeSchema(customLocalize, this.hass.config.version);
 
     return html`
       <ha-form

@@ -10,6 +10,7 @@ import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { UiAction } from "../../utils/form/ha-selector";
+import { computeNameSchema } from "../../utils/form/name-schema";
 import { loadHaComponents } from "../../utils/loader";
 import {
   AlarmControlPanelCardConfig,
@@ -38,12 +39,16 @@ const states = [
 ];
 
 const computeSchema = memoizeOne(
-  (localize: LocalizeFunc, customLocalize: LocalizeFunc): HaFormSchema[] => [
+  (
+    localize: LocalizeFunc,
+    customLocalize: LocalizeFunc,
+    version: string
+  ): HaFormSchema[] => [
     {
       name: "entity",
       selector: { entity: { domain: ALARM_CONTROl_PANEL_ENTITY_DOMAINS } },
     },
-    { name: "name", selector: { text: {} } },
+    computeNameSchema(version),
     {
       name: "icon",
       selector: { icon: {} },
@@ -87,7 +92,11 @@ export class SwitchCardEditor
     }
 
     const customLocalize = setupCustomlocalize(this.hass!);
-    const schema = computeSchema(this.hass!.localize, customLocalize);
+    const schema = computeSchema(
+      this.hass!.localize,
+      customLocalize,
+      this.hass!.config.version
+    );
 
     return html`
       <ha-form

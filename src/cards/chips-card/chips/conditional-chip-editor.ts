@@ -156,9 +156,7 @@ export class ConditionalChipEditor
     this._guiModeAvailable = ev.detail.guiModeAvailable;
   }
 
-  private async _handleChipPicked(
-    ev: CustomEvent
-  ): Promise<void> {
+  private async _handleChipPicked(ev: CustomEvent): Promise<void> {
     const value = ev.detail.value ?? "";
 
     if (value === "") {

@@ -9,17 +9,24 @@ import { computeAppearanceFormSchema } from "../../shared/config/appearance-conf
 import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
+import { computeNameSchema } from "../../utils/form/name-schema";
 import { loadHaComponents } from "../../utils/loader";
 import { LOCK_CARD_EDITOR_NAME, LOCK_ENTITY_DOMAINS } from "./const";
 import { LockCardConfig, lockCardConfigStruct } from "./lock-card-config";
 
-const computeSchema = memoizeOne((localize: LocalizeFunc): HaFormSchema[] => [
-  { name: "entity", selector: { entity: { domain: LOCK_ENTITY_DOMAINS } } },
-  { name: "name", selector: { text: {} } },
-  { name: "icon", selector: { icon: {} }, context: { icon_entity: "entity" } },
-  ...computeAppearanceFormSchema(localize),
-  ...computeActionsFormSchema(),
-]);
+const computeSchema = memoizeOne(
+  (localize: LocalizeFunc, version: string): HaFormSchema[] => [
+    { name: "entity", selector: { entity: { domain: LOCK_ENTITY_DOMAINS } } },
+    computeNameSchema(version),
+    {
+      name: "icon",
+      selector: { icon: {} },
+      context: { icon_entity: "entity" },
+    },
+    ...computeAppearanceFormSchema(localize),
+    ...computeActionsFormSchema(),
+  ]
+);
 
 @customElement(LOCK_CARD_EDITOR_NAME)
 export class LockCardEditor
@@ -55,7 +62,7 @@ export class LockCardEditor
     }
 
     const customLocalize = setupCustomlocalize(this.hass);
-    const schema = computeSchema(customLocalize);
+    const schema = computeSchema(customLocalize, this.hass.config.version);
 
     return html`
       <ha-form

@@ -9,6 +9,7 @@ import type {
   MessageBase,
 } from "home-assistant-js-websocket";
 import type { LocalizeFunc } from "./common/translations/localize";
+import type { EntityNameItem, EntityNameOptions } from "./data/entity_name";
 import type {
   FrontendLocaleData,
   TranslationCategory,
@@ -227,6 +228,11 @@ export interface HomeAssistant {
     value?: any
   ): string;
   formatEntityAttributeName(stateObj: HassEntity, attribute: string): string;
+  formatEntityName?(
+    stateObj: HassEntity,
+    name: string | EntityNameItem | EntityNameItem[] | undefined,
+    options?: EntityNameOptions
+  ): string;
 }
 
 export type Constructor<T = any> = new (...args: any[]) => T;

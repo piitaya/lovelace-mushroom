@@ -8,6 +8,7 @@ import { computeInfoOptions } from "../../../shared/config/appearance-config";
 import { GENERIC_LABELS } from "../../../utils/form/generic-fields";
 import { HaFormSchema } from "../../../utils/form/ha-form";
 import { UiAction } from "../../../utils/form/ha-selector";
+import { computeNameSchema } from "../../../utils/form/name-schema";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
 import { AlarmControlPanelChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
@@ -23,26 +24,23 @@ const actions: UiAction[] = [
 ];
 
 const computeSchema = memoizeOne(
-  (customLocalize: ReturnType<typeof setupCustomlocalize>): HaFormSchema[] => [
+  (
+    customLocalize: ReturnType<typeof setupCustomlocalize>,
+    version: string
+  ): HaFormSchema[] => [
     {
       name: "entity",
       selector: { entity: { domain: ALARM_CONTROl_PANEL_ENTITY_DOMAINS } },
     },
+    computeNameSchema(version),
     {
-      type: "grid",
-      name: "",
-      schema: [
-        { name: "name", selector: { text: {} } },
-        {
-          name: "content_info",
-          selector: {
-            select: {
-              options: computeInfoOptions(customLocalize),
-              mode: "dropdown",
-            },
-          },
+      name: "content_info",
+      selector: {
+        select: {
+          options: computeInfoOptions(customLocalize),
+          mode: "dropdown",
         },
-      ],
+      },
     },
     {
       name: "icon",
@@ -83,7 +81,7 @@ export class AlarmControlPanelChipEditor
     }
 
     const customLocalize = setupCustomlocalize(this.hass);
-    const schema = computeSchema(customLocalize);
+    const schema = computeSchema(customLocalize, this.hass.config.version);
 
     return html`
       <ha-form

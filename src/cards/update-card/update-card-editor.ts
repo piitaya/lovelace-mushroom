@@ -10,6 +10,7 @@ import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { UiAction } from "../../utils/form/ha-selector";
+import { computeNameSchema } from "../../utils/form/name-schema";
 import { loadHaComponents } from "../../utils/loader";
 import { UPDATE_CARD_EDITOR_NAME, UPDATE_ENTITY_DOMAINS } from "./const";
 import { UpdateCardConfig, updateCardConfigStruct } from "./update-card-config";
@@ -25,21 +26,27 @@ const actions: UiAction[] = [
   "none",
 ];
 
-const computeSchema = memoizeOne((localize: LocalizeFunc): HaFormSchema[] => [
-  { name: "entity", selector: { entity: { domain: UPDATE_ENTITY_DOMAINS } } },
-  { name: "name", selector: { text: {} } },
-  { name: "icon", selector: { icon: {} }, context: { icon_entity: "entity" } },
-  ...computeAppearanceFormSchema(localize),
-  {
-    type: "grid",
-    name: "",
-    schema: [
-      { name: "show_buttons_control", selector: { boolean: {} } },
-      { name: "collapsible_controls", selector: { boolean: {} } },
-    ],
-  },
-  ...computeActionsFormSchema(actions),
-]);
+const computeSchema = memoizeOne(
+  (localize: LocalizeFunc, version: string): HaFormSchema[] => [
+    { name: "entity", selector: { entity: { domain: UPDATE_ENTITY_DOMAINS } } },
+    computeNameSchema(version),
+    {
+      name: "icon",
+      selector: { icon: {} },
+      context: { icon_entity: "entity" },
+    },
+    ...computeAppearanceFormSchema(localize),
+    {
+      type: "grid",
+      name: "",
+      schema: [
+        { name: "show_buttons_control", selector: { boolean: {} } },
+        { name: "collapsible_controls", selector: { boolean: {} } },
+      ],
+    },
+    ...computeActionsFormSchema(actions),
+  ]
+);
 
 @customElement(UPDATE_CARD_EDITOR_NAME)
 export class UpdateCardEditor
@@ -78,7 +85,7 @@ export class UpdateCardEditor
     }
 
     const customLocalize = setupCustomlocalize(this.hass!);
-    const schema = computeSchema(customLocalize);
+    const schema = computeSchema(customLocalize, this.hass!.config.version);
 
     return html`
       <ha-form

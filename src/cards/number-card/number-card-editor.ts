@@ -9,6 +9,7 @@ import { computeAppearanceFormSchema } from "../../shared/config/appearance-conf
 import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
+import { computeNameSchema } from "../../utils/form/name-schema";
 import { loadHaComponents } from "../../utils/loader";
 import { NUMBER_CARD_EDITOR_NAME, NUMBER_ENTITY_DOMAINS } from "./const";
 import {
@@ -19,36 +20,38 @@ import {
 
 export const NUMBER_LABELS = ["display_mode"];
 
-const computeSchema = memoizeOne((localize: LocalizeFunc): HaFormSchema[] => [
-  { name: "entity", selector: { entity: { domain: NUMBER_ENTITY_DOMAINS } } },
-  { name: "name", selector: { text: {} } },
-  {
-    type: "grid",
-    name: "",
-    schema: [
-      {
-        name: "icon",
-        selector: { icon: {} },
-        context: { icon_entity: "entity" },
-      },
-      { name: "icon_color", selector: { ui_color: {} } },
-    ],
-  },
-  ...computeAppearanceFormSchema(localize),
-  {
-    name: "display_mode",
-    selector: {
-      select: {
-        options: ["default", ...DISPLAY_MODES].map((control) => ({
-          value: control,
-          label: localize(`editor.card.number.display_mode_list.${control}`),
-        })),
-        mode: "dropdown",
+const computeSchema = memoizeOne(
+  (localize: LocalizeFunc, version: string): HaFormSchema[] => [
+    { name: "entity", selector: { entity: { domain: NUMBER_ENTITY_DOMAINS } } },
+    computeNameSchema(version),
+    {
+      type: "grid",
+      name: "",
+      schema: [
+        {
+          name: "icon",
+          selector: { icon: {} },
+          context: { icon_entity: "entity" },
+        },
+        { name: "icon_color", selector: { ui_color: {} } },
+      ],
+    },
+    ...computeAppearanceFormSchema(localize),
+    {
+      name: "display_mode",
+      selector: {
+        select: {
+          options: ["default", ...DISPLAY_MODES].map((control) => ({
+            value: control,
+            label: localize(`editor.card.number.display_mode_list.${control}`),
+          })),
+          mode: "dropdown",
+        },
       },
     },
-  },
-  ...computeActionsFormSchema(),
-]);
+    ...computeActionsFormSchema(),
+  ]
+);
 
 @customElement(NUMBER_CARD_EDITOR_NAME)
 export class NumberCardEditor
@@ -90,7 +93,7 @@ export class NumberCardEditor
 
     const customLocalize = setupCustomlocalize(this.hass);
 
-    const schema = computeSchema(customLocalize);
+    const schema = computeSchema(customLocalize, this.hass.config.version);
 
     const data = { ...this._config } as any;
     if (!data.display_mode) {

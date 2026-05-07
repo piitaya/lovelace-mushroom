@@ -21,6 +21,7 @@ import {
   LovelaceCardEditor,
 } from "../../ha";
 import setupCustomlocalize from "../../localize";
+import { entityNameStruct } from "../../shared/config/entity-config";
 import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-config";
 import { computeAlignmentOptions } from "../../shared/config/appearance-config";
 import { MushroomBaseElement } from "../../utils/base-element";
@@ -54,7 +55,7 @@ const backChipConfigStruct = object({
 const entityChipConfigStruct = object({
   type: literal("entity"),
   entity: optional(string()),
-  name: optional(string()),
+  name: optional(entityNameStruct),
   content_info: optional(string()),
   icon: optional(string()),
   icon_color: optional(string()),
@@ -95,7 +96,7 @@ const conditionChipConfigStruct = object({
 const lightChipConfigStruct = object({
   type: literal("light"),
   entity: optional(string()),
-  name: optional(string()),
+  name: optional(entityNameStruct),
   content_info: optional(string()),
   icon: optional(string()),
   use_light_color: optional(boolean()),
