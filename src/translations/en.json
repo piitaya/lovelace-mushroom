@@ -223,8 +223,12 @@
   },
   "tile_migration": {
     "title": "Migrate to Tile",
-    "description": "Convert this card to a native Tile card with card features.",
-    "migrate": "Migrate"
+    "description": "Convert this card to a native Tile card with card features. Some Mushroom-specific behaviors will be lost (control collapsing, icon animations, fill container).",
+    "migrate": "Migrate",
+    "confirm": "Yes, migrate",
+    "cancel": "Cancel",
+    "confirm_title": "Migrate to Tile?",
+    "confirm_text": "This will replace your Mushroom card config with a native Tile card config. Mushroom-only options will be lost. This cannot be undone (close the editor without saving to keep the original)."
   },
   "migration": {
     "title": "Card updated",
