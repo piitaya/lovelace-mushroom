@@ -1,5 +1,4 @@
 import { LovelaceCardConfig } from "../../ha";
-import { LovelaceCardFeatureConfig } from "../../ha/panels/lovelace/card-features/types";
 import { migrateCommonConfig, TileCardConfig } from "./common";
 
 /**
@@ -14,10 +13,11 @@ import { migrateCommonConfig, TileCardConfig } from "./common";
  */
 export function migrateNumberCard(config: LovelaceCardConfig): TileCardConfig {
   const result = migrateCommonConfig(config);
-  const feature: LovelaceCardFeatureConfig = { type: "numeric-input" };
-  if (config.display_mode) {
-    (feature as any).style = config.display_mode;
-  }
-  result.features = [feature];
+  result.features = [
+    {
+      type: "numeric-input",
+      ...(config.display_mode ? { style: config.display_mode } : {}),
+    },
+  ];
   return result;
 }

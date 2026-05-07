@@ -1,24 +1,41 @@
-import { LovelaceCardConfig } from "../../ha";
+import { ActionConfig, EntityNameItem, LovelaceCardConfig } from "../../ha";
 import { LovelaceCardFeatureConfig } from "../../ha/panels/lovelace/card-features/types";
 
 export interface TileCardConfig extends LovelaceCardConfig {
   type: "tile";
   entity?: string;
-  name?: string;
+  name?: string | EntityNameItem | EntityNameItem[];
   icon?: string;
   color?: string;
   show_entity_picture?: boolean;
   vertical?: boolean;
   hide_state?: boolean;
   state_content?: string | string[];
-  tap_action?: any;
-  hold_action?: any;
-  double_tap_action?: any;
-  icon_tap_action?: any;
-  icon_hold_action?: any;
-  icon_double_tap_action?: any;
+  tap_action?: ActionConfig;
+  hold_action?: ActionConfig;
+  double_tap_action?: ActionConfig;
+  icon_tap_action?: ActionConfig;
+  icon_hold_action?: ActionConfig;
+  icon_double_tap_action?: ActionConfig;
   features?: LovelaceCardFeatureConfig[];
-  features_position?: "bottom" | "inline";
+}
+
+/**
+ * Wrap multiple features in a compact combine feature so they display
+ * as a single row with a toggle button. If there is only one feature
+ * (or none), returns the array unchanged.
+ */
+export function wrapInCombine(
+  features: LovelaceCardFeatureConfig[]
+): LovelaceCardFeatureConfig[] {
+  if (features.length <= 1) return features;
+  return [
+    {
+      type: "custom:mushroom-combine-card-feature",
+      layout: "compact",
+      features,
+    },
+  ];
 }
 
 /**
@@ -41,24 +58,6 @@ export interface TileCardConfig extends LovelaceCardConfig {
  *   fill_container - handled by grid_options in tile card
  *   icon_type:"none" - tile card always shows an icon
  */
-/**
- * Wrap multiple features in a compact combine feature so they display
- * as a single row with a toggle button. If there is only one feature
- * (or none), returns the array unchanged.
- */
-export function wrapInCombine(
-  features: LovelaceCardFeatureConfig[]
-): LovelaceCardFeatureConfig[] {
-  if (features.length <= 1) return features;
-  return [
-    {
-      type: "custom:mushroom-combine-card-feature",
-      layout: "compact",
-      features,
-    },
-  ];
-}
-
 export function migrateCommonConfig(
   config: LovelaceCardConfig
 ): TileCardConfig {
