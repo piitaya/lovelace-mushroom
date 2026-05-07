@@ -9,6 +9,7 @@ import { computeAppearanceFormSchema } from "../../shared/config/appearance-conf
 import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
+import { computeNameSchema } from "../../utils/form/name-schema";
 import { loadHaComponents } from "../../utils/loader";
 import {
   ClimateCardConfig,
@@ -20,12 +21,16 @@ import { CLIMATE_CARD_EDITOR_NAME, CLIMATE_ENTITY_DOMAINS } from "./const";
 const CLIMATE_LABELS = ["hvac_modes", "show_temperature_control"] as string[];
 
 const computeSchema = memoizeOne(
-  (localize: LocalizeFunc, customLocalize: LocalizeFunc): HaFormSchema[] => [
+  (
+    localize: LocalizeFunc,
+    customLocalize: LocalizeFunc,
+    version: string
+  ): HaFormSchema[] => [
     {
       name: "entity",
       selector: { entity: { domain: CLIMATE_ENTITY_DOMAINS } },
     },
-    { name: "name", selector: { text: {} } },
+    computeNameSchema(version),
     {
       name: "icon",
       selector: { icon: {} },
@@ -96,7 +101,11 @@ export class ClimateCardEditor
     }
 
     const customLocalize = setupCustomlocalize(this.hass);
-    const schema = computeSchema(this.hass!.localize, customLocalize);
+    const schema = computeSchema(
+      this.hass!.localize,
+      customLocalize,
+      this.hass!.config.version
+    );
 
     return html`
       <ha-form

@@ -32,6 +32,7 @@ import { computeAppearance } from "../../utils/appearance";
 import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
 import { computeRgbColor } from "../../utils/colors";
+import { computeEntityName } from "../../utils/compute-entity-name";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { computeEntityPicture } from "../../utils/info";
 import {
@@ -188,7 +189,7 @@ export class LightCard
       return this.renderNotFound(this._config);
     }
 
-    const name = this._config.name || stateObj.attributes.friendly_name || "";
+    const name = computeEntityName(this.hass, stateObj, this._config.name);
     const icon = this._config.icon;
     const appearance = computeAppearance(this._config);
     const picture = computeEntityPicture(stateObj, appearance.icon_type);
@@ -336,7 +337,10 @@ export class LightCard
         `;
       case "color_control":
         return html`
-          <mushroom-light-color-control .hass=${this.hass} .entity=${entity}></mushroom-light-color-control>
+          <mushroom-light-color-control
+            .hass=${this.hass}
+            .entity=${entity}
+          ></mushroom-light-color-control>
         `;
       default:
         return nothing;

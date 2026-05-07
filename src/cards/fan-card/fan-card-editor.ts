@@ -9,6 +9,7 @@ import { computeAppearanceFormSchema } from "../../shared/config/appearance-conf
 import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
+import { computeNameSchema } from "../../utils/form/name-schema";
 import { loadHaComponents } from "../../utils/loader";
 import { FAN_CARD_EDITOR_NAME, FAN_ENTITY_DOMAINS } from "./const";
 import { FanCardConfig, fanCardConfigStruct } from "./fan-card-config";
@@ -20,34 +21,36 @@ const FAN_LABELS = [
   "show_direction_control",
 ];
 
-const computeSchema = memoizeOne((localize: LocalizeFunc): HaFormSchema[] => [
-  { name: "entity", selector: { entity: { domain: FAN_ENTITY_DOMAINS } } },
-  { name: "name", selector: { text: {} } },
-  {
-    type: "grid",
-    name: "",
-    schema: [
-      {
-        name: "icon",
-        selector: { icon: {} },
-        context: { icon_entity: "entity" },
-      },
-      { name: "icon_animation", selector: { boolean: {} } },
-    ],
-  },
-  ...computeAppearanceFormSchema(localize),
-  {
-    type: "grid",
-    name: "",
-    schema: [
-      { name: "show_percentage_control", selector: { boolean: {} } },
-      { name: "show_oscillate_control", selector: { boolean: {} } },
-      { name: "show_direction_control", selector: { boolean: {} } },
-      { name: "collapsible_controls", selector: { boolean: {} } },
-    ],
-  },
-  ...computeActionsFormSchema(),
-]);
+const computeSchema = memoizeOne(
+  (localize: LocalizeFunc, version: string): HaFormSchema[] => [
+    { name: "entity", selector: { entity: { domain: FAN_ENTITY_DOMAINS } } },
+    computeNameSchema(version),
+    {
+      type: "grid",
+      name: "",
+      schema: [
+        {
+          name: "icon",
+          selector: { icon: {} },
+          context: { icon_entity: "entity" },
+        },
+        { name: "icon_animation", selector: { boolean: {} } },
+      ],
+    },
+    ...computeAppearanceFormSchema(localize),
+    {
+      type: "grid",
+      name: "",
+      schema: [
+        { name: "show_percentage_control", selector: { boolean: {} } },
+        { name: "show_oscillate_control", selector: { boolean: {} } },
+        { name: "show_direction_control", selector: { boolean: {} } },
+        { name: "collapsible_controls", selector: { boolean: {} } },
+      ],
+    },
+    ...computeActionsFormSchema(),
+  ]
+);
 
 @customElement(FAN_CARD_EDITOR_NAME)
 export class FanCardEditor
@@ -86,7 +89,7 @@ export class FanCardEditor
     }
 
     const customLocalize = setupCustomlocalize(this.hass);
-    const schema = computeSchema(customLocalize);
+    const schema = computeSchema(customLocalize, this.hass.config.version);
 
     return html`
       <ha-form

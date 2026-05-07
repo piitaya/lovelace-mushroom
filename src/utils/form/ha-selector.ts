@@ -1,4 +1,4 @@
-import { ActionConfig } from "../../ha";
+import { ActionConfig, EntityNameSelector } from "../../ha";
 
 export type Selector =
   | ActionSelector
@@ -22,6 +22,7 @@ export type Selector =
   | LegacyDeviceSelector
   | DurationSelector
   | EntitySelector
+  | EntityNameSelector
   | LegacyEntitySelector
   | FileSelector
   | IconSelector

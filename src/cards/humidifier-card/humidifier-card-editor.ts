@@ -9,6 +9,7 @@ import { computeAppearanceFormSchema } from "../../shared/config/appearance-conf
 import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
+import { computeNameSchema } from "../../utils/form/name-schema";
 import { loadHaComponents } from "../../utils/loader";
 import {
   HUMIDIFIER_CARD_EDITOR_NAME,
@@ -21,24 +22,30 @@ import {
 
 const HUMIDIFIER_FIELDS = ["show_target_humidity_control"];
 
-const computeSchema = memoizeOne((localize: LocalizeFunc): HaFormSchema[] => [
-  {
-    name: "entity",
-    selector: { entity: { domain: HUMIDIFIER_ENTITY_DOMAINS } },
-  },
-  { name: "name", selector: { text: {} } },
-  { name: "icon", selector: { icon: {} }, context: { icon_entity: "entity" } },
-  ...computeAppearanceFormSchema(localize),
-  {
-    type: "grid",
-    name: "",
-    schema: [
-      { name: "show_target_humidity_control", selector: { boolean: {} } },
-      { name: "collapsible_controls", selector: { boolean: {} } },
-    ],
-  },
-  ...computeActionsFormSchema(),
-]);
+const computeSchema = memoizeOne(
+  (localize: LocalizeFunc, version: string): HaFormSchema[] => [
+    {
+      name: "entity",
+      selector: { entity: { domain: HUMIDIFIER_ENTITY_DOMAINS } },
+    },
+    computeNameSchema(version),
+    {
+      name: "icon",
+      selector: { icon: {} },
+      context: { icon_entity: "entity" },
+    },
+    ...computeAppearanceFormSchema(localize),
+    {
+      type: "grid",
+      name: "",
+      schema: [
+        { name: "show_target_humidity_control", selector: { boolean: {} } },
+        { name: "collapsible_controls", selector: { boolean: {} } },
+      ],
+    },
+    ...computeActionsFormSchema(),
+  ]
+);
 
 @customElement(HUMIDIFIER_CARD_EDITOR_NAME)
 export class HumidifierCardEditor
@@ -77,7 +84,7 @@ export class HumidifierCardEditor
     }
 
     const customLocalize = setupCustomlocalize(this.hass);
-    const schema = computeSchema(customLocalize);
+    const schema = computeSchema(customLocalize, this.hass.config.version);
 
     return html`
       <ha-form

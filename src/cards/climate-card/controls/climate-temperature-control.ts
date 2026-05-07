@@ -39,7 +39,10 @@ export class ClimateTemperatureControl extends LitElement {
     const domain = computeStateDomain(this.entity as any);
     return (
       domain === "climate" &&
-      supportsFeature(this.entity as any, ClimateEntityFeature.TARGET_TEMPERATURE)
+      supportsFeature(
+        this.entity as any,
+        ClimateEntityFeature.TARGET_TEMPERATURE
+      )
     );
   }
 
@@ -102,7 +105,6 @@ export class ClimateTemperatureControl extends LitElement {
     const hasRange =
       this.entity.attributes.target_temp_low != null &&
       this.entity.attributes.target_temp_high != null;
-
 
     const showSingle = supportsSingle && hasSingle;
     const showRange = !showSingle && supportsRange && hasRange;

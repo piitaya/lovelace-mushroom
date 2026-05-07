@@ -64,7 +64,7 @@ const hvacModeOrdering: { [key in HvacMode]: number } = {
 
 export const compareClimateHvacModes = (mode1: HvacMode, mode2: HvacMode) =>
   hvacModeOrdering[mode1] - hvacModeOrdering[mode2];
-  
+
 export const enum ClimateEntityFeature {
   TARGET_TEMPERATURE = 1,
   TARGET_TEMPERATURE_RANGE = 2,

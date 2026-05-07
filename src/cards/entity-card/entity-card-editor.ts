@@ -9,28 +9,31 @@ import { computeAppearanceFormSchema } from "../../shared/config/appearance-conf
 import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
+import { computeNameSchema } from "../../utils/form/name-schema";
 import { loadHaComponents } from "../../utils/loader";
 import { ENTITY_CARD_EDITOR_NAME } from "./const";
 import { EntityCardConfig, entityCardConfigStruct } from "./entity-card-config";
 
-const computeSchema = memoizeOne((localize: LocalizeFunc): HaFormSchema[] => [
-  { name: "entity", selector: { entity: {} } },
-  { name: "name", selector: { text: {} } },
-  {
-    type: "grid",
-    name: "",
-    schema: [
-      {
-        name: "icon",
-        selector: { icon: {} },
-        context: { icon_entity: "entity" },
-      },
-      { name: "icon_color", selector: { ui_color: {} } },
-    ],
-  },
-  ...computeAppearanceFormSchema(localize),
-  ...computeActionsFormSchema(),
-]);
+const computeSchema = memoizeOne(
+  (localize: LocalizeFunc, version: string): HaFormSchema[] => [
+    { name: "entity", selector: { entity: {} } },
+    computeNameSchema(version),
+    {
+      type: "grid",
+      name: "",
+      schema: [
+        {
+          name: "icon",
+          selector: { icon: {} },
+          context: { icon_entity: "entity" },
+        },
+        { name: "icon_color", selector: { ui_color: {} } },
+      ],
+    },
+    ...computeAppearanceFormSchema(localize),
+    ...computeActionsFormSchema(),
+  ]
+);
 
 @customElement(ENTITY_CARD_EDITOR_NAME)
 export class EntityCardEditor
@@ -66,7 +69,7 @@ export class EntityCardEditor
     }
 
     const customLocalize = setupCustomlocalize(this.hass);
-    const schema = computeSchema(customLocalize);
+    const schema = computeSchema(customLocalize, this.hass.config.version);
 
     return html`
       <ha-form
