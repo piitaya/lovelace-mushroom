@@ -1,19 +1,6 @@
-import { ActionConfig } from "../../ha";
-import { MushAlignementSelector } from "./custom/ha-selector-mushroom-alignment";
-import { MushColorSelector } from "./custom/ha-selector-mushroom-color";
-import { MushIconTypeSelector } from "./custom/ha-selector-mushroom-icon-type";
-import { MushInfoSelector } from "./custom/ha-selector-mushroom-info";
-import { MushLayoutSelector } from "./custom/ha-selector-mushroom-layout";
-
-type MushSelector =
-  | MushColorSelector
-  | MushLayoutSelector
-  | MushInfoSelector
-  | MushIconTypeSelector
-  | MushAlignementSelector;
+import { ActionConfig, EntityNameSelector } from "../../ha";
 
 export type Selector =
-  | MushSelector
   | ActionSelector
   | AddonSelector
   | AreaSelector
@@ -35,6 +22,7 @@ export type Selector =
   | LegacyDeviceSelector
   | DurationSelector
   | EntitySelector
+  | EntityNameSelector
   | LegacyEntitySelector
   | FileSelector
   | IconSelector

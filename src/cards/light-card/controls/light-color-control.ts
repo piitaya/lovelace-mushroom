@@ -85,7 +85,7 @@ export class LightColorControl extends LitElement {
         .max=${100}
         .showIndicator=${true}
         @change=${this.onChange}
-      />
+      ></mushroom-slider>
     `;
   }
 

@@ -12,6 +12,7 @@ import {
   isActive,
   LightEntity,
 } from "../../../ha";
+import { computeEntityName } from "../../../utils/compute-entity-name";
 import { computeInfoDisplay } from "../../../utils/info";
 import {
   computeChipComponentName,
@@ -76,7 +77,7 @@ export class LightChip extends LitElement implements LovelaceChip {
       return nothing;
     }
 
-    const name = this._config.name || stateObj.attributes.friendly_name || "";
+    const name = computeEntityName(this.hass, stateObj, this._config.name);
     const icon = this._config.icon;
 
     const stateDisplay = this.hass.formatEntityState(stateObj);

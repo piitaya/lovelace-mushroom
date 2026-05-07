@@ -20,6 +20,7 @@ import {
   LovelaceGridOptions,
   RenderTemplateResult,
   subscribeRenderTemplate,
+  ActionHandlerOptions,
 } from "../../ha";
 import { computeCssColor } from "../../ha/common/color/compute-color";
 import { isTemplate } from "../../ha/common/string/has-template";
@@ -416,7 +417,13 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
     });
 
     const { haVersion } = this.hass.connection;
-    const supportTileInfoSlot = atLeastHaVersion(haVersion, 2025, 10);
+    const supportTileIconHandlerOptions = atLeastHaVersion(haVersion, 2026, 2);
+
+    const iconActionHandlerOptions: ActionHandlerOptions = {
+      disabled: !this._hasIconAction,
+      hasHold: hasAction(this._config!.icon_hold_action),
+      hasDoubleClick: hasAction(this._config!.icon_double_tap_action),
+    };
 
     return html`
       <ha-card style=${styleMap(style)}>
@@ -447,26 +454,27 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
                           this._hasIconAction ? "0" : undefined
                         )}
                         @action=${this._handleIconAction}
-                        .actionHandler=${actionHandler({
-                          disabled: !this._hasIconAction,
-                          hasHold: hasAction(this._config!.icon_hold_action),
-                          hasDoubleClick: hasAction(
-                            this._config!.icon_double_tap_action
-                          ),
-                        })}
+                        .actionHandlerOptions=${supportTileIconHandlerOptions
+                          ? iconActionHandlerOptions
+                          : undefined}
+                        .actionHandler=${!supportTileIconHandlerOptions
+                          ? actionHandler(iconActionHandlerOptions)
+                          : undefined}
                         .interactive=${this._hasIconAction}
                         .imageUrl=${picture
                           ? this.hass.hassUrl(picture)
                           : undefined}
                         class=${weatherSvg ? "weather" : ""}
                       >
-                        ${weatherSvg
-                          ? html`<div slot="icon">${weatherSvg}</div>`
-                          : html`<ha-state-icon
-                              slot="icon"
-                              .icon=${icon}
-                              .hass=${this.hass}
-                            ></ha-state-icon>`}
+                        ${picture
+                          ? nothing
+                          : weatherSvg
+                            ? html`<div slot="icon">${weatherSvg}</div>`
+                            : html`<ha-state-icon
+                                slot="icon"
+                                .icon=${icon}
+                                .hass=${this.hass}
+                              ></ha-state-icon>`}
                         ${badgeIcon || badgeText
                           ? html`
                               <ha-tile-badge
@@ -486,34 +494,15 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
                   : nothing}
                 ${primary || secondary
                   ? html`
-                      <ha-tile-info
-                        id="info"
-                        .primary=${supportTileInfoSlot ? undefined : primary}
-                        .secondary=${supportTileInfoSlot
-                          ? undefined
-                          : html`
-                              <span
-                                style=${styleMap({
-                                  "white-space": multilineSecondary
-                                    ? "pre-wrap"
-                                    : "nowrap",
-                                })}
-                                >${secondary?.trim()}</span
-                              >
-                            `}
-                      >
-                        ${supportTileInfoSlot
-                          ? html`
-                              <span slot="primary">${primary}</span>
-                              <span
-                                slot="secondary"
-                                class=${classMap({
-                                  multiline: Boolean(multilineSecondary),
-                                })}
-                                >${secondary}</span
-                              >
-                            `
-                          : nothing}
+                      <ha-tile-info id="info">
+                        <span slot="primary">${primary}</span>
+                        <span
+                          slot="secondary"
+                          class=${classMap({
+                            multiline: Boolean(multilineSecondary),
+                          })}
+                          >${secondary}</span
+                        >
                       </ha-tile-info>
                     `
                   : nothing}

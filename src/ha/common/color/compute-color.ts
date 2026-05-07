@@ -1,10 +1,6 @@
 export const THEME_COLORS = new Set([
   "primary",
   "accent",
-  "disabled",
-  "primary-text",
-  "secondary-text",
-  "disabled-text",
   "red",
   "pink",
   "purple",
@@ -30,12 +26,19 @@ export const THEME_COLORS = new Set([
   "white",
 ]);
 
+const YAML_ONLY_THEMES_COLORS = new Set([
+  "primary-text",
+  "secondary-text",
+  "disabled-text",
+  "disabled",
+]);
+
 function isRgbString(color: string): boolean {
   return /^\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*$/.test(color);
 }
 
 export function computeCssColor(color: string): string {
-  if (THEME_COLORS.has(color)) {
+  if (THEME_COLORS.has(color) || YAML_ONLY_THEMES_COLORS.has(color)) {
     return `var(--${color}-color)`;
   }
   if (isRgbString(color)) {

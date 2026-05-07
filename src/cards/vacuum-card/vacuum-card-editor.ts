@@ -5,10 +5,11 @@ import { assert } from "superstruct";
 import { LocalizeFunc, LovelaceCardEditor, fireEvent } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { computeActionsFormSchema } from "../../shared/config/actions-config";
-import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
+import { computeAppearanceFormSchema } from "../../shared/config/appearance-config";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
+import { computeNameSchema } from "../../utils/form/name-schema";
 import { loadHaComponents } from "../../utils/loader";
 import { VACUUM_CARD_EDITOR_NAME, VACUUM_ENTITY_DOMAINS } from "./const";
 import {
@@ -20,9 +21,13 @@ import {
 const VACUUM_LABELS = ["commands"];
 
 const computeSchema = memoizeOne(
-  (localize: LocalizeFunc, customLocalize: LocalizeFunc): HaFormSchema[] => [
+  (
+    localize: LocalizeFunc,
+    customLocalize: LocalizeFunc,
+    version: string
+  ): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: VACUUM_ENTITY_DOMAINS } } },
-    { name: "name", selector: { text: {} } },
+    computeNameSchema(version),
     {
       type: "grid",
       name: "",
@@ -35,7 +40,7 @@ const computeSchema = memoizeOne(
         { name: "icon_animation", selector: { boolean: {} } },
       ],
     },
-    ...APPEARANCE_FORM_SCHEMA,
+    ...computeAppearanceFormSchema(customLocalize),
     {
       name: "commands",
       selector: {
@@ -93,7 +98,11 @@ export class VacuumCardEditor
     }
 
     const customLocalize = setupCustomlocalize(this.hass!);
-    const schema = computeSchema(this.hass!.localize, customLocalize);
+    const schema = computeSchema(
+      this.hass!.localize,
+      customLocalize,
+      this.hass!.config.version
+    );
 
     return html`
       <ha-form

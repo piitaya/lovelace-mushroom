@@ -42,7 +42,7 @@ export class FanPercentageControl extends LitElement {
         @change=${this.onChange}
         @current-change=${this.onCurrentChange}
         step=${computePercentageStep(this.entity)}
-      />
+      ></mushroom-slider>
     `;
   }
 

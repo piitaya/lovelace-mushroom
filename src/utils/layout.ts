@@ -1,6 +1,8 @@
 import { literal, union } from "superstruct";
 
-export type Layout = "vertical" | "horizontal" | "default";
+export const LAYOUTS = ["default", "horizontal", "vertical"] as const;
+
+export type Layout = (typeof LAYOUTS)[number];
 
 export const layoutStruct = union([
   literal("horizontal"),

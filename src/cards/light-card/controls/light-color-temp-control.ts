@@ -82,7 +82,7 @@ export class LightColorTempControl extends LitElement {
         style=${styleMap({
           "--temp-gradient": gradient,
         })}
-      />
+      ></mushroom-slider>
     `;
   }
 

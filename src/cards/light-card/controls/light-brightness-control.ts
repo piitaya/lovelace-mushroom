@@ -41,7 +41,7 @@ export class LightBrighnessControl extends LitElement {
         min=${1}
         @change=${this.onChange}
         @current-change=${this.onCurrentChange}
-      />
+      ></mushroom-slider>
     `;
   }
 

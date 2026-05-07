@@ -11,11 +11,14 @@ const SCHEMA: HaFormSchema[] = [
   {
     name: "description",
     type: "constant",
-  }
+  },
 ];
 
 @customElement(EMPTY_CARD_EDITOR_NAME)
-export class EntityCardEditor extends MushroomBaseElement implements LovelaceCardEditor {
+export class EntityCardEditor
+  extends MushroomBaseElement
+  implements LovelaceCardEditor
+{
   @state() private _config?: EmptyCardConfig;
 
   public setConfig(): void {

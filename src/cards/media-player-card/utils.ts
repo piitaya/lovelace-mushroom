@@ -17,6 +17,7 @@ import {
   computeMediaDescription,
   supportsFeature,
 } from "../../ha";
+import { computeEntityName } from "../../utils/compute-entity-name";
 import {
   MediaPlayerCardConfig,
   MediaPlayerMediaControl,
@@ -36,9 +37,10 @@ export function callService(
 
 export function computeMediaNameDisplay(
   config: MediaPlayerCardConfig,
-  entity: MediaPlayerEntity
+  entity: MediaPlayerEntity,
+  hass: HomeAssistant
 ): string {
-  let name = config.name || entity.attributes.friendly_name || "";
+  let name = computeEntityName(hass, entity, config.name);
   if (
     ![UNAVAILABLE, UNKNOWN, OFF].includes(entity.state) &&
     config.use_media_info
