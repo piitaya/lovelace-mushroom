@@ -32,8 +32,8 @@
   "devDependencies": {
     "@babel/core": "^7.29.0",
     "@babel/preset-env": "^7.29.5",
-    "@rollup/plugin-babel": "^6.1.0",
-    "@rollup/plugin-commonjs": "^28.0.9",
+    "@rollup/plugin-babel": "^7.0.0",
+    "@rollup/plugin-commonjs": "^29.0.2",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-terser": "^1.0.0",
@@ -43,7 +43,7 @@
     "eslint": "^9.39.4",
     "prettier": "^3.8.3",
     "rollup": "^4.60.3",
-    "rollup-plugin-serve": "^1.1.1",
-    "typescript": "^5.9.3"
+    "rollup-plugin-serve": "^3.0.0",
+    "typescript": "^6.0.3"
   }
 }

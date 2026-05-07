@@ -1,5 +1,8 @@
-import { Connection, createCollection } from "home-assistant-js-websocket";
-import { Store } from "home-assistant-js-websocket/dist/store";
+import {
+  Connection,
+  createCollection,
+  Store,
+} from "home-assistant-js-websocket";
 import memoizeOne from "memoize-one";
 import { computeStateName } from "../common/entity/compute_state_name";
 import { caseInsensitiveStringCompare } from "../common/string/compare";
