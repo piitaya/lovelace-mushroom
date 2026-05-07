@@ -3,7 +3,7 @@
     "declaration": true,
     "target": "es2017",
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "lib": ["es2017", "dom", "dom.iterable"],
     "noEmit": true,
     "noUnusedParameters": true,
