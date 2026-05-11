@@ -221,9 +221,18 @@
       }
     }
   },
+  "tile_migration": {
+    "title": "Migrate to Tile",
+    "description": "Convert this card to a native Tile card with card features. Some Mushroom-specific behaviors will be lost (control collapsing, icon animations, fill container).",
+    "migrate": "Migrate",
+    "confirm": "Yes, migrate",
+    "cancel": "Cancel",
+    "confirm_title": "Migrate to Tile?",
+    "confirm_text": "This will replace your Mushroom card config with a native Tile card config. Mushroom-only options will be lost. This cannot be undone (close the editor without saving to keep the original)."
+  },
   "migration": {
     "title": "Card updated",
-    "description": "Your card’s configuration has been migrated to the new version. You can find more information about the changes in {link}.",
+    "description": "Your card's configuration has been migrated to the new version. You can find more information about the changes in {link}.",
     "post": "the GitHub post",
     "revert": "Revert",
     "ok": "Ok"
