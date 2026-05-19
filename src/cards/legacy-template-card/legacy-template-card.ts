@@ -397,7 +397,7 @@ export class LegacyTemplateCard
 
     try {
       const unsub = await unsubRenderTemplate;
-      unsub();
+      await unsub();
       this._unsubRenderTemplates.delete(key);
     } catch (err: any) {
       if (err.code === "not_found" || err.code === "template_error") {
