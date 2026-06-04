@@ -255,6 +255,10 @@ export class FanCard
           --icon-color: rgb(var(--rgb-state-fan));
           --shape-color: rgba(var(--rgb-state-fan), 0.2);
         }
+        ha-state-icon {
+          animation: none;
+          transform: translateZ(0);
+        }
         .spin ha-state-icon {
           animation: var(--animation-duration) infinite linear spin;
         }
