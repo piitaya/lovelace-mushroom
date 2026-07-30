@@ -92,6 +92,8 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
 
   @property({ attribute: false }) public hass?: HomeAssistant;
 
+  @property({ attribute: false }) public layout?: string;
+
   @state() private _config?: TemplateCardConfig;
 
   @state() private _templateResults?: TemplateResults;
@@ -287,8 +289,9 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
   }
 
   public getGridOptions(): LovelaceGridOptions {
-    let columns: number | undefined = 6;
-    let rows: number | undefined = 0;
+    const columns = 6;
+    let min_columns = 6;
+    let rows = 0;
 
     const hasContent = Boolean(
       this._config?.icon ||
@@ -303,7 +306,7 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
     const featuresCount = this._config?.features?.length || 0;
     if (featuresCount) {
       if (featurePosition === "inline") {
-        columns = 12;
+        min_columns = 12;
         rows = 1;
       } else {
         rows += featuresCount;
@@ -311,6 +314,7 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
     }
 
     if (this._config?.vertical) {
+      min_columns = 3;
       if (
         this._config.primary ||
         (this._config.secondary && !this._config.icon)
@@ -319,11 +323,16 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
       }
     }
     if (this._config?.multiline_secondary) {
-      rows = undefined;
+      return {
+        columns,
+        min_columns,
+      };
     }
     return {
       columns,
       rows,
+      min_columns,
+      min_rows: rows,
     };
   }
 
@@ -412,12 +421,19 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
       "feature-only": featureOnly,
     });
 
-    const contentClasses = classMap({
-      vertical: Boolean(this._config.vertical),
-    });
-
     const { haVersion } = this.hass.connection;
     const supportTileIconHandlerOptions = atLeastHaVersion(haVersion, 2026, 2);
+    const supportFixedInfoHeight = atLeastHaVersion(haVersion, 2026, 8);
+
+    const fixedInfoHeight =
+      supportFixedInfoHeight &&
+      this.layout === "grid" &&
+      this._config.grid_options?.rows !== "auto";
+
+    const contentClasses = classMap({
+      vertical: Boolean(this._config.vertical),
+      "fixed-info-height": fixedInfoHeight,
+    });
 
     const iconActionHandlerOptions: ActionHandlerOptions = {
       disabled: !this._hasIconAction,
@@ -448,10 +464,14 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
                   ? html`
                       <ha-tile-icon
                         role=${ifDefined(
-                          this._hasIconAction ? "button" : undefined
+                          !supportTileIconHandlerOptions && this._hasIconAction
+                            ? "button"
+                            : undefined
                         )}
                         tabindex=${ifDefined(
-                          this._hasIconAction ? "0" : undefined
+                          !supportTileIconHandlerOptions && this._hasIconAction
+                            ? "0"
+                            : undefined
                         )}
                         @action=${this._handleIconAction}
                         .actionHandlerOptions=${supportTileIconHandlerOptions
@@ -562,7 +582,10 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
         left: 0;
         bottom: 0;
         right: 0;
-        border-radius: var(--ha-card-border-radius, 12px);
+        border-radius: var(
+          --ha-card-border-radius,
+          var(--ha-border-radius-lg, 12px)
+        );
         margin: calc(-1 * var(--ha-card-border-width, 1px));
         overflow: hidden;
       }
@@ -581,18 +604,31 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
         display: flex;
         flex-direction: row;
         align-items: center;
-        padding: 10px;
+        padding: 0 10px;
+        min-height: var(--row-height, 56px);
         flex: 1;
         min-width: 0;
         box-sizing: border-box;
         pointer-events: none;
         gap: 10px;
       }
+      .content:has(.multiline) {
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
 
       .vertical {
         flex-direction: column;
         text-align: center;
         justify-content: center;
+        padding: 10px var(--ha-space-2, 8px);
+      }
+      .vertical.fixed-info-height {
+        gap: 2px;
+        --ha-tile-info-gap: 2px;
+        --ha-tile-info-primary-line-height: var(--ha-space-4);
+        --ha-tile-info-primary-min-height: var(--ha-space-8);
+        --ha-tile-info-min-height: var(--ha-space-12);
       }
       .vertical ha-tile-info {
         width: 100%;
@@ -644,14 +680,15 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
       }
       hui-card-features {
         --feature-color: var(--tile-color);
-        padding: 0 12px 12px 12px;
+        padding: 0 var(--ha-space-3, 12px) var(--ha-space-3, 12px)
+          var(--ha-space-3, 12px);
         min-width: 0;
       }
       .container.horizontal hui-card-features {
-        width: calc(50% - var(--column-gap, 0px) / 2 - 12px);
+        width: calc(50% - var(--column-gap, 0px) / 2 - var(--ha-space-3, 12px));
         flex: none;
-        --feature-height: 36px;
-        padding: 0 12px;
+        --feature-height: var(--ha-space-9, 36px);
+        padding: 0 var(--ha-space-3, 12px);
         padding-inline-start: 0;
       }
       .container.feature-only {
@@ -660,10 +697,10 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
       .container.feature-only hui-card-features {
         flex: 1;
         width: 100%;
-        padding: 12px 12px 12px 12px;
+        padding: var(--ha-space-3, 12px);
       }
       .container.feature-only.horizontal hui-card-features {
-        padding: 0 12px;
+        padding: 0 var(--ha-space-3, 12px);
       }
       .container.horizontal .content:not(:has(ha-tile-info)) {
         flex: none;
