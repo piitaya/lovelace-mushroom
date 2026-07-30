@@ -274,9 +274,9 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
 
     const hasContent = Boolean(
       this._config?.icon ||
-        this._config?.picture ||
-        this._config?.primary ||
-        this._config?.secondary
+      this._config?.picture ||
+      this._config?.primary ||
+      this._config?.secondary
     );
 
     return (
@@ -292,9 +292,9 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
 
     const hasContent = Boolean(
       this._config?.icon ||
-        this._config?.picture ||
-        this._config?.primary ||
-        this._config?.secondary
+      this._config?.picture ||
+      this._config?.primary ||
+      this._config?.secondary
     );
 
     rows = hasContent ? 1 : 0;
@@ -645,6 +645,7 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
       hui-card-features {
         --feature-color: var(--tile-color);
         padding: 0 12px 12px 12px;
+        min-width: 0;
       }
       .container.horizontal hui-card-features {
         width: calc(50% - var(--column-gap, 0px) / 2 - 12px);
