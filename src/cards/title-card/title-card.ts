@@ -289,14 +289,15 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
 
     try {
       const unsub = await unsubRenderTemplate;
-      unsub();
-      this._unsubRenderTemplates.delete(key);
+      await unsub();
     } catch (err: any) {
       if (err.code === "not_found" || err.code === "template_error") {
         // If we get here, the connection was probably already closed. Ignore.
       } else {
         throw err;
       }
+    } finally {
+      this._unsubRenderTemplates.delete(key);
     }
   }
 
