@@ -291,8 +291,7 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
   }
 
   public getGridOptions(): LovelaceGridOptions {
-    const columns = 6;
-    let min_columns = 6;
+    let columns = 6;
     let rows = 0;
 
     const hasContent = Boolean(
@@ -308,7 +307,7 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
     const featuresCount = this._config?.features?.length || 0;
     if (featuresCount) {
       if (featurePosition === "inline") {
-        min_columns = 12;
+        columns = 12;
         rows = 1;
       } else {
         rows += featuresCount;
@@ -316,7 +315,6 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
     }
 
     if (this._config?.vertical) {
-      min_columns = 3;
       if (
         this._config.primary ||
         (this._config.secondary && !this._config.icon)
@@ -327,14 +325,11 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
     if (this._config?.multiline_secondary) {
       return {
         columns,
-        min_columns,
       };
     }
     return {
       columns,
       rows,
-      min_columns,
-      min_rows: rows,
     };
   }
 
