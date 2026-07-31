@@ -394,9 +394,12 @@ export class LegacyTemplateCard
     if (!unsubRenderTemplate) {
       return;
     }
+    this._unsubRenderTemplates.delete(key);
 
     try {
       const unsub = await unsubRenderTemplate;
+      // UnsubscribeFunc is typed `() => void` but resolves a promise that
+      // rejects with `not_found` if the subscription is already gone.
       await unsub();
     } catch (err: any) {
       if (err.code === "not_found" || err.code === "template_error") {
@@ -404,8 +407,6 @@ export class LegacyTemplateCard
       } else {
         throw err;
       }
-    } finally {
-      this._unsubRenderTemplates.delete(key);
     }
   }
 
