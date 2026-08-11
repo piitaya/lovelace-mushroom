@@ -14,8 +14,9 @@ export type HvacMode =
 
 export type HvacAction = "off" | "heating" | "cooling" | "drying" | "idle";
 
-export type FanMode = string;
+// These 3 vary wildly from device to device, so we need to design around that
 export type PresetMode = string;
+export type FanMode = string;
 export type SwingMode = string;
 
 export type ClimateEntity = HassEntityBase & {
