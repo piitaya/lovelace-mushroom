@@ -22,6 +22,9 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `secondary_info`           | `name` `state` `last-changed` `last-updated` `none` | `state`     | Info to show as secondary info                                                                  |
 | `icon_type`                | `icon` `entity-picture` `none`                      | `icon`      | Type of icon to display                                                                         |
 | `hvac_modes`               | list                                                | `[]`        | List of hvac modes to display (auto, heat_cool, heat, cool, dry, fan_only, off)                 |
+| `preset_modes`             | list                                                | `[]`        | List of preset modes to display (depends on the entity, e.g. home, eco, away)                   |
+| `fan_modes`                | list                                                | `[]`        | List of fan modes to display (depends on the entity, e.g. low, medium, high, auto)              |
+| `swing_modes`              | list                                                | `[]`        | List of swing modes to display (depends on the entity, e.g. off, both, vertical, horizontal)    |
 | `show_temperature_control` | boolean                                             | `false`     | Show buttons to control target temperature                                                      |
 | `collapsible_controls`     | boolean                                             | `false`     | Collapse controls when off. When used in section, it can produce a layout shift for cards below |
 | `tap_action`               | action                                              | `toggle`    | Home assistant action to perform on tap                                                         |

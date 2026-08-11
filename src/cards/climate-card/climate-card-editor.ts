@@ -76,7 +76,10 @@ const computeSchema = memoizeOne(
             select: {
               options: presetModes.map((mode) => ({
                 value: mode,
-                label: mode,
+                label:
+                  localize(
+                    `component.climate.entity_component._.state_attributes.preset_mode.state.${mode}`
+                  ) || mode,
               })),
               mode: "dropdown",
               multiple: true,
@@ -89,7 +92,10 @@ const computeSchema = memoizeOne(
             select: {
               options: fanModes.map((mode) => ({
                 value: mode,
-                label: mode,
+                label:
+                  localize(
+                    `component.climate.entity_component._.state_attributes.fan_mode.state.${mode}`
+                  ) || mode,
               })),
               mode: "dropdown",
               multiple: true,
@@ -102,7 +108,10 @@ const computeSchema = memoizeOne(
             select: {
               options: swingModes.map((mode) => ({
                 value: mode,
-                label: mode,
+                label:
+                  localize(
+                    `component.climate.entity_component._.state_attributes.swing_mode.state.${mode}`
+                  ) || mode,
               })),
               mode: "dropdown",
               multiple: true,
