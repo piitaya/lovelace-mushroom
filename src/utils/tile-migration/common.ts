@@ -65,6 +65,12 @@ export function migrateCommonConfig(
     type: "tile",
   };
 
+  // Dashboard options that belong to the card slot rather than the card itself
+  if (config.grid_options) result.grid_options = config.grid_options;
+  if (config.layout_options) result.layout_options = config.layout_options;
+  if (config.view_layout) result.view_layout = config.view_layout;
+  if (config.visibility) result.visibility = config.visibility;
+
   if (config.entity) result.entity = config.entity;
   if (config.name) result.name = config.name;
 

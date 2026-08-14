@@ -38,9 +38,7 @@ const CARD_MIGRATIONS: Record<
   "custom:mushroom-vacuum-card": migrateVacuumCard,
 };
 
-export function migrateCardToTile(
-  config: LovelaceCardConfig
-): TileCardConfig {
+export function migrateCardToTile(config: LovelaceCardConfig): TileCardConfig {
   const migrateFn = CARD_MIGRATIONS[config.type];
   if (migrateFn) {
     return migrateFn(config);
