@@ -38,7 +38,10 @@ import { cardStyle } from "../../utils/card-styles";
 import { computeEntityName } from "../../utils/compute-entity-name";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { computeEntityPicture } from "../../utils/info";
-import { AlarmControlPanelCardConfig } from "./alarm-control-panel-card-config";
+import {
+  AlarmControlPanelCardConfig,
+  normalizeAlarmStateConfig,
+} from "./alarm-control-panel-card-config";
 import {
   ALARM_CONTROl_PANEL_CARD_EDITOR_NAME,
   ALARM_CONTROl_PANEL_CARD_NAME,
@@ -60,12 +63,12 @@ registerCustomCard({
 
 type ActionButtonType = {
   mode: AlarmMode;
+  icon?: string;
   disabled?: boolean;
 };
 
 /*
  * Ref: https://github.com/home-assistant/frontend/blob/dev/src/panels/lovelace/cards/hui-alarm-panel-card.ts
- * TODO: customize icon for modes (advanced YAML configuration)
  */
 
 @customElement(ALARM_CONTROl_PANEL_CARD_NAME)
@@ -126,7 +129,11 @@ export class AlarmControlPanelCard
     const actions: ActionButtonType[] =
       this._config.states && this._config.states.length > 0
         ? isDisarmed(stateObj)
-          ? this._config.states.map((state) => ({ mode: state }))
+          ? this._config.states.map((state) => {
+              const { state: mode, icon: modeIcon } =
+                normalizeAlarmStateConfig(state);
+              return { mode, icon: modeIcon };
+            })
           : [{ mode: "disarmed" }]
         : [];
 
@@ -167,7 +174,10 @@ export class AlarmControlPanelCard
                           @click=${(e) => this._onTap(e, action.mode)}
                           .disabled=${!isActionEnabled}
                         >
-                          <ha-icon .icon=${ALARM_MODES[action.mode].icon}>
+                          <ha-icon
+                            .icon=${action.icon ??
+                            ALARM_MODES[action.mode].icon}
+                          >
                           </ha-icon>
                         </mushroom-button>
                       `
