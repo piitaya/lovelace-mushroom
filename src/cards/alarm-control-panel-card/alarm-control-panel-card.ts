@@ -64,7 +64,21 @@ registerCustomCard({
 type ActionButtonType = {
   mode: AlarmMode;
   icon?: string;
+  name?: string;
   disabled?: boolean;
+};
+
+/*
+ * Fallback label used when `show_button_labels` is on but a `states` entry
+ * doesn't set an explicit `name` — e.g. "armed_home" -> "Armed home".
+ */
+const humanizeMode = (mode: AlarmMode): string => {
+  const words = mode.split("_");
+  return (
+    words[0].charAt(0).toUpperCase() +
+    words[0].slice(1) +
+    (words.length > 1 ? ` ${words.slice(1).join(" ")}` : "")
+  );
 };
 
 /*
@@ -130,9 +144,9 @@ export class AlarmControlPanelCard
       this._config.states && this._config.states.length > 0
         ? isDisarmed(stateObj)
           ? this._config.states.map((state) => {
-              const { state: mode, icon: modeIcon } =
+              const { state: mode, icon: modeIcon, name: modeName } =
                 normalizeAlarmStateConfig(state);
-              return { mode, icon: modeIcon };
+              return { mode, icon: modeIcon, name: modeName };
             })
           : [{ mode: "disarmed" }]
         : [];
@@ -173,12 +187,19 @@ export class AlarmControlPanelCard
                         <mushroom-button
                           @click=${(e) => this._onTap(e, action.mode)}
                           .disabled=${!isActionEnabled}
+                          ?has-label=${this._config!.show_button_labels}
                         >
                           <ha-icon
                             .icon=${action.icon ??
                             ALARM_MODES[action.mode].icon}
                           >
                           </ha-icon>
+                          ${this._config!.show_button_labels
+                            ? html`<span
+                                >${action.name ??
+                                humanizeMode(action.mode)}</span
+                              >`
+                            : nothing}
                         </mushroom-button>
                       `
                     )}

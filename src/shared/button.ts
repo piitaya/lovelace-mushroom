@@ -5,12 +5,14 @@ import { property, customElement } from "lit/decorators.js";
 export class Button extends LitElement {
   @property() public title: string = "";
   @property({ type: Boolean }) public disabled: boolean = false;
+  @property({ type: Boolean, attribute: "has-label", reflect: true })
+  public hasLabel = false;
 
   protected render(): TemplateResult {
     return html`
       <button
         type="button"
-        class="button"
+        class=${this.hasLabel ? "button has-label" : "button"}
         .title=${this.title}
         .disabled=${this.disabled}
       >
@@ -30,6 +32,10 @@ export class Button extends LitElement {
         width: calc(var(--control-height) * var(--control-button-ratio));
         flex: none;
       }
+      :host([has-label]) {
+        width: auto;
+        flex: 1;
+      }
       .button {
         cursor: pointer;
         display: flex;
@@ -47,13 +53,28 @@ export class Button extends LitElement {
         box-sizing: border-box;
         line-height: 0;
       }
+      .button.has-label {
+        flex-direction: column;
+        gap: 4px;
+        font-size: unset;
+        padding: 4px 8px;
+      }
       .button:disabled {
         cursor: not-allowed;
         background-color: var(--bg-color-disabled);
       }
-      .button ::slotted(*) {
+      .button ::slotted(ha-icon),
+      .button ::slotted(ha-svg-icon) {
         --mdc-icon-size: var(--control-icon-size);
         color: var(--icon-color);
+        pointer-events: none;
+      }
+      .button ::slotted(span) {
+        color: var(--icon-color);
+        font-size: 0.75rem;
+        font-weight: 500;
+        line-height: 1.2;
+        white-space: nowrap;
         pointer-events: none;
       }
       .button:disabled ::slotted(*) {

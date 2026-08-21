@@ -1,4 +1,12 @@
-import { array, assign, object, optional, string, union } from "superstruct";
+import {
+  array,
+  assign,
+  boolean,
+  object,
+  optional,
+  string,
+  union,
+} from "superstruct";
 import { LovelaceCardConfig } from "../../ha";
 import { AlarmMode } from "../../ha/data/alarm_control_panel";
 import {
@@ -16,17 +24,18 @@ import {
 import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-config";
 
 /*
- * Advanced (YAML-only) form of a `states` entry, allowing a custom icon to be
- * set for a single arm mode button.
+ * Advanced (YAML-only) form of a `states` entry, allowing a custom icon
+ * and/or a visible label to be set for a single arm mode button.
  */
 export type AlarmModeConfig = {
   state: AlarmMode;
   icon?: string;
+  name?: string;
 };
 
 /*
- * A `states` entry is either a plain mode string (default icon) or an object
- * with a per-mode icon override.
+ * A `states` entry is either a plain mode string (default icon, no label) or
+ * an object with a per-mode icon/name override.
  */
 export type AlarmStateConfig = AlarmMode | AlarmModeConfig;
 
@@ -35,6 +44,7 @@ export type AlarmControlPanelCardConfig = LovelaceCardConfig &
   AppearanceSharedConfig &
   ActionsSharedConfig & {
     states?: AlarmStateConfig[];
+    show_button_labels?: boolean;
   };
 
 /*
@@ -47,6 +57,7 @@ const alarmStateConfigStruct = union([
   object({
     state: string(),
     icon: optional(string()),
+    name: optional(string()),
   }),
 ]);
 
@@ -59,6 +70,7 @@ export const alarmControlPanelCardCardConfigStruct = assign(
   ),
   object({
     states: optional(array(alarmStateConfigStruct)),
+    show_button_labels: optional(boolean()),
   })
 );
 
