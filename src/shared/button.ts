@@ -35,6 +35,8 @@ export class Button extends LitElement {
       :host([has-label]) {
         width: auto;
         flex: 1;
+        height: auto;
+        min-height: var(--control-height);
       }
       .button {
         cursor: pointer;
@@ -56,7 +58,6 @@ export class Button extends LitElement {
       .button.has-label {
         flex-direction: column;
         gap: 4px;
-        font-size: unset;
         padding: 4px 8px;
       }
       .button:disabled {
