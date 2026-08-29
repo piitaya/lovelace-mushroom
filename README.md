@@ -106,6 +106,12 @@ A [template badge](docs/badges/template.md) is available if you're using at leas
 
 Mushroom works without theme but you can add a theme for better experience by installing the [Mushroom Themes](https://github.com/piitaya/lovelace-mushroom-themes). If you want more information about themes, check out the official [Home Assistant documentation about themes][home-assitant-theme-docs].
 
+### Unofficial German documentation
+
+An unofficial German documentation and practical guide is maintained externally by UGSo Software:
+
+- [Mushroom Cards German documentation](https://opensource.ugso-software.de/sammlung/mushroom/)
+
 ## Development server
 
 ### Home assistant demo
