@@ -20,6 +20,13 @@
         "show_temperature_control": "Ovládanie teploty?"
       },
       "cover": {
+        "default_control": "Predvolené ovládanie",
+        "default_control_list": {
+          "auto": "Predvolené (prvé dostupné)",
+          "buttons_control": "Ovládacie tlačidlá",
+          "position_control": "Pozícia",
+          "tilt_position_control": "Natočenie"
+        },
         "show_buttons_control": "Zobraziť ovládacie tlačidlá?",
         "show_position_control": "Ovládanie pozície?",
         "show_tilt_position_control": "Ovládanie natočenia?"
