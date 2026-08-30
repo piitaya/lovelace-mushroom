@@ -15,6 +15,7 @@ import { COVER_CARD_EDITOR_NAME, COVER_ENTITY_DOMAINS } from "./const";
 import {
   COVER_CONTROLS,
   CoverCardConfig,
+  CoverCardControl,
   coverCardConfigStruct,
 } from "./cover-card-config";
 
@@ -28,41 +29,67 @@ const COVER_LABELS = [
 // Placeholder value used in the editor when `default_control` is not set
 const DEFAULT_CONTROL_AUTO = "auto";
 
+const CONTROL_TOGGLES: Record<CoverCardControl, string> = {
+  buttons_control: "show_buttons_control",
+  position_control: "show_position_control",
+  tilt_position_control: "show_tilt_position_control",
+};
+
+const computeEnabledControls = (config: CoverCardConfig): CoverCardControl[] =>
+  COVER_CONTROLS.filter((control) => config[CONTROL_TOGGLES[control]]);
+
 const computeSchema = memoizeOne(
-  (localize: LocalizeFunc, version: string): HaFormSchema[] => [
-    { name: "entity", selector: { entity: { domain: COVER_ENTITY_DOMAINS } } },
-    computeNameSchema(version),
-    {
-      name: "icon",
-      selector: { icon: {} },
-      context: { icon_entity: "entity" },
-    },
-    ...computeAppearanceFormSchema(localize),
-    {
-      type: "grid",
-      name: "",
-      schema: [
-        { name: "show_position_control", selector: { boolean: {} } },
-        { name: "show_tilt_position_control", selector: { boolean: {} } },
-        { name: "show_buttons_control", selector: { boolean: {} } },
-      ],
-    },
-    {
-      name: "default_control",
-      selector: {
-        select: {
-          options: [DEFAULT_CONTROL_AUTO, ...COVER_CONTROLS].map((control) => ({
-            value: control,
-            label: localize(
-              `editor.card.cover.default_control_list.${control}`
-            ),
-          })),
-          mode: "dropdown",
-        },
+  (
+    localize: LocalizeFunc,
+    version: string,
+    enabledControls: string
+  ): HaFormSchema[] => {
+    const controls = enabledControls ? enabledControls.split(",") : [];
+    return [
+      {
+        name: "entity",
+        selector: { entity: { domain: COVER_ENTITY_DOMAINS } },
       },
-    },
-    ...computeActionsFormSchema(),
-  ]
+      computeNameSchema(version),
+      {
+        name: "icon",
+        selector: { icon: {} },
+        context: { icon_entity: "entity" },
+      },
+      ...computeAppearanceFormSchema(localize),
+      {
+        type: "grid",
+        name: "",
+        schema: [
+          { name: "show_position_control", selector: { boolean: {} } },
+          { name: "show_tilt_position_control", selector: { boolean: {} } },
+          { name: "show_buttons_control", selector: { boolean: {} } },
+        ],
+      },
+      // Nothing to pick from until at least two controls are enabled
+      ...(controls.length > 1
+        ? ([
+            {
+              name: "default_control",
+              selector: {
+                select: {
+                  options: [DEFAULT_CONTROL_AUTO, ...controls].map(
+                    (control) => ({
+                      value: control,
+                      label: localize(
+                        `editor.card.cover.default_control_list.${control}`
+                      ),
+                    })
+                  ),
+                  mode: "dropdown",
+                },
+              },
+            },
+          ] as HaFormSchema[])
+        : []),
+      ...computeActionsFormSchema(),
+    ];
+  }
 );
 
 @customElement(COVER_CARD_EDITOR_NAME)
@@ -102,10 +129,17 @@ export class CoverCardEditor
     }
 
     const customLocalize = setupCustomlocalize(this.hass);
-    const schema = computeSchema(customLocalize, this.hass.config.version);
+    const enabledControls = computeEnabledControls(this._config);
+    const schema = computeSchema(
+      customLocalize,
+      this.hass.config.version,
+      enabledControls.join(",")
+    );
 
+    // A default control that is not enabled is ignored by the card, so show
+    // the placeholder instead of a value the dropdown cannot offer
     const data = { ...this._config } as any;
-    if (!data.default_control) {
+    if (!enabledControls.includes(data.default_control)) {
       data.default_control = DEFAULT_CONTROL_AUTO;
     }
 
