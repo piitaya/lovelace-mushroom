@@ -43,7 +43,12 @@ import "./controls/fan-oscillate-control";
 import "./controls/fan-direction-control";
 import "./controls/fan-percentage-control";
 import { FanCardConfig } from "./fan-card-config";
-import { getPercentage } from "./utils";
+import {
+  getPercentage,
+  supportsDirectionControl,
+  supportsOscillateControl,
+  supportsPercentageControl,
+} from "./utils";
 
 registerCustomCard({
   type: FAN_CARD_NAME,
@@ -150,11 +155,17 @@ export class FanCard
 
     const rtl = computeRTL(this.hass);
 
+    const showPercentageControl =
+      this._config.show_percentage_control &&
+      supportsPercentageControl(stateObj);
+    const showOscillateControl =
+      this._config.show_oscillate_control && supportsOscillateControl(stateObj);
+    const showDirectionControl =
+      this._config.show_direction_control && supportsDirectionControl(stateObj);
+
     const displayControls =
       (!this._config.collapsible_controls || isActive(stateObj)) &&
-      (this._config.show_percentage_control ||
-        this._config.show_oscillate_control ||
-        this._config.show_direction_control);
+      (showPercentageControl || showOscillateControl || showDirectionControl);
 
     return html`
       <ha-card
@@ -179,7 +190,7 @@ export class FanCard
           ${displayControls
             ? html`
                 <div class="actions" ?rtl=${rtl}>
-                  ${this._config.show_percentage_control
+                  ${showPercentageControl
                     ? html`
                         <mushroom-fan-percentage-control
                           .hass=${this.hass}
@@ -188,7 +199,7 @@ export class FanCard
                         ></mushroom-fan-percentage-control>
                       `
                     : nothing}
-                  ${this._config.show_oscillate_control
+                  ${showOscillateControl
                     ? html`
                         <mushroom-fan-oscillate-control
                           .hass=${this.hass}
@@ -196,7 +207,7 @@ export class FanCard
                         ></mushroom-fan-oscillate-control>
                       `
                     : nothing}
-                  ${this._config.show_direction_control
+                  ${showDirectionControl
                     ? html`
                         <mushroom-fan-direction-control
                           .hass=${this.hass}
