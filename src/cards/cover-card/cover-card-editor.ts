@@ -12,13 +12,21 @@ import { HaFormSchema } from "../../utils/form/ha-form";
 import { computeNameSchema } from "../../utils/form/name-schema";
 import { loadHaComponents } from "../../utils/loader";
 import { COVER_CARD_EDITOR_NAME, COVER_ENTITY_DOMAINS } from "./const";
-import { CoverCardConfig, coverCardConfigStruct } from "./cover-card-config";
+import {
+  COVER_CONTROLS,
+  CoverCardConfig,
+  coverCardConfigStruct,
+} from "./cover-card-config";
 
 const COVER_LABELS = [
   "show_buttons_control",
   "show_position_control",
   "show_tilt_position_control",
+  "default_control",
 ];
+
+// Placeholder value used in the editor when `default_control` is not set
+const DEFAULT_CONTROL_AUTO = "auto";
 
 const computeSchema = memoizeOne(
   (localize: LocalizeFunc, version: string): HaFormSchema[] => [
@@ -38,6 +46,20 @@ const computeSchema = memoizeOne(
         { name: "show_tilt_position_control", selector: { boolean: {} } },
         { name: "show_buttons_control", selector: { boolean: {} } },
       ],
+    },
+    {
+      name: "default_control",
+      selector: {
+        select: {
+          options: [DEFAULT_CONTROL_AUTO, ...COVER_CONTROLS].map((control) => ({
+            value: control,
+            label: localize(
+              `editor.card.cover.default_control_list.${control}`
+            ),
+          })),
+          mode: "dropdown",
+        },
+      },
     },
     ...computeActionsFormSchema(),
   ]
@@ -82,10 +104,15 @@ export class CoverCardEditor
     const customLocalize = setupCustomlocalize(this.hass);
     const schema = computeSchema(customLocalize, this.hass.config.version);
 
+    const data = { ...this._config } as any;
+    if (!data.default_control) {
+      data.default_control = DEFAULT_CONTROL_AUTO;
+    }
+
     return html`
       <ha-form
         .hass=${this.hass}
-        .data=${this._config}
+        .data=${data}
         .schema=${schema}
         .computeLabel=${this._computeLabel}
         @value-changed=${this._valueChanged}
@@ -94,6 +121,12 @@ export class CoverCardEditor
   }
 
   private _valueChanged(ev: CustomEvent): void {
-    fireEvent(this, "config-changed", { config: ev.detail.value });
+    const config = { ...ev.detail.value };
+
+    if (config.default_control === DEFAULT_CONTROL_AUTO) {
+      delete config.default_control;
+    }
+
+    fireEvent(this, "config-changed", { config });
   }
 }

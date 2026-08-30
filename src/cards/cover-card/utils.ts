@@ -1,4 +1,26 @@
 import { CoverEntity } from "../../ha";
+import { CoverCardControl } from "./cover-card-config";
+
+/**
+ * Pick the control to display.
+ *
+ * The current control is kept as long as it is still enabled, so it does not
+ * reset on every rerender. Otherwise the configured default control is used,
+ * falling back to the first enabled control when it is not enabled.
+ */
+export function computeActiveControl(
+  controls: CoverCardControl[],
+  currentControl: CoverCardControl | undefined,
+  defaultControl: CoverCardControl | undefined
+): CoverCardControl | undefined {
+  if (currentControl && controls.includes(currentControl)) {
+    return currentControl;
+  }
+  if (defaultControl && controls.includes(defaultControl)) {
+    return defaultControl;
+  }
+  return controls[0];
+}
 
 export function getPosition(entity: CoverEntity) {
   return entity.attributes.current_position != null
