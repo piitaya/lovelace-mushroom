@@ -1,4 +1,28 @@
-import { CoverEntity } from "../../ha";
+import {
+  COVER_SUPPORT_CLOSE,
+  COVER_SUPPORT_OPEN,
+  COVER_SUPPORT_SET_POSITION,
+  COVER_SUPPORT_SET_TILT_POSITION,
+  COVER_SUPPORT_STOP,
+  CoverEntity,
+  supportsFeature,
+} from "../../ha";
+
+export function supportsButtonsControl(entity: CoverEntity): boolean {
+  return (
+    supportsFeature(entity, COVER_SUPPORT_OPEN) ||
+    supportsFeature(entity, COVER_SUPPORT_CLOSE) ||
+    supportsFeature(entity, COVER_SUPPORT_STOP)
+  );
+}
+
+export function supportsPositionControl(entity: CoverEntity): boolean {
+  return supportsFeature(entity, COVER_SUPPORT_SET_POSITION);
+}
+
+export function supportsTiltPositionControl(entity: CoverEntity): boolean {
+  return supportsFeature(entity, COVER_SUPPORT_SET_TILT_POSITION);
+}
 
 export function getPosition(entity: CoverEntity) {
   return entity.attributes.current_position != null
