@@ -14,7 +14,6 @@ import {
   ActionHandlerEvent,
   ClimateEntity,
   computeRTL,
-  formatNumber,
   handleAction,
   hasAction,
   HomeAssistant,
@@ -43,20 +42,29 @@ import {
   CLIMATE_ENTITY_DOMAINS,
 } from "./const";
 import "./controls/climate-hvac-modes-control";
-import { isHvacModesVisible } from "./controls/climate-hvac-modes-control";
 import "./controls/climate-temperature-control";
 import { isTemperatureControlVisible } from "./controls/climate-temperature-control";
+import { isHvacModesVisible } from "./controls/climate-hvac-modes-control";
 import {
   getHvacActionColor,
   getHvacActionIcon,
   getHvacModeColor,
 } from "./utils";
+import { isModesVisible } from "./controls/climate-arbitrary-modes-control";
 
-type ClimateCardControl = "temperature_control" | "hvac_mode_control";
+type ClimateCardControl =
+  | "temperature_control"
+  | "hvac_mode_control"
+  | "preset_mode_control"
+  | "fan_mode_control"
+  | "swing_mode_control";
 
 const CONTROLS_ICONS: Record<ClimateCardControl, string> = {
   temperature_control: "mdi:thermometer",
   hvac_mode_control: "mdi:thermostat",
+  preset_mode_control: "mdi:thermostat-cog",
+  fan_mode_control: "mdi:fan",
+  swing_mode_control: "mdi:windsock",
 };
 
 registerCustomCard({
@@ -106,6 +114,16 @@ export class ClimateCard
     if (isHvacModesVisible(stateObj, this._config.hvac_modes)) {
       controls.push("hvac_mode_control");
     }
+    if (isModesVisible(stateObj, "preset_mode", this._config.preset_modes)) {
+      controls.push("preset_mode_control");
+    }
+    if (isModesVisible(stateObj, "fan_mode", this._config.fan_modes)) {
+      controls.push("fan_mode_control");
+    }
+    if (isModesVisible(stateObj, "swing_mode", this._config.swing_modes)) {
+      controls.push("swing_mode_control");
+    }
+
     return controls;
   }
 
@@ -113,7 +131,7 @@ export class ClimateCard
     return this._controls.length > 0;
   }
 
-  _onControlTap(ctrl, e): void {
+  _onControlTap(ctrl: ClimateCardControl, e: Event): void {
     e.stopPropagation();
     this._activeControl = ctrl;
   }
@@ -216,6 +234,7 @@ export class ClimateCard
 
   protected renderIcon(stateObj: ClimateEntity, icon?: string): TemplateResult {
     const available = isAvailable(stateObj);
+    // TODO (Ian): This needs to dynamically pick the correct attribute instead of just using hvac mode
     const color = getHvacModeColor(stateObj.state as HvacMode);
     const iconStyle = {};
     iconStyle["--icon-color"] = `rgb(${color})`;
@@ -273,7 +292,7 @@ export class ClimateCard
     return html`
       ${otherControls.map(
         (ctrl) => html`
-          <mushroom-button @click=${(e) => this._onControlTap(ctrl, e)}>
+          <mushroom-button @click=${(e: Event) => this._onControlTap(ctrl, e)}>
             <ha-icon .icon=${CONTROLS_ICONS[ctrl]}></ha-icon>
           </mushroom-button>
         `
@@ -283,6 +302,9 @@ export class ClimateCard
 
   private renderActiveControl(entity: ClimateEntity) {
     const hvac_modes = this._config!.hvac_modes ?? [];
+    const preset_modes = this._config!.preset_modes ?? [];
+    const fan_modes = this._config!.fan_modes ?? [];
+    const swing_modes = this._config!.swing_modes ?? [];
     const appearance = computeAppearance(this._config!);
 
     switch (this._activeControl) {
@@ -303,6 +325,36 @@ export class ClimateCard
             .fill=${appearance.layout !== "horizontal"}
           ></mushroom-climate-hvac-modes-control>
         `;
+      case "preset_mode_control":
+        return html`
+          <mushroom-climate-arbitrary-modes-control
+            .hass=${this.hass}
+            .entity=${entity}
+            .attributeName=${"preset_mode"}
+            .modes=${preset_modes}
+            .fill=${appearance.layout !== "horizontal"}
+          ></mushroom-climate-arbitrary-modes-control>
+        `;
+      case "fan_mode_control":
+        return html`
+          <mushroom-climate-arbitrary-modes-control
+            .hass=${this.hass}
+            .entity=${entity}
+            .attributeName=${"fan_mode"}
+            .modes=${fan_modes}
+            .fill=${appearance.layout !== "horizontal"}
+          ></mushroom-climate-arbitrary-modes-control>
+        `;
+      case "swing_mode_control":
+        return html`
+          <mushroom-climate-arbitrary-modes-control
+            .hass=${this.hass}
+            .entity=${entity}
+            .attributeName=${"swing_mode"}
+            .modes=${swing_modes}
+            .fill=${appearance.layout !== "horizontal"}
+          ></mushroom-climate-arbitrary-modes-control>
+        `;
       default:
         return nothing;
     }
@@ -317,7 +369,9 @@ export class ClimateCard
           cursor: pointer;
         }
         mushroom-climate-temperature-control,
-        mushroom-climate-hvac-modes-control {
+        mushroom-climate-hvac-modes-control,
+        mushroom-climate-preset-modes-control,
+        mushroom-climate-arbitrary-modes-control {
           flex: 1;
         }
       `,
