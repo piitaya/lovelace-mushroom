@@ -1,0 +1,219 @@
+{
+  "card": {
+    "not_found": "Entitet nije pronađen"
+  },
+  "editor": {
+    "section": {
+      "context": "Izvor podataka",
+      "content": "Sadržaj",
+      "features": "Funkcije",
+      "interactions": "Interakcije",
+      "layout": "Raspored",
+      "badge": "Bedž"
+    },
+    "card": {
+      "chips": {
+        "alignment": "Poravnanje"
+      },
+      "climate": {
+        "hvac_modes": "HVAC režimi",
+        "show_temperature_control": "Kontrola temperature?"
+      },
+      "cover": {
+        "show_buttons_control": "Kontrolna dugmad?",
+        "show_position_control": "Kontrola pozicije?",
+        "show_tilt_position_control": "Kontrola nagiba?"
+      },
+      "empty": {
+        "no_config_options": "Ova kartica nema opcija za konfiguraciju."
+      },
+      "fan": {
+        "show_direction_control": "Kontrola smera?",
+        "show_oscillate_control": "Kontrola oscilacije?",
+        "show_percentage_control": "Kontrola brzine (u procentima)?"
+      },
+      "generic": {
+        "entity": "Entitet",
+        "area": "Prostorija",
+        "color": "Boja",
+        "content_info": "Sadržaj",
+        "fill_container": "Popuna okvira",
+        "icon_animation": "Animacija ikone kada je aktivno?",
+        "icon_color": "Boja ikone",
+        "icon_type": "Tip ikone",
+        "layout": "Raspored",
+        "primary_info": "Glavne informacije",
+        "secondary_info": "Dodatne informacije",
+        "use_entity_picture": "Upotreba slike entiteta?",
+        "collapsible_controls": "Sakriveno kad je isključeno",
+        "picture": "Slika",
+        "picture_helper": "Ako je podešeno, zameniće ikonu."
+      },
+      "humidifier": {
+        "show_target_humidity_control": "Kontrola vlažnosti vazduha?"
+      },
+      "light": {
+        "incompatible_controls": "Pojedine kontrole možda neće biti prikazane ukoliko ih vaše svetlo ne podržava.",
+        "show_brightness_control": "Kontrola svetline?",
+        "show_color_control": "Kontrola boje?",
+        "show_color_temp_control": "Kontrola temperature boje?",
+        "use_light_color": "Upotreba boje svetla"
+      },
+      "lock": {
+        "lock": "Zaključaj",
+        "open": "Otvori",
+        "unlock": "Otključaj"
+      },
+      "media-player": {
+        "media_controls": "Kontrole medija",
+        "media_controls_list": {
+          "next": "Sledeća numera",
+          "on_off": "Uključivanje/isključivanje",
+          "play_pause_stop": "Pusti/pauziraj/zaustavi",
+          "previous": "Prethodna numera",
+          "repeat": "Režim ponavljanja",
+          "shuffle": "Nasumična reprodukcija"
+        },
+        "show_volume_level": "Prikaz nivoa zvuka",
+        "use_media_artwork": "Koristi omot medija",
+        "use_media_info": "Informacije o mediju",
+        "volume_controls": "Kontrola jačine zvuka",
+        "volume_controls_list": {
+          "volume_buttons": "Dugmad za zvuk",
+          "volume_mute": "Utišavanje",
+          "volume_set": "Nivo jačine zvuka"
+        }
+      },
+      "number": {
+        "display_mode": "Režim prikaza",
+        "display_mode_list": {
+          "buttons": "Dugmad",
+          "default": "Podrazumevano (klizač)",
+          "slider": "Klizač"
+        }
+      },
+      "template": {
+        "area_helper": "Koristi se u šablonima i funkcijama",
+        "area": "Prostorija",
+        "badge_color": "Boja bedža",
+        "badge_icon": "Ikona bedža",
+        "badge_text_helper": "Ako je podešeno, zameniće ikonu.",
+        "badge_text": "Tekst bedža",
+        "badge": "Bedž",
+        "content": "Sadržaj",
+        "entity_helper": "Koristi se u šablonima, interakcijama i funkcijama",
+        "entity_helper_legacy": "Koristi se u šablonima i interakcijama",
+        "label": "Oznaka",
+        "layout": "Raspored",
+        "multiline_secondary_helper": "Kartica može biti viša kako bi tekst stao i neće se uvek poravnavati sa mrežnim sistemom (grid).",
+        "multiline_secondary": "Prikaz dodatnih informacija u više redova",
+        "primary": "Glavne informacije",
+        "secondary": "Dodatne informacije"
+      },
+      "title": {
+        "alignment": "Poravnanje",
+        "subtitle": "Podnaslov",
+        "subtitle_tap_action": "Akcija na dodir podnaslova",
+        "title": "Naslov",
+        "title_tap_action": "Akcija na dodir naslova"
+      },
+      "update": {
+        "show_buttons_control": "Kontrolna dugmad?"
+      },
+      "vacuum": {
+        "commands": "Komande",
+        "commands_list": {
+          "on_off": "Uključivanje/isključivanje"
+        }
+      },
+      "weather": {
+        "show_conditions": "Vremenske prilike?",
+        "show_temperature": "Temperatura?"
+      }
+    },
+    "badge": {
+      "template": {
+        "label": "Oznaka",
+        "content": "Sadržaj",
+        "entity_helper": "Koristi se u šablonima i interakcijama",
+        "area_helper": "Koristi se u šablonima"
+      }
+    },
+    "chip": {
+      "chip-picker": {
+        "add": "Dodaj čip",
+        "chips": "Čipovi",
+        "clear": "Obriši",
+        "edit": "Izmeni",
+        "select": "Izaberi čip",
+        "types": {
+          "action": "Akcija",
+          "alarm-control-panel": "Alarm",
+          "back": "Nazad",
+          "conditional": "Uslovno",
+          "entity": "Entitet",
+          "light": "Svetlo",
+          "menu": "Meni",
+          "quickbar": "Brza traka",
+          "spacer": "Razmak",
+          "template": "Šablon",
+          "weather": "Vreme"
+        }
+      },
+      "conditional": {
+        "chip": "Čip"
+      },
+      "sub_element_editor": {
+        "title": "Editor čipova"
+      }
+    },
+    "form": {
+      "alignment_picker": {
+        "values": {
+          "center": "Centrirano",
+          "default": "Podrazumevano poravnanje",
+          "end": "Na kraju",
+          "justify": "Obostrano",
+          "start": "Na početku"
+        }
+      },
+      "color_picker": {
+        "values": {
+          "default": "Podrazumevana boja"
+        }
+      },
+      "icon_type_picker": {
+        "values": {
+          "default": "Podrazumevani tip",
+          "entity-picture": "Slika entiteta",
+          "icon": "Ikona",
+          "none": "Bez ikone"
+        }
+      },
+      "info_picker": {
+        "values": {
+          "default": "Podrazumevane informacije",
+          "last-changed": "Poslednja promena",
+          "last-updated": "Poslednje ažuriranje",
+          "name": "Naziv",
+          "none": "Bez informacija",
+          "state": "Stanje"
+        }
+      },
+      "layout_picker": {
+        "values": {
+          "default": "Podrazumevani raspored",
+          "horizontal": "Horizontalni raspored",
+          "vertical": "Vertikalni raspored"
+        }
+      }
+    }
+  },
+  "migration": {
+    "title": "Kartica je ažurirana",
+    "description": "Konfiguracija vaše kartice je migrirana na novu verziju. Više informacija o izmenama možete pronaći na {link}.",
+    "post": "GitHub objavi",
+    "revert": "Vrati nazad",
+    "ok": "U redu"
+  }
+}
