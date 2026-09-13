@@ -6,6 +6,7 @@ import "./chip-element-editor";
 import { LovelaceChipConfig } from "./chip/types";
 import { GUIModeChangedEvent, SubElementEditorConfig } from "./editor/types";
 import type { MushroomElementEditor } from "./element-editor";
+import { PREFIX_NAME } from "../../const";
 
 declare global {
   interface HASSDomEvents {
@@ -13,7 +14,7 @@ declare global {
   }
 }
 
-@customElement("mushroom-sub-element-editor")
+@customElement(`${PREFIX_NAME}-sub-element-editor`)
 export class MushroomSubElementEditor extends LitElement {
   public hass!: HomeAssistant;
 

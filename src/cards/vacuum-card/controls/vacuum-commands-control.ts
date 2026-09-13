@@ -18,7 +18,7 @@ import {
 } from "../../../ha";
 import { isCleaning, isReturningHome, isStopped } from "../utils";
 import { VacuumCommand } from "../vacuum-card-config";
-
+import { PREFIX_NAME } from "../../../const";
 interface VacuumButton {
   icon: string;
   serviceName: string;
@@ -130,7 +130,7 @@ export const VACUUM_BUTTONS: VacuumButton[] = [
   },
 ];
 
-@customElement("mushroom-vacuum-commands-control")
+@customElement(`${PREFIX_NAME}-vacuum-commands-control`)
 export class CoverButtonsControl extends LitElement {
   @property({ attribute: false }) public hass!: HomeAssistant;
 

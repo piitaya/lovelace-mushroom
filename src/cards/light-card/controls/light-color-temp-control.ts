@@ -16,7 +16,7 @@ import {
   temperature2rgb,
 } from "../../../ha/common/color/convert-light-color";
 import "../../../shared/slider";
-
+import { PREFIX_NAME } from "../../../const";
 export const generateColorTemperatureGradient = (min: number, max: number) => {
   const count = 10;
 
@@ -37,7 +37,7 @@ export const generateColorTemperatureGradient = (min: number, max: number) => {
     .join(", ");
 };
 
-@customElement("mushroom-light-color-temp-control")
+@customElement(`${PREFIX_NAME}-light-color-temp-control`)
 export class LightColorTempControl extends LitElement {
   @property({ attribute: false }) public hass!: HomeAssistant;
 

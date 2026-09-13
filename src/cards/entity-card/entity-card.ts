@@ -32,7 +32,7 @@ import { EntityCardConfig } from "./entity-card-config";
 
 registerCustomCard({
   type: ENTITY_CARD_NAME,
-  name: "Mushroom Entity Card",
+  name: "Mushroom Extended Entity Card",
   description: "Card for all entities",
 });
 

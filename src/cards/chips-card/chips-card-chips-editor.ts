@@ -10,6 +10,7 @@ import { getChipElementClass } from "../../utils/lovelace/chip-element-editor";
 import { CHIP_LIST, LovelaceChipConfig } from "../../utils/lovelace/chip/types";
 import { HassEntity } from "home-assistant-js-websocket";
 import { setupConditionChipComponent } from "./chips/conditional-chip";
+import { PREFIX_NAME } from "../../const";
 
 let Sortable;
 
@@ -23,7 +24,7 @@ declare global {
 
 const NON_EDITABLE_CHIPS = new Set<LovelaceChipConfig["type"]>(["spacer"]);
 
-@customElement("mushroom-chips-card-chips-editor")
+@customElement(`${PREFIX_NAME}-chips-card-chips-editor`)
 export class ChipsCardEditorChips extends MushroomBaseElement {
   @property({ attribute: false }) protected chips?: LovelaceChipConfig[];
 
@@ -168,9 +169,8 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
 
   private async _createSortable() {
     if (!Sortable) {
-      const sortableImport = await import(
-        "sortablejs/modular/sortable.core.esm"
-      );
+      const sortableImport =
+        await import("sortablejs/modular/sortable.core.esm");
 
       Sortable = sortableImport.Sortable;
       Sortable.mount(sortableImport.OnSpill);

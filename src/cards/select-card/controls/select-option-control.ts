@@ -3,8 +3,8 @@ import { css, CSSResultGroup, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { atLeastHaVersion, HomeAssistant } from "../../../ha";
 import { getCurrentOption, getOptions } from "../utils";
-
-@customElement("mushroom-select-option-control")
+import { PREFIX_NAME } from "../../../const";
+@customElement(`${PREFIX_NAME}-select-option-control`)
 export class SelectOptionControl extends LitElement {
   @property() public hass!: HomeAssistant;
 

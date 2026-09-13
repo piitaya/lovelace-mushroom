@@ -3,8 +3,9 @@ import { computeChipComponentName } from "./chip/chip-element";
 import { LovelaceChipConfig } from "./chip/types";
 import { MushroomElementEditor } from "./element-editor";
 import { LovelaceChipEditor } from "./types";
+import { PREFIX_NAME } from "../../const";
 
-@customElement("mushroom-chip-element-editor")
+@customElement(`${PREFIX_NAME}-chip-element-editor`)
 export class MushroomChipElementEditor extends MushroomElementEditor<LovelaceChipConfig> {
   protected get configElementType(): string | undefined {
     return this.value?.type;

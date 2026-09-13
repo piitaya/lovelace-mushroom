@@ -1,7 +1,7 @@
 {
-  "name": "mushroom-cards",
+  "name": "lovelace-mushroom-extended",
   "version": "5.2.3",
-  "description": "Home Assistant Mushroom Cards",
+  "description": "Extended Mushroom Cards for Home Assistant Lovelace",
   "main": "index.js",
   "scripts": {
     "start": "concurrently --kill-others --names build,serve \"vite build --watch\" \"vite preview\"",
@@ -11,10 +11,10 @@
     "start:hass": "docker run --rm -p8123:8123 -v ./.hass_dev:/config homeassistant/home-assistant:beta",
     "start:hass-dev": "docker run --rm -p8123:8123 -v ./.hass_dev:/config homeassistant/home-assistant:dev"
   },
-  "author": "Paul Bottein",
+  "author": "Robert Spectrum",
   "repository": {
     "type": "git",
-    "url": "https://github.com/piitaya/lovelace-mushroom"
+    "url": "https://github.com/robospectrum/lovelace-mushroom-extended"
   },
   "license": "ISC",
   "dependencies": {

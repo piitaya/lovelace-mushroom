@@ -3,8 +3,8 @@ import { customElement, property } from "lit/decorators.js";
 import { HomeAssistant, isActive, isAvailable, LightEntity } from "../../../ha";
 import "../../../shared/slider";
 import { getBrightness } from "../utils";
-
-@customElement("mushroom-light-brightness-control")
+import { PREFIX_NAME } from "../../../const";
+@customElement(`${PREFIX_NAME}-light-brightness-control`)
 export class LightBrighnessControl extends LitElement {
   @property({ attribute: false }) public hass!: HomeAssistant;
 

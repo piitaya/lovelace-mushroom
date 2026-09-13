@@ -7,8 +7,9 @@ import {
   TemplateResult,
 } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import { PREFIX_NAME } from "../const";
 
-@customElement("mushroom-state-info")
+@customElement(`${PREFIX_NAME}-state-info`)
 export class StateItem extends LitElement {
   @property({ attribute: false }) public primary?: string | TemplateResult<1>;
 

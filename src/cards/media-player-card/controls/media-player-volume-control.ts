@@ -14,7 +14,7 @@ import {
 } from "../../../ha";
 import { MediaPlayerVolumeControl } from "../media-player-card-config";
 import { getVolumeLevel, handleMediaControlClick } from "../utils";
-
+import { PREFIX_NAME } from "../../../const";
 export const isVolumeControlVisible = (
   entity: MediaPlayerEntity,
   controls?: MediaPlayerVolumeControl[]
@@ -26,7 +26,7 @@ export const isVolumeControlVisible = (
   (controls?.includes("volume_set") &&
     supportsFeature(entity, MEDIA_PLAYER_SUPPORT_VOLUME_SET));
 
-@customElement("mushroom-media-player-volume-control")
+@customElement(`${PREFIX_NAME}-media-player-volume-control`)
 export class MediaPlayerVolumeControls extends LitElement {
   @property({ attribute: false }) public hass!: HomeAssistant;
 

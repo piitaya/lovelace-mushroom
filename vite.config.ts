@@ -3,12 +3,13 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   build: {
+    emptyOutDir: false,
     target: browserslistToEsbuild(),
     minify: "terser",
     lib: {
-      entry: "src/mushroom.ts",
+      entry: "src/mushroom-extended.ts",
       formats: ["es"],
-      fileName: () => "mushroom.js",
+      fileName: () => "mushroom-extended.js",
     },
     rollupOptions: {
       output: {

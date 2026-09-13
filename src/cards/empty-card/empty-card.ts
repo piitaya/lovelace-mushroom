@@ -11,7 +11,7 @@ import { EMPTY_CARD_EDITOR_NAME, EMPTY_CARD_NAME } from "./const";
 
 registerCustomCard({
   type: EMPTY_CARD_NAME,
-  name: "Mushroom Empty Card",
+  name: "Mushroom Extended Empty Card",
   description:
     "The empty card allows you to add a placeholder between your cards.",
 });

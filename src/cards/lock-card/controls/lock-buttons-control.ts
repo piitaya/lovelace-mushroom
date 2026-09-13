@@ -10,7 +10,7 @@ import {
 } from "../../../ha";
 import setupCustomlocalize from "../../../localize";
 import { isActionPending, isLocked, isUnlocked } from "../utils";
-
+import { PREFIX_NAME } from "../../../const";
 interface LockButton {
   icon: string;
   title?: string;
@@ -49,7 +49,7 @@ export const LOCK_BUTTONS: LockButton[] = [
   },
 ];
 
-@customElement("mushroom-lock-buttons-control")
+@customElement(`${PREFIX_NAME}-lock-buttons-control`)
 export class LockButtonsControl extends LitElement {
   @property({ attribute: false }) public hass!: HomeAssistant;
 

@@ -8,8 +8,9 @@ import {
 } from "lit";
 import { property, customElement } from "lit/decorators.js";
 import { animations } from "../utils/entity-styles";
+import { PREFIX_NAME } from "../const";
 
-@customElement("mushroom-chip")
+@customElement(`${PREFIX_NAME}-chip`)
 export class Chip extends LitElement {
   @property() public icon: string = "";
 

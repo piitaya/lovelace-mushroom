@@ -5,8 +5,8 @@ import { classMap } from "lit/directives/class-map.js";
 import { HomeAssistant, isActive } from "../../../ha";
 import "../../../shared/slider";
 import { isOscillating } from "../utils";
-
-@customElement("mushroom-fan-oscillate-control")
+import { PREFIX_NAME } from "../../../const";
+@customElement(`${PREFIX_NAME}-fan-oscillate-control`)
 export class FanPercentageControl extends LitElement {
   @property({ attribute: false }) public hass!: HomeAssistant;
 

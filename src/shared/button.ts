@@ -1,7 +1,8 @@
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { property, customElement } from "lit/decorators.js";
+import { PREFIX_NAME } from "../const";
 
-@customElement("mushroom-button")
+@customElement(`${PREFIX_NAME}-button`)
 export class Button extends LitElement {
   @property() public title: string = "";
   @property({ type: Boolean }) public disabled: boolean = false;

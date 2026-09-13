@@ -1,7 +1,8 @@
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { property, customElement } from "lit/decorators.js";
+import { PREFIX_NAME } from "../const";
 
-@customElement("mushroom-badge-icon")
+@customElement(`${PREFIX_NAME}-badge-icon`)
 export class BadgeIcon extends LitElement {
   @property() public icon: string = "";
 

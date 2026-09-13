@@ -20,8 +20,9 @@ import {
   computeCloseIcon,
   computeOpenIcon,
 } from "../../../utils/icons/cover-icon";
+import { PREFIX_NAME } from "../../../const";
 
-@customElement("mushroom-cover-buttons-control")
+@customElement(`${PREFIX_NAME}-cover-buttons-control`)
 export class CoverButtonsControl extends LitElement {
   @property({ attribute: false }) public hass!: HomeAssistant;
 

@@ -55,7 +55,7 @@ const CONTROLS_ICONS: Record<MediaPlayerCardControl, string> = {
 
 registerCustomCard({
   type: MEDIA_PLAYER_CARD_NAME,
-  name: "Mushroom Media Card",
+  name: "Mushroom Extended Media Card",
   description: "Card for media player entity",
 });
 

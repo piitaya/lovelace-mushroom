@@ -31,7 +31,7 @@ import {
   templateCardConfigStruct,
   templateCardNeedsMigration,
 } from "./template-card-config";
-
+import { PREFIX_NAME } from "../../const";
 export const TEMPLATE_CARD_LABELS = [
   "area",
   "badge_color",
@@ -58,7 +58,7 @@ export const TEMPLATE_CARD_HELPERS = [
   "multiline_secondary",
 ];
 
-@customElement("mushroom-template-card-editor")
+@customElement(`${PREFIX_NAME}-template-card-editor`)
 export class MushroomTemplateCardEditor
   extends LitElement
   implements LovelaceCardEditor

@@ -10,7 +10,7 @@ import { customElement, property } from "lit/decorators.js";
 import { CoverEntity, HomeAssistant, isAvailable } from "../../../ha";
 import "../../../shared/slider";
 import { getTiltPosition } from "../utils";
-
+import { PREFIX_NAME } from "../../../const";
 function createTiltSliderTrackBackgroundGradient(
   count: number = 24,
   minStrokeWidth: number = 0.2
@@ -37,7 +37,7 @@ function createTiltSliderTrackBackgroundGradient(
 
 const GRADIENT = createTiltSliderTrackBackgroundGradient();
 
-@customElement("mushroom-cover-tilt-position-control")
+@customElement(`${PREFIX_NAME}-cover-tilt-position-control`)
 export class CoverTiltPositionControl extends LitElement {
   @property({ attribute: false }) public hass!: HomeAssistant;
 

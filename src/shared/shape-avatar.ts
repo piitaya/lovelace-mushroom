@@ -1,8 +1,9 @@
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { property, customElement } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
+import { PREFIX_NAME } from "../const";
 
-@customElement("mushroom-shape-avatar")
+@customElement(`${PREFIX_NAME}-shape-avatar`)
 export class ShapePicture extends LitElement {
   @property() public picture_url: string = "";
 

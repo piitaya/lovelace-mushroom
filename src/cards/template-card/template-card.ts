@@ -33,7 +33,7 @@ import {
 } from "./template-card-config";
 import { getWeatherSvgIcon } from "../../utils/icons/weather-icon";
 import { weatherSVGStyles } from "../../utils/weather";
-
+import { PREFIX_NAME } from "../../const";
 export const getEntityDefaultTileIconAction = (entityId: string) => {
   const domain = computeDomain(entityId);
   const supportsIconAction =
@@ -45,7 +45,7 @@ export const getEntityDefaultTileIconAction = (entityId: string) => {
 
 registerCustomCard({
   type: "mushroom-template-card",
-  name: "Mushroom Template",
+  name: "Mushroom Extended Template",
   description: "Build your own Mushroom card using templates",
 });
 
@@ -73,7 +73,7 @@ export interface LovelaceCardFeatureContext {
   area_id?: string;
 }
 
-@customElement("mushroom-template-card")
+@customElement(`${PREFIX_NAME}-template-card`)
 export class MushroomTemplateCard extends LitElement implements LovelaceCard {
   public static async getConfigElement(): Promise<LovelaceCardEditor> {
     await import("./template-card-editor");

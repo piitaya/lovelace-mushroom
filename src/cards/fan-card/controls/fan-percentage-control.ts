@@ -4,8 +4,8 @@ import { customElement, property } from "lit/decorators.js";
 import { HomeAssistant, isActive, isAvailable } from "../../../ha";
 import "../../../shared/slider";
 import { computePercentageStep, getPercentage } from "../utils";
-
-@customElement("mushroom-fan-percentage-control")
+import { PREFIX_NAME } from "../../../const";
+@customElement(`${PREFIX_NAME}-fan-percentage-control`)
 export class FanPercentageControl extends LitElement {
   @property({ attribute: false }) public hass!: HomeAssistant;
 

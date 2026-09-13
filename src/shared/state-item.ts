@@ -10,8 +10,9 @@ import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { Appearance } from "./config/appearance-config";
 import "./shape-icon";
+import { PREFIX_NAME } from "../const";
 
-@customElement("mushroom-state-item")
+@customElement(`${PREFIX_NAME}-state-item`)
 export class StateItem extends LitElement {
   @property() public appearance?: Appearance;
 

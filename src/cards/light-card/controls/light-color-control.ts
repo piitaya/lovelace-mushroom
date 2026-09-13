@@ -11,7 +11,7 @@ import {
 import { customElement, property } from "lit/decorators.js";
 import { HomeAssistant, isActive, isAvailable } from "../../../ha";
 import "../../../shared/slider";
-
+import { PREFIX_NAME } from "../../../const";
 const GRADIENT = [
   [0, "#f00"],
   [0.17, "#ff0"],
@@ -22,7 +22,7 @@ const GRADIENT = [
   [1, "#f00"],
 ];
 
-@customElement("mushroom-light-color-control")
+@customElement(`${PREFIX_NAME}-light-color-control`)
 export class LightColorControl extends LitElement {
   @property({ attribute: false }) public hass!: HomeAssistant;
 

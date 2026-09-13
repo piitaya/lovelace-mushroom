@@ -11,6 +11,7 @@ import { customElement, property, query, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 import "hammerjs";
+import { PREFIX_NAME } from "../const";
 
 const getPercentageFromEvent = (e: HammerInput) => {
   const x = e.center.x;
@@ -28,7 +29,7 @@ const getSliderThreshold = (element: any): number | undefined => {
   return isNaN(threshold) ? DEFAULT_SLIDER_THRESHOLD : threshold;
 };
 
-@customElement("mushroom-slider")
+@customElement(`${PREFIX_NAME}-slider`)
 export class SliderItem extends LitElement {
   @property({ type: Boolean }) public disabled: boolean = false;
 

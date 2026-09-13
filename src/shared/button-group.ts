@@ -1,8 +1,9 @@
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
+import { PREFIX_NAME } from "../const";
 
-@customElement("mushroom-button-group")
+@customElement(`${PREFIX_NAME}-button-group`)
 export class MushroomButtonGroup extends LitElement {
   @property() public fill: boolean = false;
 

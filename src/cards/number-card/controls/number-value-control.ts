@@ -10,8 +10,8 @@ import {
 } from "../../../ha";
 import "../../../shared/slider";
 import "../../../shared/input-number";
-
-@customElement("mushroom-number-value-control")
+import { PREFIX_NAME } from "../../../const";
+@customElement(`${PREFIX_NAME}-number-value-control`)
 export class NumberValueControl extends LitElement {
   @property({ attribute: false }) public hass!: HomeAssistant;
 

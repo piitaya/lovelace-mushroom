@@ -2,8 +2,9 @@ import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { Appearance } from "./config/appearance-config";
+import { PREFIX_NAME } from "../const";
 
-@customElement("mushroom-card")
+@customElement(`${PREFIX_NAME}-card`)
 export class Card extends LitElement {
   @property() public appearance?: Appearance;
 

@@ -7,8 +7,8 @@ import {
   isAvailable,
 } from "../../../ha";
 import "../../../shared/slider";
-
-@customElement("mushroom-humidifier-humidity-control")
+import { PREFIX_NAME } from "../../../const";
+@customElement(`${PREFIX_NAME}-humidifier-humidity-control`)
 export class HumidifierHumidityControl extends LitElement {
   @property({ attribute: false }) public hass!: HomeAssistant;
 

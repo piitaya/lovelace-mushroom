@@ -3,8 +3,9 @@ import { customElement, property } from "lit/decorators.js";
 import { CoverEntity, HomeAssistant, isAvailable } from "../../../ha";
 import "../../../shared/slider";
 import { getPosition } from "../utils";
+import { PREFIX_NAME } from "../../../const";
 
-@customElement("mushroom-cover-position-control")
+@customElement(`${PREFIX_NAME}-cover-position-control`)
 export class CoverPositionControl extends LitElement {
   @property({ attribute: false }) public hass!: HomeAssistant;
 

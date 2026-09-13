@@ -29,7 +29,7 @@ import { getWeatherSvgIcon } from "../../utils/icons/weather-icon";
 import { weatherSVGStyles } from "../../utils/weather";
 import { TemplateBadgeConfig } from "./template-badge-config";
 import { CacheManager } from "../../utils/cache-manager";
-
+import { PREFIX_NAME } from "../../const";
 const templateCache = new CacheManager<TemplateResults>(1000);
 
 type TemplateResults = Partial<
@@ -38,14 +38,14 @@ type TemplateResults = Partial<
 
 registerCustomBadge({
   type: "mushroom-template-badge",
-  name: "Mushroom Template",
+  name: "Mushroom Extended Template",
   description: "Build your own badge using templates",
 });
 
 const TEMPLATE_KEYS = ["icon", "color", "label", "content", "picture"] as const;
 type TemplateKey = (typeof TEMPLATE_KEYS)[number];
 
-@customElement("mushroom-template-badge")
+@customElement(`${PREFIX_NAME}-template-badge`)
 export class MushroomTemplateBadge extends LitElement implements LovelaceBadge {
   public static async getConfigElement(): Promise<LovelaceBadgeEditor> {
     await import("./template-badge-editor");

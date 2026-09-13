@@ -10,8 +10,8 @@ import {
 } from "../../../ha";
 import "../../../shared/button";
 import "../../../shared/button-group";
-
-@customElement("mushroom-update-buttons-control")
+import { PREFIX_NAME } from "../../../const";
+@customElement(`${PREFIX_NAME}-update-buttons-control`)
 export class UpdateButtonsControl extends LitElement {
   @property({ attribute: false }) public hass!: HomeAssistant;
 

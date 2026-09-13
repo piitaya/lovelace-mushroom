@@ -14,13 +14,14 @@ import {
 import "../../../shared/button";
 import "../../../shared/button-group";
 import "../../../shared/input-number";
+import { PREFIX_NAME } from "../../../const";
 
 export const isTemperatureControlVisible = (entity: ClimateEntity) =>
   entity.attributes.temperature != null ||
   (entity.attributes.target_temp_low != null &&
     entity.attributes.target_temp_high != null);
 
-@customElement("mushroom-climate-temperature-control")
+@customElement(`${PREFIX_NAME}-climate-temperature-control`)
 export class ClimateTemperatureControl extends LitElement {
   @property({ attribute: false }) public hass!: HomeAssistant;
 

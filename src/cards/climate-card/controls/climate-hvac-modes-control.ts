@@ -12,13 +12,14 @@ import {
 import "../../../shared/button";
 import "../../../shared/button-group";
 import { getHvacModeColor, getHvacModeIcon } from "../utils";
+import { PREFIX_NAME } from "../../../const";
 
 export const isHvacModesVisible = (entity: ClimateEntity, modes?: HvacMode[]) =>
   (entity.attributes.hvac_modes || []).some((mode) =>
     (modes ?? []).includes(mode)
   );
 
-@customElement("mushroom-climate-hvac-modes-control")
+@customElement(`${PREFIX_NAME}-climate-hvac-modes-control`)
 export class ClimateHvacModesControl extends LitElement {
   @property({ attribute: false }) public hass!: HomeAssistant;
 

@@ -13,6 +13,7 @@ import {
   TemplateBadgeConfig,
   templateBadgeConfigStruct,
 } from "./template-badge-config";
+import { PREFIX_NAME } from "../../const";
 
 export const TEMPLATE_BADGE_LABELS = ["label", "content"];
 
@@ -75,7 +76,7 @@ const SCHEMA = [
   },
 ] as const satisfies readonly HaFormSchema[];
 
-@customElement("mushroom-template-badge-editor")
+@customElement(`${PREFIX_NAME}-template-badge-editor`)
 export class MushroomTemplateBadgeEditor
   extends LitElement
   implements LovelaceBadgeEditor

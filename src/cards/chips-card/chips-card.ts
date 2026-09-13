@@ -27,7 +27,7 @@ export interface ChipsCardConfig extends LovelaceCardConfig {
 
 registerCustomCard({
   type: CHIPS_CARD_NAME,
-  name: "Mushroom Chips Card",
+  name: "Mushroom Extended Chips Card",
   description: "Card with chips to display informations",
 });
 

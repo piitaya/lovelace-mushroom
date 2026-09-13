@@ -36,7 +36,7 @@ import { getStateColor, getStateIcon } from "./utils";
 
 registerCustomCard({
   type: PERSON_CARD_NAME,
-  name: "Mushroom Person Card",
+  name: "Mushroom Extended Person Card",
   description: "Card for person entity",
 });
 

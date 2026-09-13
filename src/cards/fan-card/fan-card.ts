@@ -47,7 +47,7 @@ import { getPercentage } from "./utils";
 
 registerCustomCard({
   type: FAN_CARD_NAME,
-  name: "Mushroom Fan Card",
+  name: "Mushroom Extended Fan Card",
   description: "Card for fan entity",
 });
 

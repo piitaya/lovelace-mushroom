@@ -3,13 +3,13 @@ import { customElement, property } from "lit/decorators.js";
 import { computeRTL, HomeAssistant, MediaPlayerEntity } from "../../../ha";
 import { MediaPlayerMediaControl } from "../media-player-card-config";
 import { computeMediaControls, handleMediaControlClick } from "../utils";
-
+import { PREFIX_NAME } from "../../../const";
 export const isMediaControlVisible = (
   entity: MediaPlayerEntity,
   controls?: MediaPlayerMediaControl[]
 ) => computeMediaControls(entity, controls ?? []).length > 0;
 
-@customElement("mushroom-media-player-media-control")
+@customElement(`${PREFIX_NAME}-media-player-media-control`)
 export class MediaPlayerMediaControls extends LitElement {
   @property({ attribute: false }) public hass!: HomeAssistant;
 

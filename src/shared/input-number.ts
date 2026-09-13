@@ -15,6 +15,7 @@ import {
   FrontendLocaleData,
   round,
 } from "../ha";
+import { PREFIX_NAME } from "../const";
 
 const DEFAULT_STEP = 1;
 const DEFAULT_DEBOUCE_TIME = 2000;
@@ -27,7 +28,7 @@ const getInputNumberDebounceTime = (element: any): number => {
   return isNaN(debounceTime) ? DEFAULT_DEBOUCE_TIME : debounceTime;
 };
 
-@customElement("mushroom-input-number")
+@customElement(`${PREFIX_NAME}-input-number`)
 export class InputNumber extends LitElement {
   @property({ attribute: false }) public locale!: FrontendLocaleData;
 
