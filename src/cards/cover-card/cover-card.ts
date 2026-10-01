@@ -43,13 +43,8 @@ import {
 import "./controls/cover-buttons-control";
 import "./controls/cover-position-control";
 import "./controls/cover-tilt-position-control";
-import { CoverCardConfig } from "./cover-card-config";
-import { getPosition, getStateColor } from "./utils";
-
-type CoverCardControl =
-  | "buttons_control"
-  | "position_control"
-  | "tilt_position_control";
+import { CoverCardConfig, CoverCardControl } from "./cover-card-config";
+import { computeActiveControl, getPosition, getStateColor } from "./utils";
 
 const CONTROLS_ICONS: Record<CoverCardControl, string> = {
   buttons_control: "mdi:gesture-tap-button",
@@ -112,6 +107,7 @@ export class CoverCard
   }
 
   setConfig(config: CoverCardConfig): void {
+    const previousDefaultControl = this._config?.default_control;
     super.setConfig({
       tap_action: {
         action: "toggle",
@@ -121,6 +117,10 @@ export class CoverCard
       },
       ...config,
     });
+    // Apply the new default control when it changed (e.g. edited in the editor)
+    if (this._config?.default_control !== previousDefaultControl) {
+      this._activeControl = undefined;
+    }
     this.updateActiveControl();
     this.updatePosition();
   }
@@ -141,12 +141,11 @@ export class CoverCard
   }
 
   updateActiveControl() {
-    const isActiveControlSupported = this._activeControl
-      ? this._controls.includes(this._activeControl)
-      : false;
-    this._activeControl = isActiveControlSupported
-      ? this._activeControl
-      : this._controls[0];
+    this._activeControl = computeActiveControl(
+      this._controls,
+      this._activeControl,
+      this._config?.default_control
+    );
   }
 
   protected updated(changedProperties: PropertyValues) {

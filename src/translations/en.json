@@ -20,6 +20,13 @@
         "show_temperature_control": "Temperature control?"
       },
       "cover": {
+        "default_control": "Default control",
+        "default_control_list": {
+          "auto": "Default (first available)",
+          "buttons_control": "Control buttons",
+          "position_control": "Position",
+          "tilt_position_control": "Tilt position"
+        },
         "show_buttons_control": "Control buttons?",
         "show_position_control": "Position control?",
         "show_tilt_position_control": "Tilt control?"
