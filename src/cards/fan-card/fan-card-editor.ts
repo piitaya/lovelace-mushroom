@@ -3,7 +3,6 @@ import { customElement, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import { LocalizeFunc, LovelaceCardEditor, fireEvent } from "../../ha";
-import { HassEntity } from "home-assistant-js-websocket";
 import setupCustomlocalize from "../../localize";
 import { computeActionsFormSchema } from "../../shared/config/actions-config";
 import { computeAppearanceFormSchema } from "../../shared/config/appearance-config";
@@ -14,11 +13,6 @@ import { computeNameSchema } from "../../utils/form/name-schema";
 import { loadHaComponents } from "../../utils/loader";
 import { FAN_CARD_EDITOR_NAME, FAN_ENTITY_DOMAINS } from "./const";
 import { FanCardConfig, fanCardConfigStruct } from "./fan-card-config";
-import {
-  supportsDirectionControl,
-  supportsOscillateControl,
-  supportsPercentageControl,
-} from "./utils";
 
 const FAN_LABELS = [
   "icon_animation",
@@ -27,41 +21,8 @@ const FAN_LABELS = [
   "show_direction_control",
 ];
 
-const CONTROL_TOGGLES: {
-  name: string;
-  isSupported: (stateObj: HassEntity) => boolean;
-}[] = [
-  { name: "show_percentage_control", isSupported: supportsPercentageControl },
-  { name: "show_oscillate_control", isSupported: supportsOscillateControl },
-  { name: "show_direction_control", isSupported: supportsDirectionControl },
-];
-
-/**
- * Toggles worth offering for this entity.
- *
- * The card ignores a control the fan does not support, so its toggle would do
- * nothing. A toggle that is already enabled is kept, so an existing config
- * stays editable, and so is every toggle while the entity is missing or
- * reports no features yet.
- */
-const computeToggles = (
-  config: FanCardConfig,
-  stateObj?: HassEntity
-): string[] => {
-  if (!stateObj?.attributes.supported_features) {
-    return CONTROL_TOGGLES.map((toggle) => toggle.name);
-  }
-  return CONTROL_TOGGLES.filter(
-    (toggle) => config[toggle.name] || toggle.isSupported(stateObj)
-  ).map((toggle) => toggle.name);
-};
-
 const computeSchema = memoizeOne(
-  (
-    localize: LocalizeFunc,
-    version: string,
-    toggles: string
-  ): HaFormSchema[] => [
+  (localize: LocalizeFunc, version: string): HaFormSchema[] => [
     { name: "entity", selector: { entity: { domain: FAN_ENTITY_DOMAINS } } },
     computeNameSchema(version),
     {
@@ -81,10 +42,9 @@ const computeSchema = memoizeOne(
       type: "grid",
       name: "",
       schema: [
-        ...(toggles ? toggles.split(",") : []).map((name) => ({
-          name,
-          selector: { boolean: {} },
-        })),
+        { name: "show_percentage_control", selector: { boolean: {} } },
+        { name: "show_oscillate_control", selector: { boolean: {} } },
+        { name: "show_direction_control", selector: { boolean: {} } },
         { name: "collapsible_controls", selector: { boolean: {} } },
       ],
     },
@@ -129,14 +89,7 @@ export class FanCardEditor
     }
 
     const customLocalize = setupCustomlocalize(this.hass);
-    const stateObj = this._config.entity
-      ? this.hass.states[this._config.entity]
-      : undefined;
-    const schema = computeSchema(
-      customLocalize,
-      this.hass.config.version,
-      computeToggles(this._config, stateObj).join(",")
-    );
+    const schema = computeSchema(customLocalize, this.hass.config.version);
 
     return html`
       <ha-form
