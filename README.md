@@ -120,10 +120,10 @@ Once it's done, go to Home Assistant instance [http://localhost:8123](http://loc
 
 #### Windows Users
 
-If you are on Windows, either run the above command in Powershell, or use the below if using Command Prompt:
+If you are on Windows, run the above command in either PowerShell or Command Prompt:
 
 ```sh
-npm run start:hass-cmd
+npm run start:hass
 ```
 
 ### Development
