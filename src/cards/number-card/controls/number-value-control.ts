@@ -1,6 +1,6 @@
 import { HassEntity } from "home-assistant-js-websocket";
 import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { customElement, property, state } from "lit/decorators.js";
 import {
   getDefaultFormatOptions,
   getNumberFormatOptions,
@@ -19,6 +19,8 @@ export class NumberValueControl extends LitElement {
 
   @property({ attribute: false }) public displayMode?: "slider" | "buttons";
 
+  @state() private _currentValue?: number;
+
   onChange(e: CustomEvent<{ value: number }>): void {
     const value = e.detail.value;
     const domain = this.entity.entity_id.split(".")[0];
@@ -30,6 +32,7 @@ export class NumberValueControl extends LitElement {
 
   onCurrentChange(e: CustomEvent<{ value?: number }>): void {
     const value = e.detail.value;
+    this._currentValue = value;
 
     this.dispatchEvent(
       new CustomEvent("current-change", {
@@ -41,7 +44,7 @@ export class NumberValueControl extends LitElement {
   }
 
   protected render(): TemplateResult {
-    const value = Number(this.entity.state);
+    const value = this._currentValue ?? Number(this.entity.state);
 
     const formatOptions =
       getNumberFormatOptions(
