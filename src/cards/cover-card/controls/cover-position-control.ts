@@ -40,7 +40,7 @@ export class CoverPositionControl extends LitElement {
         .showActive=${true}
         @change=${this.onChange}
         @current-change=${this.onCurrentChange}
-      />
+      ></mushroom-slider>
     `;
   }
 

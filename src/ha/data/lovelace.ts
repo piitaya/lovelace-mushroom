@@ -148,6 +148,7 @@ export interface CallServiceActionConfig extends BaseActionConfig {
 export interface NavigateActionConfig extends BaseActionConfig {
   action: "navigate";
   navigation_path: string;
+  navigation_replace?: boolean;
 }
 
 export interface UrlActionConfig extends BaseActionConfig {
@@ -157,6 +158,7 @@ export interface UrlActionConfig extends BaseActionConfig {
 
 export interface MoreInfoActionConfig extends BaseActionConfig {
   action: "more-info";
+  entity?: string;
 }
 
 export interface NoActionConfig extends BaseActionConfig {
@@ -363,6 +365,7 @@ export interface WindowWithLovelaceProm extends Window {
 export interface ActionHandlerOptions {
   hasHold?: boolean;
   hasDoubleClick?: boolean;
+  hasTap?: boolean;
   disabled?: boolean;
 }
 

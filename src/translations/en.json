@@ -111,6 +111,7 @@
         "secondary": "Secondary information"
       },
       "title": {
+        "alignment": "Alignment",
         "subtitle": "Subtitle",
         "subtitle_tap_action": "Subtitle tap action",
         "title": "Title",
@@ -135,7 +136,7 @@
         "label": "Label",
         "content": "Content",
         "entity_helper": "Used in templates and interactions",
-        "area_helper":"Used in templates"
+        "area_helper": "Used in templates"
       }
     },
     "chip": {

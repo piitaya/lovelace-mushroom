@@ -31,6 +31,7 @@ import "../../shared/state-item";
 import { computeAppearance } from "../../utils/appearance";
 import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
+import { computeEntityName } from "../../utils/compute-entity-name";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { computeEntityPicture } from "../../utils/info";
 import {
@@ -42,7 +43,12 @@ import "./controls/fan-oscillate-control";
 import "./controls/fan-direction-control";
 import "./controls/fan-percentage-control";
 import { FanCardConfig } from "./fan-card-config";
-import { getPercentage } from "./utils";
+import {
+  getPercentage,
+  supportsDirectionControl,
+  supportsOscillateControl,
+  supportsPercentageControl,
+} from "./utils";
 
 registerCustomCard({
   type: FAN_CARD_NAME,
@@ -132,7 +138,7 @@ export class FanCard
       return this.renderNotFound(this._config);
     }
 
-    const name = this._config.name || stateObj.attributes.friendly_name || "";
+    const name = computeEntityName(this.hass, stateObj, this._config.name);
     const icon = this._config.icon;
     const appearance = computeAppearance(this._config);
     const picture = computeEntityPicture(stateObj, appearance.icon_type);
@@ -149,11 +155,17 @@ export class FanCard
 
     const rtl = computeRTL(this.hass);
 
+    const showPercentageControl =
+      this._config.show_percentage_control &&
+      supportsPercentageControl(stateObj);
+    const showOscillateControl =
+      this._config.show_oscillate_control && supportsOscillateControl(stateObj);
+    const showDirectionControl =
+      this._config.show_direction_control && supportsDirectionControl(stateObj);
+
     const displayControls =
       (!this._config.collapsible_controls || isActive(stateObj)) &&
-      (this._config.show_percentage_control ||
-        this._config.show_oscillate_control ||
-        this._config.show_direction_control);
+      (showPercentageControl || showOscillateControl || showDirectionControl);
 
     return html`
       <ha-card
@@ -178,7 +190,7 @@ export class FanCard
           ${displayControls
             ? html`
                 <div class="actions" ?rtl=${rtl}>
-                  ${this._config.show_percentage_control
+                  ${showPercentageControl
                     ? html`
                         <mushroom-fan-percentage-control
                           .hass=${this.hass}
@@ -187,7 +199,7 @@ export class FanCard
                         ></mushroom-fan-percentage-control>
                       `
                     : nothing}
-                  ${this._config.show_oscillate_control
+                  ${showOscillateControl
                     ? html`
                         <mushroom-fan-oscillate-control
                           .hass=${this.hass}
@@ -195,14 +207,14 @@ export class FanCard
                         ></mushroom-fan-oscillate-control>
                       `
                     : nothing}
-                  ${this._config.show_direction_control
-                  ? html`
-                      <mushroom-fan-direction-control
-                        .hass=${this.hass}
-                        .entity=${stateObj}
-                      ></mushroom-fan-direction-control>
-                    `
-                  : nothing}
+                  ${showDirectionControl
+                    ? html`
+                        <mushroom-fan-direction-control
+                          .hass=${this.hass}
+                          .entity=${stateObj}
+                        ></mushroom-fan-direction-control>
+                      `
+                    : nothing}
                 </div>
               `
             : nothing}
@@ -253,6 +265,10 @@ export class FanCard
         mushroom-shape-icon {
           --icon-color: rgb(var(--rgb-state-fan));
           --shape-color: rgba(var(--rgb-state-fan), 0.2);
+        }
+        ha-state-icon {
+          animation: none;
+          transform: translateZ(0);
         }
         .spin ha-state-icon {
           animation: var(--animation-duration) infinite linear spin;

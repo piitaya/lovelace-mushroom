@@ -28,10 +28,7 @@ export class FanPercentageControl extends LitElement {
     const active = isActive(this.entity);
 
     return html`
-      <mushroom-button
-        @click=${this._onTap}
-        .disabled=${!active}
-      >
+      <mushroom-button @click=${this._onTap} .disabled=${!active}>
         <ha-icon
           .icon=${currentDirection === "reverse"
             ? "mdi:rotate-left"

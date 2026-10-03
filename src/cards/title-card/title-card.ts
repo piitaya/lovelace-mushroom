@@ -160,11 +160,11 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
 
     const actionableTitle = Boolean(
       this._config.title_tap_action &&
-        this._config.title_tap_action.action !== "none"
+      this._config.title_tap_action.action !== "none"
     );
     const actionableSubtitle = Boolean(
       this._config.subtitle_tap_action &&
-        this._config.subtitle_tap_action.action !== "none"
+      this._config.subtitle_tap_action.action !== "none"
     );
 
     const rtl = computeRTL(this.hass);
@@ -286,11 +286,13 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
     if (!unsubRenderTemplate) {
       return;
     }
+    this._unsubRenderTemplates.delete(key);
 
     try {
       const unsub = await unsubRenderTemplate;
-      unsub();
-      this._unsubRenderTemplates.delete(key);
+      // UnsubscribeFunc is typed `() => void` but resolves a promise that
+      // rejects with `not_found` if the subscription is already gone.
+      await unsub();
     } catch (err: any) {
       if (err.code === "not_found" || err.code === "template_error") {
         // If we get here, the connection was probably already closed. Ignore.

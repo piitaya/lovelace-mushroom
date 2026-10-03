@@ -1,5 +1,7 @@
-import { ActionConfig, HomeAssistant } from "../../../ha";
+import { ActionConfig, EntityNameItem, HomeAssistant } from "../../../ha";
 import { Info } from "../../info";
+
+type EntityName = string | EntityNameItem | EntityNameItem[];
 
 export interface LovelaceChip extends HTMLElement {
   hass?: HomeAssistant;
@@ -20,7 +22,7 @@ export type ActionChipConfig = {
 export type AlarmControlPanelChipConfig = {
   type: "alarm-control-panel";
   entity?: string;
-  name?: string;
+  name?: EntityName;
   content_info?: Info;
   icon?: string;
   icon_color?: string;
@@ -37,7 +39,7 @@ export type BackChipConfig = {
 export type EntityChipConfig = {
   type: "entity";
   entity?: string;
-  name?: string;
+  name?: EntityName;
   content_info?: Info;
   icon?: string;
   icon_color?: string;
@@ -62,7 +64,7 @@ export type QuickBarChipConfig = {
   type: "quickbar";
   icon?: string;
   mode?: QuickBarMode;
-}
+};
 
 export type WeatherChipConfig = {
   type: "weather";
@@ -96,7 +98,7 @@ export interface ConditionalChipConfig {
 export type LightChipConfig = {
   type: "light";
   entity?: string;
-  name?: string;
+  name?: EntityName;
   content_info?: Info;
   icon?: string;
   use_light_color?: boolean;

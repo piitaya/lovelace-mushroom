@@ -42,17 +42,18 @@ export class MushroomSubElementEditor extends LitElement {
             >${customLocalize(`editor.chip.sub_element_editor.title`)}</span
           >
         </div>
-        <mwc-button
+        <ha-button
           slot="secondaryAction"
           .disabled=${!this._guiModeAvailable}
           @click=${this._toggleMode}
+          appearance="plain"
         >
           ${this.hass.localize(
             this._guiMode
               ? "ui.panel.lovelace.editor.edit_card.show_code_editor"
               : "ui.panel.lovelace.editor.edit_card.show_visual_editor"
           )}
-        </mwc-button>
+        </ha-button>
       </div>
       ${this.config.type === "chip"
         ? html`

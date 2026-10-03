@@ -3,6 +3,14 @@
     "not_found": "Entidade não encontrada"
   },
   "editor": {
+    "badge": {
+      "template": {
+        "area_helper": "Usada em modelos",
+        "content": "Conteúdo",
+        "entity_helper": "Usada em modelos e interações",
+        "label": "Rótulo"
+      }
+    },
     "card": {
       "chips": {
         "alignment": "Alinhamento"
@@ -25,14 +33,18 @@
         "show_percentage_control": "Controle de porcentagem?"
       },
       "generic": {
+        "area": "Área",
         "collapsible_controls": "Recolher controles quando desligado",
         "color": "Cor",
         "content_info": "Conteúdo",
+        "entity": "Entidade",
         "fill_container": "Preencher espaço",
         "icon_animation": "Animar ícone quando ativo?",
         "icon_color": "Cor do ícone",
         "icon_type": "Tipo do ícone",
         "layout": "Layout",
+        "picture": "Imagem",
+        "picture_helper": "Se definida, irá substituir o ícone.",
         "primary_info": "Informação primária",
         "secondary_info": "Informação secundária",
         "use_entity_picture": "Usar imagem da entidade?"
@@ -81,17 +93,27 @@
         }
       },
       "template": {
+        "area": "Área",
+        "area_helper": "Usada em modelos e recursos",
+        "badge": "Badge",
         "badge_color": "Cor do badge",
         "badge_icon": "Ícone do badge",
+        "badge_text": "Texto do badge",
+        "badge_text_helper": "Se definido, irá substituir o ícone.",
         "content": "Conteúdo",
         "entity_extra": "Usado em modelos e ações",
-        "label": "Label",
-        "multiline_secondary": "Multilinha secundária?",
+        "entity_helper": "Usada em modelos, interações e recursos",
+        "entity_helper_legacy": "Usada em modelos e interações",
+        "label": "Rótulo",
+        "layout": "Layout",
+        "multiline_secondary": "Permitir informação secundária em várias linhas",
+        "multiline_secondary_helper": "O card pode ficar mais alto para acomodar o texto e nem sempre irá se alinhar ao sistema de grade.",
         "picture": "Imagem (irá substituir o ícone)",
         "primary": "Informação primária",
         "secondary": "Informação secundária"
       },
       "title": {
+        "alignment": "Alinhamento",
         "subtitle": "Legenda",
         "subtitle_tap_action": "Ação de toque na legenda",
         "title": "Título",
@@ -179,6 +201,21 @@
           "vertical": "Layout vertical"
         }
       }
+    },
+    "section": {
+      "badge": "Badge",
+      "content": "Conteúdo",
+      "context": "Contexto",
+      "features": "Recursos",
+      "interactions": "Interações",
+      "layout": "Layout"
     }
+  },
+  "migration": {
+    "description": "A configuração do seu card foi migrada para a nova versão. Você encontra mais informações sobre as mudanças {link}.",
+    "ok": "Ok",
+    "post": "no post do GitHub",
+    "revert": "Reverter",
+    "title": "Card atualizado"
   }
 }

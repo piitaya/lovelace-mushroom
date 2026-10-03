@@ -4,6 +4,7 @@ import { assert } from "superstruct";
 import { LovelaceCardEditor, fireEvent } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { computeActionsFormSchema } from "../../shared/config/actions-config";
+import { computeLayoutOptions } from "../../shared/config/appearance-config";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
@@ -24,7 +25,9 @@ export const TEMPLATE_LABELS = [
   "picture",
 ];
 
-const SCHEMA: HaFormSchema[] = [
+const computeSchema = (
+  customLocalize: ReturnType<typeof setupCustomlocalize>
+): HaFormSchema[] => [
   { name: "entity", selector: { entity: {} } },
   {
     name: "icon",
@@ -58,7 +61,15 @@ const SCHEMA: HaFormSchema[] = [
     type: "grid",
     name: "",
     schema: [
-      { name: "layout", selector: { mush_layout: {} } },
+      {
+        name: "layout",
+        selector: {
+          select: {
+            options: computeLayoutOptions(customLocalize),
+            mode: "dropdown",
+          },
+        },
+      },
       { name: "fill_container", selector: { boolean: {} } },
       { name: "multiline_secondary", selector: { boolean: {} } },
     ],
@@ -115,11 +126,14 @@ export class TemplateCardEditor
       return nothing;
     }
 
+    const customLocalize = setupCustomlocalize(this.hass);
+    const schema = computeSchema(customLocalize);
+
     return html`
       <ha-form
         .hass=${this.hass}
         .data=${this._config}
-        .schema=${SCHEMA}
+        .schema=${schema}
         .computeLabel=${this._computeLabel}
         .computeHelper=${this._computeHelper}
         @value-changed=${this._valueChanged}

@@ -21,8 +21,9 @@ import {
   LovelaceCardEditor,
 } from "../../ha";
 import setupCustomlocalize from "../../localize";
+import { entityNameStruct } from "../../shared/config/entity-config";
 import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-config";
-import "../../shared/editor/alignment-picker";
+import { computeAlignmentOptions } from "../../shared/config/appearance-config";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { loadHaComponents } from "../../utils/loader";
 import { LovelaceChipConfig } from "../../utils/lovelace/chip/types";
@@ -54,7 +55,7 @@ const backChipConfigStruct = object({
 const entityChipConfigStruct = object({
   type: literal("entity"),
   entity: optional(string()),
-  name: optional(string()),
+  name: optional(entityNameStruct),
   content_info: optional(string()),
   icon: optional(string()),
   icon_color: optional(string()),
@@ -95,7 +96,7 @@ const conditionChipConfigStruct = object({
 const lightChipConfigStruct = object({
   type: literal("light"),
   entity: optional(string()),
-  name: optional(string()),
+  name: optional(entityNameStruct),
   content_info: optional(string()),
   icon: optional(string()),
   use_light_color: optional(boolean()),
@@ -205,18 +206,22 @@ export class ChipsCardEditor
 
     return html`
       <div class="card-config">
-        <mushroom-alignment-picker
+        <ha-selector
+          .hass=${this.hass}
           .label="${customLocalize(
             "editor.card.chips.alignment"
           )} (${this.hass.localize(
             "ui.panel.lovelace.editor.card.config.optional"
           )})"
-          .hass=${this.hass}
-          .value=${this._config.alignment}
-          .configValue=${"alignment"}
-          @value-changed=${this._valueChanged}
-        >
-        </mushroom-alignment-picker>
+          .value=${this._config.alignment ?? ""}
+          .selector=${{
+            select: {
+              options: computeAlignmentOptions(customLocalize),
+              mode: "dropdown",
+            },
+          }}
+          @value-changed=${this._alignmentChanged}
+        ></ha-selector>
       </div>
       <mushroom-chips-card-chips-editor
         .hass=${this.hass}
@@ -225,6 +230,19 @@ export class ChipsCardEditor
         @edit-detail-element=${this._editDetailElement}
       ></mushroom-chips-card-chips-editor>
     `;
+  }
+
+  private _alignmentChanged(ev: CustomEvent): void {
+    ev.stopPropagation();
+    if (!this._config) return;
+    const value = ev.detail.value;
+    const newConfig = { ...this._config };
+    if (value) {
+      newConfig.alignment = value;
+    } else {
+      delete newConfig.alignment;
+    }
+    fireEvent(this, "config-changed", { config: newConfig });
   }
 
   private _valueChanged(ev: CustomEvent): void {

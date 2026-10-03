@@ -5,11 +5,12 @@ import { assert } from "superstruct";
 import { LocalizeFunc, LovelaceCardEditor, fireEvent } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { computeActionsFormSchema } from "../../shared/config/actions-config";
-import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
+import { computeAppearanceFormSchema } from "../../shared/config/appearance-config";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
 import { UiAction } from "../../utils/form/ha-selector";
+import { computeNameSchema } from "../../utils/form/name-schema";
 import { loadHaComponents } from "../../utils/loader";
 import {
   AlarmControlPanelCardConfig,
@@ -37,28 +38,36 @@ const states = [
   "armed_custom_bypass",
 ];
 
-const computeSchema = memoizeOne((localize: LocalizeFunc): HaFormSchema[] => [
-  {
-    name: "entity",
-    selector: { entity: { domain: ALARM_CONTROl_PANEL_ENTITY_DOMAINS } },
-  },
-  { name: "name", selector: { text: {} } },
-  {
-    name: "icon",
-    selector: { icon: {} },
-    context: { icon_entity: "entity" },
-  },
-  ...APPEARANCE_FORM_SCHEMA,
-  {
-    type: "multi_select",
-    name: "states",
-    options: states.map((state) => [
-      state,
-      localize(`ui.card.alarm_control_panel.${state.replace("armed", "arm")}`),
-    ]) as [string, string][],
-  },
-  ...computeActionsFormSchema(actions),
-]);
+const computeSchema = memoizeOne(
+  (
+    localize: LocalizeFunc,
+    customLocalize: LocalizeFunc,
+    version: string
+  ): HaFormSchema[] => [
+    {
+      name: "entity",
+      selector: { entity: { domain: ALARM_CONTROl_PANEL_ENTITY_DOMAINS } },
+    },
+    computeNameSchema(version),
+    {
+      name: "icon",
+      selector: { icon: {} },
+      context: { icon_entity: "entity" },
+    },
+    ...computeAppearanceFormSchema(customLocalize),
+    {
+      type: "multi_select",
+      name: "states",
+      options: states.map((state) => [
+        state,
+        localize(
+          `ui.card.alarm_control_panel.${state.replace("armed", "arm")}`
+        ),
+      ]) as [string, string][],
+    },
+    ...computeActionsFormSchema(actions),
+  ]
+);
 
 @customElement(ALARM_CONTROl_PANEL_CARD_EDITOR_NAME)
 export class SwitchCardEditor
@@ -82,7 +91,12 @@ export class SwitchCardEditor
       return nothing;
     }
 
-    const schema = computeSchema(this.hass!.localize);
+    const customLocalize = setupCustomlocalize(this.hass!);
+    const schema = computeSchema(
+      this.hass!.localize,
+      customLocalize,
+      this.hass!.config.version
+    );
 
     return html`
       <ha-form

@@ -51,6 +51,7 @@ const actionConfigStructService = object({
 const actionConfigStructNavigate = object({
   action: literal("navigate"),
   navigation_path: string(),
+  navigation_replace: optional(boolean()),
   confirmation: optional(actionConfigStructConfirmation),
 });
 
@@ -58,6 +59,11 @@ const actionConfigStructAssist = type({
   action: literal("assist"),
   pipeline_id: optional(string()),
   start_listening: optional(boolean()),
+});
+
+const actionConfigStructMoreInfo = type({
+  action: literal("more-info"),
+  entity: optional(string()),
 });
 
 const actionConfigStructCustom = type({
@@ -98,6 +104,9 @@ export const actionConfigStruct = dynamic<any>((value) => {
       }
       case "assist": {
         return actionConfigStructAssist;
+      }
+      case "more-info": {
+        return actionConfigStructMoreInfo;
       }
     }
   }

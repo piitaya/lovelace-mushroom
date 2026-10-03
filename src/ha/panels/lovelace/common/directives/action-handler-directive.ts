@@ -1,11 +1,6 @@
-import type { Ripple } from "@material/mwc-ripple";
 import { noChange } from "lit";
-import {
-  AttributePart,
-  directive,
-  Directive,
-  DirectiveParameters,
-} from "lit/directive.js";
+import type { AttributePart, DirectiveParameters } from "lit/directive.js";
+import { directive, Directive } from "lit/directive.js";
 import { fireEvent } from "../../../../common/dom/fire_event";
 import { deepEqual } from "../../../../common/util/deep-equal";
 import {
@@ -19,7 +14,7 @@ const isTouch =
   // @ts-ignore
   navigator.msMaxTouchPoints > 0;
 
-interface ActionHandler extends HTMLElement {
+interface ActionHandlerType extends HTMLElement {
   holdTime: number;
   bind(element: Element, options?: ActionHandlerOptions): void;
 }
@@ -41,10 +36,8 @@ declare global {
   }
 }
 
-class ActionHandler extends HTMLElement implements ActionHandler {
+class ActionHandler extends HTMLElement implements ActionHandlerType {
   public holdTime = 500;
-
-  public ripple: Ripple;
 
   protected timer?: number;
 
@@ -54,23 +47,20 @@ class ActionHandler extends HTMLElement implements ActionHandler {
 
   private dblClickTimeout?: number;
 
-  constructor() {
-    super();
-    this.ripple = document.createElement("mwc-ripple");
-  }
-
   public connectedCallback() {
     Object.assign(this.style, {
       position: "fixed",
       width: isTouch ? "100px" : "50px",
       height: isTouch ? "100px" : "50px",
-      transform: "translate(-50%, -50%)",
+      transform: "translate(-50%, -50%) scale(0)",
       pointerEvents: "none",
       zIndex: "999",
+      background: "var(--primary-color)",
+      display: null,
+      opacity: "0.2",
+      borderRadius: "50%",
+      transition: "transform 180ms ease-in-out",
     });
-
-    this.appendChild(this.ripple);
-    this.ripple.primary = true;
 
     [
       "touchcancel",
@@ -86,7 +76,7 @@ class ActionHandler extends HTMLElement implements ActionHandler {
         () => {
           this.cancelled = true;
           if (this.timer) {
-            this.stopAnimation();
+            this._stopAnimation();
             clearTimeout(this.timer);
             this.timer = undefined;
           }
@@ -155,7 +145,7 @@ class ActionHandler extends HTMLElement implements ActionHandler {
       if (options.hasHold) {
         this.held = false;
         this.timer = window.setTimeout(() => {
-          this.startAnimation(x, y);
+          this._startAnimation(x, y);
           this.held = true;
         }, this.holdTime);
       }
@@ -163,7 +153,10 @@ class ActionHandler extends HTMLElement implements ActionHandler {
 
     element.actionHandler.end = (ev: Event) => {
       // Don't respond when moved or scrolled while touch
-      if (["touchend", "touchcancel"].includes(ev.type) && this.cancelled) {
+      if (
+        ev.type === "touchcancel" ||
+        (ev.type === "touchend" && this.cancelled)
+      ) {
         return;
       }
       const target = ev.target as HTMLElement;
@@ -173,7 +166,7 @@ class ActionHandler extends HTMLElement implements ActionHandler {
       }
       if (options.hasHold) {
         clearTimeout(this.timer);
-        this.stopAnimation();
+        this._stopAnimation();
         this.timer = undefined;
       }
       if (options.hasHold && this.held) {
@@ -185,14 +178,16 @@ class ActionHandler extends HTMLElement implements ActionHandler {
         ) {
           this.dblClickTimeout = window.setTimeout(() => {
             this.dblClickTimeout = undefined;
-            fireEvent(target, "action", { action: "tap" });
+            if (options.hasTap !== false) {
+              fireEvent(target, "action", { action: "tap" });
+            }
           }, 250);
         } else {
           clearTimeout(this.dblClickTimeout);
           this.dblClickTimeout = undefined;
           fireEvent(target, "action", { action: "double_tap" });
         }
-      } else {
+      } else if (options.hasTap !== false) {
         fireEvent(target, "action", { action: "tap" });
       }
     };
@@ -218,41 +213,44 @@ class ActionHandler extends HTMLElement implements ActionHandler {
     element.addEventListener("keydown", element.actionHandler.handleKeyDown);
   }
 
-  private startAnimation(x: number, y: number) {
+  private _startAnimation(x: number, y: number) {
     Object.assign(this.style, {
       left: `${x}px`,
       top: `${y}px`,
-      display: null,
+      transform: "translate(-50%, -50%) scale(1)",
     });
-    this.ripple.disabled = false;
-    this.ripple.startPress();
-    this.ripple.unbounded = true;
   }
 
-  private stopAnimation() {
-    this.ripple.endPress();
-    this.ripple.disabled = true;
-    this.style.display = "none";
+  private _stopAnimation() {
+    Object.assign(this.style, {
+      left: null,
+      top: null,
+      transform: "translate(-50%, -50%) scale(0)",
+    });
   }
 }
 
-const getActionHandler = (): ActionHandler => {
+const getActionHandler = (): ActionHandlerType => {
   const body = document.body;
   if (body.querySelector("action-handler")) {
-    return body.querySelector("action-handler") as ActionHandler;
+    return body.querySelector("action-handler") as ActionHandlerType;
+  }
+
+  if (!customElements.get("action-handler")) {
+    customElements.define("action-handler", ActionHandler);
   }
 
   const actionhandler = document.createElement("action-handler");
   body.appendChild(actionhandler);
 
-  return actionhandler as ActionHandler;
+  return actionhandler as ActionHandlerType;
 };
 
 export const actionHandlerBind = (
   element: ActionHandlerElement,
   options?: ActionHandlerOptions
 ) => {
-  const actionhandler: ActionHandler = getActionHandler();
+  const actionhandler: ActionHandlerType = getActionHandler();
   if (!actionhandler) {
     return;
   }

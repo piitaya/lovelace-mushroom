@@ -24,6 +24,6 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `hvac_modes`               | list                                                | `[]`        | List of hvac modes to display (auto, heat_cool, heat, cool, dry, fan_only, off)                 |
 | `show_temperature_control` | boolean                                             | `false`     | Show buttons to control target temperature                                                      |
 | `collapsible_controls`     | boolean                                             | `false`     | Collapse controls when off. When used in section, it can produce a layout shift for cards below |
-| `tap_action`               | action                                              | `more-info` | Home assistant action to perform on tap                                                         |
+| `tap_action`               | action                                              | `toggle`    | Home assistant action to perform on tap                                                         |
 | `hold_action`              | action                                              | `more-info` | Home assistant action to perform on hold                                                        |
 | `double_tap_action`        | action                                              | `more-info` | Home assistant action to perform on double_tap                                                  |

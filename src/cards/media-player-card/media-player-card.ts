@@ -169,7 +169,11 @@ export class MediaPlayerCard
     }
 
     const icon = computeMediaIcon(this._config, stateObj);
-    const nameDisplay = computeMediaNameDisplay(this._config, stateObj);
+    const nameDisplay = computeMediaNameDisplay(
+      this._config,
+      stateObj,
+      this.hass
+    );
     const appearance = computeAppearance(this._config);
     const picture = computeEntityPicture(stateObj, appearance.icon_type);
     let stateDisplay = computeMediaStateDisplay(
@@ -272,7 +276,7 @@ export class MediaPlayerCard
             .controls=${volume_controls}
             .fill=${layout !== "horizontal"}
             @current-change=${this.onCurrentVolumeChange}
-          />
+          ></mushroom-media-player-volume-control>
         `;
       default:
         return nothing;

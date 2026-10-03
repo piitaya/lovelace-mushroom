@@ -31,6 +31,7 @@ import "../../shared/state-item";
 import { computeAppearance } from "../../utils/appearance";
 import { MushroomBaseCard } from "../../utils/base-card";
 import { cardStyle } from "../../utils/card-styles";
+import { computeEntityName } from "../../utils/compute-entity-name";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { computeEntityPicture } from "../../utils/info";
 import { Layout } from "../../utils/layout";
@@ -43,7 +44,13 @@ import "./controls/cover-buttons-control";
 import "./controls/cover-position-control";
 import "./controls/cover-tilt-position-control";
 import { CoverCardConfig } from "./cover-card-config";
-import { getPosition, getStateColor } from "./utils";
+import {
+  getPosition,
+  getStateColor,
+  supportsButtonsControl,
+  supportsPositionControl,
+  supportsTiltPositionControl,
+} from "./utils";
 
 type CoverCardControl =
   | "buttons_control"
@@ -126,14 +133,21 @@ export class CoverCard
 
   private get _controls(): CoverCardControl[] {
     if (!this._config || !this._stateObj) return [];
+    const stateObj = this._stateObj;
     const controls: CoverCardControl[] = [];
-    if (this._config.show_buttons_control) {
+    if (this._config.show_buttons_control && supportsButtonsControl(stateObj)) {
       controls.push("buttons_control");
     }
-    if (this._config.show_position_control) {
+    if (
+      this._config.show_position_control &&
+      supportsPositionControl(stateObj)
+    ) {
       controls.push("position_control");
     }
-    if (this._config.show_tilt_position_control) {
+    if (
+      this._config.show_tilt_position_control &&
+      supportsTiltPositionControl(stateObj)
+    ) {
       controls.push("tilt_position_control");
     }
     return controls;
@@ -188,7 +202,7 @@ export class CoverCard
       return this.renderNotFound(this._config);
     }
 
-    const name = this._config.name || stateObj.attributes.friendly_name || "";
+    const name = computeEntityName(this.hass, stateObj, this._config.name);
     const icon = this._config.icon;
     const appearance = computeAppearance(this._config);
     const picture = computeEntityPicture(stateObj, appearance.icon_type);

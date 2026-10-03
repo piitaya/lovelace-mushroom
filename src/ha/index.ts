@@ -1,3 +1,4 @@
+export * from "./common/config/version";
 export * from "./common/const";
 export * from "./common/dom/fire_event";
 export * from "./common/dom/get_main_window";
@@ -16,6 +17,7 @@ export * from "./common/util/render-status";
 export * from "./data/climate";
 export * from "./data/cover";
 export * from "./data/entity";
+export * from "./data/entity_name";
 export * from "./data/fan";
 export * from "./data/humidifier";
 export * from "./data/light";

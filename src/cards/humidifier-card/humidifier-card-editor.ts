@@ -1,13 +1,15 @@
 import { html, nothing } from "lit";
 import { customElement, state } from "lit/decorators.js";
+import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
-import { LovelaceCardEditor, fireEvent } from "../../ha";
+import { LocalizeFunc, LovelaceCardEditor, fireEvent } from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { computeActionsFormSchema } from "../../shared/config/actions-config";
-import { APPEARANCE_FORM_SCHEMA } from "../../shared/config/appearance-config";
+import { computeAppearanceFormSchema } from "../../shared/config/appearance-config";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { GENERIC_LABELS } from "../../utils/form/generic-fields";
 import { HaFormSchema } from "../../utils/form/ha-form";
+import { computeNameSchema } from "../../utils/form/name-schema";
 import { loadHaComponents } from "../../utils/loader";
 import {
   HUMIDIFIER_CARD_EDITOR_NAME,
@@ -20,24 +22,30 @@ import {
 
 const HUMIDIFIER_FIELDS = ["show_target_humidity_control"];
 
-const SCHEMA: HaFormSchema[] = [
-  {
-    name: "entity",
-    selector: { entity: { domain: HUMIDIFIER_ENTITY_DOMAINS } },
-  },
-  { name: "name", selector: { text: {} } },
-  { name: "icon", selector: { icon: {} }, context: { icon_entity: "entity" } },
-  ...APPEARANCE_FORM_SCHEMA,
-  {
-    type: "grid",
-    name: "",
-    schema: [
-      { name: "show_target_humidity_control", selector: { boolean: {} } },
-      { name: "collapsible_controls", selector: { boolean: {} } },
-    ],
-  },
-  ...computeActionsFormSchema(),
-];
+const computeSchema = memoizeOne(
+  (localize: LocalizeFunc, version: string): HaFormSchema[] => [
+    {
+      name: "entity",
+      selector: { entity: { domain: HUMIDIFIER_ENTITY_DOMAINS } },
+    },
+    computeNameSchema(version),
+    {
+      name: "icon",
+      selector: { icon: {} },
+      context: { icon_entity: "entity" },
+    },
+    ...computeAppearanceFormSchema(localize),
+    {
+      type: "grid",
+      name: "",
+      schema: [
+        { name: "show_target_humidity_control", selector: { boolean: {} } },
+        { name: "collapsible_controls", selector: { boolean: {} } },
+      ],
+    },
+    ...computeActionsFormSchema(),
+  ]
+);
 
 @customElement(HUMIDIFIER_CARD_EDITOR_NAME)
 export class HumidifierCardEditor
@@ -75,11 +83,14 @@ export class HumidifierCardEditor
       return nothing;
     }
 
+    const customLocalize = setupCustomlocalize(this.hass);
+    const schema = computeSchema(customLocalize, this.hass.config.version);
+
     return html`
       <ha-form
         .hass=${this.hass}
         .data=${this._config}
-        .schema=${SCHEMA}
+        .schema=${schema}
         .computeLabel=${this._computeLabel}
         @value-changed=${this._valueChanged}
       ></ha-form>

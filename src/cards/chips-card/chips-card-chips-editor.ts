@@ -1,14 +1,13 @@
 import { css, CSSResultGroup, html, nothing, PropertyValues } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { guard } from "lit/directives/guard.js";
+import { keyed } from "lit/directives/keyed.js";
 import type { SortableEvent } from "sortablejs";
 import { fireEvent, sortableStyles } from "../../ha";
 import setupCustomlocalize from "../../localize";
-import "../../shared/form/mushroom-select";
 import { MushroomBaseElement } from "../../utils/base-element";
 import { getChipElementClass } from "../../utils/lovelace/chip-element-editor";
 import { CHIP_LIST, LovelaceChipConfig } from "../../utils/lovelace/chip/types";
-import { EditorTarget } from "../../utils/lovelace/editor/types";
 import { HassEntity } from "home-assistant-js-websocket";
 import { setupConditionChipComponent } from "./chips/conditional-chip";
 
@@ -33,6 +32,8 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
   @state() private _attached = false;
 
   @state() private _renderEmptySortable = false;
+
+  @state() private _selectorKey = 0;
 
   private _sortable?;
 
@@ -107,21 +108,24 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
               )
         )}
       </div>
-      <mushroom-select
-        .label=${customLocalize("editor.chip.chip-picker.add")}
-        @selected=${this._addChips}
-        @closed=${(e) => e.stopPropagation()}
-        fixedMenuPosition
-        naturalMenuWidth
-      >
-        ${CHIP_LIST.map(
-          (chip) => html`
-            <mwc-list-item .value=${chip}>
-              ${customLocalize(`editor.chip.chip-picker.types.${chip}`)}
-            </mwc-list-item>
-          `
-        )}
-      </mushroom-select>
+      ${keyed(
+        this._selectorKey,
+        html`<ha-selector
+          .hass=${this.hass}
+          .label=${customLocalize("editor.chip.chip-picker.add")}
+          .value=${""}
+          .selector=${{
+            select: {
+              options: CHIP_LIST.map((chip) => ({
+                value: chip,
+                label: customLocalize(`editor.chip.chip-picker.types.${chip}`),
+              })),
+              mode: "dropdown",
+            },
+          }}
+          @value-changed=${this._addChips}
+        ></ha-selector>`
+      )}
     `;
   }
 
@@ -181,9 +185,8 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
     });
   }
 
-  private async _addChips(ev: any): Promise<void> {
-    const target = ev.target! as EditorTarget;
-    const value = target.value as string;
+  private async _addChips(ev: CustomEvent): Promise<void> {
+    const value = (ev.detail.value ?? "") as string;
 
     if (value === "") {
       return;
@@ -205,7 +208,7 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
     }
 
     const newConfigChips = this.chips!.concat(newChip);
-    target.value = "";
+    this._selectorKey++;
     fireEvent(this, "chips-changed", {
       chips: newConfigChips,
     });
@@ -291,7 +294,7 @@ export class ChipsCardEditorChips extends MushroomBaseElement {
           display: flex;
         }
 
-        mushroom-select {
+        ha-select {
           width: 100%;
         }
 

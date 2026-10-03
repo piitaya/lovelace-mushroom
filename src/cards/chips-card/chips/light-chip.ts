@@ -12,6 +12,7 @@ import {
   isActive,
   LightEntity,
 } from "../../../ha";
+import { computeEntityName } from "../../../utils/compute-entity-name";
 import { computeInfoDisplay } from "../../../utils/info";
 import {
   computeChipComponentName,
@@ -22,7 +23,7 @@ import {
   LovelaceChip,
 } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
-import { getRGBColor, isColorSuperLight } from "../../light-card/utils";
+import { getRGBColor, improveColorContrast } from "../../light-card/utils";
 
 @customElement(computeChipComponentName("light"))
 export class LightChip extends LitElement implements LovelaceChip {
@@ -76,7 +77,7 @@ export class LightChip extends LitElement implements LovelaceChip {
       return nothing;
     }
 
-    const name = this._config.name || stateObj.attributes.friendly_name || "";
+    const name = computeEntityName(this.hass, stateObj, this._config.name);
     const icon = this._config.icon;
 
     const stateDisplay = this.hass.formatEntityState(stateObj);
@@ -86,11 +87,8 @@ export class LightChip extends LitElement implements LovelaceChip {
     const lightRgbColor = getRGBColor(stateObj);
     const iconStyle = {};
     if (lightRgbColor && this._config?.use_light_color) {
-      const color = lightRgbColor.join(",");
+      const color = improveColorContrast(lightRgbColor).join(",");
       iconStyle["--color"] = `rgb(${color})`;
-      if (isColorSuperLight(lightRgbColor)) {
-        iconStyle["--color"] = `rgba(var(--rgb-primary-text-color), 0.2)`;
-      }
     }
 
     const content = computeInfoDisplay(

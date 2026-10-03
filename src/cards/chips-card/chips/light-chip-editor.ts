@@ -1,40 +1,50 @@
 import { html, LitElement, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { fireEvent, HomeAssistant } from "../../../ha";
+import memoizeOne from "memoize-one";
+import { fireEvent, HomeAssistant, LocalizeFunc } from "../../../ha";
 import setupCustomlocalize from "../../../localize";
 import { computeActionsFormSchema } from "../../../shared/config/actions-config";
+import { computeInfoOptions } from "../../../shared/config/appearance-config";
 import { GENERIC_LABELS } from "../../../utils/form/generic-fields";
 import { HaFormSchema } from "../../../utils/form/ha-form";
+import { computeNameSchema } from "../../../utils/form/name-schema";
 import { computeChipEditorComponentName } from "../../../utils/lovelace/chip/chip-element";
 import { LightChipConfig } from "../../../utils/lovelace/chip/types";
 import { LovelaceChipEditor } from "../../../utils/lovelace/types";
 import { LIGHT_ENTITY_DOMAINS } from "../../light-card/const";
 import { LIGHT_LABELS } from "../../light-card/light-card-editor";
 
-const SCHEMA: HaFormSchema[] = [
-  { name: "entity", selector: { entity: { domain: LIGHT_ENTITY_DOMAINS } } },
-  {
-    type: "grid",
-    name: "",
-    schema: [
-      { name: "name", selector: { text: {} } },
-      { name: "content_info", selector: { mush_info: {} } },
-    ],
-  },
-  {
-    type: "grid",
-    name: "",
-    schema: [
-      {
-        name: "icon",
-        selector: { icon: {} },
-        context: { icon_entity: "entity" },
+const computeSchema = memoizeOne(
+  (localize: LocalizeFunc, version: string): HaFormSchema[] => [
+    {
+      name: "entity",
+      selector: { entity: { domain: LIGHT_ENTITY_DOMAINS } },
+    },
+    computeNameSchema(version),
+    {
+      name: "content_info",
+      selector: {
+        select: {
+          options: computeInfoOptions(localize),
+          mode: "dropdown",
+        },
       },
-      { name: "use_light_color", selector: { boolean: {} } },
-    ],
-  },
-  ...computeActionsFormSchema(),
-];
+    },
+    {
+      type: "grid",
+      name: "",
+      schema: [
+        {
+          name: "icon",
+          selector: { icon: {} },
+          context: { icon_entity: "entity" },
+        },
+        { name: "use_light_color", selector: { boolean: {} } },
+      ],
+    },
+    ...computeActionsFormSchema(),
+  ]
+);
 
 @customElement(computeChipEditorComponentName("light"))
 export class LightChipEditor extends LitElement implements LovelaceChipEditor {
@@ -65,11 +75,14 @@ export class LightChipEditor extends LitElement implements LovelaceChipEditor {
       return nothing;
     }
 
+    const customLocalize = setupCustomlocalize(this.hass);
+    const schema = computeSchema(customLocalize, this.hass.config.version);
+
     return html`
       <ha-form
         .hass=${this.hass}
         .data=${this._config}
-        .schema=${SCHEMA}
+        .schema=${schema}
         .computeLabel=${this._computeLabel}
         @value-changed=${this._valueChanged}
       ></ha-form>
