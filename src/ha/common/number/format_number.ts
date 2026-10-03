@@ -4,7 +4,7 @@ import {
 } from "home-assistant-js-websocket";
 import { FrontendLocaleData, NumberFormat } from "../../data/translation";
 import { EntityRegistryDisplayEntry } from "../../types";
-import { round } from "./round";
+import { getNumberPrecision, round } from "./round";
 
 /**
  * Returns true if the entity is considered numeric based on the attributes it has
@@ -109,9 +109,7 @@ export const getNumberFormatOptions = (
   }
   if (entityState.attributes.step != null) {
     return {
-      maximumFractionDigits: Math.ceil(
-        Math.log10(1 / entityState.attributes.step)
-      ),
+      maximumFractionDigits: getNumberPrecision(entityState.attributes.step),
     };
   }
   return undefined;
