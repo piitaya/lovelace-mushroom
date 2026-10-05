@@ -13,6 +13,7 @@ import {
   debounce,
   formatNumber,
   FrontendLocaleData,
+  getNumberPrecision,
   round,
 } from "../ha";
 
@@ -51,7 +52,7 @@ export class InputNumber extends LitElement {
   @state() pending = false;
 
   private get _precision() {
-    return Math.ceil(Math.log10(1 / this._step));
+    return getNumberPrecision(this._step);
   }
 
   private get _step() {
