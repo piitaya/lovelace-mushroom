@@ -2,7 +2,12 @@ import { html, nothing } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
-import { LocalizeFunc, LovelaceCardEditor, fireEvent } from "../../ha";
+import {
+  ClimateEntity,
+  LocalizeFunc,
+  LovelaceCardEditor,
+  fireEvent,
+} from "../../ha";
 import setupCustomlocalize from "../../localize";
 import { computeActionsFormSchema } from "../../shared/config/actions-config";
 import { computeAppearanceFormSchema } from "../../shared/config/appearance-config";
@@ -18,13 +23,22 @@ import {
 } from "./climate-card-config";
 import { CLIMATE_CARD_EDITOR_NAME, CLIMATE_ENTITY_DOMAINS } from "./const";
 
-const CLIMATE_LABELS = ["hvac_modes", "show_temperature_control"] as string[];
+const CLIMATE_LABELS = [
+  "hvac_modes",
+  "preset_modes",
+  "fan_modes",
+  "swing_modes",
+  "show_temperature_control",
+] as string[];
 
 const computeSchema = memoizeOne(
   (
     localize: LocalizeFunc,
     customLocalize: LocalizeFunc,
-    version: string
+    version: string,
+    presetModes: string[],
+    fanModes: string[],
+    swingModes: string[]
   ): HaFormSchema[] => [
     {
       name: "entity",
@@ -50,6 +64,54 @@ const computeSchema = memoizeOne(
                 label: localize(
                   `component.climate.entity_component._.state.${mode}`
                 ),
+              })),
+              mode: "dropdown",
+              multiple: true,
+            },
+          },
+        },
+        {
+          name: "preset_modes",
+          selector: {
+            select: {
+              options: presetModes.map((mode) => ({
+                value: mode,
+                label:
+                  localize(
+                    `component.climate.entity_component._.state_attributes.preset_mode.state.${mode}`
+                  ) || mode,
+              })),
+              mode: "dropdown",
+              multiple: true,
+            },
+          },
+        },
+        {
+          name: "fan_modes",
+          selector: {
+            select: {
+              options: fanModes.map((mode) => ({
+                value: mode,
+                label:
+                  localize(
+                    `component.climate.entity_component._.state_attributes.fan_mode.state.${mode}`
+                  ) || mode,
+              })),
+              mode: "dropdown",
+              multiple: true,
+            },
+          },
+        },
+        {
+          name: "swing_modes",
+          selector: {
+            select: {
+              options: swingModes.map((mode) => ({
+                value: mode,
+                label:
+                  localize(
+                    `component.climate.entity_component._.state_attributes.swing_mode.state.${mode}`
+                  ) || mode,
               })),
               mode: "dropdown",
               multiple: true,
@@ -101,10 +163,16 @@ export class ClimateCardEditor
     }
 
     const customLocalize = setupCustomlocalize(this.hass);
+    const stateObj = this._config.entity
+      ? (this.hass.states[this._config.entity] as ClimateEntity)
+      : undefined;
     const schema = computeSchema(
       this.hass!.localize,
       customLocalize,
-      this.hass!.config.version
+      this.hass!.config.version,
+      stateObj?.attributes.preset_modes ?? [],
+      stateObj?.attributes.fan_modes ?? [],
+      stateObj?.attributes.swing_modes ?? []
     );
 
     return html`
