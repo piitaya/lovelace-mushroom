@@ -123,7 +123,7 @@ export class TitleCard extends MushroomBaseElement implements LovelaceCard {
 
   public isTemplate(key: TemplateKey) {
     const value = this._config?.[key];
-    return value?.includes("{");
+    return typeof value === "string" && value.includes("{");
   }
 
   private getValue(key: TemplateKey) {
