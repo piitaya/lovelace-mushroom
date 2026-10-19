@@ -70,12 +70,16 @@ export class QuickBarChip extends LitElement implements LovelaceChip {
         break;
     }
 
-    const event = new KeyboardEvent("keydown", {
-      bubbles: true,
-      composed: true,
-      key: key,
-    });
-    this.dispatchEvent(event);
+    window.dispatchEvent(
+      new CustomEvent("hass-quick-bar-trigger", {
+        detail: {
+          key,
+          composedPath: () => [this],
+          defaultPrevented: false,
+          preventDefault: () => {},
+        },
+      })
+    );
   }
 
   protected render() {
