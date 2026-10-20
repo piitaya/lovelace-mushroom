@@ -3,13 +3,13 @@
     "not_found": "Entitet nije pronađen"
   },
   "editor": {
-    "section": {
-      "context": "Izvor podataka",
-      "content": "Sadržaj",
-      "features": "Funkcije",
-      "interactions": "Interakcije",
-      "layout": "Raspored",
-      "badge": "Bedž"
+    "badge": {
+      "template": {
+        "area_helper": "Koristi se u šablonima",
+        "content": "Sadržaj",
+        "entity_helper": "Koristi se u šablonima i interakcijama",
+        "label": "Oznaka"
+      }
     },
     "card": {
       "chips": {
@@ -33,24 +33,24 @@
         "show_percentage_control": "Kontrola brzine (u procentima)?"
       },
       "generic": {
-        "entity": "Entitet",
         "area": "Prostorija",
+        "collapsible_controls": "Skupi kontrole kada je isključeno",
         "color": "Boja",
         "content_info": "Sadržaj",
+        "entity": "Entitet",
         "fill_container": "Popuna okvira",
         "icon_animation": "Animacija ikone kada je aktivno?",
         "icon_color": "Boja ikone",
         "icon_type": "Tip ikone",
         "layout": "Raspored",
+        "picture": "Slika",
+        "picture_helper": "Ako je podešeno, zameniće ikonu.",
         "primary_info": "Glavne informacije",
         "secondary_info": "Dodatne informacije",
-        "use_entity_picture": "Upotreba slike entiteta?",
-        "collapsible_controls": "Sakriveno kad je isključeno",
-        "picture": "Slika",
-        "picture_helper": "Ako je podešeno, zameniće ikonu."
+        "use_entity_picture": "Upotreba slike entiteta?"
       },
       "humidifier": {
-        "show_target_humidity_control": "Kontrola vlažnosti vazduha?"
+        "show_target_humidity_control": "Kontrola vlažnosti?"
       },
       "light": {
         "incompatible_controls": "Pojedine kontrole možda neće biti prikazane ukoliko ih vaše svetlo ne podržava.",
@@ -93,20 +93,20 @@
         }
       },
       "template": {
-        "area_helper": "Koristi se u šablonima i funkcijama",
         "area": "Prostorija",
+        "area_helper": "Koristi se u šablonima i funkcijama",
+        "badge": "Bedž",
         "badge_color": "Boja bedža",
         "badge_icon": "Ikona bedža",
-        "badge_text_helper": "Ako je podešeno, zameniće ikonu.",
         "badge_text": "Tekst bedža",
-        "badge": "Bedž",
+        "badge_text_helper": "Ako je podešeno, zameniće ikonu.",
         "content": "Sadržaj",
         "entity_helper": "Koristi se u šablonima, interakcijama i funkcijama",
         "entity_helper_legacy": "Koristi se u šablonima i interakcijama",
         "label": "Oznaka",
         "layout": "Raspored",
-        "multiline_secondary_helper": "Kartica može biti viša kako bi tekst stao i neće se uvek poravnavati sa mrežnim sistemom (grid).",
         "multiline_secondary": "Prikaz dodatnih informacija u više redova",
+        "multiline_secondary_helper": "Kartica može biti viša kako bi tekst stao i neće se uvek poravnavati sa mrežnim sistemom (grid).",
         "primary": "Glavne informacije",
         "secondary": "Dodatne informacije"
       },
@@ -129,14 +129,6 @@
       "weather": {
         "show_conditions": "Vremenske prilike?",
         "show_temperature": "Temperatura?"
-      }
-    },
-    "badge": {
-      "template": {
-        "label": "Oznaka",
-        "content": "Sadržaj",
-        "entity_helper": "Koristi se u šablonima i interakcijama",
-        "area_helper": "Koristi se u šablonima"
       }
     },
     "chip": {
@@ -207,13 +199,21 @@
           "vertical": "Vertikalni raspored"
         }
       }
+    },
+    "section": {
+      "badge": "Bedž",
+      "content": "Sadržaj",
+      "context": "Izvor podataka",
+      "features": "Funkcije",
+      "interactions": "Interakcije",
+      "layout": "Raspored"
     }
   },
   "migration": {
-    "title": "Kartica je ažurirana",
     "description": "Konfiguracija vaše kartice je migrirana na novu verziju. Više informacija o izmenama možete pronaći na {link}.",
+    "ok": "U redu",
     "post": "GitHub objavi",
     "revert": "Vrati nazad",
-    "ok": "U redu"
+    "title": "Kartica je ažurirana"
   }
 }
