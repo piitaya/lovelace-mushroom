@@ -25,12 +25,12 @@
         "show_tilt_position_control": "Kontrola nagiba?"
       },
       "empty": {
-        "no_config_options": "Ova kartica nema opcija za konfiguraciju."
+        "no_config_options": "Ova kartica nema opcije za konfiguraciju."
       },
       "fan": {
         "show_direction_control": "Kontrola smera?",
         "show_oscillate_control": "Kontrola oscilacije?",
-        "show_percentage_control": "Kontrola brzine (u procentima)?"
+        "show_percentage_control": "Kontrola procenta?"
       },
       "generic": {
         "area": "Prostorija",
@@ -54,32 +54,32 @@
       },
       "light": {
         "incompatible_controls": "Pojedine kontrole možda neće biti prikazane ukoliko ih vaše svetlo ne podržava.",
-        "show_brightness_control": "Kontrola svetline?",
+        "show_brightness_control": "Kontrola osvetljenosti?",
         "show_color_control": "Kontrola boje?",
-        "show_color_temp_control": "Kontrola temperature boje?",
+        "show_color_temp_control": "Kontrola temperature svetlosti?",
         "use_light_color": "Upotreba boje svetla"
       },
       "lock": {
-        "lock": "Zaključaj",
-        "open": "Otvori",
-        "unlock": "Otključaj"
+        "lock": "Zaključavanje",
+        "open": "Otvaranje",
+        "unlock": "Otključavanje"
       },
       "media-player": {
         "media_controls": "Kontrole medija",
         "media_controls_list": {
           "next": "Sledeća numera",
           "on_off": "Uključivanje/isključivanje",
-          "play_pause_stop": "Pusti/pauziraj/zaustavi",
+          "play_pause_stop": "Reprodukcija/pauziraj/zaustavljanje",
           "previous": "Prethodna numera",
           "repeat": "Režim ponavljanja",
           "shuffle": "Nasumična reprodukcija"
         },
-        "show_volume_level": "Prikaz nivoa zvuka",
+        "show_volume_level": "Prikaz jačine zvuka",
         "use_media_artwork": "Koristi omot medija",
         "use_media_info": "Informacije o mediju",
         "volume_controls": "Kontrola jačine zvuka",
         "volume_controls_list": {
-          "volume_buttons": "Dugmad za zvuk",
+          "volume_buttons": "Dugmad za jačinu zvuka",
           "volume_mute": "Utišavanje",
           "volume_set": "Nivo jačine zvuka"
         }
@@ -106,7 +106,7 @@
         "label": "Oznaka",
         "layout": "Raspored",
         "multiline_secondary": "Prikaz dodatnih informacija u više redova",
-        "multiline_secondary_helper": "Kartica može biti viša kako bi tekst stao i neće se uvek poravnavati sa mrežnim sistemom (grid).",
+        "multiline_secondary_helper": "Kartica može biti viša kako bi tekst stao i neće se uvek poravnavati sa mrežnim sistemom.",
         "primary": "Glavne informacije",
         "secondary": "Dodatne informacije"
       },
@@ -135,7 +135,7 @@
       "chip-picker": {
         "add": "Dodaj čip",
         "chips": "Čipovi",
-        "clear": "Obriši",
+        "clear": "Poništi",
         "edit": "Izmeni",
         "select": "Izaberi čip",
         "types": {
@@ -149,7 +149,7 @@
           "quickbar": "Brza traka",
           "spacer": "Razmak",
           "template": "Šablon",
-          "weather": "Vreme"
+          "weather": "Vremenske prilike"
         }
       },
       "conditional": {
@@ -203,7 +203,7 @@
     "section": {
       "badge": "Bedž",
       "content": "Sadržaj",
-      "context": "Izvor podataka",
+      "context": "Kontekst",
       "features": "Funkcije",
       "interactions": "Interakcije",
       "layout": "Raspored"
@@ -213,7 +213,7 @@
     "description": "Konfiguracija vaše kartice je migrirana na novu verziju. Više informacija o izmenama možete pronaći na {link}.",
     "ok": "U redu",
     "post": "GitHub objavi",
-    "revert": "Vrati nazad",
+    "revert": "Vrati prethodno",
     "title": "Kartica je ažurirana"
   }
 }
