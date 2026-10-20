@@ -3,6 +3,7 @@ import { customElement, property, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import {
+  atLeastHaVersion,
   fireEvent,
   HASSDomEvent,
   LocalizeFunc,
@@ -95,7 +96,11 @@ export class MushroomTemplateCardEditor
   );
 
   private _schema = memoizeOne(
-    (localize: LocalizeFunc, entityId: string | undefined) =>
+    (
+      localize: LocalizeFunc,
+      entityId: string | undefined,
+      supportDivider: boolean
+    ) =>
       [
         {
           name: "context",
@@ -178,6 +183,9 @@ export class MushroomTemplateCardEditor
                 },
               },
             },
+            ...(supportDivider
+              ? ([{ name: "", type: "divider" }] as const)
+              : []),
             {
               name: "icon_tap_action",
               selector: {
@@ -295,7 +303,11 @@ export class MushroomTemplateCardEditor
       return nothing;
     }
 
-    const schema = this._schema(this.hass.localize, this._config.entity);
+    const schema = this._schema(
+      this.hass.localize,
+      this._config.entity,
+      atLeastHaVersion(this.hass.connection.haVersion, 2026, 9)
+    );
     const customLocalize = setupCustomlocalize(this.hass!);
 
     const data = {

@@ -10,6 +10,7 @@ interface HaDurationData {
 
 export type HaFormSchema =
   | HaFormConstantSchema
+  | HaFormDividerSchema
   | HaFormStringSchema
   | HaFormIntegerSchema
   | HaFormFloatSchema
@@ -68,6 +69,10 @@ export interface HaFormSelector extends HaFormBaseSchema {
 export interface HaFormConstantSchema extends HaFormBaseSchema {
   type: "constant";
   value?: string;
+}
+
+export interface HaFormDividerSchema extends HaFormBaseSchema {
+  type: "divider";
 }
 
 export interface HaFormIntegerSchema extends HaFormBaseSchema {
