@@ -16,7 +16,7 @@
         "alignment": "Поравнање"
       },
       "climate": {
-        "hvac_modes": "Режими климе",
+        "hvac_modes": "HVAC режими",
         "show_temperature_control": "Контрола температуре?"
       },
       "cover": {
@@ -38,7 +38,7 @@
         "color": "Боја",
         "content_info": "Садржај",
         "entity": "Ентитет",
-        "fill_container": "Попуна оквира",
+        "fill_container": "Попуни простор",
         "icon_animation": "Анимација иконе када је активно?",
         "icon_color": "Боја иконе",
         "icon_type": "Тип иконе",
@@ -47,7 +47,7 @@
         "picture_helper": "Ако је подешено, замениће икону.",
         "primary_info": "Главне информације",
         "secondary_info": "Додатне информације",
-        "use_entity_picture": "Употреба слике ентитета?"
+        "use_entity_picture": "Користи слику ентитета?"
       },
       "humidifier": {
         "show_target_humidity_control": "Контрола влажности?"
@@ -56,16 +56,16 @@
         "incompatible_controls": "Поједине контроле можда неће бити приказане уколико их ваше светло не подржава.",
         "show_brightness_control": "Контрола осветљености?",
         "show_color_control": "Контрола боје?",
-        "show_color_temp_control": "Контрола температуре светлости?",
-        "use_light_color": "Употреба боје светла"
+        "show_color_temp_control": "Контрола температуре боје?",
+        "use_light_color": "Користи боју светла"
       },
       "lock": {
-        "lock": "Закључавање",
-        "open": "Отварање",
-        "unlock": "Откључавање"
+        "lock": "Закључај",
+        "open": "Отвори",
+        "unlock": "Откључај"
       },
       "media-player": {
-        "media_controls": "Контроле медија",
+        "media_controls": "Медијске контроле",
         "media_controls_list": {
           "next": "Следећа нумера",
           "on_off": "Укључивање/искључивање",
@@ -75,12 +75,12 @@
           "shuffle": "Насумична репродукција"
         },
         "show_volume_level": "Приказ јачине звука",
-        "use_media_artwork": "Користи омот медија",
-        "use_media_info": "Информације о медију",
+        "use_media_artwork": "Користи омот албума",
+        "use_media_info": "Користи информације о медију",
         "volume_controls": "Контрола јачине звука",
         "volume_controls_list": {
           "volume_buttons": "Дугмад за јачину звука",
-          "volume_mute": "Утишавање",
+          "volume_mute": "Искључивање звука",
           "volume_set": "Ниво јачине звука"
         }
       },
