@@ -20,7 +20,7 @@
         "show_temperature_control": "Контрола температуре?"
       },
       "cover": {
-        "show_buttons_control": "Контролна дугмад?",
+        "show_buttons_control": "Дугмад за контролу?",
         "show_position_control": "Контрола позиције?",
         "show_tilt_position_control": "Контрола нагиба?"
       },
@@ -39,14 +39,14 @@
         "content_info": "Садржај",
         "entity": "Ентитет",
         "fill_container": "Попуни простор",
-        "icon_animation": "Анимација иконе када је активно?",
+        "icon_animation": "Анимација иконе када је активна?",
         "icon_color": "Боја иконе",
         "icon_type": "Тип иконе",
         "layout": "Распоред",
         "picture": "Слика",
         "picture_helper": "Ако је подешено, замениће икону.",
-        "primary_info": "Главне информације",
-        "secondary_info": "Додатне информације",
+        "primary_info": "Примарне информације",
+        "secondary_info": "Секундарне информације",
         "use_entity_picture": "Користи слику ентитета?"
       },
       "humidifier": {
@@ -65,22 +65,22 @@
         "unlock": "Откључај"
       },
       "media-player": {
-        "media_controls": "Медијске контроле",
+        "media_controls": "Kontrole medija",
         "media_controls_list": {
           "next": "Следећа нумера",
-          "on_off": "Укључивање/искључивање",
-          "play_pause_stop": "Репродукција/пауза/заустављање",
+          "on_off": "Укључи/искључи",
+          "play_pause_stop": "Пусти/паузирај/заустави",
           "previous": "Претходна нумера",
           "repeat": "Режим понављања",
           "shuffle": "Насумична репродукција"
         },
-        "show_volume_level": "Приказ јачине звука",
+        "show_volume_level": "Прижи ниво јачине звука",
         "use_media_artwork": "Користи омот албума",
         "use_media_info": "Користи информације о медију",
         "volume_controls": "Контрола јачине звука",
         "volume_controls_list": {
           "volume_buttons": "Дугмад за јачину звука",
-          "volume_mute": "Искључивање звука",
+          "volume_mute": "Искључи звук",
           "volume_set": "Ниво јачине звука"
         }
       },
@@ -105,10 +105,10 @@
         "entity_helper_legacy": "Користи се у шаблонима и интеракцијама",
         "label": "Ознака",
         "layout": "Распоред",
-        "multiline_secondary": "Приказ додатних информација у више редова",
-        "multiline_secondary_helper": "Картица може бити виша како би текст стао i неће се увек поравнавати са мрежним системом.",
-        "primary": "Главне информације",
-        "secondary": "Додатне инфомације"
+        "multiline_secondary": "Приказ секундарних информација у више редова",
+        "multiline_secondary_helper": "Картица може бити виша како би текст стао и неће се увек поравнавати са мрежним системом.",
+        "primary": "Primarne информације",
+        "secondary": "Секундарне инфомације"
       },
       "title": {
         "alignment": "Поравнање",
@@ -118,7 +118,7 @@
         "title_tap_action": "Акција на додир наслова"
       },
       "update": {
-        "show_buttons_control": "Контролна дугмад?"
+        "show_buttons_control": "Дугмад за контролу?"
       },
       "vacuum": {
         "commands": "Команде",
@@ -142,9 +142,9 @@
           "action": "Акција",
           "alarm-control-panel": "Аларм",
           "back": "Назад",
-          "conditional": "Условно",
+          "conditional": "Условни елемент",
           "entity": "Ентитет",
-          "light": "Светло",
+          "light": "Осветљење",
           "menu": "Мени",
           "quickbar": "Брза трака",
           "spacer": "Размак",
