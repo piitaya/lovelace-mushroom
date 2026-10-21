@@ -34,12 +34,12 @@
       },
       "generic": {
         "area": "Oblasť",
-        "collapsible_controls": "Skryť ovládanie v stave VYP",
+        "collapsible_controls": "Zbaliť ovládacie prvky, keď je vypnuté",
         "color": "Farba",
         "content_info": "Obsah",
         "entity": "Entita",
         "fill_container": "Vyplniť priestor",
-        "icon_animation": "Animovaná ikona v stave ZAP?",
+        "icon_animation": "Animovať ikonu, keď je aktívna?",
         "icon_color": "Farba ikony",
         "icon_type": "Typ ikony",
         "layout": "Rozloženie",
@@ -113,6 +113,7 @@
         "secondary": "Doplnkové info"
       },
       "title": {
+        "alignment": "Zarovnanie",
         "subtitle": "Podnadpis",
         "subtitle_tap_action": "Akcia klepnutia na titulky",
         "title": "Nadpis",
