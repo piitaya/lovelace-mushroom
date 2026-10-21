@@ -164,9 +164,9 @@
         "values": {
           "center": "Centrirano",
           "default": "Podrazumevano poravnanje",
-          "end": "Na kraju",
+          "end": "Kraj",
           "justify": "Obostrano",
-          "start": "Na početku"
+          "start": "Početk"
         }
       },
       "color_picker": {
