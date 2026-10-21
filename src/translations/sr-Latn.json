@@ -38,7 +38,7 @@
         "color": "Boja",
         "content_info": "Sadržaj",
         "entity": "Entitet",
-        "fill_container": "Popuna okvira",
+        "fill_container": "Popuni prostor",
         "icon_animation": "Animacija ikone kada je aktivno?",
         "icon_color": "Boja ikone",
         "icon_type": "Tip ikone",
@@ -47,7 +47,7 @@
         "picture_helper": "Ako je podešeno, zameniće ikonu.",
         "primary_info": "Glavne informacije",
         "secondary_info": "Dodatne informacije",
-        "use_entity_picture": "Upotreba slike entiteta?"
+        "use_entity_picture": "Koristi sliku entiteta?"
       },
       "humidifier": {
         "show_target_humidity_control": "Kontrola vlažnosti?"
@@ -56,16 +56,16 @@
         "incompatible_controls": "Pojedine kontrole možda neće biti prikazane ukoliko ih vaše svetlo ne podržava.",
         "show_brightness_control": "Kontrola osvetljenosti?",
         "show_color_control": "Kontrola boje?",
-        "show_color_temp_control": "Kontrola temperature svetlosti?",
-        "use_light_color": "Upotreba boje svetla"
+        "show_color_temp_control": "Kontrola temperature boje?",
+        "use_light_color": "Koristi boju svetla"
       },
       "lock": {
-        "lock": "Zaključavanje",
-        "open": "Otvaranje",
-        "unlock": "Otključavanje"
+        "lock": "Zaključaj",
+        "open": "Otvori",
+        "unlock": "Otključaj"
       },
       "media-player": {
-        "media_controls": "Kontrole medija",
+        "media_controls": "Medijske kontrole",
         "media_controls_list": {
           "next": "Sledeća numera",
           "on_off": "Uključivanje/isključivanje",
@@ -75,12 +75,12 @@
           "shuffle": "Nasumična reprodukcija"
         },
         "show_volume_level": "Prikaz jačine zvuka",
-        "use_media_artwork": "Koristi omot medija",
-        "use_media_info": "Informacije o mediju",
+        "use_media_artwork": "Koristi omot albuma",
+        "use_media_info": "Koristi informacije o mediju",
         "volume_controls": "Kontrola jačine zvuka",
         "volume_controls_list": {
           "volume_buttons": "Dugmad za jačinu zvuka",
-          "volume_mute": "Utišavanje",
+          "volume_mute": "Isključivanje zvuka",
           "volume_set": "Nivo jačine zvuka"
         }
       },
