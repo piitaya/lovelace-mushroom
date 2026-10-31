@@ -1,5 +1,12 @@
 import { HassEntity } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, nothing, TemplateResult } from "lit";
+import {
+  css,
+  CSSResultGroup,
+  html,
+  nothing,
+  PropertyValues,
+  TemplateResult,
+} from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
@@ -13,6 +20,8 @@ import {
   isActive,
   LovelaceCard,
   LovelaceCardEditor,
+  LovelaceGridOptions,
+  LovelaceLayoutOptions,
   VacuumEntity,
 } from "../../ha";
 import "../../shared/badge-icon";
@@ -31,13 +40,22 @@ import {
   VACUUM_CARD_NAME,
   VACUUM_ENTITY_DOMAINS,
 } from "./const";
+import "../select-card/controls/select-option-control";
 import "./controls/vacuum-commands-control";
+import "./controls/vacuum-fan-speed-control";
+import { isFanSpeedControlSupported } from "./controls/vacuum-fan-speed-control";
 import {
   isCommandsControlSupported,
   isCommandsControlVisible,
 } from "./controls/vacuum-commands-control";
+import {
+  injectModeControlInMoreInfo,
+  VacuumMoreInfoModeControl,
+} from "./more-info-mode-control";
 import { isCleaning, isReturningHome } from "./utils";
 import { VacuumCardConfig } from "./vacuum-card-config";
+
+const MODE_ICON = "mdi:broom";
 
 registerCustomCard({
   type: VACUUM_CARD_NAME,
@@ -72,14 +90,124 @@ export class VacuumCard
 
   protected get hasControls() {
     if (!this._stateObj || !this._config) return false;
-    return isCommandsControlSupported(
-      this._stateObj,
-      this._config.commands ?? []
+    return (
+      isCommandsControlSupported(this._stateObj, this._config.commands ?? []) ||
+      this._isFanSpeedControlVisible(this._stateObj) ||
+      this._isModeControlVisible
     );
   }
 
+  // The base card reserves a single row for controls. When both the
+  // commands and the dropdowns are displayed, we need an extra row.
+  private get _extraControlRows(): number {
+    if (!this._stateObj || !this._config) return 0;
+    const appearance = computeAppearance(this._config);
+    if (appearance.layout === "horizontal") return 0;
+    const hasCommands = isCommandsControlSupported(
+      this._stateObj,
+      this._config.commands ?? []
+    );
+    const hasSelects =
+      this._isFanSpeedControlVisible(this._stateObj) ||
+      this._isModeControlVisible;
+    return hasCommands && hasSelects ? 1 : 0;
+  }
+
+  public getCardSize(): number | Promise<number> {
+    return (super.getCardSize() as number) + this._extraControlRows;
+  }
+
+  public getLayoutOptions(): LovelaceLayoutOptions {
+    const options = super.getLayoutOptions();
+    if (options.grid_rows !== undefined) {
+      options.grid_rows += this._extraControlRows;
+    }
+    return options;
+  }
+
+  public getGridOptions(): LovelaceGridOptions {
+    const options = super.getGridOptions();
+    const extra = this._extraControlRows;
+    if (typeof options.rows === "number") options.rows += extra;
+    if (typeof options.min_rows === "number") options.min_rows += extra;
+    return options;
+  }
+
+  private get _isModeControlVisible(): boolean {
+    return (
+      Boolean(this._config?.show_mode_control) && Boolean(this._modeStateObj)
+    );
+  }
+
+  private get _modeStateObj(): HassEntity | undefined {
+    const entityId = this._config?.mode_entity;
+    return entityId ? this.hass?.states[entityId] : undefined;
+  }
+
+  private _isFanSpeedControlVisible(stateObj: VacuumEntity): boolean {
+    return (
+      Boolean(this._config?.show_fan_speed_control) &&
+      isFanSpeedControlSupported(stateObj)
+    );
+  }
+
+  private _computeStateDisplay(stateObj: VacuumEntity): string {
+    let stateDisplay = this.hass.formatEntityState(stateObj);
+    if (
+      this._config?.show_fan_speed_state &&
+      stateObj.attributes.fan_speed != null
+    ) {
+      const fanSpeed = this.hass.formatEntityAttributeValue(
+        stateObj,
+        "fan_speed"
+      );
+      stateDisplay += ` ⸱ ${fanSpeed}`;
+    }
+    const modeStateObj = this._modeStateObj;
+    if (this._config?.show_mode_state && modeStateObj) {
+      stateDisplay += ` ⸱ ${this.hass.formatEntityState(modeStateObj)}`;
+    }
+    return stateDisplay;
+  }
+
+  private _moreInfoModeControl?: VacuumMoreInfoModeControl;
+
   private _handleAction(ev: ActionHandlerEvent) {
-    handleAction(this, this.hass!, this._config!, ev.detail.action!);
+    const action = ev.detail.action!;
+    handleAction(this, this.hass!, this._config!, action);
+
+    // Add the cleaning mode select to the vacuum more-info dialog
+    const config = this._config!;
+    const actionConfig = config[`${action}_action`] as
+      | { action: string; entity?: string }
+      | undefined;
+    const entityId = actionConfig?.entity ?? config.entity;
+    if (
+      actionConfig?.action === "more-info" &&
+      config.mode_entity &&
+      entityId &&
+      entityId === config.entity
+    ) {
+      injectModeControlInMoreInfo(
+        entityId,
+        config.mode_entity,
+        () => this.hass,
+        (control) => {
+          this._moreInfoModeControl = control;
+        }
+      );
+    }
+  }
+
+  protected updated(changedProps: PropertyValues): void {
+    super.updated(changedProps);
+    if (changedProps.has("hass") && this._moreInfoModeControl) {
+      if (this._moreInfoModeControl.isConnected) {
+        this._moreInfoModeControl.hass = this.hass;
+      } else {
+        this._moreInfoModeControl = undefined;
+      }
+    }
   }
 
   protected render() {
@@ -101,6 +229,11 @@ export class VacuumCard
     const rtl = computeRTL(this.hass);
 
     const commands = this._config?.commands ?? [];
+    const stateDisplay = this._computeStateDisplay(stateObj);
+    const fanSpeedVisible = this._isFanSpeedControlVisible(stateObj);
+    const modeStateObj = this._isModeControlVisible
+      ? this._modeStateObj
+      : undefined;
 
     return html`
       <ha-card
@@ -120,7 +253,7 @@ export class VacuumCard
               ? this.renderPicture(picture)
               : this.renderIcon(stateObj, icon)}
             ${this.renderBadge(stateObj)}
-            ${this.renderStateInfo(stateObj, appearance, name)};
+            ${this.renderStateInfo(stateObj, appearance, name, stateDisplay)};
           </mushroom-state-item>
           ${isCommandsControlVisible(stateObj, commands)
             ? html`
@@ -132,6 +265,29 @@ export class VacuumCard
                     .fill=${appearance.layout !== "horizontal"}
                   >
                   </mushroom-vacuum-commands-control>
+                </div>
+              `
+            : nothing}
+          ${fanSpeedVisible || modeStateObj
+            ? html`
+                <div class="actions selects" ?rtl=${rtl}>
+                  ${fanSpeedVisible
+                    ? html`
+                        <mushroom-vacuum-fan-speed-control
+                          .hass=${this.hass}
+                          .entity=${stateObj}
+                        ></mushroom-vacuum-fan-speed-control>
+                      `
+                    : nothing}
+                  ${modeStateObj
+                    ? html`
+                        <mushroom-select-option-control
+                          .hass=${this.hass}
+                          .entity=${modeStateObj}
+                          .icon=${MODE_ICON}
+                        ></mushroom-select-option-control>
+                      `
+                    : nothing}
                 </div>
               `
             : nothing}
@@ -182,6 +338,16 @@ export class VacuumCard
         }
         mushroom-vacuum-commands-control {
           flex: 1;
+        }
+        .actions.selects {
+          overflow: visible;
+        }
+        mushroom-vacuum-fan-speed-control,
+        mushroom-select-option-control {
+          flex: 1;
+          min-width: 0;
+          --card-primary-color: rgb(var(--rgb-state-vacuum));
+          --mdc-theme-primary: rgb(var(--rgb-state-vacuum));
         }
       `,
     ];
