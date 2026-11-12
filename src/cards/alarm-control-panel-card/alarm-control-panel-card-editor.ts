@@ -15,6 +15,8 @@ import { loadHaComponents } from "../../utils/loader";
 import {
   AlarmControlPanelCardConfig,
   alarmControlPanelCardCardConfigStruct,
+  AlarmStateConfig,
+  normalizeAlarmStateConfig,
 } from "./alarm-control-panel-card-config";
 import {
   ALARM_CONTROl_PANEL_CARD_EDITOR_NAME,
@@ -101,7 +103,7 @@ export class SwitchCardEditor
     return html`
       <ha-form
         .hass=${this.hass}
-        .data=${this._config}
+        .data=${this._formData(this._config)}
         .schema=${schema}
         .computeLabel=${this._computeLabel}
         @value-changed=${this._valueChanged}
@@ -126,7 +128,49 @@ export class SwitchCardEditor
     );
   };
 
+  /*
+   * The `states` multi_select can only represent plain mode strings, so the
+   * advanced `{ state, icon }` form (YAML-only, see docs) is flattened to
+   * strings for display. There is deliberately no per-mode icon picker in the
+   * visual editor yet — the goal here is only to make the existing picker
+   * non-destructive for configs that use icon overrides.
+   */
+  private _formData = memoizeOne(
+    (config: AlarmControlPanelCardConfig): AlarmControlPanelCardConfig =>
+      config.states?.some((state) => typeof state !== "string")
+        ? {
+            ...config,
+            states: config.states.map(
+              (state) => normalizeAlarmStateConfig(state).state
+            ),
+          }
+        : config
+  );
+
   private _valueChanged(ev: CustomEvent): void {
-    fireEvent(this, "config-changed", { config: ev.detail.value });
+    const config = ev.detail.value as AlarmControlPanelCardConfig;
+
+    // Re-attach the icon overrides that `_formData` stripped, so editing any
+    // field (or toggling states) doesn't silently drop them.
+    const icons = new Map<string, string>();
+    for (const state of this._config?.states ?? []) {
+      const { state: mode, icon } = normalizeAlarmStateConfig(state);
+      if (icon != null) {
+        icons.set(mode, icon);
+      }
+    }
+
+    if (icons.size === 0 || !config.states) {
+      fireEvent(this, "config-changed", { config });
+      return;
+    }
+
+    const states: AlarmStateConfig[] = config.states.map((state) => {
+      const { state: mode } = normalizeAlarmStateConfig(state);
+      const icon = icons.get(mode);
+      return icon != null ? { state: mode, icon } : state;
+    });
+
+    fireEvent(this, "config-changed", { config: { ...config, states } });
   }
 }

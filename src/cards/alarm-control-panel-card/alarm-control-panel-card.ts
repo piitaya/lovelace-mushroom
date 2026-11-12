@@ -38,7 +38,10 @@ import { cardStyle } from "../../utils/card-styles";
 import { computeEntityName } from "../../utils/compute-entity-name";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { computeEntityPicture } from "../../utils/info";
-import { AlarmControlPanelCardConfig } from "./alarm-control-panel-card-config";
+import {
+  AlarmControlPanelCardConfig,
+  normalizeAlarmStateConfig,
+} from "./alarm-control-panel-card-config";
 import {
   ALARM_CONTROl_PANEL_CARD_EDITOR_NAME,
   ALARM_CONTROl_PANEL_CARD_NAME,
@@ -60,12 +63,26 @@ registerCustomCard({
 
 type ActionButtonType = {
   mode: AlarmMode;
+  icon?: string;
+  name?: string;
   disabled?: boolean;
 };
 
 /*
+ * Fallback label used when `show_button_labels` is on but a `states` entry
+ * doesn't set an explicit `name` — e.g. "armed_home" -> "Armed home".
+ */
+const humanizeMode = (mode: AlarmMode): string => {
+  const words = mode.split("_");
+  return (
+    words[0].charAt(0).toUpperCase() +
+    words[0].slice(1) +
+    (words.length > 1 ? ` ${words.slice(1).join(" ")}` : "")
+  );
+};
+
+/*
  * Ref: https://github.com/home-assistant/frontend/blob/dev/src/panels/lovelace/cards/hui-alarm-panel-card.ts
- * TODO: customize icon for modes (advanced YAML configuration)
  */
 
 @customElement(ALARM_CONTROl_PANEL_CARD_NAME)
@@ -126,7 +143,11 @@ export class AlarmControlPanelCard
     const actions: ActionButtonType[] =
       this._config.states && this._config.states.length > 0
         ? isDisarmed(stateObj)
-          ? this._config.states.map((state) => ({ mode: state }))
+          ? this._config.states.map((state) => {
+              const { state: mode, icon: modeIcon, name: modeName } =
+                normalizeAlarmStateConfig(state);
+              return { mode, icon: modeIcon, name: modeName };
+            })
           : [{ mode: "disarmed" }]
         : [];
 
@@ -166,9 +187,19 @@ export class AlarmControlPanelCard
                         <mushroom-button
                           @click=${(e) => this._onTap(e, action.mode)}
                           .disabled=${!isActionEnabled}
+                          ?has-label=${this._config!.show_button_labels}
                         >
-                          <ha-icon .icon=${ALARM_MODES[action.mode].icon}>
+                          <ha-icon
+                            .icon=${action.icon ??
+                            ALARM_MODES[action.mode].icon}
+                          >
                           </ha-icon>
+                          ${this._config!.show_button_labels
+                            ? html`<span
+                                >${action.name ??
+                                humanizeMode(action.mode)}</span
+                              >`
+                            : nothing}
                         </mushroom-button>
                       `
                     )}
