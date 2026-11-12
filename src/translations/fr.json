@@ -113,6 +113,7 @@
         "secondary": "Information secondaire"
       },
       "title": {
+        "alignment": "Alignement",
         "subtitle": "Sous-titre",
         "subtitle_tap_action": "Appui sur le sous-titre",
         "title": "Titre",
