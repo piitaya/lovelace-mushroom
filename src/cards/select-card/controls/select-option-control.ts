@@ -1,5 +1,5 @@
 import { HassEntity } from "home-assistant-js-websocket";
-import { css, CSSResultGroup, html, LitElement } from "lit";
+import { css, CSSResultGroup, html, LitElement, nothing } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { atLeastHaVersion, HomeAssistant } from "../../../ha";
 import { getCurrentOption, getOptions } from "../utils";
@@ -9,6 +9,8 @@ export class SelectOptionControl extends LitElement {
   @property() public hass!: HomeAssistant;
 
   @property({ attribute: false }) public entity!: HassEntity;
+
+  @property() public icon?: string;
 
   _selectChanged(ev) {
     let value: string | undefined;
@@ -35,6 +37,12 @@ export class SelectOptionControl extends LitElement {
     });
   }
 
+  private _renderIcon() {
+    return this.icon
+      ? html`<ha-icon slot="icon" .icon=${this.icon}></ha-icon>`
+      : nothing;
+  }
+
   render() {
     const value = getCurrentOption(this.entity);
 
@@ -52,7 +60,9 @@ export class SelectOptionControl extends LitElement {
             label: this.hass.formatEntityState(this.entity, option),
           }))}
           @wa-select=${this._selectChanged}
-        ></ha-control-select-menu>
+        >
+          ${this._renderIcon()}
+        </ha-control-select-menu>
       `;
     }
 
@@ -67,6 +77,7 @@ export class SelectOptionControl extends LitElement {
         @closed=${(e) => e.stopPropagation()}
         @selected=${this._selectChanged}
       >
+        ${this._renderIcon()}
         ${options.map((option) => {
           return html`
             <ha-list-item .value=${option}>
