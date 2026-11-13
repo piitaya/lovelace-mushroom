@@ -1,0 +1,157 @@
+title: Climate
+icon: mdi:thermostat
+cards:
+  - type: grid
+    title: Basic
+    columns: 2
+    square: false
+    cards:
+      - type: custom:mushroom-climate-card
+        entity: climate.home_thermostat
+        show_temperature_control: true
+        hvac_modes:
+          - heat
+
+      - type: custom:mushroom-climate-card
+        entity: climate.hvac
+        show_temperature_control: true
+        hvac_modes:
+          - auto
+          - heat
+          - cool
+          - dry
+          - fan_only
+
+      - type: custom:mushroom-climate-card
+        entity: climate.heatpump
+        show_temperature_control: true
+        hvac_modes:
+          - heat
+
+      - type: custom:mushroom-climate-card
+        entity: climate.ecobee
+        show_temperature_control: true
+        hvac_modes:
+          - auto
+          - heat_cool
+          - heat
+          - cool
+          - dry
+          - fan_only
+        preset_modes:
+          - home
+          - eco
+          - away
+        fan_modes:
+          - on_low
+          - on_high
+          - auto_low
+          - auto_high
+          - 'off'
+
+  - type: vertical-stack
+    title: Horizontal
+    cards:
+      - type: custom:mushroom-climate-card
+        entity: climate.home_thermostat
+        layout: horizontal
+        show_temperature_control: true
+        hvac_modes:
+          - heat
+
+      - type: custom:mushroom-climate-card
+        entity: climate.hvac
+        layout: horizontal
+        show_temperature_control: true
+        hvac_modes:
+          - auto
+          - heat
+          - cool
+          - dry
+          - fan_only
+
+      - type: custom:mushroom-climate-card
+        entity: climate.heatpump
+        layout: horizontal
+        show_temperature_control: true
+        hvac_modes:
+          - heat
+
+      - type: custom:mushroom-climate-card
+        entity: climate.ecobee
+        layout: horizontal
+        show_temperature_control: true
+        hvac_modes:
+          - auto
+          - heat_cool
+          - heat
+          - cool
+          - dry
+          - fan_only
+        preset_modes:
+          - home
+          - eco
+          - away
+          - fakepreset
+        fan_modes:
+          - on_low
+          - on_high
+          - auto_low
+          - auto_high
+          - 'off'
+
+  # - type: horizontal-stack
+  - type: vertical-stack
+    title: Vertical
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-climate-card
+            entity: climate.home_thermostat
+            layout: vertical
+            show_temperature_control: true
+            hvac_modes:
+              - heat
+
+          - type: custom:mushroom-climate-card
+            entity: climate.heatpump
+            layout: vertical
+            show_temperature_control: true
+            hvac_modes:
+              - heat
+
+      - type: custom:mushroom-climate-card
+        entity: climate.hvac
+        layout: vertical
+        show_temperature_control: true
+        hvac_modes:
+          - auto
+          - heat_cool
+          - heat
+          - cool
+          - dry
+          - fan_only
+          - off
+
+
+      - type: custom:mushroom-climate-card
+        entity: climate.ecobee
+        layout: vertical
+        show_temperature_control: true
+        hvac_modes:
+          - auto
+          - heat_cool
+          - heat
+          - cool
+          - dry
+          - fan_only
+        preset_modes:
+          - home
+          - eco
+          - away
+        fan_modes:
+          - on_low
+          - on_high
+          - auto_low
+          - auto_high
+          - 'off'

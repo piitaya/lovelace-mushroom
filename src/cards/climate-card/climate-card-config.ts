@@ -1,5 +1,11 @@
 import { array, assign, boolean, object, optional, string } from "superstruct";
-import { HvacMode, LovelaceCardConfig } from "../../ha";
+import {
+  HvacMode,
+  FanMode,
+  PresetMode,
+  SwingMode,
+  LovelaceCardConfig,
+} from "../../ha";
 import {
   ActionsSharedConfig,
   actionsSharedConfigStruct,
@@ -30,6 +36,9 @@ export type ClimateCardConfig = LovelaceCardConfig &
   ActionsSharedConfig & {
     show_temperature_control?: false;
     hvac_modes?: HvacMode[];
+    preset_modes?: PresetMode[];
+    fan_modes?: FanMode[];
+    swing_modes?: SwingMode[];
     collapsible_controls?: boolean;
   };
 
@@ -43,6 +52,9 @@ export const climateCardConfigStruct = assign(
   object({
     show_temperature_control: optional(boolean()),
     hvac_modes: optional(array(string())),
+    preset_modes: optional(array(string())),
+    fan_modes: optional(array(string())),
+    swing_modes: optional(array(string())),
     collapsible_controls: optional(boolean()),
   })
 );

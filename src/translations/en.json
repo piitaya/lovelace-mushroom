@@ -17,6 +17,9 @@
       },
       "climate": {
         "hvac_modes": "HVAC Modes",
+        "preset_modes": "Preset Modes",
+        "fan_modes": "Fan Modes",
+        "swing_modes": "Swing Modes",
         "show_temperature_control": "Temperature control?"
       },
       "cover": {
