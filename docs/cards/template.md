@@ -31,6 +31,7 @@ All options are available in the **Lovelace editor**, but you can also configure
 | `primary`                | string        | Optional | Primary text (main label). Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                                                                                               |
 | `secondary`              | string        | Optional | Secondary text (subtitle or status). Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                                                                                         |
 | `border_color`           | string        | Optional | Color applied to the card border, e.g. to highlight an alert. The default border is kept when empty. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/). |
+| `border_width`           | number        | Optional | Width of the card border, in pixels. The theme width is used when not set.                                                                         |
 | `badge_icon`             | string        | Optional | Icon displayed as a badge. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                                                                                                 |
 | `badge_text`             | string        | Optional | Text displayed inside the badge. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                                                                                             |
 | `badge_color`            | string        | Optional | Color applied to the badge. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                                                                                                  |
@@ -151,6 +152,7 @@ The `border_color` option can highlight the card when a condition is met, on any
 type: custom:mushroom-template-card
 primary: Kitchen
 icon: mdi:stove
+border_width: 2
 border_color: >
   {% if is_state('binary_sensor.kitchen_water_leak', 'on') %}
     red
@@ -159,5 +161,5 @@ border_color: >
   {% endif %}
 ```
 
-Note: the border is not visible if your theme sets `ha-card-border-width` to `0`.
+Note: the border is not visible if your theme sets `ha-card-border-width` to `0`, unless `border_width` is set.
 

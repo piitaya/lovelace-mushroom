@@ -4,6 +4,7 @@ import {
   assign,
   boolean,
   enums,
+  number,
   object,
   optional,
   string,
@@ -24,6 +25,7 @@ export type TemplateCardConfig = LovelaceCardConfig & {
   icon?: string;
   picture?: string;
   border_color?: string;
+  border_width?: number;
   // Badges
   badge_icon?: string;
   badge_text?: string;
@@ -71,6 +73,7 @@ export const templateCardConfigStruct = assign(
     icon: optional(string()),
     picture: optional(string()),
     border_color: optional(string()),
+    border_width: optional(number()),
     // Badges
     badge_icon: optional(string()),
     badge_text: optional(string()),

@@ -102,6 +102,7 @@
         "badge": "Badge",
         "border_color_helper": "Leave empty to keep the default border.",
         "border_color": "Border color",
+        "border_width": "Border width",
         "content": "Content",
         "entity_helper": "Used in templates, interactions and features",
         "entity_helper_legacy": "Used in templates and interactions",
