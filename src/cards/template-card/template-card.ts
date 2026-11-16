@@ -28,6 +28,8 @@ import { CacheManager } from "../../utils/cache-manager";
 import { registerCustomCard } from "../../utils/custom-cards";
 import { LovelaceCardFeatureConfig } from "../../ha/panels/lovelace/card-features/types";
 import {
+  BorderAnimation,
+  BorderAnimationSpeed,
   migrateTemplateCardConfig,
   TemplateCardConfig,
 } from "./template-card-config";
@@ -52,7 +54,7 @@ registerCustomCard({
 const templateCache = new CacheManager<TemplateResults>(1000);
 
 type TemplateResults = Partial<
-  Record<TemplateKey, RenderTemplateResult | undefined>
+  Record<string, RenderTemplateResult | undefined>
 >;
 
 const TEMPLATE_KEYS = [
@@ -61,12 +63,69 @@ const TEMPLATE_KEYS = [
   "primary",
   "secondary",
   "picture",
+  "border_color",
   "badge_icon",
   "badge_color",
   "badge_text",
 ] as const;
 
-type TemplateKey = (typeof TEMPLATE_KEYS)[number];
+const BORDER_RULE_TEMPLATE_KEYS = ["condition", "color"] as const;
+
+type BorderRuleTemplateKey = (typeof BORDER_RULE_TEMPLATE_KEYS)[number];
+
+// Template keys are either top level keys (e.g. "icon") or border rule keys
+// with a path (e.g. "border_rules.0.condition"), as the number of rules is
+// not fixed.
+const borderRuleTemplateKey = (index: number, key: BorderRuleTemplateKey) =>
+  `border_rules.${index}.${key}`;
+
+const computeTemplateValues = (
+  config: TemplateCardConfig
+): Record<string, string> => {
+  const values: Record<string, string> = {};
+  TEMPLATE_KEYS.forEach((key) => {
+    values[key] = config[key] ?? "";
+  });
+  config.border_rules?.forEach((rule, index) => {
+    BORDER_RULE_TEMPLATE_KEYS.forEach((key) => {
+      values[borderRuleTemplateKey(index, key)] = rule?.[key] ?? "";
+    });
+  });
+  return values;
+};
+
+// Same values as the template condition of Home Assistant
+const isTruthy = (value?: string): boolean => {
+  if (value == null) {
+    return false;
+  }
+  const normalized = value.trim().toLowerCase();
+  if (["true", "yes", "on", "enable"].includes(normalized)) {
+    return true;
+  }
+  const number = Number(normalized);
+  return normalized !== "" && !isNaN(number) && number !== 0;
+};
+
+const BORDER_ANIMATION_DURATIONS: Record<BorderAnimation, number> = {
+  pulse: 2,
+  breathe: 3,
+  blink: 1,
+  spin: 2.5,
+};
+
+const BORDER_ANIMATION_SPEED_FACTORS: Record<BorderAnimationSpeed, number> = {
+  slow: 1.6,
+  normal: 1,
+  fast: 0.5,
+};
+
+type RenderedBorder = {
+  color?: string;
+  width?: number;
+  animation?: BorderAnimation;
+  speed?: BorderAnimationSpeed;
+};
 
 export interface LovelaceCardFeatureContext {
   entity_id?: string;
@@ -100,9 +159,11 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
   @state() private _templateResults?: TemplateResults;
 
   @state() private _unsubRenderTemplates: Map<
-    TemplateKey,
+    string,
     Promise<UnsubscribeFunc>
   > = new Map();
+
+  private _templateValues = memoizeOne(computeTemplateValues);
 
   public connectedCallback() {
     super.connectedCallback();
@@ -148,20 +209,23 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
     this._tryConnect();
   }
 
-  private _getTemplateKeyValue(key: TemplateKey): string {
+  private _getTemplateKeyValue(key: string): string {
     if (!this._config) {
       return "";
     }
-    return this._config[key] ?? "";
+    return this._templateValues(this._config)[key] ?? "";
   }
 
   private async _tryConnect(): Promise<void> {
-    TEMPLATE_KEYS.forEach((key) => {
+    if (!this._config) {
+      return;
+    }
+    Object.keys(this._templateValues(this._config)).forEach((key) => {
       this._tryConnectKey(key);
     });
   }
 
-  private async _tryConnectKey(key: TemplateKey): Promise<void> {
+  private async _tryConnectKey(key: string): Promise<void> {
     if (
       this._unsubRenderTemplates.get(key) !== undefined ||
       !this.hass ||
@@ -199,7 +263,7 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
       await sub;
     } catch (_err) {
       const result = {
-        result: this._config[key] ?? "",
+        result: value,
         listeners: {
           all: false,
           domains: [],
@@ -215,12 +279,12 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
     }
   }
   private async _tryDisconnect(): Promise<void> {
-    TEMPLATE_KEYS.forEach((key) => {
+    Array.from(this._unsubRenderTemplates.keys()).forEach((key) => {
       this._tryDisconnectKey(key);
     });
   }
 
-  private async _tryDisconnectKey(key: TemplateKey): Promise<void> {
+  private async _tryDisconnectKey(key: string): Promise<void> {
     const unsubRenderTemplate = this._unsubRenderTemplates.get(key);
     if (!unsubRenderTemplate) {
       return;
@@ -242,7 +306,31 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
   }
 
   public setConfig(config: TemplateCardConfig): void {
-    this._config = migrateTemplateCardConfig(config);
+    const newConfig = migrateTemplateCardConfig(config);
+
+    // Close the subscriptions of templates that changed or no longer exist
+    // (e.g. a removed border rule), so they can be reopened with the new
+    // config.
+    if (this._config) {
+      const oldValues = this._templateValues(this._config);
+      const newValues = computeTemplateValues(newConfig);
+      const contextChanged =
+        this._config.entity !== newConfig.entity ||
+        this._config.area !== newConfig.area;
+      const changedKeys = Object.keys(oldValues).filter(
+        (key) => contextChanged || oldValues[key] !== newValues[key]
+      );
+      if (changedKeys.length > 0) {
+        const templateResults = { ...this._templateResults };
+        changedKeys.forEach((key) => {
+          this._tryDisconnectKey(key);
+          delete templateResults[key];
+        });
+        this._templateResults = templateResults;
+      }
+    }
+
+    this._config = newConfig;
 
     if (this._config.entity) {
       if (!this._config.tap_action) {
@@ -265,7 +353,7 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
     }
   );
 
-  private getValue(key: TemplateKey) {
+  private getValue(key: string) {
     const value = this._getTemplateKeyValue(key);
     return isTemplate(value)
       ? this._templateResults?.[key]?.result?.toString()
@@ -406,6 +494,28 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
     return Math.ceil(below.length / Math.max(columns, 1));
   }
 
+  private _computeBorder(config: TemplateCardConfig): RenderedBorder {
+    // The first rule whose condition is true is applied. A rule without
+    // condition is always applied.
+    const index = (config.border_rules ?? []).findIndex((rule, index) => {
+      if (!rule?.condition) {
+        return true;
+      }
+      return isTruthy(this.getValue(borderRuleTemplateKey(index, "condition")));
+    });
+    const color = this.getValue("border_color");
+    if (index === -1) {
+      return { color, width: config.border_width };
+    }
+    const rule = config.border_rules![index];
+    return {
+      color: this.getValue(borderRuleTemplateKey(index, "color")) || color,
+      width: rule.width ?? config.border_width,
+      animation: rule.animation,
+      speed: rule.speed,
+    };
+  }
+
   protected render() {
     if (!this._config || !this.hass) {
       return nothing;
@@ -421,11 +531,29 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
     const badgeColor = this.getValue("badge_color");
     const badgeText = this.getValue("badge_text");
     const badgeCssColor = badgeColor ? computeCssColor(badgeColor) : undefined;
+    const border = this._computeBorder(this._config);
+    const borderCssColor = border.color
+      ? computeCssColor(border.color)
+      : undefined;
+    // Animations are only applied when a border color is set
+    const borderAnimation = borderCssColor ? border.animation : undefined;
+    const borderAnimationDuration = borderAnimation
+      ? BORDER_ANIMATION_DURATIONS[borderAnimation] *
+        BORDER_ANIMATION_SPEED_FACTORS[border.speed ?? "normal"]
+      : undefined;
 
     const weatherSvg = getWeatherSvgIcon(icon);
 
     const style = {
       "--tile-color": cssColor,
+      "--ha-card-border-color": borderCssColor,
+      "--ha-card-border-width":
+        border.width != null ? `${border.width}px` : undefined,
+      "--border-animation-color": borderAnimation ? borderCssColor : undefined,
+      "--border-animation-duration":
+        borderAnimationDuration != null
+          ? `${Math.round(borderAnimationDuration * 100) / 100}s`
+          : undefined,
     };
 
     const featurePosition = this._featurePosition(this._config);
@@ -474,7 +602,10 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
     };
 
     return html`
-      <ha-card style=${styleMap(style)}>
+      <ha-card
+        class=${borderAnimation ? `border-${borderAnimation}` : ""}
+        style=${styleMap(style)}
+      >
         <div
           class="background"
           @action=${this._handleAction}
@@ -596,6 +727,9 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
               `
             : nothing}
         </div>
+        ${borderAnimation === "spin"
+          ? html`<div class="border-spin-effect"></div>`
+          : nothing}
       </ha-card>
     `;
   }
@@ -624,6 +758,109 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        ha-card.border-pulse {
+          animation: border-pulse var(--border-animation-duration) ease-in-out
+            infinite;
+        }
+        ha-card.border-breathe {
+          animation: border-breathe var(--border-animation-duration) ease-in-out
+            infinite;
+        }
+        ha-card.border-blink {
+          animation: border-blink var(--border-animation-duration) step-end
+            infinite;
+        }
+        ha-card.border-spin {
+          border-color: color-mix(
+            in srgb,
+            var(--border-animation-color) 25%,
+            transparent
+          );
+        }
+        .border-spin-effect {
+          position: absolute;
+          inset: calc(-1 * var(--ha-card-border-width, 1px));
+          padding: var(--ha-card-border-width, 1px);
+          box-sizing: border-box;
+          border-radius: var(
+            --ha-card-border-radius,
+            var(--ha-border-radius-lg, 12px)
+          );
+          overflow: hidden;
+          pointer-events: none;
+          container-type: size;
+          /* Only display the border area */
+          mask:
+            linear-gradient(#000 0 0) content-box,
+            linear-gradient(#000 0 0);
+          mask-composite: exclude;
+          -webkit-mask-composite: xor;
+        }
+        .border-spin-effect::before {
+          content: "";
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 150cqmax;
+          height: 150cqmax;
+          translate: -50% -50%;
+          background: conic-gradient(
+            transparent 0deg 240deg,
+            var(--border-animation-color) 360deg
+          );
+          animation: border-spin var(--border-animation-duration) linear
+            infinite;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .border-spin-effect {
+          display: none;
+        }
+      }
+      @keyframes border-pulse {
+        0%,
+        100% {
+          box-shadow: 0 0 0 0 transparent;
+        }
+        50% {
+          box-shadow: 0 0 0 4px
+            color-mix(in srgb, var(--border-animation-color) 40%, transparent);
+        }
+      }
+      @keyframes border-breathe {
+        0%,
+        100% {
+          border-color: var(--border-animation-color);
+        }
+        50% {
+          border-color: color-mix(
+            in srgb,
+            var(--border-animation-color) 15%,
+            transparent
+          );
+        }
+      }
+      @keyframes border-blink {
+        0% {
+          border-color: var(--border-animation-color);
+          box-shadow: 0 0 0 2px
+            color-mix(in srgb, var(--border-animation-color) 40%, transparent);
+        }
+        50% {
+          border-color: color-mix(
+            in srgb,
+            var(--border-animation-color) 15%,
+            transparent
+          );
+          box-shadow: 0 0 0 0 transparent;
+        }
+      }
+      @keyframes border-spin {
+        to {
+          rotate: 360deg;
+        }
       }
       [role="button"] {
         cursor: pointer;

@@ -4,6 +4,7 @@ import {
   assign,
   boolean,
   enums,
+  number,
   object,
   optional,
   string,
@@ -14,6 +15,30 @@ import { LovelaceCardFeatureConfig } from "../../ha/panels/lovelace/card-feature
 import { lovelaceCardConfigStruct } from "../../shared/config/lovelace-card-config";
 import { layoutStruct } from "../../utils/layout";
 
+export const BORDER_ANIMATIONS = ["pulse", "breathe", "blink", "spin"] as const;
+
+export type BorderAnimation = (typeof BORDER_ANIMATIONS)[number];
+
+export const BORDER_ANIMATION_SPEEDS = ["slow", "normal", "fast"] as const;
+
+export type BorderAnimationSpeed = (typeof BORDER_ANIMATION_SPEEDS)[number];
+
+export type TemplateCardBorderRuleConfig = {
+  condition?: string;
+  color?: string;
+  width?: number;
+  animation?: BorderAnimation;
+  speed?: BorderAnimationSpeed;
+};
+
+export const templateCardBorderRuleConfigStruct = object({
+  condition: optional(string()),
+  color: optional(string()),
+  width: optional(number()),
+  animation: optional(enums(BORDER_ANIMATIONS)),
+  speed: optional(enums(BORDER_ANIMATION_SPEEDS)),
+});
+
 export type TemplateCardConfig = LovelaceCardConfig & {
   entity?: string;
   area?: string;
@@ -23,6 +48,9 @@ export type TemplateCardConfig = LovelaceCardConfig & {
   color?: string;
   icon?: string;
   picture?: string;
+  border_color?: string;
+  border_width?: number;
+  border_rules?: TemplateCardBorderRuleConfig[];
   // Badges
   badge_icon?: string;
   badge_text?: string;
@@ -69,6 +97,9 @@ export const templateCardConfigStruct = assign(
     color: optional(string()),
     icon: optional(string()),
     picture: optional(string()),
+    border_color: optional(string()),
+    border_width: optional(number()),
+    border_rules: optional(array(templateCardBorderRuleConfigStruct)),
     // Badges
     badge_icon: optional(string()),
     badge_text: optional(string()),
