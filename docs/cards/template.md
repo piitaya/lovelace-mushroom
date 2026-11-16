@@ -32,6 +32,7 @@ All options are available in the **Lovelace editor**, but you can also configure
 | `secondary`              | string        | Optional | Secondary text (subtitle or status). Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                                                                                         |
 | `border_color`           | string        | Optional | Color applied to the card border, e.g. to highlight an alert. The default border is kept when empty. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/). |
 | `border_width`           | number        | Optional | Width of the card border, in pixels. The theme width is used when not set.                                                                         |
+| `border_rules`           | list          | Optional | Rules to change the border (color, width and animation) when a condition is true. See [Border rules](#border-rules).                              |
 | `badge_icon`             | string        | Optional | Icon displayed as a badge. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                                                                                                 |
 | `badge_text`             | string        | Optional | Text displayed inside the badge. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                                                                                             |
 | `badge_color`            | string        | Optional | Color applied to the badge. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                                                                                                  |
@@ -162,4 +163,38 @@ border_color: >
 ```
 
 Note: the border is not visible if your theme sets `ha-card-border-width` to `0`, unless `border_width` is set.
+
+### Border rules
+
+Border rules change the border when a condition is true, for example to make it blink when the alarm is triggered. The first rule whose condition is true is applied. When no rule applies, `border_color` and `border_width` are used.
+
+Each item of the `border_rules` list supports the following options:
+
+| Name        | Type   | Default            | Description                                                                                                                                                                 |
+| :---------- | :----- | :----------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `condition` | string | Optional           | The rule is applied when the [template](https://www.home-assistant.io/docs/configuration/templating/) renders `true`, `yes`, `on` or a number other than `0`. A rule without condition is always applied. |
+| `color`     | string | `border_color`     | Border color. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                                                                          |
+| `width`     | number | `border_width`     | Border width, in pixels.                                                                                                                                                    |
+| `animation` | string | Optional           | Border animation: `pulse` (a glow around the card), `breathe` (the border slowly fades in and out), `blink` or `spin` (a light running along the border).                  |
+| `speed`     | string | `normal`           | Animation speed: `slow`, `normal` or `fast`.                                                                                                                                |
+
+Animations are only displayed when a border color is set, and are disabled when the system setting to reduce motion is enabled. A width of at least `2` is recommended for the `spin` animation.
+
+```yaml
+type: custom:mushroom-template-card
+primary: Kitchen
+icon: mdi:stove
+border_rules:
+  - condition: "{{ is_state('alarm_control_panel.home', 'triggered') }}"
+    color: red
+    width: 3
+    animation: blink
+    speed: fast
+  - condition: "{{ is_state('binary_sensor.kitchen_water_leak', 'on') }}"
+    color: blue
+    width: 3
+    animation: spin
+  - condition: "{{ is_state('binary_sensor.kitchen_window', 'on') }}"
+    color: orange
+```
 

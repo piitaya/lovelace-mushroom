@@ -27,7 +27,10 @@ import {
 } from "../../utils/lovelace/editor/types";
 import { getEntityDefaultTileIconAction } from "./template-card";
 import {
+  BORDER_ANIMATION_SPEEDS,
+  BORDER_ANIMATIONS,
   migrateTemplateCardConfig,
+  TemplateCardBorderRuleConfig,
   TemplateCardConfig,
   templateCardConfigStruct,
   templateCardNeedsMigration,
@@ -231,6 +234,61 @@ export class MushroomTemplateCardEditor
       ] as const satisfies readonly HaFormSchema[]
   );
 
+  private _borderRuleSchema = memoizeOne((_language: string) => {
+    const customLocalize = setupCustomlocalize(this.hass!);
+    return [
+      { name: "condition", selector: { template: {} } },
+      { name: "color", selector: { template: {} } },
+      {
+        name: "width",
+        selector: {
+          number: { min: 0, max: 8, step: 1, unit_of_measurement: "px" },
+        },
+      },
+      {
+        name: "animation",
+        selector: {
+          select: {
+            mode: "dropdown",
+            options: BORDER_ANIMATIONS.map((value) => ({
+              label: customLocalize(
+                `editor.card.template.border_animation_options.${value}`
+              ),
+              value,
+            })),
+          },
+        },
+      },
+      {
+        name: "speed",
+        selector: {
+          select: {
+            mode: "dropdown",
+            options: BORDER_ANIMATION_SPEEDS.map((value) => ({
+              label: customLocalize(
+                `editor.card.template.border_animation_speed_options.${value}`
+              ),
+              value,
+            })),
+          },
+        },
+      },
+    ] as const satisfies readonly HaFormSchema[];
+  });
+
+  private _computeBorderRuleLabel = (schema: HaFormSchema) => {
+    const customLocalize = setupCustomlocalize(this.hass!);
+    return customLocalize(`editor.card.template.border_rule_${schema.name}`);
+  };
+
+  private _computeBorderRuleHelper = (schema: HaFormSchema) => {
+    if (schema.name !== "condition") {
+      return undefined;
+    }
+    const customLocalize = setupCustomlocalize(this.hass!);
+    return customLocalize(`editor.card.template.border_rule_condition_helper`);
+  };
+
   private _featuresSchema = memoizeOne(
     (localize: LocalizeFunc, vertical: boolean) =>
       [
@@ -337,6 +395,9 @@ export class MushroomTemplateCardEditor
 
     const featureContext = this._featureContext(this._config);
 
+    const borderRuleSchema = this._borderRuleSchema(this.hass.language);
+    const borderRules = this._config.border_rules ?? [];
+
     return html`
       ${this._legacyConfig
         ? html`
@@ -380,6 +441,62 @@ export class MushroomTemplateCardEditor
         @value-changed=${this._valueChanged}
       ></ha-form>
       <ha-expansion-panel outlined>
+        <ha-icon slot="leading-icon" icon="mdi:border-outside"></ha-icon>
+        <h3 slot="header">
+          ${customLocalize("editor.card.template.border_rules")}
+        </h3>
+        <div class="content">
+          <p class="intro">
+            ${customLocalize("editor.card.template.border_rules_helper")}
+          </p>
+          ${borderRules.map(
+            (rule, index) => html`
+              <div class="border-rule">
+                <div class="border-rule-header">
+                  <span>
+                    ${customLocalize("editor.card.template.border_rule")}
+                    ${index + 1}
+                  </span>
+                  <div>
+                    <ha-icon-button
+                      .label=${customLocalize(
+                        "editor.card.template.move_border_rule_up"
+                      )}
+                      .index=${index}
+                      .disabled=${index === 0}
+                      @click=${this._moveBorderRuleUp}
+                    >
+                      <ha-icon icon="mdi:arrow-up"></ha-icon>
+                    </ha-icon-button>
+                    <ha-icon-button
+                      .label=${customLocalize(
+                        "editor.card.template.remove_border_rule"
+                      )}
+                      .index=${index}
+                      @click=${this._removeBorderRule}
+                    >
+                      <ha-icon icon="mdi:delete"></ha-icon>
+                    </ha-icon-button>
+                  </div>
+                </div>
+                <ha-form
+                  .hass=${this.hass}
+                  .index=${index}
+                  .data=${rule}
+                  .schema=${borderRuleSchema}
+                  .computeLabel=${this._computeBorderRuleLabel}
+                  .computeHelper=${this._computeBorderRuleHelper}
+                  @value-changed=${this._borderRuleChanged}
+                ></ha-form>
+              </div>
+            `
+          )}
+          <ha-button size="small" @click=${this._addBorderRule}>
+            ${customLocalize("editor.card.template.add_border_rule")}
+          </ha-button>
+        </div>
+      </ha-expansion-panel>
+      <ha-expansion-panel outlined>
         <ha-icon slot="leading-icon" icon="mdi:list-box"></ha-icon>
         <h3 slot="header">
           ${this.hass!.localize(
@@ -406,6 +523,58 @@ export class MushroomTemplateCardEditor
         </div>
       </ha-expansion-panel>
     `;
+  }
+
+  private _addBorderRule(): void {
+    if (!this._config) {
+      return;
+    }
+    this._updateBorderRules([...(this._config.border_rules ?? []), {}]);
+  }
+
+  private _removeBorderRule(ev: CustomEvent): void {
+    if (!this._config?.border_rules) {
+      return;
+    }
+    const index = (ev.currentTarget as any).index as number;
+    const rules = this._config.border_rules.concat();
+    rules.splice(index, 1);
+    this._updateBorderRules(rules);
+  }
+
+  private _moveBorderRuleUp(ev: CustomEvent): void {
+    if (!this._config?.border_rules) {
+      return;
+    }
+    const index = (ev.currentTarget as any).index as number;
+    if (index === 0) {
+      return;
+    }
+    const rules = this._config.border_rules.concat();
+    [rules[index - 1], rules[index]] = [rules[index], rules[index - 1]];
+    this._updateBorderRules(rules);
+  }
+
+  private _borderRuleChanged(ev: CustomEvent): void {
+    ev.stopPropagation();
+    if (!this._config?.border_rules) {
+      return;
+    }
+    const index = (ev.currentTarget as any).index as number;
+    const rules = this._config.border_rules.concat();
+    rules[index] = ev.detail.value as TemplateCardBorderRuleConfig;
+    this._updateBorderRules(rules);
+  }
+
+  private _updateBorderRules(rules: TemplateCardBorderRuleConfig[]): void {
+    const config: TemplateCardConfig = {
+      ...this._config!,
+      border_rules: rules,
+    };
+    if (rules.length === 0) {
+      delete config.border_rules;
+    }
+    fireEvent(this, "config-changed", { config });
   }
 
   private _featuresChanged(ev: CustomEvent) {
@@ -487,6 +656,27 @@ export class MushroomTemplateCardEditor
         }
         .features-form {
           margin-bottom: 8px;
+        }
+        ha-expansion-panel + ha-expansion-panel {
+          margin-top: 24px;
+        }
+        .intro {
+          margin: 0 0 12px 0;
+          color: var(--secondary-text-color);
+        }
+        .border-rule {
+          border: 1px solid var(--divider-color);
+          border-radius: 6px;
+          padding: 0 12px 12px 12px;
+          margin-bottom: 12px;
+        }
+        .border-rule-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        .border-rule ha-form {
+          margin-bottom: 0;
         }
         ha-expansion-panel {
           display: block;

@@ -93,6 +93,7 @@
         }
       },
       "template": {
+        "add_border_rule": "Add border rule",
         "area_helper": "Used in templates and features",
         "area": "Area",
         "badge_color": "Badge color",
@@ -100,6 +101,26 @@
         "badge_text_helper": "If set, it will replace the icon.",
         "badge_text": "Badge text",
         "badge": "Badge",
+        "border_animation_options": {
+          "pulse": "Pulse",
+          "breathe": "Breathe",
+          "blink": "Blink",
+          "spin": "Spin"
+        },
+        "border_animation_speed_options": {
+          "slow": "Slow",
+          "normal": "Normal",
+          "fast": "Fast"
+        },
+        "border_rule_animation": "Animation",
+        "border_rule_color": "Color",
+        "border_rule_condition_helper": "The rule is applied when the template renders true. Leave empty to always apply it.",
+        "border_rule_condition": "Condition",
+        "border_rule_speed": "Speed",
+        "border_rule_width": "Width",
+        "border_rule": "Rule",
+        "border_rules_helper": "The first rule whose condition is true sets the border. Otherwise, the border color and width above are used.",
+        "border_rules": "Border rules",
         "border_color_helper": "Leave empty to keep the default border.",
         "border_color": "Border color",
         "border_width": "Border width",
@@ -110,7 +131,9 @@
         "layout": "Layout",
         "multiline_secondary_helper": "The card may be taller to fit the text and will not always align with the grid system.",
         "multiline_secondary": "Allow multiline secondary information",
+        "move_border_rule_up": "Move up",
         "primary": "Primary information",
+        "remove_border_rule": "Remove border rule",
         "secondary": "Secondary information"
       },
       "title": {
