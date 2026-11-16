@@ -61,6 +61,7 @@ const TEMPLATE_KEYS = [
   "primary",
   "secondary",
   "picture",
+  "border_color",
   "badge_icon",
   "badge_color",
   "badge_text",
@@ -421,11 +422,16 @@ export class MushroomTemplateCard extends LitElement implements LovelaceCard {
     const badgeColor = this.getValue("badge_color");
     const badgeText = this.getValue("badge_text");
     const badgeCssColor = badgeColor ? computeCssColor(badgeColor) : undefined;
+    const borderColor = this.getValue("border_color");
+    const borderCssColor = borderColor
+      ? computeCssColor(borderColor)
+      : undefined;
 
     const weatherSvg = getWeatherSvgIcon(icon);
 
     const style = {
       "--tile-color": cssColor,
+      "--ha-card-border-color": borderCssColor,
     };
 
     const featurePosition = this._featurePosition(this._config);

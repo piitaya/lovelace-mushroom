@@ -30,6 +30,7 @@ All options are available in the **Lovelace editor**, but you can also configure
 | `picture`                | string        | Optional | Image to display instead of an icon. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                                                                                          |
 | `primary`                | string        | Optional | Primary text (main label). Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                                                                                               |
 | `secondary`              | string        | Optional | Secondary text (subtitle or status). Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                                                                                         |
+| `border_color`           | string        | Optional | Color applied to the card border, e.g. to highlight an alert. The default border is kept when empty. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/). |
 | `badge_icon`             | string        | Optional | Icon displayed as a badge. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                                                                                                 |
 | `badge_text`             | string        | Optional | Text displayed inside the badge. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                                                                                             |
 | `badge_color`            | string        | Optional | Color applied to the badge. Supports [templating](https://www.home-assistant.io/docs/configuration/templating/).                                                                                                  |
@@ -141,4 +142,22 @@ This configuration:
 * Displays the area name as secondary text.
 * Toggles the light when tapped on the icon.
 * Display more info dialog when tapped on the card
+
+### Border color
+
+The `border_color` option can highlight the card when a condition is met, on any entity. The default border is kept when the template renders empty.
+
+```yaml
+type: custom:mushroom-template-card
+primary: Kitchen
+icon: mdi:stove
+border_color: >
+  {% if is_state('binary_sensor.kitchen_water_leak', 'on') %}
+    red
+  {% elif is_state('binary_sensor.kitchen_window', 'on') and is_state('climate.kitchen', 'heat') %}
+    orange
+  {% endif %}
+```
+
+Note: the border is not visible if your theme sets `ha-card-border-width` to `0`.
 

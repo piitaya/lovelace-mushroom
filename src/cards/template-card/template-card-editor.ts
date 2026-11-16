@@ -38,6 +38,7 @@ export const TEMPLATE_CARD_LABELS = [
   "badge_color",
   "badge_icon",
   "badge_text",
+  "border_color",
   "primary",
   "secondary",
   "multiline_secondary",
@@ -56,6 +57,7 @@ export const TEMPLATE_CARD_HELPERS = [
   "area",
   "entity",
   "badge_text",
+  "border_color",
   "multiline_secondary",
 ];
 
@@ -123,6 +125,7 @@ export class MushroomTemplateCardEditor
             { name: "color", selector: { template: {} } },
             { name: "icon", selector: { template: {} } },
             { name: "picture", selector: { template: {} } },
+            { name: "border_color", selector: { template: {} } },
           ],
         },
         {

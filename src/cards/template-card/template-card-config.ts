@@ -23,6 +23,7 @@ export type TemplateCardConfig = LovelaceCardConfig & {
   color?: string;
   icon?: string;
   picture?: string;
+  border_color?: string;
   // Badges
   badge_icon?: string;
   badge_text?: string;
@@ -69,6 +70,7 @@ export const templateCardConfigStruct = assign(
     color: optional(string()),
     icon: optional(string()),
     picture: optional(string()),
+    border_color: optional(string()),
     // Badges
     badge_icon: optional(string()),
     badge_text: optional(string()),
