@@ -19,7 +19,7 @@ export const CLIMATE_HVAC_ACTION_COLORS: Record<HvacAction, string> = {
 };
 
 export const CLIMATE_HVAC_MODE_ICONS: Record<HvacMode, string> = {
-  auto: "mdi:thermostat-auto",
+  auto: "mdi:sun-snowflake-variant",
   cool: "mdi:snowflake",
   dry: "mdi:water-percent",
   fan_only: "mdi:fan",

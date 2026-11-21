@@ -50,6 +50,7 @@ import {
   getHvacActionColor,
   getHvacActionIcon,
   getHvacModeColor,
+  getHvacModeIcon,
 } from "./utils";
 
 type ClimateCardControl = "temperature_control" | "hvac_mode_control";
@@ -216,23 +217,36 @@ export class ClimateCard
 
   protected renderIcon(stateObj: ClimateEntity, icon?: string): TemplateResult {
     const available = isAvailable(stateObj);
-    const color = getHvacModeColor(stateObj.state as HvacMode);
+    const hvacMode = stateObj.state as HvacMode;
+    const hvacAction = stateObj.attributes.hvac_action;
+    const color = getHvacModeColor(hvacMode);
     const iconStyle = {};
     iconStyle["--icon-color"] = `rgb(${color})`;
     iconStyle["--shape-color"] = `rgba(${color}, 0.2)`;
 
+    const modeIcon = getHvacModeIcon(hvacMode);
+    const actionIcon = getHvacActionIcon(hvacAction);
+
+    const finalIcon = actionIcon || modeIcon || icon;
+
+    const shapeClasses = {
+      spin: ["cool", "fan_only"].includes(hvacMode),
+      heat: ["auto", "heat", "dry"].includes(hvacMode),
+    };
+
     return html`
-      <mushroom-shape-icon
+      <mushroom-extended-shape-icon
         slot="icon"
         .disabled=${!available}
+        class=${classMap(shapeClasses)}
         style=${styleMap(iconStyle)}
       >
         <ha-state-icon
           .hass=${this.hass}
           .stateObj=${stateObj}
-          .icon=${icon}
+          .icon=${finalIcon}
         ></ha-state-icon>
-      </mushroom-shape-icon>
+      </mushroom-extended-shape-icon>
     `;
   }
 
@@ -319,6 +333,12 @@ export class ClimateCard
         mushroom-climate-temperature-control,
         mushroom-climate-hvac-modes-control {
           flex: 1;
+        }
+        .spin {
+          --shape-animation: spin 2s linear infinite;
+        }
+        .heat {
+          --shape-animation: heat 1.5s infinite !important;
         }
       `,
     ];

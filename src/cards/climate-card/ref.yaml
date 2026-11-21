@@ -1,0 +1,337 @@
+type: custom:vertical-stack-in-card
+card_mod:
+  style: |
+    ha-card {
+      background: var(--ha-card-background, var(--card-background-color, white)) !important;
+      border-radius: var(--ha-card-border-radius, 12px) !important;
+      border: 1px solid var(--ha-card-border-color, var(--divider-color, #e0e0e0)) !important;
+      box-shadow: var(--ha-card-box-shadow, none) !important;
+    }
+cards:
+  - type: custom:expander-card
+    gap: 0px
+    padding: 0px
+    clear: true
+    title-card-padding: 0px
+    cards-padding: 0px
+    title-card-button-overlay: false
+    title-card-clickable: false
+    card_mod:
+      style: >
+        ha-card { border: none !important; background: none !important;
+        box-shadow: none !important; }
+
+        .title-card-header { display: flex !important; width: 100% !important;
+        align-items: center !important; justify-content: space-between
+        !important; }
+
+        .title-card-container { padding: 0px !important; flex-grow: 1
+        !important; display: flex !important; align-items: center !important;
+        width: calc(100% - 40px) !important; }
+
+        .title-card-container .outer-container { width: 100% !important; }
+
+        custom-mushroom-climate-card { width: 100% !important; flex-grow: 1
+        !important; display: block !important; }
+
+        .button { --header-color: var(--secondary-text-color) !important;
+        padding-right: 16px !important; flex-shrink: 0 !important; }
+    title-card:
+      type: custom:mushroom-climate-card
+      entity: climate.ac_cabinet_fixed
+      show_temperature_control: true
+      collapsible_controls: true
+      fill_container: false
+      hvac_modes:
+        - cool
+        - auto
+        - fan_only
+        - heat
+        - dry
+      layout: horizontal
+      name: Кондиционер
+      tap_action:
+        action: toggle
+      card_mod:
+        style:
+          mushroom-card:
+            mushroom-state-item:
+              mushroom-shape-icon $: |
+                .shape  {
+                  {% if is_state('climate.ac_cabinet_fixed', 'cool') or is_state('climate.ac_cabinet_fixed', 'fan_only') or is_state('climate.ac_cabinet_fixed', 'auto') %}
+                    --shape-animation: spin 2s linear infinite;
+                  {% elif is_state('climate.ac_cabinet_fixed', 'heat') or is_state('climate.ac_cabinet_fixed', 'dry') %}
+                    --shape-animation: heat 1.5s infinite;
+                  {% else %}
+                    --shape-animation: none !important;
+                  {% endif %}
+                }
+                @keyframes heat {
+                  0% { transform: scale(1); opacity: 1; }
+                  50% { transform: scale(1.1); opacity: 0.7; }
+                  100% { transform: scale(1); opacity: 1; }
+                }
+          .: >
+            ha-card { border: none !important; background: transparent
+            !important; box-shadow: none !important; --ha-card-background:
+            transparent !important; --ha-card-box-shadow: none !important;
+            --ha-card-border-width: 0px !important; width: 100% !important; }
+    cards:
+      - type: custom:vertical-stack-in-card
+        card_mod:
+          style: >
+            ha-card { border: none; background: none; box-shadow: none; padding:
+            0px 14px; }
+        cards:
+          - type: custom:mushroom-chips-card
+            alignment: left
+            card_mod:
+              style: |
+                .chip-container {
+                  display: flex;
+                  overflow-x: auto;
+                  flex-wrap: nowrap !important;
+                  padding: 10px 0px 5px;
+                  gap: 8px;
+                }
+                .chip-container::-webkit-scrollbar { display: none; }
+                ha-card { border: none; background: none; box-shadow: none; }
+            chips:
+              - type: template
+                entity: climate.ac_cabinet_fixed
+                icon: mdi:fan-auto
+                icon_color: >-
+                  {{ 'orange' if is_state_attr(entity, 'fan_mode', 'auto') else
+                  'disabled' }}
+                content: Авто
+                tap_action:
+                  action: call-service
+                  service: climate.set_fan_mode
+                  data:
+                    fan_mode: auto
+                  target:
+                    entity_id: climate.ac_cabinet_fixed
+              - type: template
+                entity: climate.ac_cabinet_fixed
+                icon: mdi:numeric-1-circle-outline
+                icon_color: >-
+                  {{ 'green' if is_state_attr(entity, 'fan_mode', 'low') else
+                  'disabled' }}
+                content: "1"
+                tap_action:
+                  action: call-service
+                  service: climate.set_fan_mode
+                  data:
+                    fan_mode: low
+                  target:
+                    entity_id: climate.ac_cabinet_fixed
+              - type: template
+                entity: climate.ac_cabinet_fixed
+                icon: mdi:numeric-2-circle-outline
+                icon_color: >-
+                  {{ 'green' if is_state_attr(entity, 'fan_mode', 'medium low')
+                  else 'disabled' }}
+                content: "2"
+                tap_action:
+                  action: call-service
+                  service: climate.set_fan_mode
+                  data:
+                    fan_mode: medium low
+                  target:
+                    entity_id: climate.ac_cabinet_fixed
+              - type: template
+                entity: climate.ac_cabinet_fixed
+                icon: mdi:numeric-3-circle-outline
+                icon_color: >-
+                  {{ 'green' if is_state_attr(entity, 'fan_mode', 'medium') else
+                  'disabled' }}
+                content: "3"
+                tap_action:
+                  action: call-service
+                  service: climate.set_fan_mode
+                  data:
+                    fan_mode: medium
+                  target:
+                    entity_id: climate.ac_cabinet_fixed
+              - type: template
+                entity: climate.ac_cabinet_fixed
+                icon: mdi:numeric-4-circle-outline
+                icon_color: >-
+                  {{ 'green' if is_state_attr(entity, 'fan_mode', 'medium high')
+                  else 'disabled' }}
+                content: "4"
+                tap_action:
+                  action: call-service
+                  service: climate.set_fan_mode
+                  data:
+                    fan_mode: medium high
+                  target:
+                    entity_id: climate.ac_cabinet_fixed
+              - type: template
+                entity: climate.ac_cabinet_fixed
+                icon: mdi:numeric-5-circle-outline
+                icon_color: >-
+                  {{ 'green' if is_state_attr(entity, 'fan_mode', 'high') else
+                  'disabled' }}
+                content: "5"
+                tap_action:
+                  action: call-service
+                  service: climate.set_fan_mode
+                  data:
+                    fan_mode: high
+                  target:
+                    entity_id: climate.ac_cabinet_fixed
+          - type: custom:mushroom-chips-card
+            alignment: left
+            card_mod:
+              style: |
+                .chip-container {
+                  display: flex;
+                  overflow-x: auto;
+                  flex-wrap: nowrap !important;
+                  padding: 5px 0px 5px;
+                  gap: 8px;
+                }
+                .chip-container::-webkit-scrollbar { display: none; }
+                ha-card { border: none; background: none; box-shadow: none; }
+            chips:
+              - type: template
+                entity: climate.ac_cabinet_fixed
+                icon: mdi:arrow-vertical-lock
+                icon_color: >-
+                  {{ 'orange' if is_state_attr(entity, 'swing_mode', 'off') else
+                  'disabled' }}
+                content: Стоп
+                tap_action:
+                  action: call-service
+                  service: climate.set_swing_mode
+                  data:
+                    swing_mode: "off"
+                  target:
+                    entity_id: climate.ac_cabinet_fixed
+              - type: template
+                entity: climate.ac_cabinet_fixed
+                icon: mdi:arrow-up-down
+                icon_color: >-
+                  {{ 'blue' if is_state_attr(entity, 'swing_mode', 'vertical')
+                  else 'disabled' }}
+                content: Верт.
+                tap_action:
+                  action: call-service
+                  service: climate.set_swing_mode
+                  data:
+                    swing_mode: vertical
+                  target:
+                    entity_id: climate.ac_cabinet_fixed
+              - type: template
+                entity: climate.ac_cabinet_fixed
+                icon: mdi:arrow-left-right
+                icon_color: >-
+                  {{ 'blue' if is_state_attr(entity, 'swing_mode', 'horizontal')
+                  else 'disabled' }}
+                content: Гор.
+                tap_action:
+                  action: call-service
+                  service: climate.set_swing_mode
+                  data:
+                    swing_mode: horizontal
+                  target:
+                    entity_id: climate.ac_cabinet_fixed
+              - type: template
+                entity: climate.ac_cabinet_fixed
+                icon: mdi:arrow-all
+                icon_color: >-
+                  {{ 'blue' if is_state_attr(entity, 'swing_mode', 'both') else
+                  'disabled' }}
+                content: 3D
+                tap_action:
+                  action: call-service
+                  service: climate.set_swing_mode
+                  data:
+                    swing_mode: both
+                  target:
+                    entity_id: climate.ac_cabinet_fixed
+          - type: custom:mushroom-chips-card
+            alignment: left
+            card_mod:
+              style: |
+                .chip-container {
+                  display: flex;
+                  overflow-x: auto;
+                  flex-wrap: nowrap !important;
+                  padding: 5px 0px 14px;
+                  gap: 8px;
+                }
+                .chip-container::-webkit-scrollbar { display: none; }
+                ha-card { border: none; background: none; box-shadow: none; }
+            chips:
+              - type: template
+                entity: climate.konditsioner_2
+                icon: mdi:leaf
+                icon_color: >-
+                  {{ 'green' if is_state_attr(entity, 'preset_mode', 'eco') else
+                  'disabled' }}
+                content: Эко
+                tap_action:
+                  action: call-service
+                  service: climate.set_preset_mode
+                  data:
+                    preset_mode: eco
+                  target:
+                    entity_id: climate.konditsioner_2
+              - type: template
+                entity: climate.konditsioner_2
+                icon: mdi:walk
+                icon_color: >-
+                  {{ 'orange' if is_state_attr(entity, 'preset_mode', 'away')
+                  else 'disabled' }}
+                content: Ожидание
+                tap_action:
+                  action: call-service
+                  service: climate.set_preset_mode
+                  data:
+                    preset_mode: away
+                  target:
+                    entity_id: climate.konditsioner_2
+              - type: template
+                entity: climate.konditsioner_2
+                icon: mdi:rocket-launch
+                icon_color: >-
+                  {{ 'red' if is_state_attr(entity, 'preset_mode', 'boost') else
+                  'disabled' }}
+                content: Турбо
+                tap_action:
+                  action: call-service
+                  service: climate.set_preset_mode
+                  data:
+                    preset_mode: boost
+                  target:
+                    entity_id: climate.konditsioner_2
+              - type: template
+                entity: climate.konditsioner_2
+                icon: mdi:power-sleep
+                icon_color: >-
+                  {{ 'purple' if is_state_attr(entity, 'preset_mode', 'sleep')
+                  else 'disabled' }}
+                content: Сон
+                tap_action:
+                  action: call-service
+                  service: climate.set_preset_mode
+                  data:
+                    preset_mode: sleep
+                  target:
+                    entity_id: climate.konditsioner_2
+              - type: template
+                entity: climate.konditsioner_2
+                icon: mdi:close-circle-outline
+                icon_color: >-
+                  {{ 'disabled' if is_state_attr(entity, 'preset_mode', 'none')
+                  else 'grey' }}
+                content: ""
+                tap_action:
+                  action: call-service
+                  service: climate.set_preset_mode
+                  data:
+                    preset_mode: none
+                  target:
+                    entity_id: climate.konditsioner_2
