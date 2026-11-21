@@ -14,7 +14,28 @@
         "off": "Стоп",
         "vertical": "Верт.",
         "horizontal": "Гор.",
-        "both": "3D"
+        "both": "3D",
+        "default": "Верт. по умолчанию",
+        "full_swing": "Верт. качание",
+        "fixed_upper": "Вверх",
+        "fixed_upper_middle": "Вверх-центр",
+        "fixed_middle": "По центру",
+        "fixed_lower_middle": "Вниз-центр",
+        "fixed_lower": "Вниз",
+        "swing_upper": "Качание вверху",
+        "swing_upper_middle": "Качание вверх-центр",
+        "swing_middle": "Качание в центре",
+        "swing_lower_middle": "Качание вниз-центр",
+        "swing_lower": "Качание внизу"
+      },
+      "swing_horizontal_mode_list": {
+        "default": "Гор. по умолчанию",
+        "full_swing": "Гор. качание",
+        "left": "Влево",
+        "left_center": "Влево-центр",
+        "center": "По центру",
+        "right_center": "Вправо-центр",
+        "right": "Вправо"
       },
       "preset_mode_list": {
         "eco": "Эко",

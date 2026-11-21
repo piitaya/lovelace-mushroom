@@ -40,6 +40,8 @@ export type ClimateEntity = HassEntityBase & {
     preset_modes?: string[];
     swing_mode?: string;
     swing_modes?: string[];
+    swing_horizontal_mode?: string;
+    swing_horizontal_modes?: string[];
     aux_heat?: "on" | "off";
   };
 };

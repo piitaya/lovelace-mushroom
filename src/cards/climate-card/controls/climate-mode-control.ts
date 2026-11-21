@@ -5,19 +5,25 @@ import { ClimateEntity, HomeAssistant, isAvailable } from "../../../ha";
 import setupCustomlocalize from "../../../localize";
 import { PREFIX_NAME } from "../../../const";
 
-export type ClimateModeType = "fan_mode" | "swing_mode" | "preset_mode";
+export type ClimateModeType =
+  | "fan_mode"
+  | "swing_mode"
+  | "swing_horizontal_mode"
+  | "preset_mode";
 
 type ClimateModeConfig = boolean | string[] | undefined;
 
 const MODE_OPTIONS_ATTRIBUTES = {
   fan_mode: "fan_modes",
   swing_mode: "swing_modes",
+  swing_horizontal_mode: "swing_horizontal_modes",
   preset_mode: "preset_modes",
 } as const;
 
 const MODE_SERVICES = {
   fan_mode: "set_fan_mode",
   swing_mode: "set_swing_mode",
+  swing_horizontal_mode: "set_swing_horizontal_mode",
   preset_mode: "set_preset_mode",
 } as const;
 
@@ -35,6 +41,27 @@ const MODE_ICONS: Record<ClimateModeType, Record<string, string>> = {
     vertical: "mdi:arrow-up-down",
     horizontal: "mdi:arrow-left-right",
     both: "mdi:arrow-all",
+    default: "mdi:arrow-up-down",
+    full_swing: "mdi:arrow-up-down",
+    fixed_upper: "mdi:arrow-up",
+    fixed_upper_middle: "mdi:arrow-up",
+    fixed_middle: "mdi:minus",
+    fixed_lower_middle: "mdi:arrow-down",
+    fixed_lower: "mdi:arrow-down",
+    swing_upper: "mdi:arrow-up",
+    swing_upper_middle: "mdi:arrow-up",
+    swing_middle: "mdi:arrow-up-down",
+    swing_lower_middle: "mdi:arrow-down",
+    swing_lower: "mdi:arrow-down",
+  },
+  swing_horizontal_mode: {
+    default: "mdi:arrow-left-right",
+    full_swing: "mdi:arrow-left-right",
+    left: "mdi:arrow-left",
+    left_center: "mdi:arrow-collapse-left",
+    center: "mdi:align-horizontal-center",
+    right_center: "mdi:arrow-collapse-right",
+    right: "mdi:arrow-right",
   },
   preset_mode: {
     eco: "mdi:leaf",
@@ -47,7 +74,8 @@ const MODE_ICONS: Record<ClimateModeType, Record<string, string>> = {
 
 const DEFAULT_MODE_ICONS: Record<ClimateModeType, string> = {
   fan_mode: "mdi:fan",
-  swing_mode: "mdi:arrow-all",
+  swing_mode: "mdi:arrow-up-down",
+  swing_horizontal_mode: "mdi:arrow-left-right",
   preset_mode: "mdi:thermostat",
 };
 
@@ -93,8 +121,11 @@ export class ClimateModeControl extends LitElement {
     if (this.control === "fan_mode") {
       return mode === "auto" ? "orange" : "green";
     }
-    if (this.control === "swing_mode") {
-      return mode === "off" ? "orange" : "blue";
+    if (
+      this.control === "swing_mode" ||
+      this.control === "swing_horizontal_mode"
+    ) {
+      return ["off", "default"].includes(mode) ? "orange" : "blue";
     }
     const presetColors: Record<string, string> = {
       eco: "green",
@@ -147,12 +178,8 @@ export class ClimateModeControl extends LitElement {
       }
       .container {
         display: flex;
+        flex-wrap: wrap;
         gap: 8px;
-        overflow-x: auto;
-        scrollbar-width: none;
-      }
-      .container::-webkit-scrollbar {
-        display: none;
       }
       .mode {
         display: flex;

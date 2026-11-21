@@ -218,6 +218,14 @@ export class ClimateCard
         ),
       },
       {
+        control: "swing_horizontal_mode",
+        modes: getClimateModeOptions(
+          stateObj,
+          "swing_horizontal_mode",
+          this._config.fun_direction_control
+        ),
+      },
+      {
         control: "preset_mode",
         modes: getClimateModeOptions(
           stateObj,
