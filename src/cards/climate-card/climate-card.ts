@@ -200,7 +200,11 @@ export class ClimateCard
     const controlsVisible =
       !this._config.collapsible_controls || isActive(stateObj);
     const isControlVisible = controlsVisible && this._controls.length > 0;
-    const modeControls: { control: ClimateModeType; modes: string[] }[] = [
+    const modeControls: {
+      control: ClimateModeType;
+      modes: string[];
+      leadingPlaceholder?: boolean;
+    }[] = [
       {
         control: "fan_mode",
         modes: getClimateModeOptions(
@@ -215,7 +219,16 @@ export class ClimateCard
           stateObj,
           "swing_mode",
           this._config.fun_direction_control
-        ),
+        ).filter((mode) => !mode.startsWith("swing_")),
+      },
+      {
+        control: "swing_mode",
+        modes: getClimateModeOptions(
+          stateObj,
+          "swing_mode",
+          this._config.fun_direction_control
+        ).filter((mode) => mode.startsWith("swing_")),
+        leadingPlaceholder: true,
       },
       {
         control: "swing_horizontal_mode",
@@ -298,17 +311,21 @@ export class ClimateCard
                 ?inert=${!this._modeControlsExpanded}
               >
                 <div class="mode-controls">
-                  ${modeControls.map(({ control, modes }) =>
-                    modes.length
-                      ? html`
-                          <mushroom-extended-climate-mode-control
-                            .hass=${this.hass}
-                            .entity=${stateObj}
-                            .control=${control}
-                            .modes=${modes}
-                          ></mushroom-extended-climate-mode-control>
-                        `
-                      : nothing
+                  ${modeControls.map(
+                    ({ control, modes, leadingPlaceholder }) =>
+                      modes.length
+                        ? html`
+                            <div class="mode-control-row">
+                              <mushroom-extended-climate-mode-control
+                                .hass=${this.hass}
+                                .entity=${stateObj}
+                                .control=${control}
+                                .modes=${modes}
+                                .leadingPlaceholder=${leadingPlaceholder}
+                              ></mushroom-extended-climate-mode-control>
+                            </div>
+                          `
+                        : nothing
                   )}
                 </div>
               </div>

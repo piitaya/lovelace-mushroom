@@ -1,4 +1,12 @@
-import { css, CSSResultGroup, html, LitElement, TemplateResult } from "lit";
+import {
+  css,
+  CSSResultGroup,
+  html,
+  LitElement,
+  svg,
+  SVGTemplateResult,
+  TemplateResult,
+} from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { ClimateEntity, HomeAssistant, isAvailable } from "../../../ha";
@@ -79,17 +87,65 @@ const DEFAULT_MODE_ICONS: Record<ClimateModeType, string> = {
   preset_mode: "mdi:thermostat",
 };
 
+const ALL_SWING_SEGMENTS = [0, 1, 2, 3, 4];
+
+const SWING_ICON_SEGMENTS: Record<string, Record<string, number[]>> = {
+  swing_mode: {
+    off: [],
+    vertical: ALL_SWING_SEGMENTS,
+    horizontal: ALL_SWING_SEGMENTS,
+    both: ALL_SWING_SEGMENTS,
+    default: [],
+    full_swing: ALL_SWING_SEGMENTS,
+    fixed_upper: [0],
+    fixed_upper_middle: [1],
+    fixed_middle: [2],
+    fixed_lower_middle: [3],
+    fixed_lower: [4],
+    swing_upper: [0, 1],
+    swing_upper_middle: [0, 1, 2],
+    swing_middle: [1, 2, 3],
+    swing_lower_middle: [2, 3, 4],
+    swing_lower: [3, 4],
+  },
+  swing_horizontal_mode: {
+    default: [],
+    full_swing: ALL_SWING_SEGMENTS,
+    left: [0],
+    left_center: [1],
+    center: [2],
+    right_center: [3],
+    right: [4],
+  },
+};
+
+const FAN_BLADE_PATH =
+  "M12 2.5C15.2 2.5 16.8 5 15.6 8.1C14.8 10.1 9.2 10.1 8.4 8.1C7.2 5 8.8 2.5 12 2.5Z";
+
+const FAN_MODE_BLADES: Record<string, number[]> = {
+  low: [0],
+  "medium low": [0, 1],
+  medium: [0, 1, 2],
+  "medium high": [0, 1, 2, 3],
+  high: ALL_SWING_SEGMENTS,
+};
+
 export const getClimateModeOptions = (
   entity: ClimateEntity,
   type: ClimateModeType,
   config: ClimateModeConfig
 ): string[] => {
   const supportedModes = entity.attributes[MODE_OPTIONS_ATTRIBUTES[type]] ?? [];
-  if (config === true) return supportedModes;
-  if (Array.isArray(config)) {
-    return config.filter((mode) => supportedModes.includes(mode));
+  const modes =
+    config === true
+      ? supportedModes
+      : Array.isArray(config)
+        ? config.filter((mode) => supportedModes.includes(mode))
+        : [];
+  if (type === "preset_mode" && modes.includes("none")) {
+    return ["none", ...modes.filter((mode) => mode !== "none")];
   }
-  return [];
+  return modes;
 };
 
 @customElement(`${PREFIX_NAME}-climate-mode-control`)
@@ -101,6 +157,8 @@ export class ClimateModeControl extends LitElement {
   @property() public control!: ClimateModeType;
 
   @property({ attribute: false }) public modes!: string[];
+
+  @property({ type: Boolean }) public leadingPlaceholder = false;
 
   private callService(mode: string, event: Event) {
     event.stopPropagation();
@@ -118,23 +176,74 @@ export class ClimateModeControl extends LitElement {
   }
 
   private getActiveColor(mode: string): string {
-    if (this.control === "fan_mode") {
-      return mode === "auto" ? "orange" : "green";
-    }
+    return ["auto", "default", "none"].includes(mode) ? "green" : "blue";
+  }
+
+  private renderModeIcon(mode: string): TemplateResult | SVGTemplateResult {
     if (
-      this.control === "swing_mode" ||
-      this.control === "swing_horizontal_mode"
+      ["swing_mode", "swing_horizontal_mode"].includes(this.control) &&
+      mode === "default"
     ) {
-      return ["off", "default"].includes(mode) ? "orange" : "blue";
+      return html`<ha-icon .icon=${"mdi:close-circle-outline"}></ha-icon>`;
     }
-    const presetColors: Record<string, string> = {
-      eco: "green",
-      away: "orange",
-      boost: "red",
-      sleep: "purple",
-      none: "grey",
-    };
-    return presetColors[mode] ?? "deep-orange";
+    const activeBlades = this.control === "fan_mode" && FAN_MODE_BLADES[mode];
+    if (activeBlades) {
+      return svg`
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          ${ALL_SWING_SEGMENTS.map(
+            (index) => svg`<path
+              d=${FAN_BLADE_PATH}
+              transform=${`rotate(${index * 72} 12 12)`}
+              opacity=${activeBlades.includes(index) ? 1 : 0.18}
+            />`
+          )}
+          <circle cx="12" cy="12" r="2" />
+        </svg>
+      `;
+    }
+    const activeSegments = SWING_ICON_SEGMENTS[this.control]?.[mode];
+    if (activeSegments) {
+      const vertical = this.control === "swing_mode";
+      return svg`
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          ${ALL_SWING_SEGMENTS.map((index) => {
+            const opacity = activeSegments.includes(index) ? 1 : 0.18;
+            return vertical
+              ? svg`<rect
+                  x="3"
+                  y=${2 + index * 4.2}
+                  width="18"
+                  height="2.5"
+                  rx="1.25"
+                  opacity=${opacity}
+                />`
+              : svg`<rect
+                  x=${2 + index * 4.2}
+                  y="3"
+                  width="2.5"
+                  height="18"
+                  rx="1.25"
+                  opacity=${opacity}
+                />`;
+          })}
+        </svg>
+      `;
+    }
+    const icon =
+      MODE_ICONS[this.control][mode] ?? DEFAULT_MODE_ICONS[this.control];
+    return html`<ha-icon .icon=${icon}></ha-icon>`;
   }
 
   protected render(): TemplateResult {
@@ -143,11 +252,19 @@ export class ClimateModeControl extends LitElement {
 
     return html`
       <div class="container">
+        ${this.leadingPlaceholder
+          ? html`<span
+                class="mode-control-placeholder"
+                aria-hidden="true"
+              ></span
+              ><span
+                class="mode-control-placeholder"
+                aria-hidden="true"
+              ></span>`
+          : null}
         ${this.modes.map((mode) => {
           const active = mode === activeMode;
           const label = this.getLabel(mode);
-          const icon =
-            MODE_ICONS[this.control][mode] ?? DEFAULT_MODE_ICONS[this.control];
           const style = {
             "--active-rgb": `var(--rgb-${this.getActiveColor(mode)})`,
           };
@@ -162,8 +279,7 @@ export class ClimateModeControl extends LitElement {
               .disabled=${!available}
               @click=${(event: Event) => this.callService(mode, event)}
             >
-              <ha-icon .icon=${icon}></ha-icon>
-              <span>${label}</span>
+              ${this.renderModeIcon(mode)}
             </button>
           `;
         })}
@@ -180,6 +296,11 @@ export class ClimateModeControl extends LitElement {
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
+      }
+      .mode-control-placeholder {
+        flex: none;
+        width: 40px;
+        height: 36px;
       }
       .mode {
         display: flex;
