@@ -1,6 +1,29 @@
 {
   "card": {
-    "not_found": "Сущность не найдена"
+    "not_found": "Сущность не найдена",
+    "climate": {
+      "fan_mode_list": {
+        "auto": "Авто",
+        "low": "1",
+        "medium_low": "2",
+        "medium": "3",
+        "medium_high": "4",
+        "high": "5"
+      },
+      "swing_mode_list": {
+        "off": "Стоп",
+        "vertical": "Верт.",
+        "horizontal": "Гор.",
+        "both": "3D"
+      },
+      "preset_mode_list": {
+        "eco": "Эко",
+        "away": "Ожидание",
+        "boost": "Турбо",
+        "sleep": "Сон",
+        "none": "Без режима"
+      }
+    }
   },
   "editor": {
     "card": {
@@ -9,7 +32,10 @@
       },
       "climate": {
         "hvac_modes": "Режимы работы",
-        "show_temperature_control": "Управлять целевой температурой?"
+        "show_temperature_control": "Управлять целевой температурой?",
+        "fun_speed_controls": "Управление скоростью вентилятора",
+        "fun_direction_control": "Управление положением заслонки",
+        "special_modes_control": "Управление специальными режимами"
       },
       "cover": {
         "show_buttons_control": "Добавить кнопки управления?",

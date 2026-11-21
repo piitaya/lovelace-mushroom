@@ -23,6 +23,9 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `icon_type`                | `icon` `entity-picture` `none`                      | `icon`      | Type of icon to display                                                                         |
 | `hvac_modes`               | list                                                | `[]`        | List of hvac modes to display (auto, heat_cool, heat, cool, dry, fan_only, off)                 |
 | `show_temperature_control` | boolean                                             | `false`     | Show buttons to control target temperature                                                      |
+| `fun_speed_controls`       | boolean or list                                     | `false`     | List of fan modes to display (auto, low, medium low, medium, medium high, high). `true` shows all supported modes |
+| `fun_direction_control`    | boolean or list                                     | `false`     | List of swing modes to display (off, vertical, horizontal, both). `true` shows all supported modes |
+| `special_modes_control`    | boolean or list                                     | `false`     | List of preset modes to display (eco, away, boost, sleep, none). `true` shows all supported modes |
 | `collapsible_controls`     | boolean                                             | `false`     | Collapse controls when off. When used in section, it can produce a layout shift for cards below |
 | `tap_action`               | action                                              | `toggle`    | Home assistant action to perform on tap                                                         |
 | `hold_action`              | action                                              | `more-info` | Home assistant action to perform on hold                                                        |

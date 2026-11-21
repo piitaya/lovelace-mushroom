@@ -18,7 +18,13 @@ import {
 } from "./climate-card-config";
 import { CLIMATE_CARD_EDITOR_NAME, CLIMATE_ENTITY_DOMAINS } from "./const";
 
-const CLIMATE_LABELS = ["hvac_modes", "show_temperature_control"] as string[];
+const CLIMATE_LABELS = [
+  "hvac_modes",
+  "show_temperature_control",
+  "fun_speed_controls",
+  "fun_direction_control",
+  "special_modes_control",
+] as string[];
 
 const computeSchema = memoizeOne(
   (
@@ -57,6 +63,9 @@ const computeSchema = memoizeOne(
           },
         },
         { name: "show_temperature_control", selector: { boolean: {} } },
+        { name: "fun_speed_controls", selector: { boolean: {} } },
+        { name: "fun_direction_control", selector: { boolean: {} } },
+        { name: "special_modes_control", selector: { boolean: {} } },
         { name: "collapsible_controls", selector: { boolean: {} } },
       ],
     },

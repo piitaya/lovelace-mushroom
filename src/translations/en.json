@@ -1,6 +1,29 @@
 {
   "card": {
-    "not_found": "Entity not found"
+    "not_found": "Entity not found",
+    "climate": {
+      "fan_mode_list": {
+        "auto": "Auto",
+        "low": "1",
+        "medium_low": "2",
+        "medium": "3",
+        "medium_high": "4",
+        "high": "5"
+      },
+      "swing_mode_list": {
+        "off": "Off",
+        "vertical": "Vertical",
+        "horizontal": "Horizontal",
+        "both": "3D"
+      },
+      "preset_mode_list": {
+        "eco": "Eco",
+        "away": "Away",
+        "boost": "Boost",
+        "sleep": "Sleep",
+        "none": "None"
+      }
+    }
   },
   "editor": {
     "section": {
@@ -17,7 +40,10 @@
       },
       "climate": {
         "hvac_modes": "HVAC Modes",
-        "show_temperature_control": "Temperature control?"
+        "show_temperature_control": "Temperature control?",
+        "fun_speed_controls": "Fan speed controls",
+        "fun_direction_control": "Swing direction control",
+        "special_modes_control": "Special modes control"
       },
       "cover": {
         "show_buttons_control": "Control buttons?",

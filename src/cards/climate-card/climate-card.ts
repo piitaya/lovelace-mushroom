@@ -23,6 +23,7 @@ import {
   isAvailable,
   LovelaceCard,
   LovelaceCardEditor,
+  LovelaceGridOptions,
 } from "../../ha";
 import "../../shared/badge-icon";
 import "../../shared/card";
@@ -46,6 +47,11 @@ import "./controls/climate-hvac-modes-control";
 import { isHvacModesVisible } from "./controls/climate-hvac-modes-control";
 import "./controls/climate-temperature-control";
 import { isTemperatureControlVisible } from "./controls/climate-temperature-control";
+import "./controls/climate-mode-control";
+import {
+  ClimateModeType,
+  getClimateModeOptions,
+} from "./controls/climate-mode-control";
 import {
   getHvacActionColor,
   getHvacActionIcon,
@@ -91,7 +97,16 @@ export class ClimateCard
     };
   }
 
+  public getGridOptions(): LovelaceGridOptions {
+    return {
+      ...super.getGridOptions(),
+      rows: "auto",
+    } as unknown as LovelaceGridOptions;
+  }
+
   @state() private _activeControl?: ClimateCardControl;
+
+  @state() private _modeControlsExpanded = false;
 
   private get _controls(): ClimateCardControl[] {
     if (!this._config || !this._stateObj) return [];
@@ -117,6 +132,11 @@ export class ClimateCard
   _onControlTap(ctrl, e): void {
     e.stopPropagation();
     this._activeControl = ctrl;
+  }
+
+  private _toggleModeControls(event: Event): void {
+    event.stopPropagation();
+    this._modeControlsExpanded = !this._modeControlsExpanded;
   }
 
   setConfig(config: ClimateCardConfig): void {
@@ -177,10 +197,38 @@ export class ClimateCard
       stateDisplay += ` ⸱ ${temperature}`;
     }
     const rtl = computeRTL(this.hass);
-
-    const isControlVisible =
-      (!this._config.collapsible_controls || isActive(stateObj)) &&
-      this._controls.length;
+    const controlsVisible =
+      !this._config.collapsible_controls || isActive(stateObj);
+    const isControlVisible = controlsVisible && this._controls.length > 0;
+    const modeControls: { control: ClimateModeType; modes: string[] }[] = [
+      {
+        control: "fan_mode",
+        modes: getClimateModeOptions(
+          stateObj,
+          "fan_mode",
+          this._config.fun_speed_controls
+        ),
+      },
+      {
+        control: "swing_mode",
+        modes: getClimateModeOptions(
+          stateObj,
+          "swing_mode",
+          this._config.fun_direction_control
+        ),
+      },
+      {
+        control: "preset_mode",
+        modes: getClimateModeOptions(
+          stateObj,
+          "preset_mode",
+          this._config.special_modes_control
+        ),
+      },
+    ];
+    const hasModeControls = modeControls.some(({ modes }) => modes.length > 0);
+    const isModeControlAvailable = controlsVisible && hasModeControls;
+    const isActionsVisible = isControlVisible || isModeControlAvailable;
 
     return html`
       <ha-card
@@ -202,15 +250,62 @@ export class ClimateCard
             ${this.renderBadge(stateObj)}
             ${this.renderStateInfo(stateObj, appearance, name, stateDisplay)};
           </mushroom-state-item>
-          ${isControlVisible
+          ${isActionsVisible
             ? html`
                 <div class="actions" ?rtl=${rtl}>
-                  ${this.renderActiveControl(stateObj)}
-                  ${this.renderOtherControls()}
+                  ${isControlVisible
+                    ? html`
+                        ${this.renderActiveControl(stateObj)}
+                        ${this.renderOtherControls()}
+                      `
+                    : nothing}
+                  ${isModeControlAvailable
+                    ? html`
+                        <button
+                          type="button"
+                          class="mode-controls-toggle"
+                          title="Additional controls"
+                          aria-label="Additional controls"
+                          aria-expanded=${this._modeControlsExpanded
+                            ? "true"
+                            : "false"}
+                          @click=${this._toggleModeControls}
+                        >
+                          <ha-icon .icon=${"mdi:chevron-down"}></ha-icon>
+                        </button>
+                      `
+                    : nothing}
                 </div>
               `
             : nothing}
         </mushroom-card>
+        ${isModeControlAvailable
+          ? html`
+              <div
+                class=${classMap({
+                  "mode-controls-wrapper": true,
+                  expanded: this._modeControlsExpanded,
+                })}
+                aria-hidden=${this._modeControlsExpanded ? "false" : "true"}
+                ?inert=${!this._modeControlsExpanded}
+              >
+                <div class="mode-controls">
+                  ${modeControls.map(({ control, modes }) =>
+                    modes.length
+                      ? html`
+                          <mushroom-extended-climate-mode-control
+                            .hass=${this.hass}
+                            .entity=${stateObj}
+                            .control=${control}
+                            .modes=${modes}
+                          ></mushroom-extended-climate-mode-control>
+                        `
+                      : nothing
+                  )}
+                </div>
+              </div>
+            `
+          : nothing}
       </ha-card>
     `;
   }
@@ -333,6 +428,56 @@ export class ClimateCard
         mushroom-climate-temperature-control,
         mushroom-climate-hvac-modes-control {
           flex: 1;
+        }
+        .mode-controls-wrapper {
+          display: grid;
+          grid-template-rows: 0fr;
+          opacity: 0;
+          pointer-events: none;
+          transition:
+            grid-template-rows 250ms ease,
+            opacity 200ms ease;
+        }
+        .mode-controls-wrapper.expanded {
+          grid-template-rows: 1fr;
+          opacity: 1;
+          pointer-events: auto;
+        }
+        .mode-controls {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+          min-height: 0;
+          overflow: hidden;
+          padding: 0 var(--control-spacing);
+          transition: padding-bottom 250ms ease;
+        }
+        .mode-controls-wrapper.expanded .mode-controls {
+          padding-bottom: var(--control-spacing);
+        }
+        .mode-controls-toggle {
+          display: flex;
+          flex: none;
+          align-items: center;
+          justify-content: center;
+          width: var(--control-height);
+          height: var(--control-height);
+          margin-left: auto;
+          padding: 0;
+          border: none;
+          background: transparent;
+          color: var(--secondary-text-color);
+          cursor: pointer;
+        }
+        .mode-controls-toggle ha-icon {
+          display: flex;
+          width: 32px;
+          height: 32px;
+          --mdc-icon-size: 32px;
+          transition: transform 250ms ease;
+        }
+        .mode-controls-toggle[aria-expanded="true"] ha-icon {
+          transform: rotate(180deg);
         }
         .spin {
           --shape-animation: spin 2s linear infinite;

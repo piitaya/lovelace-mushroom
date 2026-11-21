@@ -50,6 +50,8 @@ export function getHvacModeIcon(hvacMode: HvacMode): string {
   return CLIMATE_HVAC_MODE_ICONS[hvacMode] ?? "mdi:thermostat";
 }
 
-export function getHvacActionIcon(hvacAction: HvacAction): string | undefined {
-  return CLIMATE_HVAC_ACTION_ICONS[hvacAction] ?? "";
+export function getHvacActionIcon(
+  hvacAction: HvacAction | undefined
+): string | undefined {
+  return hvacAction ? (CLIMATE_HVAC_ACTION_ICONS[hvacAction] ?? "") : "";
 }
