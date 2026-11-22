@@ -42,6 +42,7 @@ export type ClimateCardConfig = LovelaceCardConfig &
     fun_direction_control?: boolean | string[];
     special_modes_control?: boolean | string[];
     collapsible_controls?: boolean;
+    use_entity_icon?: boolean;
   };
 
 export const climateCardConfigStruct = assign(
@@ -58,5 +59,6 @@ export const climateCardConfigStruct = assign(
     fun_direction_control: optional(union([boolean(), array(string())])),
     special_modes_control: optional(union([boolean(), array(string())])),
     collapsible_controls: optional(boolean()),
+    use_entity_icon: optional(boolean()),
   })
 );

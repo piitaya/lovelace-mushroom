@@ -347,7 +347,10 @@ export class ClimateCard
     const modeIcon = getHvacModeIcon(hvacMode);
     const actionIcon = getHvacActionIcon(hvacAction);
 
-    const finalIcon = actionIcon || modeIcon || icon;
+    const finalIcon =
+      actionIcon ||
+      (this._config!.use_entity_icon ? stateObj.attributes.icon : modeIcon) ||
+      icon;
 
     const shapeClasses = {
       spin: ["cool", "fan_only"].includes(hvacMode),

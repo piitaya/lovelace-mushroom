@@ -12,6 +12,7 @@ import { styleMap } from "lit/directives/style-map.js";
 import { ClimateEntity, HomeAssistant, isAvailable } from "../../../ha";
 import setupCustomlocalize from "../../../localize";
 import { PREFIX_NAME } from "../../../const";
+import "../../../shared/button";
 
 export type ClimateModeType =
   | "fan_mode"
@@ -265,22 +266,22 @@ export class ClimateModeControl extends LitElement {
         ${this.modes.map((mode) => {
           const active = mode === activeMode;
           const label = this.getLabel(mode);
-          const style = {
-            "--active-rgb": `var(--rgb-${this.getActiveColor(mode)})`,
-          };
+          const color = `var(--rgb-${this.getActiveColor(mode)})`;
+          const style = active
+            ? {
+                "--icon-color": `rgb(${color})`,
+                "--bg-color": `rgba(${color}, 0.2)`,
+              }
+            : {};
           return html`
-            <button
-              type="button"
-              class=${active ? "mode active" : "mode"}
+            <mushroom-extended-button
               style=${styleMap(style)}
-              title=${label}
-              aria-label=${label}
-              aria-pressed=${active ? "true" : "false"}
+              .title=${label}
               .disabled=${!available}
               @click=${(event: Event) => this.callService(mode, event)}
             >
               ${this.renderModeIcon(mode)}
-            </button>
+            </mushroom-extended-button>
           `;
         })}
       </div>
@@ -295,39 +296,12 @@ export class ClimateModeControl extends LitElement {
       .container {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px;
+        gap: var(--spacing);
       }
       .mode-control-placeholder {
         flex: none;
-        width: 40px;
-        height: 36px;
-      }
-      .mode {
-        display: flex;
-        flex: none;
-        align-items: center;
-        justify-content: center;
-        gap: 5px;
-        min-height: 36px;
-        padding: 0 10px;
-        border: none;
-        border-radius: 18px;
-        background: rgba(var(--rgb-primary-text-color), 0.05);
-        color: var(--secondary-text-color);
-        font-family: inherit;
-        font-size: 14px;
-        cursor: pointer;
-      }
-      .mode.active {
-        color: rgb(var(--active-rgb));
-        background: rgba(var(--active-rgb), 0.12);
-      }
-      .mode:disabled {
-        cursor: not-allowed;
-        opacity: 0.5;
-      }
-      ha-icon {
-        --mdc-icon-size: 20px;
+        width: calc(var(--control-height) * var(--control-button-ratio));
+        height: var(--control-height);
       }
     `;
   }
