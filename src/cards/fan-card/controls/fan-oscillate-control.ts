@@ -45,10 +45,12 @@ export class FanPercentageControl extends LitElement {
     return css`
       :host {
         display: flex;
+        --control-color: rgb(var(--rgb-state-fan));
+        --control-bg-color: rgba(var(--rgb-state-fan), 0.2);
       }
       mushroom-button.active {
-        --icon-color: rgb(var(--rgb-state-fan));
-        --bg-color: rgba(var(--rgb-state-fan), 0.2);
+        --icon-color: var(--control-color);
+        --bg-color: var(--control-bg-color);
       }
     `;
   }

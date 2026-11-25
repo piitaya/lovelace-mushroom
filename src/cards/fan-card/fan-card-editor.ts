@@ -34,6 +34,7 @@ const computeSchema = memoizeOne(
           selector: { icon: {} },
           context: { icon_entity: "entity" },
         },
+        { name: "icon_color", selector: { ui_color: {} } },
         { name: "icon_animation", selector: { boolean: {} } },
       ],
     },

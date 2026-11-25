@@ -1,4 +1,4 @@
-import { assign, boolean, object, optional } from "superstruct";
+import { assign, boolean, object, optional, string } from "superstruct";
 import {
   actionsSharedConfigStruct,
   ActionsSharedConfig,
@@ -18,6 +18,7 @@ export type FanCardConfig = LovelaceCardConfig &
   EntitySharedConfig &
   AppearanceSharedConfig &
   ActionsSharedConfig & {
+    icon_color?: string;
     icon_animation?: boolean;
     show_percentage_control?: boolean;
     show_oscillate_control?: boolean;
@@ -33,6 +34,7 @@ export const fanCardConfigStruct = assign(
     actionsSharedConfigStruct
   ),
   object({
+    icon_color: optional(string()),
     icon_animation: optional(boolean()),
     show_percentage_control: optional(boolean()),
     show_oscillate_control: optional(boolean()),
