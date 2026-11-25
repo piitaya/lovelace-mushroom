@@ -21,6 +21,7 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `primary_info`            | `name` `state` `last-changed` `last-updated` `none` | `name`      | Info to show as primary info                                                                    |
 | `secondary_info`          | `name` `state` `last-changed` `last-updated` `none` | `state`     | Info to show as secondary info                                                                  |
 | `icon_type`               | `icon` `entity-picture` `none`                      | `icon`      | Type of icon to display                                                                         |
+| `icon_color`              | string                                              | Optional    | Custom color for icon, speed slider and oscillate button when the fan is on                     |
 | `icon_animation`          | boolean                                             | `false`     | Animate the icon when fan is `on`                                                               |
 | `show_percentage_control` | boolean                                             | `false`     | Show a slider to control speed                                                                  |
 | `show_oscillate_control`  | boolean                                             | `false`     | Show a button to control oscillation                                                            |
