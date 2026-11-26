@@ -3,6 +3,14 @@
     "not_found": "未找到实体"
   },
   "editor": {
+    "badge": {
+      "template": {
+        "area_helper": "适用于模板",
+        "content": "内容",
+        "entity_helper": "适用于模板与交互",
+        "label": "标签"
+      }
+    },
     "card": {
       "chips": {
         "alignment": "对齐"
@@ -25,14 +33,18 @@
         "show_percentage_control": "百分比控制?"
       },
       "generic": {
+        "area": "区域",
         "collapsible_controls": "关闭时隐藏控制器",
         "color": "颜色",
         "content_info": "内容",
+        "entity": "实体",
         "fill_container": "填满容器",
         "icon_animation": "激活时使用动态图标?",
         "icon_color": "图标颜色",
         "icon_type": "图标类型",
         "layout": "布局",
+        "picture": "图片",
+        "picture_helper": "若已设置，将覆盖当前图标。",
         "primary_info": "首要信息",
         "secondary_info": "次要信息",
         "use_entity_picture": "使用实体图片?"
@@ -81,17 +93,27 @@
         }
       },
       "template": {
+        "area": "区域",
+        "area_helper": "用于模板和功能中",
+        "badge": "徽章",
         "badge_color": "徽标颜色",
         "badge_icon": "徽标图标",
+        "badge_text": "徽章文字",
+        "badge_text_helper": "如果设置了，它将替换图标。",
         "content": "内容",
         "entity_extra": "用于模板和动作",
+        "entity_helper": "适用于模板与功能模块",
+        "entity_helper_legacy": "适用于模板与交互",
         "label": "标签",
-        "multiline_secondary": "多行次要信息?",
+        "layout": "布局",
+        "multiline_secondary": "支持多行次要信息",
+        "multiline_secondary_helper": "为适应文本内容，卡片可能会变高，因此可能无法始终与网格系统保持对齐。",
         "picture": "图片 (将会替代图标)",
         "primary": "首要信息",
         "secondary": "次要信息"
       },
       "title": {
+        "alignment": "路线排列",
         "subtitle": "子标题",
         "subtitle_tap_action": "子标题点击动作",
         "title": "标题",
@@ -179,6 +201,21 @@
           "vertical": "垂直布局"
         }
       }
+    },
+    "section": {
+      "badge": "角标",
+      "content": "内容",
+      "context": "关联信息",
+      "features": "功能",
+      "interactions": "交互",
+      "layout": "布局"
     }
+  },
+  "migration": {
+    "description": "您的卡片配置已迁移至新版本。如需了解详细变更，请查看 {link}。",
+    "ok": "完成",
+    "post": "GitHub 帖子",
+    "revert": "还原",
+    "title": "卡片已更新"
   }
 }
