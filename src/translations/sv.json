@@ -3,6 +3,14 @@
     "not_found": "Enheten hittades inte"
   },
   "editor": {
+    "badge": {
+      "template": {
+        "area_helper": "Används i mallar",
+        "content": "Innehåll",
+        "entity_helper": "Används i mallar och interaktioner",
+        "label": "Etikett"
+      }
+    },
     "card": {
       "chips": {
         "alignment": "Justering"
@@ -25,14 +33,18 @@
         "show_percentage_control": "Procentuell kontroll?"
       },
       "generic": {
+        "area": "Område",
         "collapsible_controls": "Dölj kontroller när enheten är av",
         "color": "Färg",
         "content_info": "Innehåll",
+        "entity": "Entitet",
         "fill_container": "Fyll container",
         "icon_animation": "Animera ikonen när enheten är på?",
         "icon_color": "Ikonens färg",
         "icon_type": "Ikontyp",
         "layout": "Layout",
+        "picture": "Bild",
+        "picture_helper": "Om det är inställt kommer den att ersätta ikonen.",
         "primary_info": "Primär information",
         "secondary_info": "Sekundär information",
         "use_entity_picture": "Använd enhetens bild?"
@@ -81,17 +93,27 @@
         }
       },
       "template": {
+        "area": "Område",
+        "area_helper": "Används i mallar och funktioner",
+        "badge": "Emblem",
         "badge_color": "Färg på märke",
         "badge_icon": "Märke ikon",
+        "badge_text": "Emblem text",
+        "badge_text_helper": "Om det är inställt kommer den att ersätta ikonen.",
         "content": "Innehåll",
         "entity_extra": "Används i mallar och åtgärder",
+        "entity_helper": "Används i mallar, interaktioner och funktioner",
+        "entity_helper_legacy": "Används i mallar och interaktioner",
         "label": "Etikett",
-        "multiline_secondary": "Sekundär med flera rader?",
+        "layout": "Layout",
+        "multiline_secondary": "Tillåt sekundär information över flera rader",
+        "multiline_secondary_helper": "Kortet kan vara högre för att få plats med texten och kommer inte alltid att passa in i rutnätet.",
         "picture": "Bild (ersätter ikonen)",
         "primary": "Primär information",
         "secondary": "Sekundär information"
       },
       "title": {
+        "alignment": "Justering",
         "subtitle": "Underrubrik",
         "subtitle_tap_action": "Subtitle tap action",
         "title": "Rubrik",
@@ -179,6 +201,21 @@
           "vertical": "Vertikal"
         }
       }
+    },
+    "section": {
+      "badge": "Märke",
+      "content": "Innehåll",
+      "context": "Kontext",
+      "features": "Funktioner",
+      "interactions": "Interaktioner",
+      "layout": "Layout"
     }
+  },
+  "migration": {
+    "description": "Ditt korts konfiguration har migrerats till den nya versionen. Du hittar mer information om ändringarna på {link}.",
+    "ok": "Ok",
+    "post": "GitHub inlägget",
+    "revert": "Återställ",
+    "title": "Kort uppdaterat"
   }
 }
